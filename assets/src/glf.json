@@ -88,5 +88,11 @@
         "month": "11",
         "description": "Team E3579 participates in the Department Running Event.",
         "imgPath": "/assets/group-life/2024-4.jpg"
+    },
+    {
+        "year": "2024",
+        "month": "12",
+        "description": "The E3 Group's super fun Christmas & Year-End gathering.",
+        "imgPath": "/assets/group-life/2024-5.jpg"
     }
 ]
