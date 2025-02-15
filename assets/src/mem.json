@@ -135,7 +135,7 @@
         "studentID": "r11521604",
         "enterYear": "2022",
         "email": "r11521604@ntu.edu.tw",
-        "graduated": false,
+        "graduated": true,
         "imgPath": "/assets/mem/r11521604.jpg"
     },
     {
@@ -146,7 +146,7 @@
         "studentID": "r11521605",
         "enterYear": "2022",
         "email": "r11521605@ntu.edu.tw",
-        "graduated": false,
+        "graduated": true,
         "imgPath": "/assets/mem/r11521605.jpg"
     },
     {
