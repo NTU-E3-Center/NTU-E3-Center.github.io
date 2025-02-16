@@ -138,12 +138,19 @@ function animateHpTheSky() {
 
 window.onload = animateHpTheSky();
 
-const hpPlaneTextBox = document.querySelector('.hp-plane-text-box');
-const hpPlaneTextBg = document.querySelector('.hp-plane-text-bg');
-const hpPlaneText = document.querySelector('.hp-plane-text');
+// update hp-plane-text box width to fit the text
+window.addEventListener('load', () => {
+    const hpPlaneTextBox = document.querySelector('.hp-plane-text-box');
+    const hpPlaneTextBg = document.querySelector('.hp-plane-text-bg');
+    const hpPlaneText = document.querySelector('.hp-plane-text');
+  
+    if (hpPlaneText) {
+      const bbox = hpPlaneText.getBBox();
+      hpPlaneTextBox.setAttribute('width', bbox.width + 39);
+      hpPlaneTextBg.setAttribute('width', bbox.width + 30);
+    };
+});
 
-hpPlaneTextBox.setAttribute('width', hpPlaneText.getBBox().width + 39);
-hpPlaneTextBg.setAttribute('width', hpPlaneText.getBBox().width + 30);
 
 // filters
 document.querySelectorAll('.filter').forEach((filter) => {
