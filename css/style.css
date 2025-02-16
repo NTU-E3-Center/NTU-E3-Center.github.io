@@ -456,8 +456,10 @@
 
 .hp-plane {
     --_plane-rotate: -3deg;
+    --_plane-fly-duration: 30s;
+    --_plane-fly-distance: -200%;
     
-    animation: plane-move 30s linear -4s infinite;
+    animation: plane-fly var(--_plane-fly-duration) linear -4s infinite;
 
     .hp-plane-wo-text {animation: plane-wo-text-move 3s ease-in-out alternate infinite;}
     .hp-plane-body {animation: plane-body-move 6s ease-in-out infinite;}
@@ -466,9 +468,9 @@
     .hp-plane-text {fill: #06334b;}
 }
 
-@keyframes plane-move {
-    0% {translate: 15% var(--_y-location);}
-    100% {translate: -200% var(--_y-location);}
+@keyframes plane-fly {
+    0% {translate: 0% var(--_y-location);}
+    100% {translate: var(--_plane-fly-distance) var(--_y-location);}
 }
 
 @keyframes plane-wo-text-move {
