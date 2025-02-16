@@ -2,8 +2,8 @@
     --_window-padding: 2rem;
     --_hp-text-width: 23rem;
     --_home-min-height: 50rem;
+    --_home-max-width: 120rem;
 
-    width: min(100%, 120rem);
     height: clamp(var(--_home-min-height), 100svh, 75rem);
     margin-inline: auto;
     padding: var(--_window-padding);
@@ -25,6 +25,7 @@
     }
 
     .hp-mainthing {
+        width: min(100%, var(--_home-max-width));
         padding-inline: 5rem 2rem;
 
         position: relative;
@@ -98,7 +99,7 @@
     .hp-last-update {
         position: absolute;
         bottom: var(--_window-padding);
-        right: var(--_window-padding);
+        right: max(var(--_window-padding), calc((100% - var(--_home-max-width))/2 + var(--_window-padding)));
         text-align: right;
     }
 
