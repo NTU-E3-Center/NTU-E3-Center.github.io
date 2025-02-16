@@ -7,6 +7,7 @@
     height: clamp(var(--_home-min-height), 100svh, 75rem);
     margin-inline: auto;
     padding: var(--_window-padding);
+    background-color: var(--page-bg-color);
     overflow: hidden;
     
     position: relative;
@@ -1441,46 +1442,6 @@
     }
 }
 
-
-/* footer */
-footer {
-    width: 100%;
-    /* margin-block-start: 2rem; */
-    padding: 4rem 2rem;
-    border-top: 0.1875rem solid var(--main-color);
-    background-color: var(--main-bg-color);
-
-    display: grid;
-    gap: 2rem;
-
-    & > * {
-        width: min(100%, 89rem);
-        margin-inline: auto;
-    }
-
-    .ftr-logo svg {
-        width: 3rem;
-        user-select: none;
-    }
-
-    .ftr-link-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 1.5rem;
-
-        .ftr-link {
-            font-size: 1.25rem;
-            text-decoration: none;
-            transition: var(--hover-transition-time);
-
-            &:hover {
-                opacity: 0.8;
-            }
-        }
-    }
-}
-
 /* img-modal */
 .img-modal {
     display: none;
@@ -1546,20 +1507,6 @@ footer {
     & p {
         margin-inline-end: 1rem;
     }
-}
-
-.to-top-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    transition: all var(--hover-transition-time), margin 0s;
-
-    /* work with js */
-    /* scroll down then display grid */
-    display: none;
-    place-content: center;
-    justify-items: center;
-    gap: 0.25rem;
 }
 
 .menu {

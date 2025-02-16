@@ -1,4 +1,4 @@
-body {
+main {
     width: min(calc(100% - 4rem), 75rem);
     margin-inline: auto;
     padding-block-start: 6rem;
