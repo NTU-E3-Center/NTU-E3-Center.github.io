@@ -1,16 +1,3 @@
-// Check if the browser supports CSS nesting
-// const supportsNesting = window.getComputedStyle(document.body, '::before').content.includes('css-nesting-supported');
-// const nestingSupportDialog = document.querySelector('.nesting-support-dialog');
-// if (!supportsNesting) {
-//     nestingSupportDialog.showModal(); // Show the dialog
-
-//     document.querySelector('.nesting-support-dialog-close-btn').addEventListener('click', function() {
-//         nestingSupportDialog.close(); // Close the dialog
-//     });
-// } else {
-//     nestingSupportDialog.remove(); // Remove the dialog
-// };
-
 const body = document.querySelector('body');
 
 function getRandomInt(min, max) {
@@ -52,9 +39,6 @@ function change101Top() {
 change101Top();
 
 // rain
-var hpRainFront = document.querySelector('.hp-rain-front');
-var hpRainBack = document.querySelector('.hp-rain-back');
-
 function makeItRain(ifBack, rainSlope, precip, dropTime) {
     var hpSvgRain = ifBack ? document.querySelector('.hp-rain-back') : document.querySelector('.hp-rain-front');
 
@@ -63,14 +47,14 @@ function makeItRain(ifBack, rainSlope, precip, dropTime) {
     var drops = "";
 
     var rainIntensity = (ifBack ? 100 : 1000) / precip;
-    while (rainSlope < 0 ? increment < 960 + Math.abs(rainSlope) : increment < 1000) {
+    while (rainSlope < 0 ? increment < 960 + Math.abs(rainSlope) : increment < 1300) {
         var animationDelay = getRandomInt(1, dropTime);
         increment += getRandomInt(10, 10 + rainIntensity);
         var splatX = increment;
-        var splatY = getRandomInt(380, 520);
-        var secDevide = ifBack ? 1000 : 2000;
+        var splatY = getRandomInt(420, 570);
+        var secDevide = ifBack ? 1000 : 1500;
 
-        drops += `<line x1="${splatX + rainSlope}" y1="${ifBack ? splatY - 540 : 0}" x2="${splatX}" y2="${ifBack ? splatY : 540}" style="animation-delay: ${animationDelay / secDevide}s; animation-duration: ${dropTime / secDevide}s"/>`
+        drops += `<line x1="${splatX + rainSlope}" y1="${ifBack ? splatY - 570 : 0}" x2="${splatX}" y2="${ifBack ? splatY : 570}" style="animation-delay: ${animationDelay / secDevide}s; animation-duration: ${dropTime / secDevide}s"/>`
             
         ifBack ? drops += `<path d="M${splatX - 10},${splatY}A7,5,0,0,1,${splatX + 10},${splatY}" style="transform-origin: ${splatX}px ${splatY}px; animation-delay: ${animationDelay / 1000}s; animation-duration: ${dropTime / 1000}s"/>` : null;
     };
@@ -78,13 +62,42 @@ function makeItRain(ifBack, rainSlope, precip, dropTime) {
     hpSvgRain.innerHTML = drops;
 };
 
-// dropTime in milliseconds (1000 - 2000)
-var rainSlope = 200;
-var precip = 1;
-var dropTime = 1300;
+// the time (ms) each drop takes to fall, ideally 1200-2000
+const dropTime = 1500;
 
-// makeItRain(true, rainSlope, precip, dropTime);
-// makeItRain(false, rainSlope, precip, dropTime);
+//  the direction CERB facing taipei 101
+const faceDirectionDeg = 45;
+
+function renderRain() {
+    const weatherApiBaseUrl = "https://api.open-meteo.com/v1/forecast";
+    const weatherApiQueryParams = new URLSearchParams({
+        latitude: "25.018",
+        longitude: "121.547",
+        current: "precipitation,wind_speed_10m,wind_direction_10m"
+    });
+    const weatherApiUrl = `${weatherApiBaseUrl}?${weatherApiQueryParams.toString()}`;
+
+    fetch(weatherApiUrl)
+        .then(res => res.json())
+        .then(data => {
+            // higher means more rain, ideally no less than 0.2
+            let precip = data.current.precipitation;
+
+            if (precip >= 0.2) {
+                let windDirectionDeg = data.current.wind_direction_10m;
+                // positive means rain from right to left, negative means rain from left to right
+                let windDirection = (windDirectionDeg > faceDirectionDeg && windDirectionDeg < 180 + faceDirectionDeg) ? 1 : -1;
+
+                let rainSlope = data.current.wind_speed_10m * 10 * windDirection;
+
+                makeItRain(true, rainSlope, precip, dropTime);
+                makeItRain(false, rainSlope, precip, dropTime);
+            };
+        })
+        .catch(error => console.log('獲取天氣資料時發生錯誤：', error));
+};
+
+renderRain();
 
 
 function animateHpTheSky() {

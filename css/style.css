@@ -203,45 +203,28 @@
     }
 }
 
-/* .hp-rain-back, .hp-rain-front {
-    top: 0;
-    width: 100%;
-    height: 100%;
+/* hp animations */
+.hp-rain-front line, .hp-rain-back line {
+    stroke: var(--main-color);
+    opacity: var(--_rain-opacity);
+    stroke-width: var(--_rain-width);
+    stroke-dasharray: var(--_rain-length) 1000;
+    stroke-dashoffset: var(--_rain-length);
+    animation: var(--_ani-name) linear infinite;
 }
 
 .hp-rain-front{
-    --_drop-time: 1.5s;
-
-    & line {
-        --_rain-length: 5rem;
-
-        stroke: var(--main-color);
-        opacity: 0.65;
-        stroke-width: 0.125rem;
-        stroke-dasharray: var(--_rain-length) 1000;
-        stroke-dashoffset: var(--_rain-length);
-        animation: rain-stroke-front var(--_drop-time) linear infinite;
-    }
+    --_ani-name: rain-stroke-front;
+    --_rain-opacity: 0.65;
+    --_rain-length: 5rem;
+    --_rain-width: 0.1875rem;
 }
 
 .hp-rain-back {
-    --_drop-time: 1.5s;
-    position: absolute;
-    top: -160px;
-    left: 200px;
-    width: 100%;
-
-    & line {
-        --_rain-length: 3.75rem;
-
-        stroke: var(--main-color);
-        opacity: 0.5;
-        stroke-width: 0.09375rem;
-        stroke-dasharray: var(--_rain-length) 1000;
-        stroke-dashoffset: var(--_rain-length);
-        animation: rain-stroke var(--_drop-time) linear infinite;
-
-    }
+    --_ani-name: rain-stroke-back;
+    --_rain-opacity: 0.5;
+    --_rain-length: 3.75rem;
+    --_rain-width: 0.125rem;
 
     & path {
         stroke: var(--main-color);
@@ -250,11 +233,10 @@
         stroke-width: 4;
         opacity: 1;
         transform: scale(0);
-        animation: rain-splat var(--_drop-time) linear infinite;
+        animation: rain-splat linear infinite;
     }
-} */
+}
 
-/* hp animations */
 .hp-wind {
     --_translate-y-start: -0.3125rem;
     --_translate-y-end: 0.3125rem;
@@ -502,16 +484,16 @@
 }
 
 @keyframes rain-stroke-front {
-    from {
+    0%, 30% {
         stroke-dashoffset: var(--_rain-length);
     }
     to {
-        stroke-dashoffset: -560;
+        stroke-dashoffset: -600;
     }
     
 }
 
-@keyframes rain-stroke {
+@keyframes rain-stroke-back {
     0% {
         opacity: 0.5;
         stroke-dashoffset: var(--_rain-length);
@@ -519,12 +501,12 @@
     60% {
         opacity: 0.5;
     }
-    72% {
+    77% {
         opacity: 0;
     }
     80%, 100% {
         opacity: 0;
-        stroke-dashoffset: -560;
+        stroke-dashoffset: -550;
     }
 
 }
@@ -534,7 +516,7 @@
         opacity: 1;
         transform: scale(0);
     }
-    75% {
+    83% {
         opacity: 0.5;
         transform: scale(0.7);
     }
