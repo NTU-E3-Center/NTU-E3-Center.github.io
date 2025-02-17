@@ -442,6 +442,7 @@
     --_plane-fly-distance: -200%;
     
     animation: plane-fly var(--_plane-fly-duration) linear -4s infinite;
+    &:hover {animation-play-state: paused;}
 
     .hp-plane-wo-text {animation: plane-wo-text-move 3s ease-in-out alternate infinite;}
     .hp-plane-body {animation: plane-body-move 6s ease-in-out infinite;}
