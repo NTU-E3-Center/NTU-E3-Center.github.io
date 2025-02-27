@@ -1,12 +1,11 @@
 main {
     width: min(calc(100% - 4rem), 75rem);
     margin-inline: auto;
-    padding-block-start: 6rem;
+    padding-block: 6rem 8rem;
 
-    /* background-image: url(/assets/image/background.webp);
-    background-repeat: repeat-y;
-    background-size: 100% auto; */
-    /* background-color: bisque; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem 2rem;
 
     & > * + * {
         margin-block-start: 3rem;
@@ -86,14 +85,6 @@ header {
         }
     }
 
-}
-
-main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem 2rem;
-
-    padding-bottom: 20rem;
 }
 
 h2 {

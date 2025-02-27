@@ -24,7 +24,7 @@ input, button, textarea, select {font: inherit;}
 p, h1, h2, h3, h4, h5, h6 {overflow-wrap: break-word;}
 h1, h2, h3, h4, h5, h6 {text-wrap: balance;}
 #root, #__next {isolation: isolate;}
-a:hover {text-decoration: none;}
+a {text-decoration: none;}
 
 /* general */
 @view-transition {navigation: auto;}
@@ -142,7 +142,6 @@ body {background-color: var(--page-bg-color);}
     border-radius: var(--_adjusted-border-radius, var(--btn-border-radius));
     box-shadow: var(--_shadow-shift) var(--_shadow-shift) var(--main-shadow-color);
     transform: skewX(var(--_adjusted-block-skew, var(--block-skew)));
-    text-decoration: none;
     overflow: hidden;
     user-select: none;
     transition: var(--hover-transition-time);
@@ -259,9 +258,7 @@ h3 {
         .filter-checkbox {
             display: none;
             
-            &:checked + .filter-label::before {
-                content: url('/assets/i/check.svg');
-                display: inline-block;
+            &:checked + .filter-label svg {
                 width: 1.0625rem;
                 margin-inline-end: 0.25rem;
             }
@@ -270,6 +267,13 @@ h3 {
         .filter-label {
             font-size: 0.875rem;
             transform: skewX(var(--content-skew));
+
+            & svg {
+                display: inline-block;
+                width: 0;
+                margin-inline-end: 0;
+                transition: var(--hover-transition-time);
+            }
         }
     }
 }
@@ -319,7 +323,6 @@ footer {
 
         .ftr-link {
             font-size: 1.25rem;
-            text-decoration: none;
             transition: var(--hover-transition-time);
 
             &:hover {
@@ -979,6 +982,14 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
 
             &+p {margin-block-start: 1rem;}
         }
+
+        & a {
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
     
     }
 
@@ -992,14 +1003,20 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
         gap: 2rem 4rem;
         justify-content: center;
 
-        .abt-logo-e3 {
-            width: 10rem;
-        }
-
-        .abt-logo-ntu {
-            width: 12rem;
+        & img {
+            height: 5rem;
+            margin-block: auto;
         }
     }
+
+    &.abt-sponsors {
+        padding-inline: 3rem;
+
+        & img {
+            height: 4rem;
+        }
+    }
+    
 }
 
 /* members */
@@ -1010,6 +1027,37 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
 
     .mem-quote, .mem-arrow {
         transform: skewX(var(--block-skew));
+    }
+
+    .mem-block[href] {
+        cursor: pointer;
+
+        &:hover {
+            .mem-img {
+                translate: var(--block-hover-translate) var(--block-hover-translate);
+                box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
+            }
+
+            .mem-name {translate: var(--block-hover-translate) var(--block-hover-translate);}
+            & svg:has(use[href*="#svg-arrow-right"]) {translate: 0.25rem 0;}
+        }
+
+        &:active {
+            .mem-img {
+                translate: 0 0;
+                box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
+            }
+
+            .mem-name {translate: 0 0;}
+            & svg:has(use[href*="#svg-arrow-right"]) {translate: 0 0;}
+        }
+    
+        & svg:has(use[href*="#svg-arrow-right"]) {
+            display: inline-block;
+            width: 0.75rem;
+            margin-inline-start: 0.25rem;
+            transition: var(--hover-transition-time);
+        }
     }
 
     .mem-img {
@@ -1101,32 +1149,10 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
         grid-template-columns: repeat(auto-fill, var(--_img-width));
         gap: 1.5rem 3rem;
         justify-content: space-between;
-        /* justify-content: space-around; */
     
         .mem-block {
-            text-decoration: none;
-            /* cursor: pointer; */
-    
             display: grid;
             gap: 1rem;
-    
-            /* &:hover {
-                .mem-img {
-                    translate: var(--block-hover-translate) var(--block-hover-translate);
-                    box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
-                }
-    
-                .mem-text {
-                    translate: var(--block-hover-translate) var(--block-hover-translate);
-                }
-            }
-    
-            &:active {
-                .mem-img {
-                    translate: 0 0;
-                    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
-                }
-            } */
         }
     
         .mem-name {
@@ -1150,14 +1176,6 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
     
             .mem-name-zh {
                 font-size: 1rem;
-            }
-
-            .mem-name-zh::after {
-                content: url(/assets/i/mem-s-arrow.svg);
-                width: 0.75rem;
-                display: inline-block;
-                margin-inline-start: 0.5rem;
-                transform: skewX(var(--block-skew));
             }
         }
 
@@ -1183,31 +1201,10 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
         justify-content: space-between;
 
         .mem-block {
-            text-decoration: none;
-            /* cursor: pointer; */
-
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 1rem;
-
-            /* &:hover {
-                .mem-img {
-                    translate: var(--block-hover-translate) var(--block-hover-translate);
-                    box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
-                }
-
-                .mem-text {
-                    translate: var(--block-hover-translate) var(--block-hover-translate);
-                }
-            }
-
-            &:active {
-                .mem-img {
-                    translate: 0 0;
-                    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
-                }
-            } */
 
             .mem-img {
                 flex-shrink: 0;
@@ -1221,14 +1218,6 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
         
                 & span {
                     font-size: 1rem;
-
-                    &::after {
-                        content: url(/assets/i/mem-s-arrow.svg);
-                        width: 0.75rem;
-                        display: inline-block;
-                        margin-inline-start: 0.5rem;
-                        transform: skewX(var(--block-skew));
-                    }
                 }
             }
         }
@@ -1600,8 +1589,6 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
         }
 
         .publi-title-block {
-            text-decoration: none;
-
             .publi-title {
                 max-width: var(--para-max-width);
                 font-size: var(--_font-size-l);
@@ -1643,14 +1630,23 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
 
         display: flex;
 
-        &:hover svg {
-            translate: 0.125rem -0.125rem;
+        svg:has(use[href*="#svg-arrow-top-right"]) {
+            --_hover-translate: 0.125rem -0.125rem;
+            --_width: 0.625rem;
+            --_margin-inline-start: 0.25rem;
         }
+        svg:has(use[href*="#svg-arrow-right"]) {
+            --_hover-translate: 0.125rem 0;
+            --_width: 0.75rem;
+            --_margin-inline-start: 0.3125rem;
+        }
+
+        &:hover svg {translate: var(--_hover-translate);}
 
         & svg {
             display: inline-block;
-            width: 0.625rem;
-            margin-inline-start: 0.25rem;
+            width: var(--_width);
+            margin-inline-start: var(--_margin-inline-start);
             transition: var(--hover-transition-time);
         }
 
@@ -2140,7 +2136,6 @@ svg:has(use[href*="#svg-master"]) {aspect-ratio: 27/26;}
     }
 
     & a {
-        text-decoration: none;
         cursor: pointer;
         
         display: flex;
