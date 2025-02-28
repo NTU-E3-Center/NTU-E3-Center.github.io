@@ -170,7 +170,7 @@ body {background-color: var(--page-bg-color);}
         &:hover {
             --_hover-translate: var(--_adjusted-hover-translate, var(--btn-hover-translate));
             --_hover-shadow-shift: var(--_adjusted-hover-shadow-shift, var(--btn-hover-shadow-shift));
-        
+
             translate: var(--_hover-translate) var(--_hover-translate);
             border-radius: calc(2 * var(--_adjusted-border-radius, var(--btn-border-radius)));
             box-shadow: var(--_hover-shadow-shift) var(--_hover-shadow-shift) var(--main-shadow-color);

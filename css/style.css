@@ -620,6 +620,7 @@
             .mem-img {
                 translate: var(--block-hover-translate) var(--block-hover-translate);
                 box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
+                border-radius: calc(1.5 * var(--_adjusted-border-radius));
             }
 
             .mem-name {translate: var(--block-hover-translate) var(--block-hover-translate);}
@@ -630,6 +631,7 @@
             .mem-img {
                 translate: 0 0;
                 box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
+                border-radius: var(--_adjusted-border-radius);
             }
 
             .mem-name {translate: 0 0;}
@@ -645,16 +647,6 @@
     }
 
     .mem-img {
-        /* width: calc(var(--_img-width) + 2 * var(--_img-border-w));
-        height: calc(var(--_img-width) / (var(--_img-aspect-ratio)) + 2 * var(--_img-border-w));
-        transform: skewX(var(--block-skew));
-        border: var(--_img-border-w) solid var(--main-color);
-        border-radius: var(--_img-border-r);
-        box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
-        overflow: hidden;
-        user-select: none;
-        transition: var(--hover-transition-time); */
-
         --_block-width: calc(var(--_img-width) + 2 * var(--_img-border-w));
         --_block-height: calc(var(--_img-width) / (var(--_img-aspect-ratio)) + 2 * var(--_img-border-w));
         --_adjusted-border-width: var(--_img-border-w);
