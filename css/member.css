@@ -3,17 +3,12 @@ main {
     margin-inline: auto;
     padding-block: 6rem 8rem;
 
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 3rem 2rem;
 
     & > * + * {
         margin-block-start: 3rem;
     }
-}
-
-header {
-    
 }
 
 .main-name {
@@ -45,12 +40,6 @@ header {
     flex-wrap: wrap;
     align-items: end;
     gap: 1rem;
-
-    /* display: grid;
-    grid-template-columns: auto 20rem;
-    justify-content: start;
-    align-items: end;
-    gap: 1rem; */
 
     .photo {
         height: 13rem;
@@ -105,12 +94,10 @@ h2 {
     & + * {
         margin-block-start: 1rem;
     }
-    /* margin-block-start: 1rem; */
 }
 
 #about {
     .content p {
-        /* padding-inline: 1rem; */
         font-size: 1.25rem;
         text-indent: 1.5rem;
         max-width: 70ch;
@@ -208,10 +195,6 @@ h2 {
 .publication {
     --_font-size-l: 1.5rem;
     --_font-size-s: 1rem;
-    /* background-color: red; */
-
-    /* display: grid;
-    justify-items: start; */
 
     .content {
         font-size: var(--_font-size-l);

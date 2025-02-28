@@ -48,10 +48,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" crossorigin>
     
         <!-- css -->
+        <link rel="stylesheet" href="/css/general.css">
         <link rel="stylesheet" href="/css/style.css">
-    
+
         <!-- js -->
-        <!-- <script defer src="/js/script.js"></script> -->
+        <script defer src="/js/general.js"></script>
     
         <!-- favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
@@ -434,5 +435,78 @@
         </svg>
         Top
     </a>
+    
+    <button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
+        <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
+        <p>Menu</p>
+    </button>
+
+    <nav class="menu display-none">
+        <div class="menu-bg"></div>
+
+        <ul class="menu-wrapper">
+            <ui>
+                <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                    <svg><use href="/assets/sprite.svg#svg-close"></use></svg>
+                </button>
+            </ui>
+
+            <ui>
+                <a href="/#home" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                    <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
+                    <span>Home</span>
+                </a>
+            </ui>
+
+            <ui>
+                <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                    <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
+                    <span>About Us</span>
+                </a>
+            </ui>
+
+            <ui>
+                <a href="/#members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                    <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
+                    <span>Members</span>
+                </a>
+            </ui>
+
+            <ui>
+                <a href="/#research" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Research">
+                    <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                    <span>Research</span>
+                </a>
+            </ui>
+            
+            <ui>
+                <a href="/#publication" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publication">
+                    <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
+                    <span>Publication</span>
+                </a>
+            </ui>
+            
+            <ui>
+                <a href="/#news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                    <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
+                    <span>News</span>
+                </a>
+            </ui>
+
+            <ui>
+                <a href="/#group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                    <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                    <span>Group Life</span>
+                </a>
+            </ui>
+
+            <ui>
+                <a href="#contact-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                    <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+                    <span>Contact Us</span>
+                </a>
+            </ui>
+        </ul>
+    </nav>
 </body>
 </html>
