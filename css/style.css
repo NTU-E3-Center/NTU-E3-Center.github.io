@@ -990,6 +990,7 @@ svg:has(use[href*="#svg-slider-"]) {aspect-ratio: 13/22;}
             text-decoration: underline;
 
             &:hover {
+                opacity: 0.8;
                 text-decoration: none;
             }
         }
