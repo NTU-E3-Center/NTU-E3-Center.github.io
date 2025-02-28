@@ -71,6 +71,13 @@ main {
             display: flex;
             align-items: center;
             gap: 0.25rem;
+
+            & svg {
+                height: 1rem;
+
+                &:has(use[href*="#svg-hash"]), &:has(use[href*="#svg-send-s"]) {height: 0.825rem;}
+                &:has(use[href*="#svg-arrow-top-right"]) {height: 0.625rem;}
+            }
         }
     }
 
@@ -101,6 +108,8 @@ h2 {
         font-size: 1.25rem;
         text-indent: 1.5rem;
         max-width: 70ch;
+        text-align: justify;
+        hyphens: auto;
 
         & + * {
             margin-block-start: 1rem;

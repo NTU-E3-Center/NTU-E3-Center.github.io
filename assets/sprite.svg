@@ -2,11 +2,75 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 <def>
     <style>
-        .fill-m {fill: #0a557e;}
-        .fill-s {fill: #c4c691;}
-        .fill-m-bg {fill: #fff;}
-        .fill-master {fill: #ed8c37;}
-        .fill-doctor {fill: #db7476;}
+        :root {
+            --main-color: #0a557e;
+            --main-shadow-color: #0a557ebb;
+            --main-bg-color: #ffffff;
+            --main-color-2: #4caedd;
+            --main-color-3: #badcea;
+            --secondary-color: #c4c691;
+            --page-bg-color: #f7fafb;
+
+            --main-color-hsl: 201, 85%, 27%;
+
+            --r-red: #db7476;
+            --r-orange: #ed8c37;
+            --r-yellow: #f5a936;
+            --r-green: #51a885;
+            --r-blue: #267a9e;
+            --r-indigo: #5f739d;
+            --r-purple: #986b9b;
+
+            --main-light: #b4cbd8;
+            --main-3-light: #f4fafc;
+            --secondary-light: #eceddd;
+            --house-dark: #b4cedb;
+            --house-light: #cad9e2;
+        }
+
+        .fill-101-top {fill: var(--r-yellow);}
+        .fill-m {fill: var(--main-color);}
+        .fill-m-bg {fill: var(--main-bg-color);}
+        .fill-m-2 {fill: var(--main-color-2);}
+        .fill-m-3 {fill: var(--main-color-3);}
+        .fill-s {fill: var(--secondary-color);}
+        .fill-none {fill: none;}
+
+        .fill-r-red {fill: var(--r-red);}
+        .fill-r-orange {fill: var(--r-orange);}
+        .fill-r-yellow {fill: var(--r-yellow);}
+        .fill-r-green {fill: var(--r-green);}
+        .fill-r-blue {fill: var(--r-blue);}
+        .fill-r-indigo {fill: var(--r-indigo);}
+        .fill-r-purple {fill: var(--r-purple);}
+
+        .fill-m-light {fill: var(--main-light);}
+        .fill-m-3-light {fill: var(--main-3-light);}
+        .fill-s-light {fill: var(--secondary-light);}
+        .fill-house-dark {fill: var(--house-dark);}
+        .fill-house-light {fill: var(--house-light);}
+
+        .stroke-m {stroke: var(--main-color);}
+        .stroke-s {stroke: var(--secondary-color);}
+        .stroke-s-light {stroke: var(--secondary-light);}
+        .stroke-m-2 {stroke: var(--main-color-2);}
+        .stroke-m-3 {stroke: var(--main-color-3);}
+        .stroke-m-3-light {stroke: var(--main-3-light);}
+        .stroke-2 {
+            fill: none;
+            stroke-width: 0.125rem;
+            stroke-miterlimit: 10;
+        }
+        .stroke-3 {
+            fill: none;
+            stroke-width: 0.1875rem;
+            stroke-miterlimit: 10;
+        }
+        .stroke-4 {
+            fill: none;
+            stroke-width: 0.25rem;
+            stroke-miterlimit: 10;
+        }
     </style>
     
     <symbol id="svg-e3-logo" viewBox="0 0 200 173.27">
@@ -49,7 +113,7 @@
     <symbol id="svg-master-0" viewBox="0 0 27 26">
         <title>0th Year Master's Student</title>
         <path class="fill-m" d="M15.52,17.6l-6-3.26c-.32-.17-.52-.51-.52-.88v-5.41l-2.4-1.32c-.69-.38-.69-1.38,0-1.75L15.52,.12c.3-.16,.66-.16,.96,0l10,5.45c.32,.18,.52,.51,.52,.88v6.41c0,.55-.45,1-1,1h0c-.55,0-1-.45-1-1V6.96l-2,1.1v5.41c0,.37-.2,.7-.52,.88l-6,3.26c-.3,.16-.66,.16-.95,0Zm.48-8.04l6.85-3.7-6.85-3.7-6.85,3.7,6.85,3.7Zm0,6.03l5-2.7v-3.78l-4.52,2.48c-.3,.17-.66,.17-.96,0l-4.52-2.48v3.78l5,2.7Z"/>
-        <path class="fill-master" d="M15.14,22.17L3.83,10.86c-.2-.2-.48-.29-.8-.29-.62,0-1.39,.36-2.03,1C.39,12.17,.04,12.9,0,13.5c-.01,.24,.02,.46,.11,.65,.05,.09,.1,.18,.18,.25l11.31,11.31c.2,.2,.48,.29,.8,.29,.62,0,1.39-.36,2.03-1,.98-.98,1.29-2.24,.71-2.83Z"/>
+        <path class="fill-r-orange" d="M15.14,22.17L3.83,10.86c-.2-.2-.48-.29-.8-.29-.62,0-1.39,.36-2.03,1C.39,12.17,.04,12.9,0,13.5c-.01,.24,.02,.46,.11,.65,.05,.09,.1,.18,.18,.25l11.31,11.31c.2,.2,.48,.29,.8,.29,.62,0,1.39-.36,2.03-1,.98-.98,1.29-2.24,.71-2.83Z"/>
         <path class="fill-m-bg" d="M13.38,23.94c-.34,.34-.68,.5-.87,.55L2.32,14.29c.28-.16,.55-.36,.8-.61s.46-.52,.62-.8l10.18,10.18c-.05,.18-.2,.52-.55,.87Z"/>
         <path class="fill-m-bg" d="M3.12,11.56s0,0-.02,0c-.01,0-.04,0-.06,0-.31,0-.84,.22-1.33,.71-.63,.63-.75,1.26-.7,1.42,0,0,0,0,.02,0,.01,0,.04,0,.06,0,.31,0,.84-.22,1.33-.71,.63-.63,.75-1.26,.7-1.42Z"/>
     </symbol>
@@ -57,7 +121,7 @@
     <symbol id="svg-doctor-0" viewBox="0 0 27 26">
         <title>0th Year Ph.D. Student</title>
         <path class="fill-m" d="M15.52,17.6l-6-3.26c-.32-.17-.52-.51-.52-.88v-5.41l-2.4-1.32c-.69-.38-.69-1.38,0-1.75L15.52,.12c.3-.16,.66-.16,.96,0l10,5.45c.32,.18,.52,.51,.52,.88v6.41c0,.55-.45,1-1,1h0c-.55,0-1-.45-1-1V6.96l-2,1.1v5.41c0,.37-.2,.7-.52,.88l-6,3.26c-.3,.16-.66,.16-.95,0Zm.48-8.04l6.85-3.7-6.85-3.7-6.85,3.7,6.85,3.7Zm0,6.03l5-2.7v-3.78l-4.52,2.48c-.3,.17-.66,.17-.96,0l-4.52-2.48v3.78l5,2.7Z"/>
-        <path class="fill-doctor" d="M15.14,22.17L3.83,10.86c-.2-.2-.48-.29-.8-.29-.62,0-1.39,.36-2.03,1C.39,12.17,.04,12.9,0,13.5c-.01,.24,.02,.46,.11,.65,.05,.09,.1,.18,.18,.25l11.31,11.31c.2,.2,.48,.29,.8,.29,.62,0,1.39-.36,2.03-1,.98-.98,1.29-2.24,.71-2.83Z"/>
+        <path class="fill-r-red" d="M15.14,22.17L3.83,10.86c-.2-.2-.48-.29-.8-.29-.62,0-1.39,.36-2.03,1C.39,12.17,.04,12.9,0,13.5c-.01,.24,.02,.46,.11,.65,.05,.09,.1,.18,.18,.25l11.31,11.31c.2,.2,.48,.29,.8,.29,.62,0,1.39-.36,2.03-1,.98-.98,1.29-2.24,.71-2.83Z"/>
         <path class="fill-m-bg" d="M13.38,23.94c-.34,.34-.68,.5-.87,.55L2.32,14.29c.28-.16,.55-.36,.8-.61s.46-.52,.62-.8l10.18,10.18c-.05,.18-.2,.52-.55,.87Z"/>
         <path class="fill-m-bg" d="M3.12,11.56s0,0-.02,0c-.01,0-.04,0-.06,0-.31,0-.84,.22-1.33,.71-.63,.63-.75,1.26-.7,1.42,0,0,0,0,.02,0,.01,0,.04,0,.06,0,.31,0,.84-.22,1.33-.71,.63-.63,.75-1.26,.7-1.42Z"/>
     </symbol>
@@ -65,88 +129,127 @@
     <symbol id="svg-master-1" viewBox="0 0 27 26">
         <title>1st Year Master's Student</title>
         <use href="#svg-master-0"></use>
-        <rect class="fill-master" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="23" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-master-2" viewBox="0 0 27 26">
         <title>2nd Year Master's Student</title>
         <use href="#svg-master-0"></use>
-        <rect class="fill-master" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-master" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="20" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-master-3" viewBox="0 0 27 26">
         <title>3rd Year Master's Student</title>
         <use href="#svg-master-0"></use>
-        <rect class="fill-master" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-master" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-master" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-orange" x="21" y="23" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-master-4" viewBox="0 0 27 26">
         <title>4th Year Master's Student</title>
         <use href="#svg-master-0"></use>
-        <rect class="fill-master" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-master" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-master" x="21" y="23" width="2" height="2"/>
-        <rect class="fill-master" x="21" y="20" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-orange" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-orange" x="21" y="20" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-1" viewBox="0 0 27 26">
         <title>1st Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-2" viewBox="0 0 27 26">
         <title>2nd Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="20" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-3" viewBox="0 0 27 26">
         <title>3rd Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="23" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-4" viewBox="0 0 27 26">
         <title>4th Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="20" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-5" viewBox="0 0 27 26">
         <title>5th Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="17" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="17" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="20" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-doctor-6" viewBox="0 0 27 26">
         <title>6th Year Ph.D. Student</title>
         <use href="#svg-doctor-0"></use>
-        <rect class="fill-doctor" x="24" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="20" width="2" height="2"/>
-        <rect class="fill-doctor" x="24" y="17" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="23" width="2" height="2"/>
-        <rect class="fill-doctor" x="21" y="20" width="2" height="2"/>
-        <rect class="fill-doctor" x="18" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="24" y="17" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="23" width="2" height="2"/>
+        <rect class="fill-r-red" x="21" y="20" width="2" height="2"/>
+        <rect class="fill-r-red" x="18" y="23" width="2" height="2"/>
     </symbol>
 
     <symbol id="svg-hat-master-graduated" viewBox="0 0 20 17">
+        <title>Master's</title>
         <path class="fill-r-orange" d="M9.03,16.86l-5.74-3.11c-.31-.17-.5-.49-.5-.84V7.73L.5,6.47c-.66-.36-.66-1.32,0-1.68L9.03,.14c.29-.16,.63-.16,.92,0l9.56,5.22c.31,.17,.5,.49,.5,.84v6.13c0,.53-.43,.96-.96,.96h0c-.53,0-.96-.43-.96-.96V6.68l-1.91,1.05v5.17c0,.35-.19,.67-.5,.84l-5.74,3.11c-.28,.15-.63,.15-.91,0Z"/>
         <polygon class="fill-m-bg" points="9.48 9.17 16.03 5.63 9.48 2.09 2.93 5.63 9.48 9.17"/>
         <path class="fill-m-bg" d="M9.48,14.93l4.78-2.58v-3.61l-4.32,2.38c-.29,.16-.63,.16-.92,0l-4.32-2.38v3.61l4.78,2.58Z"/>
+    </symbol>
+
+    <symbol id="svg-hat-master-student" viewBox="0 0 20 17">
+        <title>Master's Student</title>
+        <use href="#svg-hat-master-graduated" class="opacity-3"></use>
+    </symbol>
+
+    <symbol id="svg-hat-doctor-graduated" viewBox="0 0 20 17">
+        <title>Ph.D.</title>
+        <path class="fill-r-red" d="M9.03,16.86l-5.74-3.11c-.31-.17-.5-.49-.5-.84V7.73L.5,6.47c-.66-.36-.66-1.32,0-1.68L9.03,.14c.29-.16,.63-.16,.92,0l9.56,5.22c.31,.17,.5,.49,.5,.84v6.13c0,.53-.43,.96-.96,.96h0c-.53,0-.96-.43-.96-.96V6.68l-1.91,1.05v5.17c0,.35-.19,.67-.5,.84l-5.74,3.11c-.28,.15-.63,.15-.91,0Z"/>
+        <polygon class="fill-m-bg" points="9.48 9.17 16.03 5.63 9.48 2.09 2.93 5.63 9.48 9.17"/>
+        <path class="fill-m-bg" d="M9.48,14.93l4.78-2.58v-3.61l-4.32,2.38c-.29,.16-.63,.16-.92,0l-4.32-2.38v3.61l4.78,2.58Z"/>
+    </symbol>
+
+    <symbol id="svg-hat-doctor-student" viewBox="0 0 20 17">
+        <title>Ph.D. Student</title>
+        <use href="#svg-hat-doctor-graduated" class="opacity-3"></use>
+    </symbol>
+
+    <symbol id="svg-hat-doctor-candidate" viewBox="0 0 20 17">
+        <title>Ph.D. Candidate</title>
+        <use href="#svg-hat-doctor-graduated" class="opacity-6"></use>
+    </symbol>
+
+    <symbol id="svg-honors" viewBox="0 0 20 20">
+        <title>Honors</title>
+        <path class="fill-r-orange" d="M10,20c-1.38,0-2.68-.26-3.9-.79s-2.27-1.24-3.17-2.14-1.61-1.96-2.14-3.17c-.52-1.22-.79-2.52-.79-3.9s.26-2.68,.79-3.9c.52-1.22,1.24-2.27,2.14-3.17s1.96-1.61,3.17-2.14,2.52-.79,3.9-.79,2.68,.26,3.9,.79,2.27,1.24,3.17,2.14,1.61,1.96,2.14,3.17c.52,1.22,.79,2.52,.79,3.9s-.26,2.68-.79,3.9c-.53,1.22-1.24,2.27-2.14,3.17s-1.96,1.61-3.17,2.14-2.52,.79-3.9,.79Z"/>
+        <path class="fill-m-bg" d="M10,18c2.23,0,4.12-.77,5.68-2.32s2.32-3.44,2.32-5.68-.77-4.12-2.32-5.67-3.44-2.33-5.68-2.33-4.12,.77-5.68,2.33-2.32,3.44-2.32,5.67,.77,4.12,2.32,5.68,3.44,2.32,5.68,2.32Z"/>
+        <path class="fill-r-orange" d="M6.98,15.25l2.89-2.21c.07-.05,.17-.05,.24,0l2.89,2.21c.31,.24,.74-.06,.63-.43l-1.1-3.63c-.02-.08,0-.17,.08-.22l2.86-2.04c.32-.23,.16-.73-.23-.73h-3.5c-.09,0-.17-.06-.19-.14l-1.17-3.82c-.12-.38-.65-.38-.76,0l-1.17,3.82c-.03,.08-.1,.14-.19,.14h-3.5c-.39,0-.55,.5-.23,.73l2.86,2.04c.07,.05,.1,.14,.08,.22l-1.1,3.63c-.11,.37,.32,.67,.63,.43Z"/>
+    </symbol>
+
+    <symbol id="svg-hash" viewBox="0 0 12 14">
+        <path class="fill-s" d="M11.55,5.66v-1.76h-2.03l.61-3.9h-1.86l-.61,3.9h-2.46l.61-3.9h-1.86l-.61,3.9H1.07v1.76h1.99l-.37,2.38H.45v1.76h1.96l-.66,4.2h1.86l.66-4.2h2.46l-.66,4.2h1.86l.66-4.2h2.32v-1.76h-2.04l.37-2.38h2.31Zm-4.54,2.38h-2.46l.37-2.38h2.46l-.37,2.38Z"/>
+    </symbol>
+
+    <symbol id="svg-send-s" viewBox="0 0 18 16">
+        <path class="fill-s" d="M0,1.29V14.71c0,.74,.75,1.24,1.43,.95l15.93-6.71c.84-.35,.84-1.55,0-1.9L1.43,.34C.75,.05,0,.55,0,1.29Z"/>
+        <polygon class="fill-m-bg" points="2.07 9.55 8.26 8 2.07 6.45 2.07 2.83 14.31 8 2.07 13.17 2.07 9.55"/>
     </symbol>
     
     <!-- res -->
@@ -155,7 +258,7 @@
     </symbol>
     
     <symbol id="svg-economics" viewBox="0 0 10 18">
-        <path class="fill-master" d="M4.02,18v-2.15c-.88-.2-1.65-.58-2.29-1.15-.64-.57-1.11-1.37-1.41-2.4l1.85-.75c.25,.8,.62,1.41,1.11,1.83s1.14,.63,1.94,.63c.68,0,1.26-.15,1.74-.46s.71-.79,.71-1.44c0-.58-.18-1.05-.55-1.39s-1.22-.73-2.55-1.16c-1.43-.45-2.42-.99-2.95-1.61s-.8-1.39-.8-2.29c0-1.08,.35-1.93,1.05-2.53s1.42-.94,2.15-1.03V0h2V2.1c.83,.13,1.52,.44,2.06,.91s.94,1.05,1.19,1.74l-1.85,.8c-.2-.53-.48-.93-.85-1.2s-.87-.4-1.5-.4c-.73,0-1.29,.16-1.68,.49s-.58,.73-.58,1.21c0,.55,.25,.98,.75,1.3s1.37,.65,2.6,1c1.15,.33,2.02,.86,2.61,1.59s.89,1.56,.89,2.51c0,1.18-.35,2.08-1.05,2.7-.7,.62-1.57,1-2.6,1.15v2.1h-2Z"/>
+        <path class="fill-r-orange" d="M4.02,18v-2.15c-.88-.2-1.65-.58-2.29-1.15-.64-.57-1.11-1.37-1.41-2.4l1.85-.75c.25,.8,.62,1.41,1.11,1.83s1.14,.63,1.94,.63c.68,0,1.26-.15,1.74-.46s.71-.79,.71-1.44c0-.58-.18-1.05-.55-1.39s-1.22-.73-2.55-1.16c-1.43-.45-2.42-.99-2.95-1.61s-.8-1.39-.8-2.29c0-1.08,.35-1.93,1.05-2.53s1.42-.94,2.15-1.03V0h2V2.1c.83,.13,1.52,.44,2.06,.91s.94,1.05,1.19,1.74l-1.85,.8c-.2-.53-.48-.93-.85-1.2s-.87-.4-1.5-.4c-.73,0-1.29,.16-1.68,.49s-.58,.73-.58,1.21c0,.55,.25,.98,.75,1.3s1.37,.65,2.6,1c1.15,.33,2.02,.86,2.61,1.59s.89,1.56,.89,2.51c0,1.18-.35,2.08-1.05,2.7-.7,.62-1.57,1-2.6,1.15v2.1h-2Z"/>
     </symbol>
     
     <symbol id="svg-environment" viewBox="0 0 18 18">
@@ -167,7 +270,7 @@
     </symbol>
     
     <symbol id="svg-field-economics" viewBox="0 0 30 74">
-        <path class="fill-master" d="M13.72,47.51v-2.15c-.88-.2-1.65-.58-2.29-1.15-.64-.57-1.11-1.37-1.41-2.4l1.85-.75c.25,.8,.62,1.41,1.11,1.83s1.14,.63,1.94,.63c.68,0,1.26-.15,1.74-.46s.71-.79,.71-1.44c0-.58-.18-1.05-.55-1.39s-1.22-.73-2.55-1.16c-1.43-.45-2.42-.99-2.95-1.61s-.8-1.39-.8-2.29c0-1.08,.35-1.93,1.05-2.53s1.42-.94,2.15-1.03v-2.1h2v2.1c.83,.13,1.52,.44,2.06,.91s.94,1.05,1.19,1.74l-1.85,.8c-.2-.53-.48-.93-.85-1.2s-.87-.4-1.5-.4c-.73,0-1.29,.16-1.68,.49s-.58,.73-.58,1.21c0,.55,.25,.98,.75,1.3s1.37,.65,2.6,1c1.15,.33,2.02,.86,2.61,1.59s.89,1.56,.89,2.51c0,1.18-.35,2.08-1.05,2.7-.7,.62-1.57,1-2.6,1.15v2.1h-2Z"/>
+        <path class="fill-r-orange" d="M13.72,47.51v-2.15c-.88-.2-1.65-.58-2.29-1.15-.64-.57-1.11-1.37-1.41-2.4l1.85-.75c.25,.8,.62,1.41,1.11,1.83s1.14,.63,1.94,.63c.68,0,1.26-.15,1.74-.46s.71-.79,.71-1.44c0-.58-.18-1.05-.55-1.39s-1.22-.73-2.55-1.16c-1.43-.45-2.42-.99-2.95-1.61s-.8-1.39-.8-2.29c0-1.08,.35-1.93,1.05-2.53s1.42-.94,2.15-1.03v-2.1h2v2.1c.83,.13,1.52,.44,2.06,.91s.94,1.05,1.19,1.74l-1.85,.8c-.2-.53-.48-.93-.85-1.2s-.87-.4-1.5-.4c-.73,0-1.29,.16-1.68,.49s-.58,.73-.58,1.21c0,.55,.25,.98,.75,1.3s1.37,.65,2.6,1c1.15,.33,2.02,.86,2.61,1.59s.89,1.56,.89,2.51c0,1.18-.35,2.08-1.05,2.7-.7,.62-1.57,1-2.6,1.15v2.1h-2Z"/>
     </symbol>
     
     <symbol id="svg-field-environment" viewBox="0 0 30 74">

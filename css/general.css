@@ -502,3 +502,5 @@ svg:has(use[href*="#svg-doctor-"]) {aspect-ratio: 27/26;}
 svg:has(use[href*="#svg-master-"]) {aspect-ratio: 27/26;}
 svg:has(use[href*="#svg-slider-"]) {aspect-ratio: 13/22;}
 svg:has(use[href*="#svg-hat-"]) {aspect-ratio: 20/17;}
+svg:has(use[href*="#svg-hash"]) {aspect-ratio: 12/14;}
+svg:has(use[href*="#svg-send-s"]) {aspect-ratio: 18/16;}
