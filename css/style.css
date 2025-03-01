@@ -1393,6 +1393,15 @@
     min-width: 0;
     margin-inline: auto;
 
+    & a {
+        text-decoration: underline;
+
+        &:hover {
+            opacity: 0.8;
+            text-decoration: none;
+        }
+    }
+
     & form {
         margin-block-start: 1rem;
 
