@@ -1056,18 +1056,6 @@
         & [ani-wave="2"] {animation-delay: calc(var(--_ani-time) * 0.2);}
         & [ani-wave="3"] {animation-delay: calc(var(--_ani-time) * 0.3);}
     }
-
-    &:has(.ani-top-layer) {
-        position: relative;
-        
-        .ani-top-layer {
-            position: absolute;
-            inset: 0;
-            background-color: transparent;
-            z-index: 99;
-        } 
-    }
-    
 }
 
 @keyframes rotate-var {from {rotate: 0deg;} to {rotate: var(--_rotate-deg);}}
