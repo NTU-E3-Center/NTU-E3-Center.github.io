@@ -821,27 +821,18 @@
 /* research */
 .res-section {
     --_block-scale: 0.875;
+    --_res-block-width: 25rem;
+    --_res-info-width: 20rem;
 
     padding-inline: 1rem;
     
-    &[topic-type='ongoing'] {
-        --_res-block-width: 25rem;
-        --_res-info-width: 20rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--_res-block-width), 1fr));
+    gap: 2rem 1rem;
+    justify-content: space-between;
 
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(var(--_res-block-width), 1fr));
-        gap: 2rem 1rem;
-        justify-content: space-between;
-
-        @media (width < 75rem) {
-            --_res-block-width: var(--_res-info-width);
-        }
-    }
-    
-    &[topic-type='past'] {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
+    @media (width < 75rem) {
+        --_res-block-width: var(--_res-info-width);
     }
 
     .res-block {
