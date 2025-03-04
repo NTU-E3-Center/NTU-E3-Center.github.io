@@ -593,11 +593,14 @@
         }
     }
 
-    &.abt-sponsors {
+    &[which='sponsors'] {
         padding-inline: 3rem;
 
-        & img {
-            height: 4rem;
+        & a {
+            display: grid;
+            place-content: center;
+            
+            & img {height: 4rem;}
         }
     }
     
