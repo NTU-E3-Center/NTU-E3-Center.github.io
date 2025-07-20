@@ -94,5 +94,11 @@
         "month": "12",
         "description": "The E3 Group's super fun Christmas & Year-End gathering.",
         "imgPath": "/assets/group-life/2024-5.jpg"
+    },
+    {
+        "year": "2025",
+        "month": "3",
+        "description": "Farewell for Thomas Chien and Welcome Back Sean Shei lunch gathering.",
+        "imgPath": "/assets/group-life/2025-1.jpg"
     }
 ]

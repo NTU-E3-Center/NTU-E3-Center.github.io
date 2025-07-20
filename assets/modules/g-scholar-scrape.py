@@ -1,6 +1,7 @@
 from serpapi import GoogleSearch
 import pandas as pd
 import json
+import requests
 
 # Get your API key at https://serpapi.com/dashboard
 # addd
@@ -59,6 +60,27 @@ def title_case(title):
     # Join the words back into a single string
     return ' '.join(capitalized_words)
 
+def get_data_from_crossref(article_title):
+    """
+    Searches the Crossref API for an article title and returns the DOI.
+    """
+    try:
+        match_author_given_name = "I-Yun"
+        url = f"https://api.crossref.org/works?query.bibliographic={article_title}&rows=1"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        matching_item = data['message']['items'][0]
+        authors = [author['given'] for author in matching_item['author']]
+        matching_author = [author for author in authors if match_author_given_name in author]
+        print(authors)
+        if matching_author:
+            return {'doi': data['message']['items'][0]['DOI'], 'authors': authors}
+        return {'doi': None, 'authors': None}
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return None
+
 # start
 params = {
     "engine": "google_scholar_author",
@@ -105,19 +127,28 @@ if not df.empty:
     df['title'] = df['title'].apply(title_case)
     df['publication_date'] = pd.to_datetime(df['publication_date'], format='mixed')
     df['year'] = df['publication_date'].dt.strftime('%y')
+    print(df['publication_date'].dt)
     df['month'] = df['publication_date'].dt.strftime('%b.')
     df.drop('publication_date', axis=1, inplace=True)
-
-    [print(f"{i+1}. {title}") for i, title in enumerate(df['title'])]
+    df.reset_index(drop=True, inplace=True)
+    
+    for i, row in df.iterrows():
+        data = get_data_from_crossref(row['title'])
+        if data['doi']:
+            df.at[i, 'link'] = f'https://doi.org/{data['doi']}'
+            df.at[i, 'authors'] = ', '.join(data['authors'])
+        else:
+            print(f"DOI not found for article {i+1}: {row['title']}")
 
 # Combine the new articles with the old ones
 df = pd.concat([pd.DataFrame(old_pub), df])
 
 # Convert DataFrame to list of dictionaries
 records = df.to_dict(orient='records')
+cleaned_records = [{key: value for key, value in row.items() if not pd.isna(value)} for row in records]
 
 # Save the updated list to the JSON file
 with open(output_path, 'w') as f:
-    json.dump(records, f, indent=2)
+    json.dump(cleaned_records, f, indent=2)
 
 print(f"Added {len(new_articles_to_add)} new articles to the list.")
