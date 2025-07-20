@@ -1,0 +1,33 @@
+<section id="about-us">
+    <div class="section-title">
+        <h2>About Us</h2>
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </div>
+
+    {% for about in structures['about'] %}
+    {% if about['form'] == 'about' %}
+    <h3>{{ about['sectionTitle'] }}</h3>
+    <section class="abt-section" which="{{ about['form'] }}">
+        <div class="abt-text">
+            {% set articleVar = about['article'].split('/')[-1].split('.')[0] %}
+            {{ articles[articleVar] }}
+        </div>
+        
+        <div class="abt-logos">
+            {% for logo in about['logos'] %}
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}">
+            {% endfor %}
+        </div>
+    </section>
+    {% elif about['form'] == 'sponsors' and about['display'] %}
+    <h3>{{ about['sectionTitle'] }}</h3>
+    <section class="abt-section" which="{{ about['form'] }}">
+        {% for logo in about['logos'] %}
+        <a{% if logo['logoLink'] %} href="{{ logo['logoLink'] }}" target="_blank"{% endif %}>
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}">
+        </a>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% endfor %}
+</section>

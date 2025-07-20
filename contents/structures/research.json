@@ -1,0 +1,150 @@
+[
+    {
+        "sectionTitle": "Ongoing Topics",
+        "topics": [
+            {
+                "researchId": "solar-pv",
+                "bigTags": ["Solar PV", "Power Forecast"],
+                "smallTags": ["Artificial Intelligence", "Operation Strategy", "Data Scarcity"],
+                "fields": {
+                    "energy": true,
+                    "economics": false,
+                    "environment": true
+                },
+                "image": "images/research/solar-pv.svg"
+            },
+            {
+                "researchId": "wind-power",
+                "bigTags": ["Wind Power", "Power Forecast"],
+                "smallTags": ["Artificial Intelligence", "Data Scarcity", "Site Assessment"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/wind-power.svg"
+            },
+            {
+                "researchId": "ev-v2b",
+                "bigTags": ["Electric Vehicles", "Vehicle-to-Building"],
+                "smallTags": ["Nearly-Zero Energy Building", "Optimization"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/ev-v2b.svg"
+            },
+            {
+                "researchId": "bss-v2x",
+                "bigTags": ["Battery Swap Station", "Vehicle-to-Everything"],
+                "smallTags": ["Vehicle-to-Building", "Vehicle-to-Grid", "Optimization"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/bss-v2x.svg"
+            },
+            {
+                "researchId": "green-logistics",
+                "bigTags": ["Green Logistics", "Cold Chain"],
+                "smallTags": ["Smart Warehousing", "Vehicle Routing", "Life Cycle Assessment"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/green-logistics.svg"
+            },
+            {
+                "researchId": "carbon-pricing",	
+                "bigTags": ["Carbon Pricing", "Just Transition"],
+                "smallTags": ["Distributional Effect", "Carbon Fee", "Energy Poverty"],
+                "fields": {
+                    "energy": false,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/carbon-pricing.svg"
+            },
+            {
+                "researchId": "hydrogen-energy",
+                "bigTags": ["Hydrogen Energy", "Storage and Transport"],
+                "smallTags": ["Techno-economic Assessment", "Life Cycle Analysis", "Offshore Wind"],
+                "fields": {
+                    "energy": true,
+                    "economics": false,
+                    "environment": true
+                },
+                "image": "images/research/hydrogen-energy.svg"
+            },
+            {
+                "researchId": "vehicle-electrification",
+                "bigTags": ["Vehicle Electrification", "Fleet Model"],
+                "smallTags": ["Fleet Turnover", "Life Cycle Analysis", "Net-Zero Target"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/vehicle-electrification.svg"
+            },
+            {
+                "researchId": "air-quality",
+                "bigTags": ["Air Quality", "Boiler Emission"],
+                "smallTags": ["Solid Recovered Fuel (SRF)", "Public Health"],
+                "fields": {
+                    "energy": true,
+                    "economics": false,
+                    "environment": false
+                },
+                "image": "images/research/air-quality.svg"
+            },
+            {
+                "researchId": "autonomous-vehicle",
+                "bigTags": ["Autonomous Vehicle", "Computer Vision"],
+                "smallTags": ["Explainability", "LLM", "Energy Saving", "Campus"],
+                "fields": {
+                    "energy": true,
+                    "economics": false,
+                    "environment": false
+                },
+                "image": "images/research/autonomous-vehicle.svg"
+            },
+            {
+                "researchId": "building-energy",
+                "bigTags": ["Building", "Energy Forecast"],
+                "smallTags": ["Artificial Intelligence", "Energy Management", "Cost Saving"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/building-energy.svg"
+            },
+            {
+                "researchId": "power-grid",
+                "bigTags": ["Power Grid", "Energy Pricing"],
+                "smallTags": ["Microgrid", "Decentralization", "Optimization"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": false
+                },
+                "image": "images/research/power-grid.svg"
+            },
+            {
+                "researchId": "green-finance",
+                "bigTags": ["Green Finance", "Environmental Protection"],
+                "smallTags": ["ESG", "Financial Products"],
+                "fields": {
+                    "energy": false,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/green-finance.svg"
+            }
+        ]
+    }
+]

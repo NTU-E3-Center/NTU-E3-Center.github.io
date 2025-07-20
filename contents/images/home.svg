@@ -1,0 +1,280 @@
+
+<svg class="hp-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 570" width="81.25rem">
+    <defs>
+        <linearGradient id="fade-in" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color: var(--page-bg-color); stop-opacity: 1;" />
+            <stop offset="100%" style="stop-color: var(--page-bg-color); stop-opacity: 0;" />
+        </linearGradient>
+        <linearGradient id="fade-out" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color: var(--page-bg-color); stop-opacity: 0;" />
+            <stop offset="100%" style="stop-color: var(--page-bg-color); stop-opacity: 1;" />
+        </linearGradient>
+    </defs>
+
+    <rect class="fill-m" y="375.25" width="1300" height="5"/>
+    <g class="hp-wire-left hp-small-no">
+        <polyline class="stroke-s stroke-4" points="207.01 405 192.99 418.5 94 418.5 108.01 405"/>
+        <polyline class="stroke-s stroke-4" points="207.01 405 192.99 418.5 328.99 418.5 343.01 405"/>
+        <polyline class="stroke-s-light stroke-4 ani-energy-through" points="207.01 405 192.99 418.5 94 418.5 108.01 405"/>
+        <polyline class="stroke-s-light stroke-4 ani-energy-through" points="207.01 405 192.99 418.5 328.99 418.5 343.01 405"/>
+    </g>
+    <g class="hp-wire-center">
+        <polyline class="stroke-s stroke-4" points="482 405 468 418.5 636 418.5 650 405"/>
+        <polyline class="stroke-s stroke-4" points="650 405 636 418.5 804 418.5 818 405"/>
+    </g>
+    <g class="hp-wire-right hp-small-no">
+        <polyline class="stroke-s stroke-4" points="962 405 948 418.5 1058.01 418.5 1072.01 405"/>
+        <polyline class="stroke-s stroke-4" points="1072.01 405 1058.01 418.5 1140.09 418.5 1154.09 405"/>
+        <polyline class="stroke-s-light stroke-4 ani-energy-through" points="1072.01 405 1058.01 418.5 948 418.5 962 405"/>
+        <polyline class="stroke-s-light stroke-4 ani-energy-through" points="1072.01 405 1058.01 418.5 1140.09 418.5 1154.09 405"/>
+    </g>
+    <g class="hp-wind hp-small-no" wind-no="1">
+        <rect class="fill-m" x="303" y="52.5" width="87" height="6"/>
+        <rect class="fill-m" x="285.5" y="52.5" width="6" height="6"/>
+    </g>
+    <g class="hp-wind" wind-no="2">
+        <rect class="fill-m" x="414" y="109.5" width="87" height="6"/>
+        <rect class="fill-m" x="512.5" y="109.5" width="6" height="6"/>
+    </g>
+    <g class="hp-wind" wind-no="3">
+        <rect class="fill-m" x="799" y="52.5" width="87" height="6"/>
+        <rect class="fill-m" x="781.5" y="52.5" width="6" height="6"/>
+    </g>
+    <g class="hp-wind hp-small-no" wind-no="4">
+        <rect class="fill-m" x="910" y="109.5" width="87" height="6"/>
+        <rect class="fill-m" x="1008.5" y="109.5" width="6" height="6"/>
+    </g>
+    <g class="hp-battery hp-small-no">
+        <polygon class="fill-m" points="114.85 351 114.85 345 100.85 345 100.85 351 93.85 351 93.85 407 121.85 407 121.85 351 114.85 351"/>
+        <rect class="fill-m-3" x="104.85" y="349" width="6" height="2"/>
+        <rect class="fill-m-3-light" x="97.85" y="355" width="20" height="48"/>
+        <polyline class="ani-battery-charge stroke-m-3" points="107.85 403 107.85 355"/>
+        <polygon class="ani-electric-flashing fill-m" points="110.13 384.86 106.32 383.64 108.12 378 102.12 378 105.57 367.14 109.38 368.36 107.59 374 113.59 374 110.13 384.86"/>
+    </g>
+    <g class="hp-pv-panel hp-small-move">
+        <polygon class="fill-m" points="177.81 344 176.63 350.78 167.34 350.78 157.53 407 255.87 407 266.87 344 177.81 344"/>
+        <polygon class="fill-m-bg" points="181.17 348 180.69 350.78 258.44 350.78 249.32 403 252.51 403 262.11 348 181.17 348"/>
+        <polygon class="fill-m-3" ani-wave="1" points="194.63 354.78 192.36 367.89 168.42 367.89 170.71 354.78 194.63 354.78"/>
+        <polygon class="fill-m-3" ani-wave="2" points="196.42 367.89 198.69 354.78 225.63 354.78 223.36 367.89 196.42 367.89"/>
+        <polygon class="fill-m-3" ani-wave="3" points="227.42 367.89 229.69 354.78 253.68 354.78 251.39 367.89 227.42 367.89"/>
+        <polygon class="fill-m-3" ani-wave="2" points="189.24 385.89 165.28 385.89 167.72 371.89 191.67 371.89 189.24 385.89"/>
+        <polygon class="fill-m-3" ani-wave="3" points="193.3 385.89 195.73 371.89 222.67 371.89 220.24 385.89 193.3 385.89"/>
+        <polygon class="fill-m-3" ani-wave="4" points="226.73 371.89 250.69 371.89 248.25 385.89 224.3 385.89 226.73 371.89"/>
+        <polygon class="fill-m-3" ani-wave="3" points="164.58 389.89 188.55 389.89 186.28 403 162.29 403 164.58 389.89"/>
+        <polygon class="fill-m-3" ani-wave="4" points="219.55 389.89 217.28 403 190.34 403 192.61 389.89 219.55 389.89"/>
+        <polygon class="fill-m-3" ani-wave="5" points="221.34 403 223.61 389.89 247.55 389.89 245.26 403 221.34 403"/>
+    </g>
+    <g class="hp-the-sky hp-small-no">
+        <polygon class="fill-m hp-the-sky-bg" points="379.5 143.85 366.5 156.15 366.5 143.85 309.71 197.58 309.71 409.15 379.5 409.15"/>
+        <polygon class="fill-m-bg hp-the-sky-back" points="374.5 155.46 366.5 163.03 366.5 404.15 374.5 404.15"/>
+        <polygon class="fill-m-3 hp-the-sky-front" points="361.5 155.46 314.71 199.73 314.71 404.15 361.5 404.15"/>
+    </g>
+    <g class="hp-fubon-a25 hp-small-no">
+        <polygon class="fill-m" points="485.2 189.24 485.2 209.26 479.2 209.26 479.2 189.24 438.86 196.87 438.86 407.76 525.54 407.76 525.54 196.87 485.2 189.24"/>
+        <polygon class="fill-m-3" points="490.2 402.76 520.54 402.76 520.54 201.01 490.2 195.28 490.2 402.76"/>
+        <polygon class="fill-m-3" points="443.86 402.76 474.2 402.76 474.2 195.28 443.86 201.01 443.86 402.76"/>
+        <rect class="fill-m-bg" x="479.2" y="214.26" width="6" height="188.5"/>
+        <polyline class="ani-elevator stroke-m-2 stroke-4" points="482.2 402.76 482.2 214.26"/>
+    </g>
+    <g class="hp-101" style="transform-origin: 50% 71.27%;">
+        <polygon class="fill-m" points="711.42 406.25 686.67 328.73 701.39 280.25 687.42 280.25 701.39 234.25 687.42 234.25 701.39 188.25 687.42 188.25 701.39 142.25 687.42 142.25 701.39 96.25 687.42 96.25 701.39 50.25 666.17 50.25 669.92 26.25 654 26.25 654 -1.25 647 -1.25 647 26.25 630.33 26.25 634.08 50.25 598.86 50.25 612.83 96.25 598.86 96.25 612.83 142.25 598.86 142.25 612.83 188.25 598.86 188.25 612.83 234.25 598.86 234.25 612.83 280.25 598.86 280.25 613.46 328.33 588.58 406.25 711.42 406.25"/>
+        <polygon class="fill-r-red hp-101-top" points="636.17 31.25 664.08 31.25 661.11 50.25 639.14 50.25 636.17 31.25"/>
+        <polygon class="fill-m-2" points="605.6 55.25 646.5 55.25 646.5 60.75 653.5 60.75 653.5 55.25 694.65 55.25 682.2 96.25 618.05 96.25 605.6 55.25"/>
+        <polygon class="fill-m-2" points="605.6 101.25 646.5 101.25 646.5 106.75 653.5 106.75 653.5 101.25 694.65 101.25 682.2 142.25 618.05 142.25 605.6 101.25"/>
+        <polygon class="fill-m-2" points="605.6 147.25 646.5 147.25 646.5 152.75 653.5 152.75 653.5 147.25 694.65 147.25 682.2 188.25 618.05 188.25 605.6 147.25"/>
+        <polygon class="fill-m-2" points="605.6 193.25 646.5 193.25 646.5 198.75 653.5 198.75 653.5 193.25 694.65 193.25 682.2 234.25 618.05 234.25 605.6 193.25"/>
+        <polygon class="fill-m-2" points="605.6 239.25 646.5 239.25 646.5 244.75 653.5 244.75 653.5 239.25 694.65 239.25 682.2 280.25 618.05 280.25 605.6 239.25"/>
+        <path class="fill-m-2" d="M682.23,331.25h-18.73c-1.18,6.38-6.78,11.23-13.49,11.23s-12.31-4.85-13.49-11.23h-18.73l-22.35,70h109.15l-22.35-70Z"/>
+        <path class="fill-m-2" d="M653.5,285.25v5.5h-7v-5.5h-40.9l12.45,41h18.46c1.18-6.38,6.78-11.23,13.49-11.23s12.31,4.85,13.49,11.23h18.71l12.45-41h-41.15Z"/>
+        <circle class="fill-m-bg" cx="650" cy="328.75" r="8.73"/>
+    </g>
+    <g class="hp-breeze-nanshan hp-small-no">
+        <g which="back">
+            <polygon class="fill-m" points="867.1 407.5 792.25 407.5 788.54 197.26 863.39 197.26 867.1 407.5"/>
+            <polygon class="fill-m-bg" points="797.16 402.5 862.01 402.5 858.48 202.26 793.63 202.26 797.16 402.5"/>
+        </g>
+        <g which="front">
+            <polygon class="fill-m" points="846.11 407.5 771.26 407.5 778.02 189.5 852.87 189.5 846.11 407.5"/>
+            <polygon class="fill-m-3" points="776.42 402.5 841.26 402.5 847.71 194.5 782.87 194.5 776.42 402.5"/>
+        </g>
+    </g>
+    <g class="hp-nanshan-a21 hp-small-no">
+        <g which="bottom">
+            <path class="fill-m" d="M994.96,352.5c-.86-7.48-20.97-9.5-32.96-9.5s-32.09,2.02-32.96,9.5h-.04v51.5c0,7.89,20.74,10,33,10s33-2.11,33-10v-51.5h-.04Z"/>
+            <path class="fill-m-bg" d="M962,363c-8.5,0-21.09-1.02-28-4.27v45.14c1.11,1.88,11.22,5.13,28,5.13s26.89-3.25,28-5.13v-45.14c-6.91,3.26-19.5,4.27-28,4.27Z"/>
+            <path class="fill-m-bg" d="M934.09,353c1.48,1.89,11.52,5,27.91,5s26.43-3.11,27.91-5c-1.48-1.89-11.52-5-27.91-5s-26.43,3.11-27.91,5Z"/>
+        </g>
+        <g which="top">
+            <path class="fill-m" d="M962,195.5c-12.26,0-33,2.11-33,10v135.5c0,7.89,20.74,10,33,10s33-2.11,33-10V205.5c0-7.89-20.74-10-33-10Z"/>
+            <path class="fill-m-3" d="M962,215.5c-8.5,0-21.09-1.02-28-4.27v129.64c1.11,1.88,11.22,5.13,28,5.13s26.89-3.25,28-5.13V211.23c-6.91,3.26-19.5,4.27-28,4.27Z"/>
+            <path class="fill-m-3" d="M934.09,205.5c1.48,1.89,11.52,5,27.91,5s26.43-3.11,27.91-5c-1.48-1.89-11.52-5-27.91-5s-26.43,3.11-27.91,5Z"/>
+        </g>
+    </g>
+    <g class="hp-turbine hp-small-move">
+        <g class="hp-turbine-stick">
+            <polygon class="fill-m" points="1064.66 407 1079.35 407 1075.97 310.08 1068.04 310.08 1064.66 407"/>
+            <path class="fill-m-bg" d="M1072,316.89c-.07,0-.13-.02-.2-.02l-3.01,86.12h6.42l-3.01-86.12c-.07,0-.13,.02-.2,.02Z"/>
+        </g>
+        <g class="hp-turbine-blade" style="transform-origin: 82.46% 54.4%;">
+            <path class="fill-m" d="M1083.44,309.52l-4.73-.6c-.24-1.38-.88-2.65-1.89-3.66-.15-.15-.3-.28-.46-.42l1.84-4.4v-36.8h-12.4v36.8l1.84,4.4c-.16,.13-.31,.27-.46,.42-1.01,1.01-1.66,2.28-1.89,3.66l-4.73,.6-31.87,18.4,6.2,10.74,31.87-18.4,2.89-3.79c.74,.27,1.54,.42,2.35,.42s1.61-.15,2.35-.42l2.89,3.79,31.87,18.4,6.2-10.74-31.87-18.4Z"/>
+            <path class="fill-m-3" d="M1065.8,312.89l-3.93,.5-27.71,16,2.2,3.81,27.71-16,2.4-3.16c-.26-.37-.49-.75-.67-1.16Z"/>
+            <path class="fill-m-3" d="M1082.14,313.39l-3.93-.5c-.18,.41-.41,.79-.67,1.16l2.4,3.16,27.71,16,2.2-3.81-27.71-16Z"/>
+            <path class="fill-m-3" d="M1072,303.26c.23,0,.45,.01,.67,.03l1.53-3.65v-31.99h-4.4v31.99l1.53,3.65c.22-.02,.45-.03,.67-.03Z"/>
+            <circle class="fill-m-bg" cx="1072" cy="310.07" r="2.81"/>
+        </g>
+    </g>
+    <g class="hp-energy-storage hp-small-no">
+        <rect class="fill-m" x="1132.59" y="331" width="43" height="76"/>
+        <rect class="fill-m-3" x="1136.59" y="335" width="35" height="68"/>
+        <!-- <polyline class="ani-battery-charge stroke-m-3" points="1154.09 403 1154.09 335"/> -->
+        <polygon class="ani-electric-flashing fill-m" points="1156.37 366.86 1152.56 365.64 1154.36 360 1148.36 360 1151.81 349.14 1155.62 350.36 1153.83 356 1159.83 356 1156.37 366.86"/>
+    </g>
+    <g class="hp-rain-back"></g>
+    <g class="hp-vehicle-to-left">
+        <g class="hp-truck" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1398,452.5h-73.06v21.5h-16.58l-8.36,14.17v22.05h7.64c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h50.87c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h12.17v-57.71Z"/>
+            <path class="fill-m-3" d="M1328.9,456.5v49.71h43.11c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h8.05v-49.71h-65.06Z"/>
+            <path class="fill-m-3" d="M1310.6,478l-6.64,11.26v16.96h3.52c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h3.52v-28.21h-14.3Z"/>
+            <circle class="fill-m-bg" cx="1379.5" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1314.5" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1407" y1="486.4" x2="1435.5" y2="486.4"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1407" y1="498.4" x2="1425" y2="498.4"/>
+        </g>
+        <g class="hp-scooter" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1353.7,490.5h-29.5v16h-6.81l8.43-31h-13.72l-6.97,25.62c-2.96,.89-5.12,3.63-5.12,6.88,0,3.96,3.22,7.18,7.18,7.18,3.08,0,5.71-1.95,6.73-4.68h18.3c1.02,2.73,3.64,4.68,6.73,4.68s5.71-1.95,6.73-4.68h8.02v-20Z"/>
+            <path class="fill-m-3" d="M1328.2,494.5v12h3.73c.69-3.24,3.58-5.68,7.02-5.68s6.33,2.44,7.02,5.68h3.73v-12h-21.5Z"/>
+            <path class="fill-m-3" d="M1313.7,504.91l6.91-25.41h-5.42l-5.88,21.63c1.94,.59,3.53,1.98,4.4,3.78Z"/>
+            <circle class="fill-m-bg" cx="1338.9" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1307.2" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1361.2" y1="502.5" x2="1381.2" y2="502.5"/>
+        </g>
+        <g class="hp-bus" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1300,484.84l12.36-20.84h125.64v46.21h-11.67c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-87.34c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-11.67v-25.37Z"/>
+            <path class="fill-m-3" d="M1314.6,468h119.36v38.21h-7.55c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-87.1c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-7.55v-20.27l10.64-17.94Z"/>
+            <circle class="fill-m-bg" cx="1318.5" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1419.5" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1447" y1="491.2" x2="1466.5" y2="491.2"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1447" y1="503.2" x2="1456" y2="503.2"/>
+        </g>
+        <g class="hp-car" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1370,488.17l-8.36-14.17h-36.51l-25.63,13.51v22.71h14.67c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h20.87c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h7.64v-22.05Z"/>
+            <path class="fill-m-3" d="M1360,478h-33.24l-22.62,11.92v16.3h10.55c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h20.63c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h3.52v-16.96l-6.64-11.26Z"/>
+            <circle class="fill-m-bg" cx="1356" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1321.5" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1378" y1="494.7" x2="1400" y2="494.7"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1378" y1="505.4" x2="1394.2" y2="505.4"/>
+        </g>
+        <g class="hp-scooter" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1353.7,490.5h-29.5v16h-6.81l8.43-31h-13.72l-6.97,25.62c-2.96,.89-5.12,3.63-5.12,6.88,0,3.96,3.22,7.18,7.18,7.18,3.08,0,5.71-1.95,6.73-4.68h18.3c1.02,2.73,3.64,4.68,6.73,4.68s5.71-1.95,6.73-4.68h8.02v-20Z"/>
+            <path class="fill-m-3" d="M1328.2,494.5v12h3.73c.69-3.24,3.58-5.68,7.02-5.68s6.33,2.44,7.02,5.68h3.73v-12h-21.5Z"/>
+            <path class="fill-m-3" d="M1313.7,504.91l6.91-25.41h-5.42l-5.88,21.63c1.94,.59,3.53,1.98,4.4,3.78Z"/>
+            <circle class="fill-m-bg" cx="1338.9" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1307.2" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1361.2" y1="502.5" x2="1381.2" y2="502.5"/>
+        </g>
+        <g class="hp-scooter" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1353.7,490.5h-29.5v16h-6.81l8.43-31h-13.72l-6.97,25.62c-2.96,.89-5.12,3.63-5.12,6.88,0,3.96,3.22,7.18,7.18,7.18,3.08,0,5.71-1.95,6.73-4.68h18.3c1.02,2.73,3.64,4.68,6.73,4.68s5.71-1.95,6.73-4.68h8.02v-20Z"/>
+            <path class="fill-m-3" d="M1328.2,494.5v12h3.73c.69-3.24,3.58-5.68,7.02-5.68s6.33,2.44,7.02,5.68h3.73v-12h-21.5Z"/>
+            <path class="fill-m-3" d="M1313.7,504.91l6.91-25.41h-5.42l-5.88,21.63c1.94,.59,3.53,1.98,4.4,3.78Z"/>
+            <circle class="fill-m-bg" cx="1338.9" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1307.2" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1361.2" y1="502.5" x2="1381.2" y2="502.5"/>
+        </g>
+        <g class="hp-car" direction="to-left" style="transform-origin: 0 90.384%;">
+            <path class="fill-m" d="M1370,488.17l-8.36-14.17h-36.51l-25.63,13.51v22.71h14.67c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h20.87c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h7.64v-22.05Z"/>
+            <path class="fill-m-3" d="M1360,478h-33.24l-22.62,11.92v16.3h10.55c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h20.63c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h3.52v-16.96l-6.64-11.26Z"/>
+            <circle class="fill-m-bg" cx="1356" cy="508" r="3.18"/>
+            <circle class="fill-m-bg" cx="1321.5" cy="508" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1378" y1="494.7" x2="1400" y2="494.7"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="1378" y1="505.4" x2="1394.2" y2="505.4"/>
+        </g>
+    </g>
+    <g class="hp-vehicle-to-right">
+        <g class="hp-scooter" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-53.7,527.5h29.5v16h6.81l-8.43-31h13.72l6.97,25.62c2.96,.89,5.12,3.63,5.12,6.88,0,3.96-3.22,7.18-7.18,7.18-3.08,0-5.71-1.95-6.73-4.68h-18.3c-1.02,2.73-3.64,4.68-6.73,4.68s-5.71-1.95-6.73-4.68h-8.02v-20Z"/>
+            <path class="fill-m-3" d="M-28.8,531.5v12h-3.73c-.69-3.24-3.58-5.68-7.02-5.68s-6.33,2.44-7.02,5.68h-3.73v-12h21.5Z"/>
+            <path class="fill-m-3" d="M-13.7,541.91l-6.91-25.41h5.42l5.88,21.63c-1.94,.59-3.53,1.98-4.4,3.78Z"/>
+            <circle class="fill-m-bg" cx="-38.9" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-7.2" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-61.2" y1="539.5" x2="-81.2" y2="539.5"/>
+        </g>
+        <g class="hp-truck" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-98,489.5h73.06v21.5h16.58l8.36,14.17v22.05h-7.64c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-50.87c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-12.17v-57.71Z"/>
+            <path class="fill-m-3" d="M-28.9,493.5v49.71h-43.11c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-8.05v-49.71h65.06Z"/>
+            <path class="fill-m-3" d="M-10.6,515l6.64,11.26v16.96h-3.52c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-3.52v-28.21h14.3Z"/>
+            <circle class="fill-m-bg" cx="-79" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-14.5" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-107" y1="523.36" x2="-131.5" y2="523.36"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-107" y1="535.36" x2="-121" y2="535.36"/>
+        </g>
+        <g class="hp-bus" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M0.25,521.84l-12.36-20.84h-125.64v46.21h11.67c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h87.34c.94,2.88,3.64,4.97,6.83,4.97s5.89-2.09,6.83-4.97h11.67v-25.37Z"/>
+            <path class="fill-m-3" d="M-14.6,505h-119.36v38.21h7.55c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h87.1c.8-3.1,3.61-5.4,6.95-5.4s6.15,2.3,6.95,5.4h7.55v-20.27l-10.64-17.94Z"/>
+            <circle class="fill-m-bg" cx="-18.5" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-119.5" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-147" y1="528.2" x2="-171.5" y2="528.2"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-147" y1="540.2" x2="-161" y2="540.2"/>
+        </g>
+        <g class="hp-car" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-70.5,525.17l8.36-14.17h36.51l25.63,13.51v22.71h-14.67c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-20.87c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-7.64v-22.05Z"/>
+            <path class="fill-m-3" d="M-59.9,515h33.24l22.62,11.92v16.3h-10.55c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-20.63c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-3.52v-16.96l6.64-11.26Z"/>
+            <circle class="fill-m-bg" cx="-21.5" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-56" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-78" y1="531.68" x2="-100" y2="531.68"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-78" y1="542.36" x2="-94.1" y2="542.36"/>
+        </g>
+        <g class="hp-truck" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-98,489.5h73.06v21.5h16.58l8.36,14.17v22.05h-7.64c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-50.87c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-12.17v-57.71Z"/>
+            <path class="fill-m-3" d="M-28.9,493.5v49.71h-43.11c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-8.05v-49.71h65.06Z"/>
+            <path class="fill-m-3" d="M-10.6,515l6.64,11.26v16.96h-3.52c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-3.52v-28.21h14.3Z"/>
+            <circle class="fill-m-bg" cx="-79" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-14.5" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-107" y1="523.36" x2="-131.5" y2="523.36"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-107" y1="535.36" x2="-121" y2="535.36"/>
+        </g>
+        <g class="hp-scooter" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-53.7,527.5h29.5v16h6.81l-8.43-31h13.72l6.97,25.62c2.96,.89,5.12,3.63,5.12,6.88,0,3.96-3.22,7.18-7.18,7.18-3.08,0-5.71-1.95-6.73-4.68h-18.3c-1.02,2.73-3.64,4.68-6.73,4.68s-5.71-1.95-6.73-4.68h-8.02v-20Z"/>
+            <path class="fill-m-3" d="M-28.8,531.5v12h-3.73c-.69-3.24-3.58-5.68-7.02-5.68s-6.33,2.44-7.02,5.68h-3.73v-12h21.5Z"/>
+            <path class="fill-m-3" d="M-13.7,541.91l-6.91-25.41h5.42l5.88,21.63c-1.94,.59-3.53,1.98-4.4,3.78Z"/>
+            <circle class="fill-m-bg" cx="-38.9" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-7.2" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-61.2" y1="539.5" x2="-81.2" y2="539.5"/>
+        </g>
+        <g class="hp-car" direction="to-right" style="transform-origin: 0 96.875%;">
+            <path class="fill-m" d="M-70.5,525.17l8.36-14.17h36.51l25.63,13.51v22.71h-14.67c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-20.87c-.94,2.88-3.64,4.97-6.83,4.97s-5.89-2.09-6.83-4.97h-7.64v-22.05Z"/>
+            <path class="fill-m-3" d="M-59.9,515h33.24l22.62,11.92v16.3h-10.55c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-20.63c-.8-3.1-3.61-5.4-6.95-5.4s-6.15,2.3-6.95,5.4h-3.52v-16.96l6.64-11.26Z"/>
+            <circle class="fill-m-bg" cx="-21.5" cy="545" r="3.18"/>
+            <circle class="fill-m-bg" cx="-56" cy="545" r="3.18"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-78" y1="531.68" x2="-100" y2="531.68"/>
+            <line class="stroke-s stroke-4 ani-line-dash" x1="-78" y1="542.36" x2="-94.1" y2="542.36"/>
+        </g>
+    </g>
+    <a target="_blank" href="{{ structures['news'][0]['items'][-1]['link'] }}">
+        <g class="hp-plane">
+            <g class="hp-plane-wo-text">
+                <rect class="fill-m" x="1434.6" y="34.1" width="27" height="4.5"/>
+                <g class="hp-plane-body" style="transform-origin: 98.158% 8.98%;">
+                    <rect class="hp-plane-blade fill-m" style="transform-origin: 87.88% 5.68%;" x="1300.4" y="8.9" width="4.5" height="47"/>
+                    <rect class="fill-m-bg" x="1300" y="28.9" width="6" height="7"/>
+                    <path class="fill-m" d="M1436.3,12.8h-11.8l-8.1,19.2l-20.1-3.4l-52-28.2l-9.8,17.7l-27.6-4.7v16.8h-6.8v4.5h6.8v16.5h11.3c-0.4,0.9-0.6,1.8-0.6,2.8c0,4,3.2,7.2,7.2,7.2s7.2-3.2,7.2-7.2c0-1-0.2-1.9-0.6-2.8h19.9l53.5,18.5h19.7l-21.6,-18.4h9.7c-0.2,0.6-0.3,1.2-0.3,1.8c0,3.5,2.8,6.2,6.2,6.2s6.2-2.8,6.2-6.2c0-0.6-0.1-1.2-0.3-1.8h11.4Z"/>
+                    <polygon class="fill-m-bg" points="1322.6,46.7 1311.4,46.7 1311.4,18.6 1322.6,20.5"/>
+                    <polygon class="fill-m-3" points="1346.1,6.4 1382.5,26.2 1339.1,18.8"/>
+                    <polygon class="fill-m-3" points="1419.2,37.1 1427.4,17.3 1431.8,17.3 1431.8,46.7 1398,46.7 1384.5,35.1 1337.9,35.1 1337.9,46.7 1327.1,46.7 1327.1,21.3"/>
+                    <polygon class="fill-m-3" points="1412.6,65.1 1405.8,65.1 1342.4,43.3 1342.4,39.6 1382.9,39.6"/>
+                    <circle class="fill-m-bg" cx="1418.9" cy="53" r="1.8"/>
+                    <circle class="fill-m-bg" cx="1324.9" cy="54" r="2.8"/>
+                </g>
+                <g class="hp-plane-text-wrapper" style="transform-origin: 100% 6.333%;">
+                    <rect class="hp-plane-text-box fill-m" x="1460.2" y="6.6" width="909" height="59"/>
+                    <rect class="hp-plane-text-bg fill-m-bg" x="1464.7" y="11.1" width="900" height="50"/>
+                </g>
+            </g>
+            <text class="hp-plane-text" x="1479.7" y="38.39" dominant-baseline="middle">
+                {{ structures['news'][0]['items'][-1]['title'] }}
+            </text>
+        </g>
+    </a>
+    <rect x="0" y="0" width="30" height="570" style="fill: url('#fade-in');"/>
+    <rect x="1270" y="0" width="31" height="570" style="fill: url('#fade-out');"/>
+    <g class="hp-rain-front"></g>
+</svg>

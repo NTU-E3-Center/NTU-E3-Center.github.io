@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="news">
+    <div class="section-title">
+        <h2>News</h2>
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </div>
+
+    {% for news in structures['news'] %}
+    <h3>{{ news['innerSectionTitle'] }}</h3>
+    <section class="publi-section">
+        <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
+
+        <div class="publi-block-wrapper">
+            {% for item in news['items'][::-1] %}
+            <div class="publi-block">
+                <div class="publi-date">
+                    <div class="publi-date-mm">{{ item['month'] }}</div>
+                    <div class="publi-date-yy">{{ item['year'] }}</div>
+                </div>
+
+                <div class="publi-info">
+                    {% if item['link'] %}
+                    <a class="publi-title-block" target="_blank" href="{{ item['link'] }}">
+                        <span class="publi-title">
+                            {{ item['title'] }}
+                        </span>
+                        
+                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    </a>
+                    {% else %}
+                    <a class="publi-title-block">
+                        <span class="publi-title">
+                            {{ item['title'] }}
+                        </span>
+                    </a>
+                    {% endif %}
+                    
+                    {% if item['subTitle'] %}
+                    <div class="publi-subtitle">
+                        {{ item['subTitle'] }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a class="publi-more skewed-block" href="/#news" b-role="btn" b-hoverable>
+            <svg><use href="/assets/sprite.svg#svg-arrow-left"></use></svg>
+            <div>Back to Home</div>
+        </a>
+    </section>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+<section id="contact-us">
+    <div class="section-title">
+        <h2>Contact Us</h2>
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </div>
+
+    {% for contact in structures['contact'] %}
+    <section class="tac-section">
+        <div class="tac-block">
+            <h3>{{ contact['sectionTitle'] }}</h3>
+            {% set articleVar = contact['article'].split('/')[-1].split('.')[0] %}
+            {{ articles[articleVar] }}
+        </div>
+    </section>
+    {% endfor %}
+</section>

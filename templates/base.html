@@ -1,0 +1,87 @@
+{% set defaultTitle = 'E3 Center - Directed by I-Yun Lisa Hsieh' %}
+{% set defaultCanonicalLink = 'http://e3group.caece.net/' %}
+{% set defaultDescription = 'Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research center, directed by Professor I-Yun Lisa Hsieh (謝依芸), is dedicated to overcoming the challenges of sustainable energy transition.' %}
+{% set defaultKeywords = 'I-Yun Lisa Hsieh, 謝依芸, E3 Center, e3, NTU, 台大, 台灣大學' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title if title is defined else defaultTitle }}</title>
+    <meta name="description" content="{{ description if description is defined else defaultDescription }}">
+    <meta name="keywords" content="{{ keywords if keywords is defined else defaultKeywords }}">
+
+    <link href="https://e3center.caece.net" rel="canonical" />
+
+    <meta property="og:url" content="{{ canonicalLink if canonicalLink is defined else defaultCanonicalLink }}" />
+    <meta property="og:title" content="{{ title if title is defined else defaultTitle }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
+    <meta property="og:description" content="{{ description if description is defined else defaultDescription }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="author" content="Yuan-Hsi Chien">
+    <meta name="robots" content="index, follow">
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+    <script defer src="/js/script.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    {% block headExtra %}{% endblock %} {# This is where the extra head content will be inserted #}
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% block content %}{% endblock %} {# This is where the main content will be inserted #}
+
+    {# Consistent layout #}
+    {% include 'partials/footer.html' %}
+    {% include 'partials/background.html' %}
+    {% include 'partials/img-modal.html' %}
+    {% include 'partials/to-top-btn.html' %}
+    {% include 'partials/menu.html' %}
+</body>
+</html>

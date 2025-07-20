@@ -1,0 +1,144 @@
+<section id="members">
+    <div class="section-title">
+        <h2>Members</h2>
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </div>
+
+    {% for members in structures['members'] %}
+    {% if members['form'] == 'L' %}
+    <h3>{{ members['sectionTitle'] }}</h3>
+    <section class="mem-section" who="{{ members['form'] }}">
+        {% for member in members['members'] %}
+        {% set imgPathFront = member['imgPath'].split('.')[0] %}
+        <div class="mem-block">
+            <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
+                <img
+                    loading="lazy" 
+                    src="{{ member['imgPath'] }}" 
+                    srcset="
+                        {{ imgPathFront }}-200w.webp 200w,
+                        {{ imgPathFront }}-400w.webp 400w,
+                        {{ imgPathFront }}-600w.webp 600w,
+                        {{ imgPathFront }}-800w.webp 800w
+                    "
+                    size="15rem"
+                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                    draggable="false"
+                />
+            </a>
+
+            <div class="mem-text">
+                <svg class="mem-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
+
+                <div class="mem-name">
+                    <div>{{ member['engName'] }}</div>
+                    <span>{{ member['chiName'] }}</span>
+                </div>
+
+                <p class="mem-info">
+                    {{ member['description'] }}
+                </p>
+
+                {% for btn in member['links'] %}
+                <a class="skewed-block" b-role="btn" b-hoverable href="{{ btn['link'] }}">
+                    <svg><use href="{{ btn['icon'] }}"></use></svg>
+                    <p>{{ btn['text'] }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    {% elif members['form'] == 'M' %}
+    <h3>{{ members['sectionTitle'] }}</h3>
+    <section class="mem-section" who="{{ members['form'] }}">
+        {% for member in members['members'] %}
+        {% set imgPathFront = member['imgPath'].split('.')[0] %}
+        <a class="mem-block" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
+            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+                <img
+                    loading="lazy" 
+                    src="{{ member['imgPath'] }}" 
+                    srcset="
+                        {{ imgPathFront }}-200w.webp 200w,
+                        {{ imgPathFront }}-400w.webp 400w,
+                        {{ imgPathFront }}-600w.webp 600w,
+                        {{ imgPathFront }}-800w.webp 800w
+                    "
+                    size="11rem"
+                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                    draggable="false"
+                />
+            </div>
+
+            <div class="mem-name">
+                <div class="mem-name-en">
+                    {{ member['engName'] }}
+                    <svg><use href="{{ member['icon'] }}"></use></svg>
+                </div>
+                <span class="mem-name-zh">
+                    {{ member['chiName'] }}
+
+                    {% if member['pageLink'] %}
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                    {% endif %}
+                </span>
+            </div>
+        </a>
+        {% endfor %}
+    </section>
+    {% elif members['form'] == 'S' %}
+    <h3>{{ members['sectionTitle'] }}</h3>
+    {% if members['filter'] %}
+    <div class="filter" where="{{ members['filterId'] }}">
+        <span class="filter-title">{{ members['filterTitle'] }}</span>
+        {% set ns = namespace(filterItems=[]) %}
+        {% for member in members['members'] %}
+            {% if member['admissionYear'] not in ns.filterItems %}
+                {% set ns.filterItems = ns.filterItems + [member['admissionYear']] %}
+            {% endif %}
+        {% endfor %}
+        {% for filterItem in ns.filterItems[::-1] %}
+        <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+            <input class="filter-checkbox" type="checkbox" where="{{ members['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= members['filterDefaultCheck'] %} checked{% endif %}/>
+            <div class="filter-label">
+                <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                {{ filterItem }}
+            </div>
+        </label>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <section class="mem-section" who="{{ members['form'] }}">
+        {% for member in members['members'][::-1] %}
+        {% set imgPathFront = member['imgPath'].split('.')[0] %}
+        <a class="mem-block filter-content" where="{{ members['filterId'] }}" data-value="{{ member['admissionYear']}}" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
+            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+                <img
+                    loading="lazy" 
+                    src="{{ member['imgPath'] }}" 
+                    srcset="
+                        {{ imgPathFront }}-200w.webp 200w,
+                        {{ imgPathFront }}-400w.webp 400w
+                    "
+                    size="5rem"
+                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                    draggable="false"
+                />
+            </div>
+
+            <div class="mem-name">
+                <div>{{ member['engName'] }}</div>
+                <span>
+                    {{ member['chiName'] }}
+                    {% if member['pageLink'] %}
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                    {% endif %}
+                </span>
+            </div>
+        </a>
+        {% endfor %}
+    {% endif %}
+    {% endfor %}
+</section>

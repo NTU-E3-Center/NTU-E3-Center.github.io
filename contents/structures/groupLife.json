@@ -1,0 +1,115 @@
+[
+    {
+        "sliderTitle": "Recent Photos",
+        "showInSlider": 10,
+        "sectionTitle": "All Photos",
+        "filter": true,
+        "filterId": "glf",
+        "filterTitle": "Filter by Year:",
+        "filterDefaultCheck": 3,
+        "items": [
+            {
+                "imgPath": "/assets/group-life/2020-1.png",
+                "description": "Prof. Hsieh’s first Teacher’s Day with her first graduate student David Chang.",
+                "year": "'20",
+                "month": "Sep."
+            },
+            {
+                "imgPath": "/assets/group-life/2020-2.png",
+                "description": "At the reception for the 2020 Chinese Institute of Transportation Annual Meeting at NCKU.",
+                "year": "'20",
+                "month": "Dec."
+            },
+            {
+                "imgPath": "/assets/group-life/2021-1.png",
+                "description": "The E3 Group after the first online group meeting during the COVID-19 pandemic.",
+                "year": "'21",
+                "month": "Oct."
+            },
+            {
+                "imgPath": "/assets/group-life/2021-2.png",
+                "description": "The E3 Group after a Christmas Party + Gift Exchange Game.",
+                "year": "'21",
+                "month": "Dec."
+            },
+            {
+                "imgPath": "/assets/group-life/2022-1.jpg",
+                "description": "The E3 Group Welcome and Farewell Gathering.",
+                "year": "'22",
+                "month": "Sep."
+            },
+            {
+                "imgPath": "/assets/group-life/2022-2.jpg",
+                "description": "Prof. Hsieh’s Teacher’s Day with her lovely E3 Group.",
+                "year": "'22",
+                "month": "Sep."
+            },
+            {
+                "imgPath": "/assets/group-life/2022-3.jpg",
+                "description": "The E3 Group pioneers graduation photos.",
+                "year": "'22",
+                "month": "Nov."
+            },
+            {
+                "imgPath": "/assets/group-life/2022-4.jpg",
+                "description": "The E3 Group after a Christmas Party + Gift Exchange Game.",
+                "year": "'22",
+                "month": "Dec."
+            },
+            {
+                "imgPath": "/assets/group-life/2023-1.jpg",
+                "description": "Graduation gifts for the E3 new graduates (R10).",
+                "year": "'23",
+                "month": "Aug."
+            },
+            {
+                "imgPath": "/assets/group-life/2023-2.jpg",
+                "description": "The E3 Group Welcome and Farewell Gathering.",
+                "year": "'23",
+                "month": "Aug."
+            },
+            {
+                "imgPath": "/assets/group-life/2023-3.jpg",
+                "description": "The E3 Group Workshop and Gathering.",
+                "year": "'23",
+                "month": "Dec."
+            },
+            {
+                "imgPath": "/assets/group-life/2024-1.jpg",
+                "description": "Celebrating Lisa's Promotion and E3 Group Homecoming.",
+                "year": "'24",
+                "month": "Aug."
+            },
+            {
+                "imgPath": "/assets/group-life/2024-2.jpg",
+                "description": "The E3 Group's grand Mid-Autumn Festival BBQ reunion.",
+                "year": "'24",
+                "month": "Sep."
+            },
+            {
+                "imgPath": "/assets/group-life/2024-3.jpg",
+                "description": "Prof. Hsieh’s Teacher’s Day with her fun/productive E3 Group.",
+                "year": "'24",
+                "month": "Sep."
+            },
+            {
+                "imgPath": "/assets/group-life/2024-4.jpg",
+                "description": "Team E3579 participates in the Department Running Event.",
+                "year": "'24",
+                "month": "Nov."
+            },
+            {
+                "imgPath": "/assets/group-life/2024-5.jpg",
+                "description": "The E3 Group's super fun Christmas & Year-End gathering.",
+                "year": "'24",
+                "month": "Dec."
+            },
+            {
+                "imgPath": "/assets/group-life/2025-1.jpg",
+                "description": "Farewell for Thomas Chien and Welcome Back Sean Shei lunch gathering.",
+                "year": "'25",
+                "month": "Mar."
+            }
+        ]
+    }
+]

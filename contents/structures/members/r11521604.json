@@ -1,0 +1,83 @@
+{
+    "engName": "Thomas",
+    "chiName": "簡元璽",
+    "chiNameEng": "Yuan-Hsi Chien",
+    "imgPath": "/assets/members/r11521604.jpg",
+    "studentId": "r11521604",
+    "admissionYear": "'22",
+    "graduated": true,
+    "pageLink": "/members/r11521604",
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-hat-master-graduated"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-honor",
+                "text": "Creator of Website"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-hash",
+                "text": "r11521604"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-send-g",
+                "text": "hsi@caece.net",
+                "link": "mailto:hsi@caece.net"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-arrow-top-right",
+                "text": "Personal Website",
+                "link": "https://dobahsi.github.io"
+            }
+        ],
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members/r11521604.md"
+            }
+        ],
+        "researchSection": [
+            {
+                "sectionTitle": "Research Topics",
+                "topics": ["bss-v2g"]
+            }
+        ],
+        "PublicationSection": [
+            {
+                "sectionTitle": "Journal Publications",
+                "publications": ["tUbPb-QAAAAJ:hqOjcs7Dif8C", "tUbPb-QAAAAJ:QIV2ME_5wuYC", "tUbPb-QAAAAJ:mVmsd5A6BfQC"]
+            },
+            {
+                "sectionTitle": "Conference Publications",
+                "manual": true,
+                "publications": [
+                    {
+                        "title": "The 104th Transportation Research Board (TRB) Annual Meeting",
+                        "subTitle": "Washington, DC.",
+                        "year": 2025,
+                        "month": "Jan."
+                    },
+                    {
+                        "title": "The 104th Transportation Research Board (TRB) Annual Meeting",
+                        "subTitle": "Washington, DC.",
+                        "year": 2025,
+                        "month": "Jan."
+                    },
+                    {
+                        "title": "The 104th Transportation Research Board (TRB) Annual Meeting",
+                        "subTitle": "Washington, DC.",
+                        "year": 2025,
+                        "month": "Jan."
+                    },
+                    {
+                        "title": "The 104th Transportation Research Board (TRB) Annual Meeting",
+                        "subTitle": "Washington, DC.",
+                        "year": 2025,
+                        "month": "Jan."
+                    }
+                ]
+            }
+        ]
+    }
+}
