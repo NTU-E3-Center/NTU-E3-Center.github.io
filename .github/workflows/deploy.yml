@@ -51,3 +51,4 @@ jobs:
           
           # The branch you want to deploy to.
           publish_branch: gh-pages
+          publish_dir: ./docs
