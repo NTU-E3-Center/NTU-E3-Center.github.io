@@ -1,0 +1,24 @@
+<svg class="res-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 138">
+    <polygon class="fill-m-light" points="0 116.5 41.49 116.5 41.49 95.5 48.99 95.5 48.99 43 41.49 43 41.49 20.5 55.98 20.5 39.25 0 0 0 0 116.5"/>
+    <rect class="fill-house-light" x="33.99" y="47.5" width="10.5" height="43.5"/>
+    <polygon class="fill-house-dark" points="0 112 36.99 112 36.99 95.5 29.49 95.5 29.49 43 36.99 43 36.99 20.5 0 20.5 0 112"/>
+    <polygon class="fill-house-dark" points="0 16 46.5 16 33.44 0 0 0 0 16"/>
+    <rect class="fill-m" x="-3" y="115" width="200" height="3"/>
+    <rect class="fill-m" x="37.39" y="38.75" width="89.47" height="1" transform="translate(-7.78 25.03) rotate(-16.56)"/>
+    <rect class="fill-m" x="81.62" y="29.74" width="1" height="91.02" transform="translate(-16.3 127.41) rotate(-70.42)"/>
+    <circle class="fill-m" cx="125" cy="58.5" r="35"/>
+    <circle class="fill-m-bg" cx="125" cy="58.5" r="34"/>
+    <circle class="fill-m" cx="125" cy="58.5" r="32"/>
+    <circle class="fill-m-3" cx="125" cy="58.5" r="29"/>
+    <polygon class="fill-m" points="127.53 82.31 123.3 80.97 125.29 74.72 118.64 74.72 122.47 62.69 126.7 64.03 124.71 70.28 131.36 70.28 127.53 82.31"/>
+    <polygon class="fill-m" points="143.5 42 106.5 42 106.5 58 143.5 58 143.5 42 143.5 42"/>
+    <polyline class="fill-m-bg" points="142.5 43 142.5 57 107.5 57 107.5 43 142.5 43"/>
+    <polygon class="fill-m" points="117.75 54 111.25 54 111.25 49 115.75 49 115.75 48 111.25 48 111.25 46 117.75 46 117.75 51 113.25 51 113.25 52 117.75 52 117.75 54"/>
+    <polygon class="fill-m" points="128.25 54 121.75 54 121.75 52 126.25 52 126.25 51 121.75 51 121.75 46 128.25 46 128.25 48 123.75 48 123.75 49 128.25 49 128.25 54"/>
+    <path class="fill-m" d="M138.75,54h-6.5v-8h6.5v2h-4.5v1h4.5v5Zm-4.5-2h2.5v-1h-2.5v1Z"/>
+    <circle class="fill-m" cx="39.24" cy="56" r="7"/>
+    <circle class="fill-m-bg" cx="39.24" cy="56" r="6"/>
+    <circle class="fill-m" cx="39.24" cy="56" r="4"/>
+    <circle class="fill-m-3" cx="39.24" cy="56" r="3"/>
+    <polygon class="fill-m" points="39.77 58.06 38.89 57.78 39.3 56.46 37.91 56.46 38.71 53.94 39.6 54.22 39.18 55.54 40.58 55.54 39.77 58.06"/>
+</svg>

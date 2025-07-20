@@ -1,0 +1,15 @@
+<svg class="res-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 138">
+    <rect class="fill-m" x="-3" y="115" width="200" height="3"/>
+    <g class="ani-vehicle-vibrate">
+        <path class="fill-m" d="M136.06,85.83l-28.4-14.96h-40.46l-9.26,15.7v24.43h8.5c1.04,3.18,4.01,5.51,7.53,5.51s6.49-2.32,7.53-5.51h23.2c1.04,3.18,4,5.51,7.53,5.51s6.49-2.32,7.53-5.51h16.29v-25.17Z"/>
+        <path class="fill-m-3" d="M106.57,75.3h-36.83l-7.36,12.47v18.79h3.92c.89-3.43,3.98-5.98,7.68-5.98s6.79,2.55,7.68,5.98h22.9c.89-3.43,3.98-5.98,7.68-5.98s6.8,2.55,7.68,5.98h11.71v-18.06l-25.06-13.21Z"/>
+        <path class="fill-m-bg" d="M73.97,105.01c-1.95,0-3.53,1.58-3.53,3.53s1.58,3.53,3.53,3.53,3.53-1.58,3.53-3.53-1.58-3.53-3.53-3.53Z"/>
+        <path class="fill-m-bg" d="M112.24,105.01c-1.95,0-3.53,1.58-3.53,3.53s1.58,3.53,3.53,3.53,3.53-1.58,3.53-3.53-1.58-3.53-3.53-3.53Z"/>
+        <line class="stroke-s stroke-3 ani-line-dash" x1="53.29" y1="104.05" x2="42.29" y2="104.05"/>
+        <line class="stroke-s stroke-3 ani-line-dash" x1="53.29" y1="98.55" x2="38.79" y2="98.55"/>
+    </g>
+    <g class="ani-arrow">
+        <polyline class="stroke-s stroke-3 ani-arrow-line" points="131.8 45 145.53 29 159.27 33 173 17"/>
+        <polyline class="stroke-s stroke-3 ani-arrow-head" points="160.83 18.45 173 17.06 174.28 28.28"/>
+    </g>
+</svg>

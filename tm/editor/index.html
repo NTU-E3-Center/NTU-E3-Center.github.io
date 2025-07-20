@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>圖片裁切與下載</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+
+<input type="file" id="upload" accept="image/*">
+<div id="cropModal" style="display:none;">
+    <img id="image" style="max-width:100%;">
+    <button id="crop">確認裁切</button>
+</div>
+<img id="preview" style="max-width: 100%;"/>
+<button id="download">下載裁切後的圖片</button>
+
+<script>
+let cropper;
+document.getElementById('upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('cropModal').style.display = 'block';
+            document.getElementById('image').src = e.target.result;
+            cropper = new Cropper(document.getElementById('image'), {
+                aspectRatio: 1 / 1
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('crop').addEventListener('click', function() {
+    cropper.getCroppedCanvas().toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        document.getElementById('preview').src = url;
+        
+        // Prepare for download
+        document.getElementById('download').onclick = function() {
+            const zip = new JSZip();
+            zip.file("croppedImage.png", blob);
+            zip.generateAsync({type:"blob"}).then(function(content) {
+                saveAs(content, "croppedImage.zip");
+            });
+        };
+
+        document.getElementById('cropModal').style.display = 'none';
+    });
+});
+</script>
+</body>
+</html>

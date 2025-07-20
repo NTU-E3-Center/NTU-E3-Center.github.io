@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set defaultTitle = 'E3 Group - Directed by I-Yun Lisa Hsieh' %}
+    <title>{{ title if title is defined else defaultTitle }}</title>
+    <meta name="description" content="Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research group, directed by Professor I-Yun Lisa Hsieh (謝依芸), is dedicated to overcoming the challenges of sustainable energy transition.">
+    <meta name="keywords" content="I-Yun Lisa Hsieh, 謝依芸, E3 Group, e3, NTU, 台大, 台灣大學">
+    {% set defaultCanonicalLink = 'http://e3group.caece.net/' %}
+    <link href="{{ cononicalLink if cononicalLink is defined else defaultCanonicalLink }}" rel="canonical" />
+
+    <meta property="og:url" content="{{ cononicalLink if cononicalLink is defined else defaultCanonicalLink }}" />
+    <meta property="og:title" content="{{ title if title is defined else defaultTitle }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://e3group.caece.net/assets/image/og-image-1200x630.png" />
+    <meta property="og:description" content="Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research group, is dedicated to overcoming the challenges of sustainable energy transition." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Group" />
+
+    <meta name="author" content="Yuan-Hsi Chien">
+    <meta name="robots" content="index, follow">
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="preload" as="style">
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- js -->
+    {% if isHomePage %}
+    <script defer src="/js/script.js"></script>
+    {% endif %}
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- extras -->
+    {% block headExtra %}{% endblock %}
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+        
+    {% block content %}
+    <main>
+        <section id="news">
+            <div class="section-title">
+                <h2>News</h2>
+                <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+            </div>
+
+            <h3>Archived News</h3>
+            <section class="pub-section">
+                <svg class="pub-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
+
+                <div class="pub-block-wrapper">
+                    {% for news in newsList %}
+                    <div class="pub-block">
+                        <div class="pub-date">
+                            <div class="pub-date-mm">{{news.month}}</div>
+                            <div class="pub-date-yy">'{{news.year}}</div>
+                        </div>
+
+                        <div class="pub-info">
+                            <a class="pub-title-block"  target="_blank" href="{{news.link}}">
+                                <span class="pub-title">
+                                    {{news.title}}
+                                </span>
+                                
+                                <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </section>
+    </main>
+    {% endblock %}
+</body>
+</html>

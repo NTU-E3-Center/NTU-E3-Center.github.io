@@ -1,0 +1,83 @@
+:root {
+    --main-color: #0a557e;
+    --main-shadow-color: #0a557ebb;
+    --main-bg-color: #fcfcff;
+    --main-color-2: #4caedd;
+    --main-color-3: #badcea;
+    --secondary-color: #c4c691;
+    --page-bg: #f7fafb;
+
+    /* --main-color: #8fcdff;
+    --main-bg-color: #1a1c1e;
+    --main-color-2: #4caedd;
+    --main-color-3: #badcea;
+    --secondary-color: #5e6300; */
+
+
+    --r-red: #db7476;
+    --r-orange: #ed8c37;
+    --r-yellow: #f5a936;
+    --r-green: #51a885;
+    --r-blue: #267a9e;
+    --r-indigo: #5f739d;
+    --r-purple: #986b9b;
+
+
+    --selection-color: #0a557edd;
+
+}
+
+.fill-101-top {fill: var(--r-yellow);}
+.fill-m {fill: var(--main-color);}
+.fill-m-bg {fill: var(--main-bg-color);}
+.fill-m-2 {fill: var(--main-color-2);}
+.fill-m-3 {fill: var(--main-color-3);}
+.fill-s {fill: var(--secondary-color);}
+
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    --_lw: 0.1875rem;
+
+    position: relative;
+    width: 960px;
+    height: 600px;
+    border-radius: 0.5rem;
+    border: 2px solid var(--main-color);
+    box-shadow: 0.5rem 0.5rem var(--main-shadow-color);
+    overflow: hidden;
+}
+
+.vehicles {
+    position: absolute;
+    top: 25rem;
+    /* right: 0; */
+    translate: -100% -100%;
+    /* transition: 2s linear; */
+    /* outline: 1px solid red; */
+    /* animation: vehicle-vibrate 1s linear infinite; */
+}
+
+@keyframes vehicle-vibrate {
+    0% {
+        transform: translateY(0%);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+.hp-v-stroke {
+    stroke: var(--main-color);
+    stroke-width: var(--_lw);
+    /* stroke-dasharray: 0 100%; */
+    /* stroke-dashoffset: 5; */
+    transition: 0.8s;
+}

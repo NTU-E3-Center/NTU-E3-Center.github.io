@@ -1,0 +1,32 @@
+<svg class="res-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 138" width="11.625rem">
+    <g>
+        <g>
+            <circle cx="93" cy="69" r="30.5" style="fill: #fff;"/>
+            <path d="M93,40c15.99,0,29,13.01,29,29s-13.01,29-29,29-29-13.01-29-29,13.01-29,29-29m0-3c-17.67,0-32,14.33-32,32s14.33,32,32,32,32-14.33,32-32-14.33-32-32-32h0Z" style="fill: #0a557e;"/>
+        </g>
+        <polyline points="88 75 98 75 98 69 88 69 88 63 98 63" style="fill: none; stroke: #0a557e; stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 2px;"/>
+        <line x1="93.24" y1="63" x2="93.24" y2="59" style="fill: none; stroke: #0a557e; stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 2px;"/>
+        <line x1="93.24" y1="79.46" x2="93.24" y2="75.46" style="fill: none; stroke: #0a557e; stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 2px;"/>
+    </g>
+    <g>
+        <g>
+            <path d="M120,72h18v18c0,9.93-8.07,18-18,18h0c-9.93,0-18-8.07-18-18h0c0-9.93,8.07-18,18-18Z" style="fill: #fff;"/>
+            <path d="M135,75v15c0,8.27-6.73,15-15,15s-15-6.73-15-15,6.73-15,15-15h15m3-3h-18c-9.94,0-18,8.06-18,18s8.06,18,18,18,18-8.06,18-18v-18h0Z" style="fill: #c2c48f;"/>
+        </g>
+        <rect x="94.86" y="99.5" width="28.28" height="3" transform="translate(-39.49 106.66) rotate(-45)" style="fill: #c2c48f;"/>
+    </g>
+    <g>
+        <g>
+            <path d="M142.92,31h11.08v11.08c0,6.11-4.96,11.08-11.08,11.08h0c-6.11,0-11.08-4.96-11.08-11.08h0c0-6.11,4.96-11.08,11.08-11.08Z" style="fill: #fff;"/>
+            <path d="M151.5,33.5v8.58c0,4.73-3.85,8.58-8.58,8.58s-8.58-3.85-8.58-8.58,3.85-8.58,8.58-8.58h8.58m2.5-2.5h-11.08c-6.12,0-11.08,4.96-11.08,11.08h0c0,6.12,4.96,11.08,11.08,11.08s11.08-4.96,11.08-11.08v-11.08h0Z" style="fill: #c2c48f;"/>
+        </g>
+        <rect x="127.45" y="47.6" width="17.41" height="2.5" transform="translate(5.34 110.58) rotate(-45)" style="fill: #c2c48f;"/>
+        </g>
+        <g>
+        <g>
+            <path d="M48.69,79h8.31v8.31c0,4.59-3.72,8.31-8.31,8.31h0c-4.59,0-8.31-3.72-8.31-8.31h0c0-4.59,3.72-8.31,8.31-8.31Z" style="fill: #fff;"/>
+            <path d="M55,81v6.31c0,3.48-2.83,6.31-6.31,6.31s-6.31-2.83-6.31-6.31,2.83-6.31,6.31-6.31h6.31m2-2h-8.31c-4.59,0-8.31,3.72-8.31,8.31s3.72,8.31,8.31,8.31,8.31-3.72,8.31-8.31v-8.31h0Z" style="fill: #c2c48f;"/>
+        </g>
+        <rect x="37.09" y="91.38" width="13.05" height="2" transform="translate(-52.55 57.9) rotate(-45)" style="fill: #c2c48f;"/>
+        </g>
+</svg>

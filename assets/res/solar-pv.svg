@@ -1,0 +1,34 @@
+<svg class="res-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 254 206" style="--_svg-width: 15.875rem;">
+    <rect class="fill-m" x="31" y="149" width="192" height="3"/>
+    <polyline class="stroke-s stroke-3" points="172.71 143.76 187.71 143.76 187.71 161.76 220 161.76"/>
+    <polyline class="stroke-s-light stroke-3 ani-energy-through" points="172.71 143.76 187.71 143.76 187.71 161.76 220 161.76"/>
+    <g class="ani-pv-panel">
+        <polygon class="fill-m" points="187.58 85.69 88.89 85.69 87.58 93.2 77.29 93.2 66.42 155.5 167.36 155.5 167.36 155.5 175.4 155.5 187.58 85.69"/>
+        <polygon class="fill-m-bg" points="92.62 90.12 92.08 93.2 178.24 93.2 168.14 151.07 171.67 151.07 182.31 90.12 92.62 90.12"/>
+        <polygon class="fill-m-3" ani-wave="1" points="107.53 97.63 105.01 112.16 78.48 112.16 81.02 97.63 107.53 97.63"/>
+        <polygon class="fill-m-3" ani-wave="2" points="109.51 112.16 112.03 97.63 141.88 97.63 139.36 112.16 109.51 112.16"/>
+        <polygon class="fill-m-3" ani-wave="3" points="143.86 112.16 146.38 97.63 172.96 97.63 170.43 112.16 143.86 112.16"/>
+        <polygon class="fill-m-3" ani-wave="2" points="101.56 132.11 75 132.11 77.71 116.59 104.25 116.59 101.56 132.11"/>
+        <polygon class="fill-m-3" ani-wave="3" points="106.06 132.11 108.74 116.59 138.6 116.59 135.91 132.11 106.06 132.11"/>
+        <polygon class="fill-m-3" ani-wave="4" points="143.1 116.59 169.65 116.59 166.95 132.11 140.41 132.11 143.1 116.59"/>
+        <polygon class="fill-m-3" ani-wave="3" points="74.23 136.54 100.79 136.54 98.28 151.07 71.69 151.07 74.23 136.54"/>
+        <polygon class="fill-m-3" ani-wave="4" points="135.15 136.54 132.63 151.07 102.78 151.07 105.29 136.54 135.15 136.54"/>
+        <polygon class="fill-m-3" ani-wave="5" points="137.13 151.07 139.64 136.54 166.17 136.54 163.64 151.07 137.13 151.07"/>
+    </g>
+    <g class="ani-rotate-360" style="transform-origin: 16.1% 19.9%;">
+        <rect class="fill-s" x="39.5" y="71" width="3" height="10"/>
+        <rect class="fill-s" x="18.5" y="69.81" width="10" height="3" transform="translate(-50.01 56) rotate(-60)"/>
+        <rect class="fill-s" x="5.69" y="57" width="10" height="3" transform="translate(-27.82 13.18) rotate(-30)"/>
+        <rect class="fill-s" x="1" y="39.5" width="10" height="3"/>
+        <rect class="fill-s" x="9.19" y="18.5" width="3" height="10" transform="translate(-15.01 21.01) rotate(-60)"/>
+        <rect class="fill-s" x="22" y="5.69" width="3" height="10" transform="translate(-2.2 13.18) rotate(-30)"/>
+        <rect class="fill-s" x="39.5" y="1" width="3" height="10"/>
+        <rect class="fill-s" x="53.5" y="9.19" width="10" height="3" transform="translate(19.99 56) rotate(-60)"/>
+        <rect class="fill-s" x="66.31" y="22" width="10" height="3" transform="translate(-2.19 38.81) rotate(-30)"/>
+        <rect class="fill-s" x="71" y="39.5" width="10" height="3"/>
+        <rect class="fill-s" x="69.81" y="53.5" width="3" height="10" transform="translate(-15.01 91.01) rotate(-60)"/>
+        <rect class="fill-s" x="57" y="66.32" width="3" height="10" transform="translate(-27.82 38.81) rotate(-30)"/>
+        <circle class="fill-s" cx="41" cy="41" r="25"/>
+        <circle class="fill-m-bg" cx="41" cy="41" r="22"/>
+    </g>
+</svg>
