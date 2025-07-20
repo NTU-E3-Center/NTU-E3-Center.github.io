@@ -2,4 +2,4 @@ Housed in the Department of Civil Engineering at National Taiwan University (NTU
 
 Starting with electric mobility, our research has grown to encompass a wide range of energy systems, including renewable energy, smart grid management, green logistics, and hydrogen energy economics. We also address broader societal issues such as carbon pricing and green finance, all to support a just and sustainable transition to new energy solutions.
 
-[JOIN US](/#contact-us) on this journey to create a future that is not only cleaner and smarter but also more equitable and resilient!!
+[JOIN US](/#contact-us) on this journey to create a future that is not only cleaner and smarter but also more equitable and resilient!
