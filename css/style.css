@@ -876,7 +876,7 @@
             
             & > * {opacity: 0.2;}
 
-            & [data-check="true"] {opacity: 1;}
+            & [data-check="True"] {opacity: 1;}
         }
     }
 
@@ -1203,7 +1203,7 @@
             --_width: 0.625rem;
             --_margin-inline-start: 0.25rem;
         }
-        svg:has(use[href*="#svg-arrow-right"]) {
+        svg:has(use[href*="#svg-arrow-right"]), svg:has(use[href*="#svg-arrow-left"]) {
             --_hover-translate: 0.125rem 0;
             --_width: 0.75rem;
             --_margin-inline-start: 0.3125rem;

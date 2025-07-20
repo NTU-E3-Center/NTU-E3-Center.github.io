@@ -1,31 +1,4 @@
 // * high priority
-// update last update time
-function updateLastUpdateTime() {
-    const repo = 'NTU-E3-Center/NTU-E3-Center.github.io';
-    const commitsApiUrl = `https://api.github.com/repos/${repo}/commits`;
-    
-    fetch(commitsApiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const lastCommitDate = data[0].commit.committer.date;
-            // if you want to get the last commit message
-            // const lastCommitMessage = data[0].commit.message;
-        
-            const yyyy = new Date(lastCommitDate).getFullYear();
-            const mm = String(new Date(lastCommitDate).getMonth()+1).padStart(2, '0');
-            const dd = String(new Date(lastCommitDate).getDate()).padStart(2, '0');
-        
-            const hh = String(new Date(lastCommitDate).getHours()).padStart(2, '0');
-            const min = String(new Date(lastCommitDate).getMinutes()).padStart(2, '0');
-        
-            const hpLastUpdateTime = document.querySelector('.hp-last-update-time');
-            hpLastUpdateTime.innerHTML = `${yyyy}.${mm}.${dd}  ${hh}:${min}`;
-        })
-        .catch(error => console.error('Error fetching Github commit data:', error));
-};
-updateLastUpdateTime();
-
-// * high priority
 // change Taipei 101 top color
 function change101Top() {
     const colorArray = ['--r-red', '--r-orange', '--r-yellow', '--r-green', '--r-blue', '--r-indigo', '--r-purple'];

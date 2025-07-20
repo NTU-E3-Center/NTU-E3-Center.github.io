@@ -354,13 +354,13 @@ body {
     z-index: -99;
     animation: body-bg-pan calc(3 * var(--ani-time)) linear infinite;
 }
-.body-bg-1 {background-image: url('/assets/i/body-bg-1.svg');}
+.body-bg-1 {background-image: url('/assets/images/body-bg-1.svg');}
 .body-bg-2 {
-    background-image: url('/assets/i/body-bg-2.svg');
+    background-image: url('/assets/images/body-bg-2.svg');
     animation-delay: calc(-1 * var(--ani-time));
 }
 .body-bg-3 {
-    background-image: url('/assets/i/body-bg-3.svg');
+    background-image: url('/assets/images/body-bg-3.svg');
     animation-delay: calc(-2 * var(--ani-time));
 }
 @keyframes body-bg-pan {
