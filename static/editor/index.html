@@ -6,6 +6,10 @@
     <title>Editors Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- JSZip for creating ZIP files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- FileSaver.js for saving files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -282,7 +286,8 @@
 <body class="bg-gray-100 p-4 sm:p-6">
     <div class="tab-container">
         <nav class="tab-buttons">
-            <button class="tab-button active" data-tab="about-editor-content">About</button>
+            <button class="tab-button active" data-tab="welcome-editor-content">Instructions</button>
+            <button class="tab-button" data-tab="about-editor-content">About</button>
             <button class="tab-button" data-tab="members-editor-content">Members</button>
             <button class="tab-button" data-tab="research-editor-content">Research</button>
             <button class="tab-button" data-tab="publications-editor-content">Publications</button>
@@ -291,7 +296,49 @@
             <button class="tab-button" data-tab="contact-editor-content">Contact</button>
         </nav>
 
-        <div id="about-editor-content" class="tab-content">
+        <div id="welcome-editor-content" class="tab-content">
+            <div class="container">
+                <header class="header">
+                    <h1>Welcome to the Editor Dashboard!</h1>
+                    <p>Your central hub for managing website content.</p>
+                </header>
+
+                <div class="prose max-w-none">
+                    <h2 class="text-xl font-semibold mb-4">How to Use This Editor:</h2>
+                    <p class="mb-4">This dashboard allows you to easily update various sections of your website. Each tab corresponds to a different data type. When you make changes within a tab, the corresponding JSON file will be marked as "dirty" (modified) and will be included in the exported ZIP file.</p>
+
+                    <h3 class="text-lg font-medium mb-2">General Controls:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>Tabs:</strong> Navigate between different content sections (About, Members, Research, etc.) using the tabs at the top.</li>
+                        <li><strong>Expand/Collapse Sections:</strong> Click on the header of any content card (e.g., "Member 1", "Research Topic") to expand or collapse its details.</li>
+                        <li><strong>Input Fields:</strong> Directly edit text, URLs, and other data in the provided input fields. Changes are saved internally as you type.</li>
+                        <li><strong>Add/Remove Buttons:</strong> Use the "Add New..." buttons to add new sections or items within a section. Use "Remove" buttons to delete them.</li>
+                        <li><strong>Drag and Drop (Members & Research):</strong> Reorder members within a section or research topics within a section by dragging and dropping their cards.</li>
+                    </ul>
+
+                    <h3 class="text-lg font-medium mb-2">Exporting Your Changes:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>Export Individual JSON:</strong> Each content tab has an "Export [Section Name] JSON" button. Clicking this will download only the JSON file for that specific section, regardless of whether it was modified.</li>
+                        <li><strong>Export All Data as ZIP:</strong> The main "Export All Data as ZIP" button at the bottom of the page will generate a `structures.zip` file. This ZIP file will *only* include the JSON files for sections you have modified during your current session. This ensures you only export what's changed.</li>
+                    </ul>
+
+                    <h3 class="text-lg font-medium mb-2">Specific Tab Functions:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>About:</strong> Manage general information about the center, including article paths and sponsor logos.</li>
+                        <li><strong>Members:</strong> Organize team members into sections (Principal Investigator, Students, Alumni) and edit their details. Supports different forms for different member types and a filter for alumni.</li>
+                        <li><strong>Research:</strong> Define ongoing research topics, including tags (bigTags, smallTags) and associated fields (Energy, Economics, Environment).</li>
+                        <li><strong>Publications:</strong> List journal publications with citation details, links, and authors. You can also specify how many recent publications to show on the homepage.</li>
+                        <li><strong>News:</strong> Add news items with titles, links, and dates. Configure how many recent news items appear on the homepage.</li>
+                        <li><strong>Group Life:</strong> Showcase photos and events from group activities, with descriptions and dates. Includes options for a slider and year-based filtering.</li>
+                        <li><strong>Contact:</strong> Manage contact information and associated article paths.</li>
+                    </ul>
+
+                    <p class="mt-6 text-sm text-gray-600">Remember to export your changes regularly to save your work!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-editor-content" class="tab-content hidden">
             <div class="container">
                 <header class="header">
                     <h1>About Editor</h1>
@@ -482,6 +529,13 @@
         </div>
     </div>
 
+    <button id="export-all-json-zip" class="action-button w-full max-w-md mx-auto mt-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+        Export All Data as ZIP
+    </button>
+
     <script>
         let membersData = [];
         let aboutData = [];
@@ -490,6 +544,42 @@
         let newsData = [];
         let groupLifeData = [];
         let contactData = [];
+
+        // Dirty flags to track modifications
+        let isMembersDataDirty = false;
+        let isAboutDataDirty = false;
+        let isResearchDataDirty = false;
+        let isPublicationsDataDirty = false;
+        let isNewsDataDirty = false;
+        let isGroupLifeDataDirty = false;
+        let isContactDataDirty = false;
+
+        // Function to mark a specific data type as dirty
+        function markDataDirty(dataType) {
+            switch (dataType) {
+                case 'members':
+                    isMembersDataDirty = true;
+                    break;
+                case 'about':
+                    isAboutDataDirty = true;
+                    break;
+                case 'research':
+                    isResearchDataDirty = true;
+                    break;
+                case 'publications':
+                    isPublicationsDataDirty = true;
+                    break;
+                case 'news':
+                    isNewsDataDirty = true;
+                    break;
+                case 'groupLife':
+                    isGroupLifeDataDirty = true;
+                    break;
+                case 'contact':
+                    isContactDataDirty = true;
+                    break;
+            }
+        }
 
         // Elements for Members Editor
         const sectionsContainer = document.getElementById('sections-container');
@@ -511,7 +601,7 @@
 
         // Elements for Publications Editor
         const publicationsSectionsContainer = document.getElementById('publications-sections-container');
-        const addPublicationSectionButton = document = document.getElementById('add-new-publication-section');
+        const addPublicationSectionButton = document.getElementById('add-new-publication-section');
         const exportPublicationsJsonButton = document.getElementById('export-publications-json');
         const publicationsLoadingIndicator = document.getElementById('publications-loading-indicator');
 
@@ -532,6 +622,9 @@
         const addContactSectionButton = document.getElementById('add-new-contact-section');
         const exportContactJsonButton = document.getElementById('export-contact-json');
         const contactLoadingIndicator = document.getElementById('contact-loading-indicator');
+
+        // New Export All Button
+        const exportAllJsonZipButton = document.getElementById('export-all-json-zip');
 
 
         // Tab system elements
@@ -700,6 +793,7 @@
                     if (targetSectionIndex === draggedMemberSectionIndex) {
                         const draggedItem = membersData[draggedMemberSectionIndex].members.splice(draggedMemberIndex, 1)[0];
                         membersData[targetSectionIndex].members.splice(targetMemberIndex, 0, draggedItem);
+                        markDataDirty('members'); // Mark dirty on drag and drop reorder
                         renderAllMemberSections(); // Re-render to update the order
                     }
                 }
@@ -784,27 +878,33 @@
 
             sectionCard.querySelector(`#sectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 membersData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('members');
             });
 
             const formSelect = sectionCard.querySelector(`#form-${sectionIndex}`);
             formSelect.addEventListener('change', (event) => {
                 membersData[sectionIndex].form = event.target.value;
                 membersData[sectionIndex].members = [];
+                markDataDirty('members');
                 renderAllMemberSections();
             });
 
             if (section.form === 'S') {
                 sectionCard.querySelector(`#filter-${sectionIndex}`).addEventListener('change', (event) => {
                     membersData[sectionIndex].filter = event.target.checked;
+                    markDataDirty('members');
                 });
                 sectionCard.querySelector(`#filterId-${sectionIndex}`).addEventListener('input', (event) => {
                     membersData[sectionIndex].filterId = event.target.value;
+                    markDataDirty('members');
                 });
                 sectionCard.querySelector(`#filterTitle-${sectionIndex}`).addEventListener('input', (event) => {
                     membersData[sectionIndex].filterTitle = event.target.value;
+                    markDataDirty('members');
                 });
                 sectionCard.querySelector(`#filterDefaultCheck-${sectionIndex}`).addEventListener('input', (event) => {
                     membersData[sectionIndex].filterDefaultCheck = parseInt(event.target.value) || 0;
+                    markDataDirty('members');
                 });
             }
 
@@ -830,6 +930,7 @@
                         engNameInput.addEventListener('input', (event) => {
                             membersData[sectionIndex].members[currentMemberIndex].engName = event.target.value;
                             memberElem.querySelector('.member-header h3').textContent = `${membersData[sectionIndex].members[currentMemberIndex].engName || 'New Member'} (${membersData[sectionIndex].members[currentMemberIndex].chiName || '新成員'})`;
+                            markDataDirty('members');
                         });
                     }
 
@@ -838,6 +939,7 @@
                         chiNameInput.addEventListener('input', (event) => {
                             membersData[sectionIndex].members[currentMemberIndex].chiName = event.target.value;
                             memberElem.querySelector('.member-header h3').textContent = `${membersData[sectionIndex].members[currentMemberIndex].engName || 'New Member'} (${membersData[sectionIndex].members[currentMemberIndex].chiName || '新成員'})`;
+                            markDataDirty('members');
                         });
                     }
 
@@ -845,6 +947,7 @@
                     if (imgPathInput) {
                         imgPathInput.addEventListener('input', (event) => {
                             membersData[sectionIndex].members[currentMemberIndex].imgPath = event.target.value;
+                            markDataDirty('members');
                         });
                     }
 
@@ -853,6 +956,7 @@
                         if (descriptionTextarea) {
                             descriptionTextarea.addEventListener('input', (event) => {
                                 membersData[sectionIndex].members[currentMemberIndex].description = event.target.value;
+                                markDataDirty('members');
                             });
                         }
 
@@ -860,23 +964,25 @@
                         if (linksContainer) {
                             linksContainer.querySelectorAll('.link-item').forEach(linkItemElem => {
                                 const currentLinkIndex = parseInt(linkItemElem.dataset.linkIndex);
-                                // FIX: Changed memberIndex to currentMemberIndex and linkIndex to currentLinkIndex
                                 const linkIconInput = linkItemElem.querySelector(`#link-icon-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
                                 if (linkIconInput) {
                                     linkIconInput.addEventListener('input', (event) => {
                                         membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].icon = event.target.value;
+                                        markDataDirty('members');
                                     });
                                 }
                                 const linkTextInput = linkItemElem.querySelector(`#link-text-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
                                 if (linkTextInput) {
                                     linkTextInput.addEventListener('input', (event) => {
                                         membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].text = event.target.value;
+                                        markDataDirty('members');
                                     });
                                 }
                                 const linkUrlInput = linkItemElem.querySelector(`#link-url-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
                                 if (linkUrlInput) {
                                     linkUrlInput.addEventListener('input', (event) => {
                                         membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].link = event.target.value;
+                                        markDataDirty('members');
                                     });
                                 }
                                 const removeLinkButton = linkItemElem.querySelector('.remove-link-button');
@@ -902,24 +1008,28 @@
                         if (iconInput) {
                             iconInput.addEventListener('input', (event) => {
                                 membersData[sectionIndex].members[currentMemberIndex].icon = event.target.value;
+                                markDataDirty('members');
                             });
                         }
                         const admissionYearSelect = memberDetails.querySelector(`#admissionYear-${sectionIndex}-${currentMemberIndex}`);
                         if (admissionYearSelect) {
                             admissionYearSelect.addEventListener('change', (event) => {
                                 membersData[sectionIndex].members[currentMemberIndex].admissionYear = event.target.value;
+                                markDataDirty('members');
                             });
                         }
                         const pageLinkInput = memberDetails.querySelector(`#pageLink-${sectionIndex}-${currentMemberIndex}`);
                         if (pageLinkInput) {
                             pageLinkInput.addEventListener('input', (event) => {
                                 membersData[sectionIndex].members[currentMemberIndex].pageLink = event.target.value;
+                                markDataDirty('members');
                             });
                         }
                         const pageStructureInput = memberDetails.querySelector(`#pageStructure-${sectionIndex}-${currentMemberIndex}`);
                         if (pageStructureInput) {
                             pageStructureInput.addEventListener('input', (event) => {
                                 membersData[sectionIndex].members[currentMemberIndex].pageStructure = event.target.value;
+                                markDataDirty('members');
                             });
                         }
                     }
@@ -970,6 +1080,7 @@
                 membersData[sectionIndex].members = [];
             }
             membersData[sectionIndex].members.push(newMember);
+            markDataDirty('members');
             renderAllMemberSections();
             const sectionElement = sectionsContainer.children[sectionIndex];
             if (sectionElement) {
@@ -983,6 +1094,7 @@
         function removeMemberItem(sectionIndex, memberIndex) {
             if (membersData[sectionIndex] && membersData[sectionIndex].members) {
                 membersData[sectionIndex].members.splice(memberIndex, 1);
+                markDataDirty('members');
                 renderAllMemberSections();
             }
         }
@@ -997,12 +1109,14 @@
                 membersData[sectionIndex].members[memberIndex].links = [];
             }
             membersData[sectionIndex].members[memberIndex].links.push(newLink);
+            markDataDirty('members');
             renderAllMemberSections();
         }
 
         function removeLink(sectionIndex, memberIndex, linkIndex) {
             if (membersData[sectionIndex].members[memberIndex].links) {
                 membersData[sectionIndex].members[memberIndex].links.splice(linkIndex, 1);
+                markDataDirty('members');
                 renderAllMemberSections();
             }
         }
@@ -1014,6 +1128,7 @@
                 members: []
             };
             membersData.push(newSection);
+            markDataDirty('members');
             renderAllMemberSections();
             const sectionElement = sectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -1024,13 +1139,14 @@
         function removeSection(sectionIndex) {
             if (membersData.length > 1) {
                 membersData.splice(sectionIndex, 1);
+                markDataDirty('members');
                 renderAllMemberSections();
             } else {
                 alert("Cannot remove the last section.");
             }
         }
 
-        function exportMembersJson() {
+        function getCleanedMembersData() {
             const dataToExport = JSON.parse(JSON.stringify(membersData));
 
             dataToExport.forEach(section => {
@@ -1069,17 +1185,13 @@
                     delete section.filterDefaultCheck;
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportMembersJson() {
+            const dataStr = JSON.stringify(getCleanedMembersData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'members.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'members.json');
         }
 
         async function fetchMembersData() {
@@ -1094,6 +1206,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 membersData = await response.json();
+                isMembersDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllMemberSections();
                 sectionsContainer.classList.remove('hidden');
                 addNewSectionButton.classList.remove('hidden');
@@ -1183,12 +1296,14 @@
                     section.display = false;
                     delete section.article;
                 }
+                markDataDirty('about');
                 renderAllAboutSections();
             });
 
             sectionCard.querySelector(`#aboutSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 section.sectionTitle = event.target.value;
                 sectionCard.querySelector('h3').textContent = event.target.value || 'New About Section';
+                markDataDirty('about');
             });
 
             if (section.form === 'about') {
@@ -1196,6 +1311,7 @@
                 if (articleInput) {
                     articleInput.addEventListener('input', (event) => {
                         section.article = event.target.value;
+                        markDataDirty('about');
                     });
                 }
             } else if (section.form === 'sponsors') {
@@ -1203,6 +1319,7 @@
                 if (displayCheckbox) {
                     displayCheckbox.addEventListener('change', (event) => {
                         section.display = event.target.checked;
+                        markDataDirty('about');
                     });
                 }
             }
@@ -1213,14 +1330,17 @@
                     const currentLogoIndex = parseInt(logoItemElem.dataset.logoIndex);
                     logoItemElem.querySelector(`#logoPath-${sectionIndex}-${currentLogoIndex}`).addEventListener('input', (event) => {
                         section.logos[currentLogoIndex].logoPath = event.target.value;
+                        markDataDirty('about');
                     });
                     logoItemElem.querySelector(`#logoAlt-${sectionIndex}-${currentLogoIndex}`).addEventListener('input', (event) => {
                         section.logos[currentLogoIndex].logoAlt = event.target.value;
+                        markDataDirty('about');
                     });
                     const logoLinkInput = logoItemElem.querySelector(`#logoLink-${sectionIndex}-${currentLogoIndex}`);
                     if (logoLinkInput) {
                         logoLinkInput.addEventListener('input', (event) => {
                             section.logos[currentLogoIndex].logoLink = event.target.value;
+                            markDataDirty('about');
                         });
                     }
                     logoItemElem.querySelector('.remove-logo-button').addEventListener('click', (event) => {
@@ -1258,12 +1378,14 @@
                 aboutData[sectionIndex].logos = [];
             }
             aboutData[sectionIndex].logos.push(newLogo);
+            markDataDirty('about');
             renderAllAboutSections();
         }
 
         function removeAboutLogo(sectionIndex, logoIndex) {
             if (aboutData[sectionIndex].logos) {
                 aboutData[sectionIndex].logos.splice(logoIndex, 1);
+                markDataDirty('about');
                 renderAllAboutSections();
             }
         }
@@ -1276,6 +1398,7 @@
                 logos: []
             };
             aboutData.push(newSection);
+            markDataDirty('about');
             renderAllAboutSections();
             const sectionElement = aboutSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -1286,13 +1409,14 @@
         function removeAboutSection(sectionIndex) {
             if (aboutData.length > 1) {
                 aboutData.splice(sectionIndex, 1);
+                markDataDirty('about');
                 renderAllAboutSections();
             } else {
                 alert("Cannot remove the last About section.");
             }
         }
 
-        function exportAboutJson() {
+        function getCleanedAboutData() {
             const dataToExport = JSON.parse(JSON.stringify(aboutData));
 
             dataToExport.forEach(section => {
@@ -1317,17 +1441,13 @@
                     }
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportAboutJson() {
+            const dataStr = JSON.stringify(getCleanedAboutData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'about.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'about.json');
         }
 
         async function fetchAboutData() {
@@ -1342,6 +1462,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 aboutData = await response.json();
+                isAboutDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllAboutSections();
                 aboutSectionsContainer.classList.remove('hidden');
                 addAboutSectionButton.classList.remove('hidden');
@@ -1461,6 +1582,7 @@
                     if (targetSectionIndex === draggedResearchTopicSectionIndex) {
                         const draggedItem = researchData[draggedResearchTopicSectionIndex].topics.splice(draggedResearchTopicIndex, 1)[0];
                         researchData[targetSectionIndex].topics.splice(targetTopicIndex, 0, draggedItem);
+                        markDataDirty('research'); // Mark dirty on drag and drop reorder
                         renderAllResearchSections(); // Re-render to update the order
                     }
                 }
@@ -1512,6 +1634,7 @@
 
             sectionCard.querySelector(`#researchSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 researchData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('research');
             });
 
             sectionCard.querySelector('.add-research-topic-button').addEventListener('click', (event) => {
@@ -1534,6 +1657,7 @@
                         researchIdInput.addEventListener('input', (event) => {
                             researchData[sectionIndex].topics[currentTopicIndex].researchId = event.target.value;
                             topicElem.querySelector('.research-topic-header h3').textContent = event.target.value || 'New Research Topic';
+                            markDataDirty('research');
                         });
                     }
 
@@ -1541,6 +1665,7 @@
                     if (bigTagsInput) {
                         bigTagsInput.addEventListener('input', (event) => {
                             researchData[sectionIndex].topics[currentTopicIndex].bigTags = event.target.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                            markDataDirty('research');
                         });
                     }
 
@@ -1548,6 +1673,7 @@
                     if (smallTagsInput) {
                         smallTagsInput.addEventListener('input', (event) => {
                             researchData[sectionIndex].topics[currentTopicIndex].smallTags = event.target.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                            markDataDirty('research');
                         });
                     }
 
@@ -1558,6 +1684,7 @@
                                 researchData[sectionIndex].topics[currentTopicIndex].fields = {};
                             }
                             researchData[sectionIndex].topics[currentTopicIndex].fields.energy = event.target.checked;
+                            markDataDirty('research');
                         });
                     }
                     const economicsCheckbox = topicDetails.querySelector(`#field-economics-${sectionIndex}-${currentTopicIndex}`);
@@ -1567,6 +1694,7 @@
                                 researchData[sectionIndex].topics[currentTopicIndex].fields = {};
                             }
                             researchData[sectionIndex].topics[currentTopicIndex].fields.economics = event.target.checked;
+                            markDataDirty('research');
                         });
                     }
                     const environmentCheckbox = topicDetails.querySelector(`#field-environment-${sectionIndex}-${currentTopicIndex}`);
@@ -1576,6 +1704,7 @@
                                 researchData[sectionIndex].topics[currentTopicIndex].fields = {};
                             }
                             researchData[sectionIndex].topics[currentTopicIndex].fields.environment = event.target.checked;
+                            markDataDirty('research');
                         });
                     }
 
@@ -1583,6 +1712,7 @@
                     if (imageInput) {
                         imageInput.addEventListener('input', (event) => {
                             researchData[sectionIndex].topics[currentTopicIndex].image = event.target.value;
+                            markDataDirty('research');
                         });
                     }
 
@@ -1620,6 +1750,7 @@
                 researchData[sectionIndex].topics = [];
             }
             researchData[sectionIndex].topics.push(newTopic);
+            markDataDirty('research');
             renderAllResearchSections();
             const sectionElement = researchSectionsContainer.children[sectionIndex];
             if (sectionElement) {
@@ -1633,6 +1764,7 @@
         function removeResearchTopic(sectionIndex, topicIndex) {
             if (researchData[sectionIndex] && researchData[sectionIndex].topics) {
                 researchData[sectionIndex].topics.splice(topicIndex, 1);
+                markDataDirty('research');
                 renderAllResearchSections();
             }
         }
@@ -1643,6 +1775,7 @@
                 topics: []
             };
             researchData.push(newSection);
+            markDataDirty('research');
             renderAllResearchSections();
             const sectionElement = researchSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -1653,13 +1786,14 @@
         function removeResearchSection(sectionIndex) {
             if (researchData.length > 1) {
                 researchData.splice(sectionIndex, 1);
+                markDataDirty('research');
                 renderAllResearchSections();
             } else {
                 alert("Cannot remove the last Research section.");
             }
         }
 
-        function exportResearchJson() {
+        function getCleanedResearchData() {
             const dataToExport = JSON.parse(JSON.stringify(researchData));
 
             dataToExport.forEach(section => {
@@ -1681,17 +1815,13 @@
                     });
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportResearchJson() {
+            const dataStr = JSON.stringify(getCleanedResearchData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'research.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'research.json');
         }
 
         async function fetchResearchData() {
@@ -1706,6 +1836,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 researchData = await response.json();
+                isResearchDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllResearchSections();
                 researchSectionsContainer.classList.remove('hidden');
                 addResearchSectionButton.classList.remove('hidden');
@@ -1825,6 +1956,7 @@
             // Event listeners for section-level inputs
             sectionCard.querySelector(`#publicationSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 publicationsData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('publications');
             });
 
             const showInHomeCheckbox = sectionCard.querySelector(`#showInHome-${sectionIndex}`);
@@ -1834,12 +1966,14 @@
                 showInHomeCheckbox.addEventListener('change', (event) => {
                     publicationsData[sectionIndex].showInHome = event.target.checked ? (parseInt(showInHomeCountInput.value) || 0) : false;
                     showInHomeCountInput.disabled = !event.target.checked;
+                    markDataDirty('publications');
                 });
             }
             if (showInHomeCountInput) {
                 showInHomeCountInput.addEventListener('input', (event) => {
                     if (showInHomeCheckbox.checked) {
                         publicationsData[sectionIndex].showInHome = parseInt(event.target.value) || 0;
+                        markDataDirty('publications');
                     }
                 });
             }
@@ -1872,6 +2006,7 @@
                     if (citationIdInput) {
                         citationIdInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].citationId = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const titleInput = itemDetails.querySelector(`#title-${sectionIndex}-${currentItemIndex}`);
@@ -1879,42 +2014,49 @@
                         titleInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].title = event.target.value;
                             itemElem.querySelector('.publication-item-header h3').textContent = event.target.value || 'New Publication';
+                            markDataDirty('publications');
                         });
                     }
                     const linkInput = itemDetails.querySelector(`#link-${sectionIndex}-${currentItemIndex}`);
                     if (linkInput) {
                         linkInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].link = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const journalInput = itemDetails.querySelector(`#journal-${sectionIndex}-${currentItemIndex}`);
                     if (journalInput) {
                         journalInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].journal = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const volumeInput = itemDetails.querySelector(`#volume-${sectionIndex}-${currentItemIndex}`);
                     if (volumeInput) {
                         volumeInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].volume = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const yearSelect = itemDetails.querySelector(`#year-${sectionIndex}-${currentItemIndex}`);
                     if (yearSelect) {
                         yearSelect.addEventListener('change', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const monthInput = itemDetails.querySelector(`#month-${sectionIndex}-${currentItemIndex}`);
                     if (monthInput) {
                         monthInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('publications');
                         });
                     }
                     const authorsInput = itemDetails.querySelector(`#authors-${sectionIndex}-${currentItemIndex}`);
                     if (authorsInput) {
                         authorsInput.addEventListener('input', (event) => {
                             publicationsData[sectionIndex].items[currentItemIndex].authors = event.target.value.split(',').map(author => author.trim()).filter(author => author !== '');
+                            markDataDirty('publications');
                         });
                     }
 
@@ -1953,6 +2095,7 @@
                 publicationsData[sectionIndex].items = [];
             }
             publicationsData[sectionIndex].items.push(newItem);
+            markDataDirty('publications');
             renderAllPublicationsSections();
             const sectionElement = publicationsSectionsContainer.children[sectionIndex];
             if (sectionElement) {
@@ -1967,6 +2110,7 @@
         function removePublicationItem(sectionIndex, itemIndex) {
             if (publicationsData[sectionIndex] && publicationsData[sectionIndex].items) {
                 publicationsData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('publications');
                 renderAllPublicationsSections();
             }
         }
@@ -1979,6 +2123,7 @@
                 items: []
             };
             publicationsData.push(newSection);
+            markDataDirty('publications');
             renderAllPublicationsSections();
             const sectionElement = publicationsSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -1990,14 +2135,14 @@
         function removePublicationSection(sectionIndex) {
             if (publicationsData.length > 1) {
                 publicationsData.splice(sectionIndex, 1);
+                markDataDirty('publications');
                 renderAllPublicationsSections();
             } else {
                 alert("Cannot remove the last Publication section.");
             }
         }
 
-        // Function to export publicationsData to a JSON file
-        function exportPublicationsJson() {
+        function getCleanedPublicationsData() {
             const dataToExport = JSON.parse(JSON.stringify(publicationsData));
 
             dataToExport.forEach(section => {
@@ -2016,17 +2161,13 @@
                     delete section.showInHome;
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportPublicationsJson() {
+            const dataStr = JSON.stringify(getCleanedPublicationsData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'publications.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'publications.json');
         }
 
         async function fetchPublicationsData() {
@@ -2051,7 +2192,7 @@
                         });
                     }
                 });
-
+                isPublicationsDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllPublicationsSections();
                 publicationsSectionsContainer.classList.remove('hidden');
                 addPublicationSectionButton.classList.remove('hidden');
@@ -2161,9 +2302,11 @@
             // Event listeners for section-level inputs
             sectionCard.querySelector(`#newsSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 newsData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('news');
             });
             sectionCard.querySelector(`#newsInnerSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 newsData[sectionIndex].innerSectionTitle = event.target.value;
+                markDataDirty('news');
             });
 
             const newsShowInHomeCheckbox = sectionCard.querySelector(`#newsShowInHome-${sectionIndex}`);
@@ -2178,12 +2321,14 @@
                         newsData[sectionIndex].showInHome = false;
                         newsShowInHomeCountInput.disabled = true;
                     }
+                    markDataDirty('news');
                 });
             }
             if (newsShowInHomeCountInput) {
                 newsShowInHomeCountInput.addEventListener('input', (event) => {
                     if (newsShowInHomeCheckbox.checked) {
                         newsData[sectionIndex].showInHome = parseInt(event.target.value) || 0;
+                        markDataDirty('news');
                     }
                 });
             }
@@ -2216,24 +2361,28 @@
                         titleInput.addEventListener('input', (event) => {
                             newsData[sectionIndex].items[currentItemIndex].title = event.target.value;
                             itemElem.querySelector('.news-item-header h3').textContent = event.target.value || 'New News Item';
+                            markDataDirty('news');
                         });
                     }
                     const linkInput = itemDetails.querySelector(`#newsLink-${sectionIndex}-${currentItemIndex}`);
                     if (linkInput) {
                         linkInput.addEventListener('input', (event) => {
                             newsData[sectionIndex].items[currentItemIndex].link = event.target.value;
+                            markDataDirty('news');
                         });
                     }
                     const yearSelect = itemDetails.querySelector(`#newsYear-${sectionIndex}-${currentItemIndex}`);
                     if (yearSelect) {
                         yearSelect.addEventListener('change', (event) => {
                             newsData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('news');
                         });
                     }
                     const monthInput = itemDetails.querySelector(`#newsMonth-${sectionIndex}-${currentItemIndex}`);
                     if (monthInput) {
                         monthInput.addEventListener('input', (event) => {
                             newsData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('news');
                         });
                     }
 
@@ -2268,6 +2417,7 @@
                 newsData[sectionIndex].items = [];
             }
             newsData[sectionIndex].items.push(newItem);
+            markDataDirty('news');
             renderAllNewsSections();
             const sectionElement = newsSectionsContainer.children[sectionIndex];
             if (sectionElement) {
@@ -2282,6 +2432,7 @@
         function removeNewsItem(sectionIndex, itemIndex) {
             if (newsData[sectionIndex] && newsData[sectionIndex].items) {
                 newsData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('news');
                 renderAllNewsSections();
             }
         }
@@ -2295,6 +2446,7 @@
                 items: []
             };
             newsData.push(newSection);
+            markDataDirty('news');
             renderAllNewsSections();
             const sectionElement = newsSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -2306,14 +2458,14 @@
         function removeNewsSection(sectionIndex) {
             if (newsData.length > 1) {
                 newsData.splice(sectionIndex, 1);
+                markDataDirty('news');
                 renderAllNewsSections();
             } else {
                 alert("Cannot remove the last News section.");
             }
         }
 
-        // Function to export newsData to a JSON file
-        function exportNewsJson() {
+        function getCleanedNewsData() {
             const dataToExport = JSON.parse(JSON.stringify(newsData));
 
             dataToExport.forEach(section => {
@@ -2334,17 +2486,13 @@
                     delete section.innerSectionTitle;
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportNewsJson() {
+            const dataStr = JSON.stringify(getCleanedNewsData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'news.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'news.json');
         }
 
         async function fetchNewsData() {
@@ -2359,6 +2507,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 newsData = await response.json();
+                isNewsDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllNewsSections();
                 newsSectionsContainer.classList.remove('hidden');
                 addNewsSectionButton.classList.remove('hidden');
@@ -2486,9 +2635,11 @@
             // Event listeners for section-level inputs
             sectionCard.querySelector(`#groupLifeSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 groupLifeData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('groupLife');
             });
             sectionCard.querySelector(`#groupLifeSliderTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 groupLifeData[sectionIndex].sliderTitle = event.target.value;
+                markDataDirty('groupLife');
             });
 
             const groupLifeShowInSliderCheckbox = sectionCard.querySelector(`#groupLifeShowInSlider-${sectionIndex}`);
@@ -2502,12 +2653,14 @@
                         groupLifeData[sectionIndex].showInSlider = false;
                         groupLifeShowInSliderCountInput.disabled = true;
                     }
+                    markDataDirty('groupLife');
                 });
             }
             if (groupLifeShowInSliderCountInput) {
                 groupLifeShowInSliderCountInput.addEventListener('input', (event) => {
                     if (groupLifeShowInSliderCheckbox.checked) {
                         groupLifeData[sectionIndex].showInSlider = parseInt(event.target.value) || 0;
+                        markDataDirty('groupLife');
                     }
                 });
             }
@@ -2523,21 +2676,25 @@
                     groupLifeFilterIdInput.disabled = !event.target.checked;
                     groupLifeFilterTitleInput.disabled = !event.target.checked;
                     groupLifeFilterDefaultCheckInput.disabled = !event.target.checked;
+                    markDataDirty('groupLife');
                 });
             }
             if (groupLifeFilterIdInput) {
                 groupLifeFilterIdInput.addEventListener('input', (event) => {
                     groupLifeData[sectionIndex].filterId = event.target.value;
+                    markDataDirty('groupLife');
                 });
             }
             if (groupLifeFilterTitleInput) {
                 groupLifeFilterTitleInput.addEventListener('input', (event) => {
                     groupLifeData[sectionIndex].filterTitle = event.target.value;
+                    markDataDirty('groupLife');
                 });
             }
             if (groupLifeFilterDefaultCheckInput) {
                 groupLifeFilterDefaultCheckInput.addEventListener('input', (event) => {
                     groupLifeData[sectionIndex].filterDefaultCheck = parseInt(event.target.value) || 0;
+                    markDataDirty('groupLife');
                 });
             }
 
@@ -2569,6 +2726,7 @@
                     if (imgPathInput) {
                         imgPathInput.addEventListener('input', (event) => {
                             groupLifeData[sectionIndex].items[currentItemIndex].imgPath = event.target.value;
+                            markDataDirty('groupLife');
                         });
                     }
                     const descriptionInput = itemDetails.querySelector(`#groupLifeDescription-${sectionIndex}-${currentItemIndex}`);
@@ -2576,18 +2734,21 @@
                         descriptionInput.addEventListener('input', (event) => {
                             groupLifeData[sectionIndex].items[currentItemIndex].description = event.target.value;
                             itemElem.querySelector('.group-life-item-header h3').textContent = item.description || 'New Photo/Event';
+                            markDataDirty('groupLife');
                         });
                     }
                     const yearSelect = itemDetails.querySelector(`#groupLifeYear-${sectionIndex}-${currentItemIndex}`);
                     if (yearSelect) {
                         yearSelect.addEventListener('change', (event) => {
                             groupLifeData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('groupLife');
                         });
                     }
                     const monthInput = itemDetails.querySelector(`#groupLifeMonth-${sectionIndex}-${currentItemIndex}`);
                     if (monthInput) {
                         monthInput.addEventListener('input', (event) => {
                             groupLifeData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('groupLife');
                         });
                     }
 
@@ -2622,6 +2783,7 @@
                 groupLifeData[sectionIndex].items = [];
             }
             groupLifeData[sectionIndex].items.push(newItem);
+            markDataDirty('groupLife');
             renderAllGroupLifeSections();
             const sectionElement = groupLifeSectionsContainer.children[sectionIndex];
             if (sectionElement) {
@@ -2636,6 +2798,7 @@
         function removeGroupLifeItem(sectionIndex, itemIndex) {
             if (groupLifeData[sectionIndex] && groupLifeData[sectionIndex].items) {
                 groupLifeData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('groupLife');
                 renderAllGroupLifeSections();
             }
         }
@@ -2653,6 +2816,7 @@
                 items: []
             };
             groupLifeData.push(newSection);
+            markDataDirty('groupLife');
             renderAllGroupLifeSections();
             const sectionElement = groupLifeSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -2664,14 +2828,14 @@
         function removeGroupLifeSection(sectionIndex) {
             if (groupLifeData.length > 1) {
                 groupLifeData.splice(sectionIndex, 1);
+                markDataDirty('groupLife');
                 renderAllGroupLifeSections();
             } else {
                 alert("Cannot remove the last Group Life section.");
             }
         }
 
-        // Function to export groupLifeData to a JSON file
-        function exportGroupLifeJson() {
+        function getCleanedGroupLifeData() {
             const dataToExport = JSON.parse(JSON.stringify(groupLifeData));
 
             dataToExport.forEach(section => {
@@ -2702,17 +2866,13 @@
                     if (section.filterDefaultCheck === 0) delete section.filterDefaultCheck;
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportGroupLifeJson() {
+            const dataStr = JSON.stringify(getCleanedGroupLifeData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'groupLife.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'groupLife.json');
         }
 
         async function fetchGroupLifeData() {
@@ -2727,6 +2887,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 groupLifeData = await response.json();
+                isGroupLifeDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllGroupLifeSections();
                 groupLifeSectionsContainer.classList.remove('hidden');
                 addGroupLifeSectionButton.classList.remove('hidden');
@@ -2783,10 +2944,12 @@
             sectionCard.querySelector(`#contactSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
                 contactData[sectionIndex].sectionTitle = event.target.value;
                 sectionCard.querySelector('.contact-section-header h3').textContent = event.target.value || 'New Contact Section';
+                markDataDirty('contact');
             });
 
             sectionCard.querySelector(`#contactArticle-${sectionIndex}`).addEventListener('input', (event) => {
                 contactData[sectionIndex].article = event.target.value;
+                markDataDirty('contact');
             });
 
             sectionCard.querySelector('.remove-contact-section-button').addEventListener('click', (event) => {
@@ -2810,6 +2973,7 @@
                 article: ''
             };
             contactData.push(newSection);
+            markDataDirty('contact');
             renderAllContactSections();
             const sectionElement = contactSectionsContainer.lastElementChild;
             if (sectionElement) {
@@ -2821,14 +2985,14 @@
         function removeContactSection(sectionIndex) {
             if (contactData.length > 1) {
                 contactData.splice(sectionIndex, 1);
+                markDataDirty('contact');
                 renderAllContactSections();
             } else {
                 alert("Cannot remove the last Contact section.");
             }
         }
 
-        // Function to export contactData to a JSON file
-        function exportContactJson() {
+        function getCleanedContactData() {
             const dataToExport = JSON.parse(JSON.stringify(contactData));
 
             dataToExport.forEach(section => {
@@ -2838,17 +3002,13 @@
                     }
                 }
             });
+            return dataToExport;
+        }
 
-            const dataStr = JSON.stringify(dataToExport, null, 4);
+        function exportContactJson() {
+            const dataStr = JSON.stringify(getCleanedContactData(), null, 4);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'contact.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            saveAs(blob, 'contact.json');
         }
 
         async function fetchContactData() {
@@ -2863,6 +3023,7 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 contactData = await response.json();
+                isContactDataDirty = false; // Reset dirty flag on initial fetch
                 renderAllContactSections();
                 contactSectionsContainer.classList.remove('hidden');
                 addContactSectionButton.classList.remove('hidden');
@@ -2874,6 +3035,66 @@
             } finally {
                 contactLoadingIndicator.classList.add('hidden');
             }
+        }
+
+        // --- Export All Data as ZIP Function ---
+        async function exportAllDataAsZip() {
+            const zip = new JSZip();
+            const structuresFolder = zip.folder('structures');
+
+            let filesAdded = false;
+
+            if (isAboutDataDirty) {
+                const cleanedAbout = getCleanedAboutData();
+                structuresFolder.file('about.json', JSON.stringify(cleanedAbout, null, 4));
+                filesAdded = true;
+            }
+            if (isMembersDataDirty) {
+                const cleanedMembers = getCleanedMembersData();
+                structuresFolder.file('members.json', JSON.stringify(cleanedMembers, null, 4));
+                filesAdded = true;
+            }
+            if (isResearchDataDirty) {
+                const cleanedResearch = getCleanedResearchData();
+                structuresFolder.file('research.json', JSON.stringify(cleanedResearch, null, 4));
+                filesAdded = true;
+            }
+            if (isPublicationsDataDirty) {
+                const cleanedPublications = getCleanedPublicationsData();
+                structuresFolder.file('publications.json', JSON.stringify(cleanedPublications, null, 4));
+                filesAdded = true;
+            }
+            if (isNewsDataDirty) {
+                const cleanedNews = getCleanedNewsData();
+                structuresFolder.file('news.json', JSON.stringify(cleanedNews, null, 4));
+                filesAdded = true;
+            }
+            if (isGroupLifeDataDirty) {
+                const cleanedGroupLife = getCleanedGroupLifeData();
+                structuresFolder.file('groupLife.json', JSON.stringify(cleanedGroupLife, null, 4));
+                filesAdded = true;
+            }
+            if (isContactDataDirty) {
+                const cleanedContact = getCleanedContactData();
+                structuresFolder.file('contact.json', JSON.stringify(cleanedContact, null, 4));
+                filesAdded = true;
+            }
+
+            if (!filesAdded) {
+                alert("No changes detected. No files to export.");
+                return;
+            }
+
+            // Generate the zip file
+            zip.generateAsync({ type: 'blob' })
+                .then(function(content) {
+                    // Save the zip file
+                    saveAs(content, 'structures.zip');
+                })
+                .catch(function(error) {
+                    console.error('Error generating ZIP file:', error);
+                    alert('Failed to generate ZIP file. Please check the console for details.');
+                });
         }
 
 
@@ -3035,10 +3256,13 @@
         addContactSectionButton.addEventListener('click', addNewContactSection);
         exportContactJsonButton.addEventListener('click', exportContactJson);
 
+        // --- Event Listener for Export All Data as ZIP ---
+        exportAllJsonZipButton.addEventListener('click', exportAllDataAsZip);
 
-        // Initial setup: Show the "About" tab by default
+
+        // Initial setup: Show the "Welcome" tab by default
         document.addEventListener('DOMContentLoaded', () => {
-            switchTab('about-editor-content');
+            switchTab('welcome-editor-content');
         });
     </script>
 </body>
