@@ -1203,10 +1203,18 @@
             --_width: 0.625rem;
             --_margin-inline-start: 0.25rem;
         }
-        svg:has(use[href*="#svg-arrow-right"]), svg:has(use[href*="#svg-arrow-left"]) {
+
+        svg:has(use[href*="#svg-arrow-right"]) {
             --_hover-translate: 0.125rem 0;
             --_width: 0.75rem;
             --_margin-inline-start: 0.3125rem;
+        }
+
+        svg:has(use[href*="#svg-arrow-left"]) {
+            --_hover-translate: -0.125rem 0;
+            --_width: 0.75rem;
+            --_margin-inline-end: 0.3125rem;
+            
         }
 
         &:hover svg {translate: var(--_hover-translate);}
@@ -1215,6 +1223,7 @@
             display: inline-block;
             width: var(--_width);
             margin-inline-start: var(--_margin-inline-start);
+            margin-inline-end: var(--_margin-inline-end);
             transition: var(--hover-transition-time);
         }
 
