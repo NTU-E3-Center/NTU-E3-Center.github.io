@@ -42,17 +42,31 @@
                 "admissionYear": "'22"
             },
             {
+                "engName": "Jim",
+                "chiName": "曾暐畯",
+                "imgPath": "/assets/members/r10521602.jpg",
+                "icon": "/assets/sprite.svg#svg-assistant",
+                "admissionYear": "'22"
+            },
+            {
                 "engName": "Gary",
                 "chiName": "丁俊瑋",
                 "imgPath": "/assets/members/d13521023.jpg",
-                "icon": "/assets/sprite.svg#svg-doctor-1",
+                "icon": "/assets/sprite.svg#svg-doctor-2",
                 "admissionYear": "'24"
             },
             {
                 "engName": "Harper",
                 "chiName": "呂芷儀",
                 "imgPath": "/assets/members/f12521611.jpg",
-                "icon": "/assets/sprite.svg#svg-doctor-1",
+                "icon": "/assets/sprite.svg#svg-doctor-2",
+                "admissionYear": "'24"
+            },
+            {
+                "engName": "Ray",
+                "chiName": "林宏叡",
+                "imgPath": "/assets/members/r13521601.jpg",
+                "icon": "/assets/sprite.svg#svg-doctor-2",
                 "admissionYear": "'24"
             }
         ]
@@ -96,13 +110,7 @@
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'23"
             },
-            {
-                "engName": "Ray",
-                "chiName": "林宏叡",
-                "imgPath": "/assets/members/r13521601.jpg",
-                "icon": "/assets/sprite.svg#svg-master-1",
-                "admissionYear": "'24"
-            },
+            
             {
                 "engName": "Dulcinea",
                 "chiName": "吳巽言",
