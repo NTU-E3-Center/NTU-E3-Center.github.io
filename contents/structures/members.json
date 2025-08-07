@@ -24,7 +24,7 @@
         ]
     },
     {
-        "sectionTitle": "Full Time / Ph.D. Students",
+        "sectionTitle": "Full Time",
         "form": "M",
         "members": [
             {
@@ -47,7 +47,13 @@
                 "imgPath": "/assets/members/r10521602.jpg",
                 "icon": "/assets/sprite.svg#svg-assistant",
                 "admissionYear": "'22"
-            },
+            }
+        ]
+    },
+    {
+        "sectionTitle": "Ph.D. Students",
+        "form": "M",
+        "members": [
             {
                 "engName": "Gary",
                 "chiName": "丁俊瑋",
@@ -59,14 +65,14 @@
                 "engName": "Harper",
                 "chiName": "呂芷儀",
                 "imgPath": "/assets/members/f12521611.jpg",
-                "icon": "/assets/sprite.svg#svg-doctor-2",
+                "icon": "/assets/sprite.svg#svg-doctor-1",
                 "admissionYear": "'24"
             },
             {
                 "engName": "Ray",
                 "chiName": "林宏叡",
                 "imgPath": "/assets/members/r13521601.jpg",
-                "icon": "/assets/sprite.svg#svg-doctor-2",
+                "icon": "/assets/sprite.svg#svg-doctor-1",
                 "admissionYear": "'24"
             }
         ]
@@ -201,16 +207,16 @@
                 "admissionYear": "'22"
             },
             {
-                "engName": "Eric",
-                "chiName": "張友睿",
-                "imgPath": "/assets/members/r12524052.jpg",
+                "engName": "Samuel",
+                "chiName": "李承燁",
+                "imgPath": "/assets/members/r12524140.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'23"
             },
             {
-                "engName": "Samuel",
-                "chiName": "李承燁",
-                "imgPath": "/assets/members/r12524140.jpg",
+                "engName": "Eric",
+                "chiName": "張友睿",
+                "imgPath": "/assets/members/r12524052.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'23"
             },
