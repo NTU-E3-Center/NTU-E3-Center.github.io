@@ -125,7 +125,7 @@
         "filter": true,
         "filterId": "lum",
         "filterTitle": "Filter by Admission Year:",
-        "filterDefaultCheck": 4,
+        "filterDefaultCheck": 5,
         "members": [
             {
                 "engName": "Ayria",
