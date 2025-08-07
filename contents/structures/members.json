@@ -200,20 +200,6 @@
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'22"
             },
-                        {
-                "engName": "Anita",
-                "chiName": "陳珮慈",
-                "imgPath": "/assets/members/r12521602.jpg",
-                "icon": "/assets/sprite.svg#svg-master-2",
-                "admissionYear": "'23"
-            },
-            {
-                "engName": "Sigi",
-                "chiName": "胡羽忻",
-                "imgPath": "/assets/members/r12521605.png",
-                "icon": "/assets/sprite.svg#svg-master-2",
-                "admissionYear": "'23"
-            },
             {
                 "engName": "Eric",
                 "chiName": "張友睿",
@@ -225,6 +211,20 @@
                 "engName": "Samuel",
                 "chiName": "李承燁",
                 "imgPath": "/assets/members/r12524140.jpg",
+                "icon": "/assets/sprite.svg#svg-master-2",
+                "admissionYear": "'23"
+            },
+            {
+                "engName": "Sigi",
+                "chiName": "胡羽忻",
+                "imgPath": "/assets/members/r12521605.png",
+                "icon": "/assets/sprite.svg#svg-master-2",
+                "admissionYear": "'23"
+            },
+            {
+                "engName": "Anita",
+                "chiName": "陳珮慈",
+                "imgPath": "/assets/members/r12521602.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'23"
             }
