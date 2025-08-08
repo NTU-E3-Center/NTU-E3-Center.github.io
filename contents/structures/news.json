@@ -5,11 +5,6 @@
         "showInHome": 6,
         "items": [    
             {
-                "title": "Congratulations to Jian Hern Yeoh (楊建恆) for winning the Best Lightning Talk Award at CICTP 2025 Conference!",
-                "year": "'25",
-                "month": "Jul."
-            },
-            {
                 "title": "Prof. Hsieh honored with the NTU NTU Outstanding Scholar Award of Chen-Yung Foundation (臺大勇源拔萃講座).",
                 "link": "https://www.ce.ntu.edu.tw/%E6%81%AD%E8%B3%80%E8%AC%9D%E4%BE%9D%E8%8A%B8%E5%8A%A9%E7%90%86%E6%95%99%E6%8E%88%E6%A6%AE%E7%8D%B2109%E5%B9%B4%E3%80%8C%E8%87%BA%E5%A4%A7%E5%8B%87%E6%BA%90%E6%8B%94%E8%90%83%E8%AC%9B%E5%BA%A7/",
                 "year": "'20",
@@ -125,6 +120,11 @@
                 "link": "https://labspotlight.ntu.edu.tw/labs/116",
                 "year": "'25",
                 "month": "May"
+            },
+            {
+                "title": "Congratulations to Jian Hern Yeoh (楊建恆) for winning the Best Lightning Talk Award at CICTP 2025 Conference!",
+                "year": "'25",
+                "month": "Jul."
             }
         ]
     }
