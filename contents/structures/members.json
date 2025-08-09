@@ -116,6 +116,41 @@
                 "imgPath": "/assets/members/r11521615.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'24"
+            },
+            {
+                "engName": "Leo",
+                "chiName": "李碩宸",
+                "imgPath": "/assets/members/r14521603.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'25"
+            },
+            {
+                "engName": "Eric",
+                "chiName": "陳厚銓",
+                "imgPath": "/assets/members/r14521604.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'25"
+            },
+            {
+                "engName": "Shaoyang",
+                "chiName": "莊紹晹",
+                "imgPath": "/assets/members/r14521615.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'25"
+            },
+            {
+                "engName": "Claire",
+                "chiName": "耿又苒",
+                "imgPath": "/assets/members/r14524050.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'25"
+            },
+            {
+                "engName": "YuTing",
+                "chiName": "黃榆庭",
+                "imgPath": "/assets/members/r14524113.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'25"
             }
         ]
     },
