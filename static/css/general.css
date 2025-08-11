@@ -283,12 +283,22 @@ h3 {
     background-position: center;
     background-repeat: no-repeat;
 
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--main-bg-color);
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: -1;
+    }
+
     & img {
         opacity: 0;
         transition: opacity 0.3s;
     }
 
-    &.lazy-img-loaded img {opacity: 1;}
+    &.lazy-img-loaded img, &.lazy-img-loaded::before {opacity: 1;}
 }
 
 .display-none {display: none !important;}
