@@ -270,8 +270,9 @@
                 "admissionYear": "'23"
             },
             {
-                "engName": "Yugo",
-                "imgPath": "/assets/members/Yugo.jpg",
+                "engName": "Yugo Imoto",
+                "chiName":"井本祐吾",
+                "imgPath": "/assets/members/r13521623.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
                 "admissionYear": "'23"
             },
