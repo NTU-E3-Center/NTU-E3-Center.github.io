@@ -113,6 +113,17 @@
                 "image": "images/research/autonomous-vehicle.svg"
             },
             {
+                "researchId": "energy-management",
+                "bigTags": ["Energy Management", "System Development"],
+                "smallTags": ["Smart Energy", "RE100", "Carbon Tracking", "Cost Reduction"],
+                "fields": {
+                    "energy": true,
+                    "economics": true,
+                    "environment": true
+                },
+                "image": "images/research/energy-management.svg"
+            },
+            {
                 "researchId": "building-energy",
                 "bigTags": ["Building", "Energy Forecast"],
                 "smallTags": ["Artificial Intelligence", "Energy Management", "Cost Saving"],
