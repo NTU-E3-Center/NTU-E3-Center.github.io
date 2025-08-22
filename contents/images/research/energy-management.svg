@@ -24,28 +24,28 @@
     <polyline class="stroke-s stroke-3" points="120.89 109.83 135.13 109.83 135.13 127.83 197 127.83" />
     <polyline class="stroke-s-light stroke-3 ani-energy-through longer" points="120.89 109.83 135.13 109.83 135.13 127.83 197 127.83" />
     <g>
-        <polygon class="fill-m-3" points="120.89 64.5 116.39 64.5 77.61 64.5 73.11 64.5 73.11 69 73.11 115.95 73.11 120.45 77.61 120.45 116.39 120.45 120.89 120.45 120.89 115.95 120.89 69 120.89 64.5 120.89 64.5" />
-        <rect class="fill-m" x="77.61" y="69" width="38.78" height="46.95" />
-        <path class="fill-m-3" d="M101.74,88.62l-.66-.75a5.53,5.53,0,0,0-8.29-.08l-.67.74-8.53-7.69.67-.74a17,17,0,0,1,25.49.23l.66.76Z" />
+        <rect class="fill-m" x="73.11" y="64.5" width="47.78" height="55.95" />
+        <rect class="fill-m-3" x="77.61" y="69" width="38.78" height="46.95" />
+        <path class="fill-m" d="M101.74,88.62l-.66-.75a5.53,5.53,0,0,0-8.29-.08l-.67.74-8.53-7.69.67-.74a17,17,0,0,1,25.49.23l.66.76Z" />
         <path class="fill-m-bg" d="M96.9,84a7.53,7.53,0,0,1,5,1.88l5.67-4.93a15,15,0,0,0-21.12-.19l5.59,5A7.52,7.52,0,0,1,96.9,84Z" />
-        <rect class="fill-m-3" x="92.61" y="80.33" width="2" height="5.24" transform="translate(-23.77 39.76) rotate(-21.35)" />
-        <rect class="fill-m-3" x="84.5" y="96" width="25" height="2" />
+        <rect class="fill-m" x="92.61" y="80.33" width="2" height="5.24" transform="translate(-23.77 39.76) rotate(-21.35)" />
+        <rect class="fill-m" x="84.5" y="96" width="25" height="2" />
         <g>
-            <rect class="fill-m-3" x="101" y="93.5" width="7" height="7" />
+            <rect class="fill-m" x="101" y="93.5" width="7" height="7" />
             <rect class="fill-m-bg" x="103" y="95.5" width="3" height="3" />
         </g>
-        <rect class="fill-m-3" x="84.5" y="106" width="25" height="2" />
+        <rect class="fill-m" x="84.5" y="106" width="25" height="2" />
         <g>
-            <rect class="fill-m-3" x="86" y="103.5" width="7" height="7" />
+            <rect class="fill-m" x="86" y="103.5" width="7" height="7" />
             <rect class="fill-m-bg" x="88" y="105.5" width="3" height="3" />
         </g>
     </g>
     <g>
-        <path class="fill-m-3" d="M151,30.5H43v22H151v-22Z" />
+        <rect class="fill-m" x="43" y="30.5" width="108" height="22" />
         <rect class="fill-m-bg" x="46" y="33.5" width="102" height="16" />
         <rect class="fill-s" x="46" y="44" width="51" height="2" />
-        <rect class="fill-m-3" x="97" y="44" width="37.78" height="2" />
+        <rect class="fill-m" x="97" y="44" width="37.78" height="2" />
         <rect class="fill-s" x="134.78" y="44" width="13.22" height="2" />
-        <polygon class="fill-m-3" points="59.95 40.57 59.14 39.77 57.69 41.21 57.69 37.4 56.55 37.4 56.55 41.21 55.1 39.77 54.3 40.57 57.12 43.4 59.95 40.57" />
+        <polygon class="fill-m" points="59.95 40.57 59.14 39.77 57.69 41.21 57.69 37.4 56.55 37.4 56.55 41.21 55.1 39.77 54.3 40.57 57.12 43.4 59.95 40.57" />
     </g>
 </svg>
