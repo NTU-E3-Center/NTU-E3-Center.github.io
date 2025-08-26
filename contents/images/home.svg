@@ -249,7 +249,11 @@
             <line class="stroke-s stroke-4 ani-line-dash" x1="-78" y1="542.36" x2="-94.1" y2="542.36"/>
         </g>
     </g>
+    {% if structures['news'][0]['items'][-1]['link'] %}
     <a target="_blank" href="{{ structures['news'][0]['items'][-1]['link'] }}">
+    {% else %}
+    <a>
+    {% endif %}
         <g class="hp-plane">
             <g class="hp-plane-wo-text">
                 <rect class="fill-m" x="1434.6" y="34.1" width="27" height="4.5"/>
