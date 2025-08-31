@@ -10,6 +10,30 @@ function change101Top() {
 change101Top();
 
 // * high priority
+// update hp-plane-text box width to fit the text, and set the plane fly duration
+function updateHpPlaneText() {
+    const hpPlaneAniSpeed = 90; // px/s, customizable
+    const hpPlane = document.querySelector('.hp-plane');
+    const hpPlaneText = document.querySelector('.hp-plane-text');
+    const hpPlaneTextBg = document.querySelector('.hp-plane-text-bg');
+    const hpPlaneTextBox = document.querySelector('.hp-plane-text-box');
+
+    if (hpPlaneText) {
+      const bbox = hpPlaneText.getBBox();
+      hpPlaneTextBox.setAttribute('width', bbox.width + 39);
+      hpPlaneTextBg.setAttribute('width', bbox.width + 30);
+    };
+
+    const hpImgPxWidth = document.querySelector('.hp-img').viewBox.baseVal.width;
+    const hpPlaneFlyDistance = hpPlane.getBBox().width + hpImgPxWidth;
+    const hpPlaneFlyDuration = hpPlaneFlyDistance / hpPlaneAniSpeed;
+    hpPlane.style.setProperty('--_plane-fly-duration', `${hpPlaneFlyDuration}s`);
+    hpPlane.style.setProperty('--_plane-fly-distance', `${-hpPlaneFlyDistance / hpImgPxWidth * 105}%`);
+    // "105" is customisable, 100% will leave the animation with no empty times (the plane will fly into the screen immediately after it flies out)
+};
+window.addEventListener('DOMContentLoaded', updateHpPlaneText);
+
+// * low priority
 // render rain animation
 function renderRain() {
     // the time (ms) each drop takes to fall (speed), ideally 1200-2000
@@ -116,30 +140,6 @@ function animateHpTheSky() {
     requestAnimationFrame(animate);
 };
 window.addEventListener('load', animateHpTheSky);
-
-// * mid priority
-// update hp-plane-text box width to fit the text, and set the plane fly duration
-function updateHpPlaneText() {
-    const hpPlaneAniSpeed = 90; // px/s, customizable
-    const hpPlane = document.querySelector('.hp-plane');
-    const hpPlaneText = document.querySelector('.hp-plane-text');
-    const hpPlaneTextBg = document.querySelector('.hp-plane-text-bg');
-    const hpPlaneTextBox = document.querySelector('.hp-plane-text-box');
-
-    if (hpPlaneText) {
-      const bbox = hpPlaneText.getBBox();
-      hpPlaneTextBox.setAttribute('width', bbox.width + 39);
-      hpPlaneTextBg.setAttribute('width', bbox.width + 30);
-    };
-
-    const hpImgPxWidth = document.querySelector('.hp-img').viewBox.baseVal.width;
-    const hpPlaneFlyDistance = hpPlane.getBBox().width + hpImgPxWidth;
-    const hpPlaneFlyDuration = hpPlaneFlyDistance / hpPlaneAniSpeed;
-    hpPlane.style.setProperty('--_plane-fly-duration', `${hpPlaneFlyDuration}s`);
-    hpPlane.style.setProperty('--_plane-fly-distance', `${-hpPlaneFlyDistance / hpImgPxWidth * 105}%`);
-    // "105" is customisable, 100% will leave the animation with no empty times (the plane will fly into the screen immediately after it flies out)
-};
-window.addEventListener('load', updateHpPlaneText);
 
 // * no priority
 // filters action
