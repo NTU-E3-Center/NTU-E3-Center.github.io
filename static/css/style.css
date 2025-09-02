@@ -1438,6 +1438,41 @@
     }
 }
 
+/* loading-overlay */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--main-bg-color);
+    z-index: 999;
+    transition: opacity 0.5s ease-out, visibility 0.5s;
+    opacity: 1;
+    visibility: visible;
+
+    display: grid;
+    place-content: center;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .loader {
+        width: 4rem;
+        aspect-ratio: 1;
+        background: var(--secondary-color);
+        clip-path: polygon(0 0,100% 0,100% 100%);
+        animation: l2 2s infinite cubic-bezier(0.3,1,0,1);
+    }
+}
+
+@keyframes l2 {
+  25%  {clip-path: polygon(0    0,100% 0   ,0 100%)}
+  50%  {clip-path: polygon(0    0,100% 100%,0 100%)}
+  75%  {clip-path: polygon(100% 0,100% 100%,0 100%)}
+  100% {clip-path: polygon(100% 0,100% 100%,0 0   )}
+}
+
 /* img-modal */
 .img-modal {
     display: none;
