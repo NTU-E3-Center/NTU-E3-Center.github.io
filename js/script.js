@@ -31,7 +31,41 @@ function updateHpPlaneText() {
     hpPlane.style.setProperty('--_plane-fly-distance', `${-hpPlaneFlyDistance / hpImgPxWidth * 105}%`);
     // "105" is customisable, 100% will leave the animation with no empty times (the plane will fly into the screen immediately after it flies out)
 };
-window.addEventListener('DOMContentLoaded', updateHpPlaneText);
+
+window.addEventListener('DOMContentLoaded', () => {
+    const loadingOverlay = document.querySelector('.loading-overlay');
+    console.log(loadingOverlay);
+    const MAX_WAIT_TIME = 2000;
+
+    // 任務一：正常載入
+    const allResourcesPromise = Promise.all([
+        new Promise(resolve => { updateHpPlaneText(); resolve('Plane Updated'); }),
+        document.fonts.ready
+    ]);
+
+    // 任務二：超時計時器
+    const timeoutPromise = new Promise(resolve => {
+        setTimeout(() => resolve('Timeout'), MAX_WAIT_TIME);
+    });
+
+    // 比賽開始！看是正常載入比較快，還是超時比較快
+    Promise.race([allResourcesPromise, timeoutPromise])
+        .then(result => {
+            if (result === 'Timeout') {
+                console.warn('Loading fallback triggered by Promise.race.');
+            } else {
+                console.log('All resources loaded successfully.');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred during loading:', error);
+        })
+        .finally(() => {
+            // 不論 Promise.race 的結果是成功、失敗還是超時，
+            // 最後都一定要隱藏遮罩
+            loadingOverlay.classList.add('hidden');
+        });
+});
 
 // * low priority
 // render rain animation
