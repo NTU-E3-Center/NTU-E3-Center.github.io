@@ -34,8 +34,7 @@ function updateHpPlaneText() {
 
 window.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.querySelector('.loading-overlay');
-    console.log(loadingOverlay);
-    const MAX_WAIT_TIME = 2000;
+    const MAX_WAIT_TIME = 2500;
 
     // 任務一：正常載入
     const allResourcesPromise = Promise.all([
