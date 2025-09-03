@@ -303,44 +303,102 @@ glfSlider.addEventListener('touchend', (e) => {
 
 
 // * no priority
-// img-modal
-const imgModal = document.querySelector('.img-modal');
-const imgModalCloseBtn = document.querySelector('.img-modal-close-btn');
-const imgModalImgWrapper = document.querySelector('.img-modal-img-wrapper');
-const imgModalImg = imgModalImgWrapper.querySelector('img');
-const imgModalCaption = document.querySelector('.img-modal-caption');
-const glfImgBlock = document.querySelectorAll('.glf-section[which="all"] .glf-img');
+// --- MODAL SETUP ---
+const mediaModal = document.querySelector('.media-modal');
+const mediaModalCloseBtn = document.querySelector('.media-modal-close-btn');
+const mediaModalContentWrapper = document.querySelector('.media-modal-content-wrapper');
+const mediaModalCaption = document.querySelector('.media-modal-caption');
+const allMediaBlocks = document.querySelectorAll('.glf-img');
 
-glfImgBlock.forEach((block) => {
-    block.addEventListener('click', () => {
-        function lazyImgLoaded() {imgModalImgWrapper.classList.add("lazy-img-loaded")};
-        const img = block.querySelector('img');
-
-        imgModalImgWrapper.setAttribute('style', `background-image: ${block.style.backgroundImage}; aspect-ratio: ${img.naturalWidth}/${img.naturalHeight}`);
-        imgModalImg.src = img.src;
-        imgModalImg.srcset = img.srcset;
-        imgModalImg.alt = img.alt;
-        imgModalCaption.innerHTML = img.alt;
-        imgModal.showModal();
+// --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
+function closeModal() {
+    // Find any video in the modal and pause it to stop background audio
+    const videoInModal = mediaModalContentWrapper.querySelector('video');
+    if (videoInModal) {
+        videoInModal.pause();
+    }
     
-        if (imgModalImg.complete) {
-            lazyImgLoaded();
-        } else {
-            imgModalImg.addEventListener('load', lazyImgLoaded);
-        };
+    // Clear the content for the next item
+    mediaModalContentWrapper.innerHTML = ''; 
+    mediaModalContentWrapper.classList.remove('lazy-img-loaded');
+    mediaModal.close();
+}
+
+// --- MAIN LOGIC FOR OPENING MODAL ---
+allMediaBlocks.forEach((block) => {
+    block.addEventListener('click', () => {
+        // Clear previous content before adding new
+        mediaModalContentWrapper.innerHTML = '';
+        
+        const clickedImg = block.querySelector('img');
+        const clickedVideo = block.querySelector('video');
+
+        // --- IF AN IMAGE WAS CLICKED ---
+        if (clickedImg) {
+            function lazyImgLoaded() {
+                mediaModalContentWrapper.classList.add("lazy-img-loaded");
+            }
+            
+            // Create a new image element for the modal
+            const newImg = document.createElement('img');
+            
+            // Set attributes from the clicked image
+            newImg.src = clickedImg.src;
+            newImg.srcset = clickedImg.srcset;
+            newImg.alt = clickedImg.alt;
+            
+            // Set wrapper styles and caption
+            mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
+            mediaModalContentWrapper.style.aspectRatio = `${clickedImg.naturalWidth}/${clickedImg.naturalHeight}`;
+            // mediaModalContentWrapper.setAttribute('style', `background-image: ${block.style.backgroundImage}; aspect-ratio: ${clickedImg.naturalWidth}/${clickedImg.naturalHeight}`);
+            mediaModalCaption.innerHTML = clickedImg.alt;
+            
+            // Add the new image to the modal
+            mediaModalContentWrapper.appendChild(newImg);
+            
+            // Handle lazy load class
+            if (newImg.complete) {
+                lazyImgLoaded();
+            } else {
+                newImg.addEventListener('load', lazyImgLoaded, { once: true });
+            }
+        }
+        
+        // --- IF A VIDEO WAS CLICKED ---
+        else if (clickedVideo) {
+            // Create a new video element for the modal
+            const newVideo = document.createElement('video');
+            
+            // Set attributes from the clicked video's data attributes
+            newVideo.src = clickedVideo.dataset.videoSrc;
+            newVideo.controls = true; // Show player controls
+            newVideo.autoplay = true; // Play automatically when modal opens
+            
+            // Use the poster as the background and set a default aspect ratio
+            mediaModalContentWrapper.style.backgroundImage = `url(${clickedVideo.poster})`;
+            mediaModalContentWrapper.style.aspectRatio = '16/9'; // Or pass via data-attribute
+            mediaModalCaption.innerHTML = clickedVideo.dataset.caption;
+
+            // Add the new video to the modal
+            mediaModalContentWrapper.appendChild(newVideo);
+            
+            // Add loaded class immediately for videos
+            mediaModalContentWrapper.classList.add("lazy-img-loaded");
+        }
+        
+        // Finally, show the modal
+        mediaModal.showModal();
     });
 });
 
-imgModalCloseBtn.addEventListener('click', () => {
-    imgModalImgWrapper.classList.remove('lazy-img-loaded');
-    imgModal.close();
-});
+// --- EVENT LISTENERS FOR CLOSING MODAL ---
+mediaModalCloseBtn.addEventListener('click', closeModal);
 
-imgModal.addEventListener('click', (e) => {
-    if (e.target === imgModal) {
-        imgModalImgWrapper.classList.remove('lazy-img-loaded');
-        imgModal.close();
-    };
+mediaModal.addEventListener('click', (e) => {
+    // Closes if user clicks on the backdrop
+    if (e.target === mediaModal) {
+        closeModal();
+    }
 });
 
 // cursor
