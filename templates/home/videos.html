@@ -28,7 +28,7 @@
     {% endif %}
 
     <section class="glf-section" which="all">
-        {% for item in video['items'][::-1] %}
+    {% for item in video['items'][::-1] %}
         {% if item['mediaType'] == 'local' %}
         <div class="glf-block filter-content" where="{{ videos['filterId'] }}" data-value="{{item['year']}}">
             <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
@@ -50,6 +50,7 @@
             <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
             {% else %}
             <div class="glf-img skewed-block" b-role="block" b-hoverable>
+            {% endif %}
                 <img 
                     loading="lazy" 
                     src="https://img.youtube.com/vi/{{item['ytSourceId']}}/hqdefault.jpg" 
@@ -62,7 +63,7 @@
             </span>
         </div>
         {% endif %}
-        {% endfor %}
+    {% endfor %}
     </section>
 {% endfor %}
 </section>
