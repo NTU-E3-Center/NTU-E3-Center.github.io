@@ -7,7 +7,6 @@ function change101Top() {
     const topColorHex = getComputedStyle(document.documentElement).getPropertyValue(colorArray[utc8Day % 7]);
     document.querySelector(".hp-101-top").style.fill = topColorHex;
 };
-change101Top();
 
 // * high priority
 // update hp-plane-text box width to fit the text, and set the plane fly duration
@@ -39,6 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // 任務一：正常載入
     const allResourcesPromise = Promise.all([
         new Promise(resolve => { updateHpPlaneText(); resolve('Plane Updated'); }),
+        new Promise(resolve => { change101Top(); resolve('101 Top Changed'); }),
         document.fonts.ready
     ]);
 
