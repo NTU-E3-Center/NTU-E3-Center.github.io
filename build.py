@@ -90,10 +90,12 @@ def copy_static():
 # Function to copy videos directly into docs/
 def copy_videos():
     videos_src = "contents/videos"
+    video_output_dir = os.path.join(output_dir, "assets/videos")
     if os.path.exists(videos_src):
+        os.makedirs(video_output_dir, exist_ok=True)
         for item in os.listdir(videos_src):
             src_path = os.path.join(videos_src, item)
-            dst_path = os.path.join(output_dir, "assets/videos", item)
+            dst_path = os.path.join(video_output_dir, item)
 
             if os.path.isdir(src_path):
                 shutil.copytree(src_path, dst_path, dirs_exist_ok=True)
