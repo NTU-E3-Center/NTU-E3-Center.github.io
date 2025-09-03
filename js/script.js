@@ -312,13 +312,7 @@ const allMediaBlocks = document.querySelectorAll('.glf-img');
 
 // --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
 function closeModal() {
-    // Find any video in the modal and pause it to stop background audio
-    const videoInModal = mediaModalContentWrapper.querySelector('video');
-    if (videoInModal) {
-        videoInModal.pause();
-    }
-    
-    // Clear the content for the next item
+    // 移除 modal 內容可以有效地停止影片/iframe 播放
     mediaModalContentWrapper.innerHTML = ''; 
     mediaModalContentWrapper.classList.remove('lazy-img-loaded');
     mediaModal.close();
@@ -327,36 +321,52 @@ function closeModal() {
 // --- MAIN LOGIC FOR OPENING MODAL ---
 allMediaBlocks.forEach((block) => {
     block.addEventListener('click', () => {
-        // Clear previous content before adding new
+        // 清除上一次的內容
         mediaModalContentWrapper.innerHTML = '';
         
-        const clickedImg = block.querySelector('img');
-        const clickedVideo = block.querySelector('video');
+        const clickedEl = block.querySelector('img, video'); // 同時選取 img 和 video
+        if (!clickedEl) return; // 如果沒找到任何媒體，就結束
 
-        // --- IF AN IMAGE WAS CLICKED ---
-        if (clickedImg) {
+        // --- 新增：優先檢查是否為 YouTube 影片 ---
+        if (clickedEl.dataset.youtubeSrc) {
+            const youtubeSrc = clickedEl.dataset.youtubeSrc;
+            const caption = clickedEl.alt;
+
+            // 建立一個新的 iframe 元素
+            const newIframe = document.createElement('iframe');
+            
+            // 設定 iframe 的屬性
+            newIframe.src = `${youtubeSrc}?autoplay=1&rel=0`; // autoplay=1 讓影片自動播放, rel=0 避免顯示相關影片
+            newIframe.title = caption;
+            newIframe.frameborder = '0';
+            newIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            newIframe.allowfullscreen = true;
+
+            mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.src})`;
+            mediaModalContentWrapper.style.aspectRatio = '16/9'; // YouTube 影片通常是 16:9
+            mediaModalCaption.innerHTML = caption;
+
+            // 將建立好的 iframe 加入 modal
+            mediaModalContentWrapper.appendChild(newIframe);
+            mediaModalContentWrapper.classList.add("lazy-img-loaded");
+        }
+        
+        // --- IF AN IMAGE WAS CLICKED (and it's not a YouTube link) ---
+        else if (clickedEl.tagName === 'IMG') {
             function lazyImgLoaded() {
                 mediaModalContentWrapper.classList.add("lazy-img-loaded");
             }
-            
-            // Create a new image element for the modal
             const newImg = document.createElement('img');
+            newImg.src = clickedEl.src;
+            newImg.srcset = clickedEl.srcset;
+            newImg.alt = clickedEl.alt;
             
-            // Set attributes from the clicked image
-            newImg.src = clickedImg.src;
-            newImg.srcset = clickedImg.srcset;
-            newImg.alt = clickedImg.alt;
-            
-            // Set wrapper styles and caption
             mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
-            mediaModalContentWrapper.style.aspectRatio = `${clickedImg.naturalWidth}/${clickedImg.naturalHeight}`;
-            // mediaModalContentWrapper.setAttribute('style', `background-image: ${block.style.backgroundImage}; aspect-ratio: ${clickedImg.naturalWidth}/${clickedImg.naturalHeight}`);
-            mediaModalCaption.innerHTML = clickedImg.alt;
+            mediaModalContentWrapper.style.aspectRatio = `${clickedEl.naturalWidth}/${clickedEl.naturalHeight}`;
+            mediaModalCaption.innerHTML = clickedEl.alt;
             
-            // Add the new image to the modal
             mediaModalContentWrapper.appendChild(newImg);
             
-            // Handle lazy load class
             if (newImg.complete) {
                 lazyImgLoaded();
             } else {
@@ -364,29 +374,22 @@ allMediaBlocks.forEach((block) => {
             }
         }
         
-        // --- IF A VIDEO WAS CLICKED ---
-        else if (clickedVideo) {
-            // Create a new video element for the modal
+        // --- IF A SELF-HOSTED VIDEO WAS CLICKED ---
+        else if (clickedEl.tagName === 'VIDEO') {
             const newVideo = document.createElement('video');
+            newVideo.src = clickedEl.dataset.videoSrc;
+            newVideo.controls = true;
+            newVideo.autoplay = true;
             
-            // Set attributes from the clicked video's data attributes
-            newVideo.src = clickedVideo.dataset.videoSrc;
-            newVideo.controls = true; // Show player controls
-            newVideo.autoplay = true; // Play automatically when modal opens
-            
-            // Use the poster as the background and set a default aspect ratio
-            mediaModalContentWrapper.style.backgroundImage = `url(${clickedVideo.poster})`;
-            mediaModalContentWrapper.style.aspectRatio = '16/9'; // Or pass via data-attribute
-            mediaModalCaption.innerHTML = clickedVideo.dataset.caption;
+            mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.poster})`;
+            mediaModalContentWrapper.style.aspectRatio = '16/9';
+            mediaModalCaption.innerHTML = clickedEl.dataset.caption;
 
-            // Add the new video to the modal
             mediaModalContentWrapper.appendChild(newVideo);
-            
-            // Add loaded class immediately for videos
             mediaModalContentWrapper.classList.add("lazy-img-loaded");
         }
         
-        // Finally, show the modal
+        // 最後，顯示 modal
         mediaModal.showModal();
     });
 });
@@ -395,7 +398,6 @@ allMediaBlocks.forEach((block) => {
 mediaModalCloseBtn.addEventListener('click', closeModal);
 
 mediaModal.addEventListener('click', (e) => {
-    // Closes if user clicks on the backdrop
     if (e.target === mediaModal) {
         closeModal();
     }

@@ -1498,7 +1498,6 @@
         pointer-events: auto;
     }
 
-    /* cannot fix when modal was initially clicked, the width isn't right */
     .media-modal-content-wrapper {
         --_adjusted-block-skew: 0;
         --_adjusted-border-radius: 0.375rem;
@@ -1506,6 +1505,8 @@
 
         display: grid;
         place-content: center;
+
+        & iframe {aspect-ratio: 16/9;}
     }
     
     .media-modal-caption {
