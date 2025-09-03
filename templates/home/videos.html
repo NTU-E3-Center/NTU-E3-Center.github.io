@@ -48,9 +48,15 @@
         <div class="glf-block filter-content" where="{{ video['filterId'] }}" data-value="{{item['year']}}">
             {% if item['imgPath'] %}
             <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
+                <img 
+                    loading="lazy" 
+                    src="{{ item['imgPath'] }}" 
+                    data-youtube-src="https://www.youtube.com/embed/{{item['ytSourceId']}}" 
+                    alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
+                />
+            </div>
             {% else %}
             <div class="glf-img skewed-block" b-role="block" b-hoverable>
-            {% endif %}
                 <img 
                     loading="lazy" 
                     src="https://img.youtube.com/vi/{{item['ytSourceId']}}/hqdefault.jpg" 
@@ -58,6 +64,7 @@
                     alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
                 />
             </div>
+            {% endif %}
             <span class="glf-img-text">
                 {{ item['month'] }} {{ item['year'] }}
             </span>

@@ -87,6 +87,22 @@ def copy_static():
     print("Static assets copied directly into docs/")
 
 
+# Function to copy videos directly into docs/
+def copy_videos():
+    videos_src = "contents/videos"
+    if os.path.exists(videos_src):
+        for item in os.listdir(videos_src):
+            src_path = os.path.join(videos_src, item)
+            dst_path = os.path.join(output_dir, "assets/videos", item)
+
+            if os.path.isdir(src_path):
+                shutil.copytree(src_path, dst_path, dirs_exist_ok=True)
+            else:
+                shutil.copy2(src_path, dst_path)
+
+    print("Videos copied directly into docs/")
+
+
 # Compress images and convert to WebP format
 images_path = 'contents/images'
 members_img_sizes = [200, 400, 600, 800]
@@ -161,6 +177,8 @@ if __name__ == "__main__":
     render_templates()
     print("Copying static assets...")
     copy_static()
+    print("Copying videos...")
+    copy_videos()
     print("Compressing images and converting to WebP format...")
     compress_and_convert_images()
     print("Build complete!")
