@@ -30,7 +30,7 @@
     <section class="glf-section" which="all">
     {% for item in video['items'][::-1] %}
         {% if item['mediaType'] == 'local' %}
-        <div class="glf-block filter-content" where="{{ videos['filterId'] }}" data-value="{{item['year']}}">
+        <div class="glf-block filter-content" where="{{ video['filterId'] }}" data-value="{{item['year']}}">
             <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
                 <video 
                     preload="none" 
@@ -45,7 +45,7 @@
             </span>
         </div>
         {% elif item['mediaType'] == 'youtube' %}
-        <div class="glf-block filter-content" where="{{ videos['filterId'] }}" data-value="{{item['year']}}">
+        <div class="glf-block filter-content" where="{{ video['filterId'] }}" data-value="{{item['year']}}">
             {% if item['imgPath'] %}
             <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
             {% else %}
