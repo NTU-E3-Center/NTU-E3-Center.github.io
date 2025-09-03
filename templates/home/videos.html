@@ -17,7 +17,7 @@
         {% endfor %}
         {% for filterItem in ns.filterItems[::-1] %}
         <label class="filter-block skewed-block" b-role="btn" b-hoverable>
-            <input class="filter-checkbox" type="checkbox" where="{{ groupLife['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= groupLife['filterDefaultCheck'] %} checked{% endif %}/>
+            <input class="filter-checkbox" type="checkbox" where="{{ video['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= video['filterDefaultCheck'] %} checked{% endif %}/>
             <div class="filter-label">
                 <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
                 {{ filterItem }}
