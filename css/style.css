@@ -1473,14 +1473,17 @@
   100% {clip-path: polygon(100% 0,100% 100%,0 0   )}
 }
 
-/* img-modal */
-.img-modal {
+/* media-modal */
+.media-modal {
+    --_modal-width: min(100svw, 85svh, 80rem);
+    --_padding: 0.5rem;
+
     display: none;
 
     &[open] {
-        width: min(100svw, 85svh, 80rem);
+        width: var(--_modal-width);
         margin: auto;
-        padding: 0.5rem;
+        padding: var(--_padding);
         background-color: transparent;
         overflow: hidden;
 
@@ -1495,21 +1498,25 @@
         pointer-events: auto;
     }
 
-    /* cannot fix when modal was initially clicked, the width isn't right */
-    .img-modal-img-wrapper {
+    .media-modal-content-wrapper {
         --_adjusted-block-skew: 0;
         --_adjusted-border-radius: 0.375rem;
-        --_content-width: 100%;
+        --_content-width: calc(var(--_modal-width) - (2 * var(--btn-border-width)) - (2 * var(--_padding)));
+
+        display: grid;
+        place-content: center;
+
+        & iframe {aspect-ratio: 16/9;}
     }
     
-    .img-modal-caption {
+    .media-modal-caption {
         font-size: 1.25rem;
         text-align: center;
         text-wrap: balance;
         user-select: initial;
     }
 
-    .img-modal-close-btn {
+    .media-modal-close-btn {
         justify-self: end;
 
         & svg {

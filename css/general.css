@@ -278,7 +278,7 @@ h3 {
     }
 }
 
-[class*="-img"]:has(img) {
+[class*="-img"]:has(img), .media-modal-content-wrapper {
     background-size: var(--_content-width);
     background-position: center;
     background-repeat: no-repeat;
