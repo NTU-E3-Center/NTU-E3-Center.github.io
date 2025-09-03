@@ -1,0 +1,68 @@
+<section id="videos">
+    <div class="section-title">
+        <h2>Group Life</h2>
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </div>
+
+{% for video in structures['videos'] %}
+    <h3>{{ video['sectionTitle'] }}</h3>
+    {% if video['filter'] %}
+    <div class="filter" where="{{ video['filterId'] }}">
+        <span class="filter-title">{{ video['filterTitle'] }}</span>
+        {% set ns = namespace(filterItems=[]) %}
+        {% for item in video['items'] %}
+            {% if item['year'] not in ns.filterItems %}
+                {% set ns.filterItems = ns.filterItems + [item['year']] %}
+            {% endif %}
+        {% endfor %}
+        {% for filterItem in ns.filterItems[::-1] %}
+        <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+            <input class="filter-checkbox" type="checkbox" where="{{ groupLife['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= groupLife['filterDefaultCheck'] %} checked{% endif %}/>
+            <div class="filter-label">
+                <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                {{ filterItem }}
+            </div>
+        </label>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <section class="glf-section" which="all">
+        {% for item in video['items'][::-1] %}
+        {% if item['mediaType'] == 'local' %}
+        <div class="glf-block filter-content" where="{{ videos['filterId'] }}" data-value="{{item['year']}}">
+            <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
+                <video 
+                    preload="none" 
+                    poster="{{ item['imgPath'] }}" 
+                    data-video-src="{{ item['videoPath'] }}" 
+                    data-caption="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
+                >
+                </video>
+            </div>
+            <span class="glf-img-text">
+                {{ item['month'] }} {{ item['year'] }}
+            </span>
+        </div>
+        {% elif item['mediaType'] == 'youtube' %}
+        <div class="glf-block filter-content" where="{{ videos['filterId'] }}" data-value="{{item['year']}}">
+            {% if item['imgPath'] %}
+            <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
+            {% else %}
+            <div class="glf-img skewed-block" b-role="block" b-hoverable>
+                <img 
+                    loading="lazy" 
+                    src="https://img.youtube.com/vi/{{item['ytSourceId']}}/hqdefault.jpg" 
+                    data-youtube-src="https://www.youtube.com/embed/{{item['ytSourceId']}}" 
+                    alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
+                />
+            </div>
+            <span class="glf-img-text">
+                {{ item['month'] }} {{ item['year'] }}
+            </span>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </section>
+{% endfor %}
+</section>

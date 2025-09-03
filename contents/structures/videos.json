@@ -1,0 +1,34 @@
+[
+    {
+        "sectionTitle": "All Videos",
+        "filter": true,
+        "filterId": "vid",
+        "filterTitle": "Filter by Year:",
+        "filterDefaultCheck": 1,
+        "items": [
+            {
+                "mediaType": "youtube",
+                "ytSourceId": "lqROCM7BVSA",
+                "imgPath": "/assets/group-life/2020-1.png",
+                "description": "Prof. Hsieh’s first Teacher’s Day with her first graduate student David Chang.",
+                "year": "'20",
+                "month": "Sep."
+            },
+            {
+                "mediaType": "youtube",
+                "ytSourceId": "lqROCM7BVSA",
+                "description": "Prof. Hsieh’s first Teacher’s Day with her first graduate student David Chang.",
+                "year": "'20",
+                "month": "Sep."
+            },
+            {
+                "mediaType": "local",
+                "videoPath": "/assets/videos/2025-1.mp4",
+                "imgPath": "/assets/videos/2025-1.png",
+                "description": "Prof. Hsieh’s second Teacher’s Day with her second graduate student David Chang.",
+                "year": "'25",
+                "month": "Sep."
+            }
+        ]
+    }
+]
