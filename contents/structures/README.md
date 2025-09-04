@@ -8,10 +8,10 @@ For the main page (`index.html`), section listing feature is provided. you can s
 
 Since there are no videos now, the `video` section has been marked out. If you like to place it on page, simply remove `_` from the items of `video`.
 
-## `video.json`
+## `videos.json`
 ---
 Two kinds of video source is accepted:
-### 1. Local Video
+### 1. Local Videos
 
 Simply put the video file and a thumbnail image file in `/contents/video/` then structure as following:
 ```
@@ -28,7 +28,7 @@ Simply put the video file and a thumbnail image file in `/contents/video/` then 
 
 ---
 
-### 2. Youtube Video
+### 2. Youtube Videos
 For Youtube videos, simply copy the source ID from the Youtube video link.
 
 e.g. `https://www.youtube.com/watch?v=dQw4w9WgXcQ` take the string behind `?v=`, that is, `dQw4w9WgXcQ`.
