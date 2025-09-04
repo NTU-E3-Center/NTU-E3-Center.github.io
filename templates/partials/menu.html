@@ -21,12 +21,14 @@
         </ui>
 
         {% for section in pages['index']['structure'] %}
+        {% if section.id %}
         <ui>
             <a href="{{ section.link }}" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="{{ section.title }}">
                 <svg><use href="{{ section.icon }}"></use></svg>
                 <span>{{ section.title }}</span>
             </a>
         </ui>
+        {% endif %}
         {% endfor %}
     </ul>
 </nav>

@@ -40,10 +40,10 @@
                 "icon": "/assets/sprite.svg#svg-picture"
             },
             {
-                "id": "videos",
-                "title": "Videos",
-                "link": "/#videos",
-                "icon": "/assets/sprite.svg#svg-videos"
+                "_id": "videos",
+                "_title": "Videos",
+                "_link": "/#videos",
+                "_icon": "/assets/sprite.svg#svg-videos"
             },
             {
                 "id": "contact",

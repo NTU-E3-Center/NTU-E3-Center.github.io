@@ -4,12 +4,12 @@
         "filter": true,
         "filterId": "vid",
         "filterTitle": "Filter by Year:",
-        "filterDefaultCheck": 1,
+        "filterDefaultCheck": 2,
         "items": [
             {
                 "mediaType": "youtube",
                 "ytSourceId": "lqROCM7BVSA",
-                "imgPath": "/assets/group-life/2020-1.png",
+                "imgPath": "/assets/group-life/2025-3.jpg",
                 "description": "Prof. Hsieh’s first Teacher’s Day with her first graduate student David Chang.",
                 "year": "'20",
                 "month": "Sep."

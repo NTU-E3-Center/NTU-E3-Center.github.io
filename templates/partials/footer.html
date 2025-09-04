@@ -7,7 +7,9 @@
         <a class="ftr-link" href="/">Home</a>
 
         {% for section in pages['index']['structure'] %}
+        {% if section.id %}
         <a class="ftr-link" href="{{ section.link }}">{{ section.title }}</a>
+        {% endif %}
         {% endfor %}
     </div>
 
