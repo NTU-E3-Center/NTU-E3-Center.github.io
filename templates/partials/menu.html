@@ -14,66 +14,19 @@
         </ui>
 
         <ui>
-            <a href="/#home" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+            <a href="/" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
                 <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
                 <span>Home</span>
             </a>
         </ui>
 
+        {% for section in pages['index']['structure'] %}
         <ui>
-            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
-                <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
-                <span>About Us</span>
+            <a href="{{ section.link }}" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="{{ section.title }}">
+                <svg><use href="{{ section.icon }}"></use></svg>
+                <span>{{ section.title }}</span>
             </a>
         </ui>
-
-        <ui>
-            <a href="/#members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
-                <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
-                <span>Members</span>
-            </a>
-        </ui>
-
-        <ui>
-            <a href="/#research" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Research">
-                <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
-                <span>Research</span>
-            </a>
-        </ui>
-        
-        <ui>
-            <a href="/#publication" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publication">
-                <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
-                <span>Publication</span>
-            </a>
-        </ui>
-        
-        <ui>
-            <a href="/#news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
-                <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
-                <span>News</span>
-            </a>
-        </ui>
-
-        <ui>
-            <a href="/#group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
-                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
-                <span>Group Life</span>
-            </a>
-        </ui>
-
-        <ui>
-            <a href="/#videos" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Videos">
-                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
-                <span>Videos</span>
-            </a>
-        </ui>
-
-        <ui>
-            <a href="/#contact-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
-                <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
-                <span>Contact Us</span>
-            </a>
-        </ui>
+        {% endfor %}
     </ul>
 </nav>

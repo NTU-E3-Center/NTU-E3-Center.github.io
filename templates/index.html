@@ -5,21 +5,11 @@
 
 <main>
 
-    {% include 'home/about.html' %}
-    
-    {% include 'home/members.html' %}
-    
-    {% include 'home/research.html' %}
-    
-    {% include 'home/publications.html' %}
-    
-    {% include 'home/news.html' %}
-    
-    {% include 'home/groupLife.html' %}
-    
-    {% include 'home/videos.html' %}
-    
-    {% include 'home/contact.html' %}
+{% for section in pages['index']['structure'] %}
+
+    {% include 'home/' ~ section.id ~ '.html' %}
+
+{% endfor %}
 
 </main>
 {% endblock %}

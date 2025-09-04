@@ -4,27 +4,15 @@
     </a>
 
     <div class="ftr-link-wrapper">
-        <a class="ftr-link" href="/#home">Home</a>
+        <a class="ftr-link" href="/">Home</a>
 
-        <a class="ftr-link" href="/#about-us">About Us</a>
-
-        <a class="ftr-link" href="/#members">Members</a>
-
-        <a class="ftr-link" href="/#research">Research</a>
-
-        <a class="ftr-link" href="/#publication">Publication</a>
-
-        <a class="ftr-link" href="/#news">News</a>
-
-        <a class="ftr-link" href="/#group-life">Group Life</a>
-
-        <a class="ftr-link" href="/#videos">Videos</a>
-
-        <a class="ftr-link" href="/#contact-us">Contact Us</a>
+        {% for section in pages['index']['structure'] %}
+        <a class="ftr-link" href="{{ section.link }}">{{ section.title }}</a>
+        {% endfor %}
     </div>
 
     <div class="ftr-info">
-        &copy; 2025 E3 Center, National Taiwan University. All rights reserved.
+        &copy; {{ year }} E3 Center, National Taiwan University.
         <!-- Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist., Taipei City 106327, Taiwan (R.O.C.) -->
     </div>
 </footer>

@@ -51,8 +51,10 @@ def render_templates():
             if isinstance(page_data, dict) and "path" in page_data:
                 template = env.get_template(f"{template_name}.html")
                 output = template.render(
+                    pages=pages,
                     title=page_data.get("title"),
                     updated_time=datetime.now().strftime("%Y. %m. %d"),
+                    year=datetime.now().year,
                     structures=structures,
                     articles=articles
                 )

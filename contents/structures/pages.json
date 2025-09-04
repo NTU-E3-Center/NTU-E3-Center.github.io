@@ -1,7 +1,57 @@
 {
     "index": {
         "path": "",
-        "title": "E3 Center - Directed by I-Yun Lisa Hsieh"
+        "title": "E3 Center - Directed by I-Yun Lisa Hsieh",
+        "structure": [
+            {
+                "id": "about",
+                "title": "About Us",
+                "link": "/#about",
+                "icon": "/assets/sprite.svg#svg-info"
+            },
+            {
+                "id": "members",
+                "title": "Members",
+                "link": "/#members",
+                "icon": "/assets/sprite.svg#svg-members"
+            },
+            {
+                "id": "research",
+                "title": "Research",
+                "link": "/#research",
+                "icon": "/assets/sprite.svg#svg-scholar"
+            },
+            {
+                "id": "publications",
+                "title": "Publications",
+                "link": "/#publications",
+                "icon": "/assets/sprite.svg#svg-book"
+            },
+            {
+                "id": "news",
+                "title": "News",
+                "link": "/news",
+                "icon": "/assets/sprite.svg#svg-news"
+            },
+            {
+                "id": "groupLife",
+                "title": "Group Life",
+                "link": "/#group-life",
+                "icon": "/assets/sprite.svg#svg-picture"
+            },
+            {
+                "id": "videos",
+                "title": "Videos",
+                "link": "/#videos",
+                "icon": "/assets/sprite.svg#svg-videos"
+            },
+            {
+                "id": "contact",
+                "title": "Contact Us",
+                "link": "/#contact-us",
+                "icon": "/assets/sprite.svg#svg-send"
+            }
+        ]
     },
     "news": {
         "path": "news",
