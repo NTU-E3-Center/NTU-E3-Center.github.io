@@ -47,7 +47,7 @@
         {% elif item['mediaType'] == 'youtube' %}
         <div class="glf-block filter-content" where="{{ video['filterId'] }}" data-value="{{item['year']}}">
             {% if item['imgPath'] %}
-            <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
+            <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: {{item['imgPath']}};">
                 <img 
                     loading="lazy" 
                     src="{{ item['imgPath'] }}" 
@@ -56,7 +56,7 @@
                 />
             </div>
             {% else %}
-            <div class="glf-img skewed-block" b-role="block" b-hoverable>
+            <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable>
                 <img 
                     loading="lazy" 
                     src="https://img.youtube.com/vi/{{item['ytSourceId']}}/hqdefault.jpg" 

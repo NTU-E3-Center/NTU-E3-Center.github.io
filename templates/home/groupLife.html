@@ -85,7 +85,7 @@
         {% for item in groupLife['items'][::-1] %}
         <div class="glf-block filter-content" where="{{ groupLife['filterId'] }}" data-value="{{item['year']}}">
             {% set imgPathFront = item['imgPath'].split('.')[0] %}
-            <div class="glf-img skewed-block" b-role="block" b-hoverable style="background-image: url({{ imgPathFront }}-20w.webp);">
+            <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img 
                     loading="lazy"
                     src="{{ item['imgPath'] }}" 

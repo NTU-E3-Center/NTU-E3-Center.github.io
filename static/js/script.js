@@ -308,7 +308,7 @@ const mediaModal = document.querySelector('.media-modal');
 const mediaModalCloseBtn = document.querySelector('.media-modal-close-btn');
 const mediaModalContentWrapper = document.querySelector('.media-modal-content-wrapper');
 const mediaModalCaption = document.querySelector('.media-modal-caption');
-const allMediaBlocks = document.querySelectorAll('.glf-img');
+const allMediaBlocks = document.querySelectorAll('.zoomable');
 
 // --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
 function closeModal() {
