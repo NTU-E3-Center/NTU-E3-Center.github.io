@@ -1474,6 +1474,10 @@
 }
 
 /* media-modal */
+.zoomable {
+    cursor: zoom-in !important;
+}
+
 .media-modal {
     --_modal-width: min(100svw, 85svh, 80rem);
     --_padding: 0.5rem;
