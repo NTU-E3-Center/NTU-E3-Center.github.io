@@ -10,6 +10,18 @@
             <h3>{{ contact['sectionTitle'] }}</h3>
             {% set articleVar = contact['article'].split('/')[-1].split('.')[0] %}
             {{ articles[articleVar] }}
+
+            <form action="https://formspree.io/f/xandalro" method="POST">
+                <div class="tac-infos">
+                    <input type="text" class="tac-name skewed-block" b-role="block" placeholder="Name" name="Name" required>
+
+                    <input type="email" class="tac-email skewed-block" b-role="block" placeholder="Email" name="Email" required>
+                </div>
+
+                <textarea class="tac-message skewed-block" b-role="block" placeholder="Message" rows="7" name="Message" required></textarea>
+
+                <input type="submit" value="Send" class="tac-send skewed-block" b-role="btn" b-hoverable>
+            </form>
         </div>
     </section>
     {% endfor %}
