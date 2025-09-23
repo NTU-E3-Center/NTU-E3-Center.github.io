@@ -8,7 +8,7 @@ Project started: Fall 2023
 March 2025 - Now:  
 Maintain: Jun-Wei Ding (Gary)
 
-Fall 2023 - Now:  
+Fall 2023 - Fall 2025:  
 Design / Develop / Maintain: [Yuan-Hsi Chien (Thomas)](https://github.com/dobahsi)
 
 For bug reports and suggestions for the website, feel free to get in touch with Gary.
