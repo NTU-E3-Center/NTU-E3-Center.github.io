@@ -382,7 +382,7 @@
     </div>
 
     <div class="hp-last-update">
-        Last Update: <span class="hp-last-update-time">2025. 10. 02</span></br>
+        Last Update: <span class="hp-last-update-time">2025. 10. 03</span></br>
         (More features in development!)
     </div>
 </section>
@@ -2468,6 +2468,30 @@
         <div class="glf-slider">
             <div class="glf-slider-wrapper">
                 <div class="glf-slider-block" current-slide="true">
+                    <div class="glf-slider-img skewed-block" b-role="block" style="background-image: url(/assets/group-life/2025-5-20w.webp);">
+                        <img
+                            loading="lazy" 
+                            src="/assets/group-life/2025-5.jpg" 
+                            srcset="
+                                /assets/group-life/2025-5-200w.webp 200w,
+                                /assets/group-life/2025-5-400w.webp 400w,
+                                /assets/group-life/2025-5-600w.webp 600w,
+                                /assets/group-life/2025-5-800w.webp 800w,
+                                /assets/group-life/2025-5-1200w.webp 1200w,
+                                /assets/group-life/2025-5-1600w.webp 1600w,
+                                /assets/group-life/2025-5-2000w.webp 2000w
+                            "
+                            size="(max-width: 45rem) 100svw, 45rem"
+                            alt="Sep. '30. Prof. Hsieh’s Teacher’s Day Celebration with the E3 Group."
+                            draggable="false"
+                        />
+                    </div>
+
+                    <div class="glf-slider-text">
+                        Sep. '30. Prof. Hsieh’s Teacher’s Day Celebration with the E3 Group.
+                    </div>
+                </div>
+                <div class="glf-slider-block" current-slide="false">
                     <div class="glf-slider-img skewed-block" b-role="block" style="background-image: url(/assets/group-life/2025-4-20w.webp);">
                         <img
                             loading="lazy" 
@@ -2683,30 +2707,6 @@
                         Dec. '23. The E3 Group Workshop and Gathering.
                     </div>
                 </div>
-                <div class="glf-slider-block" current-slide="false">
-                    <div class="glf-slider-img skewed-block" b-role="block" style="background-image: url(/assets/group-life/2023-2-20w.webp);">
-                        <img
-                            loading="lazy" 
-                            src="/assets/group-life/2023-2.jpg" 
-                            srcset="
-                                /assets/group-life/2023-2-200w.webp 200w,
-                                /assets/group-life/2023-2-400w.webp 400w,
-                                /assets/group-life/2023-2-600w.webp 600w,
-                                /assets/group-life/2023-2-800w.webp 800w,
-                                /assets/group-life/2023-2-1200w.webp 1200w,
-                                /assets/group-life/2023-2-1600w.webp 1600w,
-                                /assets/group-life/2023-2-2000w.webp 2000w
-                            "
-                            size="(max-width: 45rem) 100svw, 45rem"
-                            alt="Aug. '23. The E3 Group Welcome and Farewell Gathering."
-                            draggable="false"
-                        />
-                    </div>
-
-                    <div class="glf-slider-text">
-                        Aug. '23. The E3 Group Welcome and Farewell Gathering.
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -2714,6 +2714,13 @@
     <h3>All Photos</h3>
     <div class="filter" where="glf">
         <span class="filter-title">Filter by Year:</span>
+        <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+            <input class="filter-checkbox" type="checkbox" where="glf" value="'30" checked/>
+            <div class="filter-label">
+                <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                '30
+            </div>
+        </label>
         <label class="filter-block skewed-block" b-role="btn" b-hoverable>
             <input class="filter-checkbox" type="checkbox" where="glf" value="'25" checked/>
             <div class="filter-label">
@@ -2729,7 +2736,7 @@
             </div>
         </label>
         <label class="filter-block skewed-block" b-role="btn" b-hoverable>
-            <input class="filter-checkbox" type="checkbox" where="glf" value="'23" checked/>
+            <input class="filter-checkbox" type="checkbox" where="glf" value="'23"/>
             <div class="filter-label">
                 <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
                 '23
@@ -2759,6 +2766,28 @@
     </div>
 
     <section class="glf-section" which="all">
+        <div class="glf-block filter-content" where="glf" data-value="'30">
+            <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url(/assets/group-life/2025-5-20w.webp);">
+                <img 
+                    loading="lazy"
+                    src="/assets/group-life/2025-5.jpg" 
+                    srcset="
+                        /assets/group-life/2025-5-200w.webp 200w,
+                        /assets/group-life/2025-5-400w.webp 400w,
+                        /assets/group-life/2025-5-600w.webp 600w,
+                        /assets/group-life/2025-5-800w.webp 800w,
+                        /assets/group-life/2025-5-1200w.webp 1200w,
+                        /assets/group-life/2025-5-1600w.webp 1600w,
+                        /assets/group-life/2025-5-2000w.webp 2000w
+                    "
+                    sizes="20rem"
+                    alt="Sep. '30. Prof. Hsieh’s Teacher’s Day Celebration with the E3 Group."
+                />
+            </div>
+            <span class="glf-img-text">
+                Sep. '30
+            </span>
+        </div>
         <div class="glf-block filter-content" where="glf" data-value="'25">
             <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url(/assets/group-life/2025-4-20w.webp);">
                 <img 
