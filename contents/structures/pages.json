@@ -30,7 +30,7 @@
             {
                 "id": "news",
                 "title": "News",
-                "link": "/news",
+                "link": "/#news",
                 "icon": "/assets/sprite.svg#svg-news"
             },
             {

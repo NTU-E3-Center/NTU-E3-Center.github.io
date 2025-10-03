@@ -1,7 +1,7 @@
 // * high priority
 // change Taipei 101 top color
 function change101Top() {
-    const colorArray = ['--r-red', '--r-orange', '--r-yellow', '--r-green', '--r-blue', '--r-indigo', '--r-purple'];
+    const colorArray = ['--r-purple', '--r-red', '--r-orange', '--r-yellow', '--r-green', '--r-blue', '--r-indigo'];
     const timeNow = new Date();
     const utc8Day = timeNow.getUTCHours() >= 16 ? timeNow.getUTCDay() + 1 : timeNow.getUTCDay();
     const topColorHex = getComputedStyle(document.documentElement).getPropertyValue(colorArray[utc8Day % 7]);
@@ -97,7 +97,7 @@ function renderRain() {
             const secDevide = ifBack ? 1000 : 1500;
 
             drops += `<line x1="${splatX + rainSlope}" y1="${ifBack ? splatY - 570 : 0}" x2="${splatX}" y2="${ifBack ? splatY : 570}" style="animation-delay: ${animationDelay / secDevide}s; animation-duration: ${dropTime / secDevide}s"/>`
-                
+
             ifBack ? drops += `<path d="M${splatX - 10},${splatY}A7,5,0,0,1,${splatX + 10},${splatY}" style="transform-origin: ${splatX}px ${splatY}px; animation-delay: ${animationDelay / 1000}s; animation-duration: ${dropTime / 1000}s"/>` : null;
         };
 
@@ -295,7 +295,7 @@ glfSlider.addEventListener('mouseleave', () => {
 glfSlider.addEventListener('touchstart', (e) => {
     glfSliderTouchStartX = e.touches[0].clientX;
 });
-  
+
 glfSlider.addEventListener('touchend', (e) => {
     const glfSliderTouchEndX = e.changedTouches[0].clientX;
     glfSliderHandleSwipe(glfSliderTouchEndX);
@@ -313,7 +313,7 @@ const allMediaBlocks = document.querySelectorAll('.zoomable');
 // --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
 function closeModal() {
     // 移除 modal 內容可以有效地停止影片/iframe 播放
-    mediaModalContentWrapper.innerHTML = ''; 
+    mediaModalContentWrapper.innerHTML = '';
     mediaModalContentWrapper.classList.remove('lazy-img-loaded');
     mediaModal.close();
 }
@@ -323,7 +323,7 @@ allMediaBlocks.forEach((block) => {
     block.addEventListener('click', () => {
         // 清除上一次的內容
         mediaModalContentWrapper.innerHTML = '';
-        
+
         const clickedEl = block.querySelector('img, video'); // 同時選取 img 和 video
         if (!clickedEl) return; // 如果沒找到任何媒體，就結束
 
@@ -334,7 +334,7 @@ allMediaBlocks.forEach((block) => {
 
             // 建立一個新的 iframe 元素
             const newIframe = document.createElement('iframe');
-            
+
             // 設定 iframe 的屬性
             newIframe.src = `${youtubeSrc}?autoplay=1&rel=0`; // autoplay=1 讓影片自動播放, rel=0 避免顯示相關影片
             newIframe.title = caption;
@@ -350,7 +350,7 @@ allMediaBlocks.forEach((block) => {
             mediaModalContentWrapper.appendChild(newIframe);
             mediaModalContentWrapper.classList.add("lazy-img-loaded");
         }
-        
+
         // --- IF AN IMAGE WAS CLICKED (and it's not a YouTube link) ---
         else if (clickedEl.tagName === 'IMG') {
             function lazyImgLoaded() {
@@ -360,27 +360,27 @@ allMediaBlocks.forEach((block) => {
             newImg.src = clickedEl.src;
             newImg.srcset = clickedEl.srcset;
             newImg.alt = clickedEl.alt;
-            
+
             mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
             mediaModalContentWrapper.style.aspectRatio = `${clickedEl.naturalWidth}/${clickedEl.naturalHeight}`;
             mediaModalCaption.innerHTML = clickedEl.alt;
-            
+
             mediaModalContentWrapper.appendChild(newImg);
-            
+
             if (newImg.complete) {
                 lazyImgLoaded();
             } else {
                 newImg.addEventListener('load', lazyImgLoaded, { once: true });
             }
         }
-        
+
         // --- IF A SELF-HOSTED VIDEO WAS CLICKED ---
         else if (clickedEl.tagName === 'VIDEO') {
             const newVideo = document.createElement('video');
             newVideo.src = clickedEl.dataset.videoSrc;
             newVideo.controls = true;
             newVideo.autoplay = true;
-            
+
             mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.poster})`;
             mediaModalContentWrapper.style.aspectRatio = '16/9';
             mediaModalCaption.innerHTML = clickedEl.dataset.caption;
@@ -388,7 +388,7 @@ allMediaBlocks.forEach((block) => {
             mediaModalContentWrapper.appendChild(newVideo);
             mediaModalContentWrapper.classList.add("lazy-img-loaded");
         }
-        
+
         // 最後，顯示 modal
         mediaModal.showModal();
     });
@@ -421,7 +421,7 @@ function animateCursor() {
     if (cursorX + cursor.offsetWidth/2 >= document.documentElement.clientWidth) {
         cursorX = document.documentElement.clientWidth - cursor.offsetWidth/2;
     };
-    
+
 
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
