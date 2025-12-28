@@ -36,10 +36,11 @@
                     
                     {% if item['journal'] %}
                     <div class="publi-subtitle">
-                        {{ item['journal'] }}
                         {% if item['volume'] %}
-                            , Vol. {{ item['volume'] }}
-                        {% endif %}.
+                            {{ item['journal'] }}, Vol. {{ item['volume'] }}.
+                        {% else %}
+                            {{ item['journal'] }}.
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>
