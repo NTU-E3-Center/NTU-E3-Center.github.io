@@ -1,0 +1,3269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editors Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- JSZip for creating ZIP files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- FileSaver.js for saving files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            overflow: scroll;
+        }
+        .tab-container {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            background-color: #ffffff;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e2e8f0;
+            background-color: #f0f2f5;
+        }
+        .tab-button {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4a5568;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .tab-button:hover {
+            background-color: #e2e8f0;
+        }
+        .tab-button.active {
+            background-color: #ffffff;
+            color: #6366f1;
+            border-bottom-color: #6366f1;
+            font-weight: 600;
+        }
+        .tab-content {
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        .tab-content.hidden {
+            display: none;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group select,
+        .form-group input[type="range"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-sizing: border-box;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group select:focus,
+        .form-group input[type="range"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        .action-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .action-button:hover {
+            background-color: #4338ca;
+        }
+        .remove-button {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 1rem;
+        }
+        .remove-button:hover {
+            background-color: #dc2626;
+        }
+        .member-card, .research-topic-card, .publication-item-card, .news-item-card, .group-life-item-card, .contact-section-card {
+            background-color: #f9fafb;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .member-card.dragging, .research-topic-card.dragging { /* Added research-topic-card.dragging */
+            opacity: 0.5;
+            border: 2px dashed #6366f1;
+        }
+        .member-card.drag-over, .research-topic-card.drag-over { /* Added research-topic-card.drag-over */
+            border: 2px solid #6366f1;
+            background-color: #e0e7ff;
+        }
+        .member-header, .research-topic-header, .publication-item-header, .news-item-header, .group-life-item-header, .contact-section-header {
+            padding: 1rem 1.5rem;
+            background-color: #e2e8f0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 1px solid #cbd5e0;
+        }
+        .member-details, .research-topic-details, .publication-item-details, .news-item-details, .group-life-item-details, .contact-section-details {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        .member-details.hidden, .research-topic-details.hidden, .publication-item-details.hidden, .news-item-details.hidden, .group-life-item-details.hidden, .contact-section-details.hidden {
+            display: none;
+        }
+        .section-card, .research-section-card, .publication-section-card, .news-section-card, .group-life-section-card, .contact-main-section-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .section-card h2, .research-section-card h2, .publication-section-card h2, .news-section-card h2, .group-life-section-card h2, .contact-main-section-card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.75rem;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1a202c;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        .form-checkbox {
+            border-radius: 4px;
+        }
+        .slider-value {
+            font-weight: 500;
+            color: #4a5568;
+            margin-left: 1rem;
+        }
+        .links-container {
+            border: 1px dashed #cbd5e0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .link-item {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            align-items: flex-end;
+        }
+        .link-item input {
+            flex-grow: 1;
+        }
+        .link-item .remove-link-button {
+            margin-top: 0;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+        #loading-indicator, #about-loading-indicator, #research-loading-indicator, #publications-loading-indicator, #news-loading-indicator, #group-life-loading-indicator, #contact-loading-indicator {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #6366f1;
+        }
+        .about-section-card {
+            background-color: #f9fafb;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .logo-item {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            align-items: flex-end;
+        }
+        .logo-item input {
+            flex-grow: 1;
+        }
+        .logo-item .remove-logo-button {
+            margin-top: 0;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+        .tag-input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            border: 1px dashed #cbd5e0;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+        .tag-input-group input {
+            flex-grow: 1;
+            min-width: 100px;
+        }
+        .tag-item {
+            display: flex;
+            align-items: center;
+            background-color: #e2e8f0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            gap: 0.25rem;
+        }
+        .tag-item button {
+            background: none;
+            border: none;
+            color: #4a5568;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-6">
+    <div class="tab-container">
+        <nav class="tab-buttons">
+            <button class="tab-button active" data-tab="welcome-editor-content">Instructions</button>
+            <button class="tab-button" data-tab="about-editor-content">About</button>
+            <button class="tab-button" data-tab="members-editor-content">Members</button>
+            <button class="tab-button" data-tab="research-editor-content">Research</button>
+            <button class="tab-button" data-tab="publications-editor-content">Publications</button>
+            <button class="tab-button" data-tab="news-editor-content">News</button>
+            <button class="tab-button" data-tab="group-life-editor-content">Group Life</button>
+            <button class="tab-button" data-tab="contact-editor-content">Contact</button>
+        </nav>
+
+        <div id="welcome-editor-content" class="tab-content">
+            <div class="container">
+                <header class="header">
+                    <h1>Welcome to the Editor Dashboard!</h1>
+                    <p>Your central hub for managing website content.</p>
+                </header>
+
+                <div class="prose max-w-none">
+                    <h2 class="text-xl font-semibold mb-4">How to Use This Editor:</h2>
+                    <p class="mb-4">This dashboard allows you to easily update various sections of your website. Each tab corresponds to a different data type. When you make changes within a tab, the corresponding JSON file will be marked as "dirty" (modified) and will be included in the exported ZIP file.</p>
+
+                    <h3 class="text-lg font-medium mb-2">General Controls:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>Tabs:</strong> Navigate between different content sections (About, Members, Research, etc.) using the tabs at the top.</li>
+                        <li><strong>Expand/Collapse Sections:</strong> Click on the header of any content card (e.g., "Member 1", "Research Topic") to expand or collapse its details.</li>
+                        <li><strong>Input Fields:</strong> Directly edit text, URLs, and other data in the provided input fields. Changes are saved internally as you type.</li>
+                        <li><strong>Add/Remove Buttons:</strong> Use the "Add New..." buttons to add new sections or items within a section. Use "Remove" buttons to delete them.</li>
+                        <li><strong>Drag and Drop (Members & Research):</strong> Reorder members within a section or research topics within a section by dragging and dropping their cards.</li>
+                    </ul>
+
+                    <h3 class="text-lg font-medium mb-2">Exporting Your Changes:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>Export Individual JSON:</strong> Each content tab has an "Export [Section Name] JSON" button. Clicking this will download only the JSON file for that specific section, regardless of whether it was modified.</li>
+                        <li><strong>Export All Data as ZIP:</strong> The main "Export All Data as ZIP" button at the bottom of the page will generate a `structures.zip` file. This ZIP file will *only* include the JSON files for sections you have modified during your current session. This ensures you only export what's changed.</li>
+                    </ul>
+
+                    <h3 class="text-lg font-medium mb-2">Specific Tab Functions:</h3>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li><strong>About:</strong> Manage general information about the center, including article paths and sponsor logos.</li>
+                        <li><strong>Members:</strong> Organize team members into sections (Principal Investigator, Students, Alumni) and edit their details. Supports different forms for different member types and a filter for alumni.</li>
+                        <li><strong>Research:</strong> Define ongoing research topics, including tags (bigTags, smallTags) and associated fields (Energy, Economics, Environment).</li>
+                        <li><strong>Publications:</strong> List journal publications with citation details, links, and authors. You can also specify how many recent publications to show on the homepage.</li>
+                        <li><strong>News:</strong> Add news items with titles, links, and dates. Configure how many recent news items appear on the homepage.</li>
+                        <li><strong>Group Life:</strong> Showcase photos and events from group activities, with descriptions and dates. Includes options for a slider and year-based filtering.</li>
+                        <li><strong>Contact:</strong> Manage contact information and associated article paths.</li>
+                    </ul>
+
+                    <p class="mt-6 text-sm text-gray-600">Remember to export your changes regularly to save your work!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>About Editor</h1>
+                    <p>Manage About page sections.</p>
+                </header>
+
+                <div id="about-loading-indicator">Loading About data...</div>
+                <div id="about-sections-container" class="hidden">
+                    <!-- About sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-about-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New About Section
+                </button>
+                <button id="export-about-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export About JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="members-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>Members Editor</h1>
+                    <p>Manage member sections and individual members.</p>
+                </header>
+
+                <div id="loading-indicator">Loading members data...</div>
+                <div id="sections-container" class="hidden">
+                    <!-- Sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-section" class="action-button w-full hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New Section
+                </button>
+
+                <button id="export-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export to JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="research-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>Research Editor</h1>
+                    <p>Manage research sections and topics.</p>
+                </header>
+
+                <div id="research-loading-indicator">Loading Research data...</div>
+                <div id="research-sections-container" class="hidden">
+                    <!-- Research sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-research-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New Research Section
+                </button>
+                <button id="export-research-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export Research JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="publications-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>Publications Editor</h1>
+                    <p>Manage publication sections and items.</p>
+                </header>
+
+                <div id="publications-loading-indicator">Loading Publications data...</div>
+                <div id="publications-sections-container" class="hidden">
+                    <!-- Publications sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-publication-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New Publication Section
+                </button>
+                <button id="export-publications-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export Publications JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="news-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>News Editor</h1>
+                    <p>Manage news sections and items.</p>
+                </header>
+
+                <div id="news-loading-indicator">Loading News data...</div>
+                <div id="news-sections-container" class="hidden">
+                    <!-- News sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-news-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New News Section
+                </button>
+                <button id="export-news-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export News JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="group-life-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>Group Life Editor</h1>
+                    <p>Manage group life sections and photos.</p>
+                </header>
+
+                <div id="group-life-loading-indicator">Loading Group Life data...</div>
+                <div id="group-life-sections-container" class="hidden">
+                    <!-- Group Life sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-group-life-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New Group Life Section
+                </button>
+                <button id="export-group-life-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export Group Life JSON
+                </button>
+            </div>
+        </div>
+
+        <div id="contact-editor-content" class="tab-content hidden">
+            <div class="container">
+                <header class="header">
+                    <h1>Contact Editor</h1>
+                    <p>Manage Contact page sections.</p>
+                </header>
+
+                <div id="contact-loading-indicator">Loading Contact data...</div>
+                <div id="contact-sections-container" class="hidden">
+                    <!-- Contact sections will be loaded here by JavaScript -->
+                </div>
+
+                <button id="add-new-contact-section" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add New Contact Section
+                </button>
+                <button id="export-contact-json" class="action-button w-full mt-4 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export Contact JSON
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button id="export-all-json-zip" class="action-button w-full max-w-md mx-auto mt-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+        Export All Data as ZIP
+    </button>
+
+    <script>
+        let membersData = [];
+        let aboutData = [];
+        let researchData = [];
+        let publicationsData = [];
+        let newsData = [];
+        let groupLifeData = [];
+        let contactData = [];
+
+        // Dirty flags to track modifications
+        let isMembersDataDirty = false;
+        let isAboutDataDirty = false;
+        let isResearchDataDirty = false;
+        let isPublicationsDataDirty = false;
+        let isNewsDataDirty = false;
+        let isGroupLifeDataDirty = false;
+        let isContactDataDirty = false;
+
+        // Function to mark a specific data type as dirty
+        function markDataDirty(dataType) {
+            switch (dataType) {
+                case 'members':
+                    isMembersDataDirty = true;
+                    break;
+                case 'about':
+                    isAboutDataDirty = true;
+                    break;
+                case 'research':
+                    isResearchDataDirty = true;
+                    break;
+                case 'publications':
+                    isPublicationsDataDirty = true;
+                    break;
+                case 'news':
+                    isNewsDataDirty = true;
+                    break;
+                case 'groupLife':
+                    isGroupLifeDataDirty = true;
+                    break;
+                case 'contact':
+                    isContactDataDirty = true;
+                    break;
+            }
+        }
+
+        // Elements for Members Editor
+        const sectionsContainer = document.getElementById('sections-container');
+        const addNewSectionButton = document.getElementById('add-new-section');
+        const exportJsonButton = document.getElementById('export-json');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Elements for About Editor
+        const aboutSectionsContainer = document.getElementById('about-sections-container');
+        const addAboutSectionButton = document.getElementById('add-new-about-section');
+        const exportAboutJsonButton = document.getElementById('export-about-json');
+        const aboutLoadingIndicator = document.getElementById('about-loading-indicator');
+
+        // Elements for Research Editor
+        const researchSectionsContainer = document.getElementById('research-sections-container');
+        const addResearchSectionButton = document.getElementById('add-new-research-section');
+        const exportResearchJsonButton = document.getElementById('export-research-json');
+        const researchLoadingIndicator = document.getElementById('research-loading-indicator');
+
+        // Elements for Publications Editor
+        const publicationsSectionsContainer = document.getElementById('publications-sections-container');
+        const addPublicationSectionButton = document.getElementById('add-new-publication-section');
+        const exportPublicationsJsonButton = document.getElementById('export-publications-json');
+        const publicationsLoadingIndicator = document.getElementById('publications-loading-indicator');
+
+        // Elements for News Editor
+        const newsSectionsContainer = document.getElementById('news-sections-container');
+        const addNewsSectionButton = document.getElementById('add-new-news-section');
+        const exportNewsJsonButton = document.getElementById('export-news-json');
+        const newsLoadingIndicator = document.getElementById('news-loading-indicator');
+
+        // Elements for Group Life Editor
+        const groupLifeSectionsContainer = document.getElementById('group-life-sections-container');
+        const addGroupLifeSectionButton = document.getElementById('add-new-group-life-section');
+        const exportGroupLifeJsonButton = document.getElementById('export-group-life-json');
+        const groupLifeLoadingIndicator = document.getElementById('group-life-loading-indicator');
+
+        // Elements for Contact Editor
+        const contactSectionsContainer = document.getElementById('contact-sections-container');
+        const addContactSectionButton = document.getElementById('add-new-contact-section');
+        const exportContactJsonButton = document.getElementById('export-contact-json');
+        const contactLoadingIndicator = document.getElementById('contact-loading-indicator');
+
+        // New Export All Button
+        const exportAllJsonZipButton = document.getElementById('export-all-json-zip');
+
+
+        // Tab system elements
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Helper for years, formatted as 'YY
+        const currentYear = new Date().getFullYear();
+        const startYear = 2019;
+        const endYear = currentYear + 2;
+        const numberOfYears = endYear - startYear + 1;
+        const years = Array.from({ length: numberOfYears }, (_, i) => `'${String(startYear + i).slice(-2)}`);
+
+        // Global variable to store dragged item data for members editor
+        let draggedMember = null;
+        let draggedMemberSectionIndex = -1;
+        let draggedMemberIndex = -1;
+
+        // Global variables for research drag and drop
+        let draggedResearchTopic = null;
+        let draggedResearchTopicSectionIndex = -1;
+        let draggedResearchTopicIndex = -1;
+
+        // --- Members Editor Functions ---
+
+        function renderMemberItem(member, sectionIndex, memberIndex) {
+            const memberCard = document.createElement('div');
+            memberCard.className = 'member-card';
+            memberCard.dataset.sectionIndex = sectionIndex;
+            memberCard.dataset.memberIndex = memberIndex;
+            memberCard.setAttribute('draggable', 'true'); // Make item draggable
+
+            let memberFormHtml = '';
+            const formType = membersData[sectionIndex].form; // Get form type from parent section
+
+            if (formType === 'L') {
+                memberFormHtml = `
+                    <div class="form-group">
+                        <label for="engName-${sectionIndex}-${memberIndex}">English Name:</label>
+                        <input type="text" id="engName-${sectionIndex}-${memberIndex}" value="${member.engName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiName-${sectionIndex}-${memberIndex}">Chinese Name:</label>
+                        <input type="text" id="chiName-${sectionIndex}-${memberIndex}" value="${member.chiName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description-${sectionIndex}-${memberIndex}">Description:</label>
+                        <textarea id="description-${sectionIndex}-${memberIndex}" rows="3">${member.description || ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="imgPath-${sectionIndex}-${memberIndex}">Image Path:</label>
+                        <input type="text" id="imgPath-${sectionIndex}-${memberIndex}" value="${member.imgPath || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Links:</label>
+                        <div class="links-container" id="links-container-${sectionIndex}-${memberIndex}">
+                            ${(member.links || []).map((link, linkIndex) => `
+                                <div class="link-item" data-link-index="${linkIndex}">
+                                    <input type="text" placeholder="Icon (e.g., /assets/sprite.svg#svg-send)" value="${link.icon || ''}" id="link-icon-${sectionIndex}-${memberIndex}-${linkIndex}">
+                                    <input type="text" placeholder="Text (e.g., email@example.com)" value="${link.text || ''}" id="link-text-${sectionIndex}-${memberIndex}-${linkIndex}">
+                                    <input type="url" placeholder="Link URL" value="${link.link || ''}" id="link-url-${sectionIndex}-${memberIndex}-${linkIndex}">
+                                    <button class="remove-button remove-link-button" data-section-index="${sectionIndex}" data-member-index="${memberIndex}" data-link-index="${linkIndex}">Remove</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="action-button w-full add-link-button" data-section-index="${sectionIndex}" data-member-index="${memberIndex}">Add Link</button>
+                    </div>
+                `;
+            } else {
+                memberFormHtml = `
+                    <div class="form-group">
+                        <label for="engName-${sectionIndex}-${memberIndex}">English Name:</label>
+                        <input type="text" id="engName-${sectionIndex}-${memberIndex}" value="${member.engName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="chiName-${sectionIndex}-${memberIndex}">Chinese Name:</label>
+                        <input type="text" id="chiName-${sectionIndex}-${memberIndex}" value="${member.chiName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="imgPath-${sectionIndex}-${memberIndex}">Image Path:</label>
+                        <input type="text" id="imgPath-${sectionIndex}-${memberIndex}" value="${member.imgPath || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="icon-${sectionIndex}-${memberIndex}">Icon (SVG Path):</label>
+                        <input type="text" id="icon-${sectionIndex}-${memberIndex}" value="${member.icon || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="admissionYear-${sectionIndex}-${memberIndex}">Admission Year:</label>
+                        <select id="admissionYear-${sectionIndex}-${memberIndex}">
+                            ${years.map(year => `<option value="${year}" ${member.admissionYear === year ? 'selected' : ''}>${year}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pageLink-${sectionIndex}-${memberIndex}">Page Link (Optional):</label>
+                        <input type="url" id="pageLink-${sectionIndex}-${memberIndex}" value="${member.pageLink || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="pageStructure-${sectionIndex}-${memberIndex}">Page Structure (Optional):</label>
+                        <input type="text" id="pageStructure-${sectionIndex}-${memberIndex}" value="${member.pageStructure || ''}">
+                    </div>
+                `;
+            }
+
+            memberCard.innerHTML = `
+                <div class="member-header">
+                    <h3 class="font-bold text-lg">${member.engName || 'New Member'} (${member.chiName || '新成員'})</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="member-details hidden">
+                    ${memberFormHtml}
+                    <button class="remove-button w-full remove-member-button" data-section-index="${sectionIndex}" data-member-index="${memberIndex}">Remove Member</button>
+                </div>
+            `;
+
+            const memberHeader = memberCard.querySelector('.member-header');
+            const memberDetails = memberCard.querySelector('.member-details');
+            const toggleIcon = memberCard.querySelector('.toggle-icon');
+
+            memberHeader.addEventListener('click', () => {
+                memberDetails.classList.toggle('hidden');
+                if (memberDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+
+            // Drag and Drop Event Listeners
+            memberCard.addEventListener('dragstart', (e) => {
+                draggedMember = memberCard;
+                draggedMemberSectionIndex = parseInt(memberCard.dataset.sectionIndex);
+                draggedMemberIndex = parseInt(memberCard.dataset.memberIndex);
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', memberCard.outerHTML); // Set data for drag operation
+                setTimeout(() => {
+                    memberCard.classList.add('dragging');
+                }, 0);
+            });
+
+            memberCard.addEventListener('dragover', (e) => {
+                e.preventDefault(); // Allow drop
+                if (e.target.closest('.member-card') && e.target.closest('.member-card') !== draggedMember) {
+                    const targetCard = e.target.closest('.member-card');
+                    const targetSectionIndex = parseInt(targetCard.dataset.sectionIndex);
+                    // Only allow drag within the same section for now
+                    if (targetSectionIndex === draggedMemberSectionIndex) {
+                        targetCard.classList.add('drag-over');
+                    }
+                }
+            });
+
+            memberCard.addEventListener('dragleave', (e) => {
+                if (e.target.closest('.member-card')) {
+                    e.target.closest('.member-card').classList.remove('drag-over');
+                }
+            });
+
+            memberCard.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dropTargetCard = e.target.closest('.member-card');
+                if (dropTargetCard && dropTargetCard !== draggedMember) {
+                    const targetSectionIndex = parseInt(dropTargetCard.dataset.sectionIndex);
+                    const targetMemberIndex = parseInt(dropTargetCard.dataset.memberIndex);
+
+                    // Ensure drop is within the same section
+                    if (targetSectionIndex === draggedMemberSectionIndex) {
+                        const draggedItem = membersData[draggedMemberSectionIndex].members.splice(draggedMemberIndex, 1)[0];
+                        membersData[targetSectionIndex].members.splice(targetMemberIndex, 0, draggedItem);
+                        markDataDirty('members'); // Mark dirty on drag and drop reorder
+                        renderAllMemberSections(); // Re-render to update the order
+                    }
+                }
+                dropTargetCard.classList.remove('drag-over');
+            });
+
+            memberCard.addEventListener('dragend', () => {
+                draggedMember.classList.remove('dragging');
+                draggedMember = null;
+                draggedMemberSectionIndex = -1;
+                draggedMemberIndex = -1;
+                // Clean up any lingering drag-over classes
+                document.querySelectorAll('.member-card.drag-over').forEach(card => card.classList.remove('drag-over'));
+            });
+
+            return memberCard;
+        }
+
+        function renderMemberSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            let filterFieldsHtml = '';
+            if (section.form === 'S') {
+                filterFieldsHtml = `
+                    <div class="form-group">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" id="filter-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${section.filter ? 'checked' : ''}>
+                            <span class="ml-2 text-gray-700">Enable Filter</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterId-${sectionIndex}">Filter ID:</label>
+                        <input type="text" id="filterId-${sectionIndex}" value="${section.filterId || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterTitle-${sectionIndex}">Filter Title:</label>
+                        <input type="text" id="filterTitle-${sectionIndex}" value="${section.filterTitle || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterDefaultCheck-${sectionIndex}">Filter Default Check:</label>
+                        <input type="number" id="filterDefaultCheck-${sectionIndex}" min="0" value="${section.filterDefaultCheck || 0}">
+                    </div>
+                `;
+            }
+
+            sectionCard.innerHTML = `
+                <h2 class="mb-4">Section ${sectionIndex + 1}</h2>
+                <div class="form-group">
+                    <label for="sectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="sectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label for="form-${sectionIndex}">Form Type:</label>
+                    <select id="form-${sectionIndex}">
+                        <option value="L" ${section.form === 'L' ? 'selected' : ''}>L (Principal Investigator)</option>
+                        <option value="M" ${section.form === 'M' ? 'selected' : ''}>M (Students)</option>
+                        <option value="S" ${section.form === 'S' ? 'selected' : ''}>S (Alumni)</option>
+                    </select>
+                </div>
+                ${filterFieldsHtml}
+                <div class="members-list">
+                    <!-- Members for this section will be appended here -->
+                </div>
+                <button class="action-button w-full mt-4 add-member-button" data-section-index="${sectionIndex}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add Member to this Section
+                </button>
+                <button class="remove-button w-full remove-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+
+            const membersList = sectionCard.querySelector('.members-list');
+            if (section.members) {
+                section.members.forEach((member, memberIndex) => {
+                    membersList.appendChild(renderMemberItem(member, sectionIndex, memberIndex)); // Pass memberIndex
+                });
+            }
+            sectionsContainer.appendChild(sectionCard);
+
+            sectionCard.querySelector(`#sectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                membersData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('members');
+            });
+
+            const formSelect = sectionCard.querySelector(`#form-${sectionIndex}`);
+            formSelect.addEventListener('change', (event) => {
+                membersData[sectionIndex].form = event.target.value;
+                membersData[sectionIndex].members = [];
+                markDataDirty('members');
+                renderAllMemberSections();
+            });
+
+            if (section.form === 'S') {
+                sectionCard.querySelector(`#filter-${sectionIndex}`).addEventListener('change', (event) => {
+                    membersData[sectionIndex].filter = event.target.checked;
+                    markDataDirty('members');
+                });
+                sectionCard.querySelector(`#filterId-${sectionIndex}`).addEventListener('input', (event) => {
+                    membersData[sectionIndex].filterId = event.target.value;
+                    markDataDirty('members');
+                });
+                sectionCard.querySelector(`#filterTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                    membersData[sectionIndex].filterTitle = event.target.value;
+                    markDataDirty('members');
+                });
+                sectionCard.querySelector(`#filterDefaultCheck-${sectionIndex}`).addEventListener('input', (event) => {
+                    membersData[sectionIndex].filterDefaultCheck = parseInt(event.target.value) || 0;
+                    markDataDirty('members');
+                });
+            }
+
+            sectionCard.querySelector('.add-member-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addMemberItem(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeSection(currentSectionIndex);
+            });
+
+            sectionCard.querySelectorAll('.member-card').forEach(memberElem => {
+                const currentMemberIndex = parseInt(memberElem.dataset.memberIndex);
+                const currentFormType = membersData[sectionIndex].form;
+
+                const memberDetails = memberElem.querySelector('.member-details');
+
+                if (memberDetails) {
+                    const engNameInput = memberDetails.querySelector(`#engName-${sectionIndex}-${currentMemberIndex}`);
+                    if (engNameInput) {
+                        engNameInput.addEventListener('input', (event) => {
+                            membersData[sectionIndex].members[currentMemberIndex].engName = event.target.value;
+                            memberElem.querySelector('.member-header h3').textContent = `${membersData[sectionIndex].members[currentMemberIndex].engName || 'New Member'} (${membersData[sectionIndex].members[currentMemberIndex].chiName || '新成員'})`;
+                            markDataDirty('members');
+                        });
+                    }
+
+                    const chiNameInput = memberDetails.querySelector(`#chiName-${sectionIndex}-${currentMemberIndex}`);
+                    if (chiNameInput) {
+                        chiNameInput.addEventListener('input', (event) => {
+                            membersData[sectionIndex].members[currentMemberIndex].chiName = event.target.value;
+                            memberElem.querySelector('.member-header h3').textContent = `${membersData[sectionIndex].members[currentMemberIndex].engName || 'New Member'} (${membersData[sectionIndex].members[currentMemberIndex].chiName || '新成員'})`;
+                            markDataDirty('members');
+                        });
+                    }
+
+                    const imgPathInput = memberDetails.querySelector(`#imgPath-${sectionIndex}-${currentMemberIndex}`);
+                    if (imgPathInput) {
+                        imgPathInput.addEventListener('input', (event) => {
+                            membersData[sectionIndex].members[currentMemberIndex].imgPath = event.target.value;
+                            markDataDirty('members');
+                        });
+                    }
+
+                    if (currentFormType === 'L') {
+                        const descriptionTextarea = memberDetails.querySelector(`#description-${sectionIndex}-${currentMemberIndex}`);
+                        if (descriptionTextarea) {
+                            descriptionTextarea.addEventListener('input', (event) => {
+                                membersData[sectionIndex].members[currentMemberIndex].description = event.target.value;
+                                markDataDirty('members');
+                            });
+                        }
+
+                        const linksContainer = memberDetails.querySelector(`#links-container-${sectionIndex}-${currentMemberIndex}`);
+                        if (linksContainer) {
+                            linksContainer.querySelectorAll('.link-item').forEach(linkItemElem => {
+                                const currentLinkIndex = parseInt(linkItemElem.dataset.linkIndex);
+                                const linkIconInput = linkItemElem.querySelector(`#link-icon-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
+                                if (linkIconInput) {
+                                    linkIconInput.addEventListener('input', (event) => {
+                                        membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].icon = event.target.value;
+                                        markDataDirty('members');
+                                    });
+                                }
+                                const linkTextInput = linkItemElem.querySelector(`#link-text-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
+                                if (linkTextInput) {
+                                    linkTextInput.addEventListener('input', (event) => {
+                                        membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].text = event.target.value;
+                                        markDataDirty('members');
+                                    });
+                                }
+                                const linkUrlInput = linkItemElem.querySelector(`#link-url-${sectionIndex}-${currentMemberIndex}-${currentLinkIndex}`);
+                                if (linkUrlInput) {
+                                    linkUrlInput.addEventListener('input', (event) => {
+                                        membersData[sectionIndex].members[currentMemberIndex].links[currentLinkIndex].link = event.target.value;
+                                        markDataDirty('members');
+                                    });
+                                }
+                                const removeLinkButton = linkItemElem.querySelector('.remove-link-button');
+                                if (removeLinkButton) {
+                                    removeLinkButton.addEventListener('click', (event) => {
+                                        const linkToRemoveIndex = parseInt(event.target.dataset.linkIndex);
+                                        removeLink(sectionIndex, currentMemberIndex, linkToRemoveIndex);
+                                    });
+                                }
+                            });
+
+                            const addLinkButton = memberDetails.querySelector('.add-link-button');
+                            if (addLinkButton) {
+                                addLinkButton.addEventListener('click', (event) => {
+                                    const currentMemberIndexForLink = parseInt(event.target.dataset.memberIndex);
+                                    addLinkToMember(sectionIndex, currentMemberIndexForLink);
+                                });
+                            }
+                        }
+
+                    } else {
+                        const iconInput = memberDetails.querySelector(`#icon-${sectionIndex}-${currentMemberIndex}`);
+                        if (iconInput) {
+                            iconInput.addEventListener('input', (event) => {
+                                membersData[sectionIndex].members[currentMemberIndex].icon = event.target.value;
+                                markDataDirty('members');
+                            });
+                        }
+                        const admissionYearSelect = memberDetails.querySelector(`#admissionYear-${sectionIndex}-${currentMemberIndex}`);
+                        if (admissionYearSelect) {
+                            admissionYearSelect.addEventListener('change', (event) => {
+                                membersData[sectionIndex].members[currentMemberIndex].admissionYear = event.target.value;
+                                markDataDirty('members');
+                            });
+                        }
+                        const pageLinkInput = memberDetails.querySelector(`#pageLink-${sectionIndex}-${currentMemberIndex}`);
+                        if (pageLinkInput) {
+                            pageLinkInput.addEventListener('input', (event) => {
+                                membersData[sectionIndex].members[currentMemberIndex].pageLink = event.target.value;
+                                markDataDirty('members');
+                            });
+                        }
+                        const pageStructureInput = memberDetails.querySelector(`#pageStructure-${sectionIndex}-${currentMemberIndex}`);
+                        if (pageStructureInput) {
+                            pageStructureInput.addEventListener('input', (event) => {
+                                membersData[sectionIndex].members[currentMemberIndex].pageStructure = event.target.value;
+                                markDataDirty('members');
+                            });
+                        }
+                    }
+
+                    const removeMemberButton = memberDetails.querySelector('.remove-member-button');
+                    if (removeMemberButton) {
+                        removeMemberButton.addEventListener('click', (event) => {
+                            const memberToRemoveIndex = parseInt(event.target.dataset.memberIndex);
+                            removeMemberItem(sectionIndex, memberToRemoveIndex);
+                        });
+                    }
+                }
+            });
+        }
+
+        function renderAllMemberSections() {
+            sectionsContainer.innerHTML = '';
+            membersData.forEach((section, sectionIndex) => {
+                renderMemberSection(section, sectionIndex);
+            });
+        }
+
+        function addMemberItem(sectionIndex) {
+            const formType = membersData[sectionIndex].form;
+            let newMember = {};
+
+            if (formType === 'L') {
+                newMember = {
+                    engName: 'New English Name',
+                    chiName: '新中文名',
+                    description: '',
+                    imgPath: '',
+                    links: []
+                };
+            } else {
+                newMember = {
+                    engName: 'New English Name',
+                    chiName: '新中文名',
+                    imgPath: '',
+                    icon: '',
+                    admissionYear: `'${String(currentYear).slice(-2)}`,
+                    pageLink: '',
+                    pageStructure: ''
+                };
+            }
+
+            if (!membersData[sectionIndex].members) {
+                membersData[sectionIndex].members = [];
+            }
+            membersData[sectionIndex].members.push(newMember);
+            markDataDirty('members');
+            renderAllMemberSections();
+            const sectionElement = sectionsContainer.children[sectionIndex];
+            if (sectionElement) {
+                const membersList = sectionElement.querySelector('.members-list');
+                if (membersList && membersList.lastElementChild) {
+                    membersList.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+
+        function removeMemberItem(sectionIndex, memberIndex) {
+            if (membersData[sectionIndex] && membersData[sectionIndex].members) {
+                membersData[sectionIndex].members.splice(memberIndex, 1);
+                markDataDirty('members');
+                renderAllMemberSections();
+            }
+        }
+
+        function addLinkToMember(sectionIndex, memberIndex) {
+            const newLink = {
+                icon: '',
+                text: '',
+                link: ''
+            };
+            if (!membersData[sectionIndex].members[memberIndex].links) {
+                membersData[sectionIndex].members[memberIndex].links = [];
+            }
+            membersData[sectionIndex].members[memberIndex].links.push(newLink);
+            markDataDirty('members');
+            renderAllMemberSections();
+        }
+
+        function removeLink(sectionIndex, memberIndex, linkIndex) {
+            if (membersData[sectionIndex].members[memberIndex].links) {
+                membersData[sectionIndex].members[memberIndex].links.splice(linkIndex, 1);
+                markDataDirty('members');
+                renderAllMemberSections();
+            }
+        }
+
+        function addNewMemberSection() {
+            const newSection = {
+                sectionTitle: 'New Section',
+                form: 'M',
+                members: []
+            };
+            membersData.push(newSection);
+            markDataDirty('members');
+            renderAllMemberSections();
+            const sectionElement = sectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function removeSection(sectionIndex) {
+            if (membersData.length > 1) {
+                membersData.splice(sectionIndex, 1);
+                markDataDirty('members');
+                renderAllMemberSections();
+            } else {
+                alert("Cannot remove the last section.");
+            }
+        }
+
+        function getCleanedMembersData() {
+            const dataToExport = JSON.parse(JSON.stringify(membersData));
+
+            dataToExport.forEach(section => {
+                if (section.members) {
+                    section.members.forEach(member => {
+                        for (const key in member) {
+                            if (typeof member[key] === 'string' && member[key].trim() === '') {
+                                delete member[key];
+                            }
+                        }
+
+                        if (section.form === 'L') {
+                            if (member.links && Array.isArray(member.links)) {
+                                member.links = member.links.filter(link => {
+                                    return link.icon.trim() !== '' || link.text.trim() !== '' || link.link.trim() !== '';
+                                });
+                                if (member.links.length === 0) {
+                                    delete member.links;
+                                }
+                            }
+                        } else {
+                            if (member.pageLink && member.pageLink.trim() === '') {
+                                delete member.pageLink;
+                            }
+                            if (member.pageStructure && member.pageStructure.trim() === '') {
+                                delete member.pageStructure;
+                            }
+                        }
+                    });
+                }
+
+                if (section.form !== 'S' || !section.filter) {
+                    delete section.filter;
+                    delete section.filterId;
+                    delete section.filterTitle;
+                    delete section.filterDefaultCheck;
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportMembersJson() {
+            const dataStr = JSON.stringify(getCleanedMembersData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'members.json');
+        }
+
+        async function fetchMembersData() {
+            loadingIndicator.classList.remove('hidden');
+            sectionsContainer.classList.add('hidden');
+            addNewSectionButton.classList.add('hidden');
+            exportJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/members.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                membersData = await response.json();
+                isMembersDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllMemberSections();
+                sectionsContainer.classList.remove('hidden');
+                addNewSectionButton.classList.remove('hidden');
+                exportJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching members data:', error);
+                loadingIndicator.textContent = 'Failed to load members data. Please check the URL or your network connection.';
+                loadingIndicator.style.color = '#ef4444';
+            } finally {
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- About Editor Functions ---
+
+        function renderAboutLogoItem(logo, sectionIndex, logoIndex) {
+            const logoItemDiv = document.createElement('div');
+            logoItemDiv.className = 'logo-item';
+            logoItemDiv.dataset.sectionIndex = sectionIndex;
+            logoItemDiv.dataset.logoIndex = logoIndex;
+
+            logoItemDiv.innerHTML = `
+                <input type="text" placeholder="Logo Path" value="${logo.logoPath || ''}" id="logoPath-${sectionIndex}-${logoIndex}">
+                <input type="text" placeholder="Logo Alt Text" value="${logo.logoAlt || ''}" id="logoAlt-${sectionIndex}-${logoIndex}">
+                <input type="url" placeholder="Logo Link (Optional)" value="${logo.logoLink || ''}" id="logoLink-${sectionIndex}-${logoIndex}">
+                <button class="remove-button remove-logo-button" data-section-index="${sectionIndex}" data-logo-index="${logoIndex}">Remove</button>
+            `;
+            return logoItemDiv;
+        }
+
+        function renderAboutSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'about-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            let formSpecificFields = '';
+            if (section.form === 'about') {
+                formSpecificFields = `
+                    <div class="form-group">
+                        <label for="article-${sectionIndex}">Article Path:</label>
+                        <input type="text" id="article-${sectionIndex}" value="${section.article || ''}">
+                    </div>
+                `;
+            } else if (section.form === 'sponsors') {
+                formSpecificFields = `
+                    <div class="form-group">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" id="display-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${section.display ? 'checked' : ''}>
+                            <span class="ml-2 text-gray-700">Display Section</span>
+                        </label>
+                    </div>
+                `;
+            }
+
+            sectionCard.innerHTML = `
+                <h3 class="font-bold text-lg mb-4">${section.sectionTitle || 'New About Section'}</h3>
+                <div class="form-group">
+                    <label for="aboutForm-${sectionIndex}">Form Type:</label>
+                    <select id="aboutForm-${sectionIndex}">
+                        <option value="about" ${section.form === 'about' ? 'selected' : ''}>About (Main Content)</option>
+                        <option value="sponsors" ${section.form === 'sponsors' ? 'selected' : ''}>Sponsors</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="aboutSectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="aboutSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                ${formSpecificFields}
+                <div class="form-group">
+                    <label>Logos:</label>
+                    <div class="links-container" id="logos-container-${sectionIndex}">
+                        ${(section.logos || []).map((logo, logoIndex) => renderAboutLogoItem(logo, sectionIndex, logoIndex).outerHTML).join('')}
+                    </div>
+                    <button class="action-button w-full add-logo-button" data-section-index="${sectionIndex}">Add Logo</button>
+                </div>
+                <button class="remove-button w-full remove-about-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+            aboutSectionsContainer.appendChild(sectionCard);
+
+            sectionCard.querySelector(`#aboutForm-${sectionIndex}`).addEventListener('change', (event) => {
+                section.form = event.target.value;
+                section.logos = [];
+                if (section.form === 'about') {
+                    section.article = '';
+                    delete section.display;
+                } else if (section.form === 'sponsors') {
+                    section.display = false;
+                    delete section.article;
+                }
+                markDataDirty('about');
+                renderAllAboutSections();
+            });
+
+            sectionCard.querySelector(`#aboutSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                section.sectionTitle = event.target.value;
+                sectionCard.querySelector('h3').textContent = event.target.value || 'New About Section';
+                markDataDirty('about');
+            });
+
+            if (section.form === 'about') {
+                const articleInput = sectionCard.querySelector(`#article-${sectionIndex}`);
+                if (articleInput) {
+                    articleInput.addEventListener('input', (event) => {
+                        section.article = event.target.value;
+                        markDataDirty('about');
+                    });
+                }
+            } else if (section.form === 'sponsors') {
+                const displayCheckbox = sectionCard.querySelector(`#display-${sectionIndex}`);
+                if (displayCheckbox) {
+                    displayCheckbox.addEventListener('change', (event) => {
+                        section.display = event.target.checked;
+                        markDataDirty('about');
+                    });
+                }
+            }
+
+            const logosContainer = sectionCard.querySelector(`#logos-container-${sectionIndex}`);
+            if (logosContainer) {
+                logosContainer.querySelectorAll('.logo-item').forEach(logoItemElem => {
+                    const currentLogoIndex = parseInt(logoItemElem.dataset.logoIndex);
+                    logoItemElem.querySelector(`#logoPath-${sectionIndex}-${currentLogoIndex}`).addEventListener('input', (event) => {
+                        section.logos[currentLogoIndex].logoPath = event.target.value;
+                        markDataDirty('about');
+                    });
+                    logoItemElem.querySelector(`#logoAlt-${sectionIndex}-${currentLogoIndex}`).addEventListener('input', (event) => {
+                        section.logos[currentLogoIndex].logoAlt = event.target.value;
+                        markDataDirty('about');
+                    });
+                    const logoLinkInput = logoItemElem.querySelector(`#logoLink-${sectionIndex}-${currentLogoIndex}`);
+                    if (logoLinkInput) {
+                        logoLinkInput.addEventListener('input', (event) => {
+                            section.logos[currentLogoIndex].logoLink = event.target.value;
+                            markDataDirty('about');
+                        });
+                    }
+                    logoItemElem.querySelector('.remove-logo-button').addEventListener('click', (event) => {
+                        const logoToRemoveIndex = parseInt(event.target.dataset.logoIndex);
+                        removeAboutLogo(sectionIndex, logoToRemoveIndex);
+                    });
+                });
+            }
+
+            sectionCard.querySelector('.add-logo-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addAboutLogo(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-about-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeAboutSection(currentSectionIndex);
+            });
+        }
+
+        function renderAllAboutSections() {
+            aboutSectionsContainer.innerHTML = '';
+            aboutData.forEach((section, sectionIndex) => {
+                renderAboutSection(section, sectionIndex);
+            });
+        }
+
+        function addAboutLogo(sectionIndex) {
+            const newLogo = {
+                logoPath: '',
+                logoAlt: '',
+                logoLink: ''
+            };
+            if (!aboutData[sectionIndex].logos) {
+                aboutData[sectionIndex].logos = [];
+            }
+            aboutData[sectionIndex].logos.push(newLogo);
+            markDataDirty('about');
+            renderAllAboutSections();
+        }
+
+        function removeAboutLogo(sectionIndex, logoIndex) {
+            if (aboutData[sectionIndex].logos) {
+                aboutData[sectionIndex].logos.splice(logoIndex, 1);
+                markDataDirty('about');
+                renderAllAboutSections();
+            }
+        }
+
+        function addNewAboutSection() {
+            const newSection = {
+                form: 'about',
+                sectionTitle: 'New About Section',
+                article: '',
+                logos: []
+            };
+            aboutData.push(newSection);
+            markDataDirty('about');
+            renderAllAboutSections();
+            const sectionElement = aboutSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function removeAboutSection(sectionIndex) {
+            if (aboutData.length > 1) {
+                aboutData.splice(sectionIndex, 1);
+                markDataDirty('about');
+                renderAllAboutSections();
+            } else {
+                alert("Cannot remove the last About section.");
+            }
+        }
+
+        function getCleanedAboutData() {
+            const dataToExport = JSON.parse(JSON.stringify(aboutData));
+
+            dataToExport.forEach(section => {
+                if (section.form === 'about') {
+                    if (section.article && section.article.trim() === '') {
+                        delete section.article;
+                    }
+                    delete section.display;
+                } else if (section.form === 'sponsors') {
+                    if (section.display === false) {
+                        delete section.display;
+                    }
+                    delete section.article;
+                }
+
+                if (section.logos && Array.isArray(section.logos)) {
+                    section.logos = section.logos.filter(logo => {
+                        return logo.logoPath.trim() !== '' || logo.logoAlt.trim() !== '' || (logo.logoLink && logo.logoLink.trim() !== '');
+                    });
+                    if (section.logos.length === 0) {
+                        delete section.logos;
+                    }
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportAboutJson() {
+            const dataStr = JSON.stringify(getCleanedAboutData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'about.json');
+        }
+
+        async function fetchAboutData() {
+            aboutLoadingIndicator.classList.remove('hidden');
+            aboutSectionsContainer.classList.add('hidden');
+            addAboutSectionButton.classList.add('hidden');
+            exportAboutJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/about.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                aboutData = await response.json();
+                isAboutDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllAboutSections();
+                aboutSectionsContainer.classList.remove('hidden');
+                addAboutSectionButton.classList.remove('hidden');
+                exportAboutJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching about data:', error);
+                aboutLoadingIndicator.textContent = 'Failed to load About data. Please check the URL or your network connection.';
+                aboutLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                aboutLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- Research Editor Functions ---
+
+        function renderResearchTopic(topic, sectionIndex, topicIndex) {
+            const topicCard = document.createElement('div');
+            topicCard.className = 'research-topic-card';
+            topicCard.dataset.sectionIndex = sectionIndex;
+            topicCard.dataset.topicIndex = topicIndex;
+            topicCard.setAttribute('draggable', 'true'); // Make item draggable
+
+            topicCard.innerHTML = `
+                <div class="research-topic-header">
+                    <h3 class="font-bold text-lg">${topic.researchId || 'New Research Topic'}</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="research-topic-details hidden">
+                    <div class="form-group">
+                        <label for="researchId-${sectionIndex}-${topicIndex}">Research ID:</label>
+                        <input type="text" id="researchId-${sectionIndex}-${topicIndex}" value="${topic.researchId || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Big Tags (comma-separated):</label>
+                        <input type="text" id="bigTags-${sectionIndex}-${topicIndex}" value="${(topic.bigTags || []).join(', ')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Small Tags (comma-separated):</label>
+                        <input type="text" id="smallTags-${sectionIndex}-${topicIndex}" value="${(topic.smallTags || []).join(', ')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Fields:</label>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" id="field-energy-${sectionIndex}-${topicIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${topic.fields && topic.fields.energy ? 'checked' : ''}>
+                                <span class="ml-2 text-gray-700">Energy</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" id="field-economics-${sectionIndex}-${topicIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${topic.fields && topic.fields.economics ? 'checked' : ''}>
+                                <span class="ml-2 text-gray-700">Economics</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" id="field-environment-${sectionIndex}-${topicIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${topic.fields && topic.fields.environment ? 'checked' : ''}>
+                                <span class="ml-2 text-gray-700">Environment</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image-${sectionIndex}-${topicIndex}">Image Path:</label>
+                        <input type="text" id="image-${sectionIndex}-${topicIndex}" value="${topic.image || ''}">
+                    </div>
+                    <button class="remove-button w-full remove-research-topic-button" data-section-index="${sectionIndex}" data-topic-index="${topicIndex}">Remove Topic</button>
+                </div>
+            `;
+
+            const topicHeader = topicCard.querySelector('.research-topic-header');
+            const topicDetails = topicCard.querySelector('.research-topic-details');
+            const toggleIcon = topicCard.querySelector('.toggle-icon');
+
+            topicHeader.addEventListener('click', () => {
+                topicDetails.classList.toggle('hidden');
+                if (topicDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+
+            // Drag and Drop Event Listeners for Research Topics
+            topicCard.addEventListener('dragstart', (e) => {
+                draggedResearchTopic = topicCard;
+                draggedResearchTopicSectionIndex = parseInt(topicCard.dataset.sectionIndex);
+                draggedResearchTopicIndex = parseInt(topicCard.dataset.topicIndex);
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', topicCard.outerHTML); // Set data for drag operation
+                setTimeout(() => {
+                    topicCard.classList.add('dragging');
+                }, 0);
+            });
+
+            topicCard.addEventListener('dragover', (e) => {
+                e.preventDefault(); // Allow drop
+                if (e.target.closest('.research-topic-card') && e.target.closest('.research-topic-card') !== draggedResearchTopic) {
+                    const targetCard = e.target.closest('.research-topic-card');
+                    const targetSectionIndex = parseInt(targetCard.dataset.sectionIndex);
+                    // Only allow drag within the same section
+                    if (targetSectionIndex === draggedResearchTopicSectionIndex) {
+                        targetCard.classList.add('drag-over');
+                    }
+                }
+            });
+
+            topicCard.addEventListener('dragleave', (e) => {
+                if (e.target.closest('.research-topic-card')) {
+                    e.target.closest('.research-topic-card').classList.remove('drag-over');
+                }
+            });
+
+            topicCard.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dropTargetCard = e.target.closest('.research-topic-card');
+                if (dropTargetCard && dropTargetCard !== draggedResearchTopic) {
+                    const targetSectionIndex = parseInt(dropTargetCard.dataset.sectionIndex);
+                    const targetTopicIndex = parseInt(dropTargetCard.dataset.topicIndex);
+
+                    // Ensure drop is within the same section
+                    if (targetSectionIndex === draggedResearchTopicSectionIndex) {
+                        const draggedItem = researchData[draggedResearchTopicSectionIndex].topics.splice(draggedResearchTopicIndex, 1)[0];
+                        researchData[targetSectionIndex].topics.splice(targetTopicIndex, 0, draggedItem);
+                        markDataDirty('research'); // Mark dirty on drag and drop reorder
+                        renderAllResearchSections(); // Re-render to update the order
+                    }
+                }
+                dropTargetCard.classList.remove('drag-over');
+            });
+
+            topicCard.addEventListener('dragend', () => {
+                draggedResearchTopic.classList.remove('dragging');
+                draggedResearchTopic = null;
+                draggedResearchTopicSectionIndex = -1;
+                draggedResearchTopicIndex = -1;
+                // Clean up any lingering drag-over classes
+                document.querySelectorAll('.research-topic-card.drag-over').forEach(card => card.classList.remove('drag-over'));
+            });
+
+            return topicCard;
+        }
+
+        function renderResearchSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'research-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            sectionCard.innerHTML = `
+                <h2 class="mb-4">Section ${sectionIndex + 1}</h2>
+                <div class="form-group">
+                    <label for="researchSectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="researchSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                <div class="research-topics-list">
+                    <!-- Research topics for this section will be appended here -->
+                </div>
+                <button class="action-button w-full mt-4 add-research-topic-button" data-section-index="${sectionIndex}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add Research Topic to this Section
+                </button>
+                <button class="remove-button w-full remove-research-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+
+            const researchTopicsList = sectionCard.querySelector('.research-topics-list');
+            if (section.topics) {
+                section.topics.forEach((topic, topicIndex) => {
+                    researchTopicsList.appendChild(renderResearchTopic(topic, sectionIndex, topicIndex));
+                });
+            }
+            researchSectionsContainer.appendChild(sectionCard);
+
+            sectionCard.querySelector(`#researchSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                researchData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('research');
+            });
+
+            sectionCard.querySelector('.add-research-topic-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addResearchTopic(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-research-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeResearchSection(currentSectionIndex);
+            });
+
+            sectionCard.querySelectorAll('.research-topic-card').forEach(topicElem => {
+                const currentTopicIndex = parseInt(topicElem.dataset.topicIndex);
+                const topicDetails = topicElem.querySelector('.research-topic-details');
+
+                if (topicDetails) {
+                    const researchIdInput = topicDetails.querySelector(`#researchId-${sectionIndex}-${currentTopicIndex}`);
+                    if (researchIdInput) {
+                        researchIdInput.addEventListener('input', (event) => {
+                            researchData[sectionIndex].topics[currentTopicIndex].researchId = event.target.value;
+                            topicElem.querySelector('.research-topic-header h3').textContent = event.target.value || 'New Research Topic';
+                            markDataDirty('research');
+                        });
+                    }
+
+                    const bigTagsInput = topicDetails.querySelector(`#bigTags-${sectionIndex}-${currentTopicIndex}`);
+                    if (bigTagsInput) {
+                        bigTagsInput.addEventListener('input', (event) => {
+                            researchData[sectionIndex].topics[currentTopicIndex].bigTags = event.target.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                            markDataDirty('research');
+                        });
+                    }
+
+                    const smallTagsInput = topicDetails.querySelector(`#smallTags-${sectionIndex}-${currentTopicIndex}`);
+                    if (smallTagsInput) {
+                        smallTagsInput.addEventListener('input', (event) => {
+                            researchData[sectionIndex].topics[currentTopicIndex].smallTags = event.target.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+                            markDataDirty('research');
+                        });
+                    }
+
+                    const energyCheckbox = topicDetails.querySelector(`#field-energy-${sectionIndex}-${currentTopicIndex}`);
+                    if (energyCheckbox) {
+                        energyCheckbox.addEventListener('change', (event) => {
+                            if (!researchData[sectionIndex].topics[currentTopicIndex].fields) {
+                                researchData[sectionIndex].topics[currentTopicIndex].fields = {};
+                            }
+                            researchData[sectionIndex].topics[currentTopicIndex].fields.energy = event.target.checked;
+                            markDataDirty('research');
+                        });
+                    }
+                    const economicsCheckbox = topicDetails.querySelector(`#field-economics-${sectionIndex}-${currentTopicIndex}`);
+                    if (economicsCheckbox) {
+                        economicsCheckbox.addEventListener('change', (event) => {
+                            if (!researchData[sectionIndex].topics[currentTopicIndex].fields) {
+                                researchData[sectionIndex].topics[currentTopicIndex].fields = {};
+                            }
+                            researchData[sectionIndex].topics[currentTopicIndex].fields.economics = event.target.checked;
+                            markDataDirty('research');
+                        });
+                    }
+                    const environmentCheckbox = topicDetails.querySelector(`#field-environment-${sectionIndex}-${currentTopicIndex}`);
+                    if (environmentCheckbox) {
+                        environmentCheckbox.addEventListener('change', (event) => {
+                            if (!researchData[sectionIndex].topics[currentTopicIndex].fields) {
+                                researchData[sectionIndex].topics[currentTopicIndex].fields = {};
+                            }
+                            researchData[sectionIndex].topics[currentTopicIndex].fields.environment = event.target.checked;
+                            markDataDirty('research');
+                        });
+                    }
+
+                    const imageInput = topicDetails.querySelector(`#image-${sectionIndex}-${currentTopicIndex}`);
+                    if (imageInput) {
+                        imageInput.addEventListener('input', (event) => {
+                            researchData[sectionIndex].topics[currentTopicIndex].image = event.target.value;
+                            markDataDirty('research');
+                        });
+                    }
+
+                    const removeTopicButton = topicDetails.querySelector('.remove-research-topic-button');
+                    if (removeTopicButton) {
+                        removeTopicButton.addEventListener('click', (event) => {
+                            const topicToRemoveIndex = parseInt(event.target.dataset.topicIndex);
+                            removeResearchTopic(sectionIndex, topicToRemoveIndex);
+                        });
+                    }
+                }
+            });
+        }
+
+        function renderAllResearchSections() {
+            researchSectionsContainer.innerHTML = '';
+            researchData.forEach((section, sectionIndex) => {
+                renderResearchSection(section, sectionIndex);
+            });
+        }
+
+        function addResearchTopic(sectionIndex) {
+            const newTopic = {
+                researchId: 'new-topic',
+                bigTags: [],
+                smallTags: [],
+                fields: {
+                    energy: false,
+                    economics: false,
+                    environment: false
+                },
+                image: ''
+            };
+            if (!researchData[sectionIndex].topics) {
+                researchData[sectionIndex].topics = [];
+            }
+            researchData[sectionIndex].topics.push(newTopic);
+            markDataDirty('research');
+            renderAllResearchSections();
+            const sectionElement = researchSectionsContainer.children[sectionIndex];
+            if (sectionElement) {
+                const topicsList = sectionElement.querySelector('.research-topics-list');
+                if (topicsList && topicsList.lastElementChild) {
+                    topicsList.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+
+        function removeResearchTopic(sectionIndex, topicIndex) {
+            if (researchData[sectionIndex] && researchData[sectionIndex].topics) {
+                researchData[sectionIndex].topics.splice(topicIndex, 1);
+                markDataDirty('research');
+                renderAllResearchSections();
+            }
+        }
+
+        function addNewResearchSection() {
+            const newSection = {
+                sectionTitle: 'New Research Section',
+                topics: []
+            };
+            researchData.push(newSection);
+            markDataDirty('research');
+            renderAllResearchSections();
+            const sectionElement = researchSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function removeResearchSection(sectionIndex) {
+            if (researchData.length > 1) {
+                researchData.splice(sectionIndex, 1);
+                markDataDirty('research');
+                renderAllResearchSections();
+            } else {
+                alert("Cannot remove the last Research section.");
+            }
+        }
+
+        function getCleanedResearchData() {
+            const dataToExport = JSON.parse(JSON.stringify(researchData));
+
+            dataToExport.forEach(section => {
+                if (section.topics) {
+                    section.topics.forEach(topic => {
+                        for (const key in topic) {
+                            if (typeof topic[key] === 'string' && topic[key].trim() === '') {
+                                delete topic[key];
+                            } else if (Array.isArray(topic[key]) && topic[key].length === 0) {
+                                delete topic[key];
+                            }
+                        }
+                        if (topic.fields) {
+                            const allFalse = Object.values(topic.fields).every(val => val === false);
+                            if (allFalse) {
+                                delete topic.fields;
+                            }
+                        }
+                    });
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportResearchJson() {
+            const dataStr = JSON.stringify(getCleanedResearchData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'research.json');
+        }
+
+        async function fetchResearchData() {
+            researchLoadingIndicator.classList.remove('hidden');
+            researchSectionsContainer.classList.add('hidden');
+            addResearchSectionButton.classList.add('hidden');
+            exportResearchJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/research.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                researchData = await response.json();
+                isResearchDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllResearchSections();
+                researchSectionsContainer.classList.remove('hidden');
+                addResearchSectionButton.classList.remove('hidden');
+                exportResearchJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching research data:', error);
+                researchLoadingIndicator.textContent = 'Failed to load Research data. Please check the URL or your network connection.';
+                researchLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                researchLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- Publications Editor Functions ---
+
+        // Function to render a single publication item
+        function renderPublicationItem(item, sectionIndex, itemIndex) {
+            const itemCard = document.createElement('div');
+            itemCard.className = 'publication-item-card';
+            itemCard.dataset.sectionIndex = sectionIndex;
+            itemCard.dataset.itemIndex = itemIndex;
+
+            // Ensure authors is an array before joining for display
+            const authorsForDisplay = Array.isArray(item.authors) ? item.authors.join(', ') : (item.authors || '').split(',').map(s => s.trim()).filter(s => s !== '').join(', ');
+
+            itemCard.innerHTML = `
+                <div class="publication-item-header">
+                    <h3 class="font-bold text-lg">${item.title || 'New Publication'}</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="publication-item-details hidden">
+                    <div class="form-group">
+                        <label for="citationId-${sectionIndex}-${itemIndex}">Citation ID:</label>
+                        <input type="text" id="citationId-${sectionIndex}-${itemIndex}" value="${item.citationId || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="title-${sectionIndex}-${itemIndex}">Title:</label>
+                        <input type="text" id="title-${sectionIndex}-${itemIndex}" value="${item.title || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="link-${sectionIndex}-${itemIndex}">Link:</label>
+                        <input type="url" id="link-${sectionIndex}-${itemIndex}" value="${item.link || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="journal-${sectionIndex}-${itemIndex}">Journal:</label>
+                        <input type="text" id="journal-${sectionIndex}-${itemIndex}" value="${item.journal || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="volume-${sectionIndex}-${itemIndex}">Volume (Optional):</label>
+                        <input type="text" id="volume-${sectionIndex}-${itemIndex}" value="${item.volume || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="year-${sectionIndex}-${itemIndex}">Year:</label>
+                        <select id="year-${sectionIndex}-${itemIndex}">
+                            ${years.map(year => `<option value="${year}" ${item.year === year ? 'selected' : ''}>${year}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="month-${sectionIndex}-${itemIndex}">Month (Optional):</label>
+                        <input type="text" id="month-${sectionIndex}-${itemIndex}" value="${item.month || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="authors-${sectionIndex}-${itemIndex}">Authors (comma-separated):</label>
+                        <input type="text" id="authors-${sectionIndex}-${itemIndex}" value="${authorsForDisplay}">
+                    </div>
+                    <button class="remove-button w-full remove-publication-item-button" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove Publication</button>
+                </div>
+            `;
+
+            const itemHeader = itemCard.querySelector('.publication-item-header');
+            const itemDetails = itemCard.querySelector('.publication-item-details');
+            const toggleIcon = itemCard.querySelector('.toggle-icon');
+
+            itemHeader.addEventListener('click', () => {
+                itemDetails.classList.toggle('hidden');
+                if (itemDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+            return itemCard;
+        }
+
+        // Function to render a single publication section
+        function renderPublicationSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'publication-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            sectionCard.innerHTML = `
+                <h2 class="mb-4">Section ${sectionIndex + 1}</h2>
+                <div class="form-group">
+                    <label for="publicationSectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="publicationSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" id="showInHome-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${section.showInHome ? 'checked' : ''}>
+                        <span class="ml-2 text-gray-700">Show in Home</span>
+                    </label>
+                    <input type="number" id="showInHomeCount-${sectionIndex}" class="ml-4 w-24" min="0" value="${section.showInHome || 0}" ${section.showInHome ? '' : 'disabled'}>
+                </div>
+                <div class="publication-items-list">
+                    <!-- Publication items for this section will be appended here -->
+                </div>
+                <button class="action-button w-full mt-4 add-publication-item-button" data-section-index="${sectionIndex}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add Publication Item to this Section
+                </button>
+                <button class="remove-button w-full remove-publication-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+            publicationsSectionsContainer.appendChild(sectionCard);
+
+            // Event listeners for section-level inputs
+            sectionCard.querySelector(`#publicationSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                publicationsData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('publications');
+            });
+
+            const showInHomeCheckbox = sectionCard.querySelector(`#showInHome-${sectionIndex}`);
+            const showInHomeCountInput = sectionCard.querySelector(`#showInHomeCount-${sectionIndex}`);
+
+            if (showInHomeCheckbox) {
+                showInHomeCheckbox.addEventListener('change', (event) => {
+                    publicationsData[sectionIndex].showInHome = event.target.checked ? (parseInt(showInHomeCountInput.value) || 0) : false;
+                    showInHomeCountInput.disabled = !event.target.checked;
+                    markDataDirty('publications');
+                });
+            }
+            if (showInHomeCountInput) {
+                showInHomeCountInput.addEventListener('input', (event) => {
+                    if (showInHomeCheckbox.checked) {
+                        publicationsData[sectionIndex].showInHome = parseInt(event.target.value) || 0;
+                        markDataDirty('publications');
+                    }
+                });
+            }
+
+
+            const publicationItemsList = sectionCard.querySelector('.publication-items-list');
+            if (section.items) {
+                section.items.forEach((item, itemIndex) => {
+                    publicationItemsList.appendChild(renderPublicationItem(item, sectionIndex, itemIndex));
+                });
+            }
+
+            sectionCard.querySelector('.add-publication-item-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addPublicationItem(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-publication-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removePublicationSection(currentSectionIndex);
+            });
+
+            // Event listeners for individual publication item fields
+            sectionCard.querySelectorAll('.publication-item-card').forEach(itemElem => {
+                const currentItemIndex = parseInt(itemElem.dataset.itemIndex);
+                const itemDetails = itemElem.querySelector('.publication-item-details');
+
+                if (itemDetails) {
+                    const citationIdInput = itemDetails.querySelector(`#citationId-${sectionIndex}-${currentItemIndex}`);
+                    if (citationIdInput) {
+                        citationIdInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].citationId = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const titleInput = itemDetails.querySelector(`#title-${sectionIndex}-${currentItemIndex}`);
+                    if (titleInput) {
+                        titleInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].title = event.target.value;
+                            itemElem.querySelector('.publication-item-header h3').textContent = event.target.value || 'New Publication';
+                            markDataDirty('publications');
+                        });
+                    }
+                    const linkInput = itemDetails.querySelector(`#link-${sectionIndex}-${currentItemIndex}`);
+                    if (linkInput) {
+                        linkInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].link = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const journalInput = itemDetails.querySelector(`#journal-${sectionIndex}-${currentItemIndex}`);
+                    if (journalInput) {
+                        journalInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].journal = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const volumeInput = itemDetails.querySelector(`#volume-${sectionIndex}-${currentItemIndex}`);
+                    if (volumeInput) {
+                        volumeInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].volume = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const yearSelect = itemDetails.querySelector(`#year-${sectionIndex}-${currentItemIndex}`);
+                    if (yearSelect) {
+                        yearSelect.addEventListener('change', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const monthInput = itemDetails.querySelector(`#month-${sectionIndex}-${currentItemIndex}`);
+                    if (monthInput) {
+                        monthInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('publications');
+                        });
+                    }
+                    const authorsInput = itemDetails.querySelector(`#authors-${sectionIndex}-${currentItemIndex}`);
+                    if (authorsInput) {
+                        authorsInput.addEventListener('input', (event) => {
+                            publicationsData[sectionIndex].items[currentItemIndex].authors = event.target.value.split(',').map(author => author.trim()).filter(author => author !== '');
+                            markDataDirty('publications');
+                        });
+                    }
+
+                    const removePublicationButton = itemDetails.querySelector('.remove-publication-item-button');
+                    if (removePublicationButton) {
+                        removePublicationButton.addEventListener('click', (event) => {
+                            const itemToRemoveIndex = parseInt(event.target.dataset.itemIndex);
+                            removePublicationItem(sectionIndex, itemToRemoveIndex);
+                        });
+                    }
+                }
+            });
+        }
+
+        // Function to render all Publications sections
+        function renderAllPublicationsSections() {
+            publicationsSectionsContainer.innerHTML = '';
+            publicationsData.forEach((section, sectionIndex) => {
+                renderPublicationSection(section, sectionIndex);
+            });
+        }
+
+        // Function to add a new publication item to a specific section
+        function addPublicationItem(sectionIndex) {
+            const newItem = {
+                citationId: '',
+                title: 'New Publication Title',
+                link: '',
+                journal: '',
+                volume: '',
+                year: `'${String(currentYear).slice(-2)}`,
+                month: '',
+                authors: []
+            };
+            if (!publicationsData[sectionIndex].items) {
+                publicationsData[sectionIndex].items = [];
+            }
+            publicationsData[sectionIndex].items.push(newItem);
+            markDataDirty('publications');
+            renderAllPublicationsSections();
+            const sectionElement = publicationsSectionsContainer.children[sectionIndex];
+            if (sectionElement) {
+                const itemsList = sectionElement.querySelector('.publication-items-list');
+                if (itemsList && itemsList.lastElementChild) {
+                    itemsList.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+
+        // Function to remove a publication item from a specific section
+        function removePublicationItem(sectionIndex, itemIndex) {
+            if (publicationsData[sectionIndex] && publicationsData[sectionIndex].items) {
+                publicationsData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('publications');
+                renderAllPublicationsSections();
+            }
+        }
+
+        // Function to add a new publication section
+        function addNewPublicationSection() {
+            const newSection = {
+                sectionTitle: 'New Publication Section',
+                showInHome: false,
+                items: []
+            };
+            publicationsData.push(newSection);
+            markDataDirty('publications');
+            renderAllPublicationsSections();
+            const sectionElement = publicationsSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to remove a publication section
+        function removePublicationSection(sectionIndex) {
+            if (publicationsData.length > 1) {
+                publicationsData.splice(sectionIndex, 1);
+                markDataDirty('publications');
+                renderAllPublicationsSections();
+            } else {
+                alert("Cannot remove the last Publication section.");
+            }
+        }
+
+        function getCleanedPublicationsData() {
+            const dataToExport = JSON.parse(JSON.stringify(publicationsData));
+
+            dataToExport.forEach(section => {
+                if (section.items) {
+                    section.items.forEach(item => {
+                        for (const key in item) {
+                            if (typeof item[key] === 'string' && item[key].trim() === '') {
+                                delete item[key];
+                            } else if (Array.isArray(item[key]) && item[key].length === 0) {
+                                delete item[key];
+                            }
+                        }
+                    });
+                }
+                if (section.showInHome === false) {
+                    delete section.showInHome;
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportPublicationsJson() {
+            const dataStr = JSON.stringify(getCleanedPublicationsData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'publications.json');
+        }
+
+        async function fetchPublicationsData() {
+            publicationsLoadingIndicator.classList.remove('hidden');
+            publicationsSectionsContainer.classList.add('hidden');
+            addPublicationSectionButton.classList.add('hidden');
+            exportPublicationsJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/publications.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                publicationsData = await response.json();
+                // Preprocess authors field to ensure it's an array
+                publicationsData.forEach(section => {
+                    if (section.items) {
+                        section.items.forEach(item => {
+                            if (typeof item.authors === 'string') {
+                                item.authors = item.authors.split(',').map(s => s.trim()).filter(s => s !== '');
+                            }
+                        });
+                    }
+                });
+                isPublicationsDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllPublicationsSections();
+                publicationsSectionsContainer.classList.remove('hidden');
+                addPublicationSectionButton.classList.remove('hidden');
+                exportPublicationsJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching publications data:', error);
+                publicationsLoadingIndicator.textContent = 'Failed to load Publications data. Please check the URL or your network connection.';
+                publicationsLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                publicationsLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- News Editor Functions ---
+
+        // Function to render a single news item
+        function renderNewsItem(item, sectionIndex, itemIndex) {
+            const itemCard = document.createElement('div');
+            itemCard.className = 'news-item-card';
+            itemCard.dataset.sectionIndex = sectionIndex;
+            itemCard.dataset.itemIndex = itemIndex;
+
+            itemCard.innerHTML = `
+                <div class="news-item-header">
+                    <h3 class="font-bold text-lg">${item.title || 'New News Item'}</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="news-item-details hidden">
+                    <div class="form-group">
+                        <label for="newsTitle-${sectionIndex}-${itemIndex}">Title:</label>
+                        <input type="text" id="newsTitle-${sectionIndex}-${itemIndex}" value="${item.title || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="newsLink-${sectionIndex}-${itemIndex}">Link:</label>
+                        <input type="url" id="newsLink-${sectionIndex}-${itemIndex}" value="${item.link || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="newsYear-${sectionIndex}-${itemIndex}">Year:</label>
+                        <select id="newsYear-${sectionIndex}-${itemIndex}">
+                            ${years.map(year => `<option value="${year}" ${item.year === year ? 'selected' : ''}>${year}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsMonth-${sectionIndex}-${itemIndex}">Month (Optional):</label>
+                        <input type="text" id="newsMonth-${sectionIndex}-${itemIndex}" value="${item.month || ''}">
+                    </div>
+                    <button class="remove-button w-full remove-news-item-button" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove News Item</button>
+                </div>
+            `;
+
+            const itemHeader = itemCard.querySelector('.news-item-header');
+            const itemDetails = itemCard.querySelector('.news-item-details');
+            const toggleIcon = itemCard.querySelector('.toggle-icon');
+
+            itemHeader.addEventListener('click', () => {
+                itemDetails.classList.toggle('hidden');
+                if (itemDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+            return itemCard;
+        }
+
+        // Function to render a single news section
+        function renderNewsSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'news-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            // Determine initial state of showInHome checkbox and count input
+            const isShowInHomeChecked = typeof section.showInHome === 'number' || section.showInHome === true;
+            const showInHomeCountValue = typeof section.showInHome === 'number' ? section.showInHome : (section.showInHome === true ? 1 : 0);
+            const isShowInHomeCountDisabled = !isShowInHomeChecked;
+
+            sectionCard.innerHTML = `
+                <h2 class="mb-4">Section ${sectionIndex + 1}</h2>
+                <div class="form-group">
+                    <label for="newsSectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="newsSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label for="newsInnerSectionTitle-${sectionIndex}">Inner Section Title (Optional):</label>
+                    <input type="text" id="newsInnerSectionTitle-${sectionIndex}" value="${section.innerSectionTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" id="newsShowInHome-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${isShowInHomeChecked ? 'checked' : ''}>
+                        <span class="ml-2 text-gray-700">Show in Home</span>
+                    </label>
+                    <input type="number" id="newsShowInHomeCount-${sectionIndex}" class="ml-4 w-24" min="0" value="${showInHomeCountValue}" ${isShowInHomeCountDisabled ? 'disabled' : ''}>
+                </div>
+                <div class="news-items-list">
+                    <!-- News items for this section will be appended here -->
+                </div>
+                <button class="action-button w-full mt-4 add-news-item-button" data-section-index="${sectionIndex}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add News Item to this Section
+                </button>
+                <button class="remove-button w-full remove-news-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+            newsSectionsContainer.appendChild(sectionCard);
+
+            // Event listeners for section-level inputs
+            sectionCard.querySelector(`#newsSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                newsData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('news');
+            });
+            sectionCard.querySelector(`#newsInnerSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                newsData[sectionIndex].innerSectionTitle = event.target.value;
+                markDataDirty('news');
+            });
+
+            const newsShowInHomeCheckbox = sectionCard.querySelector(`#newsShowInHome-${sectionIndex}`);
+            const newsShowInHomeCountInput = sectionCard.querySelector(`#newsShowInHomeCount-${sectionIndex}`);
+
+            if (newsShowInHomeCheckbox) {
+                newsShowInHomeCheckbox.addEventListener('change', (event) => {
+                    if (event.target.checked) {
+                        newsData[sectionIndex].showInHome = parseInt(newsShowInHomeCountInput.value) || 0;
+                        newsShowInHomeCountInput.disabled = false;
+                    } else {
+                        newsData[sectionIndex].showInHome = false;
+                        newsShowInHomeCountInput.disabled = true;
+                    }
+                    markDataDirty('news');
+                });
+            }
+            if (newsShowInHomeCountInput) {
+                newsShowInHomeCountInput.addEventListener('input', (event) => {
+                    if (newsShowInHomeCheckbox.checked) {
+                        newsData[sectionIndex].showInHome = parseInt(event.target.value) || 0;
+                        markDataDirty('news');
+                    }
+                });
+            }
+
+            const newsItemsList = sectionCard.querySelector('.news-items-list');
+            if (section.items) {
+                section.items.forEach((item, itemIndex) => {
+                    newsItemsList.appendChild(renderNewsItem(item, sectionIndex, itemIndex));
+                });
+            }
+
+            sectionCard.querySelector('.add-news-item-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addNewNewsItem(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-news-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeNewsSection(currentSectionIndex);
+            });
+
+            // Event listeners for individual news item fields
+            sectionCard.querySelectorAll('.news-item-card').forEach(itemElem => {
+                const currentItemIndex = parseInt(itemElem.dataset.itemIndex);
+                const itemDetails = itemElem.querySelector('.news-item-details');
+
+                if (itemDetails) {
+                    const titleInput = itemDetails.querySelector(`#newsTitle-${sectionIndex}-${currentItemIndex}`);
+                    if (titleInput) {
+                        titleInput.addEventListener('input', (event) => {
+                            newsData[sectionIndex].items[currentItemIndex].title = event.target.value;
+                            itemElem.querySelector('.news-item-header h3').textContent = event.target.value || 'New News Item';
+                            markDataDirty('news');
+                        });
+                    }
+                    const linkInput = itemDetails.querySelector(`#newsLink-${sectionIndex}-${currentItemIndex}`);
+                    if (linkInput) {
+                        linkInput.addEventListener('input', (event) => {
+                            newsData[sectionIndex].items[currentItemIndex].link = event.target.value;
+                            markDataDirty('news');
+                        });
+                    }
+                    const yearSelect = itemDetails.querySelector(`#newsYear-${sectionIndex}-${currentItemIndex}`);
+                    if (yearSelect) {
+                        yearSelect.addEventListener('change', (event) => {
+                            newsData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('news');
+                        });
+                    }
+                    const monthInput = itemDetails.querySelector(`#newsMonth-${sectionIndex}-${currentItemIndex}`);
+                    if (monthInput) {
+                        monthInput.addEventListener('input', (event) => {
+                            newsData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('news');
+                        });
+                    }
+
+                    const removeNewsButton = itemDetails.querySelector('.remove-news-item-button');
+                    if (removeNewsButton) {
+                        removeNewsButton.addEventListener('click', (event) => {
+                            const itemToRemoveIndex = parseInt(event.target.dataset.itemIndex);
+                            removeNewsItem(sectionIndex, itemToRemoveIndex);
+                        });
+                    }
+                }
+            });
+        }
+
+        // Function to render all News sections
+        function renderAllNewsSections() {
+            newsSectionsContainer.innerHTML = '';
+            newsData.forEach((section, sectionIndex) => {
+                renderNewsSection(section, sectionIndex);
+            });
+        }
+
+        // Function to add a new news item to a specific section
+        function addNewNewsItem(sectionIndex) {
+            const newItem = {
+                title: 'New News Item Title',
+                link: '',
+                year: `'${String(currentYear).slice(-2)}`,
+                month: ''
+            };
+            if (!newsData[sectionIndex].items) {
+                newsData[sectionIndex].items = [];
+            }
+            newsData[sectionIndex].items.push(newItem);
+            markDataDirty('news');
+            renderAllNewsSections();
+            const sectionElement = newsSectionsContainer.children[sectionIndex];
+            if (sectionElement) {
+                const itemsList = sectionElement.querySelector('.news-items-list');
+                if (itemsList && itemsList.lastElementChild) {
+                    itemsList.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+
+        // Function to remove a news item from a specific section
+        function removeNewsItem(sectionIndex, itemIndex) {
+            if (newsData[sectionIndex] && newsData[sectionIndex].items) {
+                newsData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('news');
+                renderAllNewsSections();
+            }
+        }
+
+        // Function to add a new news section
+        function addNewNewsSection() {
+            const newSection = {
+                sectionTitle: 'New News Section',
+                innerSectionTitle: '',
+                showInHome: false,
+                items: []
+            };
+            newsData.push(newSection);
+            markDataDirty('news');
+            renderAllNewsSections();
+            const sectionElement = newsSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to remove a news section
+        function removeNewsSection(sectionIndex) {
+            if (newsData.length > 1) {
+                newsData.splice(sectionIndex, 1);
+                markDataDirty('news');
+                renderAllNewsSections();
+            } else {
+                alert("Cannot remove the last News section.");
+            }
+        }
+
+        function getCleanedNewsData() {
+            const dataToExport = JSON.parse(JSON.stringify(newsData));
+
+            dataToExport.forEach(section => {
+                if (section.items) {
+                    section.items.forEach(item => {
+                        for (const key in item) {
+                            if (typeof item[key] === 'string' && item[key].trim() === '') {
+                                delete item[key];
+                            }
+                        }
+                    });
+                }
+                // Handle showInHome property for export
+                if (section.showInHome === false || section.showInHome === 0) {
+                    delete section.showInHome;
+                }
+                if (section.innerSectionTitle && section.innerSectionTitle.trim() === '') {
+                    delete section.innerSectionTitle;
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportNewsJson() {
+            const dataStr = JSON.stringify(getCleanedNewsData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'news.json');
+        }
+
+        async function fetchNewsData() {
+            newsLoadingIndicator.classList.remove('hidden');
+            newsSectionsContainer.classList.add('hidden');
+            addNewsSectionButton.classList.add('hidden');
+            exportNewsJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/news.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                newsData = await response.json();
+                isNewsDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllNewsSections();
+                newsSectionsContainer.classList.remove('hidden');
+                addNewsSectionButton.classList.remove('hidden');
+                exportNewsJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching news data:', error);
+                newsLoadingIndicator.textContent = 'Failed to load News data. Please check the URL or your network connection.';
+                newsLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                newsLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- Group Life Editor Functions ---
+
+        // Function to render a single group life item
+        function renderGroupLifeItem(item, sectionIndex, itemIndex) {
+            const itemCard = document.createElement('div');
+            itemCard.className = 'group-life-item-card';
+            itemCard.dataset.sectionIndex = sectionIndex;
+            itemCard.dataset.itemIndex = itemIndex;
+
+            itemCard.innerHTML = `
+                <div class="group-life-item-header">
+                    <h3 class="font-bold text-lg">${item.description || 'New Photo/Event'}</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="group-life-item-details hidden">
+                    <div class="form-group">
+                        <label for="groupLifeImgPath-${sectionIndex}-${itemIndex}">Image Path:</label>
+                        <input type="text" id="groupLifeImgPath-${sectionIndex}-${itemIndex}" value="${item.imgPath || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="groupLifeDescription-${sectionIndex}-${itemIndex}">Description:</label>
+                        <input type="text" id="groupLifeDescription-${sectionIndex}-${itemIndex}" value="${item.description || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="groupLifeYear-${sectionIndex}-${itemIndex}">Year:</label>
+                        <select id="groupLifeYear-${sectionIndex}-${itemIndex}">
+                            ${years.map(year => `<option value="${year}" ${item.year === year ? 'selected' : ''}>${year}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupLifeMonth-${sectionIndex}-${itemIndex}">Month (Optional):</label>
+                        <input type="text" id="groupLifeMonth-${sectionIndex}-${itemIndex}" value="${item.month || ''}">
+                    </div>
+                    <button class="remove-button w-full remove-group-life-item-button" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove Photo/Event</button>
+                </div>
+            `;
+
+            const itemHeader = itemCard.querySelector('.group-life-item-header');
+            const itemDetails = itemCard.querySelector('.group-life-item-details');
+            const toggleIcon = itemCard.querySelector('.toggle-icon');
+
+            itemHeader.addEventListener('click', () => {
+                itemDetails.classList.toggle('hidden');
+                if (itemDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+            return itemCard;
+        }
+
+        // Function to render a single group life section
+        function renderGroupLifeSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'group-life-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            // Determine initial state of showInSlider checkbox and count input
+            const isShowInSliderChecked = typeof section.showInSlider === 'number' || section.showInSlider === true;
+            const showInSliderCountValue = typeof section.showInSlider === 'number' ? section.showInSlider : (section.showInSlider === true ? 1 : 0);
+            const isShowInSliderCountDisabled = !isShowInSliderChecked;
+
+            sectionCard.innerHTML = `
+                <h2 class="mb-4">Section ${sectionIndex + 1}</h2>
+                <div class="form-group">
+                    <label for="groupLifeSectionTitle-${sectionIndex}">Section Title:</label>
+                    <input type="text" id="groupLifeSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label for="groupLifeSliderTitle-${sectionIndex}">Slider Title (Optional):</label>
+                    <input type="text" id="groupLifeSliderTitle-${sectionIndex}" value="${section.sliderTitle || ''}">
+                </div>
+                <div class="form-group">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" id="groupLifeShowInSlider-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${isShowInSliderChecked ? 'checked' : ''}>
+                        <span class="ml-2 text-gray-700">Show in Slider</span>
+                    </label>
+                    <input type="number" id="groupLifeShowInSliderCount-${sectionIndex}" class="ml-4 w-24" min="0" value="${showInSliderCountValue}" ${isShowInSliderCountDisabled ? 'disabled' : ''}>
+                </div>
+                <div class="form-group">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" id="groupLifeFilter-${sectionIndex}" class="form-checkbox h-5 w-5 text-indigo-600 rounded" ${section.filter ? 'checked' : ''}>
+                        <span class="ml-2 text-gray-700">Enable Filter</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="groupLifeFilterId-${sectionIndex}">Filter ID (Optional):</label>
+                    <input type="text" id="groupLifeFilterId-${sectionIndex}" value="${section.filterId || ''}" ${section.filter ? '' : 'disabled'}>
+                </div>
+                <div class="form-group">
+                    <label for="groupLifeFilterTitle-${sectionIndex}">Filter Title (Optional):</label>
+                    <input type="text" id="groupLifeFilterTitle-${sectionIndex}" value="${section.filterTitle || ''}" ${section.filter ? '' : 'disabled'}>
+                </div>
+                <div class="form-group">
+                    <label for="groupLifeFilterDefaultCheck-${sectionIndex}">Filter Default Check (Optional):</label>
+                    <input type="number" id="groupLifeFilterDefaultCheck-${sectionIndex}" min="0" value="${section.filterDefaultCheck || 0}" ${section.filter ? '' : 'disabled'}>
+                </div>
+                <div class="group-life-items-list">
+                    <!-- Group Life items for this section will be appended here -->
+                </div>
+                <button class="action-button w-full mt-4 add-group-life-item-button" data-section-index="${sectionIndex}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Add Photo/Event to this Section
+                </button>
+                <button class="remove-button w-full remove-group-life-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+            `;
+            groupLifeSectionsContainer.appendChild(sectionCard);
+
+            // Event listeners for section-level inputs
+            sectionCard.querySelector(`#groupLifeSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                groupLifeData[sectionIndex].sectionTitle = event.target.value;
+                markDataDirty('groupLife');
+            });
+            sectionCard.querySelector(`#groupLifeSliderTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                groupLifeData[sectionIndex].sliderTitle = event.target.value;
+                markDataDirty('groupLife');
+            });
+
+            const groupLifeShowInSliderCheckbox = sectionCard.querySelector(`#groupLifeShowInSlider-${sectionIndex}`);
+            const groupLifeShowInSliderCountInput = sectionCard.querySelector(`#groupLifeShowInSliderCount-${sectionIndex}`);
+            if (groupLifeShowInSliderCheckbox) {
+                groupLifeShowInSliderCheckbox.addEventListener('change', (event) => {
+                    if (event.target.checked) {
+                        groupLifeData[sectionIndex].showInSlider = parseInt(groupLifeShowInSliderCountInput.value) || 0;
+                        groupLifeShowInSliderCountInput.disabled = false;
+                    } else {
+                        groupLifeData[sectionIndex].showInSlider = false;
+                        groupLifeShowInSliderCountInput.disabled = true;
+                    }
+                    markDataDirty('groupLife');
+                });
+            }
+            if (groupLifeShowInSliderCountInput) {
+                groupLifeShowInSliderCountInput.addEventListener('input', (event) => {
+                    if (groupLifeShowInSliderCheckbox.checked) {
+                        groupLifeData[sectionIndex].showInSlider = parseInt(event.target.value) || 0;
+                        markDataDirty('groupLife');
+                    }
+                });
+            }
+
+            const groupLifeFilterCheckbox = sectionCard.querySelector(`#groupLifeFilter-${sectionIndex}`);
+            const groupLifeFilterIdInput = sectionCard.querySelector(`#groupLifeFilterId-${sectionIndex}`);
+            const groupLifeFilterTitleInput = sectionCard.querySelector(`#groupLifeFilterTitle-${sectionIndex}`);
+            const groupLifeFilterDefaultCheckInput = sectionCard.querySelector(`#groupLifeFilterDefaultCheck-${sectionIndex}`);
+
+            if (groupLifeFilterCheckbox) {
+                groupLifeFilterCheckbox.addEventListener('change', (event) => {
+                    groupLifeData[sectionIndex].filter = event.target.checked;
+                    groupLifeFilterIdInput.disabled = !event.target.checked;
+                    groupLifeFilterTitleInput.disabled = !event.target.checked;
+                    groupLifeFilterDefaultCheckInput.disabled = !event.target.checked;
+                    markDataDirty('groupLife');
+                });
+            }
+            if (groupLifeFilterIdInput) {
+                groupLifeFilterIdInput.addEventListener('input', (event) => {
+                    groupLifeData[sectionIndex].filterId = event.target.value;
+                    markDataDirty('groupLife');
+                });
+            }
+            if (groupLifeFilterTitleInput) {
+                groupLifeFilterTitleInput.addEventListener('input', (event) => {
+                    groupLifeData[sectionIndex].filterTitle = event.target.value;
+                    markDataDirty('groupLife');
+                });
+            }
+            if (groupLifeFilterDefaultCheckInput) {
+                groupLifeFilterDefaultCheckInput.addEventListener('input', (event) => {
+                    groupLifeData[sectionIndex].filterDefaultCheck = parseInt(event.target.value) || 0;
+                    markDataDirty('groupLife');
+                });
+            }
+
+
+            const groupLifeItemsList = sectionCard.querySelector('.group-life-items-list');
+            if (section.items) {
+                section.items.forEach((item, itemIndex) => {
+                    groupLifeItemsList.appendChild(renderGroupLifeItem(item, sectionIndex, itemIndex));
+                });
+            }
+
+            sectionCard.querySelector('.add-group-life-item-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                addNewGroupLifeItem(currentSectionIndex);
+            });
+
+            sectionCard.querySelector('.remove-group-life-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeGroupLifeSection(currentSectionIndex);
+            });
+
+            // Event listeners for individual group life item fields
+            sectionCard.querySelectorAll('.group-life-item-card').forEach(itemElem => {
+                const currentItemIndex = parseInt(itemElem.dataset.itemIndex);
+                const itemDetails = itemElem.querySelector('.group-life-item-details');
+
+                if (itemDetails) {
+                    const imgPathInput = itemDetails.querySelector(`#groupLifeImgPath-${sectionIndex}-${currentItemIndex}`);
+                    if (imgPathInput) {
+                        imgPathInput.addEventListener('input', (event) => {
+                            groupLifeData[sectionIndex].items[currentItemIndex].imgPath = event.target.value;
+                            markDataDirty('groupLife');
+                        });
+                    }
+                    const descriptionInput = itemDetails.querySelector(`#groupLifeDescription-${sectionIndex}-${currentItemIndex}`);
+                    if (descriptionInput) {
+                        descriptionInput.addEventListener('input', (event) => {
+                            groupLifeData[sectionIndex].items[currentItemIndex].description = event.target.value;
+                            itemElem.querySelector('.group-life-item-header h3').textContent = item.description || 'New Photo/Event';
+                            markDataDirty('groupLife');
+                        });
+                    }
+                    const yearSelect = itemDetails.querySelector(`#groupLifeYear-${sectionIndex}-${currentItemIndex}`);
+                    if (yearSelect) {
+                        yearSelect.addEventListener('change', (event) => {
+                            groupLifeData[sectionIndex].items[currentItemIndex].year = event.target.value;
+                            markDataDirty('groupLife');
+                        });
+                    }
+                    const monthInput = itemDetails.querySelector(`#groupLifeMonth-${sectionIndex}-${currentItemIndex}`);
+                    if (monthInput) {
+                        monthInput.addEventListener('input', (event) => {
+                            groupLifeData[sectionIndex].items[currentItemIndex].month = event.target.value;
+                            markDataDirty('groupLife');
+                        });
+                    }
+
+                    const removeGroupLifeButton = itemDetails.querySelector('.remove-group-life-item-button');
+                    if (removeGroupLifeButton) {
+                        removeGroupLifeButton.addEventListener('click', (event) => {
+                            const itemToRemoveIndex = parseInt(event.target.dataset.itemIndex);
+                            removeGroupLifeItem(sectionIndex, itemToRemoveIndex);
+                        });
+                    }
+                }
+            });
+        }
+
+        // Function to render all Group Life sections
+        function renderAllGroupLifeSections() {
+            groupLifeSectionsContainer.innerHTML = '';
+            groupLifeData.forEach((section, sectionIndex) => {
+                renderGroupLifeSection(section, sectionIndex);
+            });
+        }
+
+        // Function to add a new group life item to a specific section
+        function addNewGroupLifeItem(sectionIndex) {
+            const newItem = {
+                imgPath: '',
+                description: 'New Photo/Event Description',
+                year: `'${String(currentYear).slice(-2)}`,
+                month: ''
+            };
+            if (!groupLifeData[sectionIndex].items) {
+                groupLifeData[sectionIndex].items = [];
+            }
+            groupLifeData[sectionIndex].items.push(newItem);
+            markDataDirty('groupLife');
+            renderAllGroupLifeSections();
+            const sectionElement = groupLifeSectionsContainer.children[sectionIndex];
+            if (sectionElement) {
+                const itemsList = sectionElement.querySelector('.group-life-items-list');
+                if (itemsList && itemsList.lastElementChild) {
+                    itemsList.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+
+        // Function to remove a group life item from a specific section
+        function removeGroupLifeItem(sectionIndex, itemIndex) {
+            if (groupLifeData[sectionIndex] && groupLifeData[sectionIndex].items) {
+                groupLifeData[sectionIndex].items.splice(itemIndex, 1);
+                markDataDirty('groupLife');
+                renderAllGroupLifeSections();
+            }
+        }
+
+        // Function to add a new group life section
+        function addNewGroupLifeSection() {
+            const newSection = {
+                sliderTitle: '',
+                showInSlider: false,
+                sectionTitle: 'New Group Life Section',
+                filter: false,
+                filterId: '',
+                filterTitle: '',
+                filterDefaultCheck: 0,
+                items: []
+            };
+            groupLifeData.push(newSection);
+            markDataDirty('groupLife');
+            renderAllGroupLifeSections();
+            const sectionElement = groupLifeSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to remove a group life section
+        function removeGroupLifeSection(sectionIndex) {
+            if (groupLifeData.length > 1) {
+                groupLifeData.splice(sectionIndex, 1);
+                markDataDirty('groupLife');
+                renderAllGroupLifeSections();
+            } else {
+                alert("Cannot remove the last Group Life section.");
+            }
+        }
+
+        function getCleanedGroupLifeData() {
+            const dataToExport = JSON.parse(JSON.stringify(groupLifeData));
+
+            dataToExport.forEach(section => {
+                if (section.items) {
+                    section.items.forEach(item => {
+                        for (const key in item) {
+                            if (typeof item[key] === 'string' && item[key].trim() === '') {
+                                delete item[key];
+                            }
+                        }
+                    });
+                }
+                // Handle optional properties for export
+                if (section.sliderTitle && section.sliderTitle.trim() === '') {
+                    delete section.sliderTitle;
+                }
+                if (section.showInSlider === false || section.showInSlider === 0) {
+                    delete section.showInSlider;
+                }
+                if (section.filter === false) {
+                    delete section.filter;
+                    delete section.filterId;
+                    delete section.filterTitle;
+                    delete section.filterDefaultCheck;
+                } else {
+                    if (section.filterId && section.filterId.trim() === '') delete section.filterId;
+                    if (section.filterTitle && section.filterTitle.trim() === '') delete section.filterTitle;
+                    if (section.filterDefaultCheck === 0) delete section.filterDefaultCheck;
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportGroupLifeJson() {
+            const dataStr = JSON.stringify(getCleanedGroupLifeData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'groupLife.json');
+        }
+
+        async function fetchGroupLifeData() {
+            groupLifeLoadingIndicator.classList.remove('hidden');
+            groupLifeSectionsContainer.classList.add('hidden');
+            addGroupLifeSectionButton.classList.add('hidden');
+            exportGroupLifeJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/groupLife.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                groupLifeData = await response.json();
+                isGroupLifeDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllGroupLifeSections();
+                groupLifeSectionsContainer.classList.remove('hidden');
+                addGroupLifeSectionButton.classList.remove('hidden');
+                exportGroupLifeJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching group life data:', error);
+                groupLifeLoadingIndicator.textContent = 'Failed to load Group Life data. Please check the URL or your network connection.';
+                groupLifeLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                groupLifeLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- Contact Editor Functions ---
+
+        // Function to render a single contact section
+        function renderContactSection(section, sectionIndex) {
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'contact-section-card';
+            sectionCard.dataset.sectionIndex = sectionIndex;
+
+            sectionCard.innerHTML = `
+                <div class="contact-section-header">
+                    <h3 class="font-bold text-lg">${section.sectionTitle || 'New Contact Section'}</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="contact-section-details hidden">
+                    <div class="form-group">
+                        <label for="contactSectionTitle-${sectionIndex}">Section Title:</label>
+                        <input type="text" id="contactSectionTitle-${sectionIndex}" value="${section.sectionTitle || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactArticle-${sectionIndex}">Article Path:</label>
+                        <input type="text" id="contactArticle-${sectionIndex}" value="${section.article || ''}">
+                    </div>
+                    <button class="remove-button w-full remove-contact-section-button" data-section-index="${sectionIndex}">Remove Section</button>
+                </div>
+            `;
+            contactSectionsContainer.appendChild(sectionCard);
+
+            const sectionHeader = sectionCard.querySelector('.contact-section-header');
+            const sectionDetails = sectionCard.querySelector('.contact-section-details');
+            const toggleIcon = sectionCard.querySelector('.toggle-icon');
+
+            sectionHeader.addEventListener('click', () => {
+                sectionDetails.classList.toggle('hidden');
+                if (sectionDetails.classList.contains('hidden')) {
+                    toggleIcon.textContent = '+';
+                } else {
+                    toggleIcon.textContent = '-';
+                }
+            });
+
+            sectionCard.querySelector(`#contactSectionTitle-${sectionIndex}`).addEventListener('input', (event) => {
+                contactData[sectionIndex].sectionTitle = event.target.value;
+                sectionCard.querySelector('.contact-section-header h3').textContent = event.target.value || 'New Contact Section';
+                markDataDirty('contact');
+            });
+
+            sectionCard.querySelector(`#contactArticle-${sectionIndex}`).addEventListener('input', (event) => {
+                contactData[sectionIndex].article = event.target.value;
+                markDataDirty('contact');
+            });
+
+            sectionCard.querySelector('.remove-contact-section-button').addEventListener('click', (event) => {
+                const currentSectionIndex = parseInt(event.target.dataset.sectionIndex);
+                removeContactSection(currentSectionIndex);
+            });
+        }
+
+        // Function to render all Contact sections
+        function renderAllContactSections() {
+            contactSectionsContainer.innerHTML = '';
+            contactData.forEach((section, sectionIndex) => {
+                renderContactSection(section, sectionIndex);
+            });
+        }
+
+        // Function to add a new contact section
+        function addNewContactSection() {
+            const newSection = {
+                sectionTitle: 'New Contact Section',
+                article: ''
+            };
+            contactData.push(newSection);
+            markDataDirty('contact');
+            renderAllContactSections();
+            const sectionElement = contactSectionsContainer.lastElementChild;
+            if (sectionElement) {
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to remove a contact section
+        function removeContactSection(sectionIndex) {
+            if (contactData.length > 1) {
+                contactData.splice(sectionIndex, 1);
+                markDataDirty('contact');
+                renderAllContactSections();
+            } else {
+                alert("Cannot remove the last Contact section.");
+            }
+        }
+
+        function getCleanedContactData() {
+            const dataToExport = JSON.parse(JSON.stringify(contactData));
+
+            dataToExport.forEach(section => {
+                for (const key in section) {
+                    if (typeof section[key] === 'string' && section[key].trim() === '') {
+                        delete section[key];
+                    }
+                }
+            });
+            return dataToExport;
+        }
+
+        function exportContactJson() {
+            const dataStr = JSON.stringify(getCleanedContactData(), null, 4);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            saveAs(blob, 'contact.json');
+        }
+
+        async function fetchContactData() {
+            contactLoadingIndicator.classList.remove('hidden');
+            contactSectionsContainer.classList.add('hidden');
+            addContactSectionButton.classList.add('hidden');
+            exportContactJsonButton.classList.add('hidden');
+
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/NTU-E3-Center/NTU-E3-Center.github.io/refs/heads/source/contents/structures/contact.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                contactData = await response.json();
+                isContactDataDirty = false; // Reset dirty flag on initial fetch
+                renderAllContactSections();
+                contactSectionsContainer.classList.remove('hidden');
+                addContactSectionButton.classList.remove('hidden');
+                exportContactJsonButton.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching contact data:', error);
+                contactLoadingIndicator.textContent = 'Failed to load Contact data. Please check the URL or your network connection.';
+                contactLoadingIndicator.style.color = '#ef4444';
+            } finally {
+                contactLoadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // --- Export All Data as ZIP Function ---
+        async function exportAllDataAsZip() {
+            const zip = new JSZip();
+            const structuresFolder = zip.folder('structures');
+
+            let filesAdded = false;
+
+            if (isAboutDataDirty) {
+                const cleanedAbout = getCleanedAboutData();
+                structuresFolder.file('about.json', JSON.stringify(cleanedAbout, null, 4));
+                filesAdded = true;
+            }
+            if (isMembersDataDirty) {
+                const cleanedMembers = getCleanedMembersData();
+                structuresFolder.file('members.json', JSON.stringify(cleanedMembers, null, 4));
+                filesAdded = true;
+            }
+            if (isResearchDataDirty) {
+                const cleanedResearch = getCleanedResearchData();
+                structuresFolder.file('research.json', JSON.stringify(cleanedResearch, null, 4));
+                filesAdded = true;
+            }
+            if (isPublicationsDataDirty) {
+                const cleanedPublications = getCleanedPublicationsData();
+                structuresFolder.file('publications.json', JSON.stringify(cleanedPublications, null, 4));
+                filesAdded = true;
+            }
+            if (isNewsDataDirty) {
+                const cleanedNews = getCleanedNewsData();
+                structuresFolder.file('news.json', JSON.stringify(cleanedNews, null, 4));
+                filesAdded = true;
+            }
+            if (isGroupLifeDataDirty) {
+                const cleanedGroupLife = getCleanedGroupLifeData();
+                structuresFolder.file('groupLife.json', JSON.stringify(cleanedGroupLife, null, 4));
+                filesAdded = true;
+            }
+            if (isContactDataDirty) {
+                const cleanedContact = getCleanedContactData();
+                structuresFolder.file('contact.json', JSON.stringify(cleanedContact, null, 4));
+                filesAdded = true;
+            }
+
+            if (!filesAdded) {
+                alert("No changes detected. No files to export.");
+                return;
+            }
+
+            // Generate the zip file
+            zip.generateAsync({ type: 'blob' })
+                .then(function(content) {
+                    // Save the zip file
+                    saveAs(content, 'structures.zip');
+                })
+                .catch(function(error) {
+                    console.error('Error generating ZIP file:', error);
+                    alert('Failed to generate ZIP file. Please check the console for details.');
+                });
+        }
+
+
+        // --- Tab Switching Logic ---
+
+        function switchTab(tabId) {
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+
+            tabButtons.forEach(button => {
+                if (button.dataset.tab === tabId) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Hide all editor-specific elements initially for a clean switch
+            sectionsContainer.classList.add('hidden');
+            addNewSectionButton.classList.add('hidden');
+            exportJsonButton.classList.add('hidden');
+            loadingIndicator.classList.add('hidden');
+
+            aboutSectionsContainer.classList.add('hidden');
+            addAboutSectionButton.classList.add('hidden');
+            exportAboutJsonButton.classList.add('hidden');
+            aboutLoadingIndicator.classList.add('hidden');
+
+            researchSectionsContainer.classList.add('hidden');
+            addResearchSectionButton.classList.add('hidden');
+            exportResearchJsonButton.classList.add('hidden');
+            researchLoadingIndicator.classList.add('hidden');
+
+            publicationsSectionsContainer.classList.add('hidden');
+            addPublicationSectionButton.classList.add('hidden');
+            exportPublicationsJsonButton.classList.add('hidden');
+            publicationsLoadingIndicator.classList.add('hidden');
+
+            newsSectionsContainer.classList.add('hidden');
+            addNewsSectionButton.classList.add('hidden');
+            exportNewsJsonButton.classList.add('hidden');
+            newsLoadingIndicator.classList.add('hidden');
+
+            groupLifeSectionsContainer.classList.add('hidden');
+            addGroupLifeSectionButton.classList.add('hidden');
+            exportGroupLifeJsonButton.classList.add('hidden');
+            groupLifeLoadingIndicator.classList.add('hidden');
+
+            contactSectionsContainer.classList.add('hidden');
+            addContactSectionButton.classList.add('hidden');
+            exportContactJsonButton.classList.add('hidden');
+            contactLoadingIndicator.classList.add('hidden');
+
+
+            // Specific logic for each tab's data loading and button visibility
+            if (tabId === 'members-editor-content') {
+                if (membersData.length === 0) {
+                    fetchMembersData();
+                } else {
+                    renderAllMemberSections(); // Re-render to reattach drag/drop listeners
+                    sectionsContainer.classList.remove('hidden');
+                    addNewSectionButton.classList.remove('hidden');
+                    exportJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'about-editor-content') {
+                if (aboutData.length === 0) {
+                    fetchAboutData();
+                } else {
+                    renderAllAboutSections();
+                    aboutSectionsContainer.classList.remove('hidden');
+                    addAboutSectionButton.classList.remove('hidden');
+                    exportAboutJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'research-editor-content') {
+                if (researchData.length === 0) {
+                    fetchResearchData();
+                } else {
+                    renderAllResearchSections();
+                    researchSectionsContainer.classList.remove('hidden');
+                    addResearchSectionButton.classList.remove('hidden');
+                    exportResearchJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'publications-editor-content') {
+                if (publicationsData.length === 0) {
+                    fetchPublicationsData();
+                } else {
+                    renderAllPublicationsSections();
+                    publicationsSectionsContainer.classList.remove('hidden');
+                    addPublicationSectionButton.classList.remove('hidden');
+                    exportPublicationsJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'news-editor-content') {
+                if (newsData.length === 0) {
+                    fetchNewsData();
+                } else {
+                    renderAllNewsSections();
+                    newsSectionsContainer.classList.remove('hidden');
+                    addNewsSectionButton.classList.remove('hidden');
+                    exportNewsJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'group-life-editor-content') {
+                if (groupLifeData.length === 0) {
+                    fetchGroupLifeData();
+                } else {
+                    renderAllGroupLifeSections();
+                    groupLifeSectionsContainer.classList.remove('hidden');
+                    addGroupLifeSectionButton.classList.remove('hidden');
+                    exportGroupLifeJsonButton.classList.remove('hidden');
+                }
+            } else if (tabId === 'contact-editor-content') {
+                if (contactData.length === 0) {
+                    fetchContactData();
+                } else {
+                    renderAllContactSections();
+                    contactSectionsContainer.classList.remove('hidden');
+                    addContactSectionButton.classList.remove('hidden');
+                    exportContactJsonButton.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Add event listeners to tab buttons
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                switchTab(button.dataset.tab);
+            });
+        });
+
+        // --- Event Listeners for Members Editor ---
+        addNewSectionButton.addEventListener('click', addNewMemberSection);
+        exportJsonButton.addEventListener('click', exportMembersJson);
+
+        // --- Event Listeners for About Editor ---
+        addAboutSectionButton.addEventListener('click', addNewAboutSection);
+        exportAboutJsonButton.addEventListener('click', exportAboutJson);
+
+        // --- Event Listeners for Research Editor ---
+        addResearchSectionButton.addEventListener('click', addNewResearchSection);
+        exportResearchJsonButton.addEventListener('click', exportResearchJson);
+
+        // --- Event Listeners for Publications Editor ---
+        addPublicationSectionButton.addEventListener('click', addNewPublicationSection);
+        exportPublicationsJsonButton.addEventListener('click', exportPublicationsJson);
+
+        // --- Event Listeners for News Editor ---
+        addNewsSectionButton.addEventListener('click', addNewNewsSection);
+        exportNewsJsonButton.addEventListener('click', exportNewsJson);
+
+        // --- Event Listeners for Group Life Editor ---
+        addGroupLifeSectionButton.addEventListener('click', addNewGroupLifeSection);
+        exportGroupLifeJsonButton.addEventListener('click', exportGroupLifeJson);
+
+        // --- Event Listeners for Contact Editor ---
+        addContactSectionButton.addEventListener('click', addNewContactSection);
+        exportContactJsonButton.addEventListener('click', exportContactJson);
+
+        // --- Event Listener for Export All Data as ZIP ---
+        exportAllJsonZipButton.addEventListener('click', exportAllDataAsZip);
+
+
+        // Initial setup: Show the "Welcome" tab by default
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('welcome-editor-content');
+        });
+    </script>
+</body>
+</html>
