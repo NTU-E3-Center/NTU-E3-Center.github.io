@@ -252,6 +252,15 @@
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
+                "title": "Super-Resolution Wind Mapping with Deep Learning for Scalable Renewable Energy Planning",
+                "link": "https://doi.org/10.1038/s43247-025-03072-9",
+                "journal": "Communications Earth & Environment",
+                "year": "'26",
+                "month": "Jan.",
+                "authors": "Jun-Wei, I-Yun Lisa"
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
                 "title": "Equity in Carbon Pricing: Impacts on Household Carbon Burdens Across Different Demographics",
                 "link": "https://doi.org/10.1016/j.ecolecon.2025.108905",
                 "journal": "Ecological Economics",
@@ -259,15 +268,6 @@
                 "year": "'26",
                 "month": "Apr.",
                 "authors": "Cheng-Hsiang, John Chung-En, I-Yun Lisa"
-            },
-            {
-                "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
-                "title": "Super-Resolution Wind Mapping with Deep Learning for Scalable Renewable Energy Planning",
-                "link": "https://doi.org/10.1038/s43247-025-03072-9",
-                "journal": "Communications Earth & Environment",
-                "year": "'26",
-                "month": "Jan.",
-                "authors": "Jun-Wei, I-Yun Lisa"
             }
         ]
     }
