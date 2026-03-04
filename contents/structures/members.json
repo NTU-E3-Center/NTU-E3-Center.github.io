@@ -47,6 +47,13 @@
                 "imgPath": "/assets/members/r10521602.jpg",
                 "icon": "/assets/sprite.svg#svg-assistant",
                 "admissionYear": "'22"
+            },
+            {
+                "engName": "Jianhern",
+                "chiName": "楊建恆",
+                "imgPath": "/assets/members/r12521626.jpeg",
+                "icon": "/assets/sprite.svg#svg-assistant",
+                "admissionYear": "'23"
             }
         ]
     },
@@ -81,14 +88,6 @@
         "sectionTitle": "Master Students",
         "form": "M",
         "members": [
-            {
-                "engName": "Jianhern",
-                "chiName": "楊建恆",
-                "imgPath": "/assets/members/r12521626.jpeg",
-                "icon": "/assets/sprite.svg#svg-master-2",
-                "admissionYear": "'23"
-            },
-            
             {
                 "engName": "Dulcinea",
                 "chiName": "吳巽言",
