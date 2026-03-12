@@ -5,7 +5,11 @@ Link: [e3center.caece.net](https://e3center.caece.net)
 
 Project started: Fall 2023
 
-March 2025 - Now:  
+March 2026 - Now:  
+Feature Development: Jian Hern Yeoh
+Maintain: Jun-Wei Ding (Gary)
+
+March 2025 - Feb 2026:  
 Maintain: Jun-Wei Ding (Gary)
 
 Fall 2023 - Fall 2025:  

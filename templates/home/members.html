@@ -11,7 +11,7 @@
         {% for member in members['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
         <div class="mem-block">
-            <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
+            <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
                 <img
                     loading="lazy" 
                     src="{{ member['imgPath'] }}" 
@@ -21,7 +21,7 @@
                         {{ imgPathFront }}-600w.webp 600w,
                         {{ imgPathFront }}-800w.webp 800w
                     "
-                    size="15rem"
+                    sizes="30 rem"
                     alt="{{ member['engName'] }} {{ member['chiName'] }}"
                     draggable="false"
                 />
@@ -30,10 +30,10 @@
             <div class="mem-text">
                 <svg class="mem-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
 
-                <div class="mem-name">
+                <a class="mem-name" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
                     <div>{{ member['engName'] }}</div>
                     <span>{{ member['chiName'] }}</span>
-                </div>
+                </a>
 
                 <p class="mem-info">
                     {{ member['description'] }}

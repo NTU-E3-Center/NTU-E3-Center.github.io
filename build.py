@@ -73,6 +73,117 @@ def render_templates():
     print("Templates rendered successfully!")
 
 
+# Function to render individual member pages from contents/structures/members/*.json
+def render_member_pages():
+    members_structures_path = 'contents/structures/members'
+    if not os.path.exists(members_structures_path):
+        print("No member structures directory found, skipping member pages.")
+        return
+
+    # Build research lookup dict: researchId -> topic data
+    research_by_id = {}
+    for section in structures.get('research', []):
+        for topic in section.get('topics', []):
+            research_by_id[topic['researchId']] = topic
+
+    # Build publication lookup dict: citationId -> publication data
+    pub_by_id = {}
+    for section in structures.get('publications', []):
+        for item in section.get('items', []):
+            pub_by_id[item['citationId']] = item
+
+    template = env.get_template('member.html')
+
+    for filename in os.listdir(members_structures_path):
+        if not filename.endswith('.json'):
+            continue
+        file_path = os.path.join(members_structures_path, filename)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            member = json.load(f)
+
+        if 'pageLink' not in member:
+            continue
+
+        # Pre-render any markdown files referenced in aboutSection and positionSection
+        about_content = {}
+        page_content = member.get('pageContent', {})
+        
+        for section in page_content.get('aboutSection', []):
+            md_path = section.get('content', '')
+            if md_path and os.path.exists(md_path):
+                with open(md_path, 'r', encoding='utf-8') as f:
+                    md_text = f.read()
+                about_content[md_path] = markdown.markdown(md_text, extensions=['md_in_html'])
+        pos_section = page_content.get('positionSection', {})
+        
+        if pos_section:
+            md_path = pos_section.get('content', '')
+            if md_path and os.path.exists(md_path):
+                with open(md_path, 'r', encoding='utf-8') as f:
+                    md_text = f.read()
+                about_content[md_path] = markdown.markdown(md_text, extensions=['md_in_html'])
+        
+        # Auto-populate Journal Publications if pubName is set
+        pub_name = member.get('pubName')
+        if pub_name:
+            matching_items = []
+            for pub_section in structures.get('publications', []):
+                for item in pub_section.get('items', []):
+                    if pub_name in item.get('authors', ''):
+                        # Extract year and month for sorting
+                        year = item.get('year', 0)
+                        month_str = item.get('month', '')
+                        
+                        # Very basic heuristic for month to help sorting (e.g. "Jan." -> 1, "Feb." -> 2)
+                        months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+                        month_num = 0
+                        for i, m in enumerate(months):
+                            if m in month_str.lower():
+                                month_num = i + 1
+                                break
+                                
+                        matching_items.append({
+                            'id': item['citationId'],
+                            'year': year,
+                            'month': month_num
+                        })
+            
+            # Sort descending by year, then descending by month
+            matching_items.sort(key=lambda x: (x['year'], x['month']), reverse=True)
+            
+            matching_citations = [item['id'] for item in matching_items]
+            
+            pub_sections = page_content.setdefault('PublicationSection', [])
+            journal_section = next((s for s in pub_sections if s.get('sectionTitle') == 'Journal Publications'), None)
+            
+            if not journal_section:
+                journal_section = {
+                    "sectionTitle": "Journal Publications",
+                    "publications": []
+                }
+                pub_sections.insert(0, journal_section)
+                
+            journal_section['publications'] = matching_citations
+
+        output = template.render(
+            pages=pages,
+            member=member,
+            research_by_id=research_by_id,
+            pub_by_id=pub_by_id,
+            about_content=about_content,
+            structures=structures,
+            year=datetime.now().year,
+        )
+
+        page_dir = os.path.join(output_dir, member['pageLink'].lstrip('/'))
+        os.makedirs(page_dir, exist_ok=True)
+        with open(os.path.join(page_dir, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(output)
+        print(f"Member page generated: {member['pageLink']}")
+
+    print("Member pages rendered successfully!")
+
+
 # Function to copy static assets directly into docs/
 def copy_static():
     static_src = "static"
@@ -179,6 +290,8 @@ def compress_and_convert_images():
 if __name__ == "__main__":
     print("Rendering templates...")
     render_templates()
+    print("Rendering member pages...")
+    render_member_pages()
     print("Copying static assets...")
     copy_static()
     print("Copying videos...")
