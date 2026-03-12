@@ -688,15 +688,30 @@
             align-content: start;
             justify-items: start;
             gap: 1rem;
-
+            margin-left: 0.75rem;
+/* 
             & > * + * {
                 margin-inline-start: 0.875rem;
-            }
+            } */
     
             .mem-quote {
                 width: 0.875rem;
                 translate: 0 0.5rem;
             }
+            .mem-name {
+                display: grid;
+                gap: 0;
+
+                .EngName {
+                    font-size: 3.75rem;
+                    line-height: 1;
+                }
+    
+                .ChiName {
+                    font-size: 1.5rem;
+                }
+            }
+        }
 
             & a {
                 display: flex;
@@ -715,18 +730,6 @@
             }
         }
     
-        .mem-name {
-            & div {
-                margin-block-start: 0.125rem;
-                font-size: 3.75rem;
-                line-height: 1;
-            }
-    
-            & span {
-                font-size: 1.5rem;
-            }
-        }
-    }
 
     &[who='M'] {
         --_img-width: 11rem;

@@ -28,12 +28,12 @@
             </a>
 
             <div class="mem-text">
-                <svg class="mem-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
+                <!-- <svg class="mem-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg> -->
 
-                <a class="mem-name" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-                    <div>{{ member['engName'] }}</div>
-                    <span>{{ member['chiName'] }}</span>
-                </a>
+                <div class="mem-name">
+                    <a class="EngName" href="{{ member['pageLink'] }}">{{ member['engName'] }}</a>
+                    <a class="ChiName" href="{{ member['pageLink'] }}">{{ member['chiName'] }}</a>
+                </div>
 
                 <p class="mem-info">
                     {{ member['description'] }}
