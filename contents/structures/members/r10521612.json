@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "Chon Man Tam (Jason)",
+    "pubName": "Chon Man",
+    "studentId": "r10521612",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "tamchonman98@caece.net",
+                "link": "mailto:tamchonman98@caece.net"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/r10521612.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/r10521612.md"
+            }
+        ]
+    }
+}

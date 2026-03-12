@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ member['engName'] }}{% if member['chiNameEng'] %} ({{ member['chiNameEng'] }}){% endif %} | E3 Center</title>
+    <title>Jim (Wei-Chun Tseng (Jim)) | E3 Center</title>
     <meta name="description" content="Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research group, directed by Professor I-Yun Lisa Hsieh (謝依芸), is dedicated to overcoming the challenges of sustainable energy transition.">
-    <meta name="keywords" content="{{ member['engName'] }}, {{ member['chiName'] }}{% if member['chiNameEng'] %}, {{ member['chiNameEng'] }}{% endif %}, E3 Group, e3, NTU, 台大, 台灣大學">
-    <meta name="author" content="{{ member['engName'] }}">
+    <meta name="keywords" content="Jim, 曾暐畯, Wei-Chun Tseng (Jim), E3 Group, e3, NTU, 台大, 台灣大學">
+    <meta name="author" content="Jim">
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -61,67 +61,49 @@
             </div>
 
 
-            {% set page_content = member['pageContent'] %}
-            {% set imgPathFront = member['imgPath'].split('.')[0] %}
             <div class="main-info">
 
-                <div class="photo skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);">
+                <div class="photo skewed-block" b-role="block" style="background-image: url(/assets/members/r10521602-800w.webp);">
                     <img
                         loading="lazy"
-                        src="{{ member['imgPath'] }}"
+                        src="/assets/members/r10521602.jpg"
                         srcset="
-                            {{ imgPathFront }}-200w.webp 200w,
-                            {{ imgPathFront }}-400w.webp 400w,
-                            {{ imgPathFront }}-600w.webp 600w,
-                            {{ imgPathFront }}-800w.webp 800w
+                            /assets/members/r10521602-200w.webp 200w,
+                            /assets/members/r10521602-400w.webp 400w,
+                            /assets/members/r10521602-600w.webp 600w,
+                            /assets/members/r10521602-800w.webp 800w
                         "
                         sizes=20rem"
-                        alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                        alt="Jim 曾暐畯"
                     />
                 </div>
                 
                 <div class="info-text">
                     <div class="main-name">
                         <!-- <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg> -->
-                        <h1>{{ member['chiNameEng'] }}</h1>
+                        <h1>Wei-Chun Tseng (Jim)</h1>
                     </div>
 
-                    <!-- {% if member['chiName'] or member['chiNameEng'] %} -->
+                    <!--  -->
                     
                     <div class="sub-name">
                         <!-- <span>(</span> -->
-                        {{ member['chiName'] }}
+                        曾暐畯
                         <!-- <span>)</span> -->
                     </div>
-                    {% endif %}
 
-                    {% set pos_path = page_content['positionSection']['content'] %}
-                    {% if page_content['positionSection'] %}
-                    {% if about_content[pos_path] %}
 
                     <div class="position-text">
-                        {{ about_content[pos_path] }}
+                        <p>Software Engineer,</p>
+<p>E3 Research Center, </p>
+<p>National Taiwan University.</p>
                     </div>
-                    {% endif %}
-                    {% endif %}
 
-                    {% if page_content['links'] %}
                     <div class="tags">
-                        {% for tag in page_content['links'] %}
-                        {% if tag['link'] %}
-                        <a href="{{ tag['link'] }}" class="tag skewed-block" b-role="btn" b-hoverable>
-                            <svg><use href="{{ tag['icon'] }}"></use></svg>
-                            {% if tag['text'] %}{{ tag['text'] }}{% endif %}
-                        </a>
-                        {% else %}
-                        <div class="tag skewed-block" b-role="btn">
-                            <svg><use href="{{ tag['icon'] }}"></use></svg>
-                            {% if tag['text'] %}{{ tag['text'] }}{% endif %}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                        <a href="mailto:wctseng@ntu.edu.tw" class="tag skewed-block" b-role="btn" b-hoverable>
+                            <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+wctseng@ntu.edu.tw                        </a>
                     </div>
-                    {% endif %}
                 </div>
 
 
@@ -129,106 +111,53 @@
             </div>
         </header>
 
-        {% if page_content['aboutSection'] %}
-        {% for section in page_content['aboutSection'] %}
         <section id="about">
-            <h2>{{ section['sectionTitle'] }}</h2>
+            <h2>About</h2>
             <div class="content">
-                {{ about_content[section['content']] }}
+                <p>Wei-Chun (Jim) Tseng is a Software Engineer at the <strong>National Taiwan University (NTU) E3 Research Center</strong>, where he specializes in the design, development, and maintenance of information systems and data platforms for energy research. He bridges the gap between energy-economic analysis and practical software solutions, transforming research requirements into scalable data services and integrated systems. With expertise in <strong>data engineering, backend API architecture, and Model-as-a-Service (MaaS) workflows</strong>, Jim effectively integrates research models with real-time data pipelines to drive the digitalization of interdisciplinary research.</p>
+<p>Jim holds a Master’s degree from the <strong>Computer-Aided Engineering (CAE)</strong> division of the Department of Civil Engineering at National Taiwan University. His academic background is rooted in energy and environmental data analysis and systematic implementation, with research findings published in <em>prestigious Q1 international journals</em>. This foundation allows him to seamlessly integrate rigorous engineering training with specialized energy systems research.</p>
+<p>Prior to his current role, Jim served in a software engineering capacity at <strong>Micron Technology</strong>, where he contributed to the development of large-scale data processing systems and enterprise-level applications. His experience encompasses backend service design, data pipeline construction, and system performance optimization within high-stability environments. In his current capacity, he leads the core software architecture for the <strong>Ezero AI Smart Energy Management System</strong>, ensuring the stable operation and scalability of energy prediction and dispatch modules for real-world deployment and commercialization.</p>
             </div>
         </section>
-        {% endfor %}
-        {% endif %}
 
-        {% if page_content['researchSection'] %}
-        {% for section in page_content['researchSection'] %}
-        <section id="research">
-            <h2>{{ section['sectionTitle'] }}</h2>
-            <div class="content">
-                {% for topic_id in section['topics'] %}
-                {% set topic = research_by_id.get(topic_id) %}
-                {% if topic %}
-                <div class="res-block">
-                    <div class="res-info">
-                        {% for tag in topic['bigTags'] %}
-                        <div class="res-tag">
-                            <span class="res-tag-icon">#</span>
-                            <span class="res-tag-text">{{ tag }}</span>
-                        </div>
-                        {% endfor %}
-                        {% if topic['smallTags'] %}
-                        <div class="res-info-minor">
-                            {{ topic['smallTags'] | join(', ') }}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endfor %}
-        {% endif %}
 
-        {% if page_content['PublicationSection'] %}
-        {% for section in page_content['PublicationSection'] %}
-        <section id="publication-{{ loop.index }}" class="publication">
-            <h2>{{ section['sectionTitle'] }}</h2>
+        <section id="publication-1" class="publication">
+            <h2>Journal Publications</h2>
             <div class="content">
-                {% if section['manual'] %}
-                {% for pub in section['publications'] %}
                 <div class="pub-block">
                     <div class="pub-date">
                         <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">'{{ pub['year'] | string | slice(-2) | list | join }}</div>
+                        <div class="pub-date-mm">Sep.</div>
+                        <div class="pub-date-yy">'23</div>
                     </div>
                     <div class="pub-info">
-                        {% if pub['link'] %}
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
+                        <a class="pub-title-block" target="_blank" href="https://www.sciencedirect.com/science/article/pii/S1361920923002456">
+                            <span class="pub-title">Impacts of Electric Fleet Charging Patterns Under Different Solar Power Penetration Levels: Hourly Grid Variations and Operating Emissions</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
                                 <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
                             </svg>
                         </a>
-                        {% else %}
-                        <div class="pub-title-block">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                        </div>
-                        {% endif %}
-                        {% if pub['subTitle'] %}
-                        <div class="pub-subtitle">{{ pub['subTitle'] }}</div>
-                        {% endif %}
+                        <div class="pub-subtitle">Transportation Research Part D: Transport and Environment, Vol. 122.</div>
                     </div>
                 </div>
-                {% endfor %}
-                {% else %}
-                {% for citation_id in section['publications'] %}
-                {% set pub = pub_by_id[citation_id] %}
-                {% if pub %}
                 <div class="pub-block">
                     <div class="pub-date">
                         <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">{{ pub['year'] }}</div>
+                        <div class="pub-date-mm">Dec.</div>
+                        <div class="pub-date-yy">'22</div>
                     </div>
                     <div class="pub-info">
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
+                        <a class="pub-title-block" target="_blank" href="https://km.twenergy.org.tw/Publication/thesis_more?id=325">
+                            <span class="pub-title">Assessing Power Sector Carbon Emission Intensity in Taiwan: Status Quo and Net-zero Future Perspectives</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
                                 <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
                             </svg>
                         </a>
-                        <div class="pub-subtitle">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</div>
+                        <div class="pub-subtitle">Journal of Taiwan Energy (臺灣能源期刊), Vol. 9.</div>
                     </div>
                 </div>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
             </div>
         </section>
-        {% endfor %}
-        {% endif %}
 
     </main>
 
@@ -249,7 +178,7 @@
         </div>
 
         <div class="ftr-info">
-            &copy; {{ year }} E3 Center, National Taiwan University. All rights reserved.
+            &copy; 2026 E3 Center, National Taiwan University. All rights reserved.
         </div>
     </footer>
 

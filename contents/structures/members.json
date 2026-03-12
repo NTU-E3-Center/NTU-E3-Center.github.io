@@ -4,7 +4,7 @@
         "form": "L",
         "members": [
             {
-                "engName": "I-Yun Lisa Hsieh",
+                "engName": "I-Yun Lisa Hsieh, PhD",
                 "chiName": "謝依芸",
                 "description": "Department of Civil Engineering<br>Department of Chemical Engineering (Joint Appointment)<br>National Taiwan University",
                 "imgPath": "/assets/members/iyhsieh.jpg",
@@ -34,28 +34,36 @@
                 "chiName": "譚竣文",
                 "imgPath": "/assets/members/r10521612.jpg",
                 "icon": "/assets/sprite.svg#svg-assistant",
-                "admissionYear": "'21"
+                "admissionYear": "'21",
+                "pageLink": "/members/r10521612",
+                "pageStructure": "contents/structures/members/r10521612.json"
             },
             {
                 "engName": "Sean",
                 "chiName": "薛丞翔",
                 "imgPath": "/assets/members/r11521602.jpg",
                 "icon": "/assets/sprite.svg#svg-assistant",
-                "admissionYear": "'22"
+                "admissionYear": "'22",
+                "pageLink": "/members/r11521602",
+                "pageStructure": "contents/structures/members/r11521602.json"
             },
             {
                 "engName": "Jim",
                 "chiName": "曾暐畯",
                 "imgPath": "/assets/members/r10521602.jpg",
                 "icon": "/assets/sprite.svg#svg-assistant",
-                "admissionYear": "'22"
+                "admissionYear": "'22",
+                "pageLink": "/members/r10521602",
+                "pageStructure": "contents/structures/members/r10521602.json"
             },
             {
                 "engName": "Jianhern",
                 "chiName": "楊建恆",
                 "imgPath": "/assets/members/r12521626.jpeg",
                 "icon": "/assets/sprite.svg#svg-assistant",
-                "admissionYear": "'23"
+                "admissionYear": "'23",
+                "pageLink": "/members/r12521626",
+                "pageStructure": "contents/structures/members/r12521626.json"
             }
         ]
     },

@@ -1,13 +1,8 @@
 {
-    "engName": "Thomas",
-    "chiName": "簡元璽",
     "chiNameEng": "Yuan-Hsi Chien",
     "pubName": "Yuan-Hsi",
-    "imgPath": "/assets/members/r11521604.jpg",
     "studentId": "r11521604",
-    "admissionYear": "'22",
     "graduated": true,
-    "pageLink": "/members/r11521604",
     "pageContent": {
         "links": [
             {
@@ -29,13 +24,6 @@
             {
                 "sectionTitle": "About",
                 "content": "contents/articles/members_about/r11521604.md"
-            }
-        ],
-
-        "PublicationSection": [
-            {
-                "sectionTitle": "Journal Publications",
-                "publications": []
             }
         ]
     }

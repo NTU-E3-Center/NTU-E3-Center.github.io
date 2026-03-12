@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "to be updated",
+    "pubName": "to be updated",
+    "studentId": "r11521602",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "email to be updated",
+                "link": "mailto:"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/r11521602.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/r11521602.md"
+            }
+        ]
+    }
+}

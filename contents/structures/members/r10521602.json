@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "Wei-Chun Tseng (Jim)",
+    "pubName": "Wei-Chun",
+    "studentId": "r10521602",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "wctseng@ntu.edu.tw",
+                "link": "mailto:wctseng@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/r10521602.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/r10521602.md"
+            }
+        ]
+    }
+}

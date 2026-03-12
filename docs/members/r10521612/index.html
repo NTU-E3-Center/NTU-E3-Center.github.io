@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ member['engName'] }}{% if member['chiNameEng'] %} ({{ member['chiNameEng'] }}){% endif %} | E3 Center</title>
+    <title>Jason (Chon Man Tam (Jason)) | E3 Center</title>
     <meta name="description" content="Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research group, directed by Professor I-Yun Lisa Hsieh (謝依芸), is dedicated to overcoming the challenges of sustainable energy transition.">
-    <meta name="keywords" content="{{ member['engName'] }}, {{ member['chiName'] }}{% if member['chiNameEng'] %}, {{ member['chiNameEng'] }}{% endif %}, E3 Group, e3, NTU, 台大, 台灣大學">
-    <meta name="author" content="{{ member['engName'] }}">
+    <meta name="keywords" content="Jason, 譚竣文, Chon Man Tam (Jason), E3 Group, e3, NTU, 台大, 台灣大學">
+    <meta name="author" content="Jason">
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -61,67 +61,49 @@
             </div>
 
 
-            {% set page_content = member['pageContent'] %}
-            {% set imgPathFront = member['imgPath'].split('.')[0] %}
             <div class="main-info">
 
-                <div class="photo skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);">
+                <div class="photo skewed-block" b-role="block" style="background-image: url(/assets/members/r10521612-800w.webp);">
                     <img
                         loading="lazy"
-                        src="{{ member['imgPath'] }}"
+                        src="/assets/members/r10521612.jpg"
                         srcset="
-                            {{ imgPathFront }}-200w.webp 200w,
-                            {{ imgPathFront }}-400w.webp 400w,
-                            {{ imgPathFront }}-600w.webp 600w,
-                            {{ imgPathFront }}-800w.webp 800w
+                            /assets/members/r10521612-200w.webp 200w,
+                            /assets/members/r10521612-400w.webp 400w,
+                            /assets/members/r10521612-600w.webp 600w,
+                            /assets/members/r10521612-800w.webp 800w
                         "
                         sizes=20rem"
-                        alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                        alt="Jason 譚竣文"
                     />
                 </div>
                 
                 <div class="info-text">
                     <div class="main-name">
                         <!-- <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg> -->
-                        <h1>{{ member['chiNameEng'] }}</h1>
+                        <h1>Chon Man Tam (Jason)</h1>
                     </div>
 
-                    <!-- {% if member['chiName'] or member['chiNameEng'] %} -->
+                    <!--  -->
                     
                     <div class="sub-name">
                         <!-- <span>(</span> -->
-                        {{ member['chiName'] }}
+                        譚竣文
                         <!-- <span>)</span> -->
                     </div>
-                    {% endif %}
 
-                    {% set pos_path = page_content['positionSection']['content'] %}
-                    {% if page_content['positionSection'] %}
-                    {% if about_content[pos_path] %}
 
                     <div class="position-text">
-                        {{ about_content[pos_path] }}
+                        <p>Project Manager,</p>
+<p>E3 Research Center, </p>
+<p>National Taiwan University.</p>
                     </div>
-                    {% endif %}
-                    {% endif %}
 
-                    {% if page_content['links'] %}
                     <div class="tags">
-                        {% for tag in page_content['links'] %}
-                        {% if tag['link'] %}
-                        <a href="{{ tag['link'] }}" class="tag skewed-block" b-role="btn" b-hoverable>
-                            <svg><use href="{{ tag['icon'] }}"></use></svg>
-                            {% if tag['text'] %}{{ tag['text'] }}{% endif %}
-                        </a>
-                        {% else %}
-                        <div class="tag skewed-block" b-role="btn">
-                            <svg><use href="{{ tag['icon'] }}"></use></svg>
-                            {% if tag['text'] %}{{ tag['text'] }}{% endif %}
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                        <a href="mailto:tamchonman98@caece.net" class="tag skewed-block" b-role="btn" b-hoverable>
+                            <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+tamchonman98@caece.net                        </a>
                     </div>
-                    {% endif %}
                 </div>
 
 
@@ -129,106 +111,37 @@
             </div>
         </header>
 
-        {% if page_content['aboutSection'] %}
-        {% for section in page_content['aboutSection'] %}
         <section id="about">
-            <h2>{{ section['sectionTitle'] }}</h2>
+            <h2>About</h2>
             <div class="content">
-                {{ about_content[section['content']] }}
+                <p>Jason Tam is a Project Manager at the <strong>National Taiwan University (NTU) E3 Research Center</strong>, where he oversees the planning and execution of R&amp;D projects focused on energy and sustainable technology. His portfolio includes the development of the <strong>Ezero AI Smart Energy Management System</strong>, commercial transportation carbon emission modeling, and green engineering talent cultivation programs. Jason specializes in cross-departmental collaboration and the strategic integration of research outcomes into practical, real-world applications.</p>
+<p>Jason holds a Bachelor’s degree in Civil Engineering from <strong>National Yang Ming Chiao Tung University</strong>, where he graduated first in his class, and a Master’s degree from the <strong>Computer-Aided Engineering (CAE)</strong> division at National Taiwan University. During his graduate studies, he focused on energy economics, with his research published in <em>prestigious Q1 international journals</em>. His academic background provides a rigorous foundation for technical discourse and system analysis in the energy sector.</p>
+<p>In professional practice, Jason served as a core member for project management and AI development in the <strong>HydrogenE3</strong> team led by Assoc. Prof. Lisa Hsieh. He played a pivotal role in developing an intelligent decision-making platform combining Generative AI with LCOH modeling, which won <strong>First Prize in the 2024 Ørsted Sustainability Innovation Accelerator</strong>. In his current capacity, he manages platform development and industry integration, coordinating with partners such as <strong>NextDrive</strong> to drive the commercialization and deployment of the Ezero AI system.</p>
             </div>
         </section>
-        {% endfor %}
-        {% endif %}
 
-        {% if page_content['researchSection'] %}
-        {% for section in page_content['researchSection'] %}
-        <section id="research">
-            <h2>{{ section['sectionTitle'] }}</h2>
-            <div class="content">
-                {% for topic_id in section['topics'] %}
-                {% set topic = research_by_id.get(topic_id) %}
-                {% if topic %}
-                <div class="res-block">
-                    <div class="res-info">
-                        {% for tag in topic['bigTags'] %}
-                        <div class="res-tag">
-                            <span class="res-tag-icon">#</span>
-                            <span class="res-tag-text">{{ tag }}</span>
-                        </div>
-                        {% endfor %}
-                        {% if topic['smallTags'] %}
-                        <div class="res-info-minor">
-                            {{ topic['smallTags'] | join(', ') }}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endfor %}
-        {% endif %}
 
-        {% if page_content['PublicationSection'] %}
-        {% for section in page_content['PublicationSection'] %}
-        <section id="publication-{{ loop.index }}" class="publication">
-            <h2>{{ section['sectionTitle'] }}</h2>
+        <section id="publication-1" class="publication">
+            <h2>Journal Publications</h2>
             <div class="content">
-                {% if section['manual'] %}
-                {% for pub in section['publications'] %}
                 <div class="pub-block">
                     <div class="pub-date">
                         <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">'{{ pub['year'] | string | slice(-2) | list | join }}</div>
+                        <div class="pub-date-mm">Sep.</div>
+                        <div class="pub-date-yy">'24</div>
                     </div>
                     <div class="pub-info">
-                        {% if pub['link'] %}
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
+                        <a class="pub-title-block" target="_blank" href="https://doi.org/10.1016/j.isci.2024.110690">
+                            <span class="pub-title">Assessing Levelized Cost of Electric Vehicle Recharging in China</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
                                 <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
                             </svg>
                         </a>
-                        {% else %}
-                        <div class="pub-title-block">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                        </div>
-                        {% endif %}
-                        {% if pub['subTitle'] %}
-                        <div class="pub-subtitle">{{ pub['subTitle'] }}</div>
-                        {% endif %}
+                        <div class="pub-subtitle">iScience, Vol. 27.</div>
                     </div>
                 </div>
-                {% endfor %}
-                {% else %}
-                {% for citation_id in section['publications'] %}
-                {% set pub = pub_by_id[citation_id] %}
-                {% if pub %}
-                <div class="pub-block">
-                    <div class="pub-date">
-                        <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">{{ pub['year'] }}</div>
-                    </div>
-                    <div class="pub-info">
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
-                                <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
-                            </svg>
-                        </a>
-                        <div class="pub-subtitle">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
             </div>
         </section>
-        {% endfor %}
-        {% endif %}
 
     </main>
 
@@ -249,7 +162,7 @@
         </div>
 
         <div class="ftr-info">
-            &copy; {{ year }} E3 Center, National Taiwan University. All rights reserved.
+            &copy; 2026 E3 Center, National Taiwan University. All rights reserved.
         </div>
     </footer>
 

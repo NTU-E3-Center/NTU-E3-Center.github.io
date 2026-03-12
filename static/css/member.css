@@ -59,7 +59,7 @@ main {
 }
 
     .sub-name {
-        font-size: 1.1rem;
+        font-size: 2.0rem;
         /* transform: skewX(var(--block-skew)); */
         /* display: flex; */
         align-items: center;
