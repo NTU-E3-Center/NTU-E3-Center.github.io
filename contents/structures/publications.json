@@ -110,7 +110,9 @@
                 "journal": "Renewable Hydrogen Storage and Transport conference",
                 "year": "'24",
                 "month": "Mar.",
-                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa"
+                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:KlAtU1dfN6UC",
@@ -120,7 +122,9 @@
                 "volume": "465",
                 "year": "'24",
                 "month": "Aug.",
-                "authors": "Cheng-Hsiang, John Chung-En, I-Yun Lisa"
+                "authors": "Cheng-Hsiang, John Chung-En, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:M3ejUd6NZC8C",
@@ -130,7 +134,9 @@
                 "volume": "80",
                 "year": "'24",
                 "month": "Aug.",
-                "authors": "Wei-Hsuan, Ian, Jo-Chen Meg, I-Yun Lisa"
+                "authors": "Wei-Hsuan, Ian, Jo-Chen Meg, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:4DMP91E08xMC",
@@ -140,7 +146,9 @@
                 "volume": "55",
                 "year": "'24",
                 "month": "Sep.",
-                "authors": "Yuan-Shin, I-Yun Lisa"
+                "authors": "Yuan-Shin, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:qxL8FJ1GzNcC",
@@ -150,7 +158,9 @@
                 "volume": "27",
                 "year": "'24",
                 "month": "Sep.",
-                "authors": "Chon Man, I-Yun Lisa, Xin"
+                "authors": "Chon Man, I-Yun Lisa, Xin",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC",
@@ -160,7 +170,9 @@
                 "volume": "24",
                 "year": "'24",
                 "month": "Oct.",
-                "authors": "Jun-Wei, Yuan-Shin, I-Yun Lisa"
+                "authors": "Jun-Wei, Yuan-Shin, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:aqlVkmm33-oC",
@@ -170,7 +182,9 @@
                 "volume": "375",
                 "year": "'24",
                 "month": "Dec.",
-                "authors": "Jun-Wei, Ming-Ju, Jing-Siou, I-Yun Lisa"
+                "authors": "Jun-Wei, Ming-Ju, Jing-Siou, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
@@ -180,7 +194,9 @@
                 "volume": "11",
                 "year": "'24",
                 "month": "Dec.",
-                "authors": "Dennis, Tzu-Hsien, I-Yun Lisa"
+                "authors": "Dennis, Tzu-Hsien, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
@@ -190,7 +206,9 @@
                 "volume": "11",
                 "year": "'24",
                 "month": "Dec.",
-                "authors": "Yuan-Hsi, I-Yun Lisa"
+                "authors": "Yuan-Hsi, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mVmsd5A6BfQC",
@@ -200,7 +218,9 @@
                 "volume": "118",
                 "year": "'25",
                 "month": "Jan.",
-                "authors": "Yuan-Hsi, I-Yun Lisa"
+                "authors": "Yuan-Hsi, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:7PzlFSSx8tAC",
@@ -210,7 +230,9 @@
                 "volume": "26",
                 "year": "'25",
                 "month": "Apr.",
-                "authors": "Jian Hern, Kai-Yun, I-Yun Lisa"
+                "authors": "Jian Hern, Kai-Yun, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:IWHjjKOFINEC",
@@ -220,7 +242,9 @@
                 "volume": "19",
                 "year": "'25",
                 "month": "Apr.",
-                "authors": "Jing-Siou, Yuan-Hsi, Ruo-Wen, I-Yun Lisa"
+                "authors": "Jing-Siou, Yuan-Hsi, Ruo-Wen, I-Yun Lisa",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:YOwf2qJgpHMC",
@@ -229,7 +253,9 @@
                 "journal": "Journal of Urban Management",
                 "year": "'25",
                 "month": "Apr.",
-                "authors": "Jia-Cherng, I-Yun Lisa, Chuin-Shan"
+                "authors": "Jia-Cherng, I-Yun Lisa, Chuin-Shan",
+                "E3": true
+
             },
             {
                 "citationId": "tUbPb-QAAAAJ:dhFuZR0502QC",
@@ -239,7 +265,8 @@
                 "volume": "142",
                 "year": "'25",
                 "month": "May.",
-                "authors": "Hung-Jui, Pei-Ci, Hsuan-Po, I-Yun Lisa"
+                "authors": "Hung-Jui, Pei-Ci, Hsuan-Po, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:L8Ckcad2t8MC",
@@ -248,7 +275,8 @@
                 "journal": "Journal of Building Engineering",
                 "year": "'25",
                 "month": "Jun.",
-                "authors": "Yu-Shin, Kai-Yun, I-Yun Lisa"
+                "authors": "Yu-Shin, Kai-Yun, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
@@ -257,7 +285,8 @@
                 "journal": "Communications Earth & Environment",
                 "year": "'26",
                 "month": "Jan.",
-                "authors": "Jun-Wei, I-Yun Lisa"
+                "authors": "Jun-Wei, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:digitalization-lca-pod",
@@ -266,7 +295,8 @@
                 "journal": "Transportation Letters",
                 "year": "'26",
                 "month": "Jan.",
-                "authors": "Hung-Jui, Hsuan-Po, I-Yun Lisa"
+                "authors": "Hung-Jui, Hsuan-Po, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:boiler-air-pollution-taiwan",
@@ -275,7 +305,8 @@
                 "journal": "Atmospheric Pollution Research",
                 "year": "'26",
                 "month": "Jan.",
-                "authors": "Dennis, Hung-Jui, I-Chun, I-Yun Lisa"
+                "authors": "Dennis, Hung-Jui, I-Chun, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:ecological-economics-2026",
@@ -285,7 +316,19 @@
                 "volume": "242",
                 "year": "'26",
                 "month": "Apr.",
-                "authors": "Cheng-Hsiang, John Chung-En, I-Yun Lisa"
+                "authors": "Cheng-Hsiang, John Chung-En, I-Yun Lisa",
+                "E3": true
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:schneider2023comparative",
+                "title": "Comparative Life Cycle Assessment (LCA) on battery electric and combustion engine motorcycles in Taiwan",
+                "link": "https://doi.org/10.1016/j.jclepro.2023.137060",
+                "journal": "Journal of Cleaner Production",
+                "volume": "406",
+                "year": "'23",
+                "month": "Apr.",
+                "authors": "Falk, Daniel Sebastian Castillo, Kuo-Che, Cheng-Hsiang, Hsin-Tien",
+                "E3": false
             }
         ]
     }

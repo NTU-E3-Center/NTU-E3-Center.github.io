@@ -14,7 +14,7 @@ main {
 .logo {
     display: inline-block;
     margin-bottom: 2rem; /* Adds some space between the logo and the photo block */
-    transition: opacity var(--hover-transition-time);
+    transition: var(--hover-transition-time);
 }
 
 .logo svg, .logo img {
@@ -24,6 +24,7 @@ main {
 
 .logo:hover {
     opacity: 0.8; /* Slight fade effect when they hover over it */
+    translate: var(--block-hover-translate) var(--block-hover-translate);
 }
 
 

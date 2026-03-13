@@ -675,10 +675,38 @@
             display: flex;
             gap: 3rem;
             flex-wrap: wrap;
+
+            /* Group hover effect for the entire block */
+            &:hover, &:focus-within {
+                .mem-img {
+                    translate: var(--block-hover-translate) var(--block-hover-translate);
+                    box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
+                    border-radius: calc(1.5 * var(--_adjusted-border-radius));
+                }
+                .mem-name {
+                    translate: var(--block-hover-translate) var(--block-hover-translate);
+                }
+            }
+
+            &:active {
+                .mem-img {
+                    translate: 0 0;
+                    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
+                    border-radius: var(--_adjusted-border-radius);
+                }
+                .mem-name {
+                    translate: 0 0;
+                }
+            }
         }
 
         .mem-img img {
             width: calc((1 + tan(var(--content-skew))) * var(--_img-width) * 1.03);
+        }
+
+        .mem-img[href] {
+            cursor: pointer;
+            transition: var(--hover-transition-time);
         }
     
         .mem-text {
@@ -689,16 +717,14 @@
             justify-items: start;
             gap: 1rem;
             margin-left: 0.75rem;
-/* 
-            & > * + * {
-                margin-inline-start: 0.875rem;
-            } */
-    
+
             .mem-quote {
                 width: 0.875rem;
                 translate: 0 0.5rem;
             }
             .mem-name {
+                transition: var(--hover-transition-time);
+
                 display: grid;
                 gap: 0;
 
