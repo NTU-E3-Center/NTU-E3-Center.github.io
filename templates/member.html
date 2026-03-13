@@ -35,8 +35,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/member.css">
+    <link rel="stylesheet" href="/css/general.css?v=2">
+    <link rel="stylesheet" href="/css/member.css?v=2">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -138,6 +138,15 @@
             </div>
         </section>
         {% endfor %}
+        {% endif %}
+
+        {% if member.get('interest_content') %}
+        <section id="about">
+            <h2>Research Interest</h2>
+            <div class="content">
+                {{ member['interest_content'] }}
+            </div>
+        </section>
         {% endif %}
 
         {% if page_content['researchSection'] %}

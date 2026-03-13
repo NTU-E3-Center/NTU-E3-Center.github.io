@@ -137,6 +137,20 @@ def render_member_pages():
                         md_text = f.read()
                     about_content[md_path] = markdown.markdown(md_text, extensions=['md_in_html'])
         
+            # Load specific member interest
+            member_id = None
+            if page_structure_path:
+                member_id = os.path.splitext(os.path.basename(page_structure_path))[0]
+            else:
+                member_id = member.get('studentId')
+
+            if member_id:
+                interest_path = f"contents/articles/members_interest/{member_id}.md"
+                if os.path.exists(interest_path):
+                    with open(interest_path, 'r', encoding='utf-8') as f:
+                        md_text = f.read()
+                    member['interest_content'] = markdown.markdown(md_text, extensions=['md_in_html'])
+
             # Auto-populate Journal Publications if pubName is set
             pub_name = member.get('pubName')
             if pub_name:

@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "Hung-Jui (Ray) Lin",
+    "pubName": "Hung-Jui",
+    "studentId": "f13521601",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "f13521601@ntu.edu.tw",
+                "link": "mailto:f13521601@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/f13521601.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/f13521601.md"
+            }
+        ]
+    }
+}

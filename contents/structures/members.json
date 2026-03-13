@@ -88,9 +88,11 @@
             {
                 "engName": "Ray",
                 "chiName": "林宏叡",
-                "imgPath": "/assets/members/r13521601.jpg",
+                "imgPath": "/assets/members/f13521601.jpg",
                 "icon": "/assets/sprite.svg#svg-doctor-1",
-                "admissionYear": "'24"
+                "admissionYear": "'24",
+                "pageLink": "/members/f13521601",
+                "pageStructure": "contents/structures/members/f13521601.json"
             }
         ]
     },
