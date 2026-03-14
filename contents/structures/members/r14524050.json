@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "Yu-Ran Keng (Claire)",
+    "pubName": "Yu-Ran Keng",
+    "studentId": "r14524050",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "r14524050@ntu.edu.tw",
+                "link": "mailto:r14524050@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/r14524050.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/r14524050.md"
+            }
+        ]
+    }
+}

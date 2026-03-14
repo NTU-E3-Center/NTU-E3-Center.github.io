@@ -1,0 +1,24 @@
+{
+    "chiNameEng": "Chih-Yi Lu (Harper)",
+    "pubName": "Chih-Yi Lu",
+    "studentId": "f12521611",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "f12521611@ntu.edu.tw",
+                "link": "mailto:f12521611@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members_position/f12521611.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members_about/f12521611.md"
+            }
+        ]
+    }
+}

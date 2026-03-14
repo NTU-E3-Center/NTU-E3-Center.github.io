@@ -83,7 +83,9 @@
                 "chiName": "呂芷儀",
                 "imgPath": "/assets/members/f12521611.jpg",
                 "icon": "/assets/sprite.svg#svg-doctor-1",
-                "admissionYear": "'24"
+                "admissionYear": "'24",
+                "pageLink": "/members/f12521611",
+                "pageStructure": "contents/structures/members/f12521611.json"
             },
             {
                 "engName": "Ray",
@@ -119,7 +121,9 @@
                 "chiName": "周恩毅",
                 "imgPath": "/assets/members/r13524093.jpg",
                 "icon": "/assets/sprite.svg#svg-master-2",
-                "admissionYear": "'24"
+                "admissionYear": "'24",
+                "pageLink": "/members/r13524093",
+                "pageStructure": "contents/structures/members/r13524093.json"
             },
             {
                 "engName": "Anching",
@@ -133,14 +137,18 @@
                 "chiName": "李碩宸",
                 "imgPath": "/assets/members/r14521603.jpg",
                 "icon": "/assets/sprite.svg#svg-master-1",
-                "admissionYear": "'25"
+                "admissionYear": "'25",
+                "pageLink": "/members/r14521603",
+                "pageStructure": "contents/structures/members/r14521603.json"
             },
             {
                 "engName": "Eric",
                 "chiName": "陳厚銓",
                 "imgPath": "/assets/members/r14521604.png",
                 "icon": "/assets/sprite.svg#svg-master-1",
-                "admissionYear": "'25"
+                "admissionYear": "'25",
+                "pageLink": "/members/r14521604",
+                "pageStructure": "contents/structures/members/r14521604.json"
             },
             {
                 "engName": "Shaoyang",
@@ -161,7 +169,9 @@
                 "chiName": "耿又苒",
                 "imgPath": "/assets/members/r14524050.jpg",
                 "icon": "/assets/sprite.svg#svg-master-1",
-                "admissionYear": "'25"
+                "admissionYear": "'25",
+                "pageLink": "/members/r14524050",
+                "pageStructure": "contents/structures/members/r14524050.json"
             },
             {
                 "engName": "YuTing",
@@ -175,7 +185,9 @@
                 "chiName": "張宜鈁",
                 "imgPath": "/assets/members/r14h46003.jpg",
                 "icon": "/assets/sprite.svg#svg-master-1",
-                "admissionYear": "'25"
+                "admissionYear": "'25",
+                "pageLink": "/members/r14h46003",
+                "pageStructure": "contents/structures/members/r14h46003.json"
             }
         ]
     },

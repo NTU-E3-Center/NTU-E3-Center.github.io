@@ -534,6 +534,8 @@
     --_para-min-width: 50rem;
     --_logo-width: 15rem;
     --_gap: 2rem;
+    
+    line-height: 1.5;
 
     padding-inline: 1rem;
 
