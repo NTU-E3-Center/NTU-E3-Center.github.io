@@ -11,7 +11,8 @@
                 "volume": "9",
                 "year": "'22",
                 "month": "Dec.",
-                "authors": "Wei-Chun, Hou-Chuan, Tsung-Heng, Tien-Yu, I-Yun Lisa"
+                "authors": "Wei-Chun, Hou-Chuan, Tsung-Heng, Tien-Yu, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
@@ -21,7 +22,8 @@
                 "volume": "9",
                 "year": "'22",
                 "month": "Dec.",
-                "authors": "Kai-Yun, Ting-Ling, Hsin-Yun, I-Yun Lisa"
+                "authors": "Kai-Yun, Ting-Ling, Hsin-Yun, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Se3iqnhoufwC",
@@ -31,7 +33,8 @@
                 "volume": "114",
                 "year": "'23",
                 "month": "Jan.",
-                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa"
+                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:hqOjcs7Dif8C",
@@ -41,7 +44,8 @@
                 "volume": "45",
                 "year": "'23",
                 "month": "Jan.",
-                "authors": "Yuan-Hsi, I-Yun Lisa, Tsung-Heng"
+                "authors": "Yuan-Hsi, I-Yun Lisa, Tsung-Heng",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC",
@@ -51,7 +55,8 @@
                 "volume": "122",
                 "year": "'23",
                 "month": "Sep.",
-                "authors": "Wei-Chun, I-Yun Lisa"
+                "authors": "Wei-Chun, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:8k81kl-MbHgC",
@@ -61,7 +66,8 @@
                 "volume": "49",
                 "year": "'23",
                 "month": "Sep.",
-                "authors": "Yu-Jui, I-Yun Lisa"
+                "authors": "Yu-Jui, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:3fE2CSJIrl8C",
@@ -71,7 +77,8 @@
                 "volume": "425",
                 "year": "'23",
                 "month": "Nov.",
-                "authors": "Wei-Hsuan, I-Yun Lisa"
+                "authors": "Wei-Hsuan, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC",
@@ -81,7 +88,8 @@
                 "volume": "99",
                 "year": "'23",
                 "month": "Dec.",
-                "authors": "Kai-Yun, Jian Hern, I-Yun Lisa"
+                "authors": "Kai-Yun, Jian Hern, I-Yun Lisa",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:kNdYIx-mwKoC",
@@ -91,7 +99,8 @@
                 "volume": "125",
                 "year": "'23",
                 "month": "Dec.",
-                "authors": "Jia-Cherng, I-Yun Lisa, Chuin-Shan"
+                "authors": "Jia-Cherng, I-Yun Lisa, Chuin-Shan",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:ULOm3_A8WrAC",
@@ -160,7 +169,6 @@
                 "month": "Sep.",
                 "authors": "Chon Man, I-Yun Lisa, Xin",
                 "E3": true
-
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC",

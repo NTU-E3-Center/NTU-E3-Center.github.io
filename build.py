@@ -11,6 +11,29 @@ env = Environment(loader=FileSystemLoader(['templates', 'contents']),
                   trim_blocks=True,
                   lstrip_blocks=True)
 
+# Helper function to get sortable date from publication item
+def get_pub_sort_key(item):
+    # Extract year and handle 'YY format
+    year_str = item.get('year', '0')
+    if isinstance(year_str, str) and year_str.startswith("'"):
+        year = int("20" + year_str[1:])
+    else:
+        try:
+            year = int(year_str)
+        except (ValueError, TypeError):
+            year = 2000 # Fallback
+            
+    # Heuristic for month
+    month_str = item.get('month', '')
+    months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    month_num = 0
+    for i, m in enumerate(months):
+        if m in month_str.lower():
+            month_num = i + 1
+            break
+            
+    return (year, month_num)
+
 # Load page structure from an external JSON file
 with open("contents/structures/pages.json", "r") as f:
     pages = json.load(f)
@@ -30,6 +53,19 @@ for filename in os.listdir(structures_path):
         # Create a key based on the file name (without the .json extension)
         var_name = os.path.splitext(filename)[0]
         structures[var_name] = data
+
+# Filter and sort publications for home page
+if 'publications' in structures:
+    home_publications = []
+    for section in structures['publications']:
+        new_section = section.copy()
+        # Filter items with E3: true
+        filtered_items = [item for item in section.get('items', []) if item.get('E3') is True]
+        # Sort items descending by date
+        filtered_items.sort(key=get_pub_sort_key, reverse=True)
+        new_section['items'] = filtered_items
+        home_publications.append(new_section)
+    structures['home_publications'] = home_publications
 
 articles_path = 'contents/articles'
 articles = {}

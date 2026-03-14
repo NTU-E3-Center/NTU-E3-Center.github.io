@@ -15,5 +15,5 @@ March 2025 - Feb 2026:
 Fall 2023 - Fall 2025:  
 *Design / Development / Maintenance: [Yuan-Hsi Chien (Thomas)](https://github.com/dobahsi)*
 
-For bug reports and suggestions for the website, feel free to get in touch with Gary.
+For bug reports and suggestions for the website, feel free to get in touch with Jian Hern or Gary.
 Enjoy!

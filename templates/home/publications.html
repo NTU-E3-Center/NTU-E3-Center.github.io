@@ -4,13 +4,13 @@
         <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
     </div>
 
-    {% for publication in structures['publications'] %}
+    {% for publication in structures['home_publications'] %}
     <h3>{{ publication['sectionTitle'] }}</h3>
     <section class="publi-section">
         <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
 
         <div class="publi-block-wrapper">
-            {% for item in publication['items'][-1:(-1-publication['showInHome']):-1] %}
+            {% for item in publication['items'][:publication['showInHome']] %}
             <div class="publi-block">
                 <div class="publi-date">
                     <div class="publi-date-mm">{{ item['month'] }}</div>
