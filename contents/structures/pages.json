@@ -34,7 +34,7 @@
                 "icon": "/assets/sprite.svg#svg-news"
             },
             {
-                "id": "groupLife",
+                "id": "group-life",
                 "title": "Group Life",
                 "link": "/#group-life",
                 "icon": "/assets/sprite.svg#svg-picture"

@@ -17,3 +17,13 @@ Fall 2023 - Fall 2025:
 
 For bug reports and suggestions for the website, feel free to get in touch with Jian Hern or Gary.
 Enjoy!
+
+
+## Test
+                                                                                                                   
+# 1. Build 網站                                                                                                   
+python build.py
+
+# 2. 啟動 local server
+cd docs && python -m http.server 8000
+http://localhost:8000 

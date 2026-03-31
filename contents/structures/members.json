@@ -188,6 +188,41 @@
                 "admissionYear": "'25",
                 "pageLink": "/members/r14h46003",
                 "pageStructure": "contents/structures/members/r14h46003.json"
+            },
+            {
+                "engName": "Betty",
+                "chiName": "游霈緹",
+                "imgPath": "/assets/members/bettyyu.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'26"
+            },
+            {
+                "engName": "Ting-Ye",
+                "chiName": "林廷曄",
+                "imgPath": "/assets/members/tingyelin.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'26"
+            },
+            {
+                "engName": "Fiona",
+                "chiName": "沈妤芳",
+                "imgPath": "/assets/members/fionashen.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'26"
+            },
+            {
+                "engName": "Kevin",
+                "chiName": "鄭至亞",
+                "imgPath": "/assets/members/kevincheng.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'26"
+            },
+            {
+                "engName": "ChunHao",
+                "chiName": "黃竣昊",
+                "imgPath": "/assets/members/chunhaohuang.jpg",
+                "icon": "/assets/sprite.svg#svg-master-1",
+                "admissionYear": "'26"
             }
         ]
     },

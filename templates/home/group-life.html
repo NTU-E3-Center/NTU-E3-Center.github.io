@@ -4,10 +4,10 @@
         <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
     </div>
 
-    {% for groupLife in structures['groupLife'] %}
+    {% for group_life in structures['group-life'] %}
     <section class="glf-section" which="slider">
         <div class="glf-slider-header">
-            <h3>{{ groupLife['sliderTitle'] }}</h3>
+            <h3>{{ group_life['sliderTitle'] }}</h3>
 
             <div class="glf-slider-btns">
                 <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(-1)" aria-label="Last Photo">
@@ -17,7 +17,7 @@
                 <div class="glf-slider-num">
                     <span class="glf-slider-current-num">1</span>
                     <span>/</span>
-                    <span class="glf-slider-total-num">{{ groupLife['showInSlider'] }}</span>
+                    <span class="glf-slider-total-num">{{ group_life['showInSlider'] }}</span>
                 </div>
 
                 <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(1)" aria-label="Next Photo">
@@ -28,7 +28,7 @@
 
         <div class="glf-slider">
             <div class="glf-slider-wrapper">
-                {% for item in groupLife['items'][-1:(-1-groupLife['showInSlider']):-1] %}
+                {% for item in group_life['items'][-1:(-1-group_life['showInSlider']):-1] %}
                 <div class="glf-slider-block" current-slide="{% if loop.index == 1 %}true{% else %}false{% endif %}">
                     {% set imgPathFront = item['imgPath'].split('.')[0] %}
                     <div class="glf-slider-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
@@ -59,19 +59,19 @@
         </div>
     </section>
 
-    <h3>{{ groupLife['sectionTitle'] }}</h3>
-    {% if groupLife['filter'] %}
-    <div class="filter" where="{{ groupLife['filterId'] }}">
-        <span class="filter-title">{{ groupLife['filterTitle'] }}</span>
+    <h3>{{ group_life['sectionTitle'] }}</h3>
+    {% if group_life['filter'] %}
+    <div class="filter" where="{{ group_life['filterId'] }}">
+        <span class="filter-title">{{ group_life['filterTitle'] }}</span>
         {% set ns = namespace(filterItems=[]) %}
-        {% for item in groupLife['items'] %}
+        {% for item in group_life['items'] %}
             {% if item['year'] not in ns.filterItems %}
                 {% set ns.filterItems = ns.filterItems + [item['year']] %}
             {% endif %}
         {% endfor %}
         {% for filterItem in ns.filterItems[::-1] %}
         <label class="filter-block skewed-block" b-role="btn" b-hoverable>
-            <input class="filter-checkbox" type="checkbox" where="{{ groupLife['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= groupLife['filterDefaultCheck'] %} checked{% endif %}/>
+            <input class="filter-checkbox" type="checkbox" where="{{ group_life['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= group_life['filterDefaultCheck'] %} checked{% endif %}/>
             <div class="filter-label">
                 <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
                 {{ filterItem }}
@@ -82,8 +82,8 @@
     {% endif %}
 
     <section class="glf-section" which="all">
-        {% for item in groupLife['items'][::-1] %}
-        <div class="glf-block filter-content" where="{{ groupLife['filterId'] }}" data-value="{{item['year']}}">
+        {% for item in group_life['items'][::-1] %}
+        <div class="glf-block filter-content" where="{{ group_life['filterId'] }}" data-value="{{item['year']}}">
             {% set imgPathFront = item['imgPath'].split('.')[0] %}
             <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img 

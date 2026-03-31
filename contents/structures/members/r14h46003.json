@@ -12,12 +12,12 @@
             }
         ],
         "positionSection": {
-            "content": "contents/articles/members_position/r14h46003.md"
+            "content": "contents/articles/members-position/r14h46003.md"
         },
         "aboutSection": [
             {
                 "sectionTitle": "About",
-                "content": "contents/articles/members_about/r14h46003.md"
+                "content": "contents/articles/members-about/r14h46003.md"
             }
         ]
     }

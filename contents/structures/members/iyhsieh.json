@@ -15,12 +15,12 @@
             }
         ],
         "positionSection": {
-            "content": "contents/articles/members_position/iyhsieh.md"
+            "content": "contents/articles/members-position/iyhsieh.md"
         },
         "aboutSection": [
             {
                 "sectionTitle": "About",
-                "content": "contents/articles/members_about/iyhsieh.md"
+                "content": "contents/articles/members-about/iyhsieh.md"
             }
         ],
         "PublicationSection": [

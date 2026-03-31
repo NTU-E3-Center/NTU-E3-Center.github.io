@@ -181,7 +181,7 @@ def render_member_pages():
                 member_id = member.get('studentId')
 
             if member_id:
-                interest_path = f"contents/articles/members_interest/{member_id}.md"
+                interest_path = f"contents/articles/members-interest/{member_id}.md"
                 if os.path.exists(interest_path):
                     with open(interest_path, 'r', encoding='utf-8') as f:
                         md_text = f.read()

@@ -12,12 +12,12 @@
             }
         ],
         "positionSection": {
-            "content": "contents/articles/members_position/r11521602.md"
+            "content": "contents/articles/members-position/r11521602.md"
         },
         "aboutSection": [
             {
                 "sectionTitle": "About",
-                "content": "contents/articles/members_about/r11521602.md"
+                "content": "contents/articles/members-about/r11521602.md"
             }
         ]
     }
