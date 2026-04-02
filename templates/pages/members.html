@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <section id="members">
-    <div class="section-title">
-        <h2>Members</h2>
-        <!-- <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg> -->
-    </div>
-
     {% for members in structures['members'] %}
     {% if members['form'] == 'L' %}
     <h3>{{ members['sectionTitle'] }}</h3>

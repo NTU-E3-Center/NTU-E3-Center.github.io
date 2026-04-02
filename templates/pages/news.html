@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <section id="news">
-    <div class="section-title">
-        <h2>News</h2>
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-    </div>
-
     {% for news in structures['news'] %}
     <h3>{{ news['innerSectionTitle'] }}</h3>
     <section class="publi-section">
