@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Chon Man Tam (Jason)",
+    "pubName": "Chon Man Tam",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "tamchonman98@caece.net",
+                "link": "mailto:tamchonman98@caece.net"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/chonmantam.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/chonmantam.md"
+            }
+        ]
+    }
+}

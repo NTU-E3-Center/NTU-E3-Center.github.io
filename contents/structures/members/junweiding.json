@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Jun-Wei Ding (Gary)",
+    "pubName": "Jun-Wei Ding",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "d13521023@ntu.edu.tw",
+                "link": "mailto:d13521023@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/junweiding.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/junweiding.md"
+            }
+        ]
+    }
+}

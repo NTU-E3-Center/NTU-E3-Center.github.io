@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "Ting-Ye Lin",
+    "pubName": "Ting-Ye Lin",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "b11504101@ntu.edu.tw",
+                "link": "mailto:b11504101@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/tingyelin.md"
+        }
+    }
+}

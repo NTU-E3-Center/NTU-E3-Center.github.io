@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Wei-Chun Tseng (Jim)",
+    "pubName": "Wei-Chun Tseng",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "wctseng@ntu.edu.tw",
+                "link": "mailto:wctseng@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/weichuntseng.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/weichuntseng.md"
+            }
+        ]
+    }
+}

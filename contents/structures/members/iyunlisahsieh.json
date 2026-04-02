@@ -1,0 +1,33 @@
+{
+    "chiNameEng": "I-Yun Lisa Hsieh",
+    "pubName": "I-Yun Lisa Hsieh",
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "iyhsieh@ntu.edu.tw",
+                "link": "mailto:iyhsieh@ntu.edu.tw"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-location",
+                "text": "CERB 601",
+                "link": "https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/iyunlisahsieh.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/iyunlisahsieh.md"
+            }
+        ],
+        "PublicationSection": [
+            {
+                "sectionTitle": "Journal Publications",
+                "publications": []
+            }
+        ]
+    }
+}

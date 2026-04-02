@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "Chun-Hao Huang",
+    "pubName": "Chun-Hao Huang",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "b11501151@ntu.edu.tw",
+                "link": "mailto:b11501151@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/chunhaohuang.md"
+        }
+    }
+}

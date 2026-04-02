@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "HIGASHI MASAKI",
+    "pubName": "HIGASHI MASAKI",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "higashi.masaki.079@s.kyushu-u.ac.jp",
+                "link": "mailto:higashi.masaki.079@s.kyushu-u.ac.jp"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/higashimasaki.md"
+        }
+    }
+}

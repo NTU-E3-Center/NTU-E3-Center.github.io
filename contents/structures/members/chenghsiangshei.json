@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Cheng-Hsiang Shei (Sean)",
+    "pubName": "Cheng-Hsiang Shei",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "seanshei@ntu.edu.tw",
+                "link": "mailto:seanshei@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/chenghsiangshei.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/chenghsiangshei.md"
+            }
+        ]
+    }
+}

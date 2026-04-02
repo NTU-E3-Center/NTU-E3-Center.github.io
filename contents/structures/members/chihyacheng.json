@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "CHIH-YA CHENG (Kevin)",
+    "pubName": "CHIH-YA CHENG",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "b11501044@ntu.edu.tw",
+                "link": "mailto:b11501044@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/chihyacheng.md"
+        }
+    }
+}

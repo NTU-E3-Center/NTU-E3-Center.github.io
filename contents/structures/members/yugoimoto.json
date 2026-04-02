@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "Yugo Imoto",
+    "pubName": "Yugo Imoto",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "imoto.yugo.657@s.kyushu-u.ac.jp",
+                "link": "mailto:imoto.yugo.657@s.kyushu-u.ac.jp"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/yugoimoto.md"
+        }
+    }
+}

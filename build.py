@@ -2,9 +2,16 @@ import os
 import json
 import shutil
 import markdown
+import importlib.util
 from PIL import Image
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
+
+# ── Sync content from Excel before building ───────────────────────────────────
+_spec = importlib.util.spec_from_file_location("excel_to_content", "excel_to_content.py")
+_mod  = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_mod)
+# ─────────────────────────────────────────────────────────────────────────────
 
 # Set up Jinja2 environment
 env = Environment(loader=FileSystemLoader(['templates', 'contents']),

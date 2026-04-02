@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Yuan-Hsi Chien (Thomas)",
+    "pubName": "Yuan-Hsi Chien",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "hsi@caece.net",
+                "link": "mailto:hsi@caece.net"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/yuanhsichien.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/yuanhsichien.md"
+            }
+        ]
+    }
+}

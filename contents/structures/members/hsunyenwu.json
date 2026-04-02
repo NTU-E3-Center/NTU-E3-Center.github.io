@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "Hsun-Yen Wu (Dulcinea)",
+    "pubName": "Hsun-Yen Wu",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "r13521612@ntu.edu.tw",
+                "link": "mailto:r13521612@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/hsunyenwu.md"
+        }
+    }
+}

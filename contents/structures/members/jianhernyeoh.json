@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Jian Hern Yeoh",
+    "pubName": "Jian Hern Yeoh",
+    "graduated": true,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "jhyeoh@ntu.edu.tw",
+                "link": "mailto:jhyeoh@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/jianhernyeoh.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/jianhernyeoh.md"
+            }
+        ]
+    }
+}

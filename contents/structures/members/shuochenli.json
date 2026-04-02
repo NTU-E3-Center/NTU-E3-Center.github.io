@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Shuo-Chen Li (Leo)",
+    "pubName": "Shuo-Chen Li",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "r14521603@ntu.edu.tw",
+                "link": "mailto:r14521603@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/shuochenli.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/shuochenli.md"
+            }
+        ]
+    }
+}

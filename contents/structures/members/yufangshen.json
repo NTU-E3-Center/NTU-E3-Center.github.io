@@ -1,0 +1,17 @@
+{
+    "chiNameEng": "Yu Fang Shen (Fiona)",
+    "pubName": "Yu Fang Shen",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "b11501045@ntu.edu.tw",
+                "link": "mailto:b11501045@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/yufangshen.md"
+        }
+    }
+}

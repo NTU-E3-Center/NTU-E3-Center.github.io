@@ -1,3 +1,0 @@
-/ Autonomous Vehicles 
-
-/ Computer Vision

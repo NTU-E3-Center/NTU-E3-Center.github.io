@@ -1,0 +1,23 @@
+{
+    "chiNameEng": "Chih-Yi Lu (Harper)",
+    "pubName": "Chih-Yi Lu",
+    "graduated": false,
+    "pageContent": {
+        "links": [
+            {
+                "icon": "/assets/sprite.svg#svg-send",
+                "text": "f12521611@ntu.edu.tw",
+                "link": "mailto:f12521611@ntu.edu.tw"
+            }
+        ],
+        "positionSection": {
+            "content": "contents/articles/members-position/chihyilu.md"
+        },
+        "aboutSection": [
+            {
+                "sectionTitle": "About",
+                "content": "contents/articles/members-about/chihyilu.md"
+            }
+        ]
+    }
+}
