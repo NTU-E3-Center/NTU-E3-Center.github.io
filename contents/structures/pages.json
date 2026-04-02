@@ -12,7 +12,7 @@
             {
                 "id": "members",
                 "title": "Members",
-                "link": "/#members",
+                "link": "/members",
                 "icon": "/assets/sprite.svg#svg-members"
             },
             {
@@ -55,6 +55,14 @@
     },
     "news": {
         "path": "news",
-        "title": "News | E3 Center"
+        "title": "News | E3 Center",
+        "subpageTitle": "News",
+        "template": "pages/news"
+    },
+    "members-page": {
+        "path": "members",
+        "title": "Members | E3 Center",
+        "subpageTitle": "Members",
+        "template": "pages/members"
     }
 }
