@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <section id="members">
     <div class="section-title">
         <h2>Members</h2>
@@ -5,7 +7,6 @@
     </div>
 
     {% for members in structures['members'] %}
-    {% if not (isHomePage and members['sectionTitle'] in ['Master Students', 'Alumni']) %}
     {% if members['form'] == 'L' %}
     <h3>{{ members['sectionTitle'] }}</h3>
     <section class="mem-section" who="{{ members['form'] }}">
@@ -14,8 +15,8 @@
         <div class="mem-block">
             <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w,
@@ -58,8 +59,8 @@
         <a class="mem-block" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
             <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w,
@@ -117,8 +118,8 @@
         <a class="mem-block filter-content" where="{{ members['filterId'] }}" data-value="{{ member['admissionYear']}}" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
             <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w
@@ -139,18 +140,9 @@
                 </span>
             </div>
         </a>
-        {% endfor %}    
-        
-
-
+        {% endfor %}
     </section>
     {% endif %}
-    {% endif %}
     {% endfor %}
-    {% if isHomePage %}
-    <a class="more skewed-block" href="/members/" b-role="btn" b-hoverable>
-        <div>All members</div>
-        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-    </a>
-    {% endif %}
 </section>
+{% endblock %}
