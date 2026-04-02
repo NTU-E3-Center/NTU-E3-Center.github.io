@@ -1,0 +1,42 @@
+.subpage-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: var(--main-bg-color);
+    border-bottom: 0.125rem solid var(--main-color);
+
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.subpage-header-logo img {
+    height: 2.5rem;
+    width: auto;
+    display: block;
+    transition: var(--hover-transition-time);
+}
+
+.subpage-header-logo:hover {
+    opacity: 0.8;
+    translate: var(--block-hover-translate) var(--block-hover-translate);
+}
+
+.subpage-header-title {
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--main-color);
+    opacity: 0.6;
+}
+
+@media (width <= 48rem) {
+    .subpage-header {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .subpage-header-logo img {
+        height: 2rem;
+    }
+}
