@@ -92,10 +92,12 @@ def render_templates():
     def process_pages(pages, base_path=""):
         for template_name, page_data in pages.items():
             if isinstance(page_data, dict) and "path" in page_data:
-                template = env.get_template(f"{template_name}.html")
+                template_file = page_data.get("template", template_name)
+                template = env.get_template(f"{template_file}.html")
                 output = template.render(
                     pages=pages,
                     title=page_data.get("title"),
+                    subpageTitle=page_data.get("subpageTitle"),
                     updated_time=datetime.now().strftime("%Y. %m. %d"),
                     year=datetime.now().year,
                     structures=structures,
@@ -135,7 +137,7 @@ def render_member_pages():
         for item in section.get('items', []):
             pub_by_id[item['citationId']] = item
 
-    template = env.get_template('member.html')
+    template = env.get_template('pages/member/member.html')
 
     for group in structures.get('members', []):
         for member_base in group.get('members', []):
@@ -351,10 +353,9 @@ def compress_and_convert_images():
         dst_path = f"docs/assets/{folder}"
         os.makedirs(dst_path, exist_ok=True)
         for path in paths:
-            shutil.copy2(path, dst_path)
             convert_to_webp(path, dst_path, globals()[f'{folder}_img_sizes'], compression_quality=70)
             convert_to_webp(path, dst_path, lazy_img_sizes, compression_quality=10)
-            print(f"{path} copied and converted to WebP")
+            print(f"{path} converted to WebP")
         
 
 # Run the build process
