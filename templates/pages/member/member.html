@@ -31,11 +31,12 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..800&family=Noto+Sans+TC:wght@500..800&display=swap" as="style" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..800&family=Noto+Sans+TC:wght@500..800&display=swap" rel="stylesheet" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=2">
+    <link rel="stylesheet" href="/css/subpage.css?v=1">
     <link rel="stylesheet" href="/css/member.css?v=2">
 
     <!-- js -->
@@ -51,16 +52,13 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
+    {% set subpageTitle = member['chiNameEng'] %}
+    {% set backLink = '/members/' %}
+    {% set backLinkText = 'Members' %}
+    {% include 'partials/subpage-header.html' %}
+
     <main>
         <header>
-
-            <div class="logo">
-                <a href="/">
-                    <img src="/assets/images/e3-logo-text.svg" alt="E3 Center logo">
-                </a>
-            </div>
-
-
             {% set page_content = member['pageContent'] %}
             {% set imgPathFront = member['imgPath'].split('.')[0] %}
             <div class="main-info">
@@ -191,7 +189,7 @@
                     <div class="pub-date">
                         <div class="pub-date-slash">/</div>
                         <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">'{{ pub['year'] | string | slice(-2) | list | join }}</div>
+                        <div class="pub-date-yy">{{ pub['year'] }}</div>
                     </div>
                     <div class="pub-info">
                         {% if pub['link'] %}
@@ -243,102 +241,12 @@
 
     </main>
 
-    <footer>
-        <a class="ftr-logo">
-            <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-        </a>
+    {% include 'partials/footer.html' %}
 
-        <div class="ftr-link-wrapper">
-            <a class="ftr-link" href="/#home">Home</a>
-            <a class="ftr-link" href="/#about-us">About Us</a>
-            <a class="ftr-link" href="/#members">Members</a>
-            <a class="ftr-link" href="/#research">Research</a>
-            <a class="ftr-link" href="/#publication">Publication</a>
-            <a class="ftr-link" href="/#news">News</a>
-            <a class="ftr-link" href="/#group-life">Group Life</a>
-            <a class="ftr-link" href="/#contact-us">Contact Us</a>
-        </div>
+    {% include 'partials/background.html' %}
 
-        <div class="ftr-info">
-            &copy; {{ year }} E3 Center, National Taiwan University. All rights reserved.
-        </div>
-    </footer>
+    {% include 'partials/to-top-btn.html' %}
 
-    <div class="body-bg">
-        <div class="body-bg-1"></div>
-        <div class="body-bg-2"></div>
-        <div class="body-bg-3"></div>
-    </div>
-
-    <a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
-            <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
-        </svg>
-        Top
-    </a>
-
-    <button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
-        <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
-        <p>Menu</p>
-    </button>
-
-    <nav class="menu display-none">
-        <div class="menu-bg"></div>
-        <ul class="menu-wrapper">
-            <ui>
-                <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                    <svg><use href="/assets/sprite.svg#svg-close"></use></svg>
-                </button>
-            </ui>
-            <ui>
-                <a href="/#home" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                    <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
-                    <span>Home</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
-                    <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
-                    <span>About Us</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
-                    <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
-                    <span>Members</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#research" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Research">
-                    <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
-                    <span>Research</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#publication" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publication">
-                    <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
-                    <span>Publication</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
-                    <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
-                    <span>News</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
-                    <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
-                    <span>Group Life</span>
-                </a>
-            </ui>
-            <ui>
-                <a href="/#contact-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
-                    <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
-                    <span>Contact Us</span>
-                </a>
-            </ui>
-        </ul>
-    </nav>
+    {% include 'partials/menu.html' %}
 </body>
 </html>

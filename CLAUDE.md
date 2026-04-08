@@ -33,6 +33,10 @@ cd docs && python -m http.server 8000
 Data flows from source files → `build.py` → `docs/` (deployed via GitHub Pages):
 
 ```
+contents/member-info.xlsx    ← member source of truth (Excel)
+        ↓
+excel_to_content.py          ← auto-generates members JSON + Markdown
+        ↓
 contents/structures/*.json   ← page data, members, publications, etc.
 contents/articles/*.md       ← text content (about, member bios)
 templates/*.html             ← Jinja2 templates
@@ -45,11 +49,12 @@ contents/images/             ← source images (auto-converted to WebP)
 ```
 
 **`build.py` performs these steps in order:**
-1. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library)
-2. **Render pages** — iterates `pages.json`, renders each Jinja2 template with the full `structures` dict, writes to `docs/{path}/index.html`
-3. **Render member pages** — for each member in `members.json`, loads `contents/structures/members/{memberId}.json`, auto-populates their publications by matching `pubName` against `authors` in `publications.json`
-4. **Copy static assets** — copies `static/` → `docs/`
-5. **Process images** — copies `contents/images/` to `docs/assets/`, converts to WebP at multiple responsive widths (members: 200–800w; group-life: 200–2000w), generates 20w lazy-load placeholders
+1. **Run `excel_to_content.py`** — reads `contents/member-info.xlsx` and generates `members.json`, per-member JSON files, and member Markdown files
+2. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library)
+3. **Render pages** — iterates `pages.json`, renders each Jinja2 template with the full `structures` dict, writes to `docs/{path}/index.html`
+4. **Render member pages** — for each member in `members.json`, loads `contents/structures/members/{memberId}.json`, auto-populates their publications by matching `pubName` against `authors` in `publications.json`
+5. **Copy static assets** — copies `static/` → `docs/`
+6. **Process images** — converts `contents/images/` to WebP at multiple responsive widths (members: 200–800w; group-life: 200–2000w), generates 20w lazy-load placeholders
 
 ## Content Structure
 
@@ -57,19 +62,23 @@ All content changes are data-driven — no Python or HTML edits required:
 
 | What to change | Where |
 |---|---|
-| Members list | `contents/structures/members.json` + `contents/structures/members/{id}.json` |
+| Members (add/update/remove) | `contents/member-info.xlsx` — source of truth |
 | Publications | `contents/structures/publications.json` |
 | News items | `contents/structures/news.json` |
 | Research topics | `contents/structures/research.json` |
 | Group photos | `contents/structures/group-life.json` |
 | Page navigation | `contents/structures/pages.json` |
-| Member bio text | `contents/articles/members-about/{id}.md` |
+| About / Contact text | `contents/articles/about.md`, `contents/articles/contact.md` |
 
-**Adding a new member requires:**
-1. Entry in `members.json` (with `memberId`, `pubName`, `pageLink`)
-2. JSON file at `contents/structures/members/{memberId}.json`
-3. Markdown files at `contents/articles/members-{about,position,interest}/{memberId}.md`
-4. Photo at `contents/images/members/{memberId}.(jpg|png)`
+**Adding a new member:**
+1. Add a row to `contents/member-info.xlsx`
+2. Run `python build.py` — `excel_to_content.py` auto-generates:
+   - `contents/structures/members.json`
+   - `contents/structures/members/{webId}.json`
+   - `contents/articles/members-{about,position,interest}/{webId}.md`
+3. Add photo at `contents/images/members/{webId}.(jpg|png)`
+
+> Do **not** manually edit `members.json` or per-member JSON/Markdown files — they are fully overwritten on every build.
 
 Publications are **automatically linked** to member profiles via `pubName` matching against the `authors` field in `publications.json`. For a publication to appear on the homepage it needs `"E3": true`.
 

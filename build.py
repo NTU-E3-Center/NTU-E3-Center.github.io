@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import shutil
 import markdown
@@ -61,6 +62,18 @@ for filename in os.listdir(structures_path):
         var_name = os.path.splitext(filename)[0]
         structures[var_name] = data
 
+# Build in-memory per-member detail lookup (webId -> data) so templates can
+# access chiNameEng (full name + optional nickname) without touching any JSON.
+_members_detail_path = os.path.join(structures_path, 'members')
+members_by_id = {}
+if os.path.exists(_members_detail_path):
+    for _fname in os.listdir(_members_detail_path):
+        if _fname.endswith('.json'):
+            _web_id = _fname[:-5]  # strip .json
+            with open(os.path.join(_members_detail_path, _fname), 'r', encoding='utf-8') as _f:
+                members_by_id[_web_id] = json.load(_f)
+structures['members_by_id'] = members_by_id
+
 # Filter and sort publications for home page
 if 'publications' in structures:
     home_publications = []
@@ -76,16 +89,17 @@ if 'publications' in structures:
 
 articles_path = 'contents/articles'
 articles = {}
-for filename in os.listdir(articles_path):
-    if filename.endswith('.md'):
-        file_path = os.path.join(articles_path, filename)
-        with open(file_path, 'r', encoding='utf-8') as f:
-            # Load md content
-            md_text = f.read()
-            html_content = markdown.markdown(md_text, extensions=['md_in_html'])
-        # Create a key based on the file name (without the .json extension)
-        var_name = os.path.splitext(filename)[0]
-        articles[var_name] = html_content
+for root, dirs, files in os.walk(articles_path):
+    for filename in files:
+        if filename.endswith('.md'):
+            file_path = os.path.join(root, filename)
+            with open(file_path, 'r', encoding='utf-8') as f:
+                md_text = f.read()
+                html_content = markdown.markdown(md_text, extensions=['md_in_html'])
+            # Key is relative path from articles_path, without extension, using forward slashes
+            rel_path = os.path.relpath(file_path, articles_path)
+            var_name = os.path.splitext(rel_path)[0].replace(os.sep, '/')
+            articles[var_name] = html_content
 
 # Function to render templates into correct directories
 def render_templates():

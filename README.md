@@ -39,7 +39,7 @@ Pushing to the `source` branch automatically triggers a GitHub Actions workflow 
 python -m venv website
 source website/bin/activate        # macOS/Linux
 # website\Scripts\activate         # Windows
-pip install markdown Pillow jinja2
+pip install markdown Pillow jinja2 openpyxl
 ```
 
 ### Build and preview

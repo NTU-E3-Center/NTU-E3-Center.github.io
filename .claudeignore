@@ -1,0 +1,18 @@
+# Generated site output — never edit directly
+docs/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# macOS metadata
+.DS_Store
+
+# Git internals
+.git/
+
+# Generated export file
+contents/member-info-full.xlsx
+
+# Claude Code internal skills (not relevant to site development)
+.claude/skills/

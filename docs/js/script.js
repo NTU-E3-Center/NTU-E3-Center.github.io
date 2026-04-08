@@ -123,7 +123,7 @@ function renderRain() {
         })
         .catch(error => console.log('Error fetching weather data:', error));
 };
-renderRain();
+window.addEventListener('load', renderRain);
 
 // * low priority
 // hp-the-sky (the leftest building) animation
@@ -142,6 +142,8 @@ function animateHpTheSky() {
     const targetY = initialY - deltaY;
 
     function easeInOut(t) {return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;};
+
+    let rafId = null;
 
     function animate(time) {
         if (!start) start = time;
@@ -167,10 +169,18 @@ function animateHpTheSky() {
             };
         };
 
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        } else {
+            if (!rafId) { start = null; rafId = requestAnimationFrame(animate); }
+        }
+    });
+
+    rafId = requestAnimationFrame(animate);
 };
 window.addEventListener('load', animateHpTheSky);
 
@@ -178,25 +188,53 @@ window.addEventListener('load', animateHpTheSky);
 // filters action
 document.querySelectorAll('.filter').forEach((filter) => {
     const where = filter.getAttribute('where');
+    const allContents = document.querySelectorAll(`.filter-content[where="${where}"]`);
 
     // Store the initial display value (could be 'grid', 'flex', or anything)
-    const originalDisplay = getComputedStyle(document.querySelector(`.filter-content[where="${where}"]`)).display;
+    const originalDisplay = allContents.length ? getComputedStyle(allContents[0]).display : 'block';
+
+    // Cache content elements grouped by data-value for O(1) lookup
+    const contentByValue = {};
+    allContents.forEach(elem => {
+        const val = elem.dataset.value;
+        if (!contentByValue[val]) contentByValue[val] = [];
+        contentByValue[val].push(elem);
+    });
+
+    // Insert empty-state message after the section container
+    const section = filter.nextElementSibling?.classList.contains('mem-section')
+        ? filter.nextElementSibling
+        : document.querySelector(`.mem-section:has(.filter-content[where="${where}"])`);
+    let emptyMsg = null;
+    if (section) {
+        emptyMsg = document.createElement('p');
+        emptyMsg.className = 'filter-empty';
+        emptyMsg.textContent = 'No members match the selected filters.';
+        emptyMsg.style.display = 'none';
+        section.after(emptyMsg);
+    }
+
+    function updateEmptyState() {
+        if (!emptyMsg) return;
+        const anyVisible = Array.from(allContents).some(el => el.style.display !== 'none');
+        emptyMsg.style.display = anyVisible ? 'none' : 'block';
+    }
 
     document.querySelectorAll(`.filter-checkbox[where="${where}"]`).forEach((checkbox) => {
-        document.querySelectorAll(`.filter-content[where="${where}"]`).forEach((elem) => {
-            if (elem.dataset.value === checkbox.value) {
-                elem.style.display = checkbox.checked ? originalDisplay : 'none';
-            };
+        // Apply initial state
+        (contentByValue[checkbox.value] || []).forEach(elem => {
+            elem.style.display = checkbox.checked ? originalDisplay : 'none';
         });
 
         checkbox.addEventListener('change', () => {
-            document.querySelectorAll(`.filter-content[where="${where}"]`).forEach((elem) => {
-                if (elem.dataset.value === checkbox.value) {
-                    elem.style.display = checkbox.checked ? originalDisplay : 'none';
-                };
+            (contentByValue[checkbox.value] || []).forEach(elem => {
+                elem.style.display = checkbox.checked ? originalDisplay : 'none';
             });
+            updateEmptyState();
         });
     });
+
+    updateEmptyState();
 });
 
 // * no priority
@@ -359,6 +397,7 @@ allMediaBlocks.forEach((block) => {
             const newImg = document.createElement('img');
             newImg.src = clickedEl.src;
             newImg.srcset = clickedEl.srcset;
+            newImg.sizes = clickedEl.sizes;
             newImg.alt = clickedEl.alt;
 
             mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;

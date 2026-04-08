@@ -1,117 +1,117 @@
 {% extends "base.html" %}
 {% block content %}
-<section id="members">
-    {% for members in structures['members'] %}
-    {% if members['form'] == 'L' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
-    <section class="mem-section" who="{{ members['form'] }}">
-        {% for member in members['members'] %}
+<section id="members" class="members-subpage">
+
+    {% for group in structures['members'] %}
+
+    {% if group['form'] != 'S' %}
+    {# ── Current members: full-width single-column rows ── #}
+    <div class="mem-group{% if group['form'] == 'L' %} mem-group--pi{% endif %}">
+        <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
+
+        <div class="mem-rows">
+        {% for member in group['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
-        <div class="mem-block">
-            <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-                <img
-                    loading="lazy"
-                    src="{{ member['imgPath'] }}"
-                    srcset="
-                        {{ imgPathFront }}-200w.webp 200w,
-                        {{ imgPathFront }}-400w.webp 400w,
-                        {{ imgPathFront }}-600w.webp 600w,
-                        {{ imgPathFront }}-800w.webp 800w
-                    "
-                    sizes="15rem"
-                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
-                    draggable="false"
-                />
-            </a>
+        {% set memberId = member.get('pageStructure', '').split('/')[-1].split('.')[0] %}
+        {% set posKey = 'members-position/' + memberId if memberId else '' %}
+        {% set memberDetails = structures['members_by_id'].get(memberId, {}) %}
+        {% set displayName = memberDetails.get('chiNameEng', member['engName']) %}
 
-            <div class="mem-text">
-                <!-- <svg class="mem-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg> -->
+        <a class="mem-row{% if member['pageLink'] %} mem-row--link{% endif %}"
+           {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
 
-                <div class="mem-name">
-                    <a class="EngName" href="{{ member['pageLink'] }}">{{ member['engName'] }}</a>
-                    <a class="ChiName" href="{{ member['pageLink'] }}">{{ member['chiName'] }}</a>
+            <div class="mem-card">
+                <div class="mem-row-photo skewed-block" b-role="block"
+                     style="background-image: url({{ imgPathFront }}-400w.webp);">
+                    <img
+                        loading="lazy"
+                        src="{{ member['imgPath'] }}"
+                        srcset="
+                            {{ imgPathFront }}-200w.webp 200w,
+                            {{ imgPathFront }}-400w.webp 400w,
+                            {{ imgPathFront }}-600w.webp 600w
+                        "
+                        sizes="9rem"
+                        alt="{{ displayName }} {{ member['chiName'] }}"
+                        draggable="false"
+                    />
                 </div>
 
-                <p class="mem-info">
-                    {{ member['description'] }}
-                </p>
+                <div class="mem-row-info">
+                    <div class="mem-row-names">
+                        <span class="mem-row-en">{{ displayName }}</span>
+                        <span class="mem-row-zh">{{ member['chiName'] }}</span>
+                    </div>
 
-                {% for btn in member['links'] %}
-                <a class="skewed-block" b-role="btn" b-hoverable href="{{ btn['link'] }}">
-                    <svg><use href="{{ btn['icon'] }}"></use></svg>
-                    <p>{{ btn['text'] }}</p>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
-    </section>
-    {% elif members['form'] == 'M' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
-    <section class="mem-section" who="{{ members['form'] }}">
-        {% for member in members['members'] %}
-        {% set imgPathFront = member['imgPath'].split('.')[0] %}
-        <a class="mem-block" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
-                <img
-                    loading="lazy"
-                    src="{{ member['imgPath'] }}"
-                    srcset="
-                        {{ imgPathFront }}-200w.webp 200w,
-                        {{ imgPathFront }}-400w.webp 400w,
-                        {{ imgPathFront }}-600w.webp 600w,
-                        {{ imgPathFront }}-800w.webp 800w
-                    "
-                    sizes="11rem"
-                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
-                    draggable="false"
-                />
-            </div>
-
-            <div class="mem-name">
-                <div class="mem-name-en">
-                    {{ member['engName'] }}
-                    <svg><use href="{{ member['icon'] }}"></use></svg>
-                </div>
-                <span class="mem-name-zh">
-                    {{ member['chiName'] }}
-
-                    {% if member['pageLink'] %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                    {% if posKey and articles[posKey] %}
+                    <div class="mem-row-position">{{ articles[posKey] }}</div>
                     {% endif %}
-                </span>
+
+                    {% if member.get('links') and group['form'] != 'L' %}
+                    <div class="mem-row-links">
+                        {% for btn in member['links'] %}
+                        <a class="mem-row-tag skewed-block" b-role="btn" b-hoverable href="{{ btn['link'] }}">
+                            <svg><use href="{{ btn['icon'] }}"></use></svg>
+                            {% if btn['text'] %}<span>{{ btn['text'] }}</span>{% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
             </div>
+
+            {% if member['pageLink'] %}
+            <div class="mem-row-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <polygon class="fill-m" points="0.1,11.5 14.2,11.5 8.6,17.1 10.7,19.2 19.9,10 10.7,0.8 8.6,2.9 14.2,8.5 0.1,8.5"/>
+                </svg>
+            </div>
+            {% endif %}
+
         </a>
         {% endfor %}
-    </section>
-    {% elif members['form'] == 'S' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
-    {% if members['filter'] %}
-    <div class="filter" where="{{ members['filterId'] }}">
-        <span class="filter-title">{{ members['filterTitle'] }}</span>
-        {% set ns = namespace(filterItems=[]) %}
-        {% for member in members['members'] %}
-            {% if member['admissionYear'] not in ns.filterItems %}
-                {% set ns.filterItems = ns.filterItems + [member['admissionYear']] %}
-            {% endif %}
-        {% endfor %}
-        {% for filterItem in ns.filterItems[::-1] %}
-        <label class="filter-block skewed-block" b-role="btn" b-hoverable>
-            <input class="filter-checkbox" type="checkbox" where="{{ members['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= members['filterDefaultCheck'] %} checked{% endif %}/>
-            <div class="filter-label">
-                <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
-                {{ filterItem }}
-            </div>
-        </label>
-        {% endfor %}
+        </div>
     </div>
-    {% endif %}
 
-    <section class="mem-section" who="{{ members['form'] }}">
-        {% for member in members['members'][::-1] %}
+    {% else %}
+    {# ── Alumni: compact photo grid with year filter ── #}
+    <div class="mem-group mem-group--alumni">
+        <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
+
+        {% if group['filter'] %}
+        <div class="filter" where="{{ group['filterId'] }}">
+            <span class="filter-title">{{ group['filterTitle'] }}</span>
+            {% set ns = namespace(filterItems=[]) %}
+            {% for member in group['members'] %}
+                {% if member['admissionYear'] not in ns.filterItems %}
+                    {% set ns.filterItems = ns.filterItems + [member['admissionYear']] %}
+                {% endif %}
+            {% endfor %}
+            {% for filterItem in ns.filterItems[::-1] %}
+            <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+                <input class="filter-checkbox" type="checkbox"
+                       where="{{ group['filterId'] }}"
+                       value="{{ filterItem }}"
+                       {% if loop.index <= group['filterDefaultCheck'] %} checked{% endif %}/>
+                <div class="filter-label">
+                    <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                    {{ filterItem }}
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="mem-alum-grid">
+        {% for member in group['members'][::-1] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
-        <a class="mem-block filter-content" where="{{ members['filterId'] }}" data-value="{{ member['admissionYear']}}" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+        <a class="mem-alum-card filter-content"
+           where="{{ group['filterId'] }}"
+           data-value="{{ member['admissionYear'] }}"
+           {% if member.get('pageLink') %}href="{{ member['pageLink'] }}"{% endif %}>
+
+            <div class="mem-alum-photo skewed-block" b-role="block"
+                 style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
                     loading="lazy"
                     src="{{ member['imgPath'] }}"
@@ -119,25 +119,24 @@
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w
                     "
-                    sizes="5rem"
+                    sizes="6rem"
                     alt="{{ member['engName'] }} {{ member['chiName'] }}"
                     draggable="false"
                 />
             </div>
 
-            <div class="mem-name">
-                <div>{{ member['engName'] }}</div>
-                <span>
-                    {{ member['chiName'] }}
-                    {% if member['pageLink'] %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-                    {% endif %}
-                </span>
+            <div class="mem-alum-name">
+                <span class="mem-alum-en">{{ member['engName'] }}</span>
+                <span class="mem-alum-zh">{{ member['chiName'] }}</span>
             </div>
+
         </a>
         {% endfor %}
-    </section>
+        </div>
+    </div>
+
     {% endif %}
     {% endfor %}
+
 </section>
 {% endblock %}

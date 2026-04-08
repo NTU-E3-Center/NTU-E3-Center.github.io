@@ -2,6 +2,12 @@
     <div class="section-title">
         <h2>Members</h2>
         <!-- <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg> -->
+        {% if isHomePage %}
+        <a class="more skewed-block" href="/members/" b-role="btn" b-hoverable>
+            <div>All members</div>
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+        </a>
+        {% endif %}
     </div>
 
     {% for members in structures['members'] %}
@@ -147,10 +153,4 @@
     {% endif %}
     {% endif %}
     {% endfor %}
-    {% if isHomePage %}
-    <a class="more skewed-block" href="/members/" b-role="btn" b-hoverable>
-        <div>All members</div>
-        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-    </a>
-    {% endif %}
 </section>

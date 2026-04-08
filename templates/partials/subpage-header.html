@@ -1,0 +1,14 @@
+<header class="subpage-header">
+    <a class="subpage-header-logo" href="/">
+        <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
+    </a>
+    {% if subpageTitle %}
+    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
+        {% if backLink %}
+        <a class="breadcrumb-parent" href="{{ backLink }}">{{ backLinkText if backLinkText else 'Back' }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        {% endif %}
+        <span class="breadcrumb-current">{{ subpageTitle }}</span>
+    </nav>
+    {% endif %}
+</header>

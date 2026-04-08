@@ -1,7 +1,7 @@
 main {
     width: min(calc(100% - 4rem), 75rem);
     margin-inline: auto;
-    padding-block: 6rem 8rem;
+    padding-block: 3rem 8rem;
 
     display: grid;
     gap: 3rem 2rem;
@@ -9,22 +9,6 @@ main {
     &>*+* {
         margin-block-start: 3rem;
     }
-}
-
-.logo {
-    display: inline-block;
-    margin-bottom: 2rem; /* Adds some space between the logo and the photo block */
-    transition: var(--hover-transition-time);
-}
-
-.logo svg, .logo img {
-    height: 6rem; /* Adjust this to make the logo larger or smaller! */
-    width: auto;
-}
-
-.logo:hover {
-    opacity: 0.8; /* Slight fade effect when they hover over it */
-    translate: var(--block-hover-translate) var(--block-hover-translate);
 }
 
 
@@ -42,6 +26,10 @@ main {
         gap: 0.5rem;
         margin-left: 2rem;
         margin-top: 2rem;
+
+        @media (width < 36rem) {
+            margin-left: 0;
+        }
     }
 
     .main-name {
@@ -60,12 +48,8 @@ main {
 }
 
     .sub-name {
-        font-size: 2.0rem;
-        /* transform: skewX(var(--block-skew)); */
-        /* display: flex; */
-        align-items: center;
-        /* gap: 1.5rem; */
-
+        font-size: 1.5rem;
+        opacity: 0.7;
 
         & span {
             color: var(--secondary-color);
@@ -104,7 +88,7 @@ main {
     }
 
     .tags {
-        width: 40rem;
+        max-width: 40rem;
 
         display: flex;
         flex-wrap: wrap;
@@ -139,6 +123,9 @@ main {
 
 h2 {
     font-size: 2.25rem;
+    font-weight: var(--fw-h2);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
 
     display: flex;
     align-items: baseline;
@@ -164,7 +151,7 @@ h2 {
         max-width: 70ch;
         text-align: justify;
         hyphens: auto;
-        line-height: 1.5;
+        line-height: 1.55;
 
         &+* {
             margin-block-start: 1rem;
@@ -172,7 +159,7 @@ h2 {
     }
 
     .content strong, .content b {
-        font-weight: 700 !important;
+        font-weight: var(--fw-bold) !important;
     }
 
     .content em, .content i {

@@ -8,63 +8,33 @@ After making changes, [build and preview locally](README.md#local-development) b
 
 ## Adding or Updating a Member
 
-### 1. Add to the member roster (`members.json`)
+Member data is managed entirely through `contents/member-info.xlsx`. Do **not** manually edit `members.json`, per-member JSON files, or member Markdown files — they are auto-generated and will be overwritten on every build.
 
-Open `contents/structures/members.json`. Find the appropriate group (e.g., `"PI"`, `"Full-time"`, `"PhD Students"`) and add an entry:
+### 1. Edit the member spreadsheet
 
-```json
-{
-  "name": "Full Name",
-  "studentId": "yourid",
-  "image": "yourid",
-  "pageLink": "/members/yourid",
-  "pageStructure": "contents/structures/members/yourid.json",
-  "pubName": "F. Lastname"
-}
-```
+Open `contents/member-info.xlsx` and add or update a row for the member. Key columns:
 
-- `image` — filename (without extension) of the photo in `contents/images/members/`
-- `pageLink` — URL path for the member's profile page
-- `pageStructure` — path to the member's individual JSON file (created in step 2)
-- `pubName` — the name as it appears in publication author lists; used to auto-populate their publications
+- **WebID** — unique identifier used for file names, page URLs, and image paths (e.g. `firstnamelastname`)
+- **pubName** — the name as it appears in publication author lists (e.g. `F. Lastname`); used to auto-populate their publications page
+- **Section** — which group they belong to (e.g. `PhD Students`, `Full-time`, `Alumni`)
+- **About / Position / Interests** — bio text, education/experience, and research interest bullet points
 
-### 2. Create the member's page JSON
+### 2. Add the member's photo
 
-Create `contents/structures/members/{yourid}.json`. Minimal structure:
-
-```json
-{
-  "pageContent": {
-    "aboutSection": [
-      {
-        "title": "About",
-        "content": "contents/articles/members-about/yourid.md"
-      }
-    ],
-    "positionSection": {
-      "title": "Education / Experience",
-      "content": "contents/articles/members-position/yourid.md"
-    },
-    "PublicationSection": []
-  }
-}
-```
-
-`PublicationSection` can be left empty — it will be auto-populated from `publications.json` using `pubName`.
-
-### 3. Add Markdown content files
-
-Create the following files (they can be empty to start):
-
-- `contents/articles/members-about/{yourid}.md` — short bio
-- `contents/articles/members-position/{yourid}.md` — education and experience
-- `contents/articles/members-interest/{yourid}.md` — research interests
-
-### 4. Add the member's photo
-
-Place the photo (JPG or PNG) in `contents/images/members/` named `{yourid}.jpg` (or `.png`).
+Place the photo (JPG or PNG) in `contents/images/members/` named `{webId}.jpg` (or `.png`).
 
 The build script will automatically compress and convert it to WebP at multiple sizes.
+
+### 3. Run the build
+
+```bash
+python build.py
+```
+
+`excel_to_content.py` runs first and auto-generates:
+- `contents/structures/members.json`
+- `contents/structures/members/{webId}.json`
+- `contents/articles/members-{about,position,interest}/{webId}.md`
 
 ---
 
