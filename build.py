@@ -271,6 +271,67 @@ def render_member_pages():
     print("Member pages rendered successfully!")
 
 
+# Function to render individual news item pages from news.json
+def render_news_pages():
+    template = env.get_template('pages/news/news-item.html')
+    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'}
+
+    for section in structures.get('news', []):
+        for item in section.get('items', []):
+            page_link = item.get('pageLink')
+            if not page_link:
+                continue
+
+            # Derive slug from pageLink (e.g. /news/2026-foo/ → 2026-foo)
+            slug = page_link.strip('/').split('/')[-1]
+
+            # Load markdown article content
+            article_key = f'news/{slug}'
+            news_content = articles.get(article_key)
+
+            # Discover images from contents/images/news/{slug}/
+            img_folder = os.path.join('contents', 'images', 'news', slug)
+            news_images = []
+            if os.path.exists(img_folder):
+                files = sorted(
+                    [f for f in os.listdir(img_folder)
+                     if not f.startswith('.') and
+                     any(f.lower().endswith(ext) for ext in image_extensions)],
+                    key=lambda x: (int(x.rsplit('.', 1)[0]) if x.rsplit('.', 1)[0].isdigit() else x)
+                )
+                news_images = [f'/assets/news/{slug}/{f}' for f in files]
+
+            item = dict(item)
+            if news_content:
+                item['content'] = news_content
+
+            # Use 0.jpg (or 0.png etc.) as the hero image if present
+            if not item.get('imgPath') and os.path.exists(img_folder):
+                for ext in image_extensions:
+                    hero_candidate = os.path.join(img_folder, f'0{ext}')
+                    if os.path.exists(hero_candidate):
+                        item['imgPath'] = f'/assets/news/{slug}/0{ext}'
+                        news_images = [img for img in news_images
+                                       if img.split('/')[-1] != f'0{ext}']
+                        break
+
+            output = template.render(
+                news=item,
+                news_images=news_images,
+                pages=pages,
+                structures=structures,
+                year=datetime.now().year,
+            )
+
+            page_dir = os.path.join(output_dir, page_link.lstrip('/'))
+            os.makedirs(page_dir, exist_ok=True)
+            with open(os.path.join(page_dir, 'index.html'), 'w', encoding='utf-8') as f:
+                f.write(output)
+            print(f"News item page generated: {page_link}")
+
+    print("News item pages rendered successfully!")
+
+
 # Function to copy static assets directly into docs/
 def copy_static():
     static_src = "static"
@@ -285,6 +346,15 @@ def copy_static():
                 shutil.copy2(src_path, dst_path)
 
     print("Static assets copied directly into docs/")
+
+
+# Function to copy news images preserving subfolder structure
+def copy_news_images():
+    src = os.path.join('contents', 'images', 'news')
+    dst = os.path.join(output_dir, 'assets', 'news')
+    if os.path.exists(src):
+        shutil.copytree(src, dst, dirs_exist_ok=True)
+    print("News images copied.")
 
 
 # Function to copy videos directly into docs/
@@ -363,11 +433,15 @@ def compress_and_convert_images():
     image_paths_by_folder = get_separated_image_paths(images_path)
 
     for folder, paths in image_paths_by_folder.items():
+        sizes_key = f'{folder}_img_sizes'
+        if sizes_key not in globals():
+            print(f"--- Skipping '{folder}' (no size config — handled separately) ---")
+            continue
         print(f"--- Images found in '{folder}' ---")
         dst_path = f"docs/assets/{folder}"
         os.makedirs(dst_path, exist_ok=True)
         for path in paths:
-            convert_to_webp(path, dst_path, globals()[f'{folder}_img_sizes'], compression_quality=70)
+            convert_to_webp(path, dst_path, globals()[sizes_key], compression_quality=70)
             convert_to_webp(path, dst_path, lazy_img_sizes, compression_quality=10)
             print(f"{path} converted to WebP")
         
@@ -378,8 +452,12 @@ if __name__ == "__main__":
     render_templates()
     print("Rendering member pages...")
     render_member_pages()
+    print("Rendering news item pages...")
+    render_news_pages()
     print("Copying static assets...")
     copy_static()
+    print("Copying news images...")
+    copy_news_images()
     print("Copying videos...")
     copy_videos()
     print("Compressing images and converting to WebP format...")

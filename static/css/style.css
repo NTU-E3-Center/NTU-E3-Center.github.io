@@ -1803,6 +1803,20 @@
     --_block-gap: 1rem;
 }
 
+.publi-block--linked {
+    & .publi-title-block {
+        cursor: pointer;
+    }
+
+    & .publi-title-block svg {
+        translate: 0 0;
+    }
+
+    & .publi-title-block:hover svg {
+        translate: 0.125rem 0;
+    }
+}
+
 
 /* group-life */
 .glf-section[which='slider'] {

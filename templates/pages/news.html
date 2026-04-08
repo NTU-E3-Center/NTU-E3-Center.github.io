@@ -1,51 +1,181 @@
 {% extends "base.html" %}
 {% block content %}
 <section id="news">
-    {% for news in structures['news'] %}
-    <h3>{{ news['innerSectionTitle'] }}</h3>
-    <section class="publi-section">
-        <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
 
-        <div class="publi-block-wrapper">
-            {% for item in news['items'][::-1] %}
-            <div class="publi-block">
-                <div class="publi-date">
-                    <div class="publi-date-mm">{{ item['month'] }}</div>
-                    <div class="publi-date-yy">{{ item['year'] }}</div>
+    {# ── Filter bar ─────────────────────────────────────────────────────── #}
+    <div class="news-filter-bar" role="tablist" aria-label="Filter news by category">
+        <button class="news-filter-tab is-active" data-filter="all"
+                role="tab" aria-selected="true" type="button">All</button>
+        <button class="news-filter-tab" data-filter="Events and Exchanges"
+                role="tab" aria-selected="false" type="button">Events &amp; Exchanges</button>
+        <button class="news-filter-tab" data-filter="Honors and Recognitions"
+                role="tab" aria-selected="false" type="button">Honors &amp; Recognitions</button>
+        <button class="news-filter-tab" data-filter="Community and Outreach"
+                role="tab" aria-selected="false" type="button">Community &amp; Outreach</button>
+    </div>
+
+    {# ── All items (flat, time-sorted, with category badge) ─────────────── #}
+    <section class="news-all-section" id="news-all">
+        <div class="news-rows" role="list">
+            {% for section in structures['news'] %}
+            {% for item in section['items'][::-1] %}
+
+            {% if item.get('pageLink') %}
+            <a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
+            {% elif item.get('link') %}
+            <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener" role="listitem">
+            {% else %}
+            <div class="news-row" role="listitem">
+            {% endif %}
+
+                <div class="news-row-date">
+                    <span class="news-row-mm">{{ item['month'] }}</span>
+                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
                 </div>
 
-                <div class="publi-info">
-                    {% if item['link'] %}
-                    <a class="publi-title-block" target="_blank" href="{{ item['link'] }}">
-                        <span class="publi-title">
-                            {{ item['title'] }}
-                        </span>
-                        
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </a>
+                <div class="news-row-body">
+                    {% set cat = item.get('category', '') %}
+                    {% if cat %}
+                    <span class="news-row-badge" data-cat="{{ cat }}">
+                        {%- if cat == 'Events and Exchanges' -%}Events
+                        {%- elif cat == 'Honors and Recognitions' -%}Honors
+                        {%- elif cat == 'Community and Outreach' -%}Outreach
+                        {%- else -%}{{ cat }}{%- endif -%}
+                    </span>
+                    {% endif %}
+                    <p class="news-row-title">{{ item['title'] }}</p>
+                </div>
+
+                {% if item.get('pageLink') or item.get('link') %}
+                <span class="news-row-arrow" aria-hidden="true">
+                    {% if item.get('pageLink') %}
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
                     {% else %}
-                    <a class="publi-title-block">
-                        <span class="publi-title">
-                            {{ item['title'] }}
-                        </span>
-                    </a>
+                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                     {% endif %}
-                    
-                    {% if item['subTitle'] %}
-                    <div class="publi-subtitle">
-                        {{ item['subTitle'] }}
-                    </div>
-                    {% endif %}
-                </div>
+                </span>
+                {% endif %}
+
+            {% if item.get('pageLink') or item.get('link') %}
+            </a>
+            {% else %}
             </div>
+            {% endif %}
+
+            {% endfor %}
             {% endfor %}
         </div>
+    </section>
 
-        <a class="publi-more skewed-block" href="/#news" b-role="btn" b-hoverable>
-            <svg><use href="/assets/sprite.svg#svg-arrow-left"></use></svg>
-            <div>Back to Home</div>
-        </a>
+    {# ── Category sections (hidden by default) ──────────────────────────── #}
+    {% set cat_list = [
+        ('Events and Exchanges',    'events'),
+        ('Honors and Recognitions', 'honors'),
+        ('Community and Outreach',  'outreach')
+    ] %}
+
+    {% for cat_name, cat_slug in cat_list %}
+    <section class="news-cat-section" id="news-{{ cat_slug }}" data-cat="{{ cat_name }}" hidden>
+        <h2 class="news-cat-title">{{ cat_name }}</h2>
+        <div class="news-rows" role="list">
+
+            {% for section in structures['news'] %}
+            {% for item in section['items'][::-1] %}
+            {% if item.get('category') == cat_name %}
+
+            {% if item.get('pageLink') %}
+            <a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
+            {% elif item.get('link') %}
+            <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener" role="listitem">
+            {% else %}
+            <div class="news-row" role="listitem">
+            {% endif %}
+
+                <div class="news-row-date">
+                    <span class="news-row-mm">{{ item['month'] }}</span>
+                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
+                </div>
+
+                <p class="news-row-title">{{ item['title'] }}</p>
+
+                {% if item.get('pageLink') or item.get('link') %}
+                <span class="news-row-arrow" aria-hidden="true">
+                    {% if item.get('pageLink') %}
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                    {% else %}
+                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    {% endif %}
+                </span>
+                {% endif %}
+
+            {% if item.get('pageLink') or item.get('link') %}
+            </a>
+            {% else %}
+            </div>
+            {% endif %}
+
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+
+        </div>
     </section>
     {% endfor %}
+
 </section>
+
+<script>
+(function () {
+    var tabs     = document.querySelectorAll('.news-filter-tab');
+    var allSec   = document.getElementById('news-all');
+    var catSecs  = document.querySelectorAll('.news-cat-section');
+
+    function reveal(el) {
+        el.hidden = false;
+        /* re-trigger CSS animation */
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+    }
+
+    function activate(filter) {
+        tabs.forEach(function (t) {
+            var on = t.dataset.filter === filter;
+            t.classList.toggle('is-active', on);
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+
+        if (filter === 'all') {
+            reveal(allSec);
+            catSecs.forEach(function (s) { s.hidden = true; });
+        } else {
+            allSec.hidden = true;
+            catSecs.forEach(function (s) {
+                if (s.dataset.cat === filter) reveal(s);
+                else s.hidden = true;
+            });
+        }
+
+        if (history.replaceState) {
+            var slug = filter === 'all' ? '' : '#' + filter.toLowerCase().replace(/ /g, '-');
+            history.replaceState(null, '', slug || window.location.pathname);
+        }
+    }
+
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () { activate(tab.dataset.filter); });
+    });
+
+    /* restore from URL hash */
+    var hash = window.location.hash.slice(1);
+    if (hash) {
+        var match = Array.from(tabs).find(function (t) {
+            return t.dataset.filter.toLowerCase().replace(/ /g, '-') === hash;
+        });
+        if (match) { activate(match.dataset.filter); return; }
+    }
+    /* default: show all */
+    activate('all');
+}());
+</script>
 {% endblock %}

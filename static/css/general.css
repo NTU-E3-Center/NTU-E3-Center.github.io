@@ -377,6 +377,34 @@ section:has(.section-title) {
             height: 3.75rem;
             translate: 0.375rem -1.25rem;
         }
+
+        & .section-title-link {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            transition: translate var(--hover-transition-time);
+
+            /* Underline that sweeps in from the left */
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0.04em;
+                left: 0;
+                width: 0;
+                height: 0.055em;
+                background: var(--main-color);
+                transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            &:hover {
+                translate: calc(-1 * var(--block-hover-translate)) calc(-1 * var(--block-hover-translate));
+
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
     }
 
     & .section-subtitle {

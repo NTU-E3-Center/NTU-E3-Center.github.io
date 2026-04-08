@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ news.get('shortTitle', news['title']) }} | E3 Center</title>
+    <meta name="description" content="{{ news['title'] }} — E3 Center, National Taiwan University.">
+    <meta name="keywords" content="E3 Center, e3, NTU, News, {{ news['title'][:60] }}">
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=2">
+    <link rel="stylesheet" href="/css/subpage.css?v=1">
+    <link rel="stylesheet" href="/css/news-item.css?v=1">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% set subpageTitle = news.get('shortTitle', news['title']) %}
+    {% set backLink = '/news/' %}
+    {% set backLinkText = 'News' %}
+    {% include 'partials/subpage-header.html' %}
+
+    <main class="news-item-main">
+
+        {# ── Hero ────────────────────────────────────────────────────── #}
+        <div class="news-item-hero">
+            {% if news.get('imgPath') %}
+            <div class="news-item-hero-img skewed-block" b-role="block"
+                 style="background-image: url({{ news['imgPath'] }});">
+                <img loading="lazy" src="{{ news['imgPath'] }}" alt="{{ news['title'] }}" draggable="false" />
+            </div>
+            {% else %}
+            <div class="news-item-hero-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+                <span>Image to be added</span>
+            </div>
+            {% endif %}
+
+            <div class="news-item-date-badge skewed-block" b-role="btn">
+                <div class="news-item-date-mm">{{ news['month'] }}</div>
+                <div class="news-item-date-yy">20{{ news['year'][1:] }}</div>
+            </div>
+        </div>
+
+        {# ── Article ─────────────────────────────────────────────────── #}
+        <article class="news-item-article">
+
+            <header class="news-item-header">
+                <p class="news-item-category">{{ news.get('category', 'News') }}</p>
+                <h1 class="news-item-title">{{ news['title'] }}</h1>
+
+                {% if news.get('link') %}
+                <a class="news-item-ext-link skewed-block" b-role="btn" b-hoverable
+                   href="{{ news['link'] }}" target="_blank" rel="noopener">
+                    <div>View Source</div>
+                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                </a>
+                {% endif %}
+            </header>
+
+            <div class="news-item-divider"></div>
+
+            <div class="news-item-body">
+                {% if news.get('content') %}
+                {{ news['content'] | safe }}
+                {% else %}
+                <p class="news-item-placeholder">To be updated.</p>
+                {% endif %}
+            </div>
+
+        </article>
+
+    </main>
+
+    {% include 'partials/footer.html' %}
+    {% include 'partials/background.html' %}
+    {% include 'partials/to-top-btn.html' %}
+    {% include 'partials/menu.html' %}
+</body>
+</html>

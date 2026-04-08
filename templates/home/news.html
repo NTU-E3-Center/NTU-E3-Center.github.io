@@ -1,42 +1,34 @@
 <section id="news">
     <div class="section-title">
-        <h2>News</h2>
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+        <h2><a class="section-title-link" href="/news/">News</a></h2>
     </div>
 
     {% for news in structures['news'] %}
-    <h3>{{ news['sectionTitle'] }}</h3>
     <section class="publi-section">
         <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
 
         <div class="publi-block-wrapper">
             {% for item in news['items'][-1:(-1-news['showInHome']):-1] %}
-            <div class="publi-block">
+            <div class="publi-block{% if item.get('pageLink') or item.get('link') %} publi-block--linked{% endif %}">
                 <div class="publi-date">
                     <div class="publi-date-mm">{{ item['month'] }}</div>
                     <div class="publi-date-yy">{{ item['year'] }}</div>
                 </div>
 
                 <div class="publi-info">
-                    {% if item['link'] %}
+                    {% if item.get('pageLink') %}
+                    <a class="publi-title-block" href="{{ item['pageLink'] }}">
+                        <span class="publi-title">{{ item['title'] }}</span>
+                        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                    </a>
+                    {% elif item.get('link') %}
                     <a class="publi-title-block" target="_blank" href="{{ item['link'] }}">
-                        <span class="publi-title">
-                            {{ item['title'] }}
-                        </span>
-                        
+                        <span class="publi-title">{{ item['title'] }}</span>
                         <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                     </a>
                     {% else %}
-                    <a class="publi-title-block">
-                        <span class="publi-title">
-                            {{ item['title'] }}
-                        </span>
-                    </a>
-                    {% endif %}
-                    
-                    {% if item['subTitle'] %}
-                    <div class="publi-subtitle">
-                        {{ item['subTitle'] }}
+                    <div class="publi-title-block">
+                        <span class="publi-title">{{ item['title'] }}</span>
                     </div>
                     {% endif %}
                 </div>
@@ -45,7 +37,7 @@
         </div>
 
         <a class="more skewed-block" href="/news/" b-role="btn" b-hoverable>
-            <div>Archived News</div>
+            <div>All News</div>
             <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
         </a>
     </section>
