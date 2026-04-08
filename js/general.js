@@ -6,7 +6,14 @@ function getRandomInt(min, max) {return Math.floor(Math.random() * (max - min) +
 // to top button
 const toTopBtn = document.querySelector('.to-top-btn');
 
-window.onscroll = function() {scrollFunction()};
+let scrollThrottleTimer = null;
+window.addEventListener('scroll', function() {
+    if (scrollThrottleTimer) return;
+    scrollThrottleTimer = setTimeout(function() {
+        scrollFunction();
+        scrollThrottleTimer = null;
+    }, 100);
+}, { passive: true });
 function scrollFunction() {
     if (document.body.scrollTop > window.innerHeight || document.documentElement.scrollTop > window.innerHeight) {
         toTopBtn.style.display = "grid";
@@ -14,7 +21,7 @@ function scrollFunction() {
             toTopBtn.style.opacity = "1";
         }, 10);
     } else {
-      toTopBtn.style.opacity = "0";
+        toTopBtn.style.opacity = "0";
         setTimeout(() => {
             toTopBtn.style.display = "none";
         }, 300);
@@ -54,6 +61,7 @@ function menuOpen() {
 
     body.classList.add('overflow-hidden');
     menu.classList.remove('display-none');
+    menu.classList.remove('menu-peek');
     setTimeout(() => {
         menu.classList.add('menu-active');
     }, 10);
@@ -82,5 +90,28 @@ function menuClose() {
 });
 
 menuA.forEach(elem => {
-    elem.addEventListener('click', menuClose());
+    elem.addEventListener('click', menuClose);
 });
+
+// Menu hover-peek: slide panel edge into view on button hover (pointer devices only)
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let peekHideTimer = null;
+
+    menuBtn.addEventListener('mouseenter', () => {
+        if (menu.classList.contains('menu-active')) return;
+        clearTimeout(peekHideTimer);
+        menu.classList.remove('display-none');
+        // Allow paint before adding peek so transition fires
+        requestAnimationFrame(() => menu.classList.add('menu-peek'));
+    });
+
+    menuBtn.addEventListener('mouseleave', () => {
+        if (menu.classList.contains('menu-active')) return;
+        menu.classList.remove('menu-peek');
+        peekHideTimer = setTimeout(() => {
+            if (!menu.classList.contains('menu-active')) {
+                menu.classList.add('display-none');
+            }
+        }, 260);
+    });
+}

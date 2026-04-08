@@ -44,12 +44,13 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" as="style" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=2">
     <link rel="stylesheet" href="/css/style.css?v=2">
+    <link rel="stylesheet" href="/css/subpage.css?v=1">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -69,12 +70,15 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+<header class="subpage-header">
+    <a class="subpage-header-logo" href="/">
+        <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
+    </a>
+    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
+        <span class="breadcrumb-current">News</span>
+    </nav>
+</header>
 <section id="news">
-    <div class="section-title">
-        <h2>News</h2>
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-    </div>
-
     <h3>Archived News</h3>
     <section class="publi-section">
         <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
@@ -482,7 +486,7 @@
         <a class="ftr-link" href="/#">Home</a>
 
         <a class="ftr-link" href="/#about-us">About Us</a>
-        <a class="ftr-link" href="/#members">Members</a>
+        <a class="ftr-link" href="/members">Members</a>
         <a class="ftr-link" href="/#research">Research</a>
         <a class="ftr-link" href="/#publications">Publications</a>
         <a class="ftr-link" href="/#news">News</a>
@@ -546,7 +550,7 @@
             </a>
         </ui>
         <ui>
-            <a href="/#members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
                 <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
                 <span>Members</span>
             </a>
