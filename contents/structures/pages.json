@@ -24,7 +24,7 @@
             {
                 "id": "publications",
                 "title": "Publications",
-                "link": "/#publications",
+                "link": "/publications",
                 "icon": "/assets/sprite.svg#svg-book"
             },
             {
@@ -64,5 +64,11 @@
         "title": "Members | E3 Center",
         "subpageTitle": "Members",
         "template": "pages/members"
+    },
+    "publications-page": {
+        "path": "publications",
+        "title": "Publications | E3 Center",
+        "subpageTitle": "Publications",
+        "template": "pages/publications"
     }
 }

@@ -1,7 +1,7 @@
 [
     {
-        "sectionTitle": "Journal Publications",
-        "showInHome": 7,
+        "sectionTitle": "Recent Publications",
+        "showInHome": 5,
         "items": [
             {
                 "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC",
@@ -110,7 +110,8 @@
                 "volume": "35",
                 "year": "'23",
                 "month": "Dec.",
-                "authors": "Han-Sheng, I-Yun Lisa Hsieh"
+                "authors": "Han-Sheng, I-Yun Lisa Hsieh",
+                "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:hC7cP41nSMkC",
@@ -229,7 +230,7 @@
                 "volume": "26",
                 "year": "'25",
                 "month": "Apr.",
-                "authors": "Jian Hern Yeoh, Kai-Yun, I-Yun Lisa Hsieh",
+                "authors": "Jian Hern Yeoh, Kai-Yun Lo, I-Yun Lisa Hsieh",
                 "E3": true
             },
             {
@@ -287,21 +288,21 @@
             {
                 "citationId": "tUbPb-QAAAAJ:digitalization-lca-pod",
                 "title": "Digitalization and decarbonization in last-mile logistics: a life cycle assessment of proof of delivery systems",
-                "link": "https://www.tandfonline.com/doi/abs/10.1080/19427867.2026.2623085",
+                "link": "https://doi.org/10.1080/19427867.2026.2623085",
                 "journal": "Transportation Letters",
                 "year": "'26",
                 "month": "Jan.",
-                "authors": "Hung-Jui Lin, Hsuan-Po, I-Yun Lisa Hsieh",
+                "authors": "Hung-Jui Lin, Hsuan-Po Lin, I-Yun Lisa Hsieh",
                 "E3": true
             },
             {
                 "citationId": "tUbPb-QAAAAJ:boiler-air-pollution-taiwan",
                 "title": "Integrated assessment of boiler air pollution control policy: Impacts on emissions, air quality, and public health in Taiwan",
-                "link": "https://www.sciencedirect.com/science/article/pii/S1309104226000541",
+                "link": "https://doi.org/10.1016/j.apr.2026.102938",
                 "journal": "Atmospheric Pollution Research",
                 "year": "'26",
                 "month": "Jan.",
-                "authors": "Dennis, Hung-Jui Lin, I-Chun, I-Yun Lisa Hsieh",
+                "authors": "Dennis Kao, Hung-Jui Lin, I-Chun Tsai, I-Yun Lisa Hsieh",
                 "E3": true
             },
             {

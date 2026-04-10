@@ -1,45 +1,51 @@
 <section id="news">
     <div class="section-title">
         <h2><a class="section-title-link" href="/news/">News</a></h2>
-    </div>
-
-    {% for news in structures['news'] %}
-    <section class="publi-section">
-        <svg class="publi-quote"><use href="/assets/sprite.svg#svg-quote"></use></svg>
-
-        <div class="publi-block-wrapper">
-            {% for item in news['items'][-1:(-1-news['showInHome']):-1] %}
-            <div class="publi-block{% if item.get('pageLink') or item.get('link') %} publi-block--linked{% endif %}">
-                <div class="publi-date">
-                    <div class="publi-date-mm">{{ item['month'] }}</div>
-                    <div class="publi-date-yy">{{ item['year'] }}</div>
-                </div>
-
-                <div class="publi-info">
-                    {% if item.get('pageLink') %}
-                    <a class="publi-title-block" href="{{ item['pageLink'] }}">
-                        <span class="publi-title">{{ item['title'] }}</span>
-                        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-                    </a>
-                    {% elif item.get('link') %}
-                    <a class="publi-title-block" target="_blank" href="{{ item['link'] }}">
-                        <span class="publi-title">{{ item['title'] }}</span>
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </a>
-                    {% else %}
-                    <div class="publi-title-block">
-                        <span class="publi-title">{{ item['title'] }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
         <a class="more skewed-block" href="/news/" b-role="btn" b-hoverable>
             <div>All News</div>
             <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
         </a>
-    </section>
+    </div>
+
+    {% for news in structures['news'] %}
+    {% set category_order = ['Honors and Recognitions', 'Events and Exchanges', 'Community and Outreach'] %}
+    {% for category in category_order %}
+    {% set cat_items = news['items'] | selectattr('category', 'equalto', category) | list %}
+    <h3>{{ category }}</h3>
+    <div class="news-rows">
+        {% for item in cat_items[-2:] | reverse %}
+        {% if item.get('pageLink') %}
+        <a class="news-row news-row--link" href="{{ item['pageLink'] }}">
+        {% elif item.get('link') %}
+        <a class="news-row news-row--link" target="_blank" rel="noopener" href="{{ item['link'] }}">
+        {% else %}
+        <div class="news-row">
+        {% endif %}
+            <div class="news-row-date">
+                <span class="news-row-mm">{{ item['month'] }}</span>
+                <span class="news-row-yy">{{ item['year'] }}</span>
+            </div>
+
+            <div class="news-row-body">
+                <p class="news-row-title">{{ item['title'] }}</p>
+            </div>
+
+            {% if item.get('pageLink') %}
+            <span class="news-row-arrow" aria-hidden="true">
+                <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+            </span>
+            {% elif item.get('link') %}
+            <span class="news-row-arrow" aria-hidden="true">
+                <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+            </span>
+            {% endif %}
+        {% if item.get('pageLink') or item.get('link') %}
+        </a>
+        {% else %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
     {% endfor %}
 </section>

@@ -101,7 +101,8 @@
 
 /* Subpage section layout (replaces section:has(.section-title) for subpages) */
 #members,
-#news {
+#news,
+#publications {
     width: min(100%, 80rem);
     margin-inline: auto;
     padding: 4rem 2rem 8rem;
@@ -710,5 +711,75 @@
     .news-row-arrow,
     .news-row-arrow svg {
         transition: none;
+    }
+}
+
+/* ── Publications subpage ───────────────────────────────────────────────── */
+
+.publications-subpage {
+    & .publi-group {
+        margin-block-end: 3.5rem;
+    }
+
+    & .publi-group-title {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--main-color);
+        opacity: 0.4;
+        margin-block: 0 1rem !important;
+
+        /* override general h3 decorator */
+        &::after { display: none; }
+    }
+}
+
+/* Authors line */
+.publi-row-authors {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    opacity: 0.55;
+    color: var(--main-color);
+}
+
+/* Google Scholar CTA block */
+.publi-scholar-cta {
+    margin-block-start: 4rem;
+    padding-block-start: 2rem;
+    border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    & .skewed-block[b-role="btn"] {
+        --_adjusted-font-size: 1.25rem;
+        --_adjusted-padding: 0.5em 1em;
+
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+
+        & svg {
+            height: 1em;
+            width: auto;
+            flex-shrink: 0;
+        }
+    }
+
+    & .publi-scholar-note {
+        flex: 1;
+        min-width: 18rem;
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        opacity: 0.7;
+        color: var(--main-color);
+
+        & strong {
+            opacity: 1;
+            color: var(--main-color);
+        }
     }
 }

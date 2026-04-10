@@ -297,7 +297,7 @@ def render_news_pages():
                     [f for f in os.listdir(img_folder)
                      if not f.startswith('.') and
                      any(f.lower().endswith(ext) for ext in image_extensions)],
-                    key=lambda x: (int(x.rsplit('.', 1)[0]) if x.rsplit('.', 1)[0].isdigit() else x)
+                    key=lambda x: (0, int(x.rsplit('.', 1)[0])) if x.rsplit('.', 1)[0].isdigit() else (1, x)
                 )
                 news_images = [f'/assets/news/{slug}/{f}' for f in files]
 
@@ -339,9 +339,11 @@ def copy_static():
         for item in os.listdir(static_src):
             src_path = os.path.join(static_src, item)
             dst_path = os.path.join(output_dir, item)
-            
+
             if os.path.isdir(src_path):
-                shutil.copytree(src_path, dst_path, dirs_exist_ok=True)
+                if os.path.exists(dst_path):
+                    shutil.rmtree(dst_path)
+                shutil.copytree(src_path, dst_path)
             else:
                 shutil.copy2(src_path, dst_path)
 

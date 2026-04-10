@@ -13,12 +13,15 @@
 
             <form action="https://formspree.io/f/xandalro" method="POST">
                 <div class="tac-infos">
-                    <input type="text" class="tac-name skewed-block" b-role="block" placeholder="Name" name="Name" required>
+                    <label class="sr-only" for="tac-name">Name</label>
+                    <input id="tac-name" type="text" class="tac-name skewed-block" b-role="block" placeholder="Name" name="Name" required>
 
-                    <input type="email" class="tac-email skewed-block" b-role="block" placeholder="Email" name="Email" required>
+                    <label class="sr-only" for="tac-email">Email</label>
+                    <input id="tac-email" type="email" class="tac-email skewed-block" b-role="block" placeholder="Email" name="Email" required>
                 </div>
 
-                <textarea class="tac-message skewed-block" b-role="block" placeholder="Message" rows="7" name="Message" required></textarea>
+                <label class="sr-only" for="tac-message">Message</label>
+                <textarea id="tac-message" class="tac-message skewed-block" b-role="block" placeholder="Message" rows="7" name="Message" required></textarea>
 
                 <input type="submit" value="Send" class="tac-send skewed-block" b-role="btn" b-hoverable>
             </form>
