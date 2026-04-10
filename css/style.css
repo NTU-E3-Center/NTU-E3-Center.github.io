@@ -862,8 +862,6 @@
         & p {
             /* margin-block-start: 1rem; */
             font-size: 1.3125rem;
-            text-align: justify;
-            hyphens: auto;
             text-indent: 2rem;
 
             & sub {
@@ -909,6 +907,12 @@
         & a {
             display: grid;
             place-content: center;
+            cursor: pointer;
+            transition: opacity var(--hover-transition-time);
+
+            &:hover {
+                opacity: 0.65;
+            }
 
             & img {
                 height: 4rem;
@@ -918,8 +922,10 @@
 
 }
 
-/* members */
-#members .section-title {
+/* members / news / publications — section-title "All …" button */
+#members .section-title,
+#news .section-title,
+#publications .section-title {
     align-items: flex-end;
     justify-content: space-between;
     gap: 2rem;
@@ -1232,6 +1238,11 @@
         }
     }
 }
+
+/* research field colors */
+.field-energy    { color: var(--r-yellow); }
+.field-economics { color: var(--r-orange); }
+.field-environment { color: var(--r-green); }
 
 /* research */
 .res-section {
@@ -1796,6 +1807,15 @@
     @media (width <=48rem) {
         margin-block-start: 1.5rem;
     }
+}
+
+/* publication meta lines (used in news-row layout) */
+.publi-row-journal,
+.publi-row-authors {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    opacity: 0.5;
+    color: var(--main-color);
 }
 
 /* news */
