@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://e3center.caece.net{{ member['pageLink'] }}/" />
     <meta property="og:title" content="{{ member['chiNameEng'] }} | E3 Center" />
     <meta property="og:type" content="profile" />
-    <meta property="og:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
     <meta property="og:description" content="{{ member['chiNameEng'] }} — member of E3 Center, National Taiwan University." />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ member['chiNameEng'] }} | E3 Center" />
     <meta name="twitter:description" content="{{ member['chiNameEng'] }} — member of E3 Center, National Taiwan University." />
-    <meta name="twitter:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -73,13 +73,13 @@
       "name": "{{ member['chiNameEng'] }}",
       "alternateName": "{{ member['chiName'] }}",
       "url": "https://e3center.caece.net{{ member['pageLink'] }}/",
-      "jobTitle": "{{ member.get('position', '') }}",
-      "worksFor": {
+      {% if member.get('position') %}"jobTitle": "{{ member['position'] }}",
+      {% endif %}"worksFor": {
         "@type": "ResearchOrganization",
         "name": "E3 Center",
         "url": "https://e3center.caece.net"
-      }{% if member.get('pageContent', {}).get('links') %}{% set ns = namespace(has_link=false) %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') %}{% set ns.has_link = true %}{% endif %}{% endfor %}{% if ns.has_link %},
-      "sameAs": [{% set comma = joiner() %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') %}{{ comma() }}"{{ tag['link'] }}"{% endif %}{% endfor %}]{% endif %}{% endif %}
+      }{% if member.get('pageContent', {}).get('links') %}{% set ns = namespace(has_link=false) %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{% set ns.has_link = true %}{% endif %}{% endfor %}{% if ns.has_link %},
+      "sameAs": [{% set comma = joiner() %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{{ comma() }}"{{ tag['link'] }}"{% endif %}{% endfor %}]{% endif %}{% endif %}
     }
     </script>
 </head>

@@ -12,7 +12,7 @@
     <meta property="og:url" content="https://e3center.caece.net{{ news['pageLink'] }}" />
     <meta property="og:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/i/og-image-1200x630.png' }}" />
+    <meta property="og:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/images/og-image-1200x630.png' }}" />
     <meta property="og:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
     <meta name="twitter:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
-    <meta name="twitter:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/i/og-image-1200x630.png' }}" />
+    <meta name="twitter:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/images/og-image-1200x630.png' }}" />
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -71,7 +71,7 @@
       "@type": "NewsArticle",
       "headline": {{ news['title'] | tojson }},
       "url": "https://e3center.caece.net{{ news['pageLink'] }}",
-      "datePublished": "20{{ news['year'][1:] }}-{{ news['month'] }}",
+      {% set month_map = {'Jan.': '01', 'Feb.': '02', 'Mar.': '03', 'Apr.': '04', 'May': '05', 'Jun.': '06', 'Jul.': '07', 'Aug.': '08', 'Sep.': '09', 'Oct.': '10', 'Nov.': '11', 'Dec.': '12'} %}"datePublished": "20{{ news['year'][1:] }}-{{ month_map.get(news['month'], '01') }}",
       "author": {
         "@type": "Organization",
         "name": "E3 Center",
@@ -82,7 +82,7 @@
         "name": "E3 Center",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://e3center.caece.net/assets/i/og-image-1200x630.png"
+          "url": "https://e3center.caece.net/assets/images/og-image-1200x630.png"
         }
       }{% if news.get('imgPath') %},
       "image": "https://e3center.caece.net{{ news['imgPath'] }}"{% endif %}

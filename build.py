@@ -358,11 +358,13 @@ def generate_sitemap():
     add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8")
     add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8")
 
-    # Member pages
+    # Member pages (deduplicated — some members appear in multiple groups)
+    seen_member_links = set()
     for group in structures.get('members', []):
         for member in group.get('members', []):
             link = member.get('pageLink')
-            if link:
+            if link and link not in seen_member_links:
+                seen_member_links.add(link)
                 add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.6")
 
     # News item pages
