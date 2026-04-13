@@ -1,5 +1,35 @@
 {% set isHomePage = True %}
 {% extends "base.html" %}
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "name": "E3 Center",
+  "alternateName": "Energy, Environment, and Economy Research Center",
+  "url": "https://e3center.caece.net",
+  "logo": "https://e3center.caece.net/assets/i/og-image-1200x630.png",
+  "description": "Housed in the Department of Civil Engineering at National Taiwan University (NTU), E3 research center, directed by Professor I-Yun Lisa Hsieh (謝依芸), is dedicated to overcoming the challenges of sustainable energy transition.",
+  "parentOrganization": {
+    "@type": "CollegeOrUniversity",
+    "name": "National Taiwan University",
+    "alternateName": "NTU",
+    "url": "https://www.ntu.edu.tw"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "I-Yun Lisa Hsieh",
+    "alternateName": "謝依芸",
+    "url": "https://e3center.caece.net/members/lisa-hsieh/",
+    "sameAs": "https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ"
+  },
+  "sameAs": [
+    "https://github.com/NTU-E3-Center",
+    "https://www.linkedin.com/company/ntu-e3-center/"
+  ]
+}
+</script>
+{% endblock %}
 {% block content %}
 {% include 'home/home.html' %}
 
