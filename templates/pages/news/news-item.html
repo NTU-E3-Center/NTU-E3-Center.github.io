@@ -102,26 +102,19 @@
     <main class="news-item-main">
 
         {# ── Hero ────────────────────────────────────────────────────── #}
+        {% if news.get('imgPath') %}
         <div class="news-item-hero">
-            {% if news.get('imgPath') %}
             <div class="news-item-hero-img skewed-block" b-role="block"
                  style="background-image: url({{ news['imgPath'] }});">
                 <img loading="lazy" src="{{ news['imgPath'] }}" alt="{{ news['title'] }}" draggable="false" />
             </div>
-            {% else %}
-            <div class="news-item-hero-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                </svg>
-                <span>Image to be added</span>
-            </div>
-            {% endif %}
 
             <div class="news-item-date-badge skewed-block" b-role="btn">
                 <div class="news-item-date-mm">{{ news['month'] }}</div>
                 <div class="news-item-date-yy">20{{ news['year'][1:] }}</div>
             </div>
         </div>
+        {% endif %}
 
         {# ── Article ─────────────────────────────────────────────────── #}
         <article class="news-item-article">
