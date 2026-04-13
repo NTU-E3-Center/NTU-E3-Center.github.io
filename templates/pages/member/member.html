@@ -8,9 +8,9 @@
     <meta name="keywords" content="{{ member['engName'] }}, {{ member['chiName'] }}{% if member['chiNameEng'] %}, {{ member['chiNameEng'] }}{% endif %}, E3 Group, e3, NTU, 台大, 台灣大學">
     <meta name="author" content="{{ member['engName'] }}">
 
-    <link rel="canonical" href="https://e3center.caece.net{{ member['pageLink'] }}" />
+    <link rel="canonical" href="https://e3center.caece.net{{ member['pageLink'] }}/" />
 
-    <meta property="og:url" content="https://e3center.caece.net{{ member['pageLink'] }}" />
+    <meta property="og:url" content="https://e3center.caece.net{{ member['pageLink'] }}/" />
     <meta property="og:title" content="{{ member['chiNameEng'] }} | E3 Center" />
     <meta property="og:type" content="profile" />
     <meta property="og:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
@@ -72,7 +72,7 @@
       "@type": "Person",
       "name": "{{ member['chiNameEng'] }}",
       "alternateName": "{{ member['chiName'] }}",
-      "url": "https://e3center.caece.net{{ member['pageLink'] }}",
+      "url": "https://e3center.caece.net{{ member['pageLink'] }}/",
       "jobTitle": "{{ member.get('position', '') }}",
       "worksFor": {
         "@type": "ResearchOrganization",
