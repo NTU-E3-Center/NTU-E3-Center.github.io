@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ news.get('shortTitle', news['title']) }} | E3 Center</title>
-    <meta name="description" content="{{ news['title'] }} — E3 Center, National Taiwan University.">
+    <meta name="description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University.">
     <meta name="keywords" content="E3 Center, e3, NTU, News, {{ news['title'][:60] }}">
+
+    <link rel="canonical" href="https://e3center.caece.net{{ news['pageLink'] }}" />
+
+    <meta property="og:url" content="https://e3center.caece.net{{ news['pageLink'] }}" />
+    <meta property="og:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/i/og-image-1200x630.png' }}" />
+    <meta property="og:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
+    <meta name="twitter:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
+    <meta name="twitter:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/i/og-image-1200x630.png' }}" />
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -49,6 +64,30 @@
     <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
     <meta name="msapplication-TileColor" content="#0a557e">
     <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": {{ news['title'] | tojson }},
+      "url": "https://e3center.caece.net{{ news['pageLink'] }}",
+      "datePublished": "20{{ news['year'][1:] }}-{{ news['month'] }}",
+      "author": {
+        "@type": "Organization",
+        "name": "E3 Center",
+        "url": "https://e3center.caece.net"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "E3 Center",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://e3center.caece.net/assets/i/og-image-1200x630.png"
+        }
+      }{% if news.get('imgPath') %},
+      "image": "https://e3center.caece.net{{ news['imgPath'] }}"{% endif %}
+    }
+    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
