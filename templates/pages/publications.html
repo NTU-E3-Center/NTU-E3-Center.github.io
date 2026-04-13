@@ -54,27 +54,44 @@
     {% endif %}
     {% endmacro %}
 
-    {# ── Working Papers (submitted + under-review) ──────────────────────────── #}
-    {% set working = all_items | selectattr('status', 'in', ['submitted', 'under-review']) | list %}
-    {% if working %}
-    <div class="publi-group">
-        <h3 class="publi-group-title">Working Papers</h3>
+    {# ── Macro: render a collapsible group ─────────────────────────────────── #}
+    {% macro pub_group(title, items, group_id) %}
+    {% if items %}
+    <div class="publi-group" id="{{ group_id }}">
+        <h3 class="publi-group-title">{{ title }}</h3>
         <div class="news-rows">
-            {% for item in working %}{{ pub_row(item) }}{% endfor %}
+            {% for item in items %}
+            {% if loop.index <= 5 %}
+            {{ pub_row(item) }}
+            {% else %}
+            <div class="publi-extra-item" hidden>{{ pub_row(item) }}</div>
+            {% endif %}
+            {% endfor %}
         </div>
+        {% if items | length > 5 %}
+        <button class="publi-show-more" data-expanded="false" type="button"
+                aria-controls="{{ group_id }}-extra"
+                aria-expanded="false"
+                onclick="togglePubGroup(this)">
+            <span class="btn-text">See {{ items | length - 5 }} more</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        {% endif %}
     </div>
     {% endif %}
+    {% endmacro %}
 
-    {# ── Recent Publications (published) ────────────────────────────────────── #}
+    {# ── Working Papers: submitted first, then under-review ─────────────────── #}
+    {% set submitted_items    = all_items | selectattr('status', 'equalto', 'submitted')    | list %}
+    {% set under_review_items = all_items | selectattr('status', 'equalto', 'under-review') | list %}
+    {{ pub_group('Working Papers', submitted_items + under_review_items, 'pub-working') }}
+
+    {# ── Recent Publications ────────────────────────────────────────────────── #}
     {% set published = all_items | selectattr('status', 'equalto', 'published') | list %}
-    {% if published %}
-    <div class="publi-group">
-        <h3 class="publi-group-title">Recent Publications</h3>
-        <div class="news-rows">
-            {% for item in published %}{{ pub_row(item) }}{% endfor %}
-        </div>
-    </div>
-    {% endif %}
+    {{ pub_group('Recent Publications', published, 'pub-recent') }}
 
     <div class="publi-scholar-cta">
         <p class="publi-scholar-note">
@@ -89,4 +106,80 @@
     </div>
 
 </section>
+
+<script>
+(function () {
+    function togglePubGroup(btn) {
+        var group    = btn.closest('.publi-group');
+        var extras   = group.querySelectorAll('.publi-extra-item');
+        var expanded = btn.dataset.expanded === 'true';
+        var count    = extras.length;
+
+        if (expanded) {
+            /* ── Collapse ── */
+            extras.forEach(function (el) { el.hidden = true; });
+            btn.dataset.expanded = 'false';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.querySelector('.btn-text').textContent = 'See ' + count + ' more';
+            btn.querySelector('svg').style.transform = '';
+
+            /* Scroll heading back into view if it's above the viewport */
+            var heading = group.querySelector('.publi-group-title');
+            if (heading) {
+                var rect = heading.getBoundingClientRect();
+                if (rect.top < 80) {
+                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        } else {
+            /* ── Expand ── */
+            var delay = 0;
+            extras.forEach(function (el) {
+                el.hidden = false;
+                var row = el.querySelector('.news-row, .news-row--link');
+                if (row) {
+                    var d = delay;
+                    requestAnimationFrame(function () {
+                        row.style.animation = 'none';
+                        row.getBoundingClientRect(); /* force reflow */
+                        row.style.animation =
+                            'newsReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) ' + d + 'ms both';
+                    });
+                    delay += 30;
+                }
+            });
+            btn.dataset.expanded = 'true';
+            btn.setAttribute('aria-expanded', 'true');
+            btn.querySelector('.btn-text').textContent = 'Show less';
+            btn.querySelector('svg').style.transform = 'rotate(180deg)';
+        }
+    }
+
+    /* Expose globally for inline onclick */
+    window.togglePubGroup = togglePubGroup;
+
+    /* Respect prefers-reduced-motion */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.togglePubGroup = function (btn) {
+            var group    = btn.closest('.publi-group');
+            var extras   = group.querySelectorAll('.publi-extra-item');
+            var expanded = btn.dataset.expanded === 'true';
+            var count    = extras.length;
+            if (expanded) {
+                extras.forEach(function (el) { el.hidden = true; });
+                btn.dataset.expanded = 'false';
+                btn.setAttribute('aria-expanded', 'false');
+                btn.querySelector('.btn-text').textContent = 'See ' + count + ' more';
+                btn.querySelector('svg').style.transform = '';
+            } else {
+                extras.forEach(function (el) { el.hidden = false; });
+                btn.dataset.expanded = 'true';
+                btn.setAttribute('aria-expanded', 'true');
+                btn.querySelector('.btn-text').textContent = 'Show less';
+                btn.querySelector('svg').style.transform = 'rotate(180deg)';
+            }
+        };
+    }
+}());
+</script>
 {% endblock %}
