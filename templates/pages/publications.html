@@ -89,9 +89,9 @@
     {% set under_review_items = all_items | selectattr('status', 'equalto', 'under-review') | list %}
     {{ pub_group('Working Papers', submitted_items + under_review_items, 'pub-working') }}
 
-    {# ── Recent Publications ────────────────────────────────────────────────── #}
+    {# ── All Publications ────────────────────────────────────────────────── #}
     {% set published = all_items | selectattr('status', 'equalto', 'published') | list %}
-    {{ pub_group('Recent Publications', published, 'pub-recent') }}
+    {{ pub_group('All Publications', published, 'pub-recent') }}
 
     <div class="publi-scholar-cta">
         <p class="publi-scholar-note">
@@ -107,79 +107,4 @@
 
 </section>
 
-<script>
-(function () {
-    function togglePubGroup(btn) {
-        var group    = btn.closest('.publi-group');
-        var extras   = group.querySelectorAll('.publi-extra-item');
-        var expanded = btn.dataset.expanded === 'true';
-        var count    = extras.length;
-
-        if (expanded) {
-            /* ── Collapse ── */
-            extras.forEach(function (el) { el.hidden = true; });
-            btn.dataset.expanded = 'false';
-            btn.setAttribute('aria-expanded', 'false');
-            btn.querySelector('.btn-text').textContent = 'See ' + count + ' more';
-            btn.querySelector('svg').style.transform = '';
-
-            /* Scroll heading back into view if it's above the viewport */
-            var heading = group.querySelector('.publi-group-title');
-            if (heading) {
-                var rect = heading.getBoundingClientRect();
-                if (rect.top < 80) {
-                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        } else {
-            /* ── Expand ── */
-            var delay = 0;
-            extras.forEach(function (el) {
-                el.hidden = false;
-                var row = el.querySelector('.news-row, .news-row--link');
-                if (row) {
-                    var d = delay;
-                    requestAnimationFrame(function () {
-                        row.style.animation = 'none';
-                        row.getBoundingClientRect(); /* force reflow */
-                        row.style.animation =
-                            'newsReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) ' + d + 'ms both';
-                    });
-                    delay += 30;
-                }
-            });
-            btn.dataset.expanded = 'true';
-            btn.setAttribute('aria-expanded', 'true');
-            btn.querySelector('.btn-text').textContent = 'Show less';
-            btn.querySelector('svg').style.transform = 'rotate(180deg)';
-        }
-    }
-
-    /* Expose globally for inline onclick */
-    window.togglePubGroup = togglePubGroup;
-
-    /* Respect prefers-reduced-motion */
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        window.togglePubGroup = function (btn) {
-            var group    = btn.closest('.publi-group');
-            var extras   = group.querySelectorAll('.publi-extra-item');
-            var expanded = btn.dataset.expanded === 'true';
-            var count    = extras.length;
-            if (expanded) {
-                extras.forEach(function (el) { el.hidden = true; });
-                btn.dataset.expanded = 'false';
-                btn.setAttribute('aria-expanded', 'false');
-                btn.querySelector('.btn-text').textContent = 'See ' + count + ' more';
-                btn.querySelector('svg').style.transform = '';
-            } else {
-                extras.forEach(function (el) { el.hidden = false; });
-                btn.dataset.expanded = 'true';
-                btn.setAttribute('aria-expanded', 'true');
-                btn.querySelector('.btn-text').textContent = 'Show less';
-                btn.querySelector('svg').style.transform = 'rotate(180deg)';
-            }
-        };
-    }
-}());
-</script>
 {% endblock %}
