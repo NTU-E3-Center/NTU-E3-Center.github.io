@@ -108,10 +108,13 @@ def render_templates():
             if isinstance(page_data, dict) and "path" in page_data:
                 template_file = page_data.get("template", template_name)
                 template = env.get_template(f"{template_file}.html")
+                path_segment = page_data["path"]
+                canonical = f"https://e3center.caece.net/{path_segment}/" if path_segment else "https://e3center.caece.net/"
                 output = template.render(
                     pages=pages,
                     title=page_data.get("title"),
                     subpageTitle=page_data.get("subpageTitle"),
+                    canonicalLink=canonical,
                     updated_time=datetime.now().strftime("%Y. %m. %d"),
                     year=datetime.now().year,
                     structures=structures,

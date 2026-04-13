@@ -11,15 +11,20 @@
     <meta name="description" content="{{ description if description is defined else defaultDescription }}">
     <meta name="keywords" content="{{ keywords if keywords is defined else defaultKeywords }}">
 
-    <link href="https://e3center.caece.net" rel="canonical" />
+    {% set _canonical = canonicalLink if canonicalLink is defined else defaultCanonicalLink %}
+    <link rel="canonical" href="{{ _canonical }}" />
 
     <meta property="og:url" content="{{ canonicalLink if canonicalLink is defined else defaultCanonicalLink }}" />
     <meta property="og:title" content="{{ title if title is defined else defaultTitle }}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="{{ ogType if ogType is defined else 'website' }}" />
     <meta property="og:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
     <meta property="og:description" content="{{ description if description is defined else defaultDescription }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ title if title is defined else defaultTitle }}" />
+    <meta name="twitter:description" content="{{ description if description is defined else defaultDescription }}" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/i/og-image-1200x630.png" />
 
     <meta name="author" content="Yuan-Hsi Chien">
     <meta name="robots" content="index, follow">
@@ -72,6 +77,7 @@
     <meta name="theme-color" content="#ffffff">
 
     {% block headExtra %}{% endblock %} {# This is where the extra head content will be inserted #}
+    {% block jsonld %}{% endblock %}
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
