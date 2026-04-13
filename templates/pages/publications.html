@@ -20,11 +20,17 @@
                 </div>
 
                 <div class="news-row-body">
+                    {% set status = item.get('status', 'published') %}
+                    {% if status != 'published' %}
+                    <span class="publi-status-badge" data-status="{{ status }}">
+                        {%- if status == 'under-review' -%}Under Review{%- else -%}Submitted{%- endif -%}
+                    </span>
+                    {% endif %}
                     <p class="news-row-title">{{ item['title'] }}</p>
                     {% if item.get('authors') %}
                     <span class="publi-row-authors">{{ item['authors'] }}</span>
                     {% endif %}
-                    {% if item.get('journal') %}
+                    {% if item.get('journal') and status == 'published' %}
                     <span class="publi-row-journal">
                         {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
                     </span>
