@@ -2,56 +2,79 @@
 {% block content %}
 <section id="publications" class="publications-subpage">
 
+    {# ── Collect all E3 items across all sections ──────────────────────────── #}
+    {% set all_items = [] %}
     {% for section in structures['publications'] %}
+        {% for item in section['items'][::-1] if item.get('E3') %}
+            {% set _ = all_items.append(item) %}
+        {% endfor %}
+    {% endfor %}
+
+    {# ── Macro: render a single publication row ─────────────────────────────── #}
+    {% macro pub_row(item) %}
+    {% set status = item.get('status', 'published') %}
+    {% if item.get('link') %}
+    <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener">
+    {% else %}
+    <div class="news-row">
+    {% endif %}
+
+        <div class="news-row-date">
+            <span class="news-row-mm">{{ item['month'] }}</span>
+            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
+        </div>
+
+        <div class="news-row-body">
+            {% if status != 'published' %}
+            <span class="publi-status-badge" data-status="{{ status }}">
+                {%- if status == 'under-review' -%}Under Review{%- else -%}Submitted{%- endif -%}
+            </span>
+            {% endif %}
+            <p class="news-row-title">{{ item['title'] }}</p>
+            {% if item.get('authors') %}
+            <span class="publi-row-authors">{{ item['authors'] }}</span>
+            {% endif %}
+            {% if item.get('journal') and status == 'published' %}
+            <span class="publi-row-journal">
+                {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
+            </span>
+            {% endif %}
+        </div>
+
+        {% if item.get('link') %}
+        <span class="news-row-arrow" aria-hidden="true">
+            <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+        </span>
+        {% endif %}
+
+    {% if item.get('link') %}
+    </a>
+    {% else %}
+    </div>
+    {% endif %}
+    {% endmacro %}
+
+    {# ── Working Papers (submitted + under-review) ──────────────────────────── #}
+    {% set working = all_items | selectattr('status', 'in', ['submitted', 'under-review']) | list %}
+    {% if working %}
     <div class="publi-group">
-        <h3 class="publi-group-title">{{ section['sectionTitle'] }}</h3>
-
+        <h3 class="publi-group-title">Working Papers</h3>
         <div class="news-rows">
-            {% for item in section['items'][::-1] if item.get('E3') %}
-            {% if item.get('link') %}
-            <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener">
-            {% else %}
-            <div class="news-row">
-            {% endif %}
-
-                <div class="news-row-date">
-                    <span class="news-row-mm">{{ item['month'] }}</span>
-                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-                </div>
-
-                <div class="news-row-body">
-                    {% set status = item.get('status', 'published') %}
-                    {% if status != 'published' %}
-                    <span class="publi-status-badge" data-status="{{ status }}">
-                        {%- if status == 'under-review' -%}Under Review{%- else -%}Submitted{%- endif -%}
-                    </span>
-                    {% endif %}
-                    <p class="news-row-title">{{ item['title'] }}</p>
-                    {% if item.get('authors') %}
-                    <span class="publi-row-authors">{{ item['authors'] }}</span>
-                    {% endif %}
-                    {% if item.get('journal') and status == 'published' %}
-                    <span class="publi-row-journal">
-                        {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
-                    </span>
-                    {% endif %}
-                </div>
-
-                {% if item.get('link') %}
-                <span class="news-row-arrow" aria-hidden="true">
-                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                </span>
-                {% endif %}
-
-            {% if item.get('link') %}
-            </a>
-            {% else %}
-            </div>
-            {% endif %}
-            {% endfor %}
+            {% for item in working %}{{ pub_row(item) }}{% endfor %}
         </div>
     </div>
-    {% endfor %}
+    {% endif %}
+
+    {# ── Recent Publications (published) ────────────────────────────────────── #}
+    {% set published = all_items | selectattr('status', 'equalto', 'published') | list %}
+    {% if published %}
+    <div class="publi-group">
+        <h3 class="publi-group-title">Recent Publications</h3>
+        <div class="news-rows">
+            {% for item in published %}{{ pub_row(item) }}{% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
     <div class="publi-scholar-cta">
         <p class="publi-scholar-note">
