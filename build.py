@@ -79,8 +79,11 @@ if 'publications' in structures:
     home_publications = []
     for section in structures['publications']:
         new_section = section.copy()
-        # Filter items with E3: true
-        filtered_items = [item for item in section.get('items', []) if item.get('E3') is True]
+        # Filter items with E3: true and published status (exclude submitted/under review)
+        filtered_items = [
+            item for item in section.get('items', [])
+            if item.get('E3') is True and item.get('status', 'published') == 'published'
+        ]
         # Sort items descending by date
         filtered_items.sort(key=get_pub_sort_key, reverse=True)
         new_section['items'] = filtered_items
