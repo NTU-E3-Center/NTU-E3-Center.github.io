@@ -336,6 +336,51 @@ def render_news_pages():
     print("News item pages rendered successfully!")
 
 
+# Function to generate sitemap.xml with all indexable pages
+def generate_sitemap():
+    from xml.etree.ElementTree import Element, SubElement, ElementTree, indent
+    today = datetime.now().strftime("%Y-%m-%d")
+    BASE = "https://e3center.caece.net"
+
+    urlset = Element("urlset")
+    urlset.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+
+    def add_url(loc, changefreq="monthly", priority="0.7", lastmod=today):
+        url_el = SubElement(urlset, "url")
+        SubElement(url_el, "loc").text = loc
+        SubElement(url_el, "lastmod").text = lastmod
+        SubElement(url_el, "changefreq").text = changefreq
+        SubElement(url_el, "priority").text = priority
+
+    # Static pages
+    add_url(f"{BASE}/", changefreq="weekly", priority="1.0")
+    add_url(f"{BASE}/members/", changefreq="monthly", priority="0.8")
+    add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8")
+    add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8")
+
+    # Member pages
+    for group in structures.get('members', []):
+        for member in group.get('members', []):
+            link = member.get('pageLink')
+            if link:
+                add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.6")
+
+    # News item pages
+    for section in structures.get('news', []):
+        for item in section.get('items', []):
+            link = item.get('pageLink')
+            if link:
+                add_url(f"{BASE}{link}", changefreq="yearly", priority="0.5")
+
+    tree = ElementTree(urlset)
+    indent(tree, space="  ")
+    sitemap_path = os.path.join(output_dir, "sitemap.xml")
+    with open(sitemap_path, "w", encoding="utf-8") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        tree.write(f, encoding="unicode", xml_declaration=False)
+    print(f"Sitemap written to {sitemap_path}")
+
+
 # Function to copy static assets directly into docs/
 def copy_static():
     static_src = "static"
@@ -466,6 +511,8 @@ if __name__ == "__main__":
     copy_news_images()
     print("Copying videos...")
     copy_videos()
+    print("Generating sitemap...")
+    generate_sitemap()
     print("Compressing images and converting to WebP format...")
     compress_and_convert_images()
     print("Build complete!")
