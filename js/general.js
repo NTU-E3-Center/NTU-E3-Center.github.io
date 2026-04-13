@@ -115,3 +115,55 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         }, 260);
     });
 }
+
+/* ── Collapsible publication groups ───────────────────────────────────────── */
+(function () {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function togglePubGroup(btn) {
+        var group    = btn.closest('.publi-group') || btn.parentElement;
+        var extras   = group.querySelectorAll('.publi-extra-item');
+        var expanded = btn.dataset.expanded === 'true';
+        var count    = extras.length;
+
+        if (expanded) {
+            extras.forEach(function (el) { el.hidden = true; });
+            btn.dataset.expanded = 'false';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.querySelector('.btn-text').textContent = 'See ' + count + ' more';
+            btn.querySelector('svg').style.transform = '';
+
+            var heading = group.querySelector('h2, h3, .publi-group-title');
+            if (heading) {
+                var rect = heading.getBoundingClientRect();
+                if (rect.top < 80) {
+                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        } else {
+            var delay = 0;
+            extras.forEach(function (el) {
+                el.hidden = false;
+                if (!reducedMotion) {
+                    var row = el.querySelector('.news-row, .news-row--link');
+                    if (row) {
+                        var d = delay;
+                        requestAnimationFrame(function () {
+                            row.style.animation = 'none';
+                            row.getBoundingClientRect();
+                            row.style.animation =
+                                'newsReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) ' + d + 'ms both';
+                        });
+                        delay += 30;
+                    }
+                }
+            });
+            btn.dataset.expanded = 'true';
+            btn.setAttribute('aria-expanded', 'true');
+            btn.querySelector('.btn-text').textContent = 'Show less';
+            btn.querySelector('svg').style.transform = 'rotate(180deg)';
+        }
+    }
+
+    window.togglePubGroup = togglePubGroup;
+}());
