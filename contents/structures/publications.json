@@ -12,7 +12,8 @@
                 "year": "'22",
                 "month": "Dec.",
                 "authors": "Wei-Chun Tseng, Hou-Chuan Chen, Tsung-Heng, Tien-Yu, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
@@ -23,7 +24,8 @@
                 "year": "'22",
                 "month": "Dec.",
                 "authors": "Kai-Yun, Ting-Ling, Hsin-Yun, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Se3iqnhoufwC",
@@ -34,7 +36,8 @@
                 "year": "'23",
                 "month": "Jan.",
                 "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:hqOjcs7Dif8C",
@@ -45,7 +48,8 @@
                 "year": "'23",
                 "month": "Jan.",
                 "authors": "Yuan-Hsi Chien, I-Yun Lisa Hsieh, Tsung-Heng",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC",
@@ -56,7 +60,8 @@
                 "year": "'23",
                 "month": "Sep.",
                 "authors": "Wei-Chun Tseng, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:8k81kl-MbHgC",
@@ -67,7 +72,8 @@
                 "year": "'23",
                 "month": "Sep.",
                 "authors": "Yu-Jui, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:3fE2CSJIrl8C",
@@ -78,7 +84,8 @@
                 "year": "'23",
                 "month": "Nov.",
                 "authors": "Wei-Hsuan, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC",
@@ -89,7 +96,8 @@
                 "year": "'23",
                 "month": "Dec.",
                 "authors": "Kai-Yun, Jian Hern Yeoh, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:kNdYIx-mwKoC",
@@ -100,7 +108,8 @@
                 "year": "'23",
                 "month": "Dec.",
                 "authors": "Jia-Cherng, I-Yun Lisa Hsieh, Chuin-Shan",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:ULOm3_A8WrAC",
@@ -111,7 +120,8 @@
                 "year": "'23",
                 "month": "Dec.",
                 "authors": "Han-Sheng, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:hC7cP41nSMkC",
@@ -121,7 +131,8 @@
                 "year": "'24",
                 "month": "Mar.",
                 "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:KlAtU1dfN6UC",
@@ -132,7 +143,8 @@
                 "year": "'24",
                 "month": "Aug.",
                 "authors": "Cheng-Hsiang Shei, John Chung-En, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:M3ejUd6NZC8C",
@@ -143,7 +155,8 @@
                 "year": "'24",
                 "month": "Aug.",
                 "authors": "Wei-Hsuan, Ian, Jo-Chen Meg, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:4DMP91E08xMC",
@@ -154,7 +167,8 @@
                 "year": "'24",
                 "month": "Sep.",
                 "authors": "Yuan-Shin, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:qxL8FJ1GzNcC",
@@ -165,7 +179,8 @@
                 "year": "'24",
                 "month": "Sep.",
                 "authors": "Chon Man Tam, I-Yun Lisa Hsieh, Xin",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC",
@@ -176,7 +191,8 @@
                 "year": "'24",
                 "month": "Oct.",
                 "authors": "Jun-Wei Ding, Yuan-Shin, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:aqlVkmm33-oC",
@@ -187,7 +203,8 @@
                 "year": "'24",
                 "month": "Dec.",
                 "authors": "Jun-Wei Ding, Ming-Ju, Jing-Siou, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
@@ -198,7 +215,8 @@
                 "year": "'24",
                 "month": "Dec.",
                 "authors": "Dennis, Tzu-Hsien, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
@@ -209,7 +227,8 @@
                 "year": "'24",
                 "month": "Dec.",
                 "authors": "Yuan-Hsi Chien, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mVmsd5A6BfQC",
@@ -220,7 +239,8 @@
                 "year": "'25",
                 "month": "Jan.",
                 "authors": "Yuan-Hsi Chien, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:7PzlFSSx8tAC",
@@ -231,7 +251,8 @@
                 "year": "'25",
                 "month": "Apr.",
                 "authors": "Jian Hern Yeoh, Kai-Yun Lo, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:IWHjjKOFINEC",
@@ -242,7 +263,8 @@
                 "year": "'25",
                 "month": "Apr.",
                 "authors": "Jing-Siou, Yuan-Hsi Chien, Ruo-Wen, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:YOwf2qJgpHMC",
@@ -252,7 +274,8 @@
                 "year": "'25",
                 "month": "Apr.",
                 "authors": "Jia-Cherng, I-Yun Lisa Hsieh, Chuin-Shan",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:dhFuZR0502QC",
@@ -263,7 +286,8 @@
                 "year": "'25",
                 "month": "May.",
                 "authors": "Hung-Jui Lin, Pei-Ci, Hsuan-Po, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:L8Ckcad2t8MC",
@@ -273,7 +297,8 @@
                 "year": "'25",
                 "month": "Jun.",
                 "authors": "Yu-Shin, Kai-Yun, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
@@ -283,7 +308,8 @@
                 "year": "'26",
                 "month": "Jan.",
                 "authors": "Jun-Wei Ding, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:digitalization-lca-pod",
@@ -293,7 +319,8 @@
                 "year": "'26",
                 "month": "Jan.",
                 "authors": "Hung-Jui Lin, Hsuan-Po Lin, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:boiler-air-pollution-taiwan",
@@ -303,7 +330,8 @@
                 "year": "'26",
                 "month": "Jan.",
                 "authors": "Dennis Kao, Hung-Jui Lin, I-Chun Tsai, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:ecological-economics-2026",
@@ -314,7 +342,8 @@
                 "year": "'26",
                 "month": "Apr.",
                 "authors": "Cheng-Hsiang Shei, John Chung-En, I-Yun Lisa Hsieh",
-                "E3": true
+                "E3": true,
+                "status": "published"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:schneider2023comparative",
@@ -325,7 +354,116 @@
                 "year": "'23",
                 "month": "Apr.",
                 "authors": "Falk, Daniel Sebastian Castillo, Kuo-Che, Cheng-Hsiang Shei, Hsin-Tien",
-                "E3": false
+                "E3": false,
+                "status": "published"
+            },
+            {
+                "title": "Probabilistic Electricity Demand Forecasting for Buildings Using a VMD-Attentive Quantile Network",
+                "journal": "Energy & Buildings",
+                "authors": "Chun-Hao Huang, Yu-Shin Hu, I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Sector-specific Decarbonization Effects of High-Speed Rails Expansions",
+                "journal": "Energy Economics",
+                "authors": "Yoo, Sunbin, Kumagai, J., Hung-Jui Lin, Nakaishi, T., I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Digital Transformation and Carbon Redistribution in Warehouse Operations: Evidence from State-Persistent Simulation",
+                "journal": "Operations Management Research",
+                "authors": "Jian Hern Yeoh, Chun-Hao Huang, I-Yun Lisa Hsieh",
+                "status": "submitted",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Advancing Circular Logistics: Life Cycle Assessment of Structurally Reinforced Modular Plastic Pallets",
+                "journal": "Journal of Cleaner Production",
+                "authors": "Cheng-Hsiang Shei, Ma, J. E., I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Adaptive and Multifaceted Vehicle-to-Building (V2B) Energy Management: A Two-Stage Framework Addressing User Expectations and Uncertainty",
+                "journal": "eTransportation",
+                "authors": "Yu-Shin Hu, I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Optimizing dynamic shared E-moped relocation with long-term effect via deep reinforcement learning",
+                "journal": "Journal of Computing in Civil Engineering",
+                "authors": "Jia-Cherng Song, I-Yun Lisa Hsieh, Chuin-Shan Chen",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Decarbonizing First-Mile Cold Chain Freight: Empirical Analysis of Heavy-Duty Refrigerated Truck Operations",
+                "journal": "Journal of Cleaner Production",
+                "authors": "Pei-Ci Chen, Hung-Jui Lin, Hsuan-Po Lin, I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Double Energy Vulnerability in Taiwan: Household Energy Poverty Across Domestic and Transport Domains",
+                "journal": "Environmental Development",
+                "authors": "Hsun-Yen Wu, Cheng-Hsiang Shei, John Chung-En Liu, I-Yun Lisa Hsieh",
+                "status": "submitted",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Detection-Guided and Prompt-Augmented Transformers for Automated and Generalizable Cobb Angle Estimation in Spinal Radiographs",
+                "journal": "IEEE Transactions on Medical Imaging",
+                "authors": "Chih-Yi Lu, Tub, C. H., Hsieh, C. Y., Feng, C. K., I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Contrastive Representation Learning for Robust Cross-Site Very Short-Term Photovoltaic Forecasting",
+                "journal": "IEEE Transactions on Industry Applications",
+                "authors": "Chih-Yi Lu, I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Carbon pricing at the border: Product-level evidence on the impacts of the EU Carbon Border Adjustment Mechanism",
+                "journal": "Climate Policy",
+                "authors": "Shao-Chun Chang, Cheng-Hsiang Shei, I-Yun Lisa Hsieh",
+                "status": "submitted",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "Emission-aware routing for cold-chain last-mile logistics: A data-driven green vehicle routing framework with path-level emission modeling",
+                "journal": "Transportation Research Part E: Logistics and Transportation Review",
+                "authors": "En-Yi Chou, I-Yun Lisa Hsieh",
+                "status": "submitted",
+                "year": "'26",
+                "month": "Mar.",
+                "E3": true
             }
         ]
     }
