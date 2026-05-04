@@ -167,3 +167,61 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 
     window.togglePubGroup = togglePubGroup;
 }());
+// Reveal lazy-loaded images: any [class*="-img"]:has(img[loading="lazy"]) starts at
+// opacity 0 (see general.css); JS adds .lazy-img-loaded once the img fires `load`.
+document.querySelectorAll('[class*="-img"]:has(img[loading="lazy"])').forEach((block) => {
+    const img = block.querySelector('img');
+    const lazyImgLoaded = () => block.classList.add('lazy-img-loaded');
+    if (img.complete) lazyImgLoaded();
+    else img.addEventListener('load', lazyImgLoaded);
+});
+
+// Year-based filter (alumni on /members, group-life on home). Pairs each
+// .filter-checkbox[where=ID] with .filter-content[where=ID][data-value=...]
+// and toggles content visibility. Empty-state message is appended after the
+// nearest .mem-section or .mem-alum-grid container, if present.
+document.querySelectorAll('.filter').forEach((filter) => {
+    const where = filter.getAttribute('where');
+    const allContents = document.querySelectorAll(`.filter-content[where="${where}"]`);
+    const originalDisplay = allContents.length ? getComputedStyle(allContents[0]).display : 'block';
+
+    const contentByValue = {};
+    allContents.forEach(elem => {
+        const val = elem.dataset.value;
+        if (!contentByValue[val]) contentByValue[val] = [];
+        contentByValue[val].push(elem);
+    });
+
+    const sibling = filter.nextElementSibling;
+    const section = sibling?.matches('.mem-section, .mem-alum-grid')
+        ? sibling
+        : document.querySelector(`.mem-section:has(.filter-content[where="${where}"]), .mem-alum-grid:has(.filter-content[where="${where}"])`);
+    let emptyMsg = null;
+    if (section) {
+        emptyMsg = document.createElement('p');
+        emptyMsg.className = 'filter-empty';
+        emptyMsg.textContent = 'No members match the selected filters.';
+        emptyMsg.style.display = 'none';
+        section.after(emptyMsg);
+    }
+
+    function updateEmptyState() {
+        if (!emptyMsg) return;
+        const anyVisible = Array.from(allContents).some(el => el.style.display !== 'none');
+        emptyMsg.style.display = anyVisible ? 'none' : 'block';
+    }
+
+    document.querySelectorAll(`.filter-checkbox[where="${where}"]`).forEach((checkbox) => {
+        (contentByValue[checkbox.value] || []).forEach(elem => {
+            elem.style.display = checkbox.checked ? originalDisplay : 'none';
+        });
+        checkbox.addEventListener('change', () => {
+            (contentByValue[checkbox.value] || []).forEach(elem => {
+                elem.style.display = checkbox.checked ? originalDisplay : 'none';
+            });
+            updateEmptyState();
+        });
+    });
+
+    updateEmptyState();
+});
