@@ -3,6 +3,14 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Python virtualenvs
+website/
+venv/
+.venv/
+
+# Build output (deployed to gh-pages branch by Actions)
+docs/
+
 # macOS
 .DS_Store
 

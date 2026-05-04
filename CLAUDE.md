@@ -49,12 +49,15 @@ contents/images/             ← source images (auto-converted to WebP)
 ```
 
 **`build.py` performs these steps in order:**
-1. **Run `excel_to_content.py`** — reads `contents/member-info.xlsx` and generates `members.json`, per-member JSON files, and member Markdown files
-2. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library)
+1. **Run `excel_to_content.py`** — reads `contents/member-info.xlsx` and generates `members.json`, per-member JSON files, and member Markdown files (executed at import time)
+2. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library); also builds `members_by_id` lookup and a filtered/sorted `home_publications` (only items with `"E3": true` and `status: "published"`)
 3. **Render pages** — iterates `pages.json`, renders each Jinja2 template with the full `structures` dict, writes to `docs/{path}/index.html`
 4. **Render member pages** — for each member in `members.json`, loads `contents/structures/members/{memberId}.json`, auto-populates their publications by matching `pubName` against `authors` in `publications.json`
-5. **Copy static assets** — copies `static/` → `docs/`
-6. **Process images** — converts `contents/images/` to WebP at multiple responsive widths (members: 200–800w; group-life: 200–2000w), generates 20w lazy-load placeholders
+5. **Render news item pages** — for each item in `news.json` with a `pageLink`, renders `templates/pages/news/news-item.html` using markdown from `contents/articles/news/{slug}.md`. If `contents/images/news/{slug}/0.{ext}` exists, it becomes the hero (rendered via the WebP variants generated in step 9)
+6. **Copy static assets** — copies `static/` → `docs/`
+7. **Copy videos** — copies `contents/videos/` → `docs/assets/videos/`
+8. **Generate `sitemap.xml`** — emits URLs for static pages, member pages (deduplicated), and news item pages
+9. **Process images** — converts `contents/images/` to WebP at multiple responsive widths (members: 200–800w; group-life and news: 200–2000w), generates 20w lazy-load placeholders. Subfolders are preserved in the output (e.g. `news/{slug}/0.jpg` → `docs/assets/news/{slug}/0-Nw.webp`). Folders without a `{folder}_img_sizes` config are skipped.
 
 ## Content Structure
 
@@ -64,9 +67,12 @@ All content changes are data-driven — no Python or HTML edits required:
 |---|---|
 | Members (add/update/remove) | `contents/member-info.xlsx` — source of truth |
 | Publications | `contents/structures/publications.json` |
-| News items | `contents/structures/news.json` |
+| News items (homepage list) | `contents/structures/news.json` |
+| News item article body | `contents/articles/news/{slug}.md` (slug = last segment of `pageLink`) |
+| News item images | `contents/images/news/{slug}/` (file `0.{ext}` is the hero) |
 | Research topics | `contents/structures/research.json` |
 | Group photos | `contents/structures/group-life.json` |
+| Videos | `contents/structures/videos.json`, video files in `contents/videos/` |
 | Page navigation | `contents/structures/pages.json` |
 | About / Contact text | `contents/articles/about.md`, `contents/articles/contact.md` |
 
@@ -80,14 +86,20 @@ All content changes are data-driven — no Python or HTML edits required:
 
 > Do **not** manually edit `members.json` or per-member JSON/Markdown files — they are fully overwritten on every build.
 
-Publications are **automatically linked** to member profiles via `pubName` matching against the `authors` field in `publications.json`. For a publication to appear on the homepage it needs `"E3": true`.
+Publications are **automatically linked** to member profiles via `pubName` matching against the `authors` field in `publications.json`. For a publication to appear on the homepage it needs `"E3": true` and `status: "published"` (items under review are excluded).
+
+**Adding a news item:**
+1. Add an entry to the relevant section in `contents/structures/news.json` with a `pageLink` like `/news/2026-foo/`
+2. Create the article body at `contents/articles/news/2026-foo.md`
+3. (Optional) Drop images into `contents/images/news/2026-foo/`. `0.{jpg,png,…}` becomes the hero; the rest appear in the gallery sorted numerically (`1.jpg`, `2.jpg`, …) then alphabetically.
 
 ## Templates
 
 - `templates/base.html` — master layout (head, header, footer, analytics)
-- `templates/home/` — section sub-templates (about, members, publications, etc.)
-- `templates/partials/` — reusable fragments (footer, menu, modal, etc.)
-- `templates/member.html` — individual member profile pages
+- `templates/index.html` — homepage shell that includes everything in `templates/home/`
+- `templates/home/` — homepage section sub-templates (about, members, publications, news, research, group-life, videos, contact)
+- `templates/pages/` — standalone subpage templates: `members.html`, `publications.html`, `news.html`, `member/member.html` (individual member profile), `news/news-item.html` (individual news article)
+- `templates/partials/` — reusable fragments (footer, menu, modal, loading, background, subpage-header, to-top button)
 
 ## Deployment
 

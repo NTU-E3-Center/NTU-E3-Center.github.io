@@ -5,8 +5,7 @@ Live site: [e3center.caece.net](https://e3center.caece.net)
 Project started: Fall 2023
 
 **March 2026 – Present:**
-Front-End Development: Jian Hern Yeoh
-Maintenance: Jun-Wei Ding (Gary)
+Front-End Development and Maintenance: Jian Hern Yeoh
 
 **March 2025 – Feb 2026:**
 Maintenance: Jun-Wei Ding (Gary)
@@ -20,9 +19,9 @@ For bug reports and suggestions, contact Jian Hern or Gary.
 
 ## How It Works
 
-This site uses a custom Python static site generator. Source files live in `contents/` and `templates/`; the compiled output goes to `docs/`, which GitHub Pages serves.
+This site uses a custom Python static site generator. Source files live in `contents/` and `templates/`; `build.py` compiles them into `docs/` (which is gitignored — the build output never lives on the `source` branch).
 
-Pushing to the `source` branch automatically triggers a GitHub Actions workflow that runs `build.py` and deploys the result.
+Pushing to the `source` branch triggers a GitHub Actions workflow (`.github/workflows/deploy.yml`) that runs `build.py` and pushes the generated `docs/` to the `gh-pages` branch via `peaceiris/actions-gh-pages`. GitHub Pages serves the site from `gh-pages`.
 
 ---
 
@@ -30,23 +29,20 @@ Pushing to the `source` branch automatically triggers a GitHub Actions workflow 
 
 ### Prerequisites
 
-- Python 3.x
-- pip
+- Conda (Miniconda or Anaconda) with Python 3.9
 
 ### Setup (first time)
 
 ```bash
-python -m venv website
-source website/bin/activate        # macOS/Linux
-# website\Scripts\activate         # Windows
+conda create -n E3website python=3.9
+conda activate E3website
 pip install markdown Pillow jinja2 openpyxl
 ```
 
 ### Build and preview
 
 ```bash
-# Activate the virtual environment (if not already active)
-source website/bin/activate
+conda activate E3website
 
 # Build the site
 python build.py

@@ -367,13 +367,16 @@
                 "E3": true
             },
             {
+                "citationId": "tUbPb-QAAAAJ:yoo2025sector",
                 "title": "Sector-specific Decarbonization Effects of High-Speed Rails Expansions",
+                "link": "https://doi.org/10.1016/j.eneco.2026.109355",
                 "journal": "Energy Economics",
-                "authors": "Yoo, Sunbin, Kumagai, J., Hung-Jui Lin, Nakaishi, T., I-Yun Lisa Hsieh",
-                "status": "under-review",
+                "volume": "158",
                 "year": "'26",
-                "month": "Mar.",
-                "E3": true
+                "month": "Jun.",
+                "authors": "Sunbin Yoo, Junya Kumagai, Hung-Jui Lin, Tomoaki Nakaishi, I-Yun Lisa Hsieh",
+                "E3": true,
+                "status": "published"
             },
             {
                 "title": "Digital Transformation and Carbon Redistribution in Warehouse Operations: Evidence from State-Persistent Simulation",
