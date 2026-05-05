@@ -150,12 +150,88 @@ Fallback (body empty or "To be updated."): "{news.title} — E3 Center news, {mo
 
 **Add BreadcrumbList JSON-LD:** Home → News → {short title}.
 
-### B3. Publications listing (`templates/pages/publications.html`)
+### B3. Listing pages
+
+All three listing pages — Members, News, Publications — share a common pattern: a meta `description` defined per-listing in `pages.json`, a `CollectionPage` JSON-LD whose `mainEntity` is an `ItemList` enumerating the listing's contents, and a `BreadcrumbList` JSON-LD. Differences below.
+
+#### B3.1 Members listing (`/members/`, `templates/pages/members.html`)
+
+**Meta description:** new `description` field on the `members-page` entry in `contents/structures/pages.json`. Initial value:
+> "Members of E3 Center, NTU — researchers, students, and alumni working on sustainable energy transition, transportation electrification, and climate policy."
+
+If absent, falls back to the homepage default description.
+
+**CollectionPage + ItemList JSON-LD** — one `Person` entry per member, each `@id` pointing at the corresponding `/members/{id}/#person` (matches B1's per-member `@id`):
+
+```jsonc
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Members | E3 Center",
+  "url": "https://e3center.caece.net/members/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": N,
+        "item": {
+          "@type": "Person",
+          "@id": "https://e3center.caece.net/members/{id}/#person",
+          "name": "...",
+          "url": "https://e3center.caece.net/members/{id}/"
+        }
+      }
+    ]
+  }
+}
+```
+
+**BreadcrumbList JSON-LD:** Home → Members.
+
+#### B3.2 News listing (`/news/`, `templates/pages/news.html`)
+
+**Meta description:** new `description` field on the `news` entry in `contents/structures/pages.json`. Initial value:
+> "E3 Center news, awards, seminars, and announcements from National Taiwan University."
+
+If absent, falls back to the homepage default description.
+
+**CollectionPage + ItemList JSON-LD** — one `NewsArticle` entry per news item that has a `pageLink` (external-link-only items are omitted, since their canonical URL isn't on this site):
+
+```jsonc
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "News | E3 Center",
+  "url": "https://e3center.caece.net/news/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": N,
+        "item": {
+          "@type": "NewsArticle",
+          "headline": "...",
+          "datePublished": "YYYY-MM",
+          "url": "https://e3center.caece.net{pageLink}"
+        }
+      }
+    ]
+  }
+}
+```
+
+**BreadcrumbList JSON-LD:** Home → News.
+
+#### B3.3 Publications listing (`/publications/`, `templates/pages/publications.html`)
 
 **Meta description:** new `description` field on the `publications-page` entry in `contents/structures/pages.json`. Initial value:
 > "Peer-reviewed publications from E3 Center, NTU, on sustainable energy transition, transportation electrification, and climate policy."
 
-If absent, fall back to the homepage default description.
+If absent, falls back to the homepage default description.
 
 **Per-publication keywords (NEW data):** add optional `"keywords": ["...", "..."]` array to each entry in `contents/structures/publications.json`. Populate from the keywords most journal articles publish in their first-page metadata. Initial scope: last 3 years of `"E3": true && status: "published"` publications. Older entries can leave `keywords` empty.
 
@@ -222,11 +298,21 @@ Same function used everywhere → consistent behavior, single place to evolve th
 ```
 User-agent: *
 Allow: /
+Disallow: /editor/
 
 Sitemap: https://e3center.caece.net/sitemap.xml
 ```
 
-Single new file. Picked up by the existing static-asset copy step in `build.py`.
+Single new file. Picked up by the existing static-asset copy step in `build.py`. The `Disallow: /editor/` line excludes the internal editors dashboard from crawl (see C1.5).
+
+### C1.5. Deindex internal pages
+
+The editors dashboard at `/editor/` is an internal authoring tool with no value as a public search result. Two reinforcing fixes:
+
+- **`static/editor/index.html`**: add `<meta name="robots" content="noindex, nofollow">` inside `<head>`. This is the primary signal — even crawlers that ignore robots.txt will respect `noindex`.
+- **`static/robots.txt`**: `Disallow: /editor/` (already in C1) tells well-behaved crawlers not to fetch the page in the first place.
+
+The two layers protect against different failure modes: `noindex` ensures the page never appears in results even if crawled, `Disallow` reduces unnecessary crawling of an internal tool. If `/editor/` is already indexed, after deploying these changes use GSC → URL Removal to expedite removal.
 
 ### C2. Sitemap improvements (`build.py:355` `generate_sitemap`)
 
@@ -275,10 +361,10 @@ PageSpeed/CWV, off-page/backlinks, AMP, Bing Webmaster Tools, hreflang. Each can
 
 Recommended phasing for incremental verification:
 
-1. **Phase 1 — Foundation** (no behavior change risk): `static/robots.txt`, sitemap improvements (C1, C2). Push and verify in GSC that new sitemap is fetched and new robots.txt is served.
+1. **Phase 1 — Foundation** (no behavior change risk): `static/robots.txt`, editor `noindex`, sitemap improvements (C1, C1.5, C2). Push and verify in GSC that new sitemap is fetched, new robots.txt is served, and `/editor/` is excluded.
 2. **Phase 2 — Helper + member subpages** (B4 + B1): the shared `generate_meta_description()` helper and member subpage upgrades. Push, request reindex of 2–3 member URLs in GSC, watch for impressions/position changes over ~2 weeks.
 3. **Phase 3 — News subpages** (B2): news item upgrades. Same verify cycle.
-4. **Phase 4 — Publications + homepage Organization** (B3 + A3): publications listing redesign and homepage JSON-LD upgrade. Watch member subpages — A3's graph linking should improve their rankings as well.
+4. **Phase 4 — Listing pages + homepage Organization** (B3.1, B3.2, B3.3 + A3): all three listing pages (members, news, publications) get descriptions and `CollectionPage` JSON-LD; homepage Organization JSON-LD upgraded. Watch member subpages — A3's graph linking should improve their rankings as well.
 5. **Phase 5 — Homepage retitle** (A1, A2): the structural change. Highest risk of short-term ranking volatility on brand queries. Do last so the subpages are already well-indexed when the homepage stops claiming the director's name.
 6. **Phase 6 — Build validation + runbook** (C3, C4): codify the quality bar and the operator process.
 
