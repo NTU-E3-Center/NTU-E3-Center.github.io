@@ -30,3 +30,9 @@ class TestGenerateMetaDescription(unittest.TestCase):
     def test_collapses_whitespace(self):
         result = generate_meta_description(None, "line1\n\n  line2  \tline3")
         self.assertEqual(result, "line1 line2 line3")
+
+    def test_strips_trailing_punctuation_after_truncation(self):
+        result = generate_meta_description(None, "Hello, world and more text", max_chars=10)
+        self.assertFalse(result.endswith(","), f"trailing comma not stripped: {result!r}")
+        self.assertFalse(result.endswith(" "), f"trailing space not stripped: {result!r}")
+        self.assertIn("Hello", result)
