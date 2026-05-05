@@ -42,6 +42,10 @@ def get_pub_sort_key(item):
             
     return (year, month_num)
 
+def news_slug_from_pagelink(page_link):
+    """Extract the news slug from a pageLink like '/news/2026-foo/' -> '2026-foo'."""
+    return page_link.rstrip('/').rsplit('/', 1)[-1] if page_link else ''
+
 # Load page structure from an external JSON file
 with open("contents/structures/pages.json", "r") as f:
     pages = json.load(f)
@@ -290,7 +294,7 @@ def render_news_pages():
                 continue
 
             # Derive slug from pageLink (e.g. /news/2026-foo/ → 2026-foo)
-            slug = page_link.strip('/').split('/')[-1]
+            slug = news_slug_from_pagelink(page_link)
 
             # Load markdown article content. Rewrite inline image references
             # (e.g. /assets/news/{slug}/3.jpg) to the 1200w WebP variant since
@@ -357,10 +361,14 @@ def generate_sitemap():
     today = datetime.now().strftime("%Y-%m-%d")
 
     def file_mtime(path):
-        """Return ISO date of file's last modification, or today if file is missing."""
+        """Return ISO date of file's last modification, or today if file is missing.
+        Logs a warning for non-FileNotFoundError OSErrors so real issues surface."""
         try:
             return datetime.fromtimestamp(os.path.getmtime(path)).strftime("%Y-%m-%d")
-        except OSError:
+        except FileNotFoundError:
+            return today
+        except OSError as e:
+            print(f"Warning: cannot stat {path}: {e}")
             return today
 
     BASE = "https://e3center.caece.net"
@@ -396,7 +404,7 @@ def generate_sitemap():
         for item in section.get('items', []):
             link = item.get('pageLink')
             if link:
-                slug = link.rstrip('/').rsplit('/', 1)[-1]
+                slug = news_slug_from_pagelink(link)
                 md_path = f"contents/articles/news/{slug}.md"
                 add_url(f"{BASE}{link}", changefreq="yearly", priority="0.6",
                         lastmod=file_mtime(md_path))
