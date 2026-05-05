@@ -39,3 +39,38 @@ def _truncate_at_word_boundary(s, max_chars):
     if last_space > 0:
         return cut[:last_space].rstrip(" ,;:.")
     return cut.rstrip(" ,;:.")
+
+
+_MD_IMAGE_RE = re.compile(r"!\[[^\]]*\]\([^\)]*\)")
+_MD_LINK_RE = re.compile(r"\[([^\]]+)\]\([^\)]*\)")
+_MD_CODE_RE = re.compile(r"`([^`]+)`")
+_MD_BOLD_ITALIC_RE = re.compile(r"(\*{1,3}|_{1,3})(.+?)\1")
+_MD_HEADING_RE = re.compile(r"^#{1,6}\s+", flags=re.MULTILINE)
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
+_CJK_RE = re.compile(r"[一-鿿㐀-䶿]")
+
+
+def strip_markdown(text):
+    """Remove markdown syntax for use in plain-text contexts (meta descriptions).
+
+    Drops images entirely. Keeps link/bold/italic/code text, drops their syntax.
+    Strips HTML tags. Collapses whitespace.
+    """
+    if not text:
+        return ""
+    text = _MD_IMAGE_RE.sub("", text)
+    text = _MD_LINK_RE.sub(r"\1", text)
+    text = _MD_CODE_RE.sub(r"\1", text)
+    text = _MD_BOLD_ITALIC_RE.sub(r"\2", text)
+    text = _MD_HEADING_RE.sub("", text)
+    text = _HTML_TAG_RE.sub("", text)
+    return _collapse_whitespace(text)
+
+
+def detect_language(text, threshold=0.3):
+    """Return 'zh-TW' if CJK character ratio >= threshold, else 'en'."""
+    if not text:
+        return "en"
+    total = len(text)
+    cjk = len(_CJK_RE.findall(text))
+    return "zh-TW" if (cjk / total) >= threshold else "en"
