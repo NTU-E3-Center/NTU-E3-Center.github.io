@@ -355,6 +355,14 @@ def render_news_pages():
 def generate_sitemap():
     from xml.etree.ElementTree import Element, SubElement, ElementTree, indent
     today = datetime.now().strftime("%Y-%m-%d")
+
+    def file_mtime(path):
+        """Return ISO date of file's last modification, or today if file is missing."""
+        try:
+            return datetime.fromtimestamp(os.path.getmtime(path)).strftime("%Y-%m-%d")
+        except OSError:
+            return today
+
     BASE = "https://e3center.caece.net"
 
     urlset = Element("urlset")
@@ -380,14 +388,18 @@ def generate_sitemap():
             link = member.get('pageLink')
             if link and link not in seen_member_links:
                 seen_member_links.add(link)
-                add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.6")
+                add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.7",
+                        lastmod=file_mtime("contents/member-info.xlsx"))
 
     # News item pages
     for section in structures.get('news', []):
         for item in section.get('items', []):
             link = item.get('pageLink')
             if link:
-                add_url(f"{BASE}{link}", changefreq="yearly", priority="0.5")
+                slug = link.rstrip('/').rsplit('/', 1)[-1]
+                md_path = f"contents/articles/news/{slug}.md"
+                add_url(f"{BASE}{link}", changefreq="yearly", priority="0.6",
+                        lastmod=file_mtime(md_path))
 
     tree = ElementTree(urlset)
     indent(tree, space="  ")
