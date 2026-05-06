@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ member['chiNameEng'] }} | E3 Center</title>
-    {% set _interest = (member.get('interest_content') or '') | striptags %}
+    {# Clean interest content: strip tags, normalise slash-bullets to commas #}
+    {% set _interest_raw = (member.get('interest_content') or '') | striptags %}
+    {% set _interest = _interest_raw | replace('/', ', ') | replace(',,', ',') | trim(' ,') %}
+
+    {# Capture first about-section's rendered text for fallback B #}
     {% set _ns = namespace(about_first='') %}
     {% if member.get('pageContent', {}).get('aboutSection') %}
       {% for _section in member['pageContent']['aboutSection'] %}
@@ -13,9 +17,14 @@
         {% endif %}
       {% endfor %}
     {% endif %}
-    {% set _pos = member.get('position') or '' %}
-    {% set _auto_desc_a = ((_pos ~ '. Research interests: ' if _pos else 'Research interests: ') ~ _interest) if _interest else '' %}
-    {% set _auto_desc_b = ((_pos ~ ' at E3 Center, NTU. ' if _pos else 'E3 Center, NTU. ') ~ _ns.about_first) if _ns.about_first else '' %}
+
+    {# Compose name-led prefix (uses position when present, otherwise an E3 Center role descriptor) #}
+    {% set _role = member.get('position') or 'researcher at E3 Center, NTU' %}
+    {% set _name_prefix = member['chiNameEng'] ~ ', ' ~ _role %}
+
+    {# Fallbacks ordered by quality #}
+    {% set _auto_desc_a = (_name_prefix ~ '. Research interests: ' ~ _interest) if _interest else '' %}
+    {% set _auto_desc_b = (_name_prefix ~ '. ' ~ _ns.about_first) if _ns.about_first else '' %}
     {% set _auto_desc_c = member['chiNameEng'] ~ ' — member of E3 Center, National Taiwan University.' %}
     {% set _meta_desc = seo_meta_description(member.get('metaDescription'), _auto_desc_a, _auto_desc_b, _auto_desc_c) %}
     <meta name="description" content="{{ _meta_desc }}">
