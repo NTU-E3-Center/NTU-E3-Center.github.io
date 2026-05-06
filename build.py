@@ -344,12 +344,19 @@ def render_news_pages():
                                        if img.rsplit('/', 1)[-1] != '0']
                         break
 
+            md_path = f"contents/articles/news/{slug}.md"
+            try:
+                date_modified = datetime.fromtimestamp(os.path.getmtime(md_path)).strftime("%Y-%m-%dT%H:%M:%S")
+            except OSError:
+                date_modified = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
             output = template.render(
                 news=item,
                 news_images=news_images,
                 pages=pages,
                 structures=structures,
                 year=datetime.now().year,
+                date_modified=date_modified,
             )
 
             page_dir = os.path.join(output_dir, page_link.lstrip('/'))
