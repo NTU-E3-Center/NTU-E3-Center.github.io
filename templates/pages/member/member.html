@@ -4,8 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ member['chiNameEng'] }} | E3 Center</title>
-    <meta name="description" content="{{ member['chiNameEng'] }} — member of E3 Center, National Taiwan University. Research in sustainable energy transition.">
-    <meta name="keywords" content="{{ member['engName'] }}, {{ member['chiName'] }}{% if member['chiNameEng'] %}, {{ member['chiNameEng'] }}{% endif %}, E3 Group, e3, NTU, 台大, 台灣大學">
+    {% set _interest = (member.get('interest_content') or '') | striptags %}
+    {% set _ns = namespace(about_first='') %}
+    {% if member.get('pageContent', {}).get('aboutSection') %}
+      {% for _section in member['pageContent']['aboutSection'] %}
+        {% if not _ns.about_first %}
+          {% set _ns.about_first = (about_content[_section['content']] or '') | striptags %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% set _pos = member.get('position') or '' %}
+    {% set _auto_desc_a = ((_pos ~ '. Research interests: ' if _pos else 'Research interests: ') ~ _interest) if _interest else '' %}
+    {% set _auto_desc_b = ((_pos ~ ' at E3 Center, NTU. ' if _pos else 'E3 Center, NTU. ') ~ _ns.about_first) if _ns.about_first else '' %}
+    {% set _auto_desc_c = member['chiNameEng'] ~ ' — member of E3 Center, National Taiwan University.' %}
+    {% set _meta_desc = seo_meta_description(member.get('metaDescription'), _auto_desc_a, _auto_desc_b, _auto_desc_c) %}
+    <meta name="description" content="{{ _meta_desc }}">
+    {% set _kw_parts = [member.get('engName'), member.get('chiName'), member.get('chiNameEng'), member.get('position')] %}
+    {% set _big_tags_ns = namespace(items=[]) %}
+    {% for _section in member.get('pageContent', {}).get('researchSection', []) %}
+      {% for _tid in _section.get('topics', []) %}
+        {% set _topic = research_by_id.get(_tid) %}
+        {% if _topic %}
+          {% for _tag in _topic.get('bigTags', [])[:1] %}
+            {% if _tag not in _big_tags_ns.items %}
+              {% set _big_tags_ns.items = _big_tags_ns.items + [_tag] %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% set _all_kw = (_kw_parts + _big_tags_ns.items[:3]) | select | list %}
+    <meta name="keywords" content="{{ _all_kw | join(', ') }}">
     <meta name="author" content="{{ member['engName'] }}">
 
     <link rel="canonical" href="https://e3center.caece.net{{ member['pageLink'] }}/" />
@@ -14,13 +43,13 @@
     <meta property="og:title" content="{{ member['chiNameEng'] }} | E3 Center" />
     <meta property="og:type" content="profile" />
     <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
-    <meta property="og:description" content="{{ member['chiNameEng'] }} — member of E3 Center, National Taiwan University." />
+    <meta property="og:description" content="{{ _meta_desc }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ member['chiNameEng'] }} | E3 Center" />
-    <meta name="twitter:description" content="{{ member['chiNameEng'] }} — member of E3 Center, National Taiwan University." />
+    <meta name="twitter:description" content="{{ _meta_desc }}" />
     <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
 
     <!-- Google Site Verification -->
@@ -70,16 +99,24 @@
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "https://e3center.caece.net{{ member['pageLink'] }}/#person",
       "name": "{{ member['chiNameEng'] }}",
       "alternateName": "{{ member['chiName'] }}",
       "url": "https://e3center.caece.net{{ member['pageLink'] }}/",
       {% if member.get('position') %}"jobTitle": "{{ member['position'] }}",
-      {% endif %}"worksFor": {
-        "@type": "ResearchOrganization",
-        "name": "E3 Center",
-        "url": "https://e3center.caece.net"
-      }{% if member.get('pageContent', {}).get('links') %}{% set ns = namespace(has_link=false) %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{% set ns.has_link = true %}{% endif %}{% endfor %}{% if ns.has_link %},
+      {% endif %}"affiliation": { "@id": "https://e3center.caece.net/#organization" }{% if member.get('pageContent', {}).get('links') %}{% set _links_ns = namespace(has_link=false) %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{% set _links_ns.has_link = true %}{% endif %}{% endfor %}{% if _links_ns.has_link %},
       "sameAs": [{% set comma = joiner() %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{{ comma() }}"{{ tag['link'] }}"{% endif %}{% endfor %}]{% endif %}{% endif %}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Members", "item": "https://e3center.caece.net/members/" },
+        { "@type": "ListItem", "position": 3, "name": {{ member['chiNameEng'] | tojson }} }
+      ]
     }
     </script>
 </head>
