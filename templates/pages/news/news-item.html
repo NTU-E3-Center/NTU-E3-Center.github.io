@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ news.get('shortTitle', news['title']) }} | E3 Center</title>
-    <meta name="description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University.">
-    <meta name="keywords" content="E3 Center, e3, NTU, News, {{ news['title'][:60] }}">
+    {% set _body_text = seo_strip_markdown(news.get('content', '')) %}
+    {% set _is_placeholder = (not _body_text) or ('to be updated' in _body_text|lower) %}
+    {% set _auto_desc = _body_text if not _is_placeholder else (news['title'] ~ ' — E3 Center news, ' ~ news['month'] ~ ' 20' ~ news['year'][1:] ~ '.') %}
+    {% set _meta_desc = seo_meta_description(news.get('excerpt'), _auto_desc) %}
+    <meta name="description" content="{{ _meta_desc }}">
+    <meta name="keywords" content="E3 Center, NTU news, {{ news.get('category', 'News') }}, 20{{ news['year'][1:] }}">
 
     <link rel="canonical" href="https://e3center.caece.net{{ news['pageLink'] }}" />
 
@@ -13,13 +17,13 @@
     <meta property="og:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
     <meta property="og:type" content="article" />
     <meta property="og:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/images/og-image-1200x630.png' }}" />
-    <meta property="og:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
+    <meta property="og:description" content="{{ _meta_desc }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ news.get('shortTitle', news['title']) }} | E3 Center" />
-    <meta name="twitter:description" content="{{ news['title'][:155] }} — E3 Center, National Taiwan University." />
+    <meta name="twitter:description" content="{{ _meta_desc }}" />
     <meta name="twitter:image" content="{{ 'https://e3center.caece.net' ~ news['imgPath'] if news.get('imgPath') else 'https://e3center.caece.net/assets/images/og-image-1200x630.png' }}" />
 
     <!-- Google Site Verification -->
@@ -65,27 +69,37 @@
     <meta name="msapplication-TileColor" content="#0a557e">
     <meta name="theme-color" content="#ffffff">
 
+    {% set _lang = seo_detect_language(news.get('content', '')) %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
+      "@id": "https://e3center.caece.net{{ news['pageLink'] }}#article",
       "headline": {{ news['title'] | tojson }},
+      "description": {{ _meta_desc | tojson }},
       "url": "https://e3center.caece.net{{ news['pageLink'] }}",
-      {% set month_map = {'Jan.': '01', 'Feb.': '02', 'Mar.': '03', 'Apr.': '04', 'May': '05', 'Jun.': '06', 'Jul.': '07', 'Aug.': '08', 'Sep.': '09', 'Oct.': '10', 'Nov.': '11', 'Dec.': '12'} %}"datePublished": "20{{ news['year'][1:] }}-{{ month_map.get(news['month'], '01') }}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net{{ news['pageLink'] }}" },
+      "inLanguage": "{{ _lang }}",
+      {% set month_map = {'Jan.': '01', 'Feb.': '02', 'Mar.': '03', 'Apr.': '04', 'May': '05', 'Jun.': '06', 'Jul.': '07', 'Aug.': '08', 'Sep.': '09', 'Oct.': '10', 'Nov.': '11', 'Dec.': '12'} %}"datePublished": "20{{ news['year'][1:] }}-{{ month_map.get(news['month'], '01') }}-01",
+      "dateModified": "{{ date_modified }}",
       "author": {
         "@type": "Organization",
         "name": "E3 Center",
         "url": "https://e3center.caece.net"
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": "E3 Center",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://e3center.caece.net/assets/images/og-image-1200x630.png"
-        }
-      }{% if news.get('imgPath') %},
+      "publisher": { "@id": "https://e3center.caece.net/#organization" }{% if news.get('imgPath') %},
       "image": "https://e3center.caece.net{{ news['imgPath'] }}"{% endif %}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "News", "item": "https://e3center.caece.net/news/" },
+        { "@type": "ListItem", "position": 3, "name": {{ (news.get('shortTitle') or news['title']) | tojson }} }
+      ]
     }
     </script>
 </head>

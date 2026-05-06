@@ -7,6 +7,7 @@ import importlib.util
 from PIL import Image
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
+import seo_helpers
 
 # ── Sync content from Excel before building ───────────────────────────────────
 _spec = importlib.util.spec_from_file_location("excel_to_content", "excel_to_content.py")
@@ -18,6 +19,11 @@ _spec.loader.exec_module(_mod)
 env = Environment(loader=FileSystemLoader(['templates', 'contents']),
                   trim_blocks=True,
                   lstrip_blocks=True)
+
+# Register SEO helpers as Jinja globals so all templates can call them
+env.globals['seo_meta_description'] = seo_helpers.generate_meta_description
+env.globals['seo_strip_markdown'] = seo_helpers.strip_markdown
+env.globals['seo_detect_language'] = seo_helpers.detect_language
 
 # Helper function to get sortable date from publication item
 def get_pub_sort_key(item):
@@ -41,6 +47,10 @@ def get_pub_sort_key(item):
             break
             
     return (year, month_num)
+
+def news_slug_from_pagelink(page_link):
+    """Extract the news slug from a pageLink like '/news/2026-foo/' -> '2026-foo'."""
+    return page_link.rstrip('/').rsplit('/', 1)[-1] if page_link else ''
 
 # Load page structure from an external JSON file
 with open("contents/structures/pages.json", "r") as f:
@@ -113,16 +123,19 @@ def render_templates():
                 template = env.get_template(f"{template_file}.html")
                 path_segment = page_data["path"]
                 canonical = f"https://e3center.caece.net/{path_segment}/" if path_segment else "https://e3center.caece.net/"
-                output = template.render(
-                    pages=pages,
-                    title=page_data.get("title"),
-                    subpageTitle=page_data.get("subpageTitle"),
-                    canonicalLink=canonical,
-                    updated_time=datetime.now().strftime("%Y. %m. %d"),
-                    year=datetime.now().year,
-                    structures=structures,
-                    articles=articles
-                )
+                render_args = {
+                    "pages": pages,
+                    "title": page_data.get("title"),
+                    "subpageTitle": page_data.get("subpageTitle"),
+                    "canonicalLink": canonical,
+                    "updated_time": datetime.now().strftime("%Y. %m. %d"),
+                    "year": datetime.now().year,
+                    "structures": structures,
+                    "articles": articles
+                }
+                if "description" in page_data:
+                    render_args["description"] = page_data["description"]
+                output = template.render(**render_args)
                 
                 # Define full output path (subdirectories)
                 page_dir = os.path.join(output_dir, base_path, page_data["path"])
@@ -290,7 +303,7 @@ def render_news_pages():
                 continue
 
             # Derive slug from pageLink (e.g. /news/2026-foo/ → 2026-foo)
-            slug = page_link.strip('/').split('/')[-1]
+            slug = news_slug_from_pagelink(page_link)
 
             # Load markdown article content. Rewrite inline image references
             # (e.g. /assets/news/{slug}/3.jpg) to the 1200w WebP variant since
@@ -334,12 +347,19 @@ def render_news_pages():
                                        if img.rsplit('/', 1)[-1] != '0']
                         break
 
+            md_path = f"contents/articles/news/{slug}.md"
+            try:
+                date_modified = datetime.fromtimestamp(os.path.getmtime(md_path)).strftime("%Y-%m-%dT%H:%M:%S")
+            except OSError:
+                date_modified = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
             output = template.render(
                 news=item,
                 news_images=news_images,
                 pages=pages,
                 structures=structures,
                 year=datetime.now().year,
+                date_modified=date_modified,
             )
 
             page_dir = os.path.join(output_dir, page_link.lstrip('/'))
@@ -355,6 +375,18 @@ def render_news_pages():
 def generate_sitemap():
     from xml.etree.ElementTree import Element, SubElement, ElementTree, indent
     today = datetime.now().strftime("%Y-%m-%d")
+
+    def file_mtime(path):
+        """Return ISO date of file's last modification, or today if file is missing.
+        Logs a warning for non-FileNotFoundError OSErrors so real issues surface."""
+        try:
+            return datetime.fromtimestamp(os.path.getmtime(path)).strftime("%Y-%m-%d")
+        except FileNotFoundError:
+            return today
+        except OSError as e:
+            print(f"Warning: cannot stat {path}: {e}")
+            return today
+
     BASE = "https://e3center.caece.net"
 
     urlset = Element("urlset")
@@ -380,14 +412,18 @@ def generate_sitemap():
             link = member.get('pageLink')
             if link and link not in seen_member_links:
                 seen_member_links.add(link)
-                add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.6")
+                add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.7",
+                        lastmod=file_mtime("contents/member-info.xlsx"))
 
     # News item pages
     for section in structures.get('news', []):
         for item in section.get('items', []):
             link = item.get('pageLink')
             if link:
-                add_url(f"{BASE}{link}", changefreq="yearly", priority="0.5")
+                slug = news_slug_from_pagelink(link)
+                md_path = f"contents/articles/news/{slug}.md"
+                add_url(f"{BASE}{link}", changefreq="yearly", priority="0.6",
+                        lastmod=file_mtime(md_path))
 
     tree = ElementTree(urlset)
     indent(tree, space="  ")
@@ -396,6 +432,88 @@ def generate_sitemap():
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         tree.write(f, encoding="unicode", xml_declaration=False)
     print(f"Sitemap written to {sitemap_path}")
+
+
+# ── SEO validation ────────────────────────────────────────────────────────────
+def validate_seo():
+    """Walk rendered docs/ HTML files; emit warnings for SEO regressions.
+
+    Non-fatal — warnings print in yellow, build does not fail. Implemented as
+    a skeleton in Task 6.1; checks added in Task 6.2.
+    """
+    from bs4 import BeautifulSoup
+    YELLOW = "\033[33m"
+    RESET = "\033[0m"
+    warnings = []
+
+    def warn(msg):
+        warnings.append(msg)
+        print(f"{YELLOW}[SEO] {msg}{RESET}")
+
+    # Collected per-page descriptions for duplicate detection (used in Task 6.2)
+    descriptions = {}  # description -> list of page paths
+
+    for root, _dirs, files in os.walk(output_dir):
+        for fname in files:
+            if fname != "index.html":
+                continue
+            path = os.path.join(root, fname)
+            rel = os.path.relpath(path, output_dir)
+            with open(path, "r", encoding="utf-8") as f:
+                soup = BeautifulSoup(f.read(), "html.parser")
+            _check_page(soup, rel, warn, descriptions)
+
+    # Duplicate-description warnings (after full walk; populated in Task 6.2)
+    for desc, paths in descriptions.items():
+        if len(paths) >= 2:
+            warn(f"duplicate description on {len(paths)} pages: {paths[:3]}{'…' if len(paths) > 3 else ''}")
+
+    print(f"\nSEO check: {len(warnings)} warnings (0 errors).")
+
+
+def _check_page(soup, rel, warn, descriptions):
+    """All per-page checks live here. Implemented in Task 6.2."""
+    # 1. Description length + duplicate detection
+    desc_tag = soup.find("meta", attrs={"name": "description"})
+    desc = (desc_tag.get("content", "") if desc_tag else "").strip()
+    if not desc:
+        warn(f"{rel}: missing meta description")
+    else:
+        n = len(desc)
+        if n < 70:
+            warn(f"{rel}: description too short ({n} chars, want ≥70)")
+        elif n > 160:
+            warn(f"{rel}: description too long ({n} chars, want ≤160)")
+        descriptions.setdefault(desc, []).append(rel)
+
+    # 2. Title length
+    title_tag = soup.find("title")
+    title = (title_tag.string or "").strip() if title_tag else ""
+    if not title:
+        warn(f"{rel}: missing <title>")
+    elif len(title) < 30:
+        warn(f"{rel}: title too short ({len(title)} chars, want ≥30)")
+    elif len(title) > 60:
+        warn(f"{rel}: title too long ({len(title)} chars, want ≤60)")
+
+    # 3. Missing canonical
+    if not soup.find("link", attrs={"rel": "canonical"}):
+        warn(f"{rel}: missing <link rel=\"canonical\">")
+
+    # 4. JSON-LD parse errors
+    for i, block in enumerate(soup.find_all("script", attrs={"type": "application/ld+json"})):
+        try:
+            json.loads(block.string or "")
+        except (json.JSONDecodeError, TypeError) as e:
+            warn(f"{rel}: JSON-LD block #{i+1} invalid: {e}")
+
+    # 5. News body word count (only for /news/{slug}/ subsubpages, not the listing)
+    if rel.startswith("news/") and rel != "news/index.html":
+        article = soup.find("div", class_="news-item-body")
+        if article:
+            words = len(article.get_text(" ", strip=True).split())
+            if words < 200:
+                warn(f"{rel}: thin news body ({words} words, want ≥200)")
 
 
 # Function to copy static assets directly into docs/
@@ -524,6 +642,8 @@ if __name__ == "__main__":
     copy_videos()
     print("Generating sitemap...")
     generate_sitemap()
+    print("\nValidating SEO...")
+    validate_seo()
     print("Compressing images and converting to WebP format...")
     compress_and_convert_images()
     print("Build complete!")
