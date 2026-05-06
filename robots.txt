@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /editor/
+
+Sitemap: https://e3center.caece.net/sitemap.xml
