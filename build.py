@@ -434,6 +434,48 @@ def generate_sitemap():
     print(f"Sitemap written to {sitemap_path}")
 
 
+# ── SEO validation ────────────────────────────────────────────────────────────
+def validate_seo():
+    """Walk rendered docs/ HTML files; emit warnings for SEO regressions.
+
+    Non-fatal — warnings print in yellow, build does not fail. Implemented as
+    a skeleton in Task 6.1; checks added in Task 6.2.
+    """
+    from bs4 import BeautifulSoup
+    YELLOW = "\033[33m"
+    RESET = "\033[0m"
+    warnings = []
+
+    def warn(msg):
+        warnings.append(msg)
+        print(f"{YELLOW}[SEO] {msg}{RESET}")
+
+    # Collected per-page descriptions for duplicate detection (used in Task 6.2)
+    descriptions = {}  # description -> list of page paths
+
+    for root, _dirs, files in os.walk(output_dir):
+        for fname in files:
+            if fname != "index.html":
+                continue
+            path = os.path.join(root, fname)
+            rel = os.path.relpath(path, output_dir)
+            with open(path, "r", encoding="utf-8") as f:
+                soup = BeautifulSoup(f.read(), "html.parser")
+            _check_page(soup, rel, warn, descriptions)
+
+    # Duplicate-description warnings (after full walk; populated in Task 6.2)
+    for desc, paths in descriptions.items():
+        if len(paths) >= 2:
+            warn(f"duplicate description on {len(paths)} pages: {paths[:3]}{'…' if len(paths) > 3 else ''}")
+
+    print(f"\nSEO check: {len(warnings)} warnings (0 errors).")
+
+
+def _check_page(soup, rel, warn, descriptions):
+    """All per-page checks live here. Implemented in Task 6.2."""
+    pass  # filled in by Task 6.2
+
+
 # Function to copy static assets directly into docs/
 def copy_static():
     static_src = "static"
@@ -560,6 +602,8 @@ if __name__ == "__main__":
     copy_videos()
     print("Generating sitemap...")
     generate_sitemap()
+    print("\nValidating SEO...")
+    validate_seo()
     print("Compressing images and converting to WebP format...")
     compress_and_convert_images()
     print("Build complete!")
