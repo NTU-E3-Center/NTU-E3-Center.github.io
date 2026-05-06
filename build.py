@@ -473,7 +473,47 @@ def validate_seo():
 
 def _check_page(soup, rel, warn, descriptions):
     """All per-page checks live here. Implemented in Task 6.2."""
-    pass  # filled in by Task 6.2
+    # 1. Description length + duplicate detection
+    desc_tag = soup.find("meta", attrs={"name": "description"})
+    desc = (desc_tag.get("content", "") if desc_tag else "").strip()
+    if not desc:
+        warn(f"{rel}: missing meta description")
+    else:
+        n = len(desc)
+        if n < 70:
+            warn(f"{rel}: description too short ({n} chars, want ≥70)")
+        elif n > 160:
+            warn(f"{rel}: description too long ({n} chars, want ≤160)")
+        descriptions.setdefault(desc, []).append(rel)
+
+    # 2. Title length
+    title_tag = soup.find("title")
+    title = (title_tag.string or "").strip() if title_tag else ""
+    if not title:
+        warn(f"{rel}: missing <title>")
+    elif len(title) < 30:
+        warn(f"{rel}: title too short ({len(title)} chars, want ≥30)")
+    elif len(title) > 60:
+        warn(f"{rel}: title too long ({len(title)} chars, want ≤60)")
+
+    # 3. Missing canonical
+    if not soup.find("link", attrs={"rel": "canonical"}):
+        warn(f"{rel}: missing <link rel=\"canonical\">")
+
+    # 4. JSON-LD parse errors
+    for i, block in enumerate(soup.find_all("script", attrs={"type": "application/ld+json"})):
+        try:
+            json.loads(block.string or "")
+        except (json.JSONDecodeError, TypeError) as e:
+            warn(f"{rel}: JSON-LD block #{i+1} invalid: {e}")
+
+    # 5. News body word count (only for /news/{slug}/ subsubpages, not the listing)
+    if rel.startswith("news/") and rel != "news/index.html":
+        article = soup.find("div", class_="news-item-body")
+        if article:
+            words = len(article.get_text(" ", strip=True).split())
+            if words < 200:
+                warn(f"{rel}: thin news body ({words} words, want ≥200)")
 
 
 # Function to copy static assets directly into docs/
