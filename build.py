@@ -7,6 +7,7 @@ import importlib.util
 from PIL import Image
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
+import seo_helpers
 
 # ── Sync content from Excel before building ───────────────────────────────────
 _spec = importlib.util.spec_from_file_location("excel_to_content", "excel_to_content.py")
@@ -18,6 +19,11 @@ _spec.loader.exec_module(_mod)
 env = Environment(loader=FileSystemLoader(['templates', 'contents']),
                   trim_blocks=True,
                   lstrip_blocks=True)
+
+# Register SEO helpers as Jinja globals so all templates can call them
+env.globals['seo_meta_description'] = seo_helpers.generate_meta_description
+env.globals['seo_strip_markdown'] = seo_helpers.strip_markdown
+env.globals['seo_detect_language'] = seo_helpers.detect_language
 
 # Helper function to get sortable date from publication item
 def get_pub_sort_key(item):
