@@ -1,4 +1,52 @@
 {% extends "base.html" %}
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Publications | E3 Center",
+  "url": "https://e3center.caece.net/publications/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {% set _ns = namespace(pos=0) %}
+      {% set _comma = joiner(",") %}
+      {% for _section in structures.get('publications', []) %}
+        {% for _item in _section.get('items', []) %}
+          {% if _item.get('E3') and _item.get('status', 'published') == 'published' %}
+            {% set _ns.pos = _ns.pos + 1 %}
+            {{ _comma() }}{
+              "@type": "ListItem",
+              "position": {{ _ns.pos }},
+              "item": {
+                "@type": "ScholarlyArticle",
+                "headline": {{ _item['title'] | tojson }},
+                {% set _yr = _item.get('year', '') %}{% set _yr_str = ('20' ~ _yr[1:]) if _yr.startswith("'") else _yr %}"datePublished": "{{ _yr_str }}",
+                {% if _item.get('journal') %}"isPartOf": { "@type": "Periodical", "name": {{ _item['journal'] | tojson }} },
+                {% endif %}{% if _item.get('link') %}"url": {{ _item['link'] | tojson }},
+                {% endif %}{% if _item.get('keywords') %}"keywords": {{ _item['keywords'] | tojson }},
+                {% endif %}"author": {{ (_item.get('authors') or '') | tojson }}
+              }
+            }
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Publications" }
+  ]
+}
+</script>
+{% endblock %}
 {% block content %}
 <section id="publications" class="publications-subpage">
 
@@ -40,6 +88,13 @@
             <span class="publi-row-journal">
                 {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
             </span>
+            {% endif %}
+            {% if item.get('keywords') %}
+            <div class="pub-keywords">
+              {% for _kw in item['keywords'] %}
+              <span class="pub-keyword-chip">{{ _kw }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
         </div>
 

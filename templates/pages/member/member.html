@@ -285,6 +285,13 @@
                         {% if pub['subTitle'] %}
                         <div class="pub-subtitle">{{ pub['subTitle'] }}</div>
                         {% endif %}
+                        {% if pub.get('keywords') %}
+                        <div class="pub-keywords">
+                          {% for _kw in pub['keywords'] %}
+                          <span class="pub-keyword-chip">{{ _kw }}</span>
+                          {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -306,6 +313,13 @@
                             </svg>
                         </a>
                         <div class="pub-subtitle">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</div>
+                        {% if pub.get('keywords') %}
+                        <div class="pub-keywords">
+                          {% for _kw in pub['keywords'] %}
+                          <span class="pub-keyword-chip">{{ _kw }}</span>
+                          {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
