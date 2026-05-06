@@ -9,7 +9,9 @@
     {% set _auto_desc = _body_text if not _is_placeholder else (news['title'] ~ ' — E3 Center news, ' ~ news['month'] ~ ' 20' ~ news['year'][1:] ~ '.') %}
     {% set _meta_desc = seo_meta_description(news.get('excerpt'), _auto_desc) %}
     <meta name="description" content="{{ _meta_desc }}">
-    <meta name="keywords" content="E3 Center, NTU news, {{ news.get('category', 'News') }}, 20{{ news['year'][1:] }}">
+    {% set _news_topic_kw = news.get('topics') or [] %}
+    {% set _news_kw = _news_topic_kw + ['E3 Center', 'E3 group', news.get('category', 'News'), 'sustainable energy', 'NTU', '台大', '國立臺灣大學', 'I-Yun Lisa Hsieh', '謝依芸', '20' ~ news['year'][1:]] %}
+    <meta name="keywords" content="{{ _news_kw | select | list | join(', ') }}">
 
     <link rel="canonical" href="https://e3center.caece.net{{ news['pageLink'] }}" />
 

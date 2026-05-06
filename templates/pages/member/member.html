@@ -42,7 +42,8 @@
         {% endif %}
       {% endfor %}
     {% endfor %}
-    {% set _all_kw = (_kw_parts + _big_tags_ns.items[:3]) | select | list %}
+    {% set _lab_kw = ['E3 Center', 'E3 group', 'NTU', '台大', '國立臺灣大學', 'NTU civil engineering', 'sustainable energy', 'I-Yun Lisa Hsieh', '謝依芸'] %}
+    {% set _all_kw = (_kw_parts + _big_tags_ns.items[:3] + _lab_kw) | select | list %}
     <meta name="keywords" content="{{ _all_kw | join(', ') }}">
     <meta name="author" content="{{ member['engName'] }}">
 
