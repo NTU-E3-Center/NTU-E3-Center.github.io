@@ -271,6 +271,91 @@
     }
 }
 
+/* Phone overrides — match the compact look used on member individual page. */
+@media (width <= 30rem) {
+    .news-item-main {
+        padding-block: 1.5rem 4rem;
+        padding-inline: var(--gutter-x);
+    }
+
+    .news-item-hero {
+        margin-block-end: 1.75rem;
+    }
+
+    .news-item-hero-img img,
+    .news-item-hero-placeholder {
+        height: 12rem;
+    }
+
+    .news-item-date-badge {
+        left: 0.75rem;
+        bottom: -0.5rem;
+        --_adjusted-font-size: 0.8125rem;
+        --_adjusted-padding: 0.45rem 0.75rem;
+    }
+
+    .news-item-date-mm {
+        font-size: 0.75rem;
+    }
+
+    .news-item-date-yy {
+        font-size: 1.125rem;
+    }
+
+    .news-item-article {
+        padding-block-start: 0.75rem;
+    }
+
+    .news-item-header {
+        gap: 0.625rem;
+    }
+
+    .news-item-category {
+        font-size: 0.625rem;
+    }
+
+    .news-item-title {
+        font-size: 1.375rem;
+    }
+
+    .news-item-ext-link {
+        --_adjusted-font-size: 0.8125rem;
+    }
+
+    .news-item-divider {
+        margin-block: 1.25rem;
+    }
+
+    .news-item-body {
+        font-size: 1rem;
+        line-height: 1.6;
+
+        & p {
+            margin-block-end: 0.875rem;
+        }
+
+        & h2 { font-size: 1.375rem; margin-block: 1.5rem 0.625rem; }
+        & h3 { font-size: 1.125rem; margin-block: 1.25rem 0.5rem; }
+        & h4 { font-size: 1rem;     margin-block: 1.125rem 0.4rem; }
+        & h5 { font-size: 0.9375rem; margin-block: 1rem 0.4rem; }
+        & h6 { font-size: 0.8125rem; margin-block: 0.875rem 0.4rem; }
+
+        & li {
+            font-size: 1rem;
+            margin-block-end: 0.3125rem;
+        }
+    }
+
+    .news-item-placeholder {
+        font-size: 1rem;
+    }
+
+    .news-item-body img {
+        width: 100%;
+        margin-block: 1.25rem;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .news-item-body img {
         transition: none;

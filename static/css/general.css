@@ -179,6 +179,29 @@ i {
     --hover-transition-time: 0.15s;
     --block-skew: -3deg;
     --content-skew: calc(-1 * var(--block-skew));
+
+    /* Single source of truth for the horizontal section gutter. Every
+       section's left/right edge is governed by this token — no inner
+       container should add its own padding-inline.
+
+       Clamp ceiling = 5rem (80px). Combined with the 80rem section
+       max-width, content area on a 1440px screen = 1280 - 160 = 1120px;
+       on 1920px the section is centered with a 320px outer gutter PLUS
+       80px inner gutter, content stays at 1120px. So the page does NOT
+       keep widening on bigger screens — content is capped, padding is
+       capped. */
+    --gutter-x: clamp(2.5rem, 6vw, 6rem);
+}
+
+@media (max-width: 48rem) {
+    :root { --gutter-x: clamp(2rem, 5vw, 4rem); }
+}
+
+@media (max-width: 30rem) {
+    :root { --gutter-x: 2rem; }
+    /* Scale every rem-based size proportionally on phone. 87.5% = 14px
+       root — body text drops to 14px, headings/padding shrink ~12.5%. */
+    html { font-size: 87.5%; }
 }
 
 .fill-101-top {
@@ -362,7 +385,10 @@ body {
 section:has(.section-title) {
     width: min(100%, 80rem);
     margin-inline: auto;
-    padding: 8rem 2rem;
+    padding-block: 8rem;
+    /* Horizontal gutter from --gutter-x token (see :root). All inner
+       containers should add 0 padding-inline so everything aligns. */
+    padding-inline: var(--gutter-x);
 
     & .section-title {
         display: flex;
@@ -833,4 +859,140 @@ svg:has(use[href*="#svg-hash"]) {
 
 svg:has(use[href*="#svg-send-s"]) {
     aspect-ratio: 18/16;
+}
+
+/* ============================================================
+   Mobile RWD overrides
+   Desktop-first: rules above are the source of truth; this block
+   only adjusts what breaks on phone-sized viewports.
+   ============================================================ */
+
+/* Defensive guard: prevent horizontal scroll regardless of section bugs.
+   Compatible with the site's position:fixed elements (menu, to-top, nav-l);
+   no position:sticky in use, so this is safe. */
+html,
+body {
+    overflow-x: clip;
+    max-width: 100%;
+}
+
+@media (max-width: 640px) {
+    /* Open trigger: keep the corner placement, add touch-target height. */
+    .menu-btn {
+        top: 1.25rem;
+        right: 0;
+        padding-block: 0.5rem;
+        min-height: 2.75rem;
+
+        /* Phone: drop the "Menu" label and shrink to match the compact
+           subpage header (logo: 2rem, padding-block: 0.625rem → ~52px). */
+        @media (max-width: 30rem) {
+            top: 0.625rem;
+            padding: 0.25rem 0.625rem;
+            min-height: 2rem;
+            gap: 0;
+
+            & p {
+                display: none;
+            }
+
+            & svg {
+                width: 1rem;
+            }
+        }
+    }
+
+    /* Off-canvas panel: clamp width to viewport (no horizontal scroll)
+       and scale every interior dimension with viewport height (dvh) so
+       the full menu fits on short screens like iPhone SE without
+       clipping. The skew geometry already accounts for height-based
+       slant via the existing right offset. */
+    .menu {
+        --_menu-width: min(20rem, calc(100vw - 1.5rem));
+        --_menu-a-width: 100%;
+
+        .menu-wrapper {
+            padding-block: clamp(0.75rem, 2dvh, 1.5rem);
+            /* Right padding must cover the skew offset: the panel is
+               translated off-screen by (-100lvh * tan(3°) / 2) ≈ 22px on
+               a tall phone, plus the parallelogram's slanted right edge
+               eats more horizontal room. 3rem keeps text fully visible. */
+            padding-inline: 1.25rem 3rem;
+            gap: clamp(0.5rem, 1.4dvh, 1rem);
+            justify-content: safe center;
+            /* Stretch flex children so every <ui> wrapper spans the full
+               panel width — this makes the inner .menu-a buttons land on
+               the same left/right edges instead of shrinking to content. */
+            align-items: stretch;
+            overflow-y: auto;
+        }
+
+        /* The <ui> wrappers are unknown elements (display: inline by
+           default) — promote them to block so their child .menu-a fills
+           the row. Cheaper than fixing the template. */
+        .menu-wrapper > * {
+            display: block;
+            width: 100%;
+        }
+
+        .menu-a {
+            --_adjusted-font-size: clamp(0.875rem, 2.2dvh, 1rem);
+            min-height: clamp(2.25rem, 5.5dvh, 2.75rem);
+            width: 100%;
+        }
+
+        & svg {
+            width: clamp(1rem, 3dvh, 1.375rem);
+        }
+
+        /* Close button stays compact and right-aligned — opt out of the
+           stretch above so it doesn't span the row. */
+        .menu-wrapper > :has(.menu-close-btn) {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .menu-close-btn {
+            min-width: clamp(2.25rem, 5.5dvh, 2.75rem);
+            min-height: clamp(2.25rem, 5.5dvh, 2.75rem);
+            width: auto;
+            justify-content: center;
+        }
+    }
+
+    /* Side-rail section nav is desktop-only; on phones it consumes ~56px
+       of right gutter and overlaps content. The slide-in menu replaces it. */
+    .nav-l {
+        display: none;
+    }
+
+    /* Smaller vertical padding on mobile. Horizontal padding (padding-inline)
+       is intentionally NOT set here — it comes from the --gutter-x token so
+       a single source of truth controls all section gutters. */
+    section:has(.section-title) {
+        padding-block: 4rem;
+    }
+
+    /* Compact footer on phone: smaller logo, gap, link size. */
+    footer {
+        padding: 2rem var(--gutter-x);
+        gap: 1rem;
+
+        .ftr-logo svg {
+            width: 2rem;
+        }
+
+        .ftr-link-wrapper {
+            gap: 0.875rem 1.25rem;
+
+            .ftr-link {
+                font-size: 0.9375rem;
+            }
+        }
+
+        .ftr-info {
+            font-size: 0.8125rem;
+        }
+    }
 }

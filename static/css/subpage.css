@@ -99,13 +99,44 @@
     }
 }
 
-/* Subpage section layout (replaces section:has(.section-title) for subpages) */
-#members,
-#news,
-#publications {
+@media (width <= 30rem) {
+    /* Compact phone header — logo + breadcrumb wrap to two rows when
+       needed; horizontal padding follows the global gutter token. */
+    .subpage-header {
+        padding-block: 0.625rem;
+        padding-inline: var(--gutter-x);
+        gap: 0.5rem 0.875rem;
+        flex-wrap: wrap;
+    }
+
+    .subpage-header-logo img {
+        height: 2rem;
+    }
+
+    .breadcrumb-parent {
+        font-size: 1.125rem;
+    }
+
+    .breadcrumb-sep {
+        font-size: 1.125rem;
+    }
+
+    .breadcrumb-current {
+        font-size: 0.8125rem;
+    }
+}
+
+/* Subpage section layout (replaces section:has(.section-title) for subpages).
+   Scoped to subpage classes — using #ID selectors here was bleeding into
+   the homepage's <section id="members"> etc. and overriding the gutter.
+   Padding-inline reuses the homepage --gutter-x token for consistency. */
+.members-subpage,
+.news-subpage,
+.publications-subpage {
     width: min(100%, 80rem);
     margin-inline: auto;
-    padding: 4rem 2rem 8rem;
+    padding-block: 4rem 8rem;
+    padding-inline: var(--gutter-x);
 }
 
 /* ── Members subpage redesign ─────────────────────────────────────── */
@@ -557,7 +588,7 @@
     align-items: center;
     gap: 1.5rem;
     padding-block: 1.125rem;
-    padding-inline: 0.75rem;
+    /* No padding-inline — first column aligns with the section gutter. */
     border-bottom: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
     text-decoration: none;
 }
@@ -700,6 +731,188 @@
 
     .news-row-title {
         font-size: 1rem;
+    }
+}
+
+/* ============================================================
+   Phone overrides for subpage layouts (≤480px)
+   Compact padding + smaller typography on news / publications /
+   members listing pages, matching the individual member subpage.
+   ============================================================ */
+@media (width <= 30rem) {
+    /* Page-level padding — match member individual subpage's main(). */
+    .members-subpage,
+    .news-subpage,
+    .publications-subpage {
+        padding-block: 1.5rem 4rem;
+    }
+
+    /* ── Members listing ─────────────────────────────────────────── */
+    .members-subpage {
+        & .mem-rows {
+            margin-block-start: 0.5rem;
+        }
+
+        & .mem-row {
+            gap: 0.75rem;
+            padding-block: 1rem;
+            padding-inline-start: 0.5rem;
+            padding-inline-end: 0.25rem;
+        }
+
+        & .mem-card {
+            gap: 1rem;
+        }
+
+        & .mem-row-photo {
+            --_img-width: 4.5rem;
+            --_img-border-w: 0.125rem;
+            --_img-border-r: 0.25rem;
+        }
+
+        & .mem-row-en {
+            font-size: 1.25rem;       /* sub-sub under group title */
+        }
+
+        & .mem-row-zh {
+            font-size: 0.875rem;
+        }
+
+        & .mem-row-position {
+            margin-block-start: 0.125rem;
+
+            & p:first-child {
+                font-size: 0.875rem;
+            }
+
+            & p:not(:first-child) {
+                font-size: 0.8125rem;
+            }
+        }
+
+        & .mem-row-links {
+            margin-block-start: 0.375rem;
+            gap: 0.375rem;
+
+            & .mem-row-tag {
+                --_adjusted-font-size: 0.75rem;
+            }
+        }
+
+        & .mem-alum-grid {
+            grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+            gap: 1.25rem 0.625rem;
+        }
+
+        & .mem-alum-photo {
+            --_img-width: 4rem;
+        }
+
+        & .mem-alum-name .mem-alum-en {
+            font-size: 0.875rem;
+        }
+
+        & .mem-alum-name .mem-alum-zh {
+            font-size: 0.75rem;
+        }
+    }
+
+    /* PI featured row on phone — keep emphasis but tighter. */
+    .mem-group--pi {
+        & .mem-row-photo {
+            --_img-width: 6rem;
+        }
+
+        & .mem-row-en {
+            font-size: 1.5rem;
+        }
+
+        & .mem-row-zh {
+            font-size: 1rem;
+        }
+    }
+
+    /* ── News listing ────────────────────────────────────────────── */
+    .news-filter-tab {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    .news-cat-section {
+        margin-block-end: 2.5rem;
+    }
+
+    .news-cat-title,
+    .publications-subpage .publi-group-title {
+        font-size: 0.625rem;
+        margin-block-end: 0.625rem;
+    }
+
+    .news-row {
+        grid-template-columns: 3rem 1fr;       /* drop the trailing arrow column */
+        gap: 0.625rem;
+        padding-block: 0.75rem;
+        padding-inline: 0.25rem;
+    }
+
+    .news-row--no-date {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hide the right-side arrow on phone — saves a column, the whole
+       row is already a tappable link. Mirrors the .mem-row-arrow rule
+       at the 48rem breakpoint. */
+    .news-row-arrow {
+        display: none;
+    }
+
+    .news-row-mm {
+        font-size: 0.625rem;
+    }
+
+    .news-row-yy {
+        font-size: 0.9375rem;
+    }
+
+    .news-row-title {
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+
+    .news-row-badge {
+        font-size: 0.5625rem;
+        padding: 0.1rem 0.45rem;
+    }
+
+    /* ── Publications listing ────────────────────────────────────── */
+    .publications-subpage {
+        & .publi-group {
+            margin-block-end: 2.5rem;
+        }
+    }
+
+    .publi-show-more {
+        font-size: 0.75rem;
+        padding: 0.3rem 1rem;
+    }
+
+    /* Google Scholar CTA — was sized for desktop (1.25rem button); shrink
+       to match the rest of the phone-sized typography. */
+    .publi-scholar-cta {
+        margin-block-start: 2rem;
+        padding-block-start: 1rem;
+        gap: 0.875rem;
+
+        & .skewed-block[b-role="btn"] {
+            --_adjusted-font-size: 0.875rem;
+            --_adjusted-padding: 0.4em 0.875em;
+        }
+
+        & .publi-scholar-note {
+            min-width: 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
     }
 }
 
