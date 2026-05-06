@@ -23,7 +23,7 @@
               "item": {
                 "@type": "NewsArticle",
                 "headline": {{ _item['title'] | tojson }},
-                "datePublished": "20{{ _item['year'][1:] }}-{{ _month_map.get(_item['month'], '01') }}",
+                "datePublished": "20{{ _item['year'][1:] }}-{{ _month_map.get(_item['month'], '01') }}-01",
                 "url": "https://e3center.caece.net{{ _item['pageLink'] }}"
               }
             }

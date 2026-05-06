@@ -161,10 +161,16 @@ for row in ws.iter_rows(min_row=2, values_only=True):
 
     # ── per-member JSON ───────────────────────────────────────────────────────
     if has_page:
+        if section == 'Principal Investigator':
+            position_for_seo = 'Director of E3 Center, NTU'
+        else:
+            position_for_seo = position or None
+
         member_json = {
             'chiNameEng':      display_name(full_name, nickname),
             'pubName':         full_name,   # plain Full Name for publication matching
             'metaDescription': meta_description,
+            'position':        position_for_seo,
         }
         if not is_pi:
             member_json['graduated'] = (graduated.lower() == 'true')

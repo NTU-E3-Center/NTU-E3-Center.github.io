@@ -6,7 +6,7 @@
     <title>{{ member['chiNameEng'] }} | E3 Center</title>
     {# Clean interest content: strip tags, normalise slash-bullets to commas #}
     {% set _interest_raw = (member.get('interest_content') or '') | striptags %}
-    {% set _interest = _interest_raw | replace('/', ', ') | replace(',,', ',') | trim(' ,') %}
+    {% set _interest = _interest_raw | replace('/', ', ') | replace(' ,', ',') | replace(',,', ',') | trim(' ,') %}
 
     {# Capture first about-section's rendered text for fallback B #}
     {% set _ns = namespace(about_first='') %}
@@ -112,7 +112,7 @@
       "name": "{{ member['chiNameEng'] }}",
       "alternateName": "{{ member['chiName'] }}",
       "url": "https://e3center.caece.net{{ member['pageLink'] }}/",
-      {% if member.get('position') %}"jobTitle": "{{ member['position'] }}",
+      {% if member.get('position') %}"jobTitle": {{ member['position'] | tojson }},
       {% endif %}"affiliation": { "@id": "https://e3center.caece.net/#organization" }{% if member.get('pageContent', {}).get('links') %}{% set _links_ns = namespace(has_link=false) %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{% set _links_ns.has_link = true %}{% endif %}{% endfor %}{% if _links_ns.has_link %},
       "sameAs": [{% set comma = joiner() %}{% for tag in member['pageContent']['links'] %}{% if tag.get('link') and not tag['link'].startswith('mailto:') and not 'maps' in tag['link'] %}{{ comma() }}"{{ tag['link'] }}"{% endif %}{% endfor %}]{% endif %}{% endif %}
     }
