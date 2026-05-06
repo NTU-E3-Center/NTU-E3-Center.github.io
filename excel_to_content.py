@@ -115,6 +115,13 @@ def col(row, name):
     return val if val is not None else ''
 
 
+def col_optional(row, name):
+    """Return cell value for optional column. Returns None if column header is absent."""
+    if name not in headers:
+        return None
+    return row[headers.index(name)]
+
+
 # ── process rows ──────────────────────────────────────────────────────────────
 
 members_by_section = {s: [] for s in SECTION_ORDER}
@@ -144,6 +151,7 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     interests = str(col(row, 'Research Interests')   or '').strip()
     curr_pos  = str(col(row, 'Current Position')     or '').strip()
     batch     = str(col(row, 'Batch')                or '').strip()
+    meta_description = (str(col_optional(row, 'metaDescription') or '').strip()) or None
 
     has_page      = bool(about or position)
     display_email = email or ntu_email
@@ -154,8 +162,9 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     # ── per-member JSON ───────────────────────────────────────────────────────
     if has_page:
         member_json = {
-            'chiNameEng': display_name(full_name, nickname),
-            'pubName':    full_name,   # plain Full Name for publication matching
+            'chiNameEng':      display_name(full_name, nickname),
+            'pubName':         full_name,   # plain Full Name for publication matching
+            'metaDescription': meta_description,
         }
         if not is_pi:
             member_json['graduated'] = (graduated.lower() == 'true')
