@@ -845,7 +845,8 @@
 
     line-height: 1.5;
 
-    padding-inline: 1rem;
+    /* Inner padding removed: content aligns to the section-title's left
+       edge, governed by the parent section's responsive padding-inline. */
 
     display: flex;
     gap: var(--_gap) calc(var(--_gap) * 1.5);
@@ -863,6 +864,9 @@
             /* margin-block-start: 1rem; */
             font-size: 1.3125rem;
             text-indent: 2rem;
+            text-align: justify;
+            text-wrap: pretty;
+            hyphens: auto;
 
             & sub {
                 font-size: 0.75em;
@@ -902,7 +906,7 @@
     }
 
     &[which='sponsors'] {
-        padding-inline: 3rem;
+        /* No inline padding — content shares the section's --gutter-x. */
 
         & a {
             display: grid;
@@ -954,7 +958,8 @@
 }
 
 .mem-section {
-    padding-inline: 1rem;
+    /* No inner padding — aligns flush with section-title; parent section
+       owns the responsive horizontal breathing. */
 
     .mem-quote {
         width: 0.875rem;
@@ -1092,12 +1097,14 @@
                 gap: 0;
 
                 .EngName {
-                    font-size: 3.75rem;
-                    line-height: 1;
+                    /* Capped at h3 (1.75rem) so the person-name subheading
+                       never exceeds the section subheading above it. */
+                    font-size: 1.75rem;
+                    line-height: 1.1;
                 }
 
                 .ChiName {
-                    font-size: 1.5rem;
+                    font-size: 1.25rem;
                 }
             }
         }
@@ -1250,12 +1257,13 @@
     --_res-block-width: 25rem;
     --_res-info-width: 20rem;
 
-    padding-inline: 1rem;
+    /* No inner padding — see note on .mem-section / .abt-section above. */
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--_res-block-width), 1fr));
     gap: 2rem 1rem;
-    justify-content: space-between;
+    justify-content: center;
+    justify-items: center;
 
     @media (width < 75rem) {
         --_res-block-width: var(--_res-info-width);
@@ -1266,8 +1274,7 @@
         flex-wrap: wrap;
         gap: 1rem 0.625rem;
         align-items: start;
-        /* justify-content: center; */
-        /* @media (width < 42rem) {justify-content: center;} */
+        justify-content: center;
     }
 
     .res-fields-block {
@@ -1699,7 +1706,8 @@
     }
 
     .publi-block-wrapper {
-        margin-inline: 1.5rem;
+        /* Removed margin-inline: 1.5rem — was creating a different left
+           edge from .mem-section (1rem) and the section-title (0). */
 
         &>*+* {
             margin-block-start: var(--_block-gap);
@@ -1770,7 +1778,7 @@
 .more,
 .publi-more {
     margin-block-start: 1rem;
-    margin-inline-start: 0.5rem;
+    /* No inline indent — aligns with section-title and inner content. */
     width: fit-content;
 
     display: flex;
@@ -2191,7 +2199,8 @@
 
 @media (width <=48rem) {
     section:has(.section-title) {
-        padding: 6rem 1.5rem;
+        /* padding-inline comes from --gutter-x token; only override vertical. */
+        padding-block: 6rem;
 
         .section-title {
             & h2 {
@@ -2243,22 +2252,40 @@
         }
     }
 
-    /* ppl */
+    /* ppl — hierarchy cap: at this breakpoint h3 is 1.25rem, so all
+       person-level "sub-sub" titles (EngName, ChiName, PhD names) must
+       be ≤ 1.25rem. Note .EngName/.ChiName are <a> tags, NOT div/span. */
     .mem-section[who='L'] {
         .mem-name {
-            & div {
-                margin-block-start: 0rem;
-                font-size: 2.5rem;
+            .EngName {
+                font-size: 1.25rem;
+                line-height: 1.15;
             }
 
-            & span {
-                font-size: 1.25rem;
+            .ChiName {
+                font-size: 1rem;
             }
         }
 
         .mem-info {
             font-size: 1rem;
         }
+    }
+
+    .mem-section[who='M'] {
+        .mem-name .mem-name-en {
+            font-size: 1.25rem;
+        }
+
+        .mem-name .mem-name-zh {
+            font-size: 0.875rem;
+        }
+    }
+
+    /* Research topic name — also a sub-sub heading (under h3 like
+       "Energy / Economics / Environment"). Cap at h3 size. */
+    .res-section .res-info .res-tag {
+        font-size: 1.25rem;
     }
 
     .publi-section {
@@ -2359,5 +2386,209 @@
 
     & svg {
         height: calc(var(--_tag-height) * 0.55);
+    }
+}
+
+/* ============================================================
+   Phone-only homepage overrides (≤480px)
+   The 48rem (768px) block above already covers tablets+phones.
+   This block fixes the deltas that still break at iPhone SE / 14 / 15.
+   ============================================================ */
+@media (width <= 30rem) {
+    /* Section heading — universal: every section that uses .section-title
+       (Members, Publications, News, Research, Group Life, Videos) inherits
+       this. Smaller h2 + matching SVG height keeps proportions correct. */
+    section:has(.section-title) {
+        .section-title h2 {
+            font-size: 2rem;
+        }
+
+        .section-title svg {
+            height: 1.75rem;
+            translate: 0.25rem -0.5rem;
+        }
+
+        & .section-subtitle div {
+            font-size: 0.9375rem;
+        }
+    }
+
+    /* Sub-section headings — Director / PhD Students / Past News etc. */
+    h3 {
+        font-size: 1.125rem;
+        margin-block: 1.75rem 0.625rem;
+    }
+
+    /* Hero — h1 was 3rem (48px) inherited from the 100rem rule and never
+       shrunk further. iPhone SE only fits ~6 chars at that size. */
+    #home {
+        --_home-min-height: 38rem;
+
+        .hp-title h1 {
+            font-size: 2.25rem;
+
+            & svg {
+                height: 1.875rem;
+                translate: 0.25rem -0.5rem;
+            }
+        }
+
+        .hp-3e p {
+            font-size: 1.25rem;
+        }
+    }
+
+    /* About — collapse the logo gap and shrink sponsor logos. The
+       --_para-min-width: 50rem flex-basis trick already wraps correctly
+       once the viewport is narrow; only the logo row needed help. */
+    .abt-section {
+        --_logo-width: 12rem;
+        gap: 1.25rem 1rem;
+
+        .abt-logos {
+            gap: 1.25rem 2rem;
+
+            & img {
+                height: 4rem;
+            }
+        }
+
+        &[which='sponsors'] {
+            padding-inline: 1rem;
+
+            & img {
+                height: 3rem;
+            }
+        }
+    }
+
+    /* Members "Leaders" (Prof. Hsieh) — stack into a compact profile card.
+       Thumbnail-sized portrait (the card is clickable; full-size portrait
+       lives on the personal page). Name sized at-or-below h3 since it's a
+       sub-sub-heading under "Director". */
+    .mem-section[who='L'] {
+        --_img-width: 7rem;
+
+        .mem-block {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mem-text {
+            margin-left: 0;
+            justify-items: center;
+            text-align: center;
+            gap: 0.375rem;
+        }
+
+        .mem-name {
+            justify-items: center;
+            gap: 0.0625rem;
+
+            /* Hierarchy cap on phone: h3 = 1.125rem, so .EngName ≤ 1.125rem. */
+            .EngName {
+                font-size: 1.125rem;
+                line-height: 1.2;
+            }
+
+            .ChiName {
+                font-size: 0.875rem;
+            }
+        }
+
+        .mem-info {
+            font-size: 0.8125rem;
+            line-height: 1.45;
+            text-wrap: pretty;
+        }
+    }
+
+    /* Members "M" grid — clickable thumbnails. With doubled gaps the grid
+       falls back to 2-per-row on smaller phones (which gives nicer breathing
+       than 3 cramped cards anyway). */
+    .mem-section[who='M'] {
+        --_img-width: 6.25rem;
+        gap: 2rem 1rem;
+        justify-content: space-around;
+
+        .mem-block {
+            padding: 0.25rem;
+            gap: 0.625rem;
+        }
+
+        .mem-name .mem-name-en {
+            font-size: 1rem;
+            gap: 0.25rem;
+        }
+
+        .mem-name .mem-name-zh {
+            font-size: 0.75rem;
+        }
+    }
+
+    /* Members "S" — stack image + name vertically isn't ideal, keep them
+       horizontal but allow each card to span the full row. */
+    .mem-section[who='S'] {
+        --_mem-block-width: 100%;
+        gap: 1rem;
+
+        .mem-block {
+            justify-content: flex-start;
+            gap: 0.75rem;
+
+            .mem-name {
+                width: auto;
+                font-size: 1.25rem;
+
+                & span {
+                    font-size: 0.875rem;
+                }
+            }
+        }
+    }
+
+    /* Research — info column was 20rem (320px); on a 390px screen with
+       16px section padding that leaves 22px for the field block + image.
+       Let it shrink with viewport instead. */
+    .res-section {
+        --_res-info-width: min(20rem, calc(100vw - 4rem));
+        gap: 1.5rem;
+
+        /* Hierarchy cap: h3 phone = 1.125rem; .res-tag is sub-sub. */
+        .res-info .res-tag {
+            font-size: 1.125rem;
+        }
+
+        .res-info .res-info-minor {
+            font-size: 0.9375rem;
+        }
+    }
+
+    /* Publications & news titles — also sub-sub under h3 categories.
+       --_font-size-l drives .publi-title; cap below h3 1.125rem. */
+    .publi-section {
+        --_font-size-l: 1.0625rem;
+    }
+
+    /* Group-life "all" — grid items were 245px each → single column with
+       145px of empty right gutter. Two-up at narrower widths. */
+    .glf-section[which='all'] {
+        --_img-width: calc((100vw - 3rem) / 2 - 0.5rem);
+        gap: 1rem 0.75rem;
+        justify-content: center;
+    }
+
+    /* News & publications — section-title "All" button on its own line so
+       it doesn't compete with the headline for horizontal space. */
+    #members .section-title,
+    #news .section-title,
+    #publications .section-title {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+
+        & .more {
+            --_adjusted-font-size: 1rem;
+        }
     }
 }
