@@ -246,7 +246,7 @@
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
-@media (width <= 48rem) {
+@media (max-width: 64rem) {
     .news-item-main {
         padding: 2rem 1.5rem 6rem;
     }
@@ -272,7 +272,7 @@
 }
 
 /* Phone overrides — match the compact look used on member individual page. */
-@media (width <= 30rem) {
+@media (max-width: 37.5rem) {
     .news-item-main {
         padding-block: 1.5rem 4rem;
         padding-inline: var(--gutter-x);

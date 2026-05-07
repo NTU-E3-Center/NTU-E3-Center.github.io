@@ -13,6 +13,16 @@ main {
 
 
 .main-info {
+    /* Same block-level cap + center as #about / #research / .publication
+       so the hero shares a consistent column with the prose blocks below.
+       width: 100% is required because `margin-inline: auto` on a grid item
+       suppresses the default stretch — without an explicit width the box
+       would shrink to content. With width: 100% + max-width, the block
+       always fills the parent up to the cap, then centers. */
+    width: 100%;
+    max-width: 85ch;
+    margin-inline: auto;
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -27,7 +37,7 @@ main {
         margin-left: 2rem;
         margin-top: 2rem;
 
-        @media (width < 36rem) {
+        @media (max-width: 37.5rem) {
             margin-left: 0;
         }
     }
@@ -144,11 +154,19 @@ h2 {
     }
 }
 
+/* Block-level cap + center: the entire #about section (heading + content)
+   has a readability cap and centers itself inside <main>. width: 100% is
+   required because `margin-inline: auto` on a grid item suppresses stretch
+   — without it the section would collapse to content width when prose is
+   short. */
 #about {
+    width: 100%;
+    max-width: 85ch;
+    margin-inline: auto;
+
     .content p {
         font-size: 1.25rem;
         text-indent: 1.5rem;
-        max-width: 70ch;
         text-align: justify;
         hyphens: auto;
         line-height: 1.55;
@@ -181,13 +199,17 @@ h2 {
     .content li {
         font-size: 1.25rem;
         margin-block-end: 0.5rem;
-        max-width: 70ch;
         text-align: justify;
     }
 }
 
 /* research */
 #research {
+    /* Same block-level cap + center as #about / .publication. */
+    width: 100%;
+    max-width: 85ch;
+    margin-inline: auto;
+
     .content {
         display: flex;
         flex-wrap: wrap;
@@ -275,9 +297,15 @@ h2 {
     --_font-size-l: 1.5rem;
     --_font-size-s: 1rem;
 
+    /* Same block-level cap + center pattern as #about / #research —
+       85ch keeps publication, research and about all sharing the same
+       column width inside <main>. */
+    width: 100%;
+    max-width: 85ch;
+    margin-inline: auto;
+
     .content {
         font-size: var(--_font-size-l);
-        max-width: 60ch;
 
         &>*+* {
             margin-block-start: 0.75rem;
@@ -372,7 +400,7 @@ h2 {
    At 14px root (set globally on phone in general.css), all sizes
    shrink ~12.5% naturally — these tweaks are absolute targets.
    ============================================================ */
-@media (width <= 30rem) {
+@media (max-width: 37.5rem) {
     main {
         /* Use the same gutter token as the homepage so the member page
            lines up with section content edges. */
@@ -387,7 +415,10 @@ h2 {
         margin-top: 1.5rem;
         flex-direction: column;
         align-items: center;
-        text-align: center;
+        /* Block (and child blocks via align-items: center) stay centered;
+           text inside reads left-to-right per the global rule "block
+           centered, text left-aligned". */
+        text-align: left;
 
         /* Smaller portrait — this IS the personal page, but the photo
            was 320px (~20rem) which is awkward on a 360px viewport. */
