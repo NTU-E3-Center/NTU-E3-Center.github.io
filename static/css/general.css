@@ -191,14 +191,43 @@ i {
        keep widening on bigger screens — content is capped, padding is
        capped. */
     --gutter-x: clamp(2.5rem, 6vw, 6rem);
+
+    /* Vertical rhythm tokens for top-level homepage sections. Single source
+       of truth so every section breathes the same regardless of content.
+       --section-pad-y       padding-block on each section
+       --section-title-gap   space between .section-title and first content row
+    */
+    --section-pad-y: 8rem;
+    --section-title-gap: 2.5rem;
+
+    /* Subpage header geometry — used to vertically center the fixed menu
+       button against the header. If you change the header padding-block or
+       logo height, update --header-h to match.
+         desktop (>1024): padding-block 1.625rem × 2 + logo 4rem   = 7.25rem
+         tablet  (≤1024): padding-block 1rem    × 2 + logo 3rem   = 5rem
+         mobile  (≤600) : padding-block 0.625rem× 2 + logo 1.5rem = 2.75rem  */
+    --header-h: 7.25rem;
+    --menu-btn-h: 2.5rem;
 }
 
-@media (max-width: 48rem) {
-    :root { --gutter-x: clamp(2rem, 5vw, 4rem); }
+@media (max-width: 64rem) {
+    :root {
+        --gutter-x: clamp(2rem, 5vw, 4rem);
+        --section-pad-y: 6rem;
+        --section-title-gap: 2rem;
+        --header-h: 5rem;
+        --menu-btn-h: 2.75rem;
+    }
 }
 
-@media (max-width: 30rem) {
-    :root { --gutter-x: 2rem; }
+@media (max-width: 37.5rem) {
+    :root {
+        --gutter-x: 2rem;
+        --section-pad-y: 4rem;
+        --section-title-gap: 1.5rem;
+        --header-h: 2.75rem;
+        --menu-btn-h: 2rem;
+    }
     /* Scale every rem-based size proportionally on phone. 87.5% = 14px
        root — body text drops to 14px, headings/padding shrink ~12.5%. */
     html { font-size: 87.5%; }
@@ -385,10 +414,25 @@ body {
 section:has(.section-title) {
     width: min(100%, 80rem);
     margin-inline: auto;
-    padding-block: 8rem;
+    padding-block: var(--section-pad-y);
     /* Horizontal gutter from --gutter-x token (see :root). All inner
        containers should add 0 padding-inline so everything aligns. */
     padding-inline: var(--gutter-x);
+
+    /* Standard gap between section heading and the first content row.
+       Inner containers (.mem-section, .publi-section, etc.) should not
+       add their own top margin — this single rule owns the rhythm. */
+    & > .section-title {
+        margin-block-end: var(--section-title-gap);
+    }
+
+    /* If the section's first content row is an h3 (Members / News group
+       headings), zero its top margin so the gap from the section-title
+       comes solely from --section-title-gap. Subsequent h3s keep their
+       default 4rem top margin to separate groups within the section. */
+    & > h3:first-of-type {
+        margin-block-start: 0;
+    }
 
     & .section-title {
         display: flex;
@@ -701,7 +745,9 @@ body {
     --_adjusted-font-size: 1.125rem;
 
     position: fixed;
-    top: 2rem;
+    /* Vertically center the button against the subpage header at every
+       breakpoint by subtracting the button height from the header height. */
+    top: calc((var(--header-h) - var(--menu-btn-h)) / 2);
     right: -1rem;
     z-index: 200;
     transition: all var(--hover-transition-time), margin 0s;
@@ -876,32 +922,20 @@ body {
     max-width: 100%;
 }
 
-@media (max-width: 640px) {
-    /* Open trigger: keep the corner placement, add touch-target height. */
+/* Tablet+phone: shift the menu trigger to the screen edge with a touch
+   target. Tied to the same 48rem cutover where the subpage header shrinks
+   so the trigger and header transition together. */
+@media (max-width: 64rem) {
     .menu-btn {
-        top: 1.25rem;
+        /* `top` is computed by the calc on .menu-btn using --header-h /
+           --menu-btn-h tokens — no need to override per breakpoint. */
         right: 0;
         padding-block: 0.5rem;
         min-height: 2.75rem;
-
-        /* Phone: drop the "Menu" label and shrink to match the compact
-           subpage header (logo: 2rem, padding-block: 0.625rem → ~52px). */
-        @media (max-width: 30rem) {
-            top: 0.625rem;
-            padding: 0.25rem 0.625rem;
-            min-height: 2rem;
-            gap: 0;
-
-            & p {
-                display: none;
-            }
-
-            & svg {
-                width: 1rem;
-            }
-        }
     }
+}
 
+@media (max-width: 37.5rem) {
     /* Off-canvas panel: clamp width to viewport (no horizontal scroll)
        and scale every interior dimension with viewport height (dvh) so
        the full menu fits on short screens like iPhone SE without
@@ -967,12 +1001,8 @@ body {
         display: none;
     }
 
-    /* Smaller vertical padding on mobile. Horizontal padding (padding-inline)
-       is intentionally NOT set here — it comes from the --gutter-x token so
-       a single source of truth controls all section gutters. */
-    section:has(.section-title) {
-        padding-block: 4rem;
-    }
+    /* Section vertical padding now comes from --section-pad-y, controlled
+       per-breakpoint at :root (see top of file). No override needed here. */
 
     /* Compact footer on phone: smaller logo, gap, link size. */
     footer {
@@ -994,5 +1024,25 @@ body {
         .ftr-info {
             font-size: 0.8125rem;
         }
+    }
+}
+
+/* Phone-specific menu trigger — flat (un-nested) for older Safari that
+   doesn't support nested @media inside another @media block. Drops the
+   "Menu" label and matches the compact subpage header height. */
+@media (max-width: 37.5rem) {
+    .menu-btn {
+        /* `top` comes from the universal calc; just shrink the touch box. */
+        padding: 0.25rem 0.625rem;
+        min-height: 2rem;
+        gap: 0;
+    }
+
+    .menu-btn p {
+        display: none;
+    }
+
+    .menu-btn svg {
+        width: 1rem;
     }
 }
