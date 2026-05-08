@@ -882,25 +882,32 @@
 
 }
 
-/* members / news / publications — section-title "All …" button */
-#members .section-title,
-#news .section-title,
-#publications .section-title {
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
+/* members / news / publications — bottom-of-section "View all" CTA */
+.section-cta {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 3rem;
+}
 
-    & .more {
-        --_adjusted-font-size: 1.25rem;
-        --_adjusted-padding: 0.5em 1em;
-        margin: 0 0 0.5rem 0;
-        flex-shrink: 0;
+.section-cta-btn {
+    --_adjusted-font-size: 1.125rem;
+    --_adjusted-padding: 0.875em 2em;
 
-        & svg {
-            height: 1em;
-            width: auto;
-            translate: 0 0;
-        }
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+
+    & svg {
+        height: 1em;
+        width: auto;
+        transition: translate 200ms ease-out;
+    }
+
+    &:hover svg,
+    &:focus-visible svg {
+        translate: 0.25rem 0;
     }
 }
 
@@ -2539,16 +2546,13 @@
         justify-content: center;
     }
 
-    /* News & publications — section-title "All" button on its own line so
-       it doesn't compete with the headline for horizontal space. */
-    #members .section-title,
-    #news .section-title,
-    #publications .section-title {
-        flex-wrap: wrap;
-        gap: 0.75rem;
+    /* CTA scales down slightly on tablet/phone */
+    .section-cta {
+        margin-block-start: 2rem;
+    }
 
-        & .more {
-            --_adjusted-font-size: 1rem;
-        }
+    .section-cta-btn {
+        --_adjusted-font-size: 1rem;
+        --_adjusted-padding: 0.75em 1.5em;
     }
 }

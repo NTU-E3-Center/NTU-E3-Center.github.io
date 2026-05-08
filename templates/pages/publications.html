@@ -61,6 +61,45 @@
         {% endfor %}
     {% endfor %}
 
+    {# ── Macro: render a single book row ────────────────────────────────────── #}
+    {% macro pub_book_row(item) %}
+    {% if item.get('link') %}
+    <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener">
+    {% else %}
+    <div class="news-row">
+    {% endif %}
+
+        <div class="news-row-date">
+            <span class="news-row-mm">Book</span>
+            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
+        </div>
+
+        <div class="news-row-body">
+            <p class="news-row-title">{{ item['title'] }}</p>
+            {% if item.get('authors') %}
+            <span class="publi-row-authors">{{ item['authors'] }}</span>
+            {% endif %}
+            {% if item.get('publisher') %}
+            <span class="publi-row-journal">
+                {{- item['publisher'] -}}
+                {%- if item.get('isbn') %}. ISBN {{ item['isbn'] }}{%- endif -%}
+            </span>
+            {% endif %}
+        </div>
+
+        {% if item.get('link') %}
+        <span class="news-row-arrow" aria-hidden="true">
+            <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+        </span>
+        {% endif %}
+
+    {% if item.get('link') %}
+    </a>
+    {% else %}
+    </div>
+    {% endif %}
+    {% endmacro %}
+
     {# ── Macro: render a single publication row ─────────────────────────────── #}
     {% macro pub_row(item) %}
     {% set status = item.get('status', 'published') %}
@@ -144,13 +183,15 @@
     {% endif %}
     {% endmacro %}
 
+    {% set book_items = all_items | selectattr('type', 'equalto', 'book') | list %}
+
     {# ── Working Papers: submitted first, then under-review ─────────────────── #}
-    {% set submitted_items    = all_items | selectattr('status', 'equalto', 'submitted')    | list %}
-    {% set under_review_items = all_items | selectattr('status', 'equalto', 'under-review') | list %}
+    {% set submitted_items    = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'submitted')    | list %}
+    {% set under_review_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'under-review') | list %}
     {{ pub_group('Working Papers', submitted_items + under_review_items, 'pub-working') }}
 
     {# ── All Publications ────────────────────────────────────────────────── #}
-    {% set published = all_items | selectattr('status', 'equalto', 'published') | list %}
+    {% set published = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'published') | list %}
     {{ pub_group('All Publications', published, 'pub-recent') }}
 
     <div class="publi-scholar-cta">
@@ -164,6 +205,18 @@
             <p>Prof. Lisa's Google Scholar</p>
         </a>
     </div>
+
+    {# ── Books (rendered last, after Google Scholar CTA) ───────────────────── #}
+    {% if book_items %}
+    <div class="publi-group" id="pub-books">
+        <h3 class="publi-group-title">Books</h3>
+        <div class="news-rows">
+            {% for item in book_items %}
+            {{ pub_book_row(item) }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
 </section>
 

@@ -1,12 +1,27 @@
 [
     {
+        "sectionTitle": "Books",
+        "showInHome": 0,
+        "items": [
+            {
+                "type": "book",
+                "title": "能源新未來：永續策略與實踐",
+                "authors": "I-Yun Lisa Hsieh, Chon Man Tam",
+                "publisher": "Yi Pin Publishing (一品出版社)",
+                "year": "'25",
+                "isbn": "9786269995202",
+                "E3": true
+            }
+        ]
+    },
+    {
         "sectionTitle": "Recent Publications",
         "showInHome": 5,
         "items": [
             {
                 "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC",
                 "title": "Assessing Power Sector Carbon Emission Intensity in Taiwan: Status Quo and Net-zero Future Perspectives",
-                "link": "https://km.twenergy.org.tw/Publication/thesis_more?id=325",
+                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/37/301",
                 "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
                 "volume": "9",
                 "year": "'22",
@@ -18,7 +33,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
                 "title": "Sankey-diagram-based Insights Into Taiwan’s Energy Flow: Status Quo and Net-zero Future",
-                "link": "https://km.twenergy.org.tw/Publication/thesis_more?id=330",
+                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/37/306",
                 "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
                 "volume": "9",
                 "year": "'22",
@@ -209,7 +224,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
                 "title": "Comparison and Strategic Outlook of International Solid Recovered Fuel Standards",
-                "link": "https://km.twenergy.org.tw/publication/thesis_more?id=384",
+                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/353",
                 "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
                 "volume": "11",
                 "year": "'24",
@@ -221,7 +236,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
                 "title": "Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies",
-                "link": "https://km.twenergy.org.tw/publication/thesis_more?id=386",
+                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/355",
                 "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
                 "volume": "11",
                 "year": "'24",
@@ -466,6 +481,15 @@
                 "status": "submitted",
                 "year": "'26",
                 "month": "Mar.",
+                "E3": true
+            },
+            {
+                "title": "淨零轉型下機車電動化的減碳效益：臺灣與中國之比較研究",
+                "journal": "Transportation Planning Journal (運輸計畫季刊)",
+                "authors": "Pei-Tzu Chen, Wei-Hsuan Chen, I-Yun Lisa Hsieh",
+                "status": "under-review",
+                "year": "'26",
+                "month": "May.",
                 "E3": true
             }
         ]

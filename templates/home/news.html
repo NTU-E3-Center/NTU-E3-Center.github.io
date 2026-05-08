@@ -1,10 +1,6 @@
 <section id="news">
     <div class="section-title">
         <h2><a class="section-title-link" href="/news/">News</a></h2>
-        <a class="more skewed-block" href="/news/" b-role="btn" b-hoverable>
-            <div>All News</div>
-            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-        </a>
     </div>
 
     {% for news in structures['news'] %}
@@ -48,4 +44,11 @@
     </div>
     {% endfor %}
     {% endfor %}
+
+    <div class="section-cta">
+        <a class="section-cta-btn skewed-block" href="/news/" b-role="btn" b-hoverable>
+            <span>See all news</span>
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+        </a>
+    </div>
 </section>

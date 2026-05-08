@@ -142,7 +142,8 @@
    Padding-inline reuses the homepage --gutter-x token for consistency. */
 .members-subpage,
 .news-subpage,
-.publications-subpage {
+.publications-subpage,
+.group-life-subpage {
     width: min(100%, 80rem);
     margin-inline: auto;
     padding-block: 4rem 8rem;
@@ -759,7 +760,8 @@
     /* Page-level padding — match member individual subpage's main(). */
     .members-subpage,
     .news-subpage,
-    .publications-subpage {
+    .publications-subpage,
+    .group-life-subpage {
         padding-block: 1.5rem 4rem;
     }
 
