@@ -221,7 +221,7 @@
     & .mem-card {
         display: flex;
         align-items: center;
-        gap: 2.5rem;
+        gap: 3.5rem;
         flex: 1;
         min-width: 0;
     }
@@ -445,7 +445,7 @@
             padding-block: 1.25rem;
         }
 
-        & .mem-card { gap: 1.5rem; }
+        & .mem-card { gap: 2rem; }
 
         & .mem-row-arrow { display: none; }
 
@@ -779,7 +779,7 @@
         }
 
         & .mem-card {
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         & .mem-row-photo {

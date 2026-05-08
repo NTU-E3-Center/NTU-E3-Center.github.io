@@ -41,7 +41,61 @@ PI_EXTRA_LINKS = [
     },
 ]
 
+
+def normalize_orcid(value):
+    """Accept either a bare ORCID iD (0000-0002-XXXX-XXXX) or a full URL.
+    Returns (display_text, full_url) or (None, None) if empty."""
+    if not value:
+        return None, None
+    s = str(value).strip()
+    if not s:
+        return None, None
+    if '://' in s:
+        # Full URL — extract the iD for display
+        oid = s.rstrip('/').rsplit('/', 1)[-1]
+        return oid, s
+    return s, f'https://orcid.org/{s}'
+
+
+def build_profile_links(row, headers):
+    """Read per-member profile columns from xlsx and return (visible_links, seo_links)."""
+    def cell(col):
+        if col not in headers:
+            return None
+        v = row[headers.index(col)]
+        return str(v).strip() if v else None
+
+    visible = []
+    seo = []
+
+    if (gs := cell('Google Scholar')):
+        visible.append({
+            'icon': '/assets/sprite.svg#svg-scholar',
+            'text': 'Google Scholar',
+            'link': gs,
+        })
+    orcid_text, orcid_url = normalize_orcid(cell('ORCID'))
+    if orcid_url:
+        visible.append({
+            'icon': '/assets/sprite.svg#svg-orcid',
+            'text': orcid_text,
+            'link': orcid_url,
+        })
+    if (li := cell('LinkedIn')):
+        visible.append({
+            'icon': '/assets/sprite.svg#svg-linkedin',
+            'text': 'LinkedIn',
+            'link': li,
+        })
+
+    for hidden_col in ('ResearchGate', 'NTU Scholars', 'Facebook'):
+        if (url := cell(hidden_col)):
+            seo.append(url)
+
+    return visible, seo
+
 PI_DESCRIPTION = (
+    'Associate Professor<br>'
     'Department of Civil Engineering<br>'
     'Department of Chemical Engineering (Joint Appointment)<br>'
     'National Taiwan University'
@@ -185,7 +239,14 @@ for row in ws.iter_rows(min_row=2, values_only=True):
         if is_pi:
             links.extend(PI_EXTRA_LINKS)
 
+        # Per-member profile links from xlsx (Scholar, ORCID, LinkedIn = visible;
+        # ResearchGate, NTU Scholars = hidden / sameAs only)
+        profile_visible, profile_seo = build_profile_links(row, headers)
+        links.extend(profile_visible)
+
         page_content = {'links': links}
+        if profile_seo:
+            page_content['seoLinks'] = profile_seo
         if position:
             page_content['positionSection'] = {
                 'content': f'contents/articles/members-position/{web_id}.md'

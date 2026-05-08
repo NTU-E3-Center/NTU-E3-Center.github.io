@@ -10,7 +10,26 @@
                 "icon": "/assets/sprite.svg#svg-send",
                 "text": "seanshei@ntu.edu.tw",
                 "link": "mailto:seanshei@ntu.edu.tw"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-scholar",
+                "text": "Google Scholar",
+                "link": "https://scholar.google.com/citations?user=qG7wiMEAAAAJ"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-orcid",
+                "text": "0009-0001-5290-5544",
+                "link": "https://orcid.org/0009-0001-5290-5544"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-linkedin",
+                "text": "LinkedIn",
+                "link": "www.linkedin.com/in/sean-shei-61409b293"
             }
+        ],
+        "seoLinks": [
+            "https://www.researchgate.net/profile/Cheng-Hsiang-Shei",
+            "https://www.facebook.com/sean.shei/"
         ],
         "positionSection": {
             "content": "contents/articles/members-position/chenghsiangshei.md"

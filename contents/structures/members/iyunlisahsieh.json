@@ -1,7 +1,7 @@
 {
     "chiNameEng": "I-Yun Lisa Hsieh",
     "pubName": "I-Yun Lisa Hsieh",
-    "metaDescription": null,
+    "metaDescription": "Dr. I-Yun Lisa Hsieh (謝依芸), Associate Professor at NTU & Director of E3 Center. MIT PhD researching sustainable energy, electric mobility, and net-zero.",
     "position": "Director of E3 Center, NTU",
     "pageContent": {
         "links": [
@@ -14,7 +14,27 @@
                 "icon": "/assets/sprite.svg#svg-location",
                 "text": "CERB 601",
                 "link": "https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-scholar",
+                "text": "Google Scholar",
+                "link": "https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-orcid",
+                "text": "0000-0002-1668-4094",
+                "link": "https://orcid.org/0000-0002-1668-4094"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-linkedin",
+                "text": "LinkedIn",
+                "link": "https://www.linkedin.com/in/i-yun-lisa-hsieh/"
             }
+        ],
+        "seoLinks": [
+            "https://www.researchgate.net/profile/I-Yun-Lisa-Hsieh",
+            "https://scholars.lib.ntu.edu.tw/entities/person/db907a6f-b506-436e-be36-9acb69ca26d4/indicators",
+            "https://www.facebook.com/lisahsieh0410"
         ],
         "positionSection": {
             "content": "contents/articles/members-position/iyunlisahsieh.md"
