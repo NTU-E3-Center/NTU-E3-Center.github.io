@@ -1,14 +1,11 @@
 <section id="publications">
     <div class="section-title">
         <h2><a class="section-title-link" href="/publications/">Publications</a></h2>
-        <a class="more skewed-block" href="/publications/" b-role="btn" b-hoverable>
-            <div>All Publications</div>
-            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-        </a>
     </div>
 
     {% for publication in structures['home_publications'] %}
     {% set home_items = publication['items'][:publication['showInHome']] %}
+    {% if home_items %}
     <div class="publi-group" id="home-pub-{{ loop.index }}">
         <h3 class="publi-group-title">Recent Publications</h3>
         <div class="news-rows">
@@ -54,5 +51,13 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
     {% endfor %}
+
+    <div class="section-cta">
+        <a class="section-cta-btn skewed-block" href="/publications/" b-role="btn" b-hoverable>
+            <span>Browse all publications</span>
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+        </a>
+    </div>
 </section>

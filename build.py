@@ -89,10 +89,12 @@ if 'publications' in structures:
     home_publications = []
     for section in structures['publications']:
         new_section = section.copy()
-        # Filter items with E3: true and published status (exclude submitted/under review)
+        # Filter items with E3: true and published status (exclude submitted/under review and books)
         filtered_items = [
             item for item in section.get('items', [])
-            if item.get('E3') is True and item.get('status', 'published') == 'published'
+            if item.get('E3') is True
+            and item.get('status', 'published') == 'published'
+            and item.get('type') != 'book'
         ]
         # Sort items descending by date
         filtered_items.sort(key=get_pub_sort_key, reverse=True)
@@ -404,6 +406,7 @@ def generate_sitemap():
     add_url(f"{BASE}/members/", changefreq="monthly", priority="0.8")
     add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8")
     add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8")
+    add_url(f"{BASE}/group-life/", changefreq="monthly", priority="0.6")
 
     # Member pages (deduplicated — some members appear in multiple groups)
     seen_member_links = set()

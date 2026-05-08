@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set description = 'Photos from the E3 Center group at National Taiwan University — research life, events, gatherings, conferences, and milestones. Directed by Prof. I-Yun Lisa Hsieh (謝依芸).' %}
+{% set keywords = 'E3 Center group life, E3 group photos, NTU sustainable energy group, lab life, group gatherings, conferences, events, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學' %}
+{% set canonicalLink = 'https://e3center.caece.net/group-life/' %}
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Group Life | E3 Center",
+  "url": "https://e3center.caece.net/group-life/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Group Life" }
+  ]
+}
+</script>
+{% endblock %}
+{% block content %}
+<section id="group-life" class="group-life-subpage">
+
+    {% for group_life in structures['group-life'] %}
+    {% if group_life['filter'] %}
+    <div class="filter" where="{{ group_life['filterId'] }}">
+        <span class="filter-title">{{ group_life['filterTitle'] }}</span>
+        {% set ns = namespace(filterItems=[]) %}
+        {% for item in group_life['items'] %}
+            {% if item['year'] not in ns.filterItems %}
+                {% set ns.filterItems = ns.filterItems + [item['year']] %}
+            {% endif %}
+        {% endfor %}
+        {% for filterItem in ns.filterItems[::-1] %}
+        <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+            <input class="filter-checkbox" type="checkbox" where="{{ group_life['filterId'] }}" value="{{ filterItem }}"{% if loop.index <= group_life['filterDefaultCheck'] %} checked{% endif %}/>
+            <div class="filter-label">
+                <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                {{ filterItem }}
+            </div>
+        </label>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <section class="glf-section" which="all">
+        {% for item in group_life['items'][::-1] %}
+        <div class="glf-block filter-content" where="{{ group_life['filterId'] }}" data-value="{{item['year']}}">
+            {% set imgPathFront = item['imgPath'].split('.')[0] %}
+            <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url({{ imgPathFront }}-20w.webp);">
+                <img
+                    loading="lazy"
+                    src="{{ item['imgPath'] }}"
+                    srcset="
+                        {{ imgPathFront }}-200w.webp 200w,
+                        {{ imgPathFront }}-400w.webp 400w,
+                        {{ imgPathFront }}-600w.webp 600w,
+                        {{ imgPathFront }}-800w.webp 800w,
+                        {{ imgPathFront }}-1200w.webp 1200w,
+                        {{ imgPathFront }}-1600w.webp 1600w,
+                        {{ imgPathFront }}-2000w.webp 2000w
+                    "
+                    sizes="20rem"
+                    alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
+                />
+            </div>
+            <span class="glf-img-text">
+                {{ item['month'] }} {{ item['year'] }}
+            </span>
+        </div>
+        {% endfor %}
+    </section>
+    {% endfor %}
+
+</section>
+{% endblock %}

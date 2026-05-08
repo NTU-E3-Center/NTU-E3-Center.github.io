@@ -36,7 +36,7 @@
             {
                 "id": "group-life",
                 "title": "Group Life",
-                "link": "/#group-life",
+                "link": "/group-life",
                 "icon": "/assets/sprite.svg#svg-picture"
             },
             {
@@ -73,5 +73,12 @@
         "description": "Peer-reviewed publications from E3 Center, NTU, on sustainable energy transition, transportation electrification, and climate policy.",
         "subpageTitle": "Publications",
         "template": "pages/publications"
+    },
+    "group-life-page": {
+        "path": "group-life",
+        "title": "Group Life | E3 Center",
+        "description": "Photos from the E3 Center group at National Taiwan University — research life, events, gatherings, conferences, and milestones.",
+        "subpageTitle": "Group Life",
+        "template": "pages/group-life"
     }
 }
