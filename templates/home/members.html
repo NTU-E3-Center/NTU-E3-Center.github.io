@@ -38,13 +38,6 @@
                 <p class="mem-info">
                     {{ member['description'] }}
                 </p>
-
-                {% for btn in member['links'] %}
-                <a class="skewed-block" b-role="btn" b-hoverable href="{{ btn['link'] }}">
-                    <svg><use href="{{ btn['icon'] }}"></use></svg>
-                    <p>{{ btn['text'] }}</p>
-                </a>
-                {% endfor %}
             </div>
         </div>
         {% endfor %}
