@@ -48,7 +48,7 @@
             {
                 "id": "contact",
                 "title": "Contact Us",
-                "link": "/#contact-us",
+                "link": "/contact",
                 "icon": "/assets/sprite.svg#svg-send"
             }
         ]
@@ -80,5 +80,12 @@
         "description": "Photos from the E3 Center group at National Taiwan University — research life, events, gatherings, conferences, and milestones.",
         "subpageTitle": "Group Life",
         "template": "pages/group-life"
+    },
+    "contact-page": {
+        "path": "contact",
+        "title": "Contact Us | E3 Center, NTU Civil Engineering",
+        "description": "Contact E3 Center at National Taiwan University — message Director Prof. I-Yun Lisa Hsieh (謝依芸) about research collaborations, student inquiries, or media.",
+        "subpageTitle": "Contact",
+        "template": "pages/contact"
     }
 }
