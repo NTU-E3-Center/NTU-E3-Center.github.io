@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% set description = 'Contact E3 Center at National Taiwan University — message Director Prof. I-Yun Lisa Hsieh (謝依芸) about research collaborations, student inquiries, or media.' %}
+{% set keywords = 'contact E3 Center, E3 Center email, NTU sustainable energy lab contact, I-Yun Lisa Hsieh email, 謝依芸, 台大, 國立臺灣大學, research collaboration, PhD inquiry' %}
+{% set canonicalLink = 'https://e3center.caece.net/contact/' %}
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact | E3 Center",
+  "url": "https://e3center.caece.net/contact/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "E3 Center",
+    "email": "iyhsieh@ntu.edu.tw",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist.",
+      "addressLocality": "Taipei City",
+      "postalCode": "106327",
+      "addressCountry": "TW"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 2, "name": "Contact" }
+  ]
+}
+</script>
+{% endblock %}
+{% block content %}
+<section id="contact" class="contact-subpage">
+
+    <h2 class="contact-lead">Get in touch</h2>
+    <p class="contact-tagline">
+        Reach out about research collaborations, student inquiries, or media — your message goes
+        directly to <a href="/members/iyunlisahsieh/">Prof. I-Yun Lisa Hsieh (謝依芸)</a>,
+        Director of E3 Center.
+    </p>
+
+    <div class="contact-grid">
+
+        <aside class="contact-info">
+            <a class="contact-info-card skewed-block" b-role="btn" b-hoverable
+               href="mailto:iyhsieh@ntu.edu.tw">
+                <svg class="contact-info-icon"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <div class="contact-info-text">
+                    <span class="contact-info-label">Email</span>
+                    <span class="contact-info-value">iyhsieh@ntu.edu.tw</span>
+                </div>
+            </a>
+
+            <a class="contact-info-card skewed-block" b-role="btn" b-hoverable
+               href="https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8" target="_blank" rel="noopener">
+                <svg class="contact-info-icon"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <div class="contact-info-text">
+                    <span class="contact-info-label">Office</span>
+                    <span class="contact-info-value">CERB 601, NTU</span>
+                    <span class="contact-info-sub">Civil Engineering Research Building, National Taiwan University</span>
+                </div>
+            </a>
+
+            <a class="contact-info-card skewed-block" b-role="btn" b-hoverable
+               href="/members/iyunlisahsieh/">
+                <svg class="contact-info-icon"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <div class="contact-info-text">
+                    <span class="contact-info-label">Director</span>
+                    <span class="contact-info-value">I-Yun Lisa Hsieh</span>
+                    <span class="contact-info-sub">Associate Professor · Department of Civil Engineering</span>
+                </div>
+            </a>
+        </aside>
+
+        <form class="contact-form" action="https://formspree.io/f/xandalro" method="POST">
+            <div class="contact-form-row">
+                <div class="contact-field">
+                    <label for="contact-name">Name</label>
+                    <input id="contact-name" type="text" class="skewed-block"
+                           name="Name" placeholder="Your name" required autocomplete="name">
+                </div>
+
+                <div class="contact-field">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" type="email" class="skewed-block"
+                           name="Email" placeholder="you@example.com" required autocomplete="email">
+                </div>
+            </div>
+
+            <div class="contact-field">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" type="text" class="skewed-block"
+                       name="Subject" placeholder="Research collaboration, PhD inquiry, …">
+            </div>
+
+            <div class="contact-field">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" class="skewed-block"
+                          name="Message" rows="7" placeholder="Tell us a bit about yourself and what you'd like to discuss." required></textarea>
+            </div>
+
+            <button type="submit" class="contact-send skewed-block" b-role="btn" b-hoverable>
+                <span>Send message</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <polygon class="fill-m" points="0.1,11.5 14.2,11.5 8.6,17.1 10.7,19.2 19.9,10 10.7,0.8 8.6,2.9 14.2,8.5 0.1,8.5"/>
+                </svg>
+            </button>
+        </form>
+
+    </div>
+
+</section>
+{% endblock %}
