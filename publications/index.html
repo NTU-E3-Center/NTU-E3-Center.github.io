@@ -48,13 +48,13 @@
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" as="style" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=13">
     <link rel="stylesheet" href="/css/style.css?v=13">
-    <link rel="stylesheet" href="/css/subpage.css?v=26">
+    <link rel="stylesheet" href="/css/subpage.css?v=30">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -475,6 +475,7 @@
             <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
         </picture>
     </a>
+    <h1 class="sr-only">Publications</h1>
     <nav class="subpage-breadcrumb" aria-label="breadcrumb">
         <span class="breadcrumb-current">Publications</span>
     </nav>
@@ -487,7 +488,9 @@
 
 
         <div class="publi-group" id="pub-working">
-        <h3 class="publi-group-title">Working Papers</h3>
+        <div class="publi-group-header">
+            <h3 class="publi-group-title">Working Papers</h3>
+        </div>
         <div class="news-rows">
                 <div class="news-row news-row--no-date">
 
@@ -648,7 +651,14 @@
 
 
         <div class="publi-group" id="pub-recent">
-        <h3 class="publi-group-title">All Publications</h3>
+        <div class="publi-group-header">
+            <h3 class="publi-group-title">All Publications</h3>
+            <a class="publi-group-cta skewed-block" href="https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ"
+               target="_blank" rel="noopener" b-role="btn" b-hoverable>
+                <span>Full list on Google Scholar</span>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+            </a>
+        </div>
         <div class="news-rows">
                 <a class="news-row news-row--link" href="https://doi.org/10.1016/j.eneco.2026.109355" target="_blank" rel="noopener">
 
@@ -1233,18 +1243,6 @@
         </button>
     </div>
 
-
-    <div class="publi-scholar-cta">
-        <p class="publi-scholar-note">
-            For a complete and up-to-date list of publications by
-            <strong>Prof. I-Yun Lisa Hsieh</strong>, visit her Google Scholar profile.
-        </p>
-        <a class="skewed-block" href="https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ"
-           target="_blank" rel="noopener" b-role="btn" b-hoverable>
-            <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-            <p>Prof. Lisa's Google Scholar</p>
-        </a>
-    </div>
 
     <div class="publi-group" id="pub-books">
         <h3 class="publi-group-title">Books</h3>

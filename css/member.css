@@ -291,11 +291,11 @@ h2 {
     }
 }
 
-/* publication */
+/* publication
+   Mirrors the /publications/ subpage row pattern (.news-row + .news-row-date
+   + .news-row-body) so the per-member publication list shares the same
+   typography, date column, and hover affordance as the global page. */
 .publication {
-    --_font-size-l: 1.5rem;
-    --_font-size-s: 1rem;
-
     /* Same block-level cap + center pattern as #about / #research —
        85ch keeps publication, research and about all sharing the same
        column width inside <main>. */
@@ -303,76 +303,263 @@ h2 {
     max-width: 85ch;
     margin-inline: auto;
 
-    .content {
-        font-size: var(--_font-size-l);
+    /* The .news-row, .news-rows, .news-row-date, .news-row-title and
+       .publi-row-authors base styles come from subpage.css (already loaded
+       on this page). The rules below scope the supporting pieces that live
+       in style.css and aren't otherwise reachable here, plus a few member-
+       page-specific tweaks for the narrower 85ch column. */
 
-        &>*+* {
-            margin-block-start: 0.75rem;
+    .news-row {
+        /* Tighter date column than /publications/ (5.5rem) — the 85ch text
+           column doesn't need as much room for the year. */
+        grid-template-columns: 4.5rem 1fr auto;
+        gap: 1.25rem;
+        padding-block: 1rem;
+
+        /* Win the cascade tie against the UA [hidden] rule when the
+           collapse toggle sets the attribute on extra rows. */
+        &[hidden] {
+            display: none;
         }
     }
 
+    .news-row--no-date {
+        grid-template-columns: 1fr auto;
+    }
 
-    .pub-block {
-        display: flex;
-        flex-direction: column;
-        gap: 0.125rem;
+    /* Bolded author treatment. The base .publi-row-authors rule in
+       subpage.css mutes the line via opacity, but opacity on the parent
+       creates a stacking context that <strong> cannot escape. We therefore
+       neutralise the parent's opacity here and use color-with-alpha for
+       the muted look instead — then the bolded child can render at full
+       saturation. */
+    .publi-row-authors {
+        opacity: 1;
+        color: color-mix(in srgb, var(--main-color) 55%, transparent);
 
-        .pub-date {
-            margin-block-start: 0.4375rem;
-            font-size: var(--_font-size-s);
-
-            display: flex;
-            gap: 0.25rem;
-
-            .pub-date-slash {
-                color: var(--secondary-color);
-            }
-        }
-
-        .pub-title-block {
-            text-decoration: none;
-
-            .pub-title {
-                text-transform: capitalize;
-                font-size: var(--_font-size-l);
-                transition: var(--hover-transition-time);
-            }
-
-            & svg {
-                display: inline-block;
-                transition: var(--hover-transition-time);
-            }
-
-            &:hover {
-                .pub-title {
-                    opacity: 0.8;
-                }
-
-                & svg {
-                    translate: 0.1875rem -0.1875rem;
-                }
-            }
-        }
-
-        .pub-subtitle {
-            margin-block-start: 0.125rem;
-            font-size: var(--_font-size-s);
+        & strong {
+            font-weight: var(--fw-h1);
+            color: var(--main-color);
+            /* Tiny letter-spacing tweak keeps the bold from feeling
+               crowded against the surrounding muted text. */
+            letter-spacing: 0.005em;
         }
     }
 
-    .pub-more {
-        margin-block-start: 1rem;
+    /* Journal/venue line — same proportions as /publications/ subpage
+       (style.css has the matching rule, but member.html doesn't load
+       style.css, so re-declare here). */
+    .publi-row-journal {
+        font-size: 0.8125rem;
+        line-height: 1.4;
+        opacity: 0.55;
+        color: var(--main-color);
+        font-style: italic;
+    }
 
+    /* Keyword chips — same visual as the /publications/ subpage. */
+    .pub-keywords {
         display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.4rem;
+    }
 
-        &:hover svg {
-            translate: 0.125rem -0.125rem;
+    .pub-keyword-chip {
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        padding: 0.15rem 0.55rem;
+        background: color-mix(in srgb, var(--main-color) 8%, transparent);
+        border-radius: 999px;
+        color: var(--main-color);
+        opacity: 0.85;
+    }
+
+    .pub-list {
+        position: relative;
+    }
+
+    .pub-show-all-wrap {
+        display: flex;
+        justify-content: center;
+        margin-block-start: 1.25rem;
+        position: relative;
+        transition: margin var(--hover-transition-time) ease,
+                    padding var(--hover-transition-time) ease;
+    }
+
+    .pub-show-all-btn {
+        --_adjusted-font-size: 0.9375rem;
+        --_adjusted-padding: 0.625em 1.5em;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font: inherit;
+        color: inherit;
+        line-height: 1.2;
+        transition: background-color 200ms ease-out, color 200ms ease-out,
+                    translate var(--hover-transition-time),
+                    border-radius var(--hover-transition-time),
+                    box-shadow var(--hover-transition-time);
+
+        .pub-show-all-chevron {
+            display: inline-flex;
+            align-items: center;
+            height: 1em;
+        }
+
+        /* svg is NOT a direct child of .skewed-block, so it doesn't inherit
+           the inverse-skew — we can rotate it independently on toggle.
+           Bounce hint uses the standalone `translate` property (not
+           `transform`) so the rotate-on-expand doesn't fight it. */
+        .pub-show-all-chevron svg {
+            display: block;
+            transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        &[aria-expanded="true"] .pub-show-all-chevron svg {
+            transform: rotate(180deg);
+        }
+    }
+
+    /* ---------- Collapsed-state visual treatment ----------
+       Signals "there's more below" without requiring the user to read the
+       button label first. Three coordinated cues:
+         1. The 6th publication (.pub-row--peek) is clipped to ~one line
+            and masked with a vertical gradient → its text literally fades
+            into the page background.
+         2. The Show-all button sits ON the fade via negative margin, with
+            a soft gradient backdrop that integrates the button into the
+            fade rather than floating below it.
+         3. The chevron does a gentle 2px bounce loop so the affordance
+            catches the eye in peripheral vision.
+       All three reverse when .pub-list--expanded is set by the JS toggle. */
+    .pub-row--peek {
+        position: relative;
+        z-index: 0;
+        transition: max-height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 200ms ease-out;
+    }
+
+    .pub-list--collapsible:not(.pub-list--expanded) {
+        .pub-row--peek {
+            /* Roughly title-height + a sliver of the authors line; the mask
+               below softens the lower 65% of that into transparency. */
+            max-height: 5rem;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+                    mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+            /* Drop the row's bottom border for the peek — borders show
+               through the mask and break the "fading into the void" effect. */
+            border-bottom-color: transparent;
+        }
+
+        .pub-show-all-wrap {
+            margin-block-start: -2.25rem;
+            padding-block-start: 1.5rem;
+            padding-block-end: 0.25rem;
+            z-index: 1;
+
+            /* Soft white-to-transparent backdrop behind the button so it
+               reads as the natural end of the list, not a floating chip. */
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to bottom,
+                                            transparent 0%,
+                                            var(--page-bg-color) 55%);
+                pointer-events: none;
+                z-index: -1;
+            }
+        }
+    }
+
+    /* ---------- Reveal motion ----------
+       When the user expands, the previously-hidden .pub-row--extra items
+       fade-and-slide in with a small per-item stagger (--pub-i set inline
+       by the template). The peek item smoothly grows out of its clipped
+       height via the max-height transition declared above. */
+    @media (prefers-reduced-motion: no-preference) {
+        .pub-list--collapsible:not(.pub-list--expanded) .pub-show-all-chevron svg {
+            animation: pubChevronHint 2.4s ease-in-out infinite;
+        }
+
+        .pub-list--expanded .pub-row--extra {
+            animation: pubReveal 360ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+            /* Cap the stagger at 10 items (~220ms) so a 25-item list still
+               feels responsive — items beyond the cap all reveal together. */
+            animation-delay: calc(min(var(--pub-i, 0), 10) * 22ms);
+        }
+    }
+}
+
+@keyframes pubChevronHint {
+    0%, 100% { translate: 0 0; }
+    50%      { translate: 0 2px; }
+}
+
+@keyframes pubReveal {
+    from { opacity: 0; transform: translateY(-0.4rem); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Secondary, low-emphasis link to the global E3 publications page.
+   Sits below all of a member's publication sections. */
+.publication-global-cta {
+    width: 100%;
+    max-width: 85ch;
+    margin-inline: auto;
+    margin-block-start: 0.5rem;
+    display: flex;
+    justify-content: center;
+
+    & a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-block: 0.25rem;
+        color: var(--main-color);
+        text-decoration: none;
+        font-size: 0.9375rem;
+        opacity: 0.7;
+        transition: opacity 200ms ease-out;
+
+        /* Underline that sweeps in from the left — mirrors the
+           .section-title-link interaction in general.css. */
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0.05em;
+            height: 1px;
+            background: currentColor;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         & svg {
-            display: inline-block;
-            margin-inline-start: 0.25rem;
-            transition: var(--hover-transition-time);
+            height: 0.75em;
+            width: auto;
+            transition: translate 200ms ease-out;
+        }
+
+        &:hover,
+        &:focus-visible {
+            opacity: 1;
+
+            &::after {
+                transform: scaleX(1);
+            }
+
+            & svg {
+                translate: 0.25rem 0;
+            }
         }
     }
 }
@@ -512,10 +699,66 @@ h2 {
         }
     }
 
-    /* Publication blocks */
+    /* Publication blocks — match subpage.css's phone breakpoint behavior
+       (narrower date column, dropped arrow). My higher-specificity
+       .publication .news-row rule would otherwise win over subpage.css. */
     .publication {
-        --_font-size-l: 1rem;               /* publication title */
-        --_font-size-s: 0.8125rem;          /* date / journal meta */
+        .news-row {
+            grid-template-columns: 3rem 1fr;
+            gap: 0.625rem;
+            padding-block: 0.75rem;
+            padding-inline: 0.25rem;
+        }
+
+        .news-row--no-date {
+            grid-template-columns: 1fr;
+        }
+
+        .news-row-arrow {
+            display: none;
+        }
+
+        /* Restore the type hierarchy on phone. subpage.css scales the title
+           down to 0.875rem at this breakpoint but leaves .publi-row-authors
+           at its desktop 0.9375rem, which makes the authors LARGER than the
+           title. Shrink the meta lines below the title size to fix that. */
+        .publi-row-authors {
+            font-size: 0.75rem;
+            line-height: 1.35;
+        }
+
+        .publi-row-journal {
+            font-size: 0.6875rem;
+            line-height: 1.35;
+        }
+
+        .pub-keyword-chip {
+            font-size: 0.625rem;
+            padding: 0.1rem 0.45rem;
+        }
+
+        /* Peek clip — shorter on phone (one line of title is enough). */
+        &.pub-list--collapsible:not(.pub-list--expanded) .pub-row--peek,
+        .pub-list--collapsible:not(.pub-list--expanded) .pub-row--peek {
+            max-height: 4rem;
+        }
+
+        .pub-show-all-wrap {
+            margin-block-start: 1rem;
+        }
+
+        .pub-show-all-btn {
+            --_adjusted-font-size: 0.8125rem;
+            --_adjusted-padding: 0.5em 1.25em;
+        }
+    }
+
+    .publication-global-cta {
+        margin-block-start: 0.25rem;
+
+        & a {
+            font-size: 0.8125rem;
+        }
     }
 
     .list {
