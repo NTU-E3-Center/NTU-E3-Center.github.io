@@ -154,10 +154,22 @@
     {% endmacro %}
 
     {# ── Macro: render a collapsible group ─────────────────────────────────── #}
-    {% macro pub_group(title, items, group_id) %}
+    {# `cta` (optional): {url, text} renders a small pill link inline with the
+       group title — used by "All Publications" to surface Google Scholar
+       without an extra full-width banner between sections. #}
+    {% macro pub_group(title, items, group_id, cta=None) %}
     {% if items %}
     <div class="publi-group" id="{{ group_id }}">
-        <h3 class="publi-group-title">{{ title }}</h3>
+        <div class="publi-group-header">
+            <h3 class="publi-group-title">{{ title }}</h3>
+            {% if cta %}
+            <a class="publi-group-cta skewed-block" href="{{ cta.url }}"
+               target="_blank" rel="noopener" b-role="btn" b-hoverable>
+                <span>{{ cta.text }}</span>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+            </a>
+            {% endif %}
+        </div>
         <div class="news-rows">
             {% for item in items %}
             {% if loop.index <= 5 %}
@@ -190,23 +202,17 @@
     {% set under_review_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'under-review') | list %}
     {{ pub_group('Working Papers', submitted_items + under_review_items, 'pub-working') }}
 
-    {# ── All Publications ────────────────────────────────────────────────── #}
+    {# ── All Publications ──────────────────────────────────────────────────
+       The Google Scholar CTA renders inline with this section's title, so it
+       reads as a supplement to the publications list rather than a banner
+       wedged between sections. #}
     {% set published = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'published') | list %}
-    {{ pub_group('All Publications', published, 'pub-recent') }}
+    {{ pub_group('All Publications', published, 'pub-recent', cta={
+        'url': 'https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ',
+        'text': "Full list on Google Scholar"
+    }) }}
 
-    <div class="publi-scholar-cta">
-        <p class="publi-scholar-note">
-            For a complete and up-to-date list of publications by
-            <strong>Prof. I-Yun Lisa Hsieh</strong>, visit her Google Scholar profile.
-        </p>
-        <a class="skewed-block" href="https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ"
-           target="_blank" rel="noopener" b-role="btn" b-hoverable>
-            <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-            <p>Prof. Lisa's Google Scholar</p>
-        </a>
-    </div>
-
-    {# ── Books (rendered last, after Google Scholar CTA) ───────────────────── #}
+    {# ── Books (rendered last) ─────────────────────────────────────────────── #}
     {% if book_items %}
     <div class="publi-group" id="pub-books">
         <h3 class="publi-group-title">Books</h3>

@@ -10,6 +10,11 @@
                 "icon": "/assets/sprite.svg#svg-send",
                 "text": "d13521023@ntu.edu.tw",
                 "link": "mailto:d13521023@ntu.edu.tw"
+            },
+            {
+                "icon": "/assets/sprite.svg#svg-scholar",
+                "text": "Google Scholar",
+                "link": "https://scholar.google.com/citations?hl=en&user=JfG80RsAAAAJ"
             }
         ],
         "positionSection": {

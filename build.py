@@ -6,7 +6,9 @@ import markdown
 import importlib.util
 from PIL import Image
 from datetime import datetime
+import re
 from jinja2 import Environment, FileSystemLoader
+from markupsafe import Markup, escape
 import seo_helpers
 
 # ── Sync content from Excel before building ───────────────────────────────────
@@ -24,6 +26,24 @@ env = Environment(loader=FileSystemLoader(['templates', 'contents']),
 env.globals['seo_meta_description'] = seo_helpers.generate_meta_description
 env.globals['seo_strip_markdown'] = seo_helpers.strip_markdown
 env.globals['seo_detect_language'] = seo_helpers.detect_language
+
+
+def bold_author(authors_str, name):
+    """Wrap occurrences of `name` in an authors string with <strong>.
+    Both inputs are HTML-escaped first; the search uses non-word/non-hyphen
+    boundaries so "I-Yun Hsieh" does not match "I-Yun Hsieh-Chen". Returns
+    Markup so the result is rendered as HTML, not as literal tags."""
+    if not authors_str:
+        return Markup('')
+    escaped = str(escape(authors_str))
+    target = str(escape(name)) if name else ''
+    if not target:
+        return Markup(escaped)
+    pattern = re.compile(r'(?<![\w\-])' + re.escape(target) + r'(?![\w\-])')
+    return Markup(pattern.sub(f'<strong>{target}</strong>', escaped))
+
+
+env.filters['bold_author'] = bold_author
 
 # Helper function to get sortable date from publication item
 def get_pub_sort_key(item):
@@ -129,6 +149,7 @@ def render_templates():
                     "pages": pages,
                     "title": page_data.get("title"),
                     "subpageTitle": page_data.get("subpageTitle"),
+                    "suppressSrH1": page_data.get("suppressSrH1", False),
                     "canonicalLink": canonical,
                     "updated_time": datetime.now().strftime("%Y. %m. %d"),
                     "year": datetime.now().year,

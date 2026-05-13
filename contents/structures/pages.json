@@ -86,6 +86,7 @@
         "title": "Contact Us | E3 Center, NTU Civil Engineering",
         "description": "Contact E3 Center at National Taiwan University — message Director Prof. I-Yun Lisa Hsieh (謝依芸) about research collaborations, student inquiries, or media.",
         "subpageTitle": "Contact",
+        "suppressSrH1": true,
         "template": "pages/contact"
     }
 }

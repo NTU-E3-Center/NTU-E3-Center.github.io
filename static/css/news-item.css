@@ -67,9 +67,9 @@
     }
 
     & span {
-        font-size: 0.8125rem;
+        font-size: 0.6875rem;
         font-weight: 600;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--main-color);
         opacity: 0.3;

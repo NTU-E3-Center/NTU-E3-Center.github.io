@@ -225,3 +225,25 @@ document.querySelectorAll('.filter').forEach((filter) => {
 
     updateEmptyState();
 });
+
+// Member page — publication section "Show all N" / "Show less" toggle.
+// Reveals .pub-row--extra siblings within the same .pub-list. Toggling
+// .pub-list--expanded on the list lets CSS handle the peek-mask, backdrop
+// gradient, chevron bounce, and per-item stagger animation declaratively.
+document.querySelectorAll('.pub-show-all-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+        const list = btn.closest('.pub-list');
+        if (!list) return;
+        const expand = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(expand));
+        list.classList.toggle('pub-list--expanded', expand);
+        list.querySelectorAll('.pub-row--extra').forEach((row) => {
+            if (expand) row.removeAttribute('hidden');
+            else row.setAttribute('hidden', '');
+        });
+        const label = btn.querySelector('.pub-show-all-label');
+        if (label) {
+            label.textContent = expand ? btn.dataset.hideText : btn.dataset.showText;
+        }
+    });
+});

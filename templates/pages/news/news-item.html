@@ -113,6 +113,8 @@
     {% set subpageTitle = news.get('shortTitle', news['title']) %}
     {% set backLink = '/news/' %}
     {% set backLinkText = 'News' %}
+    {# News article has its own visible h1 in .news-item-title; suppress the sr-only one. #}
+    {% set suppressSrH1 = True %}
     {% include 'partials/subpage-header.html' %}
 
     <main class="news-item-main">

@@ -93,7 +93,7 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=13">
     <link rel="stylesheet" href="/css/subpage.css?v=14">
-    <link rel="stylesheet" href="/css/member.css?v=12">
+    <link rel="stylesheet" href="/css/member.css?v=17">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -148,6 +148,8 @@
     {% set subpageTitle = member['chiNameEng'] %}
     {% set backLink = '/members/' %}
     {% set backLinkText = 'Members' %}
+    {# Member page has its own visible h1 in .main-name; suppress the sr-only one. #}
+    {% set suppressSrH1 = True %}
     {% include 'partials/subpage-header.html' %}
 
     <main>
@@ -271,79 +273,111 @@
         {% endif %}
 
         {% if page_content['PublicationSection'] %}
+        {% set _pub_collapse_initial = 5 %}
+        {% set _ns_any_pubs = namespace(any=false) %}
         {% for section in page_content['PublicationSection'] %}
         {% if section['publications'] %}
-        <section id="publication-{{ loop.index }}" class="publication">
+        {% set _section_idx = loop.index %}
+        {# Normalize manual + auto branches into one list so we can count/slice #}
+        {% set _ns_pubs = namespace(items=[]) %}
+        {% if section['manual'] %}
+            {% for _p in section['publications'] %}
+                {% set _ns_pubs.items = _ns_pubs.items + [{'manual': true, 'data': _p}] %}
+            {% endfor %}
+        {% else %}
+            {% for _cid in section['publications'] %}
+                {% set _p = pub_by_id[_cid] %}
+                {% if _p %}{% set _ns_pubs.items = _ns_pubs.items + [{'manual': false, 'data': _p}] %}{% endif %}
+            {% endfor %}
+        {% endif %}
+        {% set _pub_total = _ns_pubs.items | length %}
+        {% if _pub_total %}{% set _ns_any_pubs.any = true %}{% endif %}
+        {% set _has_more = _pub_total > _pub_collapse_initial %}
+        {% set _peek_idx = _pub_collapse_initial %}{# zero-based index of the peek item #}
+        <section id="publication-{{ _section_idx }}" class="publication">
             <h2>{{ section['sectionTitle'] }}</h2>
-            <div class="content">
-                {% if section['manual'] %}
-                {% for pub in section['publications'] %}
-                <div class="pub-block">
-                    <div class="pub-date">
-                        <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">{{ pub['year'] }}</div>
-                    </div>
-                    <div class="pub-info">
-                        {% if pub['link'] %}
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
-                                <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
-                            </svg>
-                        </a>
-                        {% else %}
-                        <div class="pub-title-block">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                        </div>
-                        {% endif %}
-                        {% if pub['subTitle'] %}
-                        <div class="pub-subtitle">{{ pub['subTitle'] }}</div>
-                        {% endif %}
-                        {% if pub.get('keywords') %}
-                        <div class="pub-keywords">
-                          {% for _kw in pub['keywords'] %}
-                          <span class="pub-keyword-chip">{{ _kw }}</span>
-                          {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endfor %}
+            <div class="pub-list{% if _has_more %} pub-list--collapsible{% endif %}" data-initial="{{ _pub_collapse_initial }}">
+                <div class="news-rows">
+                {% for _entry in _ns_pubs.items %}
+                {% set pub = _entry['data'] %}
+                {% set _is_peek = _has_more and (loop.index0 == _peek_idx) %}
+                {% set _is_extra = _has_more and (loop.index0 > _peek_idx) %}
+                {% set _row_classes = 'news-row' ~ (' news-row--link' if pub['link'] else '') ~ (' pub-row--peek' if _is_peek else (' pub-row--extra' if _is_extra else '')) %}
+                {% if pub['link'] %}
+                <a class="{{ _row_classes }}" href="{{ pub['link'] }}" target="_blank" rel="noopener"
+                {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
                 {% else %}
-                {% for citation_id in section['publications'] %}
-                {% set pub = pub_by_id[citation_id] %}
-                {% if pub %}
-                <div class="pub-block">
-                    <div class="pub-date">
-                        <div class="pub-date-slash">/</div>
-                        <div class="pub-date-mm">{{ pub['month'] }}</div>
-                        <div class="pub-date-yy">{{ pub['year'] }}</div>
+                <div class="{{ _row_classes }}"
+                {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
+                {% endif %}
+
+                    {% if pub.get('month') and pub.get('year') %}
+                    <div class="news-row-date">
+                        <span class="news-row-mm">{{ pub['month'] }}</span>
+                        <span class="news-row-yy">{% if pub['year'].startswith("'") %}20{{ pub['year'][1:] }}{% else %}{{ pub['year'] }}{% endif %}</span>
                     </div>
-                    <div class="pub-info">
-                        <a class="pub-title-block" target="_blank" href="{{ pub['link'] }}">
-                            <span class="pub-title">{{ pub['title'] }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
-                                <polygon class="fill-s" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
-                            </svg>
-                        </a>
-                        <div class="pub-subtitle">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</div>
+                    {% endif %}
+
+                    <div class="news-row-body">
+                        <p class="news-row-title">{{ pub['title'] }}</p>
+                        {% if pub.get('authors') %}
+                        <span class="publi-row-authors">{{ pub['authors'] | bold_author(member['pubName']) }}</span>
+                        {% endif %}
+                        {% if _entry['manual'] and pub.get('subTitle') %}
+                        <span class="publi-row-journal">{{ pub['subTitle'] }}</span>
+                        {% elif not _entry['manual'] and pub.get('journal') %}
+                        <span class="publi-row-journal">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</span>
+                        {% endif %}
                         {% if pub.get('keywords') %}
                         <div class="pub-keywords">
-                          {% for _kw in pub['keywords'] %}
-                          <span class="pub-keyword-chip">{{ _kw }}</span>
-                          {% endfor %}
+                            {% for _kw in pub['keywords'] %}
+                            <span class="pub-keyword-chip">{{ _kw }}</span>
+                            {% endfor %}
                         </div>
                         {% endif %}
                     </div>
-                </div>
-                {% endif %}
+
+                    {% if pub['link'] %}
+                    <span class="news-row-arrow" aria-hidden="true">
+                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    </span>
+                    {% endif %}
+
+                {% if pub['link'] %}</a>{% else %}</div>{% endif %}
                 {% endfor %}
+                </div>
+
+                {% if _pub_total > _pub_collapse_initial %}
+                <div class="pub-show-all-wrap">
+                    <button type="button" class="pub-show-all-btn skewed-block" b-role="btn" b-hoverable
+                            aria-expanded="false"
+                            aria-controls="publication-{{ _section_idx }}"
+                            data-show-text="Show all {{ _pub_total }}"
+                            data-hide-text="Show less">
+                        <span class="pub-show-all-label">Show all {{ _pub_total }}</span>
+                        <span class="pub-show-all-chevron" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
+                                <polygon class="fill-s" points="1.46 2.34 0.04 3.76 5 8.71 9.96 3.76 8.54 2.34 5 5.88 1.46 2.34"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
                 {% endif %}
             </div>
         </section>
         {% endif %}
         {% endfor %}
+
+        {% if _ns_any_pubs.any %}
+        <div class="publication-global-cta">
+            <a href="/publications/">
+                <span>Browse all E3 publications</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem" aria-hidden="true">
+                    <use href="/assets/sprite.svg#svg-arrow-right"></use>
+                </svg>
+            </a>
+        </div>
+        {% endif %}
         {% endif %}
 
     </main>
