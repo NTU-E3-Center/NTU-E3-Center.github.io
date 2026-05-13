@@ -113,6 +113,31 @@ class TestValidateMemberFolder(unittest.TestCase):
             self.assertIn("interests[0]", errors[0].message)
             self.assertIn("interests[1]", errors[1].message)
 
+    def test_about_md_missing_yields_warning(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(
+                tmp, member_json_content=self._good_member_json(),
+                with_about=False, with_photo=True,
+            )
+            issues = validate_member_folder("m", folder)
+            self.assertTrue(any(i.severity == "warn" and "about.md" in i.message for i in issues))
+
+    def test_photo_missing_yields_warning(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(
+                tmp, member_json_content=self._good_member_json(),
+                with_about=True, with_photo=False,
+            )
+            issues = validate_member_folder("m", folder)
+            self.assertTrue(any(i.severity == "warn" and "photo" in i.message for i in issues))
+
+    def test_photo_can_be_jpg_jpeg_or_png(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=self._good_member_json(), with_about=True)
+            (folder / "photo.png").write_bytes(b"")
+            issues = validate_member_folder("m", folder)
+            self.assertFalse(any("photo" in i.message for i in issues))
+
 
 if __name__ == "__main__":
     unittest.main()

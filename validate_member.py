@@ -126,4 +126,18 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
         if data is not None:
             issues.extend(_check_schema(data, _SCHEMA, path=""))
 
+    if not (folder / "about.md").exists():
+        issues.append(ValidationIssue(
+            "warn",
+            f"{folder}/about.md: missing — About section will be hidden on the profile page.",
+        ))
+
+    photo_exts = (".jpg", ".jpeg", ".png")
+    photos = [p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in photo_exts and p.stem == "photo"]
+    if not photos:
+        issues.append(ValidationIssue(
+            "warn",
+            f"{folder}: no photo.(jpg|jpeg|png) found — default silhouette will be used.",
+        ))
+
     return issues
