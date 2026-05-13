@@ -108,8 +108,10 @@ class TestValidateMemberFolder(unittest.TestCase):
             folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
             issues = validate_member_folder("m", folder)
             errors = [i for i in issues if i.severity == "error"]
-            self.assertEqual(len(errors), 1)
+            # One error per non-string element — both items fail the check.
+            self.assertEqual(len(errors), 2)
             self.assertIn("interests[0]", errors[0].message)
+            self.assertIn("interests[1]", errors[1].message)
 
 
 if __name__ == "__main__":
