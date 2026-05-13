@@ -44,12 +44,17 @@ The strategy docs (2, 3) are reference; the analysis (1) is the diagnosis; the r
 |---|---|---|
 | [`gsc_2026-05-06_12mo.xlsx`](data/gsc_2026-05-06_12mo.xlsx) | 2025-05-04 → 2026-05-03 (last 12 months) | Google Search Console "Performance on Search" export |
 | [`gsc_2026-05-06_3mo.xlsx`](data/gsc_2026-05-06_3mo.xlsx) | 2026-02-04 → 2026-05-03 (last 3 months) | Google Search Console "Performance on Search" export |
+| [`gsc_2026-05-13_3mo/`](data/gsc_2026-05-13_3mo/) | 2026-02-11 → 2026-05-10 (last 3 months) | Google Search Console "Performance on Search" export — multi-CSV folder (Chart, Queries, Pages, Countries, Devices, Search appearance, Filters). |
+| [`ga4_2026-05-12_3mo_queries.csv`](data/ga4_2026-05-12_3mo_queries.csv) | 2026-02-12 → 2026-05-12 (last 3 months) | **GA4** "Organic Google Search Queries" export. Tracks GSC's Queries.csv closely; kept for traceability. |
+
+> **Filename convention:** `{source}_{export-date}_{period}` where `source` is `gsc` (Search Console) or `ga4` (Analytics 4). Multi-CSV GSC exports use a folder of the same name; single-sheet exports keep the relevant sheet name as a suffix (e.g. `_queries.csv`).
 
 ### `analysis/`
 
 | File | Covers |
 |---|---|
-| [`2026-05-06_12mo-insights.md`](analysis/2026-05-06_12mo-insights.md) | Full interpretation of the 12-month GSC export — query/intent breakdown, page indexing gap, geography, devices, and prioritized recommendations. |
+| [`2026-05-06_12mo-insights.md`](analysis/2026-05-06_12mo-insights.md) | Full interpretation of the 12-month GSC export — query/intent breakdown, page indexing gap, geography, devices, and prioritized recommendations. **Canonical baseline.** |
+| [`2026-05-13_3mo-insights.md`](analysis/2026-05-13_3mo-insights.md) | 3-month delta update on the 12mo baseline. Confirms unchanged indexing breadth, surfaces the 薛丞翔/黃榆庭 visibility diagnosis, flags two meta-description bugs in `templates/pages/member/member.html`. |
 
 ### `strategy/`
 
@@ -64,6 +69,7 @@ The strategy docs (2, 3) are reference; the analysis (1) is the diagnosis; the r
 |---|---|
 | [`page-recommendations.md`](recommendations/page-recommendations.md) | Phased, file-by-file action plan: same-day template/title rewrites, new `/join/` and `/collaborate/` pages, news-pattern changes, publications-page activation, member-page emphasis shifts, future research-subpage design constraints. |
 | [`content-ideas.md`](recommendations/content-ideas.md) | A catalogue of content topics and formats, tagged by audience (`[collab]` `[apply]` `[public]` `[brand]`), vehicle (existing vs. new template), and effort (🟢🟡🔴). Includes a 12-week pilot content plan. |
+| [`member-link-checklist.md`](recommendations/member-link-checklist.md) | Per-member checklist for adding inbound links to E3 profile URLs (ORCID, Google Scholar, LinkedIn, ResearchGate, NTU department roster). Targets the diagnosed root cause of the indexing-breadth problem: most member pages have zero external referring links. Includes a lookup table of all 26 member URLs. |
 
 ---
 
