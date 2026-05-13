@@ -101,6 +101,19 @@ Publications are **automatically linked** to member profiles via `pubName` match
 - `templates/pages/` — standalone subpage templates: `members.html`, `publications.html`, `news.html`, `member/member.html` (individual member profile), `news/news-item.html` (individual news article)
 - `templates/partials/` — reusable fragments (footer, menu, modal, loading, background, subpage-header, to-top button)
 
+## Design Rules (authoritative)
+
+**`DESIGN_RULES.md` at the project root is the single source of truth for typography, color, spacing, and responsive behavior.** Read it before changing any CSS or adding new UI. It defines:
+
+- Font stack (`Outfit` + `Noto Sans TC`), weight tokens (`--fw-h1` … `--fw-body`), and color tokens (`--main-color`, accent palette).
+- The 16-tier type scale (Display-XL → Badge) with exact desktop / tablet / mobile values.
+- Three responsive viewports: **desktop > 1024 px**, **tablet 601–1024 px**, **mobile ≤ 600 px** (root scales to 87.5% / 14 px on mobile via `general.css:233`).
+- Per-component rules for the publication row, member cards (L/M/S), news rows, news article body, contact page, member profile, etc.
+- Reusable pattern recipes: eyebrow label, status badge, date marker, list-item title.
+- A list of known drifts (`[S-*]`, `[W-*]`, `[C-*]`, `[A-*]`, `[I-*]`) — when working in CSS, do not reintroduce these and prefer fixing one if it sits in code you're already touching.
+
+When the rules and the current CSS disagree, treat `DESIGN_RULES.md` as the spec and the drift as a bug. If a deliberate exception is needed, document it in `DESIGN_RULES.md` rather than silently diverging.
+
 ## Deployment
 
 Push to the `source` branch triggers GitHub Actions (`.github/workflows/deploy.yml`), which runs `python build.py` and deploys `docs/` to the `gh-pages` branch via `peaceiris/actions-gh-pages`.

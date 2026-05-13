@@ -61,3 +61,9 @@ cd docs && python -m http.server 8000
 See [CONTRIBUTING.md](CONTRIBUTING.md) for step-by-step guides on adding members, publications, news, and group photos.
 
 See [STRUCTURE.md](STRUCTURE.md) for a full breakdown of the directory layout and build process.
+
+---
+
+## Design Rules
+
+[DESIGN_RULES.md](DESIGN_RULES.md) is the canonical reference for typography, color, spacing, and responsive scaling. Consult it before changing CSS or adding any new UI — it defines the type scale, color tokens, breakpoints (desktop / tablet / mobile), and per-component rules (publications, members, news, contact, etc.), plus a list of known drifts to avoid reintroducing.
