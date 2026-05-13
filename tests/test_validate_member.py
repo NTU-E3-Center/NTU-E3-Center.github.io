@@ -41,6 +41,76 @@ class TestValidateMemberFolder(unittest.TestCase):
             self.assertIn("invalid JSON", errors[0].message)
             self.assertIn("line", errors[0].message.lower())
 
+    def _make_folder(self, tmp, *, member_json_content=None, with_about=False, with_photo=False):
+        folder = Path(tmp) / "m"
+        folder.mkdir()
+        if member_json_content is not None:
+            (folder / "member.json").write_text(
+                json.dumps(member_json_content), encoding="utf-8"
+            )
+        if with_about:
+            (folder / "about.md").write_text("bio")
+        if with_photo:
+            (folder / "photo.jpg").write_bytes(b"")
+        return folder
+
+    def _good_member_json(self):
+        return {
+            "position": "Assoc Prof",
+            "email": {"ntu": "x@ntu.edu.tw", "preferred": ""},
+            "interests": ["A", "B"],
+            "links": {
+                "scholar": "",
+                "orcid": "",
+                "linkedin": "",
+                "researchgate": "",
+                "ntu_scholars": "",
+                "office": {"text": "", "url": ""},
+            },
+            "metaDescription": "",
+        }
+
+    def test_fully_valid_member_json_has_no_schema_errors(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(
+                tmp, member_json_content=self._good_member_json(),
+                with_about=True, with_photo=True,
+            )
+            issues = validate_member_folder("m", folder)
+            errors = [i for i in issues if i.severity == "error"]
+            self.assertEqual(errors, [])
+
+    def test_wrong_type_for_position_is_error(self):
+        bad = self._good_member_json()
+        bad["position"] = None
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            errors = [i for i in issues if i.severity == "error"]
+            self.assertEqual(len(errors), 1)
+            self.assertIn("position", errors[0].message)
+            self.assertIn("expected string", errors[0].message.lower())
+
+    def test_wrong_nested_type_is_error_with_dotted_path(self):
+        bad = self._good_member_json()
+        bad["email"]["ntu"] = 42
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            errors = [i for i in issues if i.severity == "error"]
+            self.assertEqual(len(errors), 1)
+            self.assertIn("email.ntu", errors[0].message)
+
+    def test_interests_must_be_list_of_strings(self):
+        bad = self._good_member_json()
+        bad["interests"] = [1, 2]
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            errors = [i for i in issues if i.severity == "error"]
+            self.assertEqual(len(errors), 1)
+            self.assertIn("interests[0]", errors[0].message)
+
 
 if __name__ == "__main__":
     unittest.main()
