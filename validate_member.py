@@ -42,5 +42,16 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
             "warn",
             f"{member_json}: member.json missing — profile will render with defaults.",
         ))
+    else:
+        try:
+            with member_json.open(encoding="utf-8") as f:
+                data = json.load(f)
+        except json.JSONDecodeError as e:
+            issues.append(ValidationIssue(
+                "error",
+                f"{member_json}: invalid JSON — line {e.lineno}, column {e.colno}: {e.msg}",
+            ))
+            data = None
+        # data is now either a parsed dict or None; schema check uses it in Task 5.
 
     return issues

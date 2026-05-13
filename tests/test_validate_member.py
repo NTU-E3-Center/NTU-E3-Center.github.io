@@ -30,6 +30,17 @@ class TestValidateMemberFolder(unittest.TestCase):
             severities = [(i.severity, "member.json" in i.message) for i in issues]
             self.assertIn(("warn", True), severities)
 
+    def test_member_json_invalid_yields_error_with_line_col(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "broken"
+            folder.mkdir()
+            (folder / "member.json").write_text('{ "position": "x"\n  "email": {} }')  # missing comma
+            issues = validate_member_folder("broken", folder)
+            errors = [i for i in issues if i.severity == "error"]
+            self.assertEqual(len(errors), 1)
+            self.assertIn("invalid JSON", errors[0].message)
+            self.assertIn("line", errors[0].message.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
