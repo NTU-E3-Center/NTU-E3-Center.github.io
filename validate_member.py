@@ -27,4 +27,13 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
     """Inspect a per-member content folder and return any issues found.
 
     Empty list = OK. See severities in the dataclass docstring above."""
-    return []
+    issues: list[ValidationIssue] = []
+
+    if not folder.is_dir():
+        issues.append(ValidationIssue(
+            "warn",
+            f"{folder}: folder missing — build will render a placeholder profile.",
+        ))
+        return issues
+
+    return issues
