@@ -138,6 +138,32 @@ class TestValidateMemberFolder(unittest.TestCase):
             issues = validate_member_folder("m", folder)
             self.assertFalse(any("photo" in i.message for i in issues))
 
+    def test_non_http_url_in_links_yields_warning(self):
+        bad = self._good_member_json()
+        bad["links"]["scholar"] = "scholar.google.com/profile"  # no http(s)://
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            warns = [i for i in issues if i.severity == "warn" and "scholar" in i.message]
+            self.assertEqual(len(warns), 1)
+            self.assertIn("http", warns[0].message)
+
+    def test_empty_url_in_links_does_not_warn(self):
+        ok = self._good_member_json()
+        ok["links"]["scholar"] = ""
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=ok, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            self.assertFalse(any("scholar" in i.message for i in issues))
+
+    def test_email_without_at_yields_warning(self):
+        bad = self._good_member_json()
+        bad["email"]["ntu"] = "notanemail"
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            self.assertTrue(any(i.severity == "warn" and "@" in i.message and "email.ntu" in i.message for i in issues))
+
 
 if __name__ == "__main__":
     unittest.main()

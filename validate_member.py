@@ -47,6 +47,42 @@ _SCHEMA: dict[str, Any] = {
 }
 
 
+_URL_LINK_KEYS = ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars")
+
+
+def _check_soft_formats(data: dict) -> list[ValidationIssue]:
+    """URL / email format warnings. These never fail the build."""
+    issues: list[ValidationIssue] = []
+    links = data.get("links") or {}
+
+    for key in _URL_LINK_KEYS:
+        val = links.get(key)
+        if isinstance(val, str) and val and not val.startswith(("http://", "https://")):
+            issues.append(ValidationIssue(
+                "warn",
+                f"links.{key}: '{val}' does not start with http:// or https:// — render will be unchanged but the link may not work.",
+            ))
+
+    office = links.get("office") or {}
+    office_url = office.get("url")
+    if isinstance(office_url, str) and office_url and not office_url.startswith(("http://", "https://")):
+        issues.append(ValidationIssue(
+            "warn",
+            f"links.office.url: '{office_url}' does not start with http:// or https://.",
+        ))
+
+    email = data.get("email") or {}
+    for key in ("ntu", "preferred"):
+        val = email.get(key)
+        if isinstance(val, str) and val and "@" not in val:
+            issues.append(ValidationIssue(
+                "warn",
+                f"email.{key}: '{val}' missing '@' — does this look right?",
+            ))
+
+    return issues
+
+
 def _check_schema(data: Any, schema: Any, path: str) -> list[ValidationIssue]:
     """Recursively validate `data` against `schema`. Returns flat issue list.
 
@@ -125,6 +161,8 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
 
         if data is not None:
             issues.extend(_check_schema(data, _SCHEMA, path=""))
+            if isinstance(data, dict):
+                issues.extend(_check_soft_formats(data))
 
     if not (folder / "about.md").exists():
         issues.append(ValidationIssue(
