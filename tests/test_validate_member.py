@@ -22,6 +22,14 @@ class TestValidateMemberFolder(unittest.TestCase):
             self.assertEqual(issues[0].severity, "warn")
             self.assertIn("folder missing", issues[0].message)
 
+    def test_member_json_missing_yields_warning(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "empty"
+            folder.mkdir()
+            issues = validate_member_folder("empty", folder)
+            severities = [(i.severity, "member.json" in i.message) for i in issues]
+            self.assertIn(("warn", True), severities)
+
 
 if __name__ == "__main__":
     unittest.main()

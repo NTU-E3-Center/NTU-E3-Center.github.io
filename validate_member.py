@@ -36,4 +36,11 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
         ))
         return issues
 
+    member_json = folder / "member.json"
+    if not member_json.exists():
+        issues.append(ValidationIssue(
+            "warn",
+            f"{member_json}: member.json missing — profile will render with defaults.",
+        ))
+
     return issues
