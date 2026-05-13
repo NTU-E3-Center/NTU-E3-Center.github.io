@@ -179,3 +179,29 @@ def validate_member_folder(web_id: str, folder: Path) -> list[ValidationIssue]:
         ))
 
     return issues
+
+
+if __name__ == "__main__":
+    """Spot-check usage:
+        python validate_member.py iyunlisahsieh
+        python validate_member.py iyunlisahsieh contents/members/iyunlisahsieh
+    """
+    import sys
+
+    if len(sys.argv) < 2:
+        print("usage: python validate_member.py <webId> [<folder>]", file=sys.stderr)
+        sys.exit(2)
+
+    web_id = sys.argv[1]
+    folder = Path(sys.argv[2]) if len(sys.argv) >= 3 else Path("contents") / "members" / web_id
+
+    issues = validate_member_folder(web_id, folder)
+    if not issues:
+        print(f"✓ {folder}: no issues")
+        sys.exit(0)
+
+    n_err = sum(1 for i in issues if i.severity == "error")
+    for issue in issues:
+        sign = "✗" if issue.severity == "error" else "⚠"
+        print(f"{sign} {issue.message}")
+    sys.exit(1 if n_err else 0)
