@@ -143,6 +143,7 @@
 .members-subpage,
 .news-subpage,
 .publications-subpage,
+.projects-subpage,
 .group-life-subpage,
 .contact-subpage {
     width: min(100%, 80rem);
@@ -768,6 +769,7 @@
     .members-subpage,
     .news-subpage,
     .publications-subpage,
+    .projects-subpage,
     .group-life-subpage {
         padding-block: 1.5rem 4rem;
     }
@@ -982,8 +984,9 @@
     display: none !important;
 }
 
-/* See more / Show less button */
-.publi-show-more {
+/* See more / Show less button — shared by the publications and projects lists */
+.publi-show-more,
+.proj-show-more {
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -1468,6 +1471,110 @@
             align-self: stretch;
             justify-content: center;
         }
+    }
+}
+
+/* ── Projects subpage ───────────────────────────────────────────────────────
+   Reuses the shared news-row list pattern (DESIGN_RULES §5.4). Rows carry no
+   link/arrow, so the grid is re-scoped to two columns at every breakpoint.
+   Each status group (Ongoing / Completed) is one combined, date-sorted list,
+   collapsible past the 6th row via the shared togglePubGroup() control. */
+
+.projects-subpage .proj-status-group:not(:last-child) {
+    margin-block-end: 3.5rem;
+}
+
+/* Status heading (h2) — "Ongoing" / "Completed", with a dimmed count. */
+.proj-status-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: var(--fs-heading-s);
+    font-weight: var(--fw-h1);
+    letter-spacing: -0.025em;
+    color: var(--main-color);
+    margin-block: 0 1.5rem;
+}
+
+.proj-status-count {
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    opacity: 0.4;
+}
+
+/* Two-column row (date + body) — re-scopes the shared 3-column .news-row grid.
+   align-items:start so the date column tops out with the multi-line body.
+   Scoped to #projects so it covers both the /projects subpage and the homepage
+   Projects section (both carry id="projects"). */
+#projects .news-row {
+    grid-template-columns: 5.5rem 1fr;
+    align-items: start;
+}
+
+#projects .news-row-date {
+    padding-block-start: 0.1rem;
+}
+
+/* Meta line — funding agency (+ grant number for NSTC), optionally led by a
+   Co-PI badge. PI is the norm and is left unlabelled. */
+.proj-row-meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: var(--fs-caption-s);
+    line-height: 1.5;
+    margin: 0.3rem 0 0;
+}
+
+.proj-agency {
+    color: var(--main-color);
+    opacity: 0.6;
+}
+
+/* Co-PI marker — only rendered when the lab is NOT the principal investigator,
+   so it reads as a flagged exception. Badge recipe per DESIGN_RULES §5.2. */
+.proj-role-badge {
+    flex-shrink: 0;
+    font-size: var(--fs-badge);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2rem;
+    line-height: 1.6;
+    color: var(--main-color-2);
+    background: color-mix(in srgb, var(--main-color-2) 14%, transparent);
+}
+
+/* Collapsed rows past the visible cap — display:contents keeps the wrapper
+   transparent to the .news-rows layout (mirrors .publi-extra-item). */
+.proj-extra-item {
+    display: contents;
+}
+
+.proj-extra-item[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 64rem) {
+    #projects .news-row {
+        grid-template-columns: 4rem 1fr;
+    }
+}
+
+@media (max-width: 37.5rem) {
+    #projects .news-row {
+        grid-template-columns: 3rem 1fr;
+    }
+
+    .proj-status-title {
+        font-size: var(--fs-body-l);
+    }
+
+    /* keep the badge above the ~0.75rem mobile floor (DESIGN_RULES §9, [A-1]) */
+    .proj-role-badge {
+        font-size: 0.6875rem;
     }
 }
 
