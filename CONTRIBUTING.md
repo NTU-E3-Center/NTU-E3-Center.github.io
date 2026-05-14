@@ -31,7 +31,7 @@ The build script will automatically compress and convert it to WebP at multiple 
 python build.py
 ```
 
-`excel_to_content.py` runs first and auto-generates:
+`lib/excel_to_content.py` runs first and auto-generates:
 - `contents/structures/members.json`
 - `contents/structures/members/{webId}.json`
 - `contents/articles/members-{about,position,interest}/{webId}.md`
