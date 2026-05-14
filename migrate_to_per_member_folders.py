@@ -13,6 +13,9 @@ content folders.
 from __future__ import annotations
 
 
+from typing import Mapping, Any
+
+
 def parse_interests_from_slash_md(md: str) -> list[str]:
     """Parse the existing /Topic A\\n/Topic B format into ['Topic A', 'Topic B']."""
     out: list[str] = []
@@ -21,3 +24,37 @@ def parse_interests_from_slash_md(md: str) -> list[str]:
         if s.startswith("/"):
             out.append(s.lstrip("/").strip())
     return out
+
+
+def _s(value: Any) -> str:
+    """Coerce Excel cell value → trimmed string, empty when None/blank."""
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def build_member_json(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Build the all-keys-present member.json dict from a legacy Excel row.
+
+    `row` is keyed by the legacy 22-column names (e.g. 'NTU Email', 'Scholar').
+    Missing columns default to empty values — never raises."""
+    return {
+        "position": _s(row.get("Position / Education")),
+        "email": {
+            "ntu":       _s(row.get("NTU Email")),
+            "preferred": _s(row.get("Preferred Email")),
+        },
+        "interests": parse_interests_from_slash_md(_s(row.get("Research Interests"))),
+        "links": {
+            "scholar":      _s(row.get("Scholar")),
+            "orcid":        _s(row.get("ORCID")),
+            "linkedin":     _s(row.get("LinkedIn")),
+            "researchgate": _s(row.get("ResearchGate")),
+            "ntu_scholars": _s(row.get("NTU Scholars")),
+            "office": {
+                "text": _s(row.get("Office")),
+                "url":  _s(row.get("Office Map")),
+            },
+        },
+        "metaDescription": _s(row.get("metaDescription")),
+    }
