@@ -39,8 +39,10 @@ def _s(value: Any) -> str:
 def build_member_json(row: Mapping[str, Any]) -> dict[str, Any]:
     """Build the all-keys-present member.json dict from a legacy Excel row.
 
-    `row` is keyed by the legacy 22-column names (e.g. 'NTU Email', 'Scholar').
-    Missing columns default to empty values — never raises."""
+    `row` is keyed by the legacy column names (e.g. 'NTU Email',
+    'Google Scholar'). Missing columns default to empty values — never raises.
+    Note: the legacy Excel has no Office/Office Map columns; only the PI has
+    an office link, special-cased by main()."""
     return {
         "position": _s(row.get("Position / Education")),
         "email": {
@@ -49,11 +51,12 @@ def build_member_json(row: Mapping[str, Any]) -> dict[str, Any]:
         },
         "interests": parse_interests_from_slash_md(_s(row.get("Research Interests"))),
         "links": {
-            "scholar":      _s(row.get("Scholar")),
+            "scholar":      _s(row.get("Google Scholar")),
             "orcid":        _s(row.get("ORCID")),
             "linkedin":     _s(row.get("LinkedIn")),
             "researchgate": _s(row.get("ResearchGate")),
             "ntu_scholars": _s(row.get("NTU Scholars")),
+            "facebook":     _s(row.get("Facebook")),
             "office": {
                 "text": _s(row.get("Office")),
                 "url":  _s(row.get("Office Map")),
@@ -141,6 +144,7 @@ _EMPTY_MEMBER_JSON: dict = {
         "linkedin": "",
         "researchgate": "",
         "ntu_scholars": "",
+        "facebook": "",
         "office": {"text": "", "url": ""},
     },
     "metaDescription": "",
@@ -188,3 +192,114 @@ def write_member_template(dest: Path) -> None:
     )
     (dest / "about.md").write_text(_TEMPLATE_ABOUT_MD, encoding="utf-8")
     (dest / "README.md").write_text(_TEMPLATE_README_MD, encoding="utf-8")
+
+
+import argparse
+import sys
+
+# The PI's office link is hardcoded in excel_to_content.py's PI_EXTRA_LINKS,
+# not an Excel column. Mirror it here so the PI's member.json keeps it.
+_PI_OFFICE = {"text": "CERB 601", "url": "https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8"}
+
+
+def _find_legacy_photo(image_dir: Path, web_id: str) -> Path | None:
+    """Find contents/images/members/{webId}.{ext} case-insensitively
+    (handles shaoyangcheung.JPG etc.). Returns the first match or None."""
+    if not image_dir.is_dir():
+        return None
+    for p in sorted(image_dir.iterdir()):
+        if p.is_file() and not p.name.startswith(".") and p.stem.lower() == web_id.lower():
+            return p
+    return None
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="One-time migration to per-member folders.")
+    parser.add_argument("--force", action="store_true",
+                        help="Overwrite existing contents/members/*/ folders.")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Print what would happen without writing files.")
+    args = parser.parse_args(argv)
+
+    repo_root     = Path(".")
+    legacy_xlsx   = repo_root / "contents" / "member-info.xlsx"
+    archive_xlsx  = repo_root / "contents" / "member-info.legacy.xlsx"
+    members_root  = repo_root / "contents" / "members"
+    template_root = repo_root / "contents" / "MEMBER_TEMPLATE"
+    old_about_dir = repo_root / "contents" / "articles" / "members-about"
+    old_image_dir = repo_root / "contents" / "images" / "members"
+
+    if not legacy_xlsx.exists():
+        print(f"✗ {legacy_xlsx} does not exist", file=sys.stderr)
+        return 2
+
+    if members_root.exists() and any(members_root.iterdir()) and not args.force:
+        print(f"✗ {members_root}/ is not empty. Re-run with --force to overwrite.",
+              file=sys.stderr)
+        return 2
+
+    import openpyxl
+    wb = openpyxl.load_workbook(legacy_xlsx, data_only=True)
+    ws = wb["Members"]
+    headers = [c.value for c in ws[1]]
+
+    n_processed = 0
+    for row_tuple in ws.iter_rows(min_row=2, values_only=True):
+        row = dict(zip(headers, row_tuple))
+        web_id = _s(row.get("WebID"))
+        if not web_id:
+            continue  # blank / divider row
+
+        member_data = build_member_json(row)
+
+        # PI office link is hardcoded upstream, not an Excel column.
+        if _s(row.get("Website Section")) == "Principal Investigator":
+            member_data["links"]["office"] = dict(_PI_OFFICE)
+
+        about_src = old_about_dir / f"{web_id}.md"
+        about_src = about_src if about_src.exists() else None
+
+        photo_src = _find_legacy_photo(old_image_dir, web_id)
+
+        dest = members_root / web_id
+
+        if args.dry_run:
+            print(f"  would write {dest}/  "
+                  f"(about={about_src is not None}, photo={photo_src is not None})")
+        else:
+            write_member_folder(
+                dest=dest,
+                member_json=member_data,
+                about_md_src=about_src,
+                photo_src=photo_src,
+            )
+            print(f"  ✓ {dest}/")
+        n_processed += 1
+
+    if args.dry_run:
+        print(f"\n(dry-run) would process {n_processed} members.")
+        return 0
+
+    # Slim Excel + archive original
+    tmp_slim = legacy_xlsx.with_suffix(".slim.xlsx")
+    write_slim_excel(legacy_xlsx, tmp_slim)
+    legacy_xlsx.rename(archive_xlsx)
+    tmp_slim.rename(legacy_xlsx)
+    print(f"  ✓ wrote slim {legacy_xlsx}")
+    print(f"  ✓ archived original → {archive_xlsx}")
+
+    # Template skeleton
+    write_member_template(template_root)
+    print(f"  ✓ wrote {template_root}/")
+
+    print(f"\nDone. Processed {n_processed} members.")
+    print("\nNext steps (manual):")
+    print("  - Inspect a few migrated folders (e.g. contents/members/iyunlisahsieh/)")
+    print("  - Run: python build.py  (should succeed with at most warnings)")
+    print("  - diff -r /tmp/docs.before docs   (zero diffs expected)")
+    print("  - git rm -r the now-stale legacy member directories")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

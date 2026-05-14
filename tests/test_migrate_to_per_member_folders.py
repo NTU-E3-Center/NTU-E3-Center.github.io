@@ -48,11 +48,12 @@ class TestBuildMemberJson(unittest.TestCase):
             "Position / Education": "Assoc Prof, NTU",
             "Research Interests":   "/Topic A\n/Topic B",
             "metaDescription":      "",
-            "Scholar":              "",
+            "Google Scholar":       "",
             "ORCID":                "0000-0001-2345-6789",
             "LinkedIn":             "",
             "ResearchGate":         "",
             "NTU Scholars":         "",
+            "Facebook":             "",
         }
         base.update(overrides)
         return base
@@ -62,7 +63,7 @@ class TestBuildMemberJson(unittest.TestCase):
         self.assertEqual(set(out.keys()), {"position", "email", "interests", "links", "metaDescription"})
         self.assertEqual(set(out["email"].keys()), {"ntu", "preferred"})
         self.assertEqual(set(out["links"].keys()), {
-            "scholar", "orcid", "linkedin", "researchgate", "ntu_scholars", "office",
+            "scholar", "orcid", "linkedin", "researchgate", "ntu_scholars", "facebook", "office",
         })
         self.assertEqual(set(out["links"]["office"].keys()), {"text", "url"})
 
@@ -94,7 +95,7 @@ def _empty_member_dict():
         "interests": [],
         "links": {
             "scholar": "", "orcid": "", "linkedin": "",
-            "researchgate": "", "ntu_scholars": "",
+            "researchgate": "", "ntu_scholars": "", "facebook": "",
             "office": {"text": "", "url": ""},
         },
         "metaDescription": "",
@@ -198,7 +199,7 @@ class TestMemberTemplate(unittest.TestCase):
             self.assertEqual(data["email"]["ntu"], "")
             self.assertEqual(data["email"]["preferred"], "")
             self.assertEqual(data["interests"], [])
-            for k in ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars"):
+            for k in ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars", "facebook"):
                 self.assertEqual(data["links"][k], "")
             self.assertEqual(data["links"]["office"], {"text": "", "url": ""})
 

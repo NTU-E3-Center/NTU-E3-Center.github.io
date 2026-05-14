@@ -38,6 +38,7 @@ _SCHEMA: dict[str, Any] = {
         "linkedin": str,
         "researchgate": str,
         "ntu_scholars": str,
+        "facebook": str,
         "office": {
             "text": str,
             "url": str,
@@ -47,7 +48,7 @@ _SCHEMA: dict[str, Any] = {
 }
 
 
-_URL_LINK_KEYS = ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars")
+_URL_LINK_KEYS = ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars", "facebook")
 
 
 def _check_soft_formats(data: dict) -> list[ValidationIssue]:

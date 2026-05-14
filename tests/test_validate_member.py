@@ -65,6 +65,7 @@ class TestValidateMemberFolder(unittest.TestCase):
                 "linkedin": "",
                 "researchgate": "",
                 "ntu_scholars": "",
+                "facebook": "",
                 "office": {"text": "", "url": ""},
             },
             "metaDescription": "",
