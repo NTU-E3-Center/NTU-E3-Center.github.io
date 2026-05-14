@@ -10,6 +10,7 @@ from migrate_to_per_member_folders import (
     build_member_json,
     write_member_folder,
     write_slim_excel,
+    write_member_template,
     ADMIN_COLUMNS,
 )
 
@@ -181,6 +182,33 @@ class TestSlimExcel(unittest.TestCase):
             self.assertEqual(slim_headers, ADMIN_COLUMNS)
             self.assertEqual(ws2["A2"].value, "ada")
             self.assertEqual(ws2["B2"].value, "Ada Lovelace")
+
+
+class TestMemberTemplate(unittest.TestCase):
+    def test_creates_three_files_with_all_keys(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dest = Path(tmp) / "MEMBER_TEMPLATE"
+            write_member_template(dest)
+            self.assertTrue((dest / "member.json").exists())
+            self.assertTrue((dest / "about.md").exists())
+            self.assertTrue((dest / "README.md").exists())
+
+            data = json.loads((dest / "member.json").read_text())
+            self.assertEqual(data["position"], "")
+            self.assertEqual(data["email"]["ntu"], "")
+            self.assertEqual(data["email"]["preferred"], "")
+            self.assertEqual(data["interests"], [])
+            for k in ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars"):
+                self.assertEqual(data["links"][k], "")
+            self.assertEqual(data["links"]["office"], {"text": "", "url": ""})
+
+    def test_readme_mentions_member_json_and_about_md(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dest = Path(tmp) / "MEMBER_TEMPLATE"
+            write_member_template(dest)
+            text = (dest / "README.md").read_text(encoding="utf-8")
+            self.assertIn("member.json", text)
+            self.assertIn("about.md", text)
 
 
 if __name__ == "__main__":

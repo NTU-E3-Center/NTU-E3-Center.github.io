@@ -129,3 +129,62 @@ def write_slim_excel(legacy_path: Path, slim_path: Path) -> None:
         out_ws.append([row[i] for i in keep_indices])
 
     out_wb.save(slim_path)
+
+
+_EMPTY_MEMBER_JSON: dict = {
+    "position": "",
+    "email": {"ntu": "", "preferred": ""},
+    "interests": [],
+    "links": {
+        "scholar": "",
+        "orcid": "",
+        "linkedin": "",
+        "researchgate": "",
+        "ntu_scholars": "",
+        "office": {"text": "", "url": ""},
+    },
+    "metaDescription": "",
+}
+
+_TEMPLATE_ABOUT_MD = """# Your name here
+
+Write your bio in this file. You can use Markdown:
+
+- **bold** with `**bold**`
+- *italics* with `*italics*`
+- [links](https://example.com) with `[text](url)`
+
+Multiple paragraphs are fine. This is the prose that appears in the "About"
+section of your member page.
+
+(Delete this placeholder text and write your bio here.)
+"""
+
+_TEMPLATE_README_MD = """# Updating your E3 Center profile
+
+Edit **two files** and send them back to the maintainer:
+
+1. **`member.json`** — your position, emails, interests, profile links.
+   - Replace the string values. Don't delete keys or rearrange.
+   - Leave any field as `""` to hide it on the website.
+   - `interests` is a list — add or remove items as you like (1–5 typical).
+2. **`about.md`** — your biographical paragraphs. Plain Markdown:
+   - `**bold**`, `*italics*`, `[links](https://example.com)`
+   - Blank line = new paragraph
+   - `- item` for bullets
+
+Send both files back when done. Do not edit anything in `member-info.xlsx`
+— your admin info (name, batch, section) is handled separately.
+"""
+
+
+def write_member_template(dest: Path) -> None:
+    """Create dest/ (typically contents/MEMBER_TEMPLATE/) with the three
+    skeleton files maintainers send to new members."""
+    dest.mkdir(parents=True, exist_ok=True)
+    (dest / "member.json").write_text(
+        _json.dumps(_EMPTY_MEMBER_JSON, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    (dest / "about.md").write_text(_TEMPLATE_ABOUT_MD, encoding="utf-8")
+    (dest / "README.md").write_text(_TEMPLATE_README_MD, encoding="utf-8")
