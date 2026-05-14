@@ -92,6 +92,13 @@ for filename in os.listdir(structures_path):
         var_name = os.path.splitext(filename)[0]
         structures[var_name] = data
 
+# Load projects data — it lives in its own contents/projects/ folder rather
+# than contents/structures/, so the loop above does not pick it up.
+projects_file = 'contents/projects/projects.json'
+if os.path.exists(projects_file):
+    with open(projects_file, 'r', encoding='utf-8') as f:
+        structures['projects'] = json.load(f)
+
 # Build in-memory per-member detail lookup (webId -> data) so templates can
 # access chiNameEng (full name + optional nickname) without touching any JSON.
 _members_detail_path = os.path.join(structures_path, 'members')
