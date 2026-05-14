@@ -1,7 +1,12 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
+
 from migrate_to_per_member_folders import (
     parse_interests_from_slash_md,
     build_member_json,
+    write_member_folder,
 )
 
 
@@ -75,6 +80,71 @@ class TestBuildMemberJson(unittest.TestCase):
     def test_missing_office_columns_default_to_empty(self):
         out = build_member_json(self._row())
         self.assertEqual(out["links"]["office"], {"text": "", "url": ""})
+
+
+def _empty_member_dict():
+    return {
+        "position": "x",
+        "email": {"ntu": "", "preferred": ""},
+        "interests": [],
+        "links": {
+            "scholar": "", "orcid": "", "linkedin": "",
+            "researchgate": "", "ntu_scholars": "",
+            "office": {"text": "", "url": ""},
+        },
+        "metaDescription": "",
+    }
+
+
+class TestWriteMemberFolder(unittest.TestCase):
+    def test_creates_folder_with_json_about_photo(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "src_about.md").write_text("# Bio\nHello", encoding="utf-8")
+            (root / "src_photo.jpg").write_bytes(b"fake-jpg-bytes")
+            member_data = _empty_member_dict()
+
+            dest = root / "members" / "ada"
+            write_member_folder(
+                dest=dest,
+                member_json=member_data,
+                about_md_src=root / "src_about.md",
+                photo_src=root / "src_photo.jpg",
+            )
+
+            self.assertTrue((dest / "member.json").exists())
+            self.assertTrue((dest / "about.md").exists())
+            self.assertTrue((dest / "photo.jpg").exists())
+            self.assertEqual(json.loads((dest / "member.json").read_text()), member_data)
+            self.assertEqual((dest / "about.md").read_text(encoding="utf-8"), "# Bio\nHello")
+            self.assertEqual((dest / "photo.jpg").read_bytes(), b"fake-jpg-bytes")
+
+    def test_skips_missing_about_and_photo_gracefully(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            dest = root / "members" / "noaboutphoto"
+            write_member_folder(
+                dest=dest,
+                member_json=_empty_member_dict(),
+                about_md_src=None,
+                photo_src=None,
+            )
+            self.assertTrue((dest / "member.json").exists())
+            self.assertFalse((dest / "about.md").exists())
+            self.assertFalse(list(dest.glob("photo.*")))
+
+    def test_preserves_photo_extension(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "p.png").write_bytes(b"png")
+            dest = root / "members" / "m"
+            write_member_folder(
+                dest=dest,
+                member_json=_empty_member_dict(),
+                about_md_src=None,
+                photo_src=root / "p.png",
+            )
+            self.assertTrue((dest / "photo.png").exists())
 
 
 if __name__ == "__main__":
