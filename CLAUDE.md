@@ -33,15 +33,16 @@ cd docs && python -m http.server 8000
 Data flows from source files → `build.py` → `docs/` (deployed via GitHub Pages):
 
 ```
-contents/member-info.xlsx    ← member source of truth (Excel)
+contents/member-info.xlsx    ← admin roster (11 cols: webId, names, section, batch, …)
+contents/members/{webId}/    ← per-member content (member.json, about.md, photo.{ext})
         ↓
-excel_to_content.py          ← auto-generates members JSON + Markdown
+excel_to_content.py          ← merges admin + content; validates; regenerates intermediates
         ↓
 contents/structures/*.json   ← page data, members, publications, etc.
 contents/articles/*.md       ← text content (about, member bios)
 templates/*.html             ← Jinja2 templates
 static/                      ← CSS, JS, assets (copied unchanged)
-contents/images/             ← source images (auto-converted to WebP)
+contents/images/             ← research + group-life images (auto-converted to WebP)
         ↓
     build.py
         ↓
@@ -49,7 +50,7 @@ contents/images/             ← source images (auto-converted to WebP)
 ```
 
 **`build.py` performs these steps in order:**
-1. **Run `excel_to_content.py`** — reads `contents/member-info.xlsx` and generates `members.json`, per-member JSON files, and member Markdown files (executed at import time)
+1. **Run `excel_to_content.py`** — merges admin fields from `contents/member-info.xlsx` with content fields from each `contents/members/{webId}/` folder (`member.json` + `about.md`), validates every folder via `validate_member.py` (build **fails** on invalid JSON / schema mismatch, **warns** on missing optional files), and regenerates `members.json` + per-member JSON + member Markdown as gitignored build artifacts (executed at import time)
 2. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library); also builds `members_by_id` lookup and a filtered/sorted `home_publications` (only items with `"E3": true` and `status: "published"`)
 3. **Render pages** — iterates `pages.json`, renders each Jinja2 template with the full `structures` dict, writes to `docs/{path}/index.html`
 4. **Render member pages** — for each member in `members.json`, loads `contents/structures/members/{memberId}.json`, auto-populates their publications by matching `pubName` against `authors` in `publications.json`
@@ -57,7 +58,7 @@ contents/images/             ← source images (auto-converted to WebP)
 6. **Copy static assets** — copies `static/` → `docs/`
 7. **Copy videos** — copies `contents/videos/` → `docs/assets/videos/`
 8. **Generate `sitemap.xml`** — emits URLs for static pages, member pages (deduplicated), and news item pages
-9. **Process images** — converts `contents/images/` to WebP at multiple responsive widths (members: 200–800w; group-life and news: 200–2000w), generates 20w lazy-load placeholders. Subfolders are preserved in the output (e.g. `news/{slug}/0.jpg` → `docs/assets/news/{slug}/0-Nw.webp`). Folders without a `{folder}_img_sizes` config are skipped.
+9. **Process images** — `compress_and_convert_images()` converts `contents/images/{group-life,news}/` to WebP at multiple responsive widths (group-life and news: 200–2000w); `compress_member_images()` converts each `contents/members/{webId}/photo.{ext}` to `docs/assets/members/{webId}-{N}w.webp` (200–800w). 20w lazy-load placeholders for all. Subfolders preserved for news (e.g. `news/{slug}/0.jpg` → `docs/assets/news/{slug}/0-Nw.webp`).
 
 ## Content Structure
 
@@ -65,7 +66,8 @@ All content changes are data-driven — no Python or HTML edits required:
 
 | What to change | Where |
 |---|---|
-| Members (add/update/remove) | `contents/member-info.xlsx` — source of truth |
+| Member admin fields (section, batch, graduated, names) | `contents/member-info.xlsx` — 11-column roster |
+| Member content (position, emails, interests, links, bio, photo) | `contents/members/{webId}/` — `member.json` + `about.md` + `photo.{ext}` |
 | Publications | `contents/structures/publications.json` |
 | News items (homepage list) | `contents/structures/news.json` |
 | News item article body | `contents/articles/news/{slug}.md` (slug = last segment of `pageLink`) |
@@ -77,14 +79,20 @@ All content changes are data-driven — no Python or HTML edits required:
 | About / Contact text | `contents/articles/about.md`, `contents/articles/contact.md` |
 
 **Adding a new member:**
-1. Add a row to `contents/member-info.xlsx`
-2. Run `python build.py` — `excel_to_content.py` auto-generates:
-   - `contents/structures/members.json`
-   - `contents/structures/members/{webId}.json`
-   - `contents/articles/members-{about,position,interest}/{webId}.md`
-3. Add photo at `contents/images/members/{webId}.(jpg|png)`
+1. Add a row to `contents/member-info.xlsx` (the 11 admin columns).
+2. Seed their content folder: `cp -r contents/MEMBER_TEMPLATE contents/members/{webId}`
+3. Fill in `contents/members/{webId}/member.json` + `about.md` (or send the
+   folder + `MEMBER_TEMPLATE/README.md` to the member to fill in), and drop
+   their `photo.{jpg,png}` into the same folder.
+4. Run `python build.py` — `excel_to_content.py` merges + validates + regenerates.
 
-> Do **not** manually edit `members.json` or per-member JSON/Markdown files — they are fully overwritten on every build.
+**Updating a member:** edit `contents/members/{webId}/member.json` / `about.md`
+directly, or send them their folder to edit and overwrite it on return.
+
+> Do **not** manually edit `members.json`, `contents/structures/members/`,
+> or `contents/articles/members-*/` — those are gitignored build artifacts,
+> fully regenerated on every build. `contents/member-info.legacy.xlsx` is a
+> read-only archive of the original spreadsheet.
 
 Publications are **automatically linked** to member profiles via `pubName` matching against the `authors` field in `publications.json`. For a publication to appear on the homepage it needs `"E3": true` and `status: "published"` (items under review are excluded).
 
