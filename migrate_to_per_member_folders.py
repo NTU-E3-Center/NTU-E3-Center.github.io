@@ -90,3 +90,42 @@ def write_member_folder(
     if photo_src is not None and photo_src.exists():
         ext = photo_src.suffix.lower()
         shutil.copyfile(photo_src, dest / f"photo{ext}")
+
+
+ADMIN_COLUMNS: list[str] = [
+    "WebID",
+    "Full Name",
+    "Nickname",
+    "Chinese Name",
+    "Website Section",
+    "Admission Year",
+    "Graduated",
+    "Also in Alumni",
+    "Alumni Admission Year",
+    "Current Position",
+    "Batch",
+]
+
+
+def write_slim_excel(legacy_path: Path, slim_path: Path) -> None:
+    """Read the legacy workbook; write a new workbook keeping only the 11
+    ADMIN_COLUMNS (in the order defined by that constant)."""
+    import openpyxl
+    src_wb = openpyxl.load_workbook(legacy_path, data_only=True)
+    src_ws = src_wb["Members"]
+    src_headers = [c.value for c in src_ws[1]]
+
+    keep_indices = []
+    for col in ADMIN_COLUMNS:
+        if col not in src_headers:
+            raise ValueError(f"Legacy Excel missing required admin column: {col!r}")
+        keep_indices.append(src_headers.index(col))
+
+    out_wb = openpyxl.Workbook()
+    out_ws = out_wb.active
+    out_ws.title = "Members"
+    out_ws.append(ADMIN_COLUMNS)
+    for row in src_ws.iter_rows(min_row=2, values_only=True):
+        out_ws.append([row[i] for i in keep_indices])
+
+    out_wb.save(slim_path)

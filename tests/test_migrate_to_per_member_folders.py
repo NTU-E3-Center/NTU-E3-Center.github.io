@@ -3,10 +3,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import openpyxl
+
 from migrate_to_per_member_folders import (
     parse_interests_from_slash_md,
     build_member_json,
     write_member_folder,
+    write_slim_excel,
+    ADMIN_COLUMNS,
 )
 
 
@@ -145,6 +149,38 @@ class TestWriteMemberFolder(unittest.TestCase):
                 photo_src=root / "p.png",
             )
             self.assertTrue((dest / "photo.png").exists())
+
+
+class TestSlimExcel(unittest.TestCase):
+    def test_admin_columns_constant_is_eleven(self):
+        self.assertEqual(len(ADMIN_COLUMNS), 11)
+
+    def test_writes_only_admin_columns(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            legacy = Path(tmp) / "legacy.xlsx"
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            ws.title = "Members"
+            headers = ["WebID", "Full Name", "NTU Email", "Position / Education",
+                       "Website Section", "Admission Year", "Graduated",
+                       "Also in Alumni", "Alumni Admission Year",
+                       "Current Position", "Batch", "Nickname", "Chinese Name",
+                       "Research Interests", "Scholar"]
+            ws.append(headers)
+            ws.append(["ada", "Ada Lovelace", "a@ntu.edu.tw", "Postdoc",
+                       "Full Time", 2024, "FALSE", "FALSE", "",
+                       "Postdoc", "2024-FT", "", "", "/x", ""])
+            wb.save(legacy)
+
+            slim = Path(tmp) / "slim.xlsx"
+            write_slim_excel(legacy, slim)
+
+            wb2 = openpyxl.load_workbook(slim)
+            ws2 = wb2["Members"]
+            slim_headers = [c.value for c in ws2[1]]
+            self.assertEqual(slim_headers, ADMIN_COLUMNS)
+            self.assertEqual(ws2["A2"].value, "ada")
+            self.assertEqual(ws2["B2"].value, "Ada Lovelace")
 
 
 if __name__ == "__main__":
