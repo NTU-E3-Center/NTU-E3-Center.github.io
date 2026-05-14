@@ -165,6 +165,33 @@ class TestValidateMemberFolder(unittest.TestCase):
             issues = validate_member_folder("m", folder)
             self.assertTrue(any(i.severity == "warn" and "@" in i.message and "email.ntu" in i.message for i in issues))
 
+    def test_bare_orcid_id_does_not_warn(self):
+        # ORCID may be a bare iD (excel_to_content.normalize_orcid handles it) —
+        # it must NOT be flagged by the http(s):// URL check.
+        ok = self._good_member_json()
+        ok["links"]["orcid"] = "0009-0001-5290-5544"
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=ok, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            self.assertFalse(any("orcid" in i.message for i in issues))
+
+    def test_orcid_full_url_does_not_warn(self):
+        ok = self._good_member_json()
+        ok["links"]["orcid"] = "https://orcid.org/0000-0002-1668-4094"
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=ok, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            self.assertFalse(any("orcid" in i.message for i in issues))
+
+    def test_malformed_orcid_yields_warning(self):
+        bad = self._good_member_json()
+        bad["links"]["orcid"] = "not-an-orcid"
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = self._make_folder(tmp, member_json_content=bad, with_about=True, with_photo=True)
+            issues = validate_member_folder("m", folder)
+            warns = [i for i in issues if i.severity == "warn" and "orcid" in i.message]
+            self.assertEqual(len(warns), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

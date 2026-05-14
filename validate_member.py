@@ -8,6 +8,7 @@ block deploys)."""
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -48,7 +49,14 @@ _SCHEMA: dict[str, Any] = {
 }
 
 
-_URL_LINK_KEYS = ("scholar", "orcid", "linkedin", "researchgate", "ntu_scholars", "facebook")
+# `orcid` is intentionally NOT in this list — it may be a bare ORCID iD
+# (e.g. 0009-0001-5290-5544), which excel_to_content.normalize_orcid expands
+# into a URL. It gets its own pattern check below.
+_URL_LINK_KEYS = ("scholar", "linkedin", "researchgate", "ntu_scholars", "facebook")
+
+# An ORCID iD is four groups of four digits; the last group's final char may
+# be X. Matches both a bare iD and the iD embedded in an orcid.org URL.
+_ORCID_RE = re.compile(r"\d{4}-\d{4}-\d{4}-\d{3}[\dX]")
 
 
 def _check_soft_formats(data: dict) -> list[ValidationIssue]:
@@ -63,6 +71,14 @@ def _check_soft_formats(data: dict) -> list[ValidationIssue]:
                 "warn",
                 f"links.{key}: '{val}' does not start with http:// or https:// — render will be unchanged but the link may not work.",
             ))
+
+    orcid = links.get("orcid")
+    if isinstance(orcid, str) and orcid and not _ORCID_RE.search(orcid):
+        issues.append(ValidationIssue(
+            "warn",
+            f"links.orcid: '{orcid}' doesn't look like an ORCID iD "
+            f"(0000-0000-0000-0000, optionally as an orcid.org URL).",
+        ))
 
     office = links.get("office") or {}
     office_url = office.get("url")
