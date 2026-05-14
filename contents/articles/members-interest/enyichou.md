@@ -1,7 +1,0 @@
-/ Sustainable Supply Chain Management 
-
-/ Green Vehicle Routing Problems (Green VRP) 
-
-/ Joint Distribution Systems 
-
-/ Hub-and-Spoke Network Design
