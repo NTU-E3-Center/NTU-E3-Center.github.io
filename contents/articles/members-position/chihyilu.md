@@ -1,5 +1,0 @@
-Year 2 Ph.D. Student,
-
-Department of Civil Engineering,
-
-National Taiwan University

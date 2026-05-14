@@ -11,6 +11,15 @@ venv/
 # Build output (deployed to gh-pages branch by Actions)
 docs/
 
+# Per-member build artifacts — regenerated every build by excel_to_content.py
+# from contents/members/{webId}/ + the slim Excel. The SOURCE of member
+# content is contents/members/{webId}/{member.json,about.md}; these dirs are
+# transient intermediates that build.py consumes.
+contents/structures/members/
+contents/articles/members-about/
+contents/articles/members-position/
+contents/articles/members-interest/
+
 # macOS
 .DS_Store
 

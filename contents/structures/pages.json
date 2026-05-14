@@ -16,16 +16,16 @@
                 "icon": "/assets/sprite.svg#svg-members"
             },
             {
-                "id": "research",
-                "title": "Research",
-                "link": "/#research",
-                "icon": "/assets/sprite.svg#svg-scholar"
-            },
-            {
                 "id": "publications",
                 "title": "Publications",
                 "link": "/publications",
                 "icon": "/assets/sprite.svg#svg-book"
+            },
+            {
+                "id": "projects",
+                "title": "Projects",
+                "link": "/projects",
+                "icon": "/assets/sprite.svg#svg-scholar"
             },
             {
                 "id": "news",
@@ -73,6 +73,13 @@
         "description": "Peer-reviewed publications from E3 Center, NTU, on sustainable energy transition, transportation electrification, and climate policy.",
         "subpageTitle": "Publications",
         "template": "pages/publications"
+    },
+    "projects-page": {
+        "path": "projects",
+        "title": "Research Projects | E3 Center, NTU",
+        "description": "Funded research projects at E3 Center, NTU — Taiwan NSTC grants and commissioned studies on energy transition, electrification, and carbon policy.",
+        "subpageTitle": "Projects",
+        "template": "pages/projects"
     },
     "group-life-page": {
         "path": "group-life",

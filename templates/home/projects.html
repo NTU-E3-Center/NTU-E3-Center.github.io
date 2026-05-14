@@ -1,0 +1,39 @@
+{% from 'partials/proj-row.html' import proj_row %}
+<section id="projects">
+    <div class="section-title">
+        <h2><a class="section-title-link" href="/projects/">Projects</a></h2>
+    </div>
+
+    {# Collect every project, surface the most recently started ongoing ones —
+       a teaser for the full /projects/ listing. Sorted newest-first by start
+       date, tie-broken by end date descending (longer projects first). #}
+    {% set _all = [] %}
+    {% for section in structures.get('projects', []) %}
+        {% for item in section.get('items', []) %}
+        {% set _ = _all.append(item) %}
+        {% endfor %}
+    {% endfor %}
+    {% set ongoing = _all
+        | selectattr('status', 'equalto', '執行中')
+        | sort(attribute='endDate', reverse=true)
+        | sort(attribute='startDate', reverse=true)
+        | list %}
+
+    {% if ongoing %}
+    <div class="publi-group">
+        <h3 class="publi-group-title">Currently Ongoing</h3>
+        <div class="news-rows" role="list">
+            {% for item in ongoing[:5] %}
+            {{ proj_row(item) }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="section-cta">
+        <a class="section-cta-btn skewed-block" href="/projects/" b-role="btn" b-hoverable>
+            <span>Browse all projects</span>
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+        </a>
+    </div>
+</section>

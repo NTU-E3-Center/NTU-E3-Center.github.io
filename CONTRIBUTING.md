@@ -8,28 +8,49 @@ After making changes, [build and preview locally](README.md#local-development) b
 
 ## Adding or Updating a Member
 
-Member data is managed entirely through `contents/member-info.xlsx`. Do **not** manually edit `members.json`, per-member JSON files, or member Markdown files — they are auto-generated and will be overwritten on every build.
+Member data has **two halves**:
 
-### 1. Edit the member spreadsheet
+- **Admin fields** live in `contents/member-info.xlsx` (11 columns: WebID,
+  Full Name, Nickname, Chinese Name, Website Section, Admission Year,
+  Graduated, Also in Alumni, Alumni Admission Year, Current Position, Batch).
+  You control these.
+- **Content fields** live in `contents/members/{webId}/` — `member.json`
+  (position, emails, interests, profile links), `about.md` (bio prose),
+  and `photo.{jpg,png}`. Members supply these.
 
-Open `contents/member-info.xlsx` and add or update a row for the member. Key columns:
+Do **not** manually edit `contents/structures/members.json` or anything under
+`contents/structures/members/` or `contents/articles/members-*/` — those are
+gitignored build artifacts regenerated on every build. `contents/member-info.legacy.xlsx`
+is a read-only archive of the original spreadsheet — never edit it.
 
-- **WebID** — unique identifier used for file names, page URLs, and image paths (e.g. `firstnamelastname`)
-- **pubName** — the name as it appears in publication author lists (e.g. `F. Lastname`); used to auto-populate their publications page
-- **Section** — which group they belong to (e.g. `PhD Students`, `Full-time`, `Alumni`)
-- **About / Position / Interests** — bio text, education/experience, and research interest bullet points
+### Updating an existing member
 
-### 2. Add the member's photo
+1. Send the member their folder + the instructions:
+   ```bash
+   cp -r contents/members/{webId} /tmp/pkg/
+   cp contents/MEMBER_TEMPLATE/README.md /tmp/pkg/
+   # zip /tmp/pkg/ and email it
+   ```
+2. They edit `member.json` + `about.md` and send the folder back.
+3. Drop the returned files into `contents/members/{webId}/`, overwriting.
+4. `python build.py` — review `git diff`, commit, push.
 
-Place the photo (JPG or PNG) in `contents/images/members/` named `{webId}.jpg` (or `.png`).
+### Adding a new member
 
-The build script will automatically compress and convert it to WebP at multiple sizes.
+1. Add a row to `contents/member-info.xlsx` with the 11 admin columns.
+2. Seed their folder from the template:
+   ```bash
+   cp -r contents/MEMBER_TEMPLATE contents/members/{webId}
+   ```
+3. Send the new folder + `README.md` to the member to fill in.
+4. When returned, overwrite `contents/members/{webId}/` with their files
+   and drop their `photo.{jpg,png}` into the same folder.
+5. `python build.py` — the build **fails** if `member.json` has invalid
+   JSON or a schema mismatch, and **warns** about a missing `about.md` or
+   photo. Fix any errors, then commit.
 
-### 3. Run the build
-
-```bash
-python build.py
-```
+`pubName` (used to auto-populate a member's publications) is derived from
+the `Full Name` admin column — no separate field to maintain.
 
 `lib/excel_to_content.py` runs first and auto-generates:
 - `contents/structures/members.json`

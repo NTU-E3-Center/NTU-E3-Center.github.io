@@ -92,6 +92,13 @@ for filename in os.listdir(structures_path):
         var_name = os.path.splitext(filename)[0]
         structures[var_name] = data
 
+# Load projects data — it lives in its own contents/projects/ folder rather
+# than contents/structures/, so the loop above does not pick it up.
+projects_file = 'contents/projects/projects.json'
+if os.path.exists(projects_file):
+    with open(projects_file, 'r', encoding='utf-8') as f:
+        structures['projects'] = json.load(f)
+
 # Build in-memory per-member detail lookup (webId -> data) so templates can
 # access chiNameEng (full name + optional nickname) without touching any JSON.
 _members_detail_path = os.path.join(structures_path, 'members')
@@ -622,8 +629,14 @@ def get_separated_image_paths(directory):
 
     return separated_paths
 
-def convert_to_webp(path, dst_path, sizes, compression_quality=100):
-    basename = os.path.splitext(os.path.basename(path))[0]
+def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None):
+    """Resize `path` to each width in `sizes` and save WebP variants under
+    `dst_path` as `{basename}-{size}w.webp`. When `basename` is None it is
+    derived from the source filename; pass it explicitly when the source
+    filename doesn't match the desired output stem (e.g. per-member photos
+    are all named `photo.{ext}` but must output as `{webId}-{size}w.webp`)."""
+    if basename is None:
+        basename = os.path.splitext(os.path.basename(path))[0]
     with Image.open(path) as img:
         for size in sizes:
             img_resized = img.resize((size, int(size * img.height / img.width)))
@@ -650,6 +663,41 @@ def compress_and_convert_images():
             convert_to_webp(path, dst_subdir, globals()[sizes_key], compression_quality=70)
             convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=10)
             print(f"{path} → {dst_subdir}/")
+
+
+def compress_member_images():
+    """Convert per-member photos to WebP variants.
+
+    Source: contents/members/{webId}/photo.{jpg,jpeg,png}
+    Output: docs/assets/members/{webId}-{size}w.webp
+
+    The output keeps the {webId} basename so member templates' srcset
+    references are byte-identical to the legacy contents/images/members/
+    pipeline — only the SOURCE location moved into the per-member folder."""
+    members_root = 'contents/members'
+    dst_root = 'docs/assets/members'
+    photo_exts = ('.jpg', '.jpeg', '.png')
+
+    if not os.path.isdir(members_root):
+        return
+    os.makedirs(dst_root, exist_ok=True)
+    print("--- Member photos in 'contents/members/*/' ---")
+
+    for web_id in sorted(os.listdir(members_root)):
+        member_dir = os.path.join(members_root, web_id)
+        if not os.path.isdir(member_dir):
+            continue
+        photo = None
+        for fname in sorted(os.listdir(member_dir)):
+            stem, ext = os.path.splitext(fname)
+            if stem == 'photo' and ext.lower() in photo_exts and not fname.startswith('.'):
+                photo = os.path.join(member_dir, fname)
+                break
+        if not photo:
+            continue
+        convert_to_webp(photo, dst_root, members_img_sizes, compression_quality=70, basename=web_id)
+        convert_to_webp(photo, dst_root, lazy_img_sizes, compression_quality=10, basename=web_id)
+        print(f"{photo} → {dst_root}/{web_id}-*.webp")
         
 
 # Run the build process
@@ -670,4 +718,5 @@ if __name__ == "__main__":
     validate_seo()
     print("Compressing images and converting to WebP format...")
     compress_and_convert_images()
+    compress_member_images()
     print("Build complete!")

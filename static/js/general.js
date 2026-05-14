@@ -121,8 +121,8 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function togglePubGroup(btn) {
-        var group    = btn.closest('.publi-group') || btn.parentElement;
-        var extras   = group.querySelectorAll('.publi-extra-item');
+        var group    = btn.closest('.publi-group, .proj-status-group') || btn.parentElement;
+        var extras   = group.querySelectorAll('.publi-extra-item, .proj-extra-item');
         var expanded = btn.dataset.expanded === 'true';
         var count    = extras.length;
 

@@ -1,21 +1,36 @@
 #!/usr/bin/env python3
 """
 excel_to_content.py
-Reads contents/member-info.xlsx and regenerates:
-  - contents/structures/members.json
-  - contents/structures/members/{webId}.json    (members who have page content)
+
+Merges the admin roster (contents/member-info.xlsx — 11 admin columns) with
+the per-member content folders (contents/members/{webId}/) and regenerates
+the build's intermediate member files:
+  - contents/structures/members.json                  (section-grouped listing)
+  - contents/structures/members/{webId}.json          (per-member page data)
   - contents/articles/members-about/{webId}.md
   - contents/articles/members-position/{webId}.md
   - contents/articles/members-interest/{webId}.md
 
-WebID is the formula-derived key (lowercase, hyphens/spaces removed from Full Name).
-It is used for all filenames, page URLs, and image paths — no student ID mapping needed.
+SOURCE OF TRUTH:
+  - admin fields  → contents/member-info.xlsx
+  - content fields → contents/members/{webId}/member.json + about.md
+
+The per-member JSON/MD files written under contents/structures/members/ and
+contents/articles/members-*/ are TRANSIENT BUILD ARTIFACTS (gitignored) —
+build.py consumes them unchanged, so templates need no changes.
+
+WebID is the formula-derived key (lowercase, hyphens/spaces removed from
+Full Name). It is used for filenames, page URLs, image paths, and as the
+join key to the per-member content folder.
 
 Run: conda run -n E3website python excel_to_content.py
 """
 
 import json, os, re
+from pathlib import Path
 import openpyxl
+
+from validate_member import validate_member_folder
 
 SECTION_ORDER = ['Principal Investigator', 'Full Time', 'Ph.D. Students', 'Master Students', 'Alumni']
 
@@ -33,13 +48,14 @@ SECTION_META = {
     },
 }
 
-PI_EXTRA_LINKS = [
-    {
-        'icon': '/assets/sprite.svg#svg-location',
-        'text': 'CERB 601',
-        'link': 'https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8',
-    },
-]
+PI_DESCRIPTION = (
+    'Associate Professor<br>'
+    'Department of Civil Engineering<br>'
+    'Department of Chemical Engineering (Joint Appointment)<br>'
+    'National Taiwan University'
+)
+
+MEMBERS_CONTENT_ROOT = 'contents/members'
 
 
 def normalize_orcid(value):
@@ -57,49 +73,46 @@ def normalize_orcid(value):
     return s, f'https://orcid.org/{s}'
 
 
-def build_profile_links(row, headers):
-    """Read per-member profile columns from xlsx and return (visible_links, seo_links)."""
-    def cell(col):
-        if col not in headers:
-            return None
-        v = row[headers.index(col)]
-        return str(v).strip() if v else None
+def build_profile_links_from_dict(links: dict):
+    """Given a member.json `links` dict, return (visible_links, seo_links).
 
+    Visible (rendered as chips): Google Scholar, ORCID, LinkedIn.
+    SEO-only (sameAs, not rendered): ResearchGate, NTU Scholars, Facebook.
+    The `office` key is handled separately by the caller."""
     visible = []
     seo = []
 
-    if (gs := cell('Google Scholar')):
+    gs = (links.get('scholar') or '').strip()
+    if gs:
         visible.append({
             'icon': '/assets/sprite.svg#svg-scholar',
             'text': 'Google Scholar',
             'link': gs,
         })
-    orcid_text, orcid_url = normalize_orcid(cell('ORCID'))
+
+    orcid_text, orcid_url = normalize_orcid(links.get('orcid'))
     if orcid_url:
         visible.append({
             'icon': '/assets/sprite.svg#svg-orcid',
             'text': orcid_text,
             'link': orcid_url,
         })
-    if (li := cell('LinkedIn')):
+
+    li = (links.get('linkedin') or '').strip()
+    if li:
         visible.append({
             'icon': '/assets/sprite.svg#svg-linkedin',
             'text': 'LinkedIn',
             'link': li,
         })
 
-    for hidden_col in ('ResearchGate', 'NTU Scholars', 'Facebook'):
-        if (url := cell(hidden_col)):
+    for key in ('researchgate', 'ntu_scholars', 'facebook'):
+        url = (links.get(key) or '').strip()
+        if url:
             seo.append(url)
 
     return visible, seo
 
-PI_DESCRIPTION = (
-    'Associate Professor<br>'
-    'Department of Civil Engineering<br>'
-    'Department of Chemical Engineering (Joint Appointment)<br>'
-    'National Taiwan University'
-)
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -122,12 +135,17 @@ def display_name(full_name: str, nickname: str) -> str:
 
 
 def find_image(web_id: str) -> str:
-    """Return /assets/… path for a member's image, or nobody.svg."""
-    img_dir = 'contents/images/members'
-    for fname in sorted(os.listdir(img_dir)):
-        stem = os.path.splitext(fname)[0]
-        if stem.lower() == web_id.lower() and not fname.startswith('.'):
-            return f'/assets/members/{fname}'
+    """Return /assets/… path for a member's image, or nobody.svg.
+
+    Reads the per-member content folder: contents/members/{webId}/photo.{ext}.
+    The output path keeps the {webId}.{ext} naming so docs/assets/members/
+    references stay identical to the legacy pipeline."""
+    folder = os.path.join(MEMBERS_CONTENT_ROOT, web_id)
+    if os.path.isdir(folder):
+        for fname in sorted(os.listdir(folder)):
+            stem, ext = os.path.splitext(fname)
+            if stem == 'photo' and ext.lower() in ('.jpg', '.jpeg', '.png') and not fname.startswith('.'):
+                return f'/assets/members/{web_id}{ext.lower()}'
     return '/assets/members/nobody.svg'
 
 
@@ -157,23 +175,81 @@ def write_text(path: str, content: str):
         f.write(content)
 
 
+# ── per-member content folder loader ──────────────────────────────────────────
+
+_EMPTY_CONTENT = {
+    'position': '',
+    'email': {'ntu': '', 'preferred': ''},
+    'interests': [],
+    'links': {
+        'scholar': '', 'orcid': '', 'linkedin': '',
+        'researchgate': '', 'ntu_scholars': '', 'facebook': '',
+        'office': {'text': '', 'url': ''},
+    },
+    'metaDescription': '',
+}
+
+
+def load_member_content(web_id: str):
+    """Read contents/members/{webId}/member.json + about.md.
+
+    Returns (content_dict, about_text). content_dict always has every key
+    present (folder values merged over _EMPTY_CONTENT defaults).
+
+    Validates the folder first: build FAILS (SystemExit 2) on any error-level
+    issue (invalid JSON, schema mismatch); warn-level issues are printed but
+    the build proceeds with defaults."""
+    folder = os.path.join(MEMBERS_CONTENT_ROOT, web_id)
+
+    issues = validate_member_folder(web_id, Path(folder))
+    errors = [i for i in issues if i.severity == 'error']
+    if errors:
+        for e in errors:
+            print(f'  ✗ {e.message}')
+        raise SystemExit(2)
+    for i in issues:
+        if i.severity == 'warn':
+            print(f'  ⚠ {i.message}')
+
+    # Deep-copy defaults so each member gets a fresh dict.
+    content = json.loads(json.dumps(_EMPTY_CONTENT))
+
+    member_json = os.path.join(folder, 'member.json')
+    if os.path.exists(member_json):
+        with open(member_json, encoding='utf-8') as f:
+            loaded = json.load(f)
+        # Shallow-merge top level, then patch nested dicts so a member.json
+        # that omits a nested key still ends up fully-formed.
+        for key, val in loaded.items():
+            if key in ('email', 'links') and isinstance(val, dict):
+                content[key].update(val)
+                if key == 'links' and isinstance(val.get('office'), dict):
+                    content['links']['office'].update(val['office'])
+            else:
+                content[key] = val
+
+    about_text = ''
+    about_md = os.path.join(folder, 'about.md')
+    if os.path.exists(about_md):
+        with open(about_md, encoding='utf-8') as f:
+            about_text = f.read().strip()
+
+    return content, about_text
+
+
 # ── read Excel (data_only to resolve WebID formula values) ───────────────────
 
 wb = openpyxl.load_workbook('contents/member-info.xlsx', data_only=True)
 ws = wb['Members']
 headers = [c.value for c in ws[1]]
 
+
 def col(row, name):
+    """Read an admin column by name. Raises if the column is absent — the
+    slim Excel must have all 11 admin columns."""
     idx = headers.index(name)
     val = row[idx]
     return val if val is not None else ''
-
-
-def col_optional(row, name):
-    """Return cell value for optional column. Returns None if column header is absent."""
-    if name not in headers:
-        return None
-    return row[headers.index(name)]
 
 
 # ── process rows ──────────────────────────────────────────────────────────────
@@ -193,19 +269,21 @@ for row in ws.iter_rows(min_row=2, values_only=True):
     nickname  = str(col(row, 'Nickname')             or '').strip()
     chi_name  = str(col(row, 'Chinese Name')         or '').strip()
     full_name = str(col(row, 'Full Name')            or '').strip()
-    email     = str(col(row, 'Preferred Email')      or '').strip()
-    ntu_email = str(col(row, 'NTU Email')            or '').strip()
     section   = str(col(row, 'Website Section')      or '').strip()
     adm_year  = col(row, 'Admission Year')
     graduated = str(col(row, 'Graduated')            or '').strip()
     also_alumni = str(col(row, 'Also in Alumni')     or '').strip().upper() == 'TRUE'
     alumni_year = col(row, 'Alumni Admission Year')
-    about     = str(col(row, 'About')                or '').strip()
-    position  = str(col(row, 'Position / Education') or '').strip()
-    interests = str(col(row, 'Research Interests')   or '').strip()
     curr_pos  = str(col(row, 'Current Position')     or '').strip()
     batch     = str(col(row, 'Batch')                or '').strip()
-    meta_description = (str(col_optional(row, 'metaDescription') or '').strip()) or None
+
+    # Content fields come from contents/members/{webId}/ (not Excel).
+    content, about = load_member_content(web_id)
+    position  = str(content['position'] or '').strip()
+    interests = list(content.get('interests') or [])
+    email     = str(content['email']['preferred'] or '').strip()
+    ntu_email = str(content['email']['ntu'] or '').strip()
+    meta_description = (str(content.get('metaDescription') or '').strip()) or None
 
     has_page      = bool(about or position)
     display_email = email or ntu_email
@@ -236,12 +314,25 @@ for row in ws.iter_rows(min_row=2, values_only=True):
                 'text': display_email,
                 'link': f'mailto:{display_email}',
             })
-        if is_pi:
-            links.extend(PI_EXTRA_LINKS)
 
-        # Per-member profile links from xlsx (Scholar, ORCID, LinkedIn = visible;
-        # ResearchGate, NTU Scholars = hidden / sameAs only)
-        profile_visible, profile_seo = build_profile_links(row, headers)
+        # Office link (previously hardcoded as PI_EXTRA_LINKS; now sourced
+        # from member.json links.office — populated for the PI by the
+        # migration, empty for everyone else).
+        office = content['links'].get('office') or {}
+        office_text = str(office.get('text') or '').strip()
+        office_url  = str(office.get('url') or '').strip()
+        if office_text or office_url:
+            office_link = {
+                'icon': '/assets/sprite.svg#svg-location',
+                'text': office_text,
+            }
+            if office_url:
+                office_link['link'] = office_url
+            links.append(office_link)
+
+        # Per-member profile links (Scholar, ORCID, LinkedIn = visible;
+        # ResearchGate, NTU Scholars, Facebook = hidden / sameAs only)
+        profile_visible, profile_seo = build_profile_links_from_dict(content['links'])
         links.extend(profile_visible)
 
         page_content = {'links': links}
@@ -278,7 +369,7 @@ for row in ws.iter_rows(min_row=2, values_only=True):
             md_written.append(p)
         if interests:
             p = f'contents/articles/members-interest/{web_id}.md'
-            write_text(p, interests)
+            write_text(p, '\n\n'.join(f'/{topic}' for topic in interests))
             md_written.append(p)
 
     # ── members.json entry ────────────────────────────────────────────────────
@@ -300,7 +391,19 @@ for row in ws.iter_rows(min_row=2, values_only=True):
                 'text': display_email,
                 'link': f'mailto:{display_email}',
             })
-        entry['links'].extend(PI_EXTRA_LINKS)
+        # PI office link for the listing-card entry (mirrors the per-member
+        # JSON office link built above).
+        _pi_office = content['links'].get('office') or {}
+        _pi_office_text = str(_pi_office.get('text') or '').strip()
+        _pi_office_url  = str(_pi_office.get('url') or '').strip()
+        if _pi_office_text or _pi_office_url:
+            _entry_office = {
+                'icon': '/assets/sprite.svg#svg-location',
+                'text': _pi_office_text,
+            }
+            if _pi_office_url:
+                _entry_office['link'] = _pi_office_url
+            entry['links'].append(_entry_office)
         if has_page:
             entry['pageLink']      = f'/members/{web_id}'
             entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
