@@ -141,6 +141,7 @@ Every member's file has every key present (empty strings / empty arrays when a v
     "linkedin":     "https://www.linkedin.com/in/i-yun-lisa-hsieh/",
     "researchgate": "https://www.researchgate.net/profile/I-Yun-Lisa-Hsieh",
     "ntu_scholars": "https://scholars.lib.ntu.edu.tw/entities/person/db907a6f-…",
+    "facebook":     "",
     "office":       { "text": "CERB 601", "url": "https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8" }
   },
 
@@ -156,9 +157,20 @@ Every member's file has every key present (empty strings / empty arrays when a v
 | `email.ntu` | `string` | optional | Empty string = not shown |
 | `email.preferred` | `string` | optional | Empty string = not shown |
 | `interests` | `string[]` | optional | Empty array OK; rendered as `#tag` chips on profile |
-| `links.scholar` … `links.ntu_scholars` | `string` | each optional | Empty string = not shown; non-empty → link chip |
+| `links.scholar` … `links.facebook` | `string` | each optional | Empty string = not shown; non-empty → link chip. Keys: `scholar`, `orcid`, `linkedin`, `researchgate`, `ntu_scholars`, `facebook` |
 | `links.office` | `{text: string, url: string}` | optional | Both empty → not shown; text only → no link; both → linked chip |
 | `metaDescription` | `string` | optional | Empty → falls through to auto-generated SEO description |
+
+> **Migration notes (discovered during implementation):**
+> - The legacy Excel column is `Google Scholar`, not `Scholar`.
+> - `facebook` was added as a 7th `links` key — the legacy Excel has a
+>   `Facebook` column with real data for one member; dropping it would be
+>   silently lossy.
+> - The legacy Excel has **no** `Office` / `Office Map` columns. Only the PI
+>   has an office link, hardcoded in `excel_to_content.py`'s `PI_EXTRA_LINKS`.
+>   The migration special-cases the `Principal Investigator` row to inject
+>   `links.office = {"text": "CERB 601", "url": "https://maps.app.goo.gl/…"}`.
+>   Every other member migrates with `office: {text: "", url: ""}`.
 
 ### Empty / missing field rendering
 
