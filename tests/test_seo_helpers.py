@@ -1,5 +1,5 @@
 import unittest
-from seo_helpers import generate_meta_description
+from lib.seo_helpers import generate_meta_description
 
 
 class TestGenerateMetaDescription(unittest.TestCase):
@@ -38,7 +38,7 @@ class TestGenerateMetaDescription(unittest.TestCase):
         self.assertIn("Hello", result)
 
 
-from seo_helpers import strip_markdown, detect_language
+from lib.seo_helpers import strip_markdown, detect_language
 
 
 class TestStripMarkdown(unittest.TestCase):

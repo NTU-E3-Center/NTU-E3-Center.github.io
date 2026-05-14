@@ -3,18 +3,18 @@ import re
 import json
 import shutil
 import markdown
-import importlib.util
 from PIL import Image
 from datetime import datetime
-import re
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup, escape
-import seo_helpers
 
 # ── Sync content from Excel before building ───────────────────────────────────
-_spec = importlib.util.spec_from_file_location("excel_to_content", "excel_to_content.py")
-_mod  = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(_mod)
+# Importing the module runs its top-level Excel → JSON/Markdown generation as
+# a side effect. Keep the import statement here (not at the top with the
+# others) so the ordering — Excel sync first, then template rendering —
+# stays visually clear.
+from lib import excel_to_content  # noqa: F401  (imported for side effects)
+from lib import seo_helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Set up Jinja2 environment

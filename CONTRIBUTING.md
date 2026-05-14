@@ -52,6 +52,11 @@ is a read-only archive of the original spreadsheet — never edit it.
 `pubName` (used to auto-populate a member's publications) is derived from
 the `Full Name` admin column — no separate field to maintain.
 
+`lib/excel_to_content.py` runs first and auto-generates:
+- `contents/structures/members.json`
+- `contents/structures/members/{webId}.json`
+- `contents/articles/members-{about,position,interest}/{webId}.md`
+
 ---
 
 ## Adding a Publication
