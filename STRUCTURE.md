@@ -19,8 +19,6 @@ NTU-E3-Center.github.io/
 ├── templates/                        # Jinja2 HTML templates
 ├── static/                           # Static assets (copied as-is to docs/)
 ├── SEO/                              # SEO research, strategy, and runbook
-├── specs/                            # Design specs for in-flight initiatives
-├── plans/                            # Implementation plans for in-flight initiatives
 ├── docs/                             # Generated output — served by GitHub Pages (gitignored)
 └── .github/workflows/                # GitHub Actions CI/CD
 ```
