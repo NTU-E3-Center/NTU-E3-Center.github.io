@@ -1,6 +1,7 @@
 # Content Ideas for E3 Center
 
 **Companion to:** [`./page-recommendations.md`](./page-recommendations.md), [`../strategy/search-intent.md`](../strategy/search-intent.md).
+**Last reviewed:** 2026-05-14 — this is a catalogue of evergreen content *ideas*, not a file-specific action plan, so nothing here went stale. Two notes after the 2026-05-14 site review: (1) the **`/projects/` page now exists** — it's an additional *vehicle* for the "funding / award / project-launch" format (§2.6) and the "annotated framing paragraph" idea (§3.3) applies to project groups just as it does to publication groups; (2) member-page ideas in §6 still hold, but the member data they touch now lives in `contents/members/{webId}/member.json` (the `interests` array) and `about.md`, not the old `contents/articles/members-*` paths.
 
 A catalogue of topics and formats you could publish, organized so each idea is tagged by:
 

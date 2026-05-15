@@ -58,15 +58,15 @@ The SEO machinery uses sensible defaults but supports per-page overrides if a de
 
 | Override | Where | When to use |
 |---|---|---|
-| `metaDescription` | New optional column in `contents/member-info.xlsx` | Rewrite a member's auto-generated description (e.g., the PI's). |
-| `excerpt` | Optional field per item in `contents/structures/news.json` | Override the article body excerpt with a custom snippet. |
-| `description` | Per-listing field in `contents/structures/pages.json` | Customise the listing pages' descriptions. |
+| `metaDescription` | `metaDescription` field in `contents/members/{webId}/member.json` | Rewrite a member's auto-generated description (e.g., the PI's). |
+| `excerpt` | Optional field per item in `contents/news/news.json` | Override the article body excerpt with a custom snippet. |
+| `description` | Per-listing field in `contents/pages.json` | Customise the listing pages' descriptions. |
 
 If left empty/absent, the auto-generation kicks in — overrides are opt-in.
 
 ## Adding publication keywords (optional, improves topical SEO)
 
-Each item in `contents/structures/publications.json` accepts an optional `keywords` array:
+Each item in `contents/publications/publications.json` accepts an optional `keywords` array:
 
 ```json
 {

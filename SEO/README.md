@@ -7,14 +7,16 @@ Working folder for SEO research, analysis, strategy, and implementation planning
 ```
 SEO/
 ├── README.md                 ← this file
+├── RUNBOOK.md                operator runbook (GSC, indexing, build SEO warnings)
 ├── data/                     raw Google Search Console exports
 ├── analysis/                 dated reports derived from data/
 ├── strategy/                 evergreen reference material (concepts)
 └── recommendations/          actionable plans for the site
 ```
 
-| Folder | What goes here | When it changes |
+| Folder / file | What goes here | When it changes |
 |---|---|---|
+| `RUNBOOK.md` | Operator-facing how-to: verifying URL property, submitting sitemap, requesting indexing for new pages, interpreting SEO build warnings, manual deindex. | When ops procedures change. |
 | `data/` | Raw GSC exports (`.xlsx`). Filename pattern: `gsc_{export-date}_{period}.xlsx`. | Every new GSC export. |
 | `analysis/` | Reports that interpret a specific data export. Filename pattern: `{date}_{period}-insights.md`. | Once per data export. |
 | `strategy/` | Conceptual reference docs that explain *how SEO works* for an academic lab. | Rarely — only when the underlying ideas change. |
