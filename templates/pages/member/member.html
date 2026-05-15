@@ -14,7 +14,7 @@
     {% if member.get('pageContent', {}).get('aboutSection') %}
       {% for _section in member['pageContent']['aboutSection'] %}
         {% if not _ns.about_first %}
-          {% set _ns.about_first = (about_content[_section['content']] or '') | striptags %}
+          {% set _ns.about_first = (_section['content'] or '') | striptags %}
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -188,14 +188,11 @@
                     </div>
                     {% endif %}
 
-                    {% set pos_path = page_content['positionSection']['content'] %}
-                    {% if page_content['positionSection'] %}
-                    {% if about_content[pos_path] %}
+                    {% if page_content['positionSection'] and page_content['positionSection']['content'] %}
 
                     <div class="position-text">
-                        {{ about_content[pos_path] }}
+                        {{ page_content['positionSection']['content'] | safe }}
                     </div>
-                    {% endif %}
                     {% endif %}
 
                     {% if page_content['links'] %}
@@ -227,7 +224,7 @@
         <section id="about">
             <h2>{{ section['sectionTitle'] }}</h2>
             <div class="content">
-                {{ about_content[section['content']] }}
+                {{ section['content'] | safe }}
             </div>
         </section>
         {% endfor %}

@@ -3,21 +3,15 @@
 excel_to_content.py
 
 Merges the admin roster (contents/member-info.xlsx — 11 admin columns) with
-the per-member content folders (contents/members/{webId}/) and regenerates
-the build's intermediate member files:
-  - contents/structures/members.json                  (section-grouped listing)
-  - contents/structures/members/{webId}.json          (per-member page data)
-  - contents/articles/members-about/{webId}.md
-  - contents/articles/members-position/{webId}.md
-  - contents/articles/members-interest/{webId}.md
+the per-member content folders (contents/members/{webId}/) and produces the
+in-memory member data the build needs.
+
+Public entry point: `build_member_data()` returns a dict consumed by build.py.
+No files are written — member data flows in memory directly to build.py.
 
 SOURCE OF TRUTH:
   - admin fields  → contents/member-info.xlsx
   - content fields → contents/members/{webId}/member.json + about.md
-
-The per-member JSON/MD files written under contents/structures/members/ and
-contents/articles/members-*/ are TRANSIENT BUILD ARTIFACTS (gitignored) —
-build.py consumes them unchanged, so templates need no changes.
 
 WebID is the formula-derived key (lowercase, hyphens/spaces removed from
 Full Name). It is used for filenames, page URLs, image paths, and as the
@@ -27,6 +21,7 @@ Run: conda run -n E3website python excel_to_content.py
 """
 
 import json, os, re
+import markdown
 from pathlib import Path
 import openpyxl
 
@@ -169,12 +164,6 @@ def adm_year_sort_key(entry: dict) -> int:
     return int(m.group()) if m else 0
 
 
-def write_text(path: str, content: str):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(content)
-
-
 # ── per-member content folder loader ──────────────────────────────────────────
 
 _EMPTY_CONTENT = {
@@ -237,229 +226,238 @@ def load_member_content(web_id: str):
     return content, about_text
 
 
-# ── read Excel (data_only to resolve WebID formula values) ───────────────────
+# ── main entry point ──────────────────────────────────────────────────────────
 
-wb = openpyxl.load_workbook('contents/member-info.xlsx', data_only=True)
-ws = wb['Members']
-headers = [c.value for c in ws[1]]
+def build_member_data():
+    """Read Excel + per-member folders, validate, and produce the member data
+    build.py needs.
+
+    Returns a dict:
+      {
+        'members_listing': [...section-grouped roster...],
+        'members_by_id':   {webId: {chiNameEng, pubName, position, pageContent, ...}},
+        'members_md':      {webId: {'about': html, 'position': html, 'interest': html}},
+      }
+
+    No files are written. All data flows in memory to build.py.
+    """
+    # ── read Excel (data_only to resolve WebID formula values) ───────────────────
+
+    wb = openpyxl.load_workbook('contents/members/member-info.xlsx', data_only=True)
+    ws = wb['Members']
+    headers = [c.value for c in ws[1]]
+
+    def col(row, name):
+        """Read an admin column by name. Raises if the column is absent — the
+        slim Excel must have all 11 admin columns."""
+        idx = headers.index(name)
+        val = row[idx]
+        return val if val is not None else ''
 
 
-def col(row, name):
-    """Read an admin column by name. Raises if the column is absent — the
-    slim Excel must have all 11 admin columns."""
-    idx = headers.index(name)
-    val = row[idx]
-    return val if val is not None else ''
+    # ── process rows ──────────────────────────────────────────────────────────────
 
+    members_by_section = {s: [] for s in SECTION_ORDER}
+    extra_alumni = []
 
-# ── process rows ──────────────────────────────────────────────────────────────
+    # In-memory mirrors that this function returns to build.py — these are the
+    # sole output of this function now (no more on-disk JSON/MD intermediates).
+    members_by_id_inmem = {}
+    members_md_inmem    = {}
 
-members_by_section = {s: [] for s in SECTION_ORDER}
-extra_alumni = []
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        web_id = row[headers.index('WebID')]
+        if not web_id:
+            continue  # blank / divider row
 
-json_written = []
-md_written   = []
+        web_id    = str(web_id).strip()
+        nickname  = str(col(row, 'Nickname')             or '').strip()
+        chi_name  = str(col(row, 'Chinese Name')         or '').strip()
+        full_name = str(col(row, 'Full Name')            or '').strip()
+        section   = str(col(row, 'Website Section')      or '').strip()
+        adm_year  = col(row, 'Admission Year')
+        graduated = str(col(row, 'Graduated')            or '').strip()
+        also_alumni = str(col(row, 'Also in Alumni')     or '').strip().upper() == 'TRUE'
+        alumni_year = col(row, 'Alumni Admission Year')
+        curr_pos  = str(col(row, 'Current Position')     or '').strip()
+        batch     = str(col(row, 'Batch')                or '').strip()
 
-for row in ws.iter_rows(min_row=2, values_only=True):
-    web_id = row[headers.index('WebID')]
-    if not web_id:
-        continue  # blank / divider row
+        # Content fields come from contents/members/{webId}/ (not Excel).
+        content, about = load_member_content(web_id)
+        position  = str(content['position'] or '').strip()
+        interests = list(content.get('interests') or [])
+        email     = str(content['email']['preferred'] or '').strip()
+        ntu_email = str(content['email']['ntu'] or '').strip()
+        meta_description = (str(content.get('metaDescription') or '').strip()) or None
 
-    web_id    = str(web_id).strip()
-    nickname  = str(col(row, 'Nickname')             or '').strip()
-    chi_name  = str(col(row, 'Chinese Name')         or '').strip()
-    full_name = str(col(row, 'Full Name')            or '').strip()
-    section   = str(col(row, 'Website Section')      or '').strip()
-    adm_year  = col(row, 'Admission Year')
-    graduated = str(col(row, 'Graduated')            or '').strip()
-    also_alumni = str(col(row, 'Also in Alumni')     or '').strip().upper() == 'TRUE'
-    alumni_year = col(row, 'Alumni Admission Year')
-    curr_pos  = str(col(row, 'Current Position')     or '').strip()
-    batch     = str(col(row, 'Batch')                or '').strip()
+        has_page      = bool(about or position)
+        display_email = email or ntu_email
+        img_path      = find_image(web_id)
+        icon          = get_icon(curr_pos, batch)
+        is_pi         = (section == 'Principal Investigator')
 
-    # Content fields come from contents/members/{webId}/ (not Excel).
-    content, about = load_member_content(web_id)
-    position  = str(content['position'] or '').strip()
-    interests = list(content.get('interests') or [])
-    email     = str(content['email']['preferred'] or '').strip()
-    ntu_email = str(content['email']['ntu'] or '').strip()
-    meta_description = (str(content.get('metaDescription') or '').strip()) or None
+        # ── per-member JSON ───────────────────────────────────────────────────────
+        if has_page:
+            if section == 'Principal Investigator':
+                position_for_seo = 'Director of E3 Center, NTU'
+            else:
+                position_for_seo = position or None
 
-    has_page      = bool(about or position)
-    display_email = email or ntu_email
-    img_path      = find_image(web_id)
-    icon          = get_icon(curr_pos, batch)
-    is_pi         = (section == 'Principal Investigator')
-
-    # ── per-member JSON ───────────────────────────────────────────────────────
-    if has_page:
-        if section == 'Principal Investigator':
-            position_for_seo = 'Director of E3 Center, NTU'
-        else:
-            position_for_seo = position or None
-
-        member_json = {
-            'chiNameEng':      display_name(full_name, nickname),
-            'pubName':         full_name,   # plain Full Name for publication matching
-            'metaDescription': meta_description,
-            'position':        position_for_seo,
-        }
-        if not is_pi:
-            member_json['graduated'] = (graduated.lower() == 'true')
-
-        links = []
-        if display_email:
-            links.append({
-                'icon': '/assets/sprite.svg#svg-send',
-                'text': display_email,
-                'link': f'mailto:{display_email}',
-            })
-
-        # Office link (previously hardcoded as PI_EXTRA_LINKS; now sourced
-        # from member.json links.office — populated for the PI by the
-        # migration, empty for everyone else).
-        office = content['links'].get('office') or {}
-        office_text = str(office.get('text') or '').strip()
-        office_url  = str(office.get('url') or '').strip()
-        if office_text or office_url:
-            office_link = {
-                'icon': '/assets/sprite.svg#svg-location',
-                'text': office_text,
+            member_json = {
+                'chiNameEng':      display_name(full_name, nickname),
+                'pubName':         full_name,   # plain Full Name for publication matching
+                'metaDescription': meta_description,
+                'position':        position_for_seo,
             }
-            if office_url:
-                office_link['link'] = office_url
-            links.append(office_link)
+            if not is_pi:
+                member_json['graduated'] = (graduated.lower() == 'true')
 
-        # Per-member profile links (Scholar, ORCID, LinkedIn = visible;
-        # ResearchGate, NTU Scholars, Facebook = hidden / sameAs only)
-        profile_visible, profile_seo = build_profile_links_from_dict(content['links'])
-        links.extend(profile_visible)
+            links = []
+            if display_email:
+                links.append({
+                    'icon': '/assets/sprite.svg#svg-send',
+                    'text': display_email,
+                    'link': f'mailto:{display_email}',
+                })
 
-        page_content = {'links': links}
-        if profile_seo:
-            page_content['seoLinks'] = profile_seo
-        if position:
-            page_content['positionSection'] = {
-                'content': f'contents/articles/members-position/{web_id}.md'
+            # Office link (previously hardcoded as PI_EXTRA_LINKS; now sourced
+            # from member.json links.office — populated for the PI by the
+            # migration, empty for everyone else).
+            office = content['links'].get('office') or {}
+            office_text = str(office.get('text') or '').strip()
+            office_url  = str(office.get('url') or '').strip()
+            if office_text or office_url:
+                office_link = {
+                    'icon': '/assets/sprite.svg#svg-location',
+                    'text': office_text,
+                }
+                if office_url:
+                    office_link['link'] = office_url
+                links.append(office_link)
+
+            # Per-member profile links (Scholar, ORCID, LinkedIn = visible;
+            # ResearchGate, NTU Scholars, Facebook = hidden / sameAs only)
+            profile_visible, profile_seo = build_profile_links_from_dict(content['links'])
+            links.extend(profile_visible)
+
+            page_content = {'links': links}
+            if profile_seo:
+                page_content['seoLinks'] = profile_seo
+            if position:
+                page_content['positionSection'] = {
+                    'content': f'contents/articles/members-position/{web_id}.md'
+                }
+            if about:
+                page_content['aboutSection'] = [
+                    {'sectionTitle': 'About',
+                     'content': f'contents/articles/members-about/{web_id}.md'}
+                ]
+            if is_pi:
+                page_content['PublicationSection'] = [
+                    {'sectionTitle': 'Journal Publications', 'publications': []}
+                ]
+            member_json['pageContent'] = page_content
+
+            # In-memory mirror consumed by build.py — no disk writes.
+            members_by_id_inmem[web_id] = member_json
+            members_md_inmem[web_id] = {
+                'about':    markdown.markdown(about, extensions=['md_in_html']) if about else '',
+                'position': markdown.markdown(position, extensions=['md_in_html']) if position else '',
+                'interest': markdown.markdown('\n\n'.join(f'/{topic}' for topic in interests), extensions=['md_in_html']) if interests else '',
             }
-        if about:
-            page_content['aboutSection'] = [
-                {'sectionTitle': 'About',
-                 'content': f'contents/articles/members-about/{web_id}.md'}
-            ]
+
+        # ── members.json entry ────────────────────────────────────────────────────
+        if section not in members_by_section:
+            print(f'  WARNING: unknown section "{section}" for {web_id}, skipping')
+            continue
+
         if is_pi:
-            page_content['PublicationSection'] = [
-                {'sectionTitle': 'Journal Publications', 'publications': []}
-            ]
-        member_json['pageContent'] = page_content
-
-        json_path = f'contents/structures/members/{web_id}.json'
-        os.makedirs(os.path.dirname(json_path), exist_ok=True)
-        with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(member_json, f, ensure_ascii=False, indent=4)
-        json_written.append(json_path)
-
-        if about:
-            p = f'contents/articles/members-about/{web_id}.md'
-            write_text(p, about)
-            md_written.append(p)
-        if position:
-            p = f'contents/articles/members-position/{web_id}.md'
-            write_text(p, position)
-            md_written.append(p)
-        if interests:
-            p = f'contents/articles/members-interest/{web_id}.md'
-            write_text(p, '\n\n'.join(f'/{topic}' for topic in interests))
-            md_written.append(p)
-
-    # ── members.json entry ────────────────────────────────────────────────────
-    if section not in members_by_section:
-        print(f'  WARNING: unknown section "{section}" for {web_id}, skipping')
-        continue
-
-    if is_pi:
-        entry = {
-            'engName':     full_name,
-            'chiName':     chi_name,
-            'description': PI_DESCRIPTION,
-            'imgPath':     img_path,
-            'links':       [],
-        }
-        if display_email:
-            entry['links'].append({
-                'icon': '/assets/sprite.svg#svg-send',
-                'text': display_email,
-                'link': f'mailto:{display_email}',
-            })
-        # PI office link for the listing-card entry (mirrors the per-member
-        # JSON office link built above).
-        _pi_office = content['links'].get('office') or {}
-        _pi_office_text = str(_pi_office.get('text') or '').strip()
-        _pi_office_url  = str(_pi_office.get('url') or '').strip()
-        if _pi_office_text or _pi_office_url:
-            _entry_office = {
-                'icon': '/assets/sprite.svg#svg-location',
-                'text': _pi_office_text,
+            entry = {
+                'engName':     full_name,
+                'chiName':     chi_name,
+                'description': PI_DESCRIPTION,
+                'imgPath':     img_path,
+                'links':       [],
             }
-            if _pi_office_url:
-                _entry_office['link'] = _pi_office_url
-            entry['links'].append(_entry_office)
-        if has_page:
-            entry['pageLink']      = f'/members/{web_id}'
-            entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
-    else:
-        entry = {
-            'engName': nickname or full_name,
-            'chiName': chi_name,
-            'imgPath': img_path,
-            'icon':    icon,
-        }
-        if adm_year:
-            entry['admissionYear'] = str(adm_year)
-        if has_page:
-            entry['pageLink']      = f'/members/{web_id}'
-            entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
+            if display_email:
+                entry['links'].append({
+                    'icon': '/assets/sprite.svg#svg-send',
+                    'text': display_email,
+                    'link': f'mailto:{display_email}',
+                })
+            # PI office link for the listing-card entry (mirrors the per-member
+            # JSON office link built above).
+            _pi_office = content['links'].get('office') or {}
+            _pi_office_text = str(_pi_office.get('text') or '').strip()
+            _pi_office_url  = str(_pi_office.get('url') or '').strip()
+            if _pi_office_text or _pi_office_url:
+                _entry_office = {
+                    'icon': '/assets/sprite.svg#svg-location',
+                    'text': _pi_office_text,
+                }
+                if _pi_office_url:
+                    _entry_office['link'] = _pi_office_url
+                entry['links'].append(_entry_office)
+            if has_page:
+                entry['pageLink']      = f'/members/{web_id}'
+                entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
+        else:
+            entry = {
+                'engName': nickname or full_name,
+                'chiName': chi_name,
+                'imgPath': img_path,
+                'icon':    icon,
+            }
+            if adm_year:
+                entry['admissionYear'] = str(adm_year)
+            if has_page:
+                entry['pageLink']      = f'/members/{web_id}'
+                entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
 
-    members_by_section[section].append(entry)
+        members_by_section[section].append(entry)
 
-    if also_alumni and section != 'Alumni':
-        alumni_entry = {
-            'engName': nickname or full_name,
-            'chiName': chi_name,
-            'imgPath': img_path,
-            'icon':    '/assets/sprite.svg#svg-master-2',
-        }
-        if alumni_year:
-            alumni_entry['admissionYear'] = str(alumni_year)
-        if has_page:
-            alumni_entry['pageLink']      = f'/members/{web_id}'
-            alumni_entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
-        extra_alumni.append(alumni_entry)
+        if also_alumni and section != 'Alumni':
+            alumni_entry = {
+                'engName': nickname or full_name,
+                'chiName': chi_name,
+                'imgPath': img_path,
+                'icon':    '/assets/sprite.svg#svg-master-2',
+            }
+            if alumni_year:
+                alumni_entry['admissionYear'] = str(alumni_year)
+            if has_page:
+                alumni_entry['pageLink']      = f'/members/{web_id}'
+                alumni_entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
+            extra_alumni.append(alumni_entry)
 
-members_by_section['Alumni'].extend(extra_alumni)
-members_by_section['Alumni'].sort(key=adm_year_sort_key)
+    members_by_section['Alumni'].extend(extra_alumni)
+    members_by_section['Alumni'].sort(key=adm_year_sort_key)
 
-# ── write members.json ────────────────────────────────────────────────────────
+    # ── write members.json ────────────────────────────────────────────────────────
 
-output = []
-for section_title in SECTION_ORDER:
-    members_list = members_by_section[section_title]
-    if not members_list:
-        continue
-    section_obj = {'sectionTitle': section_title}
-    section_obj.update(SECTION_META[section_title])
-    section_obj['members'] = members_list
-    output.append(section_obj)
+    output = []
+    for section_title in SECTION_ORDER:
+        members_list = members_by_section[section_title]
+        if not members_list:
+            continue
+        section_obj = {'sectionTitle': section_title}
+        section_obj.update(SECTION_META[section_title])
+        section_obj['members'] = members_list
+        output.append(section_obj)
 
-members_json_path = 'contents/structures/members.json'
-with open(members_json_path, 'w', encoding='utf-8') as f:
-    json.dump(output, f, ensure_ascii=False, indent=4)
+    # ── summary ───────────────────────────────────────────────────────────────────
 
-# ── summary ───────────────────────────────────────────────────────────────────
+    total = sum(len(s['members']) for s in output)
+    print(f'Member data: {total} entries across {len(output)} sections')
+    for s in SECTION_ORDER:
+        print(f'  {s}: {len(members_by_section[s])} members')
 
-print(f'Written: {members_json_path}')
-print(f'Written: {len(json_written)} member JSON files')
-print(f'Written: {len(md_written)} markdown files')
-print()
-for s in SECTION_ORDER:
-    print(f'  {s}: {len(members_by_section[s])} members')
+    return {
+        'members_listing': output,
+        'members_by_id':   members_by_id_inmem,
+        'members_md':      members_md_inmem,
+    }
+
+
+if __name__ == "__main__":
+    build_member_data()
