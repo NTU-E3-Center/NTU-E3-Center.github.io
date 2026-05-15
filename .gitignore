@@ -15,3 +15,9 @@ docs/
 .DS_Store
 
 .claude/
+
+# Local-only docs and dev artifacts (kept on disk, not on GitHub)
+CLAUDE.md
+tests/
+plans/
+specs/
