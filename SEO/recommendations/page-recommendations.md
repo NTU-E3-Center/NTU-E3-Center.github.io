@@ -1,5 +1,7 @@
 # Concrete Page Recommendations for E3 Center
 
+**Last updated:** 2026-05-14 (reconciled against current site state — see Status below)
+**Originally written:** 2026-05-06
 **Companion to:** [`../analysis/2026-05-06_12mo-insights.md`](../analysis/2026-05-06_12mo-insights.md), [`../strategy/search-intent.md`](../strategy/search-intent.md), [`../strategy/backlinks.md`](../strategy/backlinks.md).
 **Audience priorities:**
 
@@ -7,6 +9,57 @@
 2. **Secondary** — visitors interested in the lab's research insights. Research subpages are still being designed; for now the lab is promoted through **publications** and **news** only.
 
 This document is a phased, file-specific action plan. Each item names the file to edit, the change to make, and why.
+
+---
+
+## Status — reconciled 2026-05-14
+
+This doc was written 2026-05-06. The site has changed materially since; this
+section reconciles every item. **Legend:** ✅ done · 🟡 partial · ⬜ open · 🔮 future-by-design · 🆕 new (not in original doc).
+
+### What changed on the site since 2026-05-06
+
+- **Publications & member subpages were redesigned.** Publication rows now use the shared `.news-row` pattern; a member's own name is **bolded** in author lists; the Google Scholar CTA moved into the "All Publications" section header. Member subpages already carry rich SEO meta (canonical, `Person` + `BreadcrumbList` JSON-LD).
+- **Member content was restructured.** Each member is now a self-contained folder: `contents/members/{webId}/{member.json, about.md, photo.{ext}}`. **The old paths `contents/articles/members-{about,position,interest}/` and `contents/structures/members/` are now gitignored *build artifacts*** — regenerated every build. Any instruction in this doc that names one of those paths must be redirected to the per-member folder (see §5, corrected).
+- **`base.html` default `<meta description>` and `<meta keywords>` were rewritten** (§1.1) — the `<title>` was *not*.
+- **A new `/projects/` page was added** — not covered by the original doc; see new §6.5.
+
+### Item-by-item status
+
+| Item | Status | Note |
+|---|---|---|
+| §1.1 default `<title>` | ⬜ open | still `E3 Center \| National Taiwan University` |
+| §1.1 default `<meta description>` | ✅ done | rewritten, front-loads research areas |
+| §1.1 default `<meta keywords>` | ✅ done | matches the suggested long list |
+| §1.2 per-page `<html lang>` | ⬜ open | still hard-coded `lang="en"` in `base.html` |
+| §1.3 replace `JOIN US` anchor | ✅ done (interim) | `/#contact-us` → `/contact/`; broken anchor fixed. The applicant-specific `/join/` page is still §2.1. |
+| §1.4 about.md research-area headings | ⬜ open | `about.md` still flowing prose — no headings, bullets, or CTAs |
+| §1.5 member trailing-slash canonical | 🟡 partial | `member.html` emits `<link rel="canonical" …/{pageLink}/>` — fix shipped; confirm GSC dupes clear |
+| §2.1 `/join/` page | ⬜ open | not in `pages.json` |
+| §2.2 `/collaborate/` page | ⬜ open | not in `pages.json` |
+| §2.3 surface new pages in nav/footer | ⬜ open | blocked on §2.1/§2.2 |
+| §3.1 topic-first news titles | ⬜ open | editorial practice — apply going forward |
+| §3.2 news-body context openings | ⬜ open | editorial practice; note: `news-item.html` already auto-generates the meta description from the body |
+| §3.3 `topics` field on news items | 🟡 partial | **`news-item.html` already supports `news.topics`** (feeds `<meta keywords>`) — but **0 of 28 items** in `news.json` have it populated. Template-ready, data-empty. |
+| §3.4 cross-link news → members | ⬜ open | editorial practice |
+| §4.1 per-publication URLs | ⬜ open | `/publications/` is still a single page |
+| §4.2 `keywords` on every publication | ✅ done (mechanism) | publications carry `keywords`, rendered as chips; controlled-vocab *completeness* is an ongoing data task |
+| §4.3 plain-language summary per publication | ⬜ open | no summary/abstract field yet |
+| §4.4 make `/publications/` rank | 🟡 partial | page has `canonicalLink` + `CollectionPage` JSON-LD + `description`/`keywords`; the recent redesign added section grouping. "Filter by topic" UI not added. |
+| §5 member-page topic emphasis | 🟡 partial | SEO meta is rich; publication section redesigned. **Path corrected below** — interests now live in `member.json`. |
+| §5.1 PI page specifics | 🟡 partial | member template auto-generates title/description/JSON-LD; PI-specific copy tweaks unverified |
+| §6 research subpages | 🔮 future | no `/research/` yet — still by design |
+| §6.5 `/projects/` page SEO | 🆕 open | new page exists; needs the same treatment as §2 pages — see new §6.5 |
+
+### Highest-value still-open items
+
+In priority order, the cheap wins not yet shipped:
+
+1. **§1.1 title rewrite** — one line in `base.html`, recovers brand-search CTR.
+2. **§3.3 populate `news.topics`** — the template already renders it; this is pure data entry on `news.json`.
+3. **§1.4 about.md research-area headings** — one Markdown file, big topical-signal gain.
+4. **§1.2 per-page `<html lang>`** — small `base.html` change, helps the Chinese-search audience.
+5. **§2.1 `/join/` page** — the strategic move; highest conversion value.
 
 ---
 
@@ -28,6 +81,12 @@ Both audiences currently bounce off your homepage if they didn't already know th
 These are 30–60-minute edits that immediately improve how your existing pages appear in Search results. Order matters: do them in sequence.
 
 ### 1.1 Rewrite default `<title>`, `<meta description>`, and `<meta keywords>` in `templates/base.html`
+
+> **Status (2026-05-14): 🟡 partial.** The `<meta description>` and
+> `<meta keywords>` have already been rewritten (the keywords match the
+> suggestion below; the description is a shorter variant that still
+> front-loads the research areas — fine, leave it). **Only the `<title>` is
+> still the old short string.** The one remaining edit here is the title.
 
 **Current** (`templates/base.html:1-4`):
 
@@ -272,6 +331,15 @@ This three-sentence opener does five jobs at once: defines the topic for a non-e
 
 ### 3.3 Add a `topics` (or `keywords`) field to each news item
 
+> **Status (2026-05-14): 🟡 partial — template done, data empty.**
+> `templates/pages/news/news-item.html` *already* reads `news.topics` and
+> feeds it into the page's `<meta keywords>`. But **0 of the 28 items** in
+> `contents/structures/news.json` actually have a `topics` array. So the
+> remaining work here is **not a template change — it's pure data entry**:
+> add a `topics: [...]` array to each news item in `news.json`. Optionally
+> also render the tags *visibly* on the news-item and listing pages (the
+> template currently only emits them into meta).
+
 Your `news.json` schema can carry a `topics` array per item, mirroring the `keywords` field that publications already have. Render those as visible tags on the news-item page and on the news listing page. Two benefits:
 
 - **For SEO:** explicit topic keywords on the page reinforce Google's classification.
@@ -331,15 +399,23 @@ Page-level fixes:
 
 ## 5. Phase 5 — Member subpages as collaborator showcase
 
-Your member subpage template already has solid SEO meta (recent commits `bc540af`, `c52e3f7`, `024bd9c` enriched it with description, keywords, JSON-LD, BreadcrumbList — good work). The remaining gap is **content emphasis**: most academic member pages emphasize bio/CV, not topics.
+> **Status (2026-05-14): 🟡 partial.** The member subpage template now carries
+> rich SEO meta (canonical, `Person` + `BreadcrumbList` JSON-LD, per-page
+> description/keywords) and the publication section was redesigned (rows use
+> the `.news-row` pattern; the member's own name is **bolded** in author
+> lists). The remaining gap is still **content emphasis** + the corrected
+> source path below.
+
+Your member subpage template already has solid SEO meta. The remaining gap is **content emphasis**: most academic member pages emphasize bio/CV, not topics.
 
 For collaborator-driven SEO, every member page should answer "what does this person work on?" in keyword-rich form within the first 200 words. Practical changes:
 
-- The `interest` block (from `contents/articles/members-interest/{webId}.md`) should lead with research topics in plain English/Chinese, not with biographical narrative.
-- Make sure the member page renders a "Recent publications" section (it already does — `templates/pages/member/member.html:268-330`-ish range) and that publication titles + keywords appear in the body, not only as image links.
+- **Research interests now live in `contents/members/{webId}/member.json`** under the `interests` array (a list of plain-text topics) — *not* in `contents/articles/members-interest/{webId}.md`, which is now a gitignored build artifact regenerated from the JSON. Edit the `interests` array directly, and lead it with research topics in plain English/Chinese, not biographical narrative.
+- Likewise the bio is now `contents/members/{webId}/about.md` (was `contents/articles/members-about/{webId}.md`).
+- Make sure the member page renders a "Recent publications" section (it does — `templates/pages/member/member.html`) and that publication titles + keywords appear in the body, not only as image links. *(Done — the recent redesign renders publication rows with titles, bolded authors, and keyword chips as real text.)*
 - Cross-link from the member page back to the relevant `/research/{topic}/` page once those exist; until then, link to a representative news item or external review article on the topic.
 
-The two recently-added members (`iyunlisahsieh.md`, `jianhernyeoh.md`) are the natural test cases for this format.
+The PI page (`contents/members/iyunlisahsieh/`) is the natural test case for this format.
 
 ### 5.1 The PI page is unusually high-leverage
 
@@ -372,6 +448,37 @@ When you start designing, the structure to mirror is what big-lab sites already 
 
 ---
 
+## 6.5 The `/projects/` page (added since this doc was written)
+
+> **Status (2026-05-14): 🆕 page exists, page-level SEO already solid.**
+
+A `/projects/` page now exists (`templates/pages/projects.html`, data in `contents/projects/projects.json`) — a funded-projects showcase grouped by funding source (NSTC, industry-academia, etc.), each item carrying bilingual titles, grant number, role, dates, funding agency, and status. It already ships with a good `description`, `keywords`, `canonicalLink`, and `ItemList` JSON-LD. Page-level SEO is in good shape — no rewrite needed.
+
+The remaining gaps mirror the publications-page gaps (§4):
+
+### 6.5.1 No per-project URLs
+
+Like `/publications/`, the page is one long list — an individual project can't be linked from a news post, a member page, or a funder's site. **Same fix as §4.1, Option A:** generate `/projects/{slug}/` (slug from `grantNumber` or an English-title slug). Each project page: bilingual title, abstract/summary, funding agency (linked), partners (linked), dates, members involved (linked to `/members/{webId}/`), and related publications/news. This is what makes a project rank for *its own topic* — "green finance net-zero Taiwan India", "green power wheeling storage dispatch optimization" — queries the lab homepage can't win.
+
+### 6.5.2 No `topics` / `keywords` per project
+
+`projects.json` items have no topical field. Add a `topics` array per project drawn from the **same controlled vocabulary** as publications `keywords` and news `topics` (the 6 themes from §1.4). This is the join key that lets a future `/research/{topic}/` page auto-populate "projects in this area" — exactly as it will for publications and news.
+
+### 6.5.3 No cross-linking
+
+Each project should link to:
+- the **member(s)** involved (`/members/{webId}/`) — gives member pages internal-link equity;
+- the **publications** that came out of the grant (once per-publication URLs exist, §4.1);
+- the **funding agency** — and conversely, NSTC / industry-partner project registries often link *back* to the grantee's project page. That reciprocal link is high-quality and free (see `../strategy/backlinks.md` §5). A project page with the grant number on it is the natural landing target for those links.
+
+### 6.5.4 Add `/projects/` to nav/footer and the homepage
+
+Same as §2.3 — once it's a real page, surface it in `templates/partials/menu.html` and `footer.html`. For the **collaboration-seeker audience** (audience 1), a projects list is strong proof-of-relevant-expertise: it shows funded, current, named work. Consider linking to it from the eventual `/collaborate/` page (§2.2) as evidence.
+
+**Priority:** page-level SEO is done, so this is not urgent. Do 6.5.4 (nav/footer) cheaply now; fold 6.5.1–6.5.3 into the same effort as the §4 publications work, since they share the per-entry-URL and controlled-vocabulary patterns.
+
+---
+
 ## 7. Phase 7 — Tracking & validation
 
 Add to your monthly review (in addition to the metrics in `../strategy/search-intent.md` §6 and `../strategy/backlinks.md` §10):
@@ -386,29 +493,30 @@ Add to your monthly review (in addition to the metrics in `../strategy/search-in
 
 ## 8. Recommended execution order
 
-If you want a single sequence to follow:
+> **Updated 2026-05-14.** Several Phase-1 items already shipped (§1.1 description+keywords, §1.3 anchor fix, §1.5 canonical). The sequence below is re-scoped around what's *left* — see the Status section at the top for the full picture.
 
-| Week | What | Why |
+| Week | What's left | Why |
 |---|---|---|
-| 1 | Phase 1.1, 1.3, 1.5 (template/title rewrites + canonical URL fix). Ship before doing anything else. | Highest-impact, lowest-effort. Recovers existing zero-click traffic. |
-| 1 | Phase 1.4 (about.md research-area headings). | Cheap, immediate topical signal on homepage. |
-| 2 | Phase 2.1 (`/join/` page). | Highest conversion-value page given your stated audience priorities. |
-| 3 | Phase 2.2 (`/collaborate/` page) + 2.3 (nav/footer updates). | Completes the audience-landing pair. |
-| 3–4 | Phase 5.1 (PI page rewrite). | Single largest member-page lever. |
-| 4–6 | Phase 3.1–3.3 (news patterns) — apply to next 3–5 news posts and **retroactively to top 5 existing news items**. | Builds topical content stock. |
-| 5–6 | Phase 4 (publications). | Activates a currently-invisible asset. |
-| Ongoing | Phase 5 (member-page emphasis on topics). | Apply gradually as members update their bios. |
-| Later | Phase 6 (research subpages design). | Wait until current backlog is shipped. |
+| 1 | §1.1 **title** rewrite (one line in `base.html`) + §1.2 per-page `<html lang>`. | The last two cheap `base.html` wins. Description/keywords already done. |
+| 1 | §1.4 (about.md research-area headings). | Cheap, immediate topical signal on homepage — still fully open. |
+| 1 | §3.3 **populate `news.topics`** in `news.json` (data entry — template already supports it). | Near-zero effort; turns on per-news topical signals retroactively. |
+| 2 | §2.1 (`/join/` page). | Highest conversion-value page given your stated audience priorities. |
+| 3 | §2.2 (`/collaborate/` page) + §2.3 + §6.5.4 (nav/footer — add `/join/`, `/collaborate/`, `/projects/`). | Completes the audience-landing set; surfaces the new projects page. |
+| 3–4 | §5.1 (PI page copy specifics). | The member SEO meta is already rich; this is the targeted-copy pass. |
+| 4–6 | §3.1–3.2, §3.4 (news editorial patterns) — apply to new posts and retroactively to the top 5 existing items. | Builds topical content stock. |
+| 5–6 | §4 (publications) + §6.5.1–6.5.3 (projects per-entry URLs + `topics` + cross-links). | Same per-entry-URL + controlled-vocabulary pattern — do them together. |
+| Ongoing | §5 (member-page topic emphasis) — edit `interests` in `contents/members/{webId}/member.json`. | Apply gradually as members send updates. |
+| Later | §6 (research subpages design). | Wait until the backlog above is shipped. |
 
-You don't need to do this all at once. The Phase 1 work alone, shipped in a single week, will move metrics within a month. Phase 2 is the strategic move — it gives both your stated audiences a real entry point. Everything after that is compounding.
+You don't need to do this all at once. The remaining Phase-1 items (title, `lang`, about.md headings, `news.topics` data) are a single afternoon and will still move metrics within a month. §2 is the strategic move — it gives both stated audiences a real entry point. Everything after that compounds.
 
 ---
 
 ## 9. The shortest possible summary
 
-You currently rank for *who you are* and not *what you do*, and you have no dedicated entry pages for either of your stated primary audiences. The plan in two sentences:
+You currently rank for *who you are* and not *what you do*, and you still have no dedicated entry pages for either of your stated primary audiences. The plan in two sentences:
 
-1. **Rewrite titles and meta** so the homepage and PI page win the brand searches you already get (recovers ~150 zero-click impressions immediately).
-2. **Ship `/join/` and `/collaborate/` pages** so prospective applicants and prospective collaborators have a real URL to land on, then strengthen the news and publications channels you already have until topic subpages are ready.
+1. **Finish the title/meta + on-page-signal work.** The default `<meta description>` and `<meta keywords>` are already rewritten; what's left is the `<title>`, per-page `<html lang>`, the about.md research-area headings, and populating `news.topics` (the template already renders it). All small, all still open.
+2. **Ship `/join/` and `/collaborate/` pages** so prospective applicants and prospective collaborators have a real URL to land on, then strengthen the news, publications, and (new) projects channels you already have until topic subpages are ready.
 
-The rest is supporting infrastructure.
+The rest is supporting infrastructure. As of 2026-05-14 the member and publications subpages have had a real SEO/UX redesign and the per-member content is now in `contents/members/{webId}/` — see the Status section at the top for what that changed.
