@@ -21,3 +21,6 @@ CLAUDE.md
 tests/
 plans/
 specs/
+
+# Git worktrees
+.worktrees/
