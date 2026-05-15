@@ -9,16 +9,13 @@ from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup, escape
 
 # ── Sync content from Excel before building ───────────────────────────────────
-# Importing the module runs its top-level Excel → JSON/Markdown generation as
-# a side effect. Keep the import statement here (not at the top with the
-# others) so the ordering — Excel sync first, then template rendering —
-# stays visually clear.
-from lib import excel_to_content  # noqa: F401  (imported for side effects)
+from lib.excel_to_content import build_member_data
 from lib import seo_helpers
+_member_data = build_member_data()
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Set up Jinja2 environment
-env = Environment(loader=FileSystemLoader(['templates', 'contents']),
+env = Environment(loader=FileSystemLoader(['templates']),
                   trim_blocks=True,
                   lstrip_blocks=True)
 
@@ -73,42 +70,35 @@ def news_slug_from_pagelink(page_link):
     return page_link.rstrip('/').rsplit('/', 1)[-1] if page_link else ''
 
 # Load page structure from an external JSON file
-with open("contents/structures/pages.json", "r") as f:
+with open("contents/pages.json", "r") as f:
     pages = json.load(f)
 
 # Output directory
 output_dir = "docs"
 
-# Load JSON files from contents/structures
-structures_path = 'contents/structures'
+# Load JSON for each subpage from its dedicated folder. Each entry is
+# (key_in_structures, path).
 structures = {}
-for filename in os.listdir(structures_path):
-    if filename.endswith('.json'):
-        file_path = os.path.join(structures_path, filename)
-        with open(file_path, 'r', encoding='utf-8') as f:
-            # Load JSON content
-            data = json.load(f)
-        # Create a key based on the file name (without the .json extension)
-        var_name = os.path.splitext(filename)[0]
-        structures[var_name] = data
+_SUBPAGE_JSON_SOURCES = [
+    ('publications', 'contents/publications/publications.json'),
+    ('news',         'contents/news/news.json'),
+    ('research',     'contents/research/research.json'),
+    ('group-life',   'contents/group-life/group-life.json'),
+    ('about',        'contents/about/about.json'),
+    ('contact',      'contents/contact/contact.json'),
+    ('videos',       'contents/videos/videos.json'),
+    ('projects',     'contents/projects/projects.json'),
+]
+for _key, _path in _SUBPAGE_JSON_SOURCES:
+    with open(_path, 'r', encoding='utf-8') as _f:
+        structures[_key] = json.load(_f)
 
-# Load projects data — it lives in its own contents/projects/ folder rather
-# than contents/structures/, so the loop above does not pick it up.
-projects_file = 'contents/projects/projects.json'
-if os.path.exists(projects_file):
-    with open(projects_file, 'r', encoding='utf-8') as f:
-        structures['projects'] = json.load(f)
-
-# Build in-memory per-member detail lookup (webId -> data) so templates can
-# access chiNameEng (full name + optional nickname) without touching any JSON.
-_members_detail_path = os.path.join(structures_path, 'members')
-members_by_id = {}
-if os.path.exists(_members_detail_path):
-    for _fname in os.listdir(_members_detail_path):
-        if _fname.endswith('.json'):
-            _web_id = _fname[:-5]  # strip .json
-            with open(os.path.join(_members_detail_path, _fname), 'r', encoding='utf-8') as _f:
-                members_by_id[_web_id] = json.load(_f)
+# Use the in-memory members data returned by build_member_data() instead of
+# re-reading the gitignored on-disk artifacts. The listing replaces the
+# members.json the glob just loaded; members_by_id replaces the
+# contents/structures/members/{webId}.json reads.
+structures['members'] = _member_data['members_listing']
+members_by_id = _member_data['members_by_id']
 structures['members_by_id'] = members_by_id
 
 # Filter and sort publications for home page
@@ -129,19 +119,37 @@ if 'publications' in structures:
         home_publications.append(new_section)
     structures['home_publications'] = home_publications
 
-articles_path = 'contents/articles'
+# Load page-body markdown for each subpage that has one.
 articles = {}
-for root, dirs, files in os.walk(articles_path):
-    for filename in files:
-        if filename.endswith('.md'):
-            file_path = os.path.join(root, filename)
-            with open(file_path, 'r', encoding='utf-8') as f:
-                md_text = f.read()
-                html_content = markdown.markdown(md_text, extensions=['md_in_html'])
-            # Key is relative path from articles_path, without extension, using forward slashes
-            rel_path = os.path.relpath(file_path, articles_path)
-            var_name = os.path.splitext(rel_path)[0].replace(os.sep, '/')
-            articles[var_name] = html_content
+_PAGE_BODY_MD = [
+    ('about',   'contents/about/about.md'),
+    ('contact', 'contents/contact/contact.md'),
+]
+for _key, _md_path in _PAGE_BODY_MD:
+    with open(_md_path, 'r', encoding='utf-8') as _f:
+        _md = _f.read()
+    articles[_key] = markdown.markdown(_md, extensions=['md_in_html'])
+# News article markdown (keyed as 'news/<slug>' — render_news_pages reads
+# articles[f'news/{slug}']).
+_news_articles_dir = 'contents/news/articles'
+if os.path.isdir(_news_articles_dir):
+    for _fname in os.listdir(_news_articles_dir):
+        if _fname.endswith('.md'):
+            _slug = _fname[:-3]
+            with open(os.path.join(_news_articles_dir, _fname), 'r', encoding='utf-8') as _f:
+                _md = _f.read()
+            articles[f'news/{_slug}'] = markdown.markdown(_md, extensions=['md_in_html'])
+
+# Inject the in-memory member markdown (replaces what previously came from the
+# disk artifacts under contents/articles/members-{about,position,interest}/).
+# The members listing template reads `articles['members-position/<webId>']`.
+for _wid, _mds in _member_data['members_md'].items():
+    if _mds.get('about'):
+        articles[f'members-about/{_wid}'] = _mds['about']
+    if _mds.get('position'):
+        articles[f'members-position/{_wid}'] = _mds['position']
+    if _mds.get('interest'):
+        articles[f'members-interest/{_wid}'] = _mds['interest']
 
 # Function to render templates into correct directories
 def render_templates():
@@ -181,11 +189,10 @@ def render_templates():
     print("Templates rendered successfully!")
 
 
-# Function to render individual member pages from contents/structures/members/*.json
+# Function to render individual member pages from the in-memory members_by_id dict
 def render_member_pages():
-    members_structures_path = 'contents/structures/members'
-    if not os.path.exists(members_structures_path):
-        print("No member structures directory found, skipping member pages.")
+    if not members_by_id:
+        print("No member data in memory, skipping member pages.")
         return
 
     # Build research lookup dict: researchId -> topic data
@@ -205,20 +212,17 @@ def render_member_pages():
 
     for group in structures.get('members', []):
         for member_base in group.get('members', []):
-            page_structure_path = member_base.get('pageStructure')
-            if not page_structure_path:
+            page_link = member_base.get('pageLink', '')
+            if not page_link:
+                continue
+            # webId is the last path segment of /members/{web_id}
+            web_id = page_link.rstrip('/').rsplit('/', 1)[-1]
+            if not web_id:
                 continue
 
-            if os.path.exists(page_structure_path):
-                with open(page_structure_path, 'r', encoding='utf-8') as f:
-                    try:
-                        member_details = json.load(f)
-                    except json.JSONDecodeError:
-                        print(f"Error parsing JSON from {page_structure_path}")
-                        member_details = {}
-            else:
-                print(f"Warning: pageStructure file not found: {page_structure_path}")
-                member_details = {}
+            member_details = members_by_id.get(web_id)
+            if member_details is None:
+                continue
 
             # Merge member details, using base data as defaults
             member = member_details.copy()
@@ -227,38 +231,20 @@ def render_member_pages():
             if 'pageLink' not in member:
                 continue
 
-            # Pre-render any markdown files referenced in aboutSection and positionSection
-            about_content = {}
+            # Place pre-rendered HTML directly onto pageContent so the template
+            # can render it without a path-keyed lookup.
+            md_for_member = _member_data['members_md'].get(web_id, {})
             page_content = member.get('pageContent', {})
-        
-            for section in page_content.get('aboutSection', []):
-                md_path = section.get('content', '')
-                if md_path and os.path.exists(md_path):
-                    with open(md_path, 'r', encoding='utf-8') as f:
-                        md_text = f.read()
-                    about_content[md_path] = markdown.markdown(md_text, extensions=['md_in_html'])
-            pos_section = page_content.get('positionSection', {})
-        
-            if pos_section:
-                md_path = pos_section.get('content', '')
-                if md_path and os.path.exists(md_path):
-                    with open(md_path, 'r', encoding='utf-8') as f:
-                        md_text = f.read()
-                    about_content[md_path] = markdown.markdown(md_text, extensions=['md_in_html'])
-        
-            # Load specific member interest
-            member_id = None
-            if page_structure_path:
-                member_id = os.path.splitext(os.path.basename(page_structure_path))[0]
-            else:
-                member_id = member.get('studentId')
 
-            if member_id:
-                interest_path = f"contents/articles/members-interest/{member_id}.md"
-                if os.path.exists(interest_path):
-                    with open(interest_path, 'r', encoding='utf-8') as f:
-                        md_text = f.read()
-                    member['interest_content'] = markdown.markdown(md_text, extensions=['md_in_html'])
+            for section in page_content.get('aboutSection', []):
+                section['content'] = md_for_member.get('about', '')
+            if page_content.get('positionSection'):
+                page_content['positionSection']['content'] = md_for_member.get('position', '')
+
+            # Member interest (pre-rendered HTML from members_md)
+            interest_html = md_for_member.get('interest', '')
+            if interest_html:
+                member['interest_content'] = interest_html
 
             # Auto-populate Journal Publications if pubName is set
             pub_name = member.get('pubName')
@@ -307,7 +293,6 @@ def render_member_pages():
                 member=member,
                 research_by_id=research_by_id,
                 pub_by_id=pub_by_id,
-                about_content=about_content,
                 structures=structures,
                 year=datetime.now().year,
             )
@@ -347,9 +332,9 @@ def render_news_pages():
                     news_content
                 )
 
-            # Discover images from contents/images/news/{slug}/. Output paths
+            # Discover images from contents/news/images/{slug}/. Output paths
             # point at WebP variants generated by compress_and_convert_images.
-            img_folder = os.path.join('contents', 'images', 'news', slug)
+            img_folder = os.path.join('contents', 'news', 'images', slug)
             news_images = []
             if os.path.exists(img_folder):
                 files = sorted(
@@ -377,7 +362,7 @@ def render_news_pages():
                                        if img.rsplit('/', 1)[-1] != '0']
                         break
 
-            md_path = f"contents/articles/news/{slug}.md"
+            md_path = f"contents/news/articles/{slug}.md"
             try:
                 date_modified = datetime.fromtimestamp(os.path.getmtime(md_path)).strftime("%Y-%m-%dT%H:%M:%S")
             except OSError:
@@ -417,6 +402,27 @@ def generate_sitemap():
             print(f"Warning: cannot stat {path}: {e}")
             return today
 
+    def latest_mtime(*paths):
+        """Return ISO date of the most recent mtime across the given files/dirs.
+        Directories are walked recursively. Missing paths are silently skipped.
+        Falls back to today if nothing is found."""
+        latest = 0.0
+        for p in paths:
+            if not os.path.exists(p):
+                continue
+            if os.path.isfile(p):
+                latest = max(latest, os.path.getmtime(p))
+            else:
+                for root, _, files in os.walk(p):
+                    for name in files:
+                        try:
+                            latest = max(latest, os.path.getmtime(os.path.join(root, name)))
+                        except OSError:
+                            pass
+        if latest == 0.0:
+            return today
+        return datetime.fromtimestamp(latest).strftime("%Y-%m-%d")
+
     BASE = "https://e3center.caece.net"
 
     urlset = Element("urlset")
@@ -429,32 +435,51 @@ def generate_sitemap():
         SubElement(url_el, "changefreq").text = changefreq
         SubElement(url_el, "priority").text = priority
 
-    # Static pages
-    add_url(f"{BASE}/", changefreq="weekly", priority="1.0")
-    add_url(f"{BASE}/members/", changefreq="monthly", priority="0.8")
-    add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8")
-    add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8")
-    add_url(f"{BASE}/group-life/", changefreq="monthly", priority="0.6")
+    # Static pages — lastmod reflects the most recent change to that page's
+    # actual sources (data files + templates), not the build date.
+    add_url(f"{BASE}/", changefreq="weekly", priority="1.0",
+            lastmod=latest_mtime("contents/about", "contents/contact", "contents/group-life",
+                                 "contents/news", "contents/publications", "contents/research",
+                                 "contents/videos", "contents/projects",
+                                 "templates/home", "templates/index.html", "templates/base.html"))
+    add_url(f"{BASE}/members/", changefreq="monthly", priority="0.8",
+            lastmod=latest_mtime("contents/members/member-info.xlsx", "contents/members",
+                                 "templates/pages/members.html"))
+    add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8",
+            lastmod=latest_mtime("contents/publications/publications.json",
+                                 "templates/pages/publications.html"))
+    add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8",
+            lastmod=latest_mtime("contents/news/news.json",
+                                 "templates/pages/news.html"))
+    add_url(f"{BASE}/group-life/", changefreq="monthly", priority="0.6",
+            lastmod=latest_mtime("contents/group-life/group-life.json"))
 
-    # Member pages (deduplicated — some members appear in multiple groups)
+    # Member pages — lastmod reflects the most recent change to that member's
+    # own folder, the roster spreadsheet, or the publications list (since pubs
+    # auto-populate onto the member page).
     seen_member_links = set()
     for group in structures.get('members', []):
         for member in group.get('members', []):
             link = member.get('pageLink')
             if link and link not in seen_member_links:
                 seen_member_links.add(link)
+                web_id = link.rstrip('/').split('/')[-1]
                 add_url(f"{BASE}{link}/", changefreq="monthly", priority="0.7",
-                        lastmod=file_mtime("contents/member-info.xlsx"))
+                        lastmod=latest_mtime(f"contents/members/{web_id}",
+                                             "contents/members/member-info.xlsx",
+                                             "contents/publications/publications.json"))
 
-    # News item pages
+    # News item pages — lastmod reflects the article body, its images, and the
+    # news.json entry (which supplies title/date shown on the page).
     for section in structures.get('news', []):
         for item in section.get('items', []):
             link = item.get('pageLink')
             if link:
                 slug = news_slug_from_pagelink(link)
-                md_path = f"contents/articles/news/{slug}.md"
                 add_url(f"{BASE}{link}", changefreq="yearly", priority="0.6",
-                        lastmod=file_mtime(md_path))
+                        lastmod=latest_mtime(f"contents/news/articles/{slug}.md",
+                                             f"contents/news/images/{slug}",
+                                             "contents/news/news.json"))
 
     tree = ElementTree(urlset)
     indent(tree, space="  ")
@@ -572,6 +597,9 @@ def copy_videos():
     if os.path.exists(videos_src):
         os.makedirs(video_output_dir, exist_ok=True)
         for item in os.listdir(videos_src):
+            # videos.json is data, not an asset — skip it.
+            if item == 'videos.json':
+                continue
             src_path = os.path.join(videos_src, item)
             dst_path = os.path.join(video_output_dir, item)
 
@@ -583,51 +611,17 @@ def copy_videos():
     print("Videos copied directly into docs/")
 
 
-# Compress images and convert to WebP format
-images_path = 'contents/images'
+# Compress images and convert to WebP format. Each subpage's image source
+# folder is now self-contained; the (source_root, output_folder, sizes) tuples
+# describe what to process.
 members_img_sizes = [200, 400, 600, 800]
-globals()[r'group-life_img_sizes'] = [200, 400, 600, 800, 1200, 1600, 2000]
-news_img_sizes = [200, 400, 600, 800, 1200, 1600, 2000]
-lazy_img_sizes = [20]
+lazy_img_sizes    = [20]
 
-def get_separated_image_paths(directory):
-    """
-    Finds image paths and separates them by their top-level subdirectory.
-
-    Args:
-        directory (str): The path to the main directory (e.g., 'contents/images').
-
-    Returns:
-        dict: A dictionary where keys are folder names and values are lists of
-              image file paths within those folders.
-    """
-    separated_paths = {}
-    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'}
-
-    # First, find all top-level subdirectories
-    try:
-        # List items in the base directory and filter for directories
-        subdirectories = [item for item in os.listdir(directory)
-                          if os.path.isdir(os.path.join(directory, item))]
-    except FileNotFoundError:
-        print(f"Error: The directory '{directory}' was not found.")
-        return {}
-
-    # Now, walk through each subdirectory to find images
-    for subdir in subdirectories:
-        image_list = []
-        subdir_path = os.path.join(directory, subdir)
-        for root, _, files in os.walk(subdir_path):
-            for file in files:
-                # Check for valid, non-SVG image extensions
-                if any(file.lower().endswith(ext) for ext in image_extensions):
-                    image_list.append(os.path.join(root, file))
-
-        # Only add the folder to the dictionary if it contains images
-        if image_list:
-            separated_paths[subdir] = image_list
-
-    return separated_paths
+_SUBPAGE_IMAGE_SOURCES = [
+    # (source_root,                  docs/assets/<folder>, sizes)
+    ('contents/news/images',         'news',               [200, 400, 600, 800, 1200, 1600, 2000]),
+    ('contents/group-life/images',   'group-life',         [200, 400, 600, 800, 1200, 1600, 2000]),
+]
 
 def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None):
     """Resize `path` to each width in `sizes` and save WebP variants under
@@ -645,24 +639,26 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=Non
 
 
 def compress_and_convert_images():
-    image_paths_by_folder = get_separated_image_paths(images_path)
+    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'}
 
-    for folder, paths in image_paths_by_folder.items():
-        sizes_key = f'{folder}_img_sizes'
-        if sizes_key not in globals():
-            print(f"--- Skipping '{folder}' (no size config — handled separately) ---")
+    for src_root, dst_folder, sizes in _SUBPAGE_IMAGE_SOURCES:
+        if not os.path.isdir(src_root):
             continue
-        print(f"--- Images found in '{folder}' ---")
-        folder_root = os.path.join(images_path, folder)
-        dst_root = f"docs/assets/{folder}"
-        for path in paths:
-            # Preserve subdirectory layout (e.g. news/{slug}/0.jpg → docs/assets/news/{slug}/0-Nw.webp)
-            rel_dir = os.path.relpath(os.path.dirname(path), folder_root)
-            dst_subdir = dst_root if rel_dir == '.' else os.path.join(dst_root, rel_dir)
-            os.makedirs(dst_subdir, exist_ok=True)
-            convert_to_webp(path, dst_subdir, globals()[sizes_key], compression_quality=70)
-            convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=10)
-            print(f"{path} → {dst_subdir}/")
+        print(f"--- Images found in '{dst_folder}' ---")
+        dst_root = f"docs/assets/{dst_folder}"
+        for root, _, files in os.walk(src_root):
+            for fname in files:
+                if not any(fname.lower().endswith(ext) for ext in image_extensions):
+                    continue
+                path = os.path.join(root, fname)
+                # Preserve subdirectory layout under src_root (e.g.
+                # contents/news/images/{slug}/0.jpg → docs/assets/news/{slug}/0-Nw.webp).
+                rel_dir = os.path.relpath(os.path.dirname(path), src_root)
+                dst_subdir = dst_root if rel_dir == '.' else os.path.join(dst_root, rel_dir)
+                os.makedirs(dst_subdir, exist_ok=True)
+                convert_to_webp(path, dst_subdir, sizes, compression_quality=70)
+                convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=10)
+                print(f"{path} → {dst_subdir}/")
 
 
 def compress_member_images():
