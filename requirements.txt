@@ -1,0 +1,10 @@
+# Runtime dependencies for build.py.
+# Pinned to lower bounds that the codebase has been tested with; ranges allow
+# patch/minor upgrades without re-pinning. Keep this file as the single source
+# of truth for both CI (.github/workflows/deploy.yml) and local development.
+jinja2>=3.1
+markupsafe>=2.1
+markdown>=3.4
+Pillow>=10.0
+openpyxl>=3.1
+beautifulsoup4>=4.12

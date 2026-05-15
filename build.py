@@ -3,16 +3,14 @@ import re
 import json
 import shutil
 import markdown
-import importlib.util
 from PIL import Image
 from datetime import datetime
-import re
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup, escape
-import seo_helpers
 
 # ── Sync content from Excel before building ───────────────────────────────────
-from excel_to_content import build_member_data
+from lib.excel_to_content import build_member_data
+from lib import seo_helpers
 _member_data = build_member_data()
 # ─────────────────────────────────────────────────────────────────────────────
 

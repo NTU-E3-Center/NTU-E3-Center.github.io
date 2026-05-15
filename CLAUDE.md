@@ -36,7 +36,7 @@ Data flows from source files → `build.py` → `docs/` (deployed via GitHub Pag
 contents/member-info.xlsx    ← admin roster (11 cols: webId, names, section, batch, …)
 contents/members/{webId}/    ← per-member content (member.json, about.md, photo.{ext})
         ↓
-excel_to_content.py          ← merges admin + content; validates; regenerates intermediates
+lib/excel_to_content.py      ← merges admin + content; validates; regenerates intermediates
         ↓
 contents/structures/*.json   ← page data, members, publications, etc.
 contents/articles/*.md       ← text content (about, member bios)
@@ -44,13 +44,15 @@ templates/*.html             ← Jinja2 templates
 static/                      ← CSS, JS, assets (copied unchanged)
 contents/images/             ← research + group-life images (auto-converted to WebP)
         ↓
-    build.py
+    build.py                 ← uses helpers from lib/ (seo_helpers, excel_to_content)
         ↓
     docs/                    ← generated static site (GitHub Pages)
 ```
 
+Python helpers consumed by `build.py` live in `lib/` (`lib/seo_helpers.py`, `lib/excel_to_content.py`); install runtime deps via `pip install -r requirements.txt`.
+
 **`build.py` performs these steps in order:**
-1. **Run `excel_to_content.py`** — merges admin fields from `contents/member-info.xlsx` with content fields from each `contents/members/{webId}/` folder (`member.json` + `about.md`), validates every folder via `validate_member.py` (build **fails** on invalid JSON / schema mismatch, **warns** on missing optional files), and regenerates `members.json` + per-member JSON + member Markdown as gitignored build artifacts (executed at import time)
+1. **Run `lib/excel_to_content.py`** — merges admin fields from `contents/member-info.xlsx` with content fields from each `contents/members/{webId}/` folder (`member.json` + `about.md`), validates every folder via `validate_member.py` (build **fails** on invalid JSON / schema mismatch, **warns** on missing optional files), and regenerates `members.json` + per-member JSON + member Markdown as gitignored build artifacts (executed at import time)
 2. **Load data** — reads all `.json` from `contents/structures/` and `.md` from `contents/articles/` (converted to HTML via `markdown` library); also builds `members_by_id` lookup and a filtered/sorted `home_publications` (only items with `"E3": true` and `status: "published"`)
 3. **Render pages** — iterates `pages.json`, renders each Jinja2 template with the full `structures` dict, writes to `docs/{path}/index.html`
 4. **Render member pages** — for each member in `members.json`, loads `contents/structures/members/{memberId}.json`, auto-populates their publications by matching `pubName` against `authors` in `publications.json`
@@ -84,7 +86,7 @@ All content changes are data-driven — no Python or HTML edits required:
 3. Fill in `contents/members/{webId}/member.json` + `about.md` (or send the
    folder + `MEMBER_TEMPLATE/README.md` to the member to fill in), and drop
    their `photo.{jpg,png}` into the same folder.
-4. Run `python build.py` — `excel_to_content.py` merges + validates + regenerates.
+4. Run `python build.py` — `lib/excel_to_content.py` merges + validates + regenerates.
 
 **Updating a member:** edit `contents/members/{webId}/member.json` / `about.md`
 directly, or send them their folder to edit and overwrite it on return.
