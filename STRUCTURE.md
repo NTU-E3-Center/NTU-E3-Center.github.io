@@ -14,7 +14,6 @@ NTU-E3-Center.github.io/
 │   ├── excel_to_content.py           # Reads admin Excel + per-member folders → in-memory dict
 │   └── seo_helpers.py                # SEO helpers exposed to Jinja2 templates
 ├── validate_member.py                # Validates contents/members/{webId}/ folders at build time
-├── migrate_to_per_member_folders.py  # One-time migration (legacy Excel → per-member folders)
 ├── requirements.txt                  # Runtime dependencies (used by CI and locally)
 ├── contents/                         # ★ All hand-edited source (data + prose + images)
 ├── templates/                        # Jinja2 HTML templates
