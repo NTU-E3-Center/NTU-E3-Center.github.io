@@ -25,7 +25,27 @@ class ValidationIssue:
 
 
 # Schema describes member.json shape. Leaves (str, list[str]) are the types;
-# branch dicts describe nested structures recursively.
+# branch dicts describe nested structures recursively. A `[dict]` schema means
+# "list of objects, every entry must have every defined key" — uniform-keys
+# rule (see _check_schema below).
+_AWARD_ENTRY: dict[str, Any] = {
+    "title": str,
+    "titleZh": str,
+    "organization": str,
+    "note": str,
+    "date": str,
+    "url": str,
+}
+
+_ENGAGEMENT_ENTRY: dict[str, Any] = {
+    "role": str,
+    "organization": str,
+    "note": str,
+    "location": str,
+    "date": str,
+    "url": str,
+}
+
 _SCHEMA: dict[str, Any] = {
     "position": str,
     "email": {
@@ -45,6 +65,8 @@ _SCHEMA: dict[str, Any] = {
             "url": str,
         },
     },
+    "awards":               [_AWARD_ENTRY],
+    "externalEngagements":  [_ENGAGEMENT_ENTRY],
     "metaDescription": str,
 }
 
@@ -97,6 +119,17 @@ def _check_soft_formats(data: dict) -> list[ValidationIssue]:
                 f"email.{key}: '{val}' missing '@' — does this look right?",
             ))
 
+    for list_key in ("awards", "externalEngagements"):
+        for i, entry in enumerate(data.get(list_key) or []):
+            if not isinstance(entry, dict):
+                continue
+            url = entry.get("url")
+            if isinstance(url, str) and url and not url.startswith(("http://", "https://")):
+                issues.append(ValidationIssue(
+                    "warn",
+                    f"{list_key}[{i}].url: '{url}' does not start with http:// or https://.",
+                ))
+
     return issues
 
 
@@ -131,6 +164,33 @@ def _check_schema(data: Any, schema: Any, path: str) -> list[ValidationIssue]:
                         "error",
                         f"At '{path}[{i}]': expected string, got {type(item).__name__}",
                     ))
+    elif isinstance(schema, list) and len(schema) == 1 and isinstance(schema[0], dict):
+        # Uniform-keys rule: every entry must declare every key in the entry
+        # schema (blank string allowed). Stricter than the dict branch below
+        # because authors copy-paste entries; missing keys would silently
+        # produce different shapes across rows.
+        entry_schema = schema[0]
+        if not isinstance(data, list):
+            issues.append(ValidationIssue(
+                "error",
+                f"At '{path}': expected list of objects, got {type(data).__name__}",
+            ))
+        else:
+            for i, item in enumerate(data):
+                sub_path = f"{path}[{i}]"
+                if not isinstance(item, dict):
+                    issues.append(ValidationIssue(
+                        "error",
+                        f"At '{sub_path}': expected object, got {type(item).__name__}",
+                    ))
+                    continue
+                for key in entry_schema:
+                    if key not in item:
+                        issues.append(ValidationIssue(
+                            "error",
+                            f"At '{sub_path}': missing key '{key}' — every entry must declare all {len(entry_schema)} keys ({', '.join(entry_schema)}); use '' for blanks.",
+                        ))
+                issues.extend(_check_schema(item, entry_schema, sub_path))
     elif isinstance(schema, dict):
         if not isinstance(data, dict):
             issues.append(ValidationIssue(

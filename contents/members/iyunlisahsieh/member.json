@@ -21,5 +21,65 @@
       "url": "https://maps.app.goo.gl/crYHNJhSwBzqt2VJ8"
     }
   },
+  "awards": [
+    {
+      "title": "Outstanding Young Transportation Professional Award",
+      "titleZh": "",
+      "organization": "Chinese Institute of Transportation",
+      "note": "",
+      "date": "Dec 2024",
+      "url": ""
+    },
+    {
+      "title": "Outstanding Scholar Award",
+      "titleZh": "臺大宗倬章先生拔萃學者",
+      "organization": "National Taiwan University",
+      "note": "",
+      "date": "2024 – 2027",
+      "url": ""
+    },
+    {
+      "title": "Excellent Team Award",
+      "titleZh": "卓越團隊獎",
+      "organization": "Ørsted Sustainable Innovation Accelerator",
+      "note": "",
+      "date": "Oct 2024",
+      "url": ""
+    },
+    {
+      "title": "2022 ES&T Best Paper Award",
+      "titleZh": "",
+      "organization": "Environmental Science & Technology",
+      "note": "Top 7% journal (IF = 11.4) in Environmental Science category",
+      "date": "Apr 2024",
+      "url": ""
+    },
+    {
+      "title": "Outstanding Scholar Award",
+      "titleZh": "臺大勇源拔萃學者",
+      "organization": "National Taiwan University",
+      "note": "",
+      "date": "2020 – 2023",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "Editorial Board",
+      "organization": "Communications Earth & Environment",
+      "note": "Nature portfolio journal",
+      "location": "",
+      "date": "Jul 2023 – Present",
+      "url": ""
+    },
+    {
+      "role": "Energy Data Consultant (Part-time)",
+      "organization": "NextDrive Co., Ltd.",
+      "note": "",
+      "location": "Taipei, Taiwan",
+      "date": "Mar 2025 – Present",
+      "url": ""
+    }
+  ],
   "metaDescription": "Dr. I-Yun Lisa Hsieh (謝依芸), Associate Professor at NTU & Director of E3 Center. MIT PhD researching sustainable energy, electric mobility, and net-zero."
 }
