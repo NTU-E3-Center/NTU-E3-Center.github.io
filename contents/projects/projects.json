@@ -47,6 +47,17 @@
                 "status": "執行中"
             },
             {
+                "titleZh": "永續能源與交通的系統性解決方案",
+                "titleEn": "Systematic Solutions for Sustainable Energy and Mobility System",
+                "grantNumber": "114-2927-I-002-528",
+                "role": "主持人",
+                "startDate": "2025-07-01",
+                "endDate": "2026-06-30",
+                "fundingAgency": "國科會（臺荷 NSTC-NWO 雙邊交流）",
+                "fundingAgencyEn": "National Science and Technology Council (NSTC) – Taiwan-Netherlands (NSTC-NWO) Bilateral Program",
+                "status": "執行中"
+            },
+            {
                 "titleZh": "智慧型電池換電系統最佳化：運用人工智慧推動能源部門耦合達成淨零能耗建築",
                 "titleEn": "Smart Battery Swap System Optimization: Advancing Sector Coupling with Artificial Intelligence for Nearly Zero-Energy Buildings",
                 "grantNumber": "113-2621-M-002-006-",
@@ -252,6 +263,16 @@
                 "endDate": "2026-10-05",
                 "fundingAgency": "財團法人金屬工業研究發展中心",
                 "fundingAgencyEn": "Metal Industries Research & Development Centre (MIRDC)",
+                "status": "執行中"
+            },
+            {
+                "titleZh": "人工智慧與人類協同推動淨零物流轉型之臺英合作研究架構",
+                "titleEn": "AI–Human Coordination for Net-Zero Logistics Transition: A UK–Taiwan Collaborative Framework",
+                "role": "主持人",
+                "startDate": "2026-04-15",
+                "endDate": "2026-12-31",
+                "fundingAgency": "教育部臺英大學聯盟 (TUKUC)",
+                "fundingAgencyEn": "Ministry of Education – Taiwan-UK University Consortium (TUKUC)",
                 "status": "執行中"
             }
         ]
