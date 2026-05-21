@@ -506,68 +506,6 @@ h2 {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* cv-section
-   Awards & External Engagements rows. Reuses .news-row infrastructure
-   from subpage.css (border, hover, link affordance, arrow), but widens
-   the date column for free-form date strings like "Jul 2023 – Present"
-   that don't fit the publications' compact MM/YY two-line column. */
-.cv-section {
-    width: 100%;
-    max-width: 85ch;
-    margin-inline: auto;
-
-    .cv-row {
-        grid-template-columns: 9rem 1fr auto;
-        gap: 1.25rem;
-        padding-block: 0.95rem;
-        align-items: start;
-    }
-
-    .cv-row-date {
-        font-size: 0.8125rem;
-        font-weight: 600;
-        line-height: 1.35;
-        color: var(--main-color);
-        opacity: 0.55;
-        padding-top: 0.2rem;
-    }
-
-    .cv-row-title {
-        font-size: 1.0625rem;
-        line-height: 1.4;
-        font-weight: var(--fw-h1);
-    }
-
-    .cv-row-zh {
-        font-weight: 500;
-        color: color-mix(in srgb, var(--main-color) 70%, transparent);
-        font-size: 0.95em;
-    }
-
-    .cv-row-org-inline {
-        font-weight: 500;
-        color: color-mix(in srgb, var(--main-color) 80%, transparent);
-    }
-
-    .cv-row-loc {
-        font-weight: 500;
-        color: color-mix(in srgb, var(--main-color) 60%, transparent);
-        font-size: 0.95em;
-    }
-
-    .cv-row-org,
-    .cv-row-note {
-        font-size: 0.875rem;
-        line-height: 1.45;
-        color: color-mix(in srgb, var(--main-color) 65%, transparent);
-    }
-
-    .cv-row-note {
-        font-style: italic;
-        opacity: 0.85;
-    }
-}
-
 /* Secondary, low-emphasis link to the global E3 publications page.
    Sits below all of a member's publication sections. */
 .publication-global-cta {
