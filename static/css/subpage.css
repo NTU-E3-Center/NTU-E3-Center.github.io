@@ -1131,37 +1131,9 @@
     }
 }
 
-/* Publication status badge */
-.publi-status-badge {
-    display: inline-block;
-    width: fit-content;
-    font-size: 0.625rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.55rem;
-    border-radius: 2rem;
-    line-height: 1.6;
-
-    &[data-status="published"] {
-        color: var(--r-green);
-        background: color-mix(in srgb, var(--r-green) 13%, transparent);
-    }
-
-    &[data-status="under-review"] {
-        color: var(--main-color-2);
-        background: color-mix(in srgb, var(--main-color-2) 13%, transparent);
-    }
-
-    &[data-status="submitted"] {
-        color: color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
-        background: color-mix(in srgb, var(--secondary-color) 22%, transparent);
-    }
-}
-
 /* Authors line */
 .publi-row-authors {
-    font-size: 0.9375rem;
+    font-size: 1rem;
     line-height: 1.4;
     opacity: 0.6;
     color: var(--main-color);
@@ -1631,7 +1603,7 @@
     align-items: baseline;
     flex-wrap: wrap;
     gap: 0.4rem;
-    font-size: var(--fs-caption-s);
+    font-size: var(--fs-caption);
     line-height: 1.5;
     margin: 0.3rem 0 0;
 }

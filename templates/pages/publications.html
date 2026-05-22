@@ -243,7 +243,7 @@
     {# ── Working Papers: submitted first, then under-review ─────────────────── #}
     {% set submitted_items    = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'submitted')    | list %}
     {% set under_review_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'under-review') | list %}
-    {{ pub_group('Working Papers', submitted_items + under_review_items, 'pub-working') }}
+    {{ pub_group('Working Papers (Submitted / Under Review)', submitted_items + under_review_items, 'pub-working') }}
 
     {# ── All Publications ──────────────────────────────────────────────────
        The Google Scholar CTA renders inline with this section's title, so it

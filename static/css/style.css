@@ -1821,7 +1821,7 @@
 /* publication meta lines (used in news-row layout) */
 .publi-row-journal,
 .publi-row-authors {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.4;
     opacity: 0.6;
     color: var(--main-color);
@@ -1829,7 +1829,7 @@
 
 /* publication keyword chips */
 .pub-keywords { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.5rem; }
-.pub-keyword-chip { font-size: 0.75rem; padding: 0.125rem 0.5rem; background: rgba(10, 85, 126, 0.08); border-radius: 999px; color: #0a557e; }
+.pub-keyword-chip { font-size: 0.8125rem; padding: 0.125rem 0.5rem; background: rgba(10, 85, 126, 0.08); border-radius: 999px; color: #0a557e; }
 
 /* news */
 #news .publi-block-wrapper {
