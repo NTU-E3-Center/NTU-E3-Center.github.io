@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set _short_title = pub.get('shortTitle') or pub['title'] %}
+    <title>{{ _short_title }} | E3 Center</title>
+    {% set _meta_desc = seo_meta_description(pub.get('abstract'), pub['title'] ~ ' — ' ~ pub.get('journal', '') ~ ', E3 Center, NTU.') %}
+    <meta name="description" content="{{ _meta_desc }}">
+    {% set _kw = (pub.get('tags') or []) + [pub.get('journal', ''), 'E3 Center', 'publication', 'sustainable energy', 'NTU', '台大', 'I-Yun Lisa Hsieh', '謝依芸'] %}
+    <meta name="keywords" content="{{ _kw | select | list | join(', ') }}">
+
+    <link rel="canonical" href="https://e3center.caece.net{{ pub['pageLink'] }}" />
+
+    <meta property="og:url" content="https://e3center.caece.net{{ pub['pageLink'] }}" />
+    <meta property="og:title" content="{{ _short_title }} | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="{{ _meta_desc }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ _short_title }} | E3 Center" />
+    <meta name="twitter:description" content="{{ _meta_desc }}" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=13">
+    <link rel="stylesheet" href="/css/subpage.css?v=36">
+    <link rel="stylesheet" href="/css/publication-item.css?v=3">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    {% set _yy = '20' ~ pub['year'][1:] if pub.get('year', '').startswith("'") else pub.get('year', '') %}
+    {% set month_map = {'Jan.': '01', 'Feb.': '02', 'Mar.': '03', 'Apr.': '04', 'May': '05', 'May.': '05', 'Jun.': '06', 'Jul.': '07', 'Aug.': '08', 'Sep.': '09', 'Oct.': '10', 'Nov.': '11', 'Dec.': '12'} %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "@id": "https://e3center.caece.net{{ pub['pageLink'] }}#article",
+      "headline": {{ pub['title'] | tojson }},
+      "description": {{ _meta_desc | tojson }},
+      "url": "https://e3center.caece.net{{ pub['pageLink'] }}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net{{ pub['pageLink'] }}" },
+      "datePublished": "{{ _yy }}-{{ month_map.get(pub.get('month'), '01') }}-01",
+      "inLanguage": "en",
+      "author": [
+        {% set _comma = joiner(", ") %}
+        {% for a in pub.get('authorList') or [] %}{{ _comma() }}{
+          "@type": "Person",
+          "name": {{ a['name'] | tojson }}{% if a.get('webId') and a['webId'] in member_ids %},
+          "url": "https://e3center.caece.net/members/{{ a['webId'] }}/"{% endif %}
+        }{% endfor %}
+      ],
+      {% if pub.get('journal') %}"isPartOf": {
+        "@type": "Periodical",
+        "name": {{ pub['journal'] | tojson }}{% if pub.get('volume') %},
+        "volumeNumber": {{ pub['volume'] | tojson }}{% endif %}
+      },
+      {% endif %}{% if pub.get('doi') %}"sameAs": "https://doi.org/{{ pub['doi'] }}",
+      {% endif %}"publisher": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://e3center.caece.net/publications/" },
+        { "@type": "ListItem", "position": 3, "name": {{ pub['title'] | tojson }} }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% set subpageTitle = _short_title %}
+    {% set backLink = '/publications/' %}
+    {% set backLinkText = 'Publications' %}
+    {# The article renders its own visible h1 (.pub-item-title); suppress the sr-only one. #}
+    {% set suppressSrH1 = True %}
+    {% include 'partials/subpage-header.html' %}
+
+    <main class="pub-item-main">
+        {% set _pub_url = pub.get('link') or ('https://doi.org/' ~ pub['doi'] if pub.get('doi') else None) %}
+        <article class="pub-item-article">
+
+            <header class="pub-item-header">
+                {% if pub.get('tags') %}
+                <ul class="pub-item-tags" aria-label="Topics">
+                    {% for tag in pub['tags'] %}
+                    <li class="pub-tag-chip">{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <h1 class="pub-item-title">{{ pub['title'] }}</h1>
+
+                {% if pub.get('authorList') or pub.get('authors') %}
+                <p class="pub-item-authors">
+                    {% if pub.get('authorList') %}
+                        {% for a in pub['authorList'] -%}
+                        {%- if a.get('webId') and a['webId'] in member_ids -%}
+                        <a class="pub-author-link" href="/members/{{ a['webId'] }}/">{{ a['name'] }}</a>
+                        {%- else -%}
+                        <span>{{ a['name'] }}</span>
+                        {%- endif -%}
+                        {%- if not loop.last %}<span class="pub-author-sep">, </span>{% endif -%}
+                        {%- endfor %}
+                    {% else %}
+                        {{ pub['authors'] }}
+                    {% endif %}
+                </p>
+                {% endif %}
+            </header>
+
+            {# Two-column body: reading content on the left, a metadata card
+               (venue + publisher action + DOI) on the right. Stacks on narrow
+               viewports, with the card moving above the content. #}
+            <div class="pub-item-layout">
+                <div class="pub-item-content">
+                    {% if pub.get('abstract') %}
+                    <section class="pub-item-section" aria-labelledby="abstract-heading">
+                        <h2 id="abstract-heading" class="pub-item-section-title">Abstract</h2>
+                        <p class="pub-item-abstract">{{ pub['abstract'] }}</p>
+                    </section>
+                    {% endif %}
+
+                    {% if pub.get('bibtex') %}
+                    <section class="pub-item-section" aria-labelledby="bibtex-heading">
+                        <div class="pub-cite-header">
+                            <h2 id="bibtex-heading" class="pub-item-section-title">Cite (BibTeX)</h2>
+                            <button class="pub-copy-btn" type="button" data-copy-target="bibtex-block">
+                                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                                <span class="pub-copy-label">Copy</span>
+                            </button>
+                        </div>
+                        <pre class="pub-bibtex" id="bibtex-block"><code>{{ pub['bibtex'] }}</code></pre>
+                    </section>
+                    {% endif %}
+                </div>
+
+                <aside class="pub-item-aside">
+                    <div class="pub-meta-card">
+                        <p class="pub-meta-label">Published in</p>
+                        <p class="pub-meta-journal">{{ pub['journal'] }}</p>
+                        {% set _meta_bits = [] %}
+                        {%- if pub.get('volume') %}{% set _ = _meta_bits.append('Volume ' ~ pub['volume']) %}{% endif -%}
+                        {%- if pub.get('issue') %}{% set _ = _meta_bits.append('Issue ' ~ pub['issue']) %}{% endif -%}
+                        {%- if pub.get('articleNo') %}{% set _ = _meta_bits.append('Article ' ~ pub['articleNo']) %}{% elif pub.get('pages') %}{% set _ = _meta_bits.append('pp. ' ~ pub['pages']) %}{% endif -%}
+                        {%- if pub.get('year') %}{% set _ = _meta_bits.append(('20' ~ pub['year'][1:]) if pub['year'].startswith("'") else pub['year']) %}{% endif -%}
+                        {% if _meta_bits %}
+                        <p class="pub-meta-detail">{{ _meta_bits | join(' · ') }}</p>
+                        {% endif %}
+
+                        {% if _pub_url %}
+                        <a class="pub-action-btn skewed-block" b-role="btn" b-hoverable
+                           href="{{ _pub_url }}" target="_blank" rel="noopener">
+                            <span>View on publisher</span>
+                            <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        </a>
+                        {% endif %}
+
+                        {% if pub.get('doi') %}
+                        <p class="pub-item-doi">DOI<span>{{ pub['doi'] }}</span></p>
+                        {% endif %}
+                    </div>
+                </aside>
+            </div>
+
+        </article>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    {% include 'partials/background.html' %}
+    {% include 'partials/to-top-btn.html' %}
+    {% include 'partials/menu.html' %}
+
+    <script>
+        document.querySelectorAll('.pub-copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var target = document.getElementById(btn.dataset.copyTarget);
+                if (!target) return;
+                var text = target.innerText;
+                var label = btn.querySelector('.pub-copy-label');
+                navigator.clipboard.writeText(text).then(function () {
+                    if (!label) return;
+                    var prev = label.textContent;
+                    label.textContent = 'Copied!';
+                    btn.classList.add('is-copied');
+                    setTimeout(function () {
+                        label.textContent = prev;
+                        btn.classList.remove('is-copied');
+                    }, 1800);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

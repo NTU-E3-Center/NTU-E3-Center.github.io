@@ -324,7 +324,28 @@
                 "month": "Jan.",
                 "authors": "Jun-Wei Ding, I-Yun Lisa Hsieh",
                 "E3": true,
-                "status": "published"
+                "status": "published",
+                "slug": "2026-super-resolution-wind-mapping",
+                "volume": "7",
+                "articleNo": "51",
+                "doi": "10.1038/s43247-025-03072-9",
+                "tags": [
+                    "Renewable Energy",
+                    "AI & Machine Learning"
+                ],
+                "authorList": [
+                    {
+                        "name": "Jun-Wei Ding",
+                        "webId": "junweiding"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Accurate wind information is crucial for expanding renewable energy, yet achieving high spatial resolution and accuracy simultaneously remains challenging. This challenge is intensified in regions with sparse surface observations, where uneven station coverage can bias model assessment. Here we present a deep learning framework that reconstructs high-resolution wind fields by combining frequency-based filtering with a generative model designed to enhance local detail while preserving large-scale structure. We also introduce a point-to-area Monte Carlo evaluation strategy that accounts for spatial heterogeneity across measurement sites, enabling a reliable assessment of model performance. Applied to regional wind reconstruction, the framework enhances wind-speed estimation and provides a clearer representation of fine-scale variability, particularly under conditions associated with high wind-energy production. The approach performs consistently across multiple spatial domains and temporal aggregation levels, supporting its potential for scalable and location-sensitive wind-energy planning in settings where observational data are limited.",
+                "shortTitle": "Super-Resolution Wind Mapping with Deep Learning",
+                "issue": "1"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:digitalization-lca-pod",
