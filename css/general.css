@@ -118,7 +118,7 @@ i {
 
 /* Typography utility recipes. See DESIGN_RULES.md §5. Existing classes
    (.mem-group-title, .news-cat-title, .publi-group-title, .contact-info-label,
-   .news-item-category, .news-row-badge, .publi-status-badge) keep their
+   .news-item-category, .news-row-badge) keep their
    own declarations for backward compat — new label/badge UI should reach
    for these utilities first. */
 .text-eyebrow {
@@ -681,8 +681,10 @@ footer {
     display: grid;
     gap: 2rem;
 
+    /* Match the subpage header's content band (subpage.css: 76rem inset)
+       so the footer logo/links align with the header logo across widths. */
     &>* {
-        width: min(100%, 89rem);
+        width: min(100%, 76rem);
         margin-inline: auto;
     }
 
