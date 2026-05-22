@@ -834,12 +834,45 @@
             }
         }
 
-        & a {
-            text-decoration: underline;
+        /* Inline links inside the about article. With 5 links across 3
+           justified paragraphs the default browser underline reads as
+           visual noise, so we differentiate via color + weight at rest
+           and sweep an underline in on hover.
 
-            &:hover {
-                opacity: 0.8;
-                text-decoration: none;
+           The underline uses a background-image gradient (not
+           text-decoration) so multi-word link phrases inside justified
+           paragraphs render a continuous baseline — text-decoration
+           inherits the wordspace gaps that justification introduces.
+
+           The sweep direction and easing match `.publication-global-cta a`
+           in member.css so the site's hover-reveal language stays
+           consistent. */
+        & a {
+            color: color-mix(in srgb, var(--main-color) 55%, var(--main-color-2) 45%);
+            font-weight: 500;
+            text-decoration: none;
+            background-image: linear-gradient(currentColor, currentColor);
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            background-size: 0% 1px;
+            padding-bottom: 0.08em;
+            transition: background-size 280ms cubic-bezier(0.16, 1, 0.3, 1),
+                        color 200ms ease-out;
+
+            &:hover,
+            &:focus-visible {
+                background-size: 100% 1px;
+                color: var(--main-color-2);
+            }
+
+            &:focus-visible {
+                outline: 2px solid currentColor;
+                outline-offset: 3px;
+                border-radius: 2px;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
             }
         }
 

@@ -93,7 +93,7 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=13">
     <link rel="stylesheet" href="/css/subpage.css?v=14">
-    <link rel="stylesheet" href="/css/member.css?v=17">
+    <link rel="stylesheet" href="/css/member.css?v=18">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -228,6 +228,65 @@
             </div>
         </section>
         {% endfor %}
+        {% endif %}
+
+        {% if member.get('awards') %}
+        <section id="awards" class="cv-section">
+            <h2>Awards &amp; Honors</h2>
+            <div class="news-rows">
+                {% for a in member['awards'] %}
+                {% set _row_classes = 'news-row cv-row' ~ (' news-row--link' if a['url'] else '') %}
+                {% if a['url'] %}
+                <a class="{{ _row_classes }}" href="{{ a['url'] }}" target="_blank" rel="noopener">
+                {% else %}
+                <div class="{{ _row_classes }}">
+                {% endif %}
+                    <div class="news-row-date cv-row-date">{{ a['date'] }}</div>
+                    <div class="news-row-body">
+                        <p class="news-row-title cv-row-title">
+                            {{ a['title'] }}{% if a['titleZh'] %} <span class="cv-row-zh">({{ a['titleZh'] }})</span>{% endif %}
+                        </p>
+                        {% if a['organization'] %}<span class="cv-row-org">{{ a['organization'] }}</span>{% endif %}
+                        {% if a['note'] %}<span class="cv-row-note">{{ a['note'] }}</span>{% endif %}
+                    </div>
+                    {% if a['url'] %}
+                    <span class="news-row-arrow" aria-hidden="true">
+                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    </span>
+                    {% endif %}
+                {% if a['url'] %}</a>{% else %}</div>{% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if member.get('externalEngagements') %}
+        <section id="external-engagements" class="cv-section">
+            <h2>External Engagements</h2>
+            <div class="news-rows">
+                {% for e in member['externalEngagements'] %}
+                {% set _row_classes = 'news-row cv-row' ~ (' news-row--link' if e['url'] else '') %}
+                {% if e['url'] %}
+                <a class="{{ _row_classes }}" href="{{ e['url'] }}" target="_blank" rel="noopener">
+                {% else %}
+                <div class="{{ _row_classes }}">
+                {% endif %}
+                    <div class="news-row-date cv-row-date">{{ e['date'] }}</div>
+                    <div class="news-row-body">
+                        <p class="news-row-title cv-row-title">
+                            {{ e['role'] }}{% if e['organization'] %} <span class="cv-row-org-inline">— {{ e['organization'] }}</span>{% endif %}{% if e['location'] %} <span class="cv-row-loc">({{ e['location'] }})</span>{% endif %}
+                        </p>
+                        {% if e['note'] %}<span class="cv-row-note">{{ e['note'] }}</span>{% endif %}
+                    </div>
+                    {% if e['url'] %}
+                    <span class="news-row-arrow" aria-hidden="true">
+                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    </span>
+                    {% endif %}
+                {% if e['url'] %}</a>{% else %}</div>{% endif %}
+                {% endfor %}
+            </div>
+        </section>
         {% endif %}
 
         {% if member.get('interest_content') %}

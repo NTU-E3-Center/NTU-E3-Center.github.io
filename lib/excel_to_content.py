@@ -175,6 +175,8 @@ _EMPTY_CONTENT = {
         'researchgate': '', 'ntu_scholars': '', 'facebook': '',
         'office': {'text': '', 'url': ''},
     },
+    'awards': [],
+    'externalEngagements': [],
     'metaDescription': '',
 }
 
@@ -308,6 +310,8 @@ def build_member_data():
                 'pubName':         full_name,   # plain Full Name for publication matching
                 'metaDescription': meta_description,
                 'position':        position_for_seo,
+                'awards':          list(content.get('awards') or []),
+                'externalEngagements': list(content.get('externalEngagements') or []),
             }
             if not is_pi:
                 member_json['graduated'] = (graduated.lower() == 'true')
