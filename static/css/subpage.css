@@ -976,6 +976,115 @@
     }
 }
 
+/* ── Publication list rows: whole-row detail link + publisher opt-out ─────────
+   A row with a detail page is fully clickable: the title is a stretched link
+   whose ::after covers the row, so a click anywhere opens the detail page.
+   The Publisher button raises itself above that overlay (z-index) so it is the
+   single exception that goes to the journal. */
+
+.news-row--stretch {
+    position: relative;
+    /* keep .news-row's center alignment so the date sits mid-row */
+}
+
+.publications-subpage .news-row-title-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+
+    /* Stretch the click target across the whole row. */
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+
+    /* Keyboard focus shows a ring on the title text, not the whole row. */
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.2rem;
+        border-radius: 0.125rem;
+    }
+}
+
+/* Publisher opt-out button — raised above the stretched overlay. */
+.pub-row-publisher {
+    position: relative;
+    z-index: 1;
+    align-self: center;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.4rem 0.85rem;
+    border-radius: 2rem;
+    border: 0.0938rem solid color-mix(in srgb, var(--main-color) 25%, transparent);
+    color: var(--main-color);
+    background: var(--main-bg-color);
+    text-decoration: none;
+    transition:
+        background var(--hover-transition-time),
+        border-color var(--hover-transition-time);
+
+    & svg {
+        width: 0.8em;
+        height: 0.8em;
+        fill: currentColor;
+        flex-shrink: 0;
+        transition: translate var(--hover-transition-time);
+    }
+
+    &:hover, &:focus-visible {
+        border-color: color-mix(in srgb, var(--main-color) 50%, transparent);
+        background: color-mix(in srgb, var(--main-color) 7%, var(--main-bg-color));
+    }
+
+    &:hover svg, &:focus-visible svg {
+        translate: 0.1rem -0.1rem;
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.15rem;
+    }
+}
+
+/* Topic tags — sit above the title, leading the row. */
+.pub-row-tags {
+    list-style: none;
+    margin: 0 0 0.4rem;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.pub-row-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    padding: 0.1rem 0.6rem;
+    border-radius: 2rem;
+    color: var(--main-color-2);
+    background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+}
+
+/* Phone: collapse the publisher button to an icon. */
+@media (max-width: 37.5rem) {
+    .pub-row-publisher {
+        padding: 0.45rem 0.6rem;
+
+        & span { display: none; }
+    }
+}
+
 /* Extra items wrapper — transparent to layout, hidden by default */
 .publi-extra-item {
     display: contents;
