@@ -1,0 +1,313 @@
+/* ── Publication Item (detail) Page ──────────────────────────────────────────
+   Standalone page generated per publication (see build.py render_publication_pages).
+   Mirrors the news-item page conventions: subpage header + breadcrumb, a single
+   centred reading column, footer. Anchored to the shared tokens in general.css. */
+
+/* Same content width as the other subpages (news-item, members): 80rem. */
+.pub-item-main {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding: 3rem var(--gutter-x) 8rem;
+}
+
+/* ── Header block ─────────────────────────────────────────────────────────── */
+
+.pub-item-tags {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pub-tag-chip {
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    color: var(--main-color-2);
+    background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+}
+
+.pub-item-title {
+    font-size: clamp(1.625rem, 3.2vw, 2.125rem);
+    font-weight: var(--fw-h1);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--main-color);
+    margin: 0 0 1.25rem;
+}
+
+.pub-item-authors {
+    font-size: var(--fs-body-l);
+    line-height: 1.5;
+    color: var(--main-color);
+    margin: 0 0 0.5rem;
+}
+
+/* Animated underline on author links — matches the about-section link recipe. */
+.pub-author-link {
+    color: color-mix(in srgb, var(--main-color) 55%, var(--main-color-2) 45%);
+    font-weight: 600;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    padding-bottom: 0.06em;
+    transition:
+        background-size 280ms cubic-bezier(0.16, 1, 0.3, 1),
+        color 200ms ease-out;
+
+    &:hover, &:focus-visible {
+        background-size: 100% 1px;
+        color: var(--main-color-2);
+    }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+/* ── Two-column body: reading content + metadata card ─────────────────────── */
+
+.pub-item-layout {
+    margin-block-start: 2.5rem;
+    padding-block-start: 2.5rem;
+    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: 2.5rem 3.5rem;
+    align-items: start;
+}
+
+/* min-width:0 lets the BibTeX <pre> scroll instead of stretching the column. */
+.pub-item-content {
+    min-width: 0;
+}
+
+/* Metadata card — venue + publisher action + DOI. Sticks below the sticky
+   subpage header on tall content. */
+.pub-meta-card {
+    position: sticky;
+    top: 7rem;
+
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border-radius: 0.625rem;
+    background: color-mix(in srgb, var(--main-color) 4%, transparent);
+    padding: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.pub-meta-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    margin: 0 0 0.4rem;
+}
+
+.pub-meta-journal {
+    font-size: 1.0625rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--main-color);
+    margin: 0;
+}
+
+.pub-meta-detail {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--main-color) 65%, transparent);
+    margin: 0.3rem 0 0;
+}
+
+/* "View on publisher" — re-uses the skewed-block btn theme; full-width in card. */
+.pub-action-btn {
+    --_adjusted-font-size: 0.9375rem;
+    --_adjusted-padding: 0.55em 1em;
+    width: 100%;
+    margin-block-start: 1.25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    & svg {
+        height: 0.75em;
+        width: 0.75em;
+    }
+}
+
+/* DOI shown as a plain, citable identifier (the button already resolves to it,
+   so this is selectable text, not a second link). */
+.pub-item-doi {
+    margin: 1.25rem 0 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+
+    & span {
+        font-family: "SFMono-Regular", "SF Mono", "Menlo", "Consolas",
+                     "Liberation Mono", monospace;
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: none;
+        color: color-mix(in srgb, var(--main-color) 78%, transparent);
+        word-break: break-all;
+        user-select: all;
+    }
+}
+
+/* ── Sections (Abstract / BibTeX) ─────────────────────────────────────────── */
+
+.pub-item-section {
+    margin-block-end: 2.5rem;
+}
+
+.pub-item-section-title {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+    opacity: 0.4;
+    margin: 0 0 0.875rem;
+}
+
+.pub-item-abstract {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--main-color);
+    margin: 0;
+}
+
+/* ── BibTeX block ─────────────────────────────────────────────────────────── */
+
+.pub-cite-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-end: 0.875rem;
+
+    .pub-item-section-title {
+        margin: 0;
+    }
+}
+
+.pub-copy-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.35rem 0.8rem;
+    border: 0.0938rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
+    border-radius: 2rem;
+    color: var(--main-color);
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.7;
+    transition:
+        opacity var(--hover-transition-time),
+        border-color var(--hover-transition-time),
+        color var(--hover-transition-time);
+
+    &:hover {
+        opacity: 1;
+        border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.25rem;
+    }
+
+    &.is-copied {
+        opacity: 1;
+        color: var(--r-green);
+        border-color: color-mix(in srgb, var(--r-green) 45%, transparent);
+    }
+}
+
+/* Monospace is intentional here — a code/citation block is the one place the
+   universal Outfit/Noto stack should yield to a fixed-width face. */
+.pub-bibtex {
+    font-family: "SFMono-Regular", "SF Mono", "Menlo", "Consolas",
+                 "Liberation Mono", monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--main-color);
+    background: color-mix(in srgb, var(--main-color) 5%, transparent);
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+
+    & code {
+        font-family: inherit;
+    }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+/* Stack the columns; the metadata card moves above the reading content so the
+   publisher action stays visible without scrolling. */
+@media (max-width: 56rem) {
+    .pub-item-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .pub-item-aside {
+        order: -1;
+    }
+
+    .pub-meta-card {
+        position: static;
+    }
+}
+
+@media (max-width: 37.5rem) {
+    .pub-item-main {
+        padding-block: 2rem 5rem;
+    }
+
+    .pub-item-abstract {
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .pub-bibtex {
+        padding: 1rem 1.1rem;
+    }
+}
