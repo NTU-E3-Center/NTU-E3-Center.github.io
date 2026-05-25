@@ -53,8 +53,8 @@
 
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=13">
-    <link rel="stylesheet" href="/css/subpage.css?v=36">
-    <link rel="stylesheet" href="/css/publication-item.css?v=3">
+    <link rel="stylesheet" href="/css/subpage.css?v=37">
+    <link rel="stylesheet" href="/css/publication-item.css?v=6">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -164,6 +164,21 @@
                     <section class="pub-item-section" aria-labelledby="abstract-heading">
                         <h2 id="abstract-heading" class="pub-item-section-title">Abstract</h2>
                         <p class="pub-item-abstract">{{ pub['abstract'] }}</p>
+
+                        {# Author-supplied keywords sit *inside* the Abstract
+                           section — both are "what the paper is about" content,
+                           grouped together under one container, distinct from
+                           the publish/cite metadata in the aside card. A hairline
+                           divider + smaller italic muted text separates them
+                           visually without breaking the conceptual grouping.
+                           Skipped when the venue (e.g. Nature family) publishes
+                           no author keywords. #}
+                        {% if pub.get('keywords') %}
+                        <div class="pub-item-keywords-block">
+                            <h3 class="pub-item-keywords-label">Keywords</h3>
+                            <p class="pub-item-keywords">{{ pub['keywords'] | join('; ') }}</p>
+                        </div>
+                        {% endif %}
                     </section>
                     {% endif %}
 
