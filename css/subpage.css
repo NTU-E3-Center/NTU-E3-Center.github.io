@@ -1008,6 +1008,19 @@
     }
 }
 
+/* Two click targets share this row: the stretched overlay opens the detail
+   page, the Publisher button opens the external site. When the pointer is on
+   the button, mute the row-level affordance (background tint + title dim) so
+   the motion stays local to the button — the two actions read as distinct.
+   :has() outscopes the .news-row--link:hover rules above. */
+.news-row--stretch.news-row--link:has(.pub-row-publisher:hover) {
+    background: transparent;
+}
+
+.news-row--stretch.news-row--link:has(.pub-row-publisher:hover) .news-row-title {
+    opacity: 1;
+}
+
 /* Publisher opt-out button — raised above the stretched overlay. */
 .pub-row-publisher {
     position: relative;
