@@ -10,12 +10,31 @@
     "orcid": "",
     "linkedin": "",
     "researchgate": "",
-    "ntu_scholars": "",
     "facebook": "",
     "office": {
       "text": "NCREE 1302",
       "url": "https://maps.app.goo.gl/UxjyRv2esH6nbF5r5"
     }
   },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
   "metaDescription": ""
 }

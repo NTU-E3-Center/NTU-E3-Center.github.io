@@ -304,11 +304,14 @@ def render_member_pages():
         for topic in section.get('topics', []):
             research_by_id[topic['researchId']] = topic
 
-    # Build publication lookup dict: citationId -> publication data (skip items under review)
+    # Build publication lookup dict: citationId -> publication data.
+    # Require a non-empty citationId AND status == 'published' — working /
+    # in-review entries (which often share an empty citationId) would otherwise
+    # all collide on the same dict key and pollute member pages.
     pub_by_id = {}
     for section in structures.get('publications', []):
         for item in section.get('items', []):
-            if 'citationId' in item:
+            if item.get('citationId') and item.get('status') == 'published':
                 pub_by_id[item['citationId']] = item
 
     template = env.get_template('pages/member/member.html')
@@ -355,7 +358,9 @@ def render_member_pages():
                 matching_items = []
                 for pub_section in structures.get('publications', []):
                     for item in pub_section.get('items', []):
-                        if 'citationId' in item and pub_name in item.get('authors', ''):
+                        if (item.get('citationId')
+                                and item.get('status') == 'published'
+                                and pub_name in item.get('authors', '')):
                             # Extract year and month for sorting
                             year = item.get('year', 0)
                             month_str = item.get('month', '')

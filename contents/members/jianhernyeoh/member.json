@@ -13,12 +13,31 @@
     "orcid": "0009-0001-4608-919X",
     "linkedin": "https://www.linkedin.com/in/jianhern/",
     "researchgate": "https://www.researchgate.net/profile/Jian-Hern-Yeoh",
-    "ntu_scholars": "",
     "facebook": "",
     "office": {
       "text": "NCREE 1302",
       "url": "https://maps.app.goo.gl/UxjyRv2esH6nbF5r5"
     }
   },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
   "metaDescription": ""
 }

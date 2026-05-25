@@ -230,11 +230,12 @@
         {% endfor %}
         {% endif %}
 
-        {% if member.get('awards') %}
+        {% set _awards = member.get('awards', []) | selectattr('title') | list %}
+        {% if _awards %}
         <section id="awards" class="cv-section">
             <h2>Awards &amp; Honors</h2>
             <div class="news-rows">
-                {% for a in member['awards'] %}
+                {% for a in _awards %}
                 {% set _row_classes = 'news-row cv-row' ~ (' news-row--link' if a['url'] else '') %}
                 {% if a['url'] %}
                 <a class="{{ _row_classes }}" href="{{ a['url'] }}" target="_blank" rel="noopener">
@@ -260,11 +261,12 @@
         </section>
         {% endif %}
 
-        {% if member.get('externalEngagements') %}
+        {% set _engagements = member.get('externalEngagements', []) | selectattr('role') | list %}
+        {% if _engagements %}
         <section id="external-engagements" class="cv-section">
             <h2>External Engagements</h2>
             <div class="news-rows">
-                {% for e in member['externalEngagements'] %}
+                {% for e in _engagements %}
                 {% set _row_classes = 'news-row cv-row' ~ (' news-row--link' if e['url'] else '') %}
                 {% if e['url'] %}
                 <a class="{{ _row_classes }}" href="{{ e['url'] }}" target="_blank" rel="noopener">
@@ -358,8 +360,20 @@
                 {% set pub = _entry['data'] %}
                 {% set _is_peek = _has_more and (loop.index0 == _peek_idx) %}
                 {% set _is_extra = _has_more and (loop.index0 > _peek_idx) %}
-                {% set _row_classes = 'news-row' ~ (' news-row--link' if pub['link'] else '') ~ (' pub-row--peek' if _is_peek else (' pub-row--extra' if _is_extra else '')) %}
-                {% if pub['link'] %}
+                {# Detail subpage exists when the publication has an abstract
+                   (build.py sets `pageLink` for these only). When present, the
+                   row becomes a stretched-link container that opens the detail
+                   page; the Publisher button opts out to the external journal.
+                   Manual section entries are excluded from this treatment. #}
+                {% set _detail_link = (not _entry['manual']) and pub.get('pageLink') %}
+                {% set _row_classes = 'news-row'
+                    ~ (' news-row--link' if (_detail_link or pub['link']) else '')
+                    ~ (' news-row--stretch' if _detail_link else '')
+                    ~ (' pub-row--peek' if _is_peek else (' pub-row--extra' if _is_extra else '')) %}
+                {% if _detail_link %}
+                <div class="{{ _row_classes }}"
+                {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
+                {% elif pub['link'] %}
                 <a class="{{ _row_classes }}" href="{{ pub['link'] }}" target="_blank" rel="noopener"
                 {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
                 {% else %}
@@ -375,7 +389,13 @@
                     {% endif %}
 
                     <div class="news-row-body">
+                        {% if _detail_link %}
+                        <a class="news-row-title-link" href="{{ pub['pageLink'] }}">
+                            <p class="news-row-title">{{ pub['title'] }}</p>
+                        </a>
+                        {% else %}
                         <p class="news-row-title">{{ pub['title'] }}</p>
+                        {% endif %}
                         {% if pub.get('authors') %}
                         <span class="publi-row-authors">{{ pub['authors'] | bold_author(member['pubName']) }}</span>
                         {% endif %}
@@ -384,22 +404,21 @@
                         {% elif not _entry['manual'] and pub.get('journal') %}
                         <span class="publi-row-journal">{{ pub['journal'] }}{% if pub['volume'] %}, Vol. {{ pub['volume'] }}{% endif %}.</span>
                         {% endif %}
-                        {% if pub.get('keywords') %}
-                        <div class="pub-keywords">
-                            {% for _kw in pub['keywords'] %}
-                            <span class="pub-keyword-chip">{{ _kw }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
                     </div>
 
-                    {% if pub['link'] %}
+                    {% if _detail_link and pub['link'] %}
+                    <a class="pub-row-publisher" href="{{ pub['link'] }}" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
+                    {% elif pub['link'] %}
                     <span class="news-row-arrow" aria-hidden="true">
                         <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                     </span>
                     {% endif %}
 
-                {% if pub['link'] %}</a>{% else %}</div>{% endif %}
+                {% if _detail_link %}</div>{% elif pub['link'] %}</a>{% else %}</div>{% endif %}
                 {% endfor %}
                 </div>
 

@@ -1,23 +1,44 @@
 {
-  "position": "",
+  "position": "Year 0 PhD Student,\n\nDepartment of Civil Engineering,\n\nNational Taiwan University",
   "email": {
-    "ntu": "",
-    "preferred": ""
+    "ntu": "r14521xxx@ntu.edu.tw",
+    "preferred": "youremail@gmail.com"
   },
-  "interests": [],
+  "interests": [
+    "Net-Zero Pathway Modeling",
+    "Energy System Optimization",
+    "Carbon Pricing Mechanisms"
+  ],
   "links": {
-    "scholar": "",
-    "orcid": "",
-    "linkedin": "",
-    "researchgate": "",
-    "ntu_scholars": "",
-    "facebook": "",
+    "scholar": "https://scholar.google.com/citations?user=XXXXXXXXXXX",
+    "orcid": "0000-0000-0000-0000",
+    "linkedin": "https://www.linkedin.com/in/your-handle/",
+    "researchgate": "https://www.researchgate.net/profile/Your-Name",
+    "facebook": "https://www.facebook.com/your.handle",
     "office": {
-      "text": "",
-      "url": ""
+      "text": "CERB XXX",
+      "url": "https://maps.app.goo.gl/XXXXXXXXXXX"
     }
   },
-  "awards": [],
-  "externalEngagements": [],
-  "metaDescription": ""
+  "awards": [
+    {
+      "title": "Best Website Award",
+      "titleZh": "最佳網站獎",
+      "organization": "E3 Center, National Taiwan University",
+      "note": "Placeholder award — replace with a real entry or delete this object.",
+      "date": "May 2026",
+      "url": "https://example.com/award"
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "Student Volunteer",
+      "organization": "International Conference on Sustainable Energy",
+      "note": "Placeholder engagement — replace with a real entry or delete this object.",
+      "location": "Taipei, Taiwan",
+      "date": "Jun 2026",
+      "url": "https://example.com/engagement"
+    }
+  ],
+  "metaDescription": "OPTIONAL. IGNORE IF NOT INTERESTED IN SEO. Short SEO blurb (~150 chars): who you are, your role at E3 Center / NTU, and your research focus. Shown in Google search snippets and social shares."
 }

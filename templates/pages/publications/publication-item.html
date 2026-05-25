@@ -76,7 +76,8 @@
       "@type": "ScholarlyArticle",
       "@id": "https://e3center.caece.net{{ pub['pageLink'] }}#article",
       "headline": {{ pub['title'] | tojson }},
-      "description": {{ _meta_desc | tojson }},
+      {% if pub.get('titleZh') %}"alternateName": {{ pub['titleZh'] | tojson }},
+      {% endif %}"description": {{ _meta_desc | tojson }},
       "url": "https://e3center.caece.net{{ pub['pageLink'] }}",
       "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net{{ pub['pageLink'] }}" },
       "datePublished": "{{ _yy }}-{{ month_map.get(pub.get('month'), '01') }}-01",
@@ -136,6 +137,15 @@
                 {% endif %}
 
                 <h1 class="pub-item-title">{{ pub['title'] }}</h1>
+                {% if pub.get('titleZh') %}
+                {# Chinese-language original/translated title. For papers
+                   published in Taiwan journals (e.g. 臺灣能源期刊) the Chinese
+                   title is often the canonical one used in the printed paper;
+                   the English title above is provided by the journal for
+                   international readers. Rendered with Noto Sans TC, lighter
+                   weight, and a hairline separator above. #}
+                <p class="pub-item-title-zh" lang="zh-Hant">{{ pub['titleZh'] }}</p>
+                {% endif %}
 
                 {% if pub.get('authorList') or pub.get('authors') %}
                 <p class="pub-item-authors">
@@ -204,6 +214,9 @@
                     <div class="pub-meta-card">
                         <p class="pub-meta-label">Published in</p>
                         <p class="pub-meta-journal">{{ pub['journal'] }}</p>
+                        {% if pub.get('journalZh') %}
+                        <p class="pub-meta-journal-zh" lang="zh-Hant">{{ pub['journalZh'] }}</p>
+                        {% endif %}
                         {% set _meta_bits = [] %}
                         {%- if pub.get('volume') %}{% set _ = _meta_bits.append('Volume ' ~ pub['volume']) %}{% endif -%}
                         {%- if pub.get('issue') %}{% set _ = _meta_bits.append('Issue ' ~ pub['issue']) %}{% endif -%}

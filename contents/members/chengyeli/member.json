@@ -1,5 +1,5 @@
 {
-  "position": "",
+  "position": "Master's Alumni,\n\nDepartment of Chemical Engineering,\n\nNational Taiwan University",
   "email": {
     "ntu": "r12524140@ntu.edu.tw",
     "preferred": ""
@@ -10,12 +10,31 @@
     "orcid": "",
     "linkedin": "",
     "researchgate": "",
-    "ntu_scholars": "",
     "facebook": "",
     "office": {
       "text": "",
       "url": ""
     }
   },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
   "metaDescription": ""
 }
