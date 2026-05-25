@@ -987,7 +987,10 @@
     /* keep .news-row's center alignment so the date sits mid-row */
 }
 
-.publications-subpage .news-row-title-link {
+/* Stretched-link title — used by both the publications listing and the
+   per-member CV publication sections (.publication wrapper on member pages). */
+.publications-subpage .news-row-title-link,
+.publication .news-row-title-link {
     display: inline-block;
     text-decoration: none;
     color: inherit;

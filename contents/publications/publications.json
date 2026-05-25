@@ -21,36 +21,69 @@
             {
                 "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC",
                 "title": "Assessing Power Sector Carbon Emission Intensity in Taiwan: Status Quo and Net-zero Future Perspectives",
-                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/37/301",
-                "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
+                "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/301",
+                "journal": "Journal of Taiwan Energy",
                 "volume": "9",
-                "issue": "",
+                "issue": "4",
                 "articleNo": "",
                 "doi": "",
                 "year": "'22",
                 "month": "Dec.",
-                "authors": "Wei-Chun Tseng, Hou-Chuan Chen, Tsung-Heng, Tien-Yu, I-Yun Lisa Hsieh",
+                "authors": "Wei-Chun Tseng, Hou-Chuan Chen, Tsung-Heng Chang, Tien-Yu Chang, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2022-tw-power-sector-carbon-intensity",
+                "shortTitle": "TW Power Sector Carbon Intensity",
+                "tags": [
+                    "Decarbonization",
+                    "Energy Systems"
+                ],
+                "keywords": [
+                    "Electric Power System",
+                    "Greenhouse Gas Emission",
+                    "Carbon Emission Intensity",
+                    "Energy Transition",
+                    "Net-Zero Policy"
+                ],
+                "authorList": [
+                    {
+                        "name": "Wei-Chun Tseng",
+                        "webId": "weichuntseng"
+                    },
+                    {
+                        "name": "Hou-Chuan Chen",
+                        "webId": "houchuanchen"
+                    },
+                    {
+                        "name": "Tsung-Heng Chang",
+                        "webId": "tsunghengchang"
+                    },
+                    {
+                        "name": "Tien-Yu Chang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "To combat climate change, countries across the globe have successively committed to achieving net-zero emissions by 2050—including Taiwan. The power sector accounts for more than half of Taiwan's total greenhouse gas emissions, suggesting that decarbonizing the power sector is essential to attaining the net-zero target. With the growing diversity of energy sources, the \"Electricity Carbon Emission Factor\" defined by The Electricity Act will no longer be appropriate when we evaluate the nationwide average carbon intensity of electricity. Based on the publicly available data, this study conducts a comprehensive bottom-up analysis for quantifying the carbon emissions associated with electricity production in Taiwan from now to 2050—at the power generator level. The results reveal great variations in carbon emission intensity across fossil fuel generators, even with the same fuel type. The carbon emission intensity, defined as the ratio of carbon emissions from electricity generation and gross electricity production, is expected to decline to 0.118 kg CO₂e/kWh when shifting from fossil fuels to renewable energy under the 2050 Net-Zero Pathway. Taiwan's energy system is undergoing a far-reaching transition toward net-zero emissions; the results presented here serve as an important reference for assessing the climate benefits of sector coupling.",
+                "journalZh": "臺灣能源期刊",
+                "titleZh": "臺灣電力碳密集度現況研究與淨零政策之展望",
+                "pages": "307-321"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
                 "title": "Sankey-diagram-based Insights Into Taiwan’s Energy Flow: Status Quo and Net-zero Future",
                 "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/37/306",
-                "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
+                "journal": "Journal of Taiwan Energy",
                 "volume": "9",
                 "issue": "",
                 "articleNo": "",
                 "doi": "",
                 "year": "'22",
                 "month": "Dec.",
-                "authors": "Kai-Yun, Ting-Ling, Hsin-Yun, I-Yun Lisa Hsieh",
+                "authors": "Kai-Yun Lo, Ting-Ling, Hsin-Yun, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -58,7 +91,8 @@
                 "tags": [],
                 "keywords": [],
                 "authorList": [],
-                "abstract": ""
+                "abstract": "",
+                "journalZh": "臺灣能源期刊"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Se3iqnhoufwC",
@@ -71,7 +105,7 @@
                 "doi": "",
                 "year": "'23",
                 "month": "Jan.",
-                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa Hsieh",
+                "authors": "Chia-Yu Tsai, Tsung-Heng Chang, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -92,7 +126,7 @@
                 "doi": "",
                 "year": "'23",
                 "month": "Jan.",
-                "authors": "Yuan-Hsi Chien, I-Yun Lisa Hsieh, Tsung-Heng",
+                "authors": "Yuan-Hsi Chien, I-Yun Lisa Hsieh, Tsung-Heng Chang",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -105,23 +139,42 @@
             {
                 "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC",
                 "title": "Impacts of Electric Fleet Charging Patterns Under Different Solar Power Penetration Levels: Hourly Grid Variations and Operating Emissions",
-                "link": "https://www.sciencedirect.com/science/article/pii/S1361920923002456",
+                "link": "https://doi.org/10.1016/j.trd.2023.103848",
                 "journal": "Transportation Research Part D: Transport and Environment",
                 "volume": "122",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "103848",
+                "doi": "10.1016/j.trd.2023.103848",
                 "year": "'23",
                 "month": "Sep.",
                 "authors": "Wei-Chun Tseng, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2023-ev-charging-solar-penetration",
+                "shortTitle": "EV Charging & Solar Penetration",
+                "tags": [
+                    "Decarbonization",
+                    "Transport"
+                ],
+                "keywords": [
+                    "Electric buses",
+                    "Power grid",
+                    "Solar power",
+                    "Charging patterns",
+                    "Scenario analysis",
+                    "Environmental assessment"
+                ],
+                "authorList": [
+                    {
+                        "name": "Wei-Chun Tseng",
+                        "webId": "weichuntseng"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Electric vehicles (EVs) are a critical solution to the fight against transport-related emissions. With the goal of achieving a net-zero future, the deployment of electric urban buses has increased rapidly. This study selects bus fleets in Taiwan as a case study, quantifying their environmental impacts considering the high temporal and spatial variability of the power grid. We explore the operating emissions of charging patterns under different penetrations of solar power. The results show that, with the current 2021 power grid structure, daytime charging produces 3.14% fewer carbon emissions than overnight charging, and this reduction will increase to 24% as the target for solar power installations is achieved. We also examine the effects of charging patterns on air pollutant emissions. Through the integration of economic analysis, this study reports on the existence of a trade-off between emissions and costs for fleet operators opting for daytime charging."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:8k81kl-MbHgC",
@@ -134,7 +187,7 @@
                 "doi": "",
                 "year": "'23",
                 "month": "Sep.",
-                "authors": "Yu-Jui, I-Yun Lisa Hsieh",
+                "authors": "Yu-Jui Chang, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -155,7 +208,7 @@
                 "doi": "",
                 "year": "'23",
                 "month": "Nov.",
-                "authors": "Wei-Hsuan, I-Yun Lisa Hsieh",
+                "authors": "Wei-Hsuan Chen, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -176,7 +229,7 @@
                 "doi": "",
                 "year": "'23",
                 "month": "Dec.",
-                "authors": "Kai-Yun, Jian Hern Yeoh, I-Yun Lisa Hsieh",
+                "authors": "Kai-Yun Lo, Jian Hern Yeoh, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -211,7 +264,7 @@
                 "citationId": "tUbPb-QAAAAJ:ULOm3_A8WrAC",
                 "title": "Environmental Benefits and Ownership Costs of University Fleet Electrification: a Case Study of National Taiwan University",
                 "link": "https://doi.org/10.6383/JCIT.202312_35(4).0004",
-                "journal": "Journal of the Chinese Institute of Transportation (運輸學刊)",
+                "journal": "Journal of the Chinese Institute of Transportation",
                 "volume": "35",
                 "issue": "",
                 "articleNo": "",
@@ -226,7 +279,8 @@
                 "tags": [],
                 "keywords": [],
                 "authorList": [],
-                "abstract": ""
+                "abstract": "",
+                "journalZh": "運輸學刊"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:hC7cP41nSMkC",
@@ -239,7 +293,7 @@
                 "doi": "",
                 "year": "'24",
                 "month": "Mar.",
-                "authors": "Chia-Yu, Tsung-Heng, I-Yun Lisa Hsieh",
+                "authors": "Chia-Yu Tsai, Tsung-Heng Chang, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -281,7 +335,7 @@
                 "doi": "",
                 "year": "'24",
                 "month": "Aug.",
-                "authors": "Wei-Hsuan, Ian, Jo-Chen Meg, I-Yun Lisa Hsieh",
+                "authors": "Wei-Hsuan Chen, Ian, Jo-Chen Meg, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -302,7 +356,7 @@
                 "doi": "",
                 "year": "'24",
                 "month": "Sep.",
-                "authors": "Yuan-Shin, I-Yun Lisa Hsieh",
+                "authors": "Yuan-Shin Fu, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -344,7 +398,7 @@
                 "doi": "",
                 "year": "'24",
                 "month": "Oct.",
-                "authors": "Jun-Wei Ding, Yuan-Shin, I-Yun Lisa Hsieh",
+                "authors": "Jun-Wei Ding, Yuan-Shin Fu, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -365,7 +419,7 @@
                 "doi": "",
                 "year": "'24",
                 "month": "Dec.",
-                "authors": "Jun-Wei Ding, Ming-Ju, Jing-Siou, I-Yun Lisa Hsieh",
+                "authors": "Jun-Wei Ding, Ming-Ju, Jing-Siou Tseng, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -379,7 +433,7 @@
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
                 "title": "Comparison and Strategic Outlook of International Solid Recovered Fuel Standards",
                 "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/353",
-                "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
+                "journal": "Journal of Taiwan Energy",
                 "volume": "11",
                 "issue": "",
                 "articleNo": "",
@@ -394,13 +448,14 @@
                 "tags": [],
                 "keywords": [],
                 "authorList": [],
-                "abstract": ""
+                "abstract": "",
+                "journalZh": "臺灣能源期刊"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
                 "title": "Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies",
                 "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/355",
-                "journal": "Journal of Taiwan Energy (臺灣能源期刊)",
+                "journal": "Journal of Taiwan Energy",
                 "volume": "11",
                 "issue": "",
                 "articleNo": "",
@@ -415,7 +470,8 @@
                 "tags": [],
                 "keywords": [],
                 "authorList": [],
-                "abstract": ""
+                "abstract": "",
+                "journalZh": "臺灣能源期刊"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:mVmsd5A6BfQC",
@@ -470,7 +526,7 @@
                 "doi": "",
                 "year": "'25",
                 "month": "Apr.",
-                "authors": "Jing-Siou, Yuan-Hsi Chien, Ruo-Wen, I-Yun Lisa Hsieh",
+                "authors": "Jing-Siou Tseng, Yuan-Hsi Chien, Ruo-Wen, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -512,7 +568,7 @@
                 "doi": "",
                 "year": "'25",
                 "month": "May.",
-                "authors": "Hung-Jui Lin, Pei-Ci, Hsuan-Po, I-Yun Lisa Hsieh",
+                "authors": "Hung-Jui Lin, Pei-Ci Chen, Hsuan-Po, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -533,7 +589,7 @@
                 "doi": "",
                 "year": "'25",
                 "month": "Jun.",
-                "authors": "Yu-Shin, Kai-Yun, I-Yun Lisa Hsieh",
+                "authors": "Yu-Shin Hu, Kai-Yun Lo, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
                 "slug": "",
@@ -602,21 +658,48 @@
                 "title": "Integrated assessment of boiler air pollution control policy: Impacts on emissions, air quality, and public health in Taiwan",
                 "link": "https://doi.org/10.1016/j.apr.2026.102938",
                 "journal": "Atmospheric Pollution Research",
-                "volume": "",
-                "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "volume": "17",
+                "issue": "6",
+                "articleNo": "102938",
+                "doi": "10.1016/j.apr.2026.102938",
                 "year": "'26",
-                "month": "Jan.",
+                "month": "Jun.",
                 "authors": "Dennis Kao, Hung-Jui Lin, I-Chun Tsai, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2026-boiler-air-pollution-taiwan",
+                "shortTitle": "Boiler Air Pollution Control",
+                "tags": [
+                    "Air Pollution",
+                    "Public Health"
+                ],
+                "keywords": [
+                    "Boiler emissions",
+                    "Air pollution control policy",
+                    "Air quality improvement",
+                    "Greenhouse gas emissions",
+                    "Health impact assessment",
+                    "Cost-benefit analysis"
+                ],
+                "authorList": [
+                    {
+                        "name": "Dennis Kao",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Hung-Jui Lin",
+                        "webId": "hungjuilin"
+                    },
+                    {
+                        "name": "I-Chun Tsai",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "This study offers a comprehensive evaluation of Taiwan's Phase I boiler improvement program and its contributions to sustainable industrial transformation. Using emissions and energy data from the Taiwan Emission Data System (TEDS), we compare two simulated scenarios for 2021: a baseline without policy intervention (Reference Scenario) and a post-intervention scenario reflecting policy implementation (Boiler Improvement Scenario). The results reveal substantial shifts in the national fuel mix. Without policy intervention, fuel oil accounts for 55.6% of use, compared to 32.8% under policy implementation. Coal increases from 27.0% to 42.8%, while electricity-based sources, including heat pumps, rise from 6.7% to 10.1%. These transitions lead to significant reductions in major air pollutants: total suspended particulates (TSP) decrease by 87.9%, PM2.5 by 84.9%, PM10 by 86.3%, NOx by 72.1%, SOx by 68.9%, total hydrocarbons (THC) by 53.1%, non-methane hydrocarbons (NMHC) by 50.0%, and lead by 97.5%. In contrast, CO emissions increase by 19.5%, mainly due to expanded use of gas- and coal-fired boilers. Despite this increase, the policy delivers substantial co-benefits. Health impact assessment estimates that approximately 317 premature deaths are avoided annually, along with reductions in respiratory and cardiovascular hospital admissions. Economic evaluation indicates significant net benefits, with annual health benefits of NT$12.80 billion (US$458.6 million) and climate benefits of NT$1.08 billion (US$38.8 million), yielding a benefit-to-cumulative-cost ratio of 9.7. Although the analysis captures only part of the improved boiler population, the results already demonstrate meaningful environmental, health, and economic gains and offer actionable insights for future air pollution control strategies."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:ecological-economics-2026",
@@ -710,19 +793,48 @@
                 "journal": "Energy Economics",
                 "volume": "158",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "109355",
+                "doi": "10.1016/j.eneco.2026.109355",
                 "year": "'26",
                 "month": "Jun.",
                 "authors": "Sunbin Yoo, Junya Kumagai, Hung-Jui Lin, Tomoaki Nakaishi, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2026-hsr-sector-decarbonization",
+                "shortTitle": "HSR Sector Decarbonization",
+                "tags": [
+                    "Decarbonization",
+                    "Transport"
+                ],
+                "keywords": [
+                    "High speed rail",
+                    "Market access",
+                    "Decarbonization",
+                    "Sectoral emissions"
+                ],
+                "authorList": [
+                    {
+                        "name": "Sunbin Yoo",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Junya Kumagai",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Hung-Jui Lin",
+                        "webId": "hungjuilin"
+                    },
+                    {
+                        "name": "Tomoaki Nakaishi",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "We estimate the carbon impact of Japan's high-speed rail expansion using a city-year panel from 2000 to 2020. Rather than relying only on binary station openings, we model continuous network connectivity via Market Access (MA) and use two complementary designs: a staggered difference-in-differences around openings with spatial spillovers and an MA specification identified by two-stage least squares. The instrument is a geography-driven least-cost-path network that mitigates endogeneity in infrastructure placement. Over two decades, CO2 emissions in manufacturing, construction, and tertiary sector decline by 98.373 million tons, about 0.203 percent of national emissions in these sectors. By sector, manufacturing accounts for 85.886 million tons, tertiary sector for 11.417 million tons, and construction for 1.070 million tons. Valued at USD 51 per ton, the implied social benefit is USD 5.017 billion. Most abatement is associated with system-wide connectivity rather than local openings. Mechanism evidence indicates that MA raises activity yet lowers carbon intensity, consistent with process efficiency gains that dominate scale effects, alongside limited evidence on compositional reallocation."
             },
             {
                 "citationId": "",
@@ -938,14 +1050,14 @@
                 "citationId": "",
                 "title": "淨零轉型下機車電動化的減碳效益：臺灣與中國之比較研究",
                 "link": "",
-                "journal": "Transportation Planning Journal (運輸計畫季刊)",
+                "journal": "Transportation Planning Journal",
                 "volume": "",
                 "issue": "",
                 "articleNo": "",
                 "doi": "",
                 "year": "'26",
                 "month": "May.",
-                "authors": "Pei-Tzu Chen, Wei-Hsuan Chen, I-Yun Lisa Hsieh",
+                "authors": "Pei-Ci Chen, Wei-Hsuan Chen, I-Yun Lisa Hsieh",
                 "status": "working",
                 "E3": true,
                 "slug": "",
@@ -953,7 +1065,8 @@
                 "tags": [],
                 "keywords": [],
                 "authorList": [],
-                "abstract": ""
+                "abstract": "",
+                "journalZh": "運輸計畫季刊"
             }
         ]
     }

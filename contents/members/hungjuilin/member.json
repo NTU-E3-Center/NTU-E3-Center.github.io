@@ -15,12 +15,31 @@
     "orcid": "0009-0005-5799-7280",
     "linkedin": "",
     "researchgate": "",
-    "ntu_scholars": "",
     "facebook": "",
     "office": {
       "text": "",
       "url": ""
     }
   },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
   "metaDescription": ""
 }
