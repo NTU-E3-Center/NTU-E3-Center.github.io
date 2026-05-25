@@ -205,6 +205,38 @@
     margin: 0;
 }
 
+/* Keywords sub-block inside the Abstract section.
+   Typography contrast alone (smaller italic muted body, eyebrow label) marks
+   the sub-block — no literal divider, so it reads as grouped with the abstract
+   rather than partitioned from it. The label reuses .pub-meta-label's eyebrow
+   recipe for typographic consistency across the page. */
+.pub-item-keywords-block {
+    margin-block-start: 1.5rem;
+}
+
+.pub-item-keywords-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    margin: 0 0 0.5rem;
+
+    /* Opt out of the global h3 decorator from general.css — that ::after
+       dash and the flex baseline layout belong to top-level section headings
+       (Members / News), not to this small eyebrow label. */
+    display: block;
+    &::after { content: none; }
+}
+
+.pub-item-keywords {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    font-style: italic;
+    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    margin: 0;
+}
+
 /* ── BibTeX block ─────────────────────────────────────────────────────────── */
 
 .pub-cite-header {

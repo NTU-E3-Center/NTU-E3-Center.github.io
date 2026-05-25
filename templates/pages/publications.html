@@ -104,11 +104,6 @@
        Order: status badge · topic tags · title · authors · journal · keywords.
        Tags sit above the title so a row leads with its topics. #}
     {% macro pub_row_body(item, status) %}
-        {% if status != 'published' %}
-        <span class="publi-status-badge" data-status="{{ status }}">
-            {%- if status == 'under-review' -%}Under Review{%- else -%}Submitted{%- endif -%}
-        </span>
-        {% endif %}
         {% if item.get('tags') %}
         <ul class="pub-row-tags" aria-label="Topics">
             {% for tag in item['tags'] %}
@@ -134,13 +129,9 @@
             {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
         </span>
         {% endif %}
-        {% if item.get('keywords') %}
-        <div class="pub-keywords">
-          {% for _kw in item['keywords'] %}
-          <span class="pub-keyword-chip">{{ _kw }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
+        {# Author-supplied keywords stay on the per-publication detail page only —
+           the listing keeps each row visually lean. JSON-LD above still emits
+           them as structured data for SEO. #}
     {% endmacro %}
 
     {# ── Macro: render a single publication row ──────────────────────────────
@@ -240,10 +231,9 @@
 
     {% set book_items = all_items | selectattr('type', 'equalto', 'book') | list %}
 
-    {# ── Working Papers: submitted first, then under-review ─────────────────── #}
-    {% set submitted_items    = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'submitted')    | list %}
-    {% set under_review_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'under-review') | list %}
-    {{ pub_group('Working Papers (Submitted / Under Review)', submitted_items + under_review_items, 'pub-working') }}
+    {# ── Working Papers ─────────────────────────────────────────────────────── #}
+    {% set working_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'working') | list %}
+    {{ pub_group('Working Papers (Submitted / Under Review)', working_items, 'pub-working') }}
 
     {# ── All Publications ──────────────────────────────────────────────────
        The Google Scholar CTA renders inline with this section's title, so it
