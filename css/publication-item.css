@@ -42,6 +42,24 @@
     margin: 0 0 1.25rem;
 }
 
+/* Bilingual title pair: when the paper has a Chinese title (e.g. Taiwan-journal
+   publications), the English h1 collapses its bottom margin so the Chinese
+   title sits close beneath it. The Chinese title carries the visual weight on
+   its own — no divider needed. */
+.pub-item-title:has(+ .pub-item-title-zh) {
+    margin-bottom: 0.4rem;
+}
+
+.pub-item-title-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: clamp(1.1875rem, 2.35vw, 1.5625rem);
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: 0;
+    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    margin: 0 0 1.25rem;
+}
+
 .pub-item-authors {
     font-size: var(--fs-body-l);
     line-height: 1.5;
@@ -127,6 +145,17 @@
     line-height: 1.4;
     color: var(--main-color);
     margin: 0;
+}
+
+/* Chinese journal name sits directly under the English. Upright (CJK + italic
+   renders poorly), smaller, slightly muted; reads as the same field's second
+   line, not as a new field. */
+.pub-meta-journal-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--main-color) 68%, transparent);
+    margin: 0.2rem 0 0;
 }
 
 .pub-meta-detail {
