@@ -881,6 +881,15 @@
         padding-inline: 0.25rem;
     }
 
+    /* Restore the trailing column on mobile when a Publisher button is
+       present — without it the button auto-flows into the grid's next free
+       cell (row 2, under the date) and disappears below the visible row.
+       The button's text already collapses to an icon at this breakpoint
+       (see .pub-row-publisher mobile rule below), so it fits comfortably. */
+    .news-row:has(.pub-row-publisher) {
+        grid-template-columns: 3rem 1fr auto;
+    }
+
     /* Working papers (Submitted / Under Review) have no date column —
        collapse to a single track and force the body span across in case
        any earlier rule wins specificity. */
@@ -987,10 +996,11 @@
     /* keep .news-row's center alignment so the date sits mid-row */
 }
 
-/* Stretched-link title — used by both the publications listing and the
-   per-member CV publication sections (.publication wrapper on member pages). */
-.publications-subpage .news-row-title-link,
-.publication .news-row-title-link {
+/* Stretched-link title — used by the publications listing, the per-member CV
+   publication sections (.publication wrapper on member pages), AND the home
+   page's Recent Publications block (#publications section). The class itself
+   only appears in this stretched-link context, so the rule is global. */
+.news-row-title-link {
     display: inline-block;
     text-decoration: none;
     color: inherit;

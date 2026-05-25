@@ -75,7 +75,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
                 "title": "Sankey-diagram-based Insights Into Taiwan’s Energy Flow: Status Quo and Net-zero Future",
-                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/37/306",
+                "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/306",
                 "journal": "Journal of Taiwan Energy",
                 "volume": "9",
                 "issue": "",
@@ -220,24 +220,28 @@
             },
             {
                 "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC",
-                "title": "Towards Nearly Zero-energy Buildings: Smart Energy Management of Vehicle-to-building (v2b) Strategy and Renewable Energy Sources",
+                "title": "Towards Nearly Zero-Energy Buildings: Smart Energy Management of Vehicle-to-Building (V2B) Strategy and Renewable Energy Sources",
                 "link": "https://doi.org/10.1016/j.scs.2023.104941",
                 "journal": "Sustainable Cities and Society",
                 "volume": "99",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "104941",
+                "doi": "10.1016/j.scs.2023.104941",
                 "year": "'23",
                 "month": "Dec.",
                 "authors": "Kai-Yun Lo, Jian Hern Yeoh, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2023-v2b-nearly-zero-energy-buildings",
+                "shortTitle": "V2B Strategy for Nearly Zero-Energy Buildings",
+                "tags": ["Renewable Energy", "Transport", "Decarbonization"],
+                "keywords": ["Vehicle-to-building", "Smart energy management system", "Electric vehicles", "Carbon emissions", "Economic analysis", "Peak shaving", "Nearly-zero energy buildings"],
+                "authorList": [
+                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
+                    {"name": "Jian Hern Yeoh", "webId": "jianhernyeoh"},
+                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                ],
+                "abstract": "As countries worldwide strive for net-zero emissions, electric vehicles (EVs) have gained significant momentum. EVs, particularly through Vehicle-to-Everything (V2X) technology, including Vehicle-to-Building (V2B), are recognized as key enablers for achieving nearly-zero energy buildings (NZEB). This research presents an advanced Smart Energy Management System (SEMS) with a novel V2B strategy, offering precise one-hour resolution to reduce grid reliance and optimize peak load management. The SEMS coordinates building energy and EV charging while harnessing the potential of renewable energy resources and battery storage systems. By carefully scheduling EV charging and discharging activities, it maximizes the efficient use of available energy resources. Importantly, the algorithm integrates real-world EV parking patterns, accounting for factors such as fleet composition, parking durations, and charging priorities. Economic evaluation encompasses not only direct EV battery degradation costs but also external expenses associated with environmental impacts. Simulation outcomes underscore a remarkable reduction in building grid power demand (65%) and a substantial decrease in carbon emissions (64%). The PV+V2B Scenario emerges as the preferred choice, striking an optimal balance between initial investment costs, energy savings, and carbon footprint reductions. This study holds great academic and practical significance, contributing to the advancement of smart, sustainable, and economically viable net-zero cities."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:kNdYIx-mwKoC",
@@ -372,20 +376,42 @@
                 "link": "https://doi.org/10.1016/j.isci.2024.110690",
                 "journal": "iScience",
                 "volume": "27",
-                "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "issue": "9",
+                "articleNo": "110690",
+                "doi": "10.1016/j.isci.2024.110690",
                 "year": "'24",
                 "month": "Sep.",
-                "authors": "Chon Man Tam, I-Yun Lisa Hsieh, Xin",
+                "authors": "Chon Man Tam, I-Yun Lisa Hsieh, Xin Sun",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2024-ev-recharging-cost-china",
+                "shortTitle": "EV Recharging Cost in China",
+                "tags": [
+                    "Transport",
+                    "Decarbonization"
+                ],
+                "keywords": [
+                    "Electric vehicles",
+                    "Levelized cost of charging",
+                    "Battery swapping",
+                    "Charging infrastructure",
+                    "China"
+                ],
+                "authorList": [
+                    {
+                        "name": "Chon Man Tam",
+                        "webId": "chonmantam"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Xin Sun",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "Electric vehicle (EV) purchasing decisions are significantly influenced by costs. Focusing on China, this research comprehensively examines the levelized costs of EV recharging (including charging and swapping) at the provincial level considering various factors, including charging locations, time of charging, and power levels. Results indicate that the national average EV charging costs, with and without home chargers, amount to 0.973 RMB/kWh and 1.148 RMB/kWh, respectively. Remarkable variations are observed among provinces, with Xinjiang and Shanghai experiencing the lowest and highest levelized cost of EV charging (LCOC), respectively, with disparities of up to 147.26%, primarily attributed to regional discrepancies in electricity prices and vehicle usage intensity. Despite generous capital subsidies, swapping costs remain considerably higher than charging, ranging from 3.780 RMB/kWh to 4.082 RMB/kWh. Additionally, the sensitivity analysis of major parameters, including infrastructure utilization, suggests that levelized EV recharging costs are already more cost-attractive than the fuel costs of comparable gasoline cars at today's utilization rates."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC",
@@ -394,19 +420,41 @@
                 "journal": "Energy Conversion and Management: X",
                 "volume": "24",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "100770",
+                "doi": "10.1016/j.ecmx.2024.100770",
                 "year": "'24",
                 "month": "Oct.",
                 "authors": "Jun-Wei Ding, Yuan-Shin Fu, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2024-green-hydrogen-offshore-wind",
+                "shortTitle": "Green Hydrogen from Offshore Wind",
+                "tags": [
+                    "Renewable Energy",
+                    "Decarbonization"
+                ],
+                "keywords": [
+                    "Offshore wind energy",
+                    "Green hydrogen production",
+                    "Electrolyzer configuration",
+                    "Levelized cost of hydrogen (LCOH)",
+                    "Reanalysis dataset"
+                ],
+                "authorList": [
+                    {
+                        "name": "Jun-Wei Ding",
+                        "webId": "junweiding"
+                    },
+                    {
+                        "name": "Yuan-Shin Fu",
+                        "webId": "yuanshinfu"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Wind energy is a cornerstone for enhancing grid stability and augmenting energy storage solutions, especially through its synergy with green hydrogen production. While substantial research has analyzed the economic dynamics of offshore wind and green hydrogen, the impact of offshore distances on hydrogen production costs remains underexplored. This study introduces a novel, globally applicable modeling framework for the Levelized Cost of Hydrogen (LCOH), illustrated using the strategically significant Taiwan Strait as a case study. By employing net present value analysis, we compare centralized, distributed, and onshore hydrogen production scenarios, documenting the lowest current LCOH values at $10.27, $10.31, and $11.32 per kg of hydrogen respectively. These findings highlight the cost-effectiveness of the centralized configuration and emphasize the significant costs linked to transmission infrastructure in onshore setups. Looking ahead to 2035, our framework predicts substantial reductions in LCOH, with low-cost scenarios forecasting profitability at just $9 per kilogram of hydrogen. Powered by the universally accessible ERA5 reanalysis dataset, our approach supports analogous assessments worldwide, thereby aiding strategic planning and the deployment of renewable technologies. In-depth sensitivity and Monte Carlo analyses further enhance our understanding of the impacts of offshore distance and other key factors, bolstering the economic evaluation of green hydrogen production. This comprehensive methodology not only assesses present capabilities but also facilitates broad application, fostering the strategic development of renewable technologies globally."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:aqlVkmm33-oC",
@@ -415,24 +463,51 @@
                 "journal": "Applied Energy",
                 "volume": "375",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "124129",
+                "doi": "10.1016/j.apenergy.2024.124129",
                 "year": "'24",
                 "month": "Dec.",
-                "authors": "Jun-Wei Ding, Ming-Ju, Jing-Siou Tseng, I-Yun Lisa Hsieh",
+                "authors": "Jun-Wei Ding, Ming-Ju Chuang, Jing-Siou Tseng, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2024-wind-power-prediction-deep-learning",
+                "shortTitle": "Wind Power Prediction with Deep Learning",
+                "tags": [
+                    "Renewable Energy",
+                    "AI & Machine Learning"
+                ],
+                "keywords": [
+                    "Wind power forecasting",
+                    "Deep learning",
+                    "Reanalysis data",
+                    "Ground station data",
+                    "Component Kriging interpolation",
+                    "Performance-based clustering"
+                ],
+                "authorList": [
+                    {
+                        "name": "Jun-Wei Ding",
+                        "webId": "junweiding"
+                    },
+                    {
+                        "name": "Ming-Ju Chuang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Jing-Siou Tseng",
+                        "webId": "jingsioutseng"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces a robust deep learning model that evaluates wind power generation using a novel approach that combines reanalysis and ground station data, aiming to improve prediction accuracy. To address potential discrepancies in raw data, preprocessing methods such as Boxplot and the DBSCAN algorithm are applied, effectively reducing outlier impact. A key innovation in our methodology is the component kriging interpolation, significantly enhancing the precision of wind speed and direction predictions. Moreover, we introduce two novel concepts: performance-based clustering and the integration of informational inputs. The clustering method organizes data by training performance, promoting a more efficient and accurate model training process. Informational inputs provide additional context, enabling the model to discern patterns across multiple wind farms, thereby improving generalizability. Employing a sophisticated four-layer Long Short-Term Memory (LSTM) network, coupled with a Multilayer Perceptron (MLP), the model uses a 48-hour lead time of combined meteorological and informational data to predict the capacity factor for the forthcoming hour. Our comprehensive testing across various wind farms yields an impressive R² score of 0.95, demonstrating the model's exceptional predictive capabilities. This study not only advances wind power forecasting methods but also sets a new standard for the integration of diverse data sources in predictive modeling. The findings provide valuable insights for future research, potentially extending these innovative methodologies to broader applications in sustainable energy forecasting globally."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
                 "title": "Comparison and Strategic Outlook of International Solid Recovered Fuel Standards",
-                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/353",
+                "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/353",
                 "journal": "Journal of Taiwan Energy",
                 "volume": "11",
                 "issue": "",
@@ -454,7 +529,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
                 "title": "Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies",
-                "link": "https://ea01.moeaea.gov.tw/publication/journal/thesis/45/355",
+                "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355",
                 "journal": "Journal of Taiwan Energy",
                 "volume": "11",
                 "issue": "",
@@ -496,24 +571,28 @@
             },
             {
                 "citationId": "tUbPb-QAAAAJ:7PzlFSSx8tAC",
-                "title": "Optimizing Urban Energy Flows: Integrative Vehicle-to-building Strategies and Renewable Energy Management",
+                "title": "Optimizing Urban Energy Flows: Integrative Vehicle-to-Building Strategies and Renewable Energy Management",
                 "link": "https://doi.org/10.1016/j.ecmx.2025.100974",
                 "journal": "Energy Conversion and Management: X",
                 "volume": "26",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "100974",
+                "doi": "10.1016/j.ecmx.2025.100974",
                 "year": "'25",
                 "month": "Apr.",
                 "authors": "Jian Hern Yeoh, Kai-Yun Lo, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2025-urban-energy-flows-v2b-optimization",
+                "shortTitle": "Urban V2B Energy Optimization",
+                "tags": ["Energy Systems", "Transport", "Renewable Energy"],
+                "keywords": ["Urban Energy Systems", "V2B Integration", "Renewable Energy Management", "Smart Grid Optimization", "Carbon Emission Reduction"],
+                "authorList": [
+                    {"name": "Jian Hern Yeoh", "webId": "jianhernyeoh"},
+                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
+                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                ],
+                "abstract": "The increasing integration of electric vehicles (EVs) into urban centers poses significant challenges for electrical grids, particularly in terms of energy management within buildings. This study introduces a scalable, multi-objective optimization model that utilizes Vehicle-to-Building (V2B) interactions to mitigate grid load by leveraging EVs as mobile energy storage units. This approach enhances grid stability and resilience while optimizing energy consumption, reducing peak loads, and minimizing emissions. We employ a weighted-sum method for flexible adaptability, allowing system priorities to be adjusted according to varying needs. The optimization tasks are handled using the Sequential Least Squares Programming (SLSQP) algorithm, which is well-suited for managing quadratic objective functions, nonlinear constraints, and bounded variables. Conducted at selected facilities at National Taiwan University (NTU), the model's effectiveness is demonstrated across four scenarios—each evaluating the contributions of photovoltaics (PV), V2B strategy, and an energy storage system (ESS) both individually and collectively. The results reveal significant benefits: a 46.79% annual reduction in grid energy consumption, along with notable decreases in daily peak load (63.49%), electricity costs (51.15%), and carbon emissions (45.99%) compared to a control setup. Additionally, our economic analysis underscores the cost-effectiveness of integrating PV with V2B technology, achieving a cost reduction of 40.83%. Although the inclusion of ESS incurs higher initial costs, it significantly improves peak load management by an additional 14.11%. This study not only underscores the practicality and economic viability of the model but also highlights its potential as a flexible tool in advancing sustainable urban energy solutions. Through comprehensive cost assessments and sensitivity analysis, this research enhances the capacity for intelligent, adaptable, and resource-efficient energy management in urban transport infrastructures."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:IWHjjKOFINEC",
@@ -640,18 +719,42 @@
                 "volume": "",
                 "issue": "",
                 "articleNo": "",
-                "doi": "",
+                "doi": "10.1080/19427867.2026.2623085",
                 "year": "'26",
                 "month": "Jan.",
                 "authors": "Hung-Jui Lin, Hsuan-Po Lin, I-Yun Lisa Hsieh",
                 "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2026-pod-last-mile-logistics-lca",
+                "shortTitle": "POD Last-Mile LCA",
+                "tags": [
+                    "Decarbonization",
+                    "Transport"
+                ],
+                "keywords": [
+                    "Proof of Delivery (POD)",
+                    "Life Cycle Assessment (LCA)",
+                    "Logistics digitalization",
+                    "Last-mile decarbonization",
+                    "AI in transport operations",
+                    "Blockchain in logistics"
+                ],
+                "authorList": [
+                    {
+                        "name": "Hung-Jui Lin",
+                        "webId": "hungjuilin"
+                    },
+                    {
+                        "name": "Hsuan-Po Lin",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Reducing emissions in last-mile logistics is a growing priority, and digitalization is widely viewed as a pathway to greater efficiency and decarbonization. Proof of Delivery (POD) is central to digital transformation, yet its environmental impacts remain underexplored from a life cycle assessment (LCA) perspective. This study conducts a comparative LCA of four POD configurations—paper-based, digitally scanned, AI-assisted, and blockchain-integrated—using data from a Taiwanese third-party logistics provider. We quantify cradle-to-grave emissions from materials, energy use, and digital infrastructure, including AI inference and blockchain operations. The paper-based system shows the highest footprint (222.3 gCO₂e/transaction). Digital scanning reduces emissions by 78.0%, AI-assisted systems by 73.0%, and blockchain-enabled systems by 63.8%, reflecting high consensus energy demand. A hybrid approach—retaining paper at delivery while digitizing back-office processes through AI-supported optical character recognition—emerges as a pragmatic transition pathway. These findings provide transaction-level LCA evidence to inform scalable decarbonization strategies in last-mile logistics.",
+                "pages": "1-15"
             },
             {
                 "citationId": "tUbPb-QAAAAJ:boiler-air-pollution-taiwan",
