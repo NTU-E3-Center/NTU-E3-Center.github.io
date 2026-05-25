@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Power Prediction with Deep Learning | E3 Center</title>
+    <meta name="description" content="Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces">
+    <meta name="keywords" content="Renewable Energy, AI & Machine Learning, Applied Energy, E3 Center, publication, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/publications/2024-wind-power-prediction-deep-learning/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/publications/2024-wind-power-prediction-deep-learning/" />
+    <meta property="og:title" content="Wind Power Prediction with Deep Learning | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wind Power Prediction with Deep Learning | E3 Center" />
+    <meta name="twitter:description" content="Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=13">
+    <link rel="stylesheet" href="/css/subpage.css?v=37">
+    <link rel="stylesheet" href="/css/publication-item.css?v=6">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "@id": "https://e3center.caece.net/publications/2024-wind-power-prediction-deep-learning/#article",
+      "headline": "Reanalysis and Ground Station Data: Advanced Data Preprocessing in Deep Learning for Wind Power Prediction",
+"description": "Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces",
+      "url": "https://e3center.caece.net/publications/2024-wind-power-prediction-deep-learning/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/publications/2024-wind-power-prediction-deep-learning/" },
+      "datePublished": "2024-12-01",
+      "inLanguage": "en",
+      "author": [
+{
+          "@type": "Person",
+          "name": "Jun-Wei Ding",
+          "url": "https://e3center.caece.net/members/junweiding/"        }, {
+          "@type": "Person",
+          "name": "Ming-Ju Chuang"        }, {
+          "@type": "Person",
+          "name": "Jing-Siou Tseng",
+          "url": "https://e3center.caece.net/members/jingsioutseng/"        }, {
+          "@type": "Person",
+          "name": "I-Yun Lisa Hsieh",
+          "url": "https://e3center.caece.net/members/iyunlisahsieh/"        }      ],
+"isPartOf": {
+        "@type": "Periodical",
+        "name": "Applied Energy",
+        "volumeNumber": "375"      },
+"sameAs": "https://doi.org/10.1016/j.apenergy.2024.124129",
+"publisher": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://e3center.caece.net/publications/" },
+        { "@type": "ListItem", "position": 3, "name": "Reanalysis and Ground Station Data: Advanced Data Preprocessing in Deep Learning for Wind Power Prediction" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <a class="subpage-header-logo" href="/">
+        <picture>
+            <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+            <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
+        </picture>
+    </a>
+    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
+        <a class="breadcrumb-parent" href="/publications/">Publications</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="breadcrumb-current">Wind Power Prediction with Deep Learning</span>
+    </nav>
+</header>
+    <main class="pub-item-main">
+        <article class="pub-item-article">
+
+            <header class="pub-item-header">
+                <ul class="pub-item-tags" aria-label="Topics">
+                    <li class="pub-tag-chip">Renewable Energy</li>
+                    <li class="pub-tag-chip">AI & Machine Learning</li>
+                </ul>
+
+                <h1 class="pub-item-title">Reanalysis and Ground Station Data: Advanced Data Preprocessing in Deep Learning for Wind Power Prediction</h1>
+
+                <p class="pub-item-authors">
+<a class="pub-author-link" href="/members/junweiding/">Jun-Wei Ding</a><span class="pub-author-sep">, </span><span>Ming-Ju Chuang</span><span class="pub-author-sep">, </span><a class="pub-author-link" href="/members/jingsioutseng/">Jing-Siou Tseng</a><span class="pub-author-sep">, </span><a class="pub-author-link" href="/members/iyunlisahsieh/">I-Yun Lisa Hsieh</a>                </p>
+            </header>
+
+            <div class="pub-item-layout">
+                <div class="pub-item-content">
+                    <section class="pub-item-section" aria-labelledby="abstract-heading">
+                        <h2 id="abstract-heading" class="pub-item-section-title">Abstract</h2>
+                        <p class="pub-item-abstract">Amidst the global transition to renewable energy, accurate wind power forecasting is becoming increasingly critical for grid integration. This study introduces a robust deep learning model that evaluates wind power generation using a novel approach that combines reanalysis and ground station data, aiming to improve prediction accuracy. To address potential discrepancies in raw data, preprocessing methods such as Boxplot and the DBSCAN algorithm are applied, effectively reducing outlier impact. A key innovation in our methodology is the component kriging interpolation, significantly enhancing the precision of wind speed and direction predictions. Moreover, we introduce two novel concepts: performance-based clustering and the integration of informational inputs. The clustering method organizes data by training performance, promoting a more efficient and accurate model training process. Informational inputs provide additional context, enabling the model to discern patterns across multiple wind farms, thereby improving generalizability. Employing a sophisticated four-layer Long Short-Term Memory (LSTM) network, coupled with a Multilayer Perceptron (MLP), the model uses a 48-hour lead time of combined meteorological and informational data to predict the capacity factor for the forthcoming hour. Our comprehensive testing across various wind farms yields an impressive R² score of 0.95, demonstrating the model's exceptional predictive capabilities. This study not only advances wind power forecasting methods but also sets a new standard for the integration of diverse data sources in predictive modeling. The findings provide valuable insights for future research, potentially extending these innovative methodologies to broader applications in sustainable energy forecasting globally.</p>
+
+                        <div class="pub-item-keywords-block">
+                            <h3 class="pub-item-keywords-label">Keywords</h3>
+                            <p class="pub-item-keywords">Wind power forecasting; Deep learning; Reanalysis data; Ground station data; Component Kriging interpolation; Performance-based clustering</p>
+                        </div>
+                    </section>
+
+                    <section class="pub-item-section" aria-labelledby="bibtex-heading">
+                        <div class="pub-cite-header">
+                            <h2 id="bibtex-heading" class="pub-item-section-title">Cite (BibTeX)</h2>
+                            <button class="pub-copy-btn" type="button" data-copy-target="bibtex-block">
+                                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                                <span class="pub-copy-label">Copy</span>
+                            </button>
+                        </div>
+                        <pre class="pub-bibtex" id="bibtex-block"><code>@article{ding2024reanalysis,
+  title={Reanalysis and Ground Station Data: Advanced Data Preprocessing in Deep Learning for Wind Power Prediction},
+  author={Ding, Jun-Wei and Chuang, Ming-Ju and Tseng, Jing-Siou and Hsieh, I-Yun Lisa},
+  journal={Applied Energy},
+  volume={375},
+  pages={124129},
+  year={2024},
+  month=dec,
+  doi={10.1016/j.apenergy.2024.124129}
+}</code></pre>
+                    </section>
+                </div>
+
+                <aside class="pub-item-aside">
+                    <div class="pub-meta-card">
+                        <p class="pub-meta-label">Published in</p>
+                        <p class="pub-meta-journal">Applied Energy</p>
+                        <p class="pub-meta-detail">Volume 375 · Article 124129 · 2024</p>
+
+                        <a class="pub-action-btn skewed-block" b-role="btn" b-hoverable
+                           href="https://doi.org/10.1016/j.apenergy.2024.124129" target="_blank" rel="noopener">
+                            <span>View on publisher</span>
+                            <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        </a>
+
+                        <p class="pub-item-doi">DOI<span>10.1016/j.apenergy.2024.124129</span></p>
+                    </div>
+                </aside>
+            </div>
+
+        </article>
+    </main>
+
+<footer>
+    <a class="ftr-logo">
+        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+    </a>
+
+    <div class="ftr-link-wrapper">
+        <a class="ftr-link" href="/#">Home</a>
+
+        <a class="ftr-link" href="/#about-us">About Us</a>
+        <a class="ftr-link" href="/members">Members</a>
+        <a class="ftr-link" href="/publications">Publications</a>
+        <a class="ftr-link" href="/projects">Projects</a>
+        <a class="ftr-link" href="/news">News</a>
+        <a class="ftr-link" href="/group-life">Group Life</a>
+        <a class="ftr-link" href="/contact">Contact Us</a>
+    </div>
+
+    <div class="ftr-info">
+        &copy; 2026 E3 Center, National Taiwan University.
+        <!-- Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist., Taipei City 106327, Taiwan (R.O.C.) -->
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
+    <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <ui>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg width="1.6875rem"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </ui>
+
+        <ui>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </ui>
+
+        <ui>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </ui>
+    </ul>
+</nav>
+    <script>
+        document.querySelectorAll('.pub-copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var target = document.getElementById(btn.dataset.copyTarget);
+                if (!target) return;
+                var text = target.innerText;
+                var label = btn.querySelector('.pub-copy-label');
+                navigator.clipboard.writeText(text).then(function () {
+                    if (!label) return;
+                    var prev = label.textContent;
+                    label.textContent = 'Copied!';
+                    btn.classList.add('is-copied');
+                    setTimeout(function () {
+                        label.textContent = prev;
+                        btn.classList.remove('is-copied');
+                    }, 1800);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
