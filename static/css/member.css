@@ -772,6 +772,14 @@ h2 {
             padding-inline: 0.25rem;
         }
 
+        /* Restore the 3rd column on mobile when a Publisher button is
+           present — see subpage.css for the rationale. Scoped to .publication
+           here because member.css's `.publication .news-row` rule otherwise
+           wins specificity over subpage.css. */
+        .news-row:has(.pub-row-publisher) {
+            grid-template-columns: 3rem 1fr auto;
+        }
+
         .news-row--no-date {
             grid-template-columns: 1fr;
         }

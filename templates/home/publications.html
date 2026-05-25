@@ -11,8 +11,17 @@
         <div class="news-rows">
             {% for item in home_items %}
             {% set status = item.get('status', 'published') %}
-            {% if item['link'] %}
-            <a class="news-row news-row--link{% if status != 'published' %} news-row--no-date{% endif %}" target="_blank" rel="noopener" href="{{ item['link'] }}">
+            {# Three row shapes (mirrors templates/pages/publications.html):
+               • detail subpage exists  → stretched-link container; title is the
+                 stretched link, Publisher button is the external-link opt-out
+               • only publisher link    → whole-row link to publisher
+               • neither                → static row #}
+            {% set detail = item.get('pageLink') %}
+            {% set publisher = item['link'] %}
+            {% if detail %}
+            <div class="news-row news-row--link news-row--stretch{% if status != 'published' %} news-row--no-date{% endif %}">
+            {% elif publisher %}
+            <a class="news-row news-row--link{% if status != 'published' %} news-row--no-date{% endif %}" target="_blank" rel="noopener" href="{{ publisher }}">
             {% else %}
             <div class="news-row{% if status != 'published' %} news-row--no-date{% endif %}">
             {% endif %}
@@ -23,7 +32,13 @@
                 </div>
                 {% endif %}
                 <div class="news-row-body">
+                    {% if detail %}
+                    <a class="news-row-title-link" href="{{ detail }}">
+                        <p class="news-row-title">{{ item['title'] }}</p>
+                    </a>
+                    {% else %}
                     <p class="news-row-title">{{ item['title'] }}</p>
+                    {% endif %}
                     {% if item.get('authors') and status == 'published' %}
                     <span class="publi-row-authors">{{ item['authors'] }}</span>
                     {% endif %}
@@ -33,12 +48,20 @@
                     </span>
                     {% endif %}
                 </div>
-                {% if item['link'] %}
+                {% if detail and publisher %}
+                <a class="pub-row-publisher" href="{{ publisher }}" target="_blank" rel="noopener"
+                   aria-label="View on publisher site">
+                    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                    <span>Publisher</span>
+                </a>
+                {% elif publisher %}
                 <span class="news-row-arrow" aria-hidden="true">
                     <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                 </span>
                 {% endif %}
-            {% if item['link'] %}
+            {% if detail %}
+            </div>
+            {% elif publisher %}
             </a>
             {% else %}
             </div>
