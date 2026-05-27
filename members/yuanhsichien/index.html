@@ -57,8 +57,8 @@ Ireland., E3 Center, E3 group, NTU, 台大, 國立臺灣大學, NTU civil engine
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=13">
-    <link rel="stylesheet" href="/css/subpage.css?v=14">
+    <link rel="stylesheet" href="/css/general.css?v=17">
+    <link rel="stylesheet" href="/css/subpage.css?v=43">
     <link rel="stylesheet" href="/css/member.css?v=18">
 
     <!-- js -->
@@ -98,17 +98,19 @@ Ireland., E3 Center, E3 group, NTU, 台大, 國立臺灣大學, NTU civil engine
 </head>
 <body>
 <header class="subpage-header">
-    <a class="subpage-header-logo" href="/">
-        <picture>
-            <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
-            <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
-        </picture>
-    </a>
-    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
-        <a class="breadcrumb-parent" href="/members/">Members</a>
-        <span class="breadcrumb-sep" aria-hidden="true">/</span>
-        <span class="breadcrumb-current">Yuan-Hsi Chien (Thomas)</span>
-    </nav>
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-logo-text.svg" alt="">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/members/">Members</a>
+            <span class="trail-current">Yuan-Hsi Chien (Thomas)</span>
+        </nav>
+    </div>
 </header>
     <main>
         <header>
@@ -177,7 +179,7 @@ hsi@caece.net                        </a>
             <h2>Journal Publications</h2>
             <div class="pub-list" data-initial="5">
                 <div class="news-rows">
-                <a class="news-row news-row--link" href="https://doi.org/10.1080/15568318.2025.2490488" target="_blank" rel="noopener">
+                <div class="news-row news-row--link news-row--stretch">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Apr.</span>
@@ -185,16 +187,20 @@ hsi@caece.net                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Costs and Carbon: Evaluating the Tradeoffs in Taiwan’s Shift Toward Electric Vehicles</p>
-                        <span class="publi-row-authors">Jing-Siou Tseng, <strong>Yuan-Hsi Chien</strong>, Ruo-Wen, I-Yun Lisa Hsieh</span>
+                        <a class="news-row-title-link" href="/publications/2025-bev-cost-carbon-taiwan/">
+                            <p class="news-row-title">Costs and Carbon: Evaluating the Tradeoffs in Taiwan’s Shift Toward Electric Vehicles</p>
+                        </a>
+                        <span class="publi-row-authors">Jing-Siou Tseng, <strong>Yuan-Hsi Chien</strong>, Ruo-Wen Chen, I-Yun Lisa Hsieh</span>
                         <span class="publi-row-journal">International Journal of Sustainable Transportation, Vol. 19.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1080/15568318.2025.2490488" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link" href="https://doi.org/10.1016/j.scs.2024.106004" target="_blank" rel="noopener">
+</div>                <div class="news-row news-row--link news-row--stretch">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jan.</span>
@@ -202,16 +208,20 @@ hsi@caece.net                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Enhancing Urban Energy Resilience: Vehicle-to-grid (v2g) Strategies Within Electric Scooter Battery Swapping Ecosystems</p>
+                        <a class="news-row-title-link" href="/publications/2025-v2g-scooter-battery-swap/">
+                            <p class="news-row-title">Enhancing Urban Energy Resilience: Vehicle-to-Grid (V2G) Strategies Within Electric Scooter Battery Swapping Ecosystems</p>
+                        </a>
                         <span class="publi-row-authors"><strong>Yuan-Hsi Chien</strong>, I-Yun Lisa Hsieh</span>
                         <span class="publi-row-journal">Sustainable Cities and Society, Vol. 118.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.scs.2024.106004" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355" target="_blank" rel="noopener">
+</div>                <div class="news-row news-row--link news-row--stretch">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -219,16 +229,20 @@ hsi@caece.net                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies</p>
+                        <a class="news-row-title-link" href="/publications/2024-bus-shelter-solar-pv-taipei/">
+                            <p class="news-row-title">Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies</p>
+                        </a>
                         <span class="publi-row-authors"><strong>Yuan-Hsi Chien</strong>, I-Yun Lisa Hsieh</span>
                         <span class="publi-row-journal">Journal of Taiwan Energy, Vol. 11.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link" href="https://www.sciencedirect.com/science/article/pii/S2211467X23000068" target="_blank" rel="noopener">
+</div>                <div class="news-row news-row--link news-row--stretch">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jan.</span>
@@ -236,16 +250,20 @@ hsi@caece.net                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Beyond Personal Vehicles: How Electrifying Scooters Will Help Achieve Climate Mitigation Goals in Taiwan</p>
+                        <a class="news-row-title-link" href="/publications/2023-electrifying-scooters-taiwan/">
+                            <p class="news-row-title">Beyond Personal Vehicles: How Electrifying Scooters Will Help Achieve Climate Mitigation Goals in Taiwan</p>
+                        </a>
                         <span class="publi-row-authors"><strong>Yuan-Hsi Chien</strong>, I-Yun Lisa Hsieh, Tsung-Heng Chang</span>
                         <span class="publi-row-journal">Energy Strategy Reviews, Vol. 45.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.esr.2023.101056" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                </div>
+</div>                </div>
 
             </div>
         </section>
@@ -262,25 +280,50 @@ hsi@caece.net                        </a>
     </main>
 
 <footer>
-    <a class="ftr-logo">
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-    </a>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
 
-    <div class="ftr-link-wrapper">
-        <a class="ftr-link" href="/#">Home</a>
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
 
-        <a class="ftr-link" href="/#about-us">About Us</a>
-        <a class="ftr-link" href="/members">Members</a>
-        <a class="ftr-link" href="/publications">Publications</a>
-        <a class="ftr-link" href="/projects">Projects</a>
-        <a class="ftr-link" href="/news">News</a>
-        <a class="ftr-link" href="/group-life">Group Life</a>
-        <a class="ftr-link" href="/contact">Contact Us</a>
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
     </div>
 
-    <div class="ftr-info">
-        &copy; 2026 E3 Center, National Taiwan University.
-        <!-- Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist., Taipei City 106327, Taiwan (R.O.C.) -->
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
     </div>
 </footer>
 <div class="body-bg">

@@ -52,9 +52,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=15">
+    <link rel="stylesheet" href="/css/general.css?v=17">
     <link rel="stylesheet" href="/css/style.css?v=14">
-    <link rel="stylesheet" href="/css/subpage.css?v=37">
+    <link rel="stylesheet" href="/css/subpage.css?v=43">
 
     <!-- js -->
     <script defer src="/js/general.js?v=2"></script>
@@ -463,16 +463,19 @@
     <!-- End Google Tag Manager (noscript) -->
 
 <header class="subpage-header">
-    <a class="subpage-header-logo" href="/">
-        <picture>
-            <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
-            <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
-        </picture>
-    </a>
-    <h1 class="sr-only">Projects</h1>
-    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
-        <span class="breadcrumb-current">Projects</span>
-    </nav>
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-logo-text.svg" alt="">
+            </picture>
+        </a>
+
+        <h1 class="sr-only">Projects</h1>
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <span class="trail-current">Projects</span>
+        </nav>
+    </div>
 </header>
 <section id="projects" class="projects-subpage">
 
@@ -929,25 +932,50 @@
 </section>
  
 <footer>
-    <a class="ftr-logo">
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-    </a>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
 
-    <div class="ftr-link-wrapper">
-        <a class="ftr-link" href="/#">Home</a>
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
 
-        <a class="ftr-link" href="/#about-us">About Us</a>
-        <a class="ftr-link" href="/members">Members</a>
-        <a class="ftr-link" href="/publications">Publications</a>
-        <a class="ftr-link" href="/projects">Projects</a>
-        <a class="ftr-link" href="/news">News</a>
-        <a class="ftr-link" href="/group-life">Group Life</a>
-        <a class="ftr-link" href="/contact">Contact Us</a>
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
     </div>
 
-    <div class="ftr-info">
-        &copy; 2026 E3 Center, National Taiwan University.
-        <!-- Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist., Taipei City 106327, Taiwan (R.O.C.) -->
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
     </div>
 </footer>
 

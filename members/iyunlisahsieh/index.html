@@ -53,8 +53,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=13">
-    <link rel="stylesheet" href="/css/subpage.css?v=14">
+    <link rel="stylesheet" href="/css/general.css?v=17">
+    <link rel="stylesheet" href="/css/subpage.css?v=43">
     <link rel="stylesheet" href="/css/member.css?v=18">
 
     <!-- js -->
@@ -95,17 +95,19 @@
 </head>
 <body>
 <header class="subpage-header">
-    <a class="subpage-header-logo" href="/">
-        <picture>
-            <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
-            <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
-        </picture>
-    </a>
-    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
-        <a class="breadcrumb-parent" href="/members/">Members</a>
-        <span class="breadcrumb-sep" aria-hidden="true">/</span>
-        <span class="breadcrumb-current">I-Yun Lisa Hsieh</span>
-    </nav>
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-logo-text.svg" alt="">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/members/">Members</a>
+            <span class="trail-current">I-Yun Lisa Hsieh</span>
+        </nav>
+    </div>
 </header>
     <main>
         <header>
@@ -356,7 +358,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--peek" href="https://doi.org/10.1016/j.jobe.2025.112417" target="_blank" rel="noopener">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--peek">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jun.</span>
@@ -364,16 +366,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">AI-driven Short-term Load Forecasting Enhanced by Clustering in Multi-type University Buildings: Insights Across Building Types and Pandemic Phases</p>
+                        <a class="news-row-title-link" href="/publications/2025-ai-load-forecasting-university-buildings/">
+                            <p class="news-row-title">AI-driven Short-term Load Forecasting Enhanced by Clustering in Multi-type University Buildings: Insights Across Building Types and Pandemic Phases</p>
+                        </a>
                         <span class="publi-row-authors">Yu-Shin Hu, Kai-Yun Lo, <strong>I-Yun Lisa Hsieh</strong></span>
-                        <span class="publi-row-journal">Journal of Building Engineering.</span>
+                        <span class="publi-row-journal">Journal of Building Engineering, Vol. 104.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.jobe.2025.112417" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.trd.2025.104679" target="_blank" rel="noopener" hidden style="--pub-i: 0">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 0">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">May.</span>
@@ -381,16 +387,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Quantifying Carbon Emissions in Cold Chain Transport: a Real-world Data-driven Approach</p>
-                        <span class="publi-row-authors">Hung-Jui Lin, Pei-Ci Chen, Hsuan-Po, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2025-cold-chain-transport-emissions/">
+                            <p class="news-row-title">Quantifying Carbon Emissions in Cold Chain Transport: A Real-World Data-Driven Approach</p>
+                        </a>
+                        <span class="publi-row-authors">Hung-Jui Lin, Pei-Ci Chen, Hsuan-Po Lin, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Transportation Research Part D: Transport and Environment, Vol. 142.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.trd.2025.104679" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 1">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 1">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Apr.</span>
@@ -411,7 +421,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1080/15568318.2025.2490488" target="_blank" rel="noopener" hidden style="--pub-i: 2">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 2">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Apr.</span>
@@ -419,16 +429,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Costs and Carbon: Evaluating the Tradeoffs in Taiwan’s Shift Toward Electric Vehicles</p>
-                        <span class="publi-row-authors">Jing-Siou Tseng, Yuan-Hsi Chien, Ruo-Wen, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2025-bev-cost-carbon-taiwan/">
+                            <p class="news-row-title">Costs and Carbon: Evaluating the Tradeoffs in Taiwan’s Shift Toward Electric Vehicles</p>
+                        </a>
+                        <span class="publi-row-authors">Jing-Siou Tseng, Yuan-Hsi Chien, Ruo-Wen Chen, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">International Journal of Sustainable Transportation, Vol. 19.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1080/15568318.2025.2490488" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.2139/ssrn.4823063" target="_blank" rel="noopener" hidden style="--pub-i: 3">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 3">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Apr.</span>
@@ -436,16 +450,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Real-time Unmet Demand-driven Relocation Policy to Improve Service Capacity of Shared E-mopeds</p>
-                        <span class="publi-row-authors">Jia-Cherng, <strong>I-Yun Lisa Hsieh</strong>, Chuin-Shan</span>
-                        <span class="publi-row-journal">Journal of Urban Management.</span>
+                        <a class="news-row-title-link" href="/publications/2025-e-moped-relocation-policy/">
+                            <p class="news-row-title">Real-Time Unmet Demand-Driven Relocation Policy to Improve Service Capacity of Shared E-Mopeds</p>
+                        </a>
+                        <span class="publi-row-authors">Jia-Cherng Song, <strong>I-Yun Lisa Hsieh</strong>, Chuin-Shan Chen</span>
+                        <span class="publi-row-journal">Journal of Urban Management, Vol. 14.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.jum.2025.04.001" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.scs.2024.106004" target="_blank" rel="noopener" hidden style="--pub-i: 4">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 4">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jan.</span>
@@ -453,16 +471,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Enhancing Urban Energy Resilience: Vehicle-to-grid (v2g) Strategies Within Electric Scooter Battery Swapping Ecosystems</p>
+                        <a class="news-row-title-link" href="/publications/2025-v2g-scooter-battery-swap/">
+                            <p class="news-row-title">Enhancing Urban Energy Resilience: Vehicle-to-Grid (V2G) Strategies Within Electric Scooter Battery Swapping Ecosystems</p>
+                        </a>
                         <span class="publi-row-authors">Yuan-Hsi Chien, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Sustainable Cities and Society, Vol. 118.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.scs.2024.106004" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 5">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 5">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -483,7 +505,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/353" target="_blank" rel="noopener" hidden style="--pub-i: 6">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 6">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -491,16 +513,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Comparison and Strategic Outlook of International Solid Recovered Fuel Standards</p>
-                        <span class="publi-row-authors">Dennis, Tzu-Hsien, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2024-solid-recovered-fuel-standards/">
+                            <p class="news-row-title">Comparison and Strategic Outlook of International Solid Recovered Fuel Standards</p>
+                        </a>
+                        <span class="publi-row-authors">Dennis Kao, Tzu-Hsien Chuang, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of Taiwan Energy, Vol. 11.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/353" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355" target="_blank" rel="noopener" hidden style="--pub-i: 7">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 7">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -508,16 +534,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies</p>
+                        <a class="news-row-title-link" href="/publications/2024-bus-shelter-solar-pv-taipei/">
+                            <p class="news-row-title">Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies</p>
+                        </a>
                         <span class="publi-row-authors">Yuan-Hsi Chien, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of Taiwan Energy, Vol. 11.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 8">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 8">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Oct.</span>
@@ -538,7 +568,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.esr.2024.101545" target="_blank" rel="noopener" hidden style="--pub-i: 9">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 9">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Sep.</span>
@@ -546,16 +576,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Evaluating the Feasibility and Economics of Hydrogen Storage in Large-scale Renewable Deployment for Decarbonization</p>
+                        <a class="news-row-title-link" href="/publications/2024-hydrogen-storage-renewable-deployment/">
+                            <p class="news-row-title">Evaluating the Feasibility and Economics of Hydrogen Storage in Large-scale Renewable Deployment for Decarbonization</p>
+                        </a>
                         <span class="publi-row-authors">Yuan-Shin Fu, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Energy Strategy Reviews, Vol. 55.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.esr.2024.101545" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 10">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 10">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Sep.</span>
@@ -576,7 +610,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.jclepro.2024.141446" target="_blank" rel="noopener" hidden style="--pub-i: 11">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 11">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Aug.</span>
@@ -584,16 +618,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Distributional Effects of Carbon Pricing: an Analysis of Income-based Versus Expenditure-based Approaches</p>
+                        <a class="news-row-title-link" href="/publications/2024-distributional-effects-carbon-pricing/">
+                            <p class="news-row-title">Distributional Effects of Carbon Pricing: An Analysis of Income-Based Versus Expenditure-Based Approaches</p>
+                        </a>
                         <span class="publi-row-authors">Cheng-Hsiang Shei, John Chung-En Liu, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of Cleaner Production, Vol. 465.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.jclepro.2024.141446" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.ijhydene.2024.07.234" target="_blank" rel="noopener" hidden style="--pub-i: 12">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 12">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Aug.</span>
@@ -601,33 +639,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Role of Hydrogen Fuel Cells in Achieving Road Transport Decarbonization: a Case Study From Taiwan</p>
-                        <span class="publi-row-authors">Wei-Hsuan Chen, Ian, Jo-Chen Meg, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2024-hydrogen-fuel-cells-road-transport/">
+                            <p class="news-row-title">Role of Hydrogen Fuel Cells in Achieving Road Transport Decarbonization: a Case Study From Taiwan</p>
+                        </a>
+                        <span class="publi-row-authors">Wei-Hsuan Chen, Ian Chen, Jo-Chen Meg Lin, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">International Journal of Hydrogen Energy, Vol. 80.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.ijhydene.2024.07.234" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.2139/ssrn.4197596" target="_blank" rel="noopener" hidden style="--pub-i: 13">
-
-                    <div class="news-row-date">
-                        <span class="news-row-mm">Mar.</span>
-                        <span class="news-row-yy">2024</span>
-                    </div>
-
-                    <div class="news-row-body">
-                        <p class="news-row-title">Assessing Hydrogen's Potential to Meet Taiwan's Net-zero Road Transport Goals: a Life Cycle and Fleet Modeling Approach</p>
-                        <span class="publi-row-authors">Chia-Yu Tsai, Tsung-Heng Chang, <strong>I-Yun Lisa Hsieh</strong></span>
-                        <span class="publi-row-journal">Renewable Hydrogen Storage and Transport conference.</span>
-                    </div>
-
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
-
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 14">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 13">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -648,7 +673,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.trd.2023.103962" target="_blank" rel="noopener" hidden style="--pub-i: 15">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 14">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -656,16 +681,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Sparse Trip Demand Prediction for Shared E-scooter Using Spatio-temporal Graph Neural Networks</p>
-                        <span class="publi-row-authors">Jia-Cherng, <strong>I-Yun Lisa Hsieh</strong>, Chuin-Shan</span>
-                        <span class="publi-row-journal">Transportation research part D: transport and environment, Vol. 125.</span>
+                        <a class="news-row-title-link" href="/publications/2023-sparse-trip-demand-e-scooter/">
+                            <p class="news-row-title">Sparse Trip Demand Prediction for Shared E-Scooter Using Spatio-Temporal Graph Neural Networks</p>
+                        </a>
+                        <span class="publi-row-authors">Jia-Cherng Song, <strong>I-Yun Lisa Hsieh</strong>, Chuin-Shan Chen</span>
+                        <span class="publi-row-journal">Transportation Research Part D: Transport and Environment, Vol. 125.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.trd.2023.103962" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.6383/JCIT.202312_35(4).0004" target="_blank" rel="noopener" hidden style="--pub-i: 16">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 15">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -673,16 +702,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Environmental Benefits and Ownership Costs of University Fleet Electrification: a Case Study of National Taiwan University</p>
-                        <span class="publi-row-authors">Han-Sheng, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2023-ntu-fleet-electrification/">
+                            <p class="news-row-title">Environmental Benefits and Ownership Costs of University Fleet Electrification: A Case Study of National Taiwan University</p>
+                        </a>
+                        <span class="publi-row-authors">Han-Sheng Huang, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of the Chinese Institute of Transportation, Vol. 35.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.6383/JCIT.202312_35(4).0004" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://doi.org/10.1016/j.jclepro.2023.139045" target="_blank" rel="noopener" hidden style="--pub-i: 17">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 16">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Nov.</span>
@@ -690,16 +723,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Techno-economic Analysis of Lithium-ion Battery Price Reduction Considering Carbon Footprint Based on Life Cycle Assessment</p>
+                        <a class="news-row-title-link" href="/publications/2023-lithium-ion-battery-carbon-footprint/">
+                            <p class="news-row-title">Techno-economic Analysis of Lithium-ion Battery Price Reduction Considering Carbon Footprint Based on Life Cycle Assessment</p>
+                        </a>
                         <span class="publi-row-authors">Wei-Hsuan Chen, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of Cleaner Production, Vol. 425.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.jclepro.2023.139045" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 18">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 17">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Sep.</span>
@@ -720,7 +757,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://www.sciencedirect.com/science/article/pii/S2211467X23001049" target="_blank" rel="noopener" hidden style="--pub-i: 19">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 18">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Sep.</span>
@@ -728,16 +765,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Transitioning From Illegal Rooftop Dwellings to Solar Pv: Market-based Incentive Design and Techno-economic Analysis</p>
+                        <a class="news-row-title-link" href="/publications/2023-rooftop-solar-incentive/">
+                            <p class="news-row-title">Transitioning From Illegal Rooftop Dwellings to Solar Pv: Market-based Incentive Design and Techno-economic Analysis</p>
+                        </a>
                         <span class="publi-row-authors">Yu-Jui Chang, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Energy Strategy Reviews, Vol. 49.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.esr.2023.101154" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://www.sciencedirect.com/science/article/pii/S1361920922003686" target="_blank" rel="noopener" hidden style="--pub-i: 20">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 19">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jan.</span>
@@ -745,16 +786,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Evaluating Vehicle Fleet Electrification Against Net-zero Targets in Scooter-dominated Road Transport</p>
+                        <a class="news-row-title-link" href="/publications/2023-vehicle-fleet-electrification-scooters/">
+                            <p class="news-row-title">Evaluating Vehicle Fleet Electrification Against Net-Zero Targets in Scooter-Dominated Road Transport</p>
+                        </a>
                         <span class="publi-row-authors">Chia-Yu Tsai, Tsung-Heng Chang, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Transportation Research Part D: Transport and Environment, Vol. 114.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.trd.2022.103542" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <a class="news-row news-row--link pub-row--extra" href="https://www.sciencedirect.com/science/article/pii/S2211467X23000068" target="_blank" rel="noopener" hidden style="--pub-i: 21">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 20">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Jan.</span>
@@ -762,16 +807,20 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Beyond Personal Vehicles: How Electrifying Scooters Will Help Achieve Climate Mitigation Goals in Taiwan</p>
+                        <a class="news-row-title-link" href="/publications/2023-electrifying-scooters-taiwan/">
+                            <p class="news-row-title">Beyond Personal Vehicles: How Electrifying Scooters Will Help Achieve Climate Mitigation Goals in Taiwan</p>
+                        </a>
                         <span class="publi-row-authors">Yuan-Hsi Chien, <strong>I-Yun Lisa Hsieh</strong>, Tsung-Heng Chang</span>
                         <span class="publi-row-journal">Energy Strategy Reviews, Vol. 45.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://doi.org/10.1016/j.esr.2023.101056" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 22">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 21">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -792,7 +841,7 @@ LinkedIn                        </a>
                         <span>Publisher</span>
                     </a>
 
-</div>                <a class="news-row news-row--link pub-row--extra" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/306" target="_blank" rel="noopener" hidden style="--pub-i: 23">
+</div>                <div class="news-row news-row--link news-row--stretch pub-row--extra" hidden style="--pub-i: 22">
 
                     <div class="news-row-date">
                         <span class="news-row-mm">Dec.</span>
@@ -800,24 +849,28 @@ LinkedIn                        </a>
                     </div>
 
                     <div class="news-row-body">
-                        <p class="news-row-title">Sankey-diagram-based Insights Into Taiwan’s Energy Flow: Status Quo and Net-zero Future</p>
-                        <span class="publi-row-authors">Kai-Yun Lo, Ting-Ling, Hsin-Yun, <strong>I-Yun Lisa Hsieh</strong></span>
+                        <a class="news-row-title-link" href="/publications/2022-taiwan-energy-flow-sankey/">
+                            <p class="news-row-title">Sankey-Diagram-Based Insights Into Taiwan’s Energy Flow: Status Quo and Net-Zero Future</p>
+                        </a>
+                        <span class="publi-row-authors">Kai-Yun Lo, Ting-Ling Chien, Hsin-Yun Tsai, <strong>I-Yun Lisa Hsieh</strong></span>
                         <span class="publi-row-journal">Journal of Taiwan Energy, Vol. 9.</span>
                     </div>
 
-                    <span class="news-row-arrow" aria-hidden="true">
-                        <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    </span>
+                    <a class="pub-row-publisher" href="https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/306" target="_blank" rel="noopener"
+                       aria-label="View on publisher site">
+                        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        <span>Publisher</span>
+                    </a>
 
-</a>                </div>
+</div>                </div>
 
                 <div class="pub-show-all-wrap">
                     <button type="button" class="pub-show-all-btn skewed-block" b-role="btn" b-hoverable
                             aria-expanded="false"
                             aria-controls="publication-1"
-                            data-show-text="Show all 30"
+                            data-show-text="Show all 29"
                             data-hide-text="Show less">
-                        <span class="pub-show-all-label">Show all 30</span>
+                        <span class="pub-show-all-label">Show all 29</span>
                         <span class="pub-show-all-chevron" aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.625rem">
                                 <polygon class="fill-s" points="1.46 2.34 0.04 3.76 5 8.71 9.96 3.76 8.54 2.34 5 5.88 1.46 2.34"/>
@@ -840,25 +893,50 @@ LinkedIn                        </a>
     </main>
 
 <footer>
-    <a class="ftr-logo">
-        <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
-    </a>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <svg><use href="/assets/sprite.svg#svg-e3-logo"></use></svg>
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
 
-    <div class="ftr-link-wrapper">
-        <a class="ftr-link" href="/#">Home</a>
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
 
-        <a class="ftr-link" href="/#about-us">About Us</a>
-        <a class="ftr-link" href="/members">Members</a>
-        <a class="ftr-link" href="/publications">Publications</a>
-        <a class="ftr-link" href="/projects">Projects</a>
-        <a class="ftr-link" href="/news">News</a>
-        <a class="ftr-link" href="/group-life">Group Life</a>
-        <a class="ftr-link" href="/contact">Contact Us</a>
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
     </div>
 
-    <div class="ftr-info">
-        &copy; 2026 E3 Center, National Taiwan University.
-        <!-- Rm. 601, No. 188, Sec. 3, Xinhai Rd., Da'an Dist., Taipei City 106327, Taiwan (R.O.C.) -->
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
     </div>
 </footer>
 <div class="body-bg">
