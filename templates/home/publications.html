@@ -17,7 +17,10 @@
                • only publisher link    → whole-row link to publisher
                • neither                → static row #}
             {% set detail = item.get('pageLink') %}
-            {% set publisher = item['link'] %}
+            {# Click target falls back to https://doi.org/{doi} when `link` is
+               empty — mirrors the same fallback in publications.html and the
+               publication detail page. #}
+            {% set publisher = item.get('link') or ('https://doi.org/' ~ item['doi'] if item.get('doi') else None) %}
             {% if detail %}
             <div class="news-row news-row--link news-row--stretch{% if status != 'published' %} news-row--no-date{% endif %}">
             {% elif publisher %}
