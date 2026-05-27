@@ -91,8 +91,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500..600&family=Noto+Sans+TC:wght@500..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=13">
-    <link rel="stylesheet" href="/css/subpage.css?v=14">
+    <link rel="stylesheet" href="/css/general.css?v=17">
+    <link rel="stylesheet" href="/css/subpage.css?v=43">
     <link rel="stylesheet" href="/css/member.css?v=18">
 
     <!-- js -->
@@ -366,15 +366,18 @@
                    page; the Publisher button opts out to the external journal.
                    Manual section entries are excluded from this treatment. #}
                 {% set _detail_link = (not _entry['manual']) and pub.get('pageLink') %}
+                {# Click target falls back to https://doi.org/{doi} when `link`
+                   is empty — mirrors publications.html + the detail page. #}
+                {% set _pub_url = pub.get('link') or ('https://doi.org/' ~ pub['doi'] if pub.get('doi') else None) %}
                 {% set _row_classes = 'news-row'
-                    ~ (' news-row--link' if (_detail_link or pub['link']) else '')
+                    ~ (' news-row--link' if (_detail_link or _pub_url) else '')
                     ~ (' news-row--stretch' if _detail_link else '')
                     ~ (' pub-row--peek' if _is_peek else (' pub-row--extra' if _is_extra else '')) %}
                 {% if _detail_link %}
                 <div class="{{ _row_classes }}"
                 {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
-                {% elif pub['link'] %}
-                <a class="{{ _row_classes }}" href="{{ pub['link'] }}" target="_blank" rel="noopener"
+                {% elif _pub_url %}
+                <a class="{{ _row_classes }}" href="{{ _pub_url }}" target="_blank" rel="noopener"
                 {%- if _is_extra %} hidden style="--pub-i: {{ loop.index0 - _peek_idx - 1 }}"{% endif -%}>
                 {% else %}
                 <div class="{{ _row_classes }}"
@@ -406,19 +409,19 @@
                         {% endif %}
                     </div>
 
-                    {% if _detail_link and pub['link'] %}
-                    <a class="pub-row-publisher" href="{{ pub['link'] }}" target="_blank" rel="noopener"
+                    {% if _detail_link and _pub_url %}
+                    <a class="pub-row-publisher" href="{{ _pub_url }}" target="_blank" rel="noopener"
                        aria-label="View on publisher site">
                         <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                         <span>Publisher</span>
                     </a>
-                    {% elif pub['link'] %}
+                    {% elif _pub_url %}
                     <span class="news-row-arrow" aria-hidden="true">
                         <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
                     </span>
                     {% endif %}
 
-                {% if _detail_link %}</div>{% elif pub['link'] %}</a>{% else %}</div>{% endif %}
+                {% if _detail_link %}</div>{% elif _pub_url %}</a>{% else %}</div>{% endif %}
                 {% endfor %}
                 </div>
 

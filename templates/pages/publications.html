@@ -27,7 +27,7 @@
                 "headline": {{ _item['title'] | tojson }},
                 {% set _yr = _item.get('year', '') %}{% set _yr_str = ('20' ~ _yr[1:]) if _yr.startswith("'") else _yr %}"datePublished": "{{ _yr_str }}",
                 {% if _item.get('journal') %}"isPartOf": { "@type": "Periodical", "name": {{ _item['journal'] | tojson }} },
-                {% endif %}{% if _item.get('link') %}"url": {{ _item['link'] | tojson }},
+                {% endif %}{% set _url = _item.get('link') or ('https://doi.org/' ~ _item['doi'] if _item.get('doi') else None) %}{% if _url %}"url": {{ _url | tojson }},
                 {% endif %}{% if _item.get('keywords') %}"keywords": {{ _item['keywords'] | tojson }},
                 {% endif %}"author": {{ (_item.get('authors') or '') | tojson }}
               }
@@ -63,10 +63,15 @@
 
     {# ── Macro: render a single book row ────────────────────────────────────── #}
     {% macro pub_book_row(item) %}
+    {# Books search blob = title + authors + publisher. Books don't have a
+       journal, so data-journal is empty — they're hidden whenever a journal
+       filter is active. #}
+    {% set _search_blob = (item.title ~ ' ' ~ (item.titleZh or '') ~ ' ' ~ (item.authors or '') ~ ' ' ~ (item.publisher or '')) | lower %}
     {% if item.get('link') %}
-    <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener">
+    <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener"
+       data-year="{{ item['year'] }}" data-journal="" data-status="books" data-pub-search="{{ _search_blob }}">
     {% else %}
-    <div class="news-row">
+    <div class="news-row" data-year="{{ item['year'] }}" data-journal="" data-status="books" data-pub-search="{{ _search_blob }}">
     {% endif %}
 
         <div class="news-row-date">
@@ -140,18 +145,37 @@
          link); a single Publisher button is the only external opt-out.
        • publisher link only → whole-row link to publisher (original behaviour).
        • neither             → static row. #}
+    {# Date / status column: published rows show month + year; in-progress
+       rows (submitted / under review / accepted-not-yet-published) show an
+       "In Progress" pill in the same slot so rows stay visually aligned
+       across the section even when filters re-order context. #}
+    {% macro pub_row_date(item, status) %}
+        <div class="news-row-date">
+            {% if status == 'published' %}
+            <span class="news-row-mm">{{ item['month'] }}</span>
+            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
+            {% else %}
+            <span class="pub-status-badge" data-status="{{ status }}">In Progress</span>
+            {% endif %}
+        </div>
+    {% endmacro %}
+
     {% macro pub_row(item) %}
     {% set status = item.get('status', 'published') %}
     {% set detail = item.get('pageLink') %}
-    {% set publisher = item.get('link') %}
+    {# Click target: prefer the explicit `link` (publisher direct URL); fall
+       back to https://doi.org/{doi} so entries that only carry a DOI still
+       render as clickable rows. Mirrors the same fallback in the detail
+       page template (publication-item.html:127). #}
+    {% set publisher = item.get('link') or ('https://doi.org/' ~ item['doi'] if item.get('doi') else None) %}
+    {# Search scopes to title + authors only; journal has its own dropdown so
+       the two controls do distinct jobs. #}
+    {% set _search_blob = (item.title ~ ' ' ~ (item.titleZh or '') ~ ' ' ~ (item.authors or '')) | lower %}
+    {% set status_tag = 'forthcoming' if status == 'working' else 'published' %}
     {% if detail %}
-    <div class="news-row news-row--link news-row--stretch{% if status != 'published' %} news-row--no-date{% endif %}">
-        {% if status == 'published' %}
-        <div class="news-row-date">
-            <span class="news-row-mm">{{ item['month'] }}</span>
-            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-        </div>
-        {% endif %}
+    <div class="news-row news-row--link news-row--stretch"
+         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+        {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
         {% if publisher %}
         <a class="pub-row-publisher" href="{{ publisher }}" target="_blank" rel="noopener"
@@ -162,26 +186,18 @@
         {% endif %}
     </div>
     {% elif publisher %}
-    <a class="news-row news-row--link{% if status != 'published' %} news-row--no-date{% endif %}" href="{{ publisher }}" target="_blank" rel="noopener">
-        {% if status == 'published' %}
-        <div class="news-row-date">
-            <span class="news-row-mm">{{ item['month'] }}</span>
-            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-        </div>
-        {% endif %}
+    <a class="news-row news-row--link" href="{{ publisher }}" target="_blank" rel="noopener"
+       data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+        {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
         <span class="news-row-arrow" aria-hidden="true">
             <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
         </span>
     </a>
     {% else %}
-    <div class="news-row{% if status != 'published' %} news-row--no-date{% endif %}">
-        {% if status == 'published' %}
-        <div class="news-row-date">
-            <span class="news-row-mm">{{ item['month'] }}</span>
-            <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-        </div>
-        {% endif %}
+    <div class="news-row"
+         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+        {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
     </div>
     {% endif %}
@@ -231,9 +247,111 @@
 
     {% set book_items = all_items | selectattr('type', 'equalto', 'book') | list %}
 
-    {# ── Working Papers ─────────────────────────────────────────────────────── #}
-    {% set working_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'working') | list %}
-    {{ pub_group('Working Papers (Submitted / Under Review)', working_items, 'pub-working') }}
+    {# ── Filter bar ─────────────────────────────────────────────────────────
+       Year and Journal lists are derived from the data so they stay in sync
+       as the catalogue grows. Years carry the apostrophe form ("'26") so
+       the data-year attribute matches the chip's value verbatim; journals
+       are sorted alphabetically (case-insensitive). #}
+    {% set years_sorted = all_items | map(attribute='year') | reject('equalto', None) | reject('equalto', '') | unique | list | sort(reverse=True) %}
+    {% set _journals = [] %}
+    {% for it in all_items %}
+        {% if it.get('journal') and it['journal'] not in _journals %}
+            {% set _ = _journals.append(it['journal']) %}
+        {% endif %}
+    {% endfor %}
+    {% set journals_sorted = _journals | sort(case_sensitive=False) %}
+    {# All three dropdowns share the same .pub-filter-trigger + .pub-filter-panel
+       recipe so they read as one row of equal-weight multi-select controls.
+       Each panel ends with a contextual "Clear …" link that resets only that
+       dimension; the bar-level "Clear filters" pill resets everything. #}
+    <div class="pub-filter-bar">
+        <div class="pub-filter-dropdown" data-dropdown="year">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="pub-year-panel">
+                <span class="pub-filter-trigger-label">Year</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="pub-year-panel" role="group"
+                 aria-label="Filter publications by year" hidden>
+                {% for yr in years_sorted %}
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-year-input" data-year="{{ yr }}">
+                    <span>20{{ yr[1:] }}</span>
+                </label>
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear year</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown pub-filter-dropdown--journal" data-dropdown="journal">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="pub-journal-panel">
+                <span class="pub-filter-trigger-label">Journal</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="pub-journal-panel" role="group"
+                 aria-label="Filter publications by journal" hidden>
+                {% for j in journals_sorted %}
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-journal-input" data-journal="{{ j }}">
+                    <span>{{ j }}</span>
+                </label>
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear journal</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown" data-dropdown="status">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="pub-status-panel">
+                <span class="pub-filter-trigger-label">Status</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="pub-status-panel" role="group"
+                 aria-label="Filter publications by status" hidden>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-status-input" data-status="forthcoming">
+                    <span>In Progress</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-status-input" data-status="published">
+                    <span>Published</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-status-input" data-status="books">
+                    <span>Books</span>
+                </label>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
+            </div>
+        </div>
+
+        <label class="pub-filter-search">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="search" class="pub-filter-input"
+                   placeholder="Search title or author"
+                   aria-label="Search by title or author">
+        </label>
+        <button type="button" class="pub-filter-clear" hidden>Clear filters</button>
+        <span class="pub-filter-count" aria-live="polite" aria-atomic="true"></span>
+    </div>
 
     {# ── All Publications ──────────────────────────────────────────────────
        The Google Scholar CTA renders inline with this section's title, so it
@@ -244,6 +362,10 @@
         'url': 'https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ',
         'text': "Full list on Google Scholar"
     }) }}
+
+    {# ── Manuscripts Submitted / Under Review ─────────────────────────────── #}
+    {% set working_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'working') | list %}
+    {{ pub_group('Manuscripts Submitted / Under Review', working_items, 'pub-working') }}
 
     {# ── Books (rendered last) ─────────────────────────────────────────────── #}
     {% if book_items %}
@@ -257,6 +379,291 @@
     </div>
     {% endif %}
 
+    <p class="pub-filter-empty" hidden>
+        No publications match these filters.
+        <button type="button" class="pub-filter-clear-inline">Clear filters</button>
+    </p>
+
 </section>
+
+<script>
+(function () {
+    var bar = document.querySelector('.pub-filter-bar');
+    if (!bar) return;
+
+    /* Generic multi-select driver — every dropdown (year / journal / status)
+       walks the same code path. State per dimension is a Set of selected
+       values; the filter intersection in apply() is symmetric across all
+       three, plus the search query. */
+    var state = { year: new Set(), journal: new Set(), status: new Set(), query: '' };
+    var rows  = Array.prototype.slice.call(document.querySelectorAll('.news-row[data-year]'));
+    var groups    = Array.prototype.slice.call(document.querySelectorAll('.publi-group'));
+    var showMores = Array.prototype.slice.call(document.querySelectorAll('.publi-show-more'));
+    var emptyEl   = document.querySelector('.pub-filter-empty');
+    var clearIn   = emptyEl && emptyEl.querySelector('.pub-filter-clear-inline');
+    var clearAllBtn = bar.querySelector('.pub-filter-clear');
+    var input       = bar.querySelector('.pub-filter-input');
+    var countEl     = bar.querySelector('.pub-filter-count');
+    var reduced     = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var totalRows   = rows.length;
+    var debounceId  = null;
+
+    /* Apostrophe-prefixed year values ('22..'26) round-trip through the URL
+       hash as bare two-digit strings (24,26) for a cleaner URL. */
+    function toHashYear(y) { return y && y.charAt(0) === "'" ? y.slice(1) : y; }
+    function toRawYear(y)  { return y && y.charAt(0) !== "'" ? "'" + y : y; }
+
+    function reveal(el) {
+        if (reduced) return;
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+    }
+
+    function resetShowMore(btn) {
+        var group  = btn.closest('.publi-group');
+        var extras = group ? group.querySelectorAll('.publi-extra-item') : [];
+        Array.prototype.forEach.call(extras, function (el) { el.hidden = true; });
+        btn.dataset.expanded = 'false';
+        btn.setAttribute('aria-expanded', 'false');
+        var txt = btn.querySelector('.btn-text');
+        if (txt) txt.textContent = 'See ' + extras.length + ' more';
+        var svg = btn.querySelector('svg');
+        if (svg) svg.style.transform = '';
+    }
+
+    /* ── Dropdown wiring ─────────────────────────────────────────────────
+       One helper attaches every behaviour for one panel (open/close,
+       checkbox change, in-panel Clear, trigger label refresh). */
+    var dropdowns = [];
+    function wireDropdown(name, labelText) {
+        var dd = bar.querySelector('[data-dropdown="' + name + '"]');
+        if (!dd) return null;
+        var trigger  = dd.querySelector('.pub-filter-trigger');
+        var panel    = dd.querySelector('.pub-filter-panel');
+        var label    = dd.querySelector('.pub-filter-trigger-label');
+        var countTag = dd.querySelector('.pub-filter-trigger-count');
+        var clearBtn = dd.querySelector('.pub-filter-panel-clear');
+        var checks   = Array.prototype.slice.call(panel.querySelectorAll('input[type="checkbox"]'));
+
+        function open()   { panel.hidden = false; trigger.setAttribute('aria-expanded', 'true');  dd.classList.add('is-open'); }
+        function close()  { panel.hidden = true;  trigger.setAttribute('aria-expanded', 'false'); dd.classList.remove('is-open'); }
+        function toggle() { if (panel.hidden) open(); else close(); }
+
+        trigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            /* Close any other open dropdown first so panels never stack. */
+            dropdowns.forEach(function (d) { if (d && d.name !== name) d.close(); });
+            toggle();
+        });
+
+        checks.forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                var v = cb.dataset[name];
+                if (cb.checked) state[name].add(v);
+                else            state[name].delete(v);
+                apply();
+                syncHash();
+            });
+        });
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                state[name].clear();
+                checks.forEach(function (cb) { cb.checked = false; });
+                close();
+                trigger.focus();
+                apply();
+                syncHash();
+            });
+        }
+
+        function update() {
+            var n = state[name].size;
+            trigger.classList.toggle('is-active', n > 0);
+            if (clearBtn) clearBtn.hidden = n === 0;
+            if (n === 0) {
+                label.textContent = labelText;
+                countTag.hidden = true;
+                countTag.textContent = '';
+            } else if (n === 1) {
+                var only = Array.from(state[name])[0];
+                if (name === 'year') {
+                    label.textContent = '20' + toHashYear(only);
+                } else if (name === 'status') {
+                    label.textContent = only.charAt(0).toUpperCase() + only.slice(1);
+                } else {
+                    /* Journal names are long; show a count chip rather than
+                       truncating an actual name into the trigger. */
+                    label.textContent = labelText;
+                    countTag.hidden = false;
+                    countTag.textContent = '1';
+                    return;
+                }
+                countTag.hidden = true;
+            } else {
+                label.textContent = labelText;
+                countTag.hidden = false;
+                countTag.textContent = String(n);
+            }
+        }
+
+        var api = { name: name, close: close, checks: checks, update: update, panel: panel, trigger: trigger };
+        dropdowns.push(api);
+        return api;
+    }
+
+    var year    = wireDropdown('year',    'Year');
+    var journal = wireDropdown('journal', 'Journal');
+    var status  = wireDropdown('status',  'Status');
+
+    /* Outside click + Escape close every panel uniformly. */
+    document.addEventListener('click', function (e) {
+        if (!bar.contains(e.target)) {
+            dropdowns.forEach(function (d) { d && d.close(); });
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            dropdowns.forEach(function (d) { d && d.close(); });
+        }
+    });
+
+    /* ── Search input ─────────────────────────────────────────────────── */
+    input.addEventListener('input', function () {
+        clearTimeout(debounceId);
+        debounceId = setTimeout(function () {
+            state.query = input.value.trim().toLowerCase();
+            apply();
+            syncHash();
+        }, 120);
+    });
+
+    /* ── Clear-all ────────────────────────────────────────────────────── */
+    function clearAll() {
+        state.year.clear();
+        state.journal.clear();
+        state.status.clear();
+        state.query = '';
+        dropdowns.forEach(function (d) {
+            if (!d) return;
+            d.checks.forEach(function (cb) { cb.checked = false; });
+            d.close();
+        });
+        input.value = '';
+        apply();
+        syncHash();
+    }
+    if (clearAllBtn) clearAllBtn.addEventListener('click', clearAll);
+    if (clearIn)     clearIn.addEventListener('click',     clearAll);
+
+    /* ── Apply + section visibility ───────────────────────────────────── */
+    function isFiltering() {
+        return state.year.size > 0
+            || state.journal.size > 0
+            || state.status.size > 0
+            || state.query.length > 0;
+    }
+    function tokens(q) { return q.split(/\s+/).filter(Boolean); }
+
+    function apply() {
+        var ts = tokens(state.query);
+        var filtering = isFiltering();
+        var visibleTotal = 0;
+
+        rows.forEach(function (row) {
+            var d = row.dataset;
+            var ok =
+                (state.year.size    === 0 || state.year.has(d.year)) &&
+                (state.journal.size === 0 || state.journal.has(d.journal)) &&
+                (state.status.size  === 0 || state.status.has(d.status)) &&
+                (ts.length === 0 || ts.every(function (t) { return (d.pubSearch || '').indexOf(t) !== -1; }));
+            row.hidden = !ok;
+            var wrap = row.closest('.publi-extra-item');
+            if (wrap) wrap.hidden = filtering ? !ok : true;
+            if (ok) visibleTotal++;
+        });
+
+        groups.forEach(function (g) {
+            var visible = g.querySelectorAll('.news-row[data-year]:not([hidden])').length;
+            var wasHidden = g.hidden;
+            g.hidden = visible === 0;
+            if (wasHidden && !g.hidden) reveal(g);
+        });
+
+        showMores.forEach(function (btn) {
+            if (filtering) {
+                btn.hidden = true;
+            } else {
+                btn.hidden = false;
+                resetShowMore(btn);
+            }
+        });
+
+        if (emptyEl) emptyEl.hidden = visibleTotal > 0;
+        if (clearAllBtn) clearAllBtn.hidden = !filtering;
+        if (countEl) {
+            countEl.textContent = filtering
+                ? 'Showing ' + visibleTotal + ' of ' + totalRows + ' publications'
+                : '';
+        }
+
+        if (year)    year.update();
+        if (journal) journal.update();
+        if (status)  status.update();
+    }
+
+    /* ── URL hash sync ────────────────────────────────────────────────── */
+    function syncHash() {
+        var parts = [];
+        if (state.year.size > 0)    parts.push('year='    + Array.from(state.year).map(toHashYear).join(','));
+        if (state.journal.size > 0) parts.push('journal=' + Array.from(state.journal).map(encodeURIComponent).join(','));
+        if (state.status.size > 0)  parts.push('status='  + Array.from(state.status).join(','));
+        if (state.query)            parts.push('q='       + encodeURIComponent(state.query));
+        var hash = parts.length ? '#' + parts.join('&') : '';
+        try {
+            history.replaceState(null, '', hash || window.location.pathname + window.location.search);
+        } catch (e) { /* file:// or sandbox — ignore */ }
+    }
+
+    /* Restore from URL hash on load. */
+    var hash = window.location.hash.slice(1);
+    if (hash) {
+        hash.split('&').forEach(function (pair) {
+            var eq = pair.indexOf('=');
+            if (eq < 0) return;
+            var k = pair.slice(0, eq);
+            var v = pair.slice(eq + 1);
+            if (k === 'year') {
+                v.split(',').forEach(function (yr) {
+                    var raw = toRawYear(decodeURIComponent(yr));
+                    state.year.add(raw);
+                    var cb = bar.querySelector('.pub-filter-year-input[data-year="' + raw + '"]');
+                    if (cb) cb.checked = true;
+                });
+            } else if (k === 'journal') {
+                v.split(',').forEach(function (j) {
+                    var dec = decodeURIComponent(j);
+                    state.journal.add(dec);
+                    var cb = bar.querySelector('.pub-filter-journal-input[data-journal="' + dec.replace(/"/g, '\\"') + '"]');
+                    if (cb) cb.checked = true;
+                });
+            } else if (k === 'status') {
+                v.split(',').forEach(function (s) {
+                    state.status.add(s);
+                    var cb = bar.querySelector('.pub-filter-status-input[data-status="' + s + '"]');
+                    if (cb) cb.checked = true;
+                });
+            } else if (k === 'q') {
+                state.query = decodeURIComponent(v).toLowerCase();
+                input.value = decodeURIComponent(v);
+            }
+        });
+    }
+
+    apply();
+}());
+</script>
 
 {% endblock %}

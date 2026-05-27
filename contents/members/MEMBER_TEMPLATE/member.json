@@ -28,11 +28,27 @@
       "note": "Placeholder award — replace with a real entry or delete this object.",
       "date": "May 2026",
       "url": "https://example.com/award"
+    },
+    {
+      "title": "Best Website Award 2",
+      "titleZh": "最佳網站獎 2",
+      "organization": "E3 Center, National Taiwan University",
+      "note": "Placeholder award — replace with a real entry or delete this object.",
+      "date": "May 2026",
+      "url": "https://example.com/award"
     }
   ],
   "externalEngagements": [
     {
-      "role": "Student Volunteer",
+      "role": "Student Volunteer 1",
+      "organization": "International Conference on Sustainable Energy",
+      "note": "Placeholder engagement — replace with a real entry or delete this object.",
+      "location": "Taipei, Taiwan",
+      "date": "Jun 2026",
+      "url": "https://example.com/engagement"
+    },
+        {
+      "role": "Student Volunteer xxx 2",
       "organization": "International Conference on Sustainable Energy",
       "note": "Placeholder engagement — replace with a real entry or delete this object.",
       "location": "Taipei, Taiwan",

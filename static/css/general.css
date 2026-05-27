@@ -263,10 +263,10 @@ i {
     /* Subpage header geometry — used to vertically center the fixed menu
        button against the header. If you change the header padding-block or
        logo height, update --header-h to match.
-         desktop (>1024): padding-block 1.625rem × 2 + logo 4rem   = 7.25rem
-         tablet  (≤1024): padding-block 1rem    × 2 + logo 3rem   = 5rem
+         desktop (>1024): padding-block 1.25rem × 2 + logo 3rem   = 5.5rem
+         tablet  (≤1024): padding-block 1rem    × 2 + logo 2.5rem = 4.5rem
          mobile  (≤600) : padding-block 0.625rem× 2 + logo 1.5rem = 2.75rem  */
-    --header-h: 7.25rem;
+    --header-h: 5.5rem;
     --menu-btn-h: 2.5rem;
 }
 
@@ -275,7 +275,7 @@ i {
         --gutter-x: clamp(2rem, 5vw, 4rem);
         --section-pad-y: 6rem;
         --section-title-gap: 2rem;
-        --header-h: 5rem;
+        --header-h: 4.5rem;
         --menu-btn-h: 2.75rem;
     }
 }
@@ -670,43 +670,164 @@ h3 {
     overflow-y: hidden !important;
 }
 
-/* footer */
+/* footer — 3-column on desktop: brand / sitemap / contact. Tablet collapses
+   to brand spanning row 1 with sitemap+contact on row 2. Mobile stacks to a
+   single column. Inner content aligned to the 80rem section grid via
+   .ftr-grid; padding-inline tracks --gutter-x so the footer edges meet
+   every section above it. The bottom row carries © separated by a faint
+   color-mix divider — matches the divider recipe used in subpage.css. */
 footer {
     width: 100%;
-    /* margin-block-start: 2rem; */
-    padding: 4rem 2rem;
+    padding: 2.75rem var(--gutter-x) 1.5rem;
     border-top: 0.1875rem solid var(--main-color);
     background-color: var(--main-bg-color);
 
-    display: grid;
-    gap: 2rem;
-
-    /* Match the subpage header's content band (subpage.css: 76rem inset)
-       so the footer logo/links align with the header logo across widths. */
-    &>* {
-        width: min(100%, 76rem);
+    & .ftr-grid {
+        width: min(100%, 80rem);
         margin-inline: auto;
+
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1.2fr;
+        gap: 1.75rem 3rem;
+        align-items: start;
     }
 
-    .ftr-logo svg {
-        width: 3rem;
-        user-select: none;
-    }
-
-    .ftr-link-wrapper {
+    & .ftr-brand {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        .ftr-link {
-            font-size: 1.25rem;
-            transition: var(--hover-transition-time);
+    & .ftr-logo {
+        display: inline-block;
+        transition: var(--hover-transition-time);
 
-            &:hover {
-                opacity: 0.8;
-            }
+        & svg {
+            width: 2.5rem;
+            user-select: none;
         }
+
+        &:hover {
+            opacity: 0.75;
+            translate: var(--block-hover-translate) var(--block-hover-translate);
+        }
+    }
+
+    & .ftr-tagline {
+        margin-block-start: 0.625rem;
+        max-width: 22rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        opacity: 0.65;
+        color: var(--main-color);
+    }
+
+    & .ftr-col-title {
+        margin-block-end: 0.625rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        line-height: 1.6;
+        text-transform: uppercase;
+        color: var(--main-color);
+        opacity: 0.4;
+    }
+
+    /* Sitemap as 2-column grid on desktop — halves the column's height
+       so the footer chrome stays compact even with 7 nav items. */
+    & .ftr-nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem 1.25rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    & .ftr-link {
+        font-size: 1rem;
+        line-height: 1.4;
+        color: var(--main-color);
+        opacity: 0.8;
+        transition: opacity var(--hover-transition-time);
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &:focus-visible {
+            outline: 0.125rem solid var(--main-color);
+            outline-offset: 0.25rem;
+            border-radius: 0.125rem;
+        }
+    }
+
+    & .ftr-contact {
+        font-style: normal;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    & .ftr-contact-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding-block: 0.05rem;
+        font-size: 0.875rem;
+        line-height: 1.45;
+        color: var(--main-color);
+        opacity: 0.85;
+        transition: opacity var(--hover-transition-time);
+
+        & svg {
+            width: 0.875rem;
+            height: 0.875rem;
+            flex-shrink: 0;
+            margin-block-start: 0.2rem;
+            fill: var(--secondary-color);
+            transition: translate var(--hover-transition-time);
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &[target="_blank"]:hover svg {
+            translate: 0.1rem -0.1rem;
+        }
+
+        &:focus-visible {
+            outline: 0.125rem solid var(--main-color);
+            outline-offset: 0.2rem;
+            border-radius: 0.125rem;
+        }
+    }
+
+    & .ftr-bottom {
+        width: min(100%, 80rem);
+        margin-inline: auto;
+        margin-block-start: 1.5rem;
+        padding-block-start: 1rem;
+        border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    }
+
+    & .ftr-info {
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: var(--main-color);
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 64rem) {
+    footer .ftr-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 3rem;
+    }
+
+    footer .ftr-brand {
+        grid-column: 1 / -1;
     }
 }
 
@@ -1066,25 +1187,55 @@ body {
     /* Section vertical padding now comes from --section-pad-y, controlled
        per-breakpoint at :root (see top of file). No override needed here. */
 
-    /* Compact footer on phone: smaller logo, gap, link size. */
+    /* Compact footer on phone: single-column stack, smaller logo/labels.
+       Sitemap stays a 2-column grid so its block height matches the
+       contact column's. Multi-line address is kept (information-dense —
+       a single line would be cramped). */
     footer {
-        padding: 2rem var(--gutter-x);
-        gap: 1rem;
+        padding: 2rem var(--gutter-x) 1.25rem;
 
-        .ftr-logo svg {
+        & .ftr-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        & .ftr-brand {
+            grid-column: auto;
+        }
+
+        & .ftr-logo svg {
             width: 2rem;
         }
 
-        .ftr-link-wrapper {
-            gap: 0.875rem 1.25rem;
-
-            .ftr-link {
-                font-size: 0.9375rem;
-            }
+        & .ftr-tagline {
+            font-size: 0.8125rem;
+            margin-block-start: 0.5rem;
         }
 
-        .ftr-info {
+        & .ftr-col-title {
+            margin-block-end: 0.5rem;
+            font-size: 0.625rem;
+        }
+
+        & .ftr-nav ul {
+            gap: 0.35rem 1.25rem;
+        }
+
+        & .ftr-link {
+            font-size: 0.875rem;
+        }
+
+        & .ftr-contact-row {
             font-size: 0.8125rem;
+        }
+
+        & .ftr-bottom {
+            margin-block-start: 1.25rem;
+            padding-block-start: 0.875rem;
+        }
+
+        & .ftr-info {
+            font-size: 0.6875rem;
         }
     }
 }

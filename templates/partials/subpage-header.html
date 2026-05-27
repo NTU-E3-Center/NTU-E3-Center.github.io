@@ -1,24 +1,26 @@
 <header class="subpage-header">
-    <a class="subpage-header-logo" href="/">
-        <picture>
-            <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
-            <img src="/assets/images/e3-logo-text.svg" alt="E3 Center">
-        </picture>
-    </a>
-    {% if subpageTitle %}
-    {# Every subpage needs one semantic h1 for SEO + a11y. The visible page
-       name lives in the breadcrumb below; this is sr-only so design is
-       unchanged. Pages that render their own visible h1 (contact, member
-       profile, news article) pass `suppressSrH1 = True`. #}
-    {% if not suppressSrH1 %}
-    <h1 class="sr-only">{{ subpageTitle }}</h1>
-    {% endif %}
-    <nav class="subpage-breadcrumb" aria-label="breadcrumb">
-        {% if backLink %}
-        <a class="breadcrumb-parent" href="{{ backLink }}">{{ backLinkText if backLinkText else 'Back' }}</a>
-        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-logo-text.svg" alt="">
+            </picture>
+        </a>
+
+        {% if subpageTitle %}
+        {# Every subpage needs one semantic h1 for SEO + a11y. The visible page
+           name lives in the trail below; this is sr-only so design is unchanged.
+           Pages that render their own visible h1 (contact, member profile,
+           news article, publication detail) pass `suppressSrH1 = True`. #}
+        {% if not suppressSrH1 %}
+        <h1 class="sr-only">{{ subpageTitle }}</h1>
         {% endif %}
-        <span class="breadcrumb-current">{{ subpageTitle }}</span>
-    </nav>
-    {% endif %}
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            {% if backLink %}
+            <a class="trail-parent" href="{{ backLink }}">{{ backLinkText if backLinkText else 'Back' }}</a>
+            {% endif %}
+            <span class="trail-current">{{ subpageTitle }}</span>
+        </nav>
+        {% endif %}
+    </div>
 </header>
