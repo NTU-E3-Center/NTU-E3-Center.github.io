@@ -28,7 +28,7 @@
                 {% set _yr = _item.get('year', '') %}{% set _yr_str = ('20' ~ _yr[1:]) if _yr.startswith("'") else _yr %}"datePublished": "{{ _yr_str }}",
                 {% if _item.get('journal') %}"isPartOf": { "@type": "Periodical", "name": {{ _item['journal'] | tojson }} },
                 {% endif %}{% set _url = _item.get('link') or ('https://doi.org/' ~ _item['doi'] if _item.get('doi') else None) %}{% if _url %}"url": {{ _url | tojson }},
-                {% endif %}{% if _item.get('keywords') %}"keywords": {{ _item['keywords'] | tojson }},
+                {% endif %}{% set _kw = (_item.get('keywords') or []) + (_item.get('topics') or []) + (_item.get('methods') or []) %}{% if _kw %}"keywords": {{ _kw | tojson }},
                 {% endif %}"author": {{ (_item.get('authors') or '') | tojson }}
               }
             }
@@ -56,10 +56,23 @@
     {# ── Collect all E3 items across all sections ──────────────────────────── #}
     {% set all_items = [] %}
     {% for section in structures['publications'] %}
-        {% for item in section['items'][::-1] if item.get('E3') %}
+        {% for item in section['items'] if item.get('E3') %}
             {% set _ = all_items.append(item) %}
         {% endfor %}
     {% endfor %}
+
+    {# Stamp a numeric date sort key on every item so the default order is
+       strict newest-first (year · month), independent of JSON ordering.
+       Year format is "'26"; missing month or year falls back to 0 so
+       under-populated entries sort to the bottom. #}
+    {% set _month_idx = {'Jan.':1,'Feb.':2,'Mar.':3,'Apr.':4,'May':5,'May.':5,'Jun.':6,'Jul.':7,'Aug.':8,'Sep.':9,'Oct.':10,'Nov.':11,'Dec.':12} %}
+    {% for it in all_items %}
+        {% set _yr = it.get('year') or '' %}
+        {% set _yr_int = (_yr[1:] | int(0)) if _yr.startswith("'") else (_yr | int(0)) %}
+        {% set _mo_int = _month_idx.get(it.get('month') or '', 0) %}
+        {% set _ = it.update({'_sortKey': _yr_int * 100 + _mo_int}) %}
+    {% endfor %}
+    {% set all_items = all_items | sort(attribute='_sortKey', reverse=True) | list %}
 
     {# ── Macro: render a single book row ────────────────────────────────────── #}
     {% macro pub_book_row(item) %}
@@ -69,9 +82,9 @@
     {% set _search_blob = (item.title ~ ' ' ~ (item.titleZh or '') ~ ' ' ~ (item.authors or '') ~ ' ' ~ (item.publisher or '')) | lower %}
     {% if item.get('link') %}
     <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener"
-       data-year="{{ item['year'] }}" data-journal="" data-status="books" data-pub-search="{{ _search_blob }}">
+       data-year="{{ item['year'] }}" data-journal="" data-status="books" data-topics="" data-methods="" data-pub-search="{{ _search_blob }}">
     {% else %}
-    <div class="news-row" data-year="{{ item['year'] }}" data-journal="" data-status="books" data-pub-search="{{ _search_blob }}">
+    <div class="news-row" data-year="{{ item['year'] }}" data-journal="" data-status="books" data-topics="" data-methods="" data-pub-search="{{ _search_blob }}">
     {% endif %}
 
         <div class="news-row-date">
@@ -106,13 +119,16 @@
     {% endmacro %}
 
     {# ── Macro: render the meta body shared by every row variant ─────────────
-       Order: status badge · topic tags · title · authors · journal · keywords.
-       Tags sit above the title so a row leads with its topics. #}
+       Order: status badge · topic + method tags · title · authors · journal · keywords.
+       Topics are solid chips, methods are outlined chips. #}
     {% macro pub_row_body(item, status) %}
-        {% if item.get('tags') %}
-        <ul class="pub-row-tags" aria-label="Topics">
-            {% for tag in item['tags'] %}
-            <li class="pub-row-tag">{{ tag }}</li>
+        {% if item.get('topics') or item.get('methods') %}
+        <ul class="pub-row-tags" aria-label="Topics and methods">
+            {% for t in item.get('topics', []) %}
+            <li class="pub-row-tag pub-row-tag--topic">{{ t }}</li>
+            {% endfor %}
+            {% for m in item.get('methods', []) %}
+            <li class="pub-row-tag pub-row-tag--method">{{ m }}</li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -172,9 +188,14 @@
        the two controls do distinct jobs. #}
     {% set _search_blob = (item.title ~ ' ' ~ (item.titleZh or '') ~ ' ' ~ (item.authors or '')) | lower %}
     {% set status_tag = 'forthcoming' if status == 'working' else 'published' %}
+    {# Multi-value tag dimensions stored as comma-delimited, leading/trailing
+       commas so JS membership check is a simple substring match:
+       ",Transport & Mobility,V2G," — never matches a partial token. #}
+    {% set _topics_blob  = (',' ~ (item.get('topics')  | join(',')) ~ ',') if item.get('topics')  else '' %}
+    {% set _methods_blob = (',' ~ (item.get('methods') | join(',')) ~ ',') if item.get('methods') else '' %}
     {% if detail %}
     <div class="news-row news-row--link news-row--stretch"
-         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-topics="{{ _topics_blob }}" data-methods="{{ _methods_blob }}" data-pub-search="{{ _search_blob }}">
         {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
         {% if publisher %}
@@ -187,7 +208,7 @@
     </div>
     {% elif publisher %}
     <a class="news-row news-row--link" href="{{ publisher }}" target="_blank" rel="noopener"
-       data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+       data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-topics="{{ _topics_blob }}" data-methods="{{ _methods_blob }}" data-pub-search="{{ _search_blob }}">
         {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
         <span class="news-row-arrow" aria-hidden="true">
@@ -196,7 +217,7 @@
     </a>
     {% else %}
     <div class="news-row"
-         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-pub-search="{{ _search_blob }}">
+         data-year="{{ item['year'] }}" data-journal="{{ item.journal or '' }}" data-status="{{ status_tag }}" data-topics="{{ _topics_blob }}" data-methods="{{ _methods_blob }}" data-pub-search="{{ _search_blob }}">
         {{ pub_row_date(item, status) }}
         <div class="news-row-body">{{ pub_row_body(item, status) }}</div>
     </div>
@@ -248,18 +269,43 @@
     {% set book_items = all_items | selectattr('type', 'equalto', 'book') | list %}
 
     {# ── Filter bar ─────────────────────────────────────────────────────────
-       Year and Journal lists are derived from the data so they stay in sync
-       as the catalogue grows. Years carry the apostrophe form ("'26") so
-       the data-year attribute matches the chip's value verbatim; journals
-       are sorted alphabetically (case-insensitive). #}
-    {% set years_sorted = all_items | map(attribute='year') | reject('equalto', None) | reject('equalto', '') | unique | list | sort(reverse=True) %}
-    {% set _journals = [] %}
+       Year, Journal, Topic, and Method lists are derived from the data so
+       they stay in sync as the catalogue grows. Each option also carries a
+       per-dimension count (papers that have *this* value, regardless of
+       other active filters) shown right-aligned in the dropdown. #}
+    {% set _year_counts    = {} %}
+    {% set _journal_counts = {} %}
+    {% set _topic_counts   = {} %}
+    {% set _method_counts  = {} %}
+    {% set _status_counts  = {'forthcoming': 0, 'published': 0, 'books': 0} %}
     {% for it in all_items %}
-        {% if it.get('journal') and it['journal'] not in _journals %}
-            {% set _ = _journals.append(it['journal']) %}
+        {% if it.get('type') == 'book' %}
+            {% set _ = _status_counts.update({'books': _status_counts['books'] + 1}) %}
+        {% elif it.get('status') == 'working' %}
+            {% set _ = _status_counts.update({'forthcoming': _status_counts['forthcoming'] + 1}) %}
+        {% elif it.get('status') == 'published' %}
+            {% set _ = _status_counts.update({'published': _status_counts['published'] + 1}) %}
         {% endif %}
+        {% if it.get('year') %}
+            {% set _ = _year_counts.update({it['year']: _year_counts.get(it['year'], 0) + 1}) %}
+        {% endif %}
+        {% if it.get('journal') %}
+            {% set _ = _journal_counts.update({it['journal']: _journal_counts.get(it['journal'], 0) + 1}) %}
+        {% endif %}
+        {% for t in it.get('topics') or [] %}
+            {% set _ = _topic_counts.update({t: _topic_counts.get(t, 0) + 1}) %}
+        {% endfor %}
+        {% for m in it.get('methods') or [] %}
+            {% set _ = _method_counts.update({m: _method_counts.get(m, 0) + 1}) %}
+        {% endfor %}
     {% endfor %}
-    {% set journals_sorted = _journals | sort(case_sensitive=False) %}
+    {% set years_sorted    = _year_counts.keys()    | list | sort(reverse=True) %}
+    {% set journals_sorted = _journal_counts.keys() | list | sort(case_sensitive=False) %}
+    {# Topics + Methods sort by count desc, then alpha — most-used tags
+       surface at the top so the filter feels weighted to what's actually
+       in the catalogue. #}
+    {% set topics_sorted   = _topic_counts  | dictsort(by='value', reverse=True) | map(attribute=0) | list %}
+    {% set methods_sorted  = _method_counts | dictsort(by='value', reverse=True) | map(attribute=0) | list %}
     {# All three dropdowns share the same .pub-filter-trigger + .pub-filter-panel
        recipe so they read as one row of equal-weight multi-select controls.
        Each panel ends with a contextual "Clear …" link that resets only that
@@ -281,7 +327,8 @@
                 {% for yr in years_sorted %}
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-year-input" data-year="{{ yr }}">
-                    <span>20{{ yr[1:] }}</span>
+                    <span class="pub-filter-check-label">20{{ yr[1:] }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _year_counts[yr] }}</span>
                 </label>
                 {% endfor %}
                 <button type="button" class="pub-filter-panel-clear" hidden>Clear year</button>
@@ -304,10 +351,59 @@
                 {% for j in journals_sorted %}
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-journal-input" data-journal="{{ j }}">
-                    <span>{{ j }}</span>
+                    <span class="pub-filter-check-label">{{ j }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _journal_counts[j] }}</span>
                 </label>
                 {% endfor %}
                 <button type="button" class="pub-filter-panel-clear" hidden>Clear journal</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown pub-filter-dropdown--topic" data-dropdown="topics">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="pub-topic-panel">
+                <span class="pub-filter-trigger-label">Topic</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="pub-topic-panel" role="group"
+                 aria-label="Filter publications by topic" hidden>
+                {% for t in topics_sorted %}
+                <label class="pub-filter-check pub-filter-check--topic">
+                    <input type="checkbox" class="pub-filter-topics-input" data-topics="{{ t }}">
+                    <span class="pub-filter-check-label">{{ t }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _topic_counts[t] }}</span>
+                </label>
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear topic</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown pub-filter-dropdown--method" data-dropdown="methods">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="pub-method-panel">
+                <span class="pub-filter-trigger-label">Method</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="pub-method-panel" role="group"
+                 aria-label="Filter publications by method" hidden>
+                {% for m in methods_sorted %}
+                <label class="pub-filter-check pub-filter-check--method">
+                    <input type="checkbox" class="pub-filter-methods-input" data-methods="{{ m }}">
+                    <span class="pub-filter-check-label">{{ m }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _method_counts[m] }}</span>
+                </label>
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear method</button>
             </div>
         </div>
 
@@ -326,15 +422,18 @@
                  aria-label="Filter publications by status" hidden>
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="forthcoming">
-                    <span>In Progress</span>
+                    <span class="pub-filter-check-label">In Progress</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['forthcoming'] }}</span>
                 </label>
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="published">
-                    <span>Published</span>
+                    <span class="pub-filter-check-label">Published</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['published'] }}</span>
                 </label>
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="books">
-                    <span>Books</span>
+                    <span class="pub-filter-check-label">Books</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['books'] }}</span>
                 </label>
                 <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
             </div>
@@ -391,11 +490,21 @@
     var bar = document.querySelector('.pub-filter-bar');
     if (!bar) return;
 
-    /* Generic multi-select driver — every dropdown (year / journal / status)
-       walks the same code path. State per dimension is a Set of selected
-       values; the filter intersection in apply() is symmetric across all
-       three, plus the search query. */
-    var state = { year: new Set(), journal: new Set(), status: new Set(), query: '' };
+    /* Generic multi-select driver — every dropdown (year / journal / status /
+       topics / methods) walks the same code path. State per dimension is a
+       Set of selected values; the filter intersection in apply() is symmetric
+       across all dimensions, plus the search query. Topics and methods are
+       multi-value per row (a paper can carry several), so their membership
+       check uses a substring scan over the comma-delimited data attribute
+       (",Transport & Mobility,V2G,") — see apply(). */
+    var state = {
+        year:     new Set(),
+        journal:  new Set(),
+        status:   new Set(),
+        topics:   new Set(),
+        methods:  new Set(),
+        query:    ''
+    };
     var rows  = Array.prototype.slice.call(document.querySelectorAll('.news-row[data-year]'));
     var groups    = Array.prototype.slice.call(document.querySelectorAll('.publi-group'));
     var showMores = Array.prototype.slice.call(document.querySelectorAll('.publi-show-more'));
@@ -494,8 +603,8 @@
                 } else if (name === 'status') {
                     label.textContent = only.charAt(0).toUpperCase() + only.slice(1);
                 } else {
-                    /* Journal names are long; show a count chip rather than
-                       truncating an actual name into the trigger. */
+                    /* Journal/topic/method names are long; show a count chip
+                       rather than truncating a value into the trigger. */
                     label.textContent = labelText;
                     countTag.hidden = false;
                     countTag.textContent = '1';
@@ -516,6 +625,8 @@
 
     var year    = wireDropdown('year',    'Year');
     var journal = wireDropdown('journal', 'Journal');
+    var topics  = wireDropdown('topics',  'Topic');
+    var methods = wireDropdown('methods', 'Method');
     var status  = wireDropdown('status',  'Status');
 
     /* Outside click + Escape close every panel uniformly. */
@@ -545,6 +656,8 @@
         state.year.clear();
         state.journal.clear();
         state.status.clear();
+        state.topics.clear();
+        state.methods.clear();
         state.query = '';
         dropdowns.forEach(function (d) {
             if (!d) return;
@@ -560,12 +673,27 @@
 
     /* ── Apply + section visibility ───────────────────────────────────── */
     function isFiltering() {
-        return state.year.size > 0
+        return state.year.size    > 0
             || state.journal.size > 0
-            || state.status.size > 0
+            || state.status.size  > 0
+            || state.topics.size  > 0
+            || state.methods.size > 0
             || state.query.length > 0;
     }
     function tokens(q) { return q.split(/\s+/).filter(Boolean); }
+
+    /* For multi-value dimensions (topics, methods) the row carries a
+       comma-padded blob like ",Transport & Mobility,V2G,". OR semantics: a
+       row matches if ANY of its values is in the selected set. */
+    function anyInBlob(set, blob) {
+        if (set.size === 0) return true;
+        if (!blob) return false;
+        var match = false;
+        set.forEach(function (v) {
+            if (blob.indexOf(',' + v + ',') !== -1) match = true;
+        });
+        return match;
+    }
 
     function apply() {
         var ts = tokens(state.query);
@@ -578,6 +706,8 @@
                 (state.year.size    === 0 || state.year.has(d.year)) &&
                 (state.journal.size === 0 || state.journal.has(d.journal)) &&
                 (state.status.size  === 0 || state.status.has(d.status)) &&
+                anyInBlob(state.topics,  d.topics) &&
+                anyInBlob(state.methods, d.methods) &&
                 (ts.length === 0 || ts.every(function (t) { return (d.pubSearch || '').indexOf(t) !== -1; }));
             row.hidden = !ok;
             var wrap = row.closest('.publi-extra-item');
@@ -611,6 +741,8 @@
 
         if (year)    year.update();
         if (journal) journal.update();
+        if (topics)  topics.update();
+        if (methods) methods.update();
         if (status)  status.update();
     }
 
@@ -619,6 +751,8 @@
         var parts = [];
         if (state.year.size > 0)    parts.push('year='    + Array.from(state.year).map(toHashYear).join(','));
         if (state.journal.size > 0) parts.push('journal=' + Array.from(state.journal).map(encodeURIComponent).join(','));
+        if (state.topics.size > 0)  parts.push('topic='   + Array.from(state.topics).map(encodeURIComponent).join(','));
+        if (state.methods.size > 0) parts.push('method='  + Array.from(state.methods).map(encodeURIComponent).join(','));
         if (state.status.size > 0)  parts.push('status='  + Array.from(state.status).join(','));
         if (state.query)            parts.push('q='       + encodeURIComponent(state.query));
         var hash = parts.length ? '#' + parts.join('&') : '';
@@ -653,6 +787,20 @@
                 v.split(',').forEach(function (s) {
                     state.status.add(s);
                     var cb = bar.querySelector('.pub-filter-status-input[data-status="' + s + '"]');
+                    if (cb) cb.checked = true;
+                });
+            } else if (k === 'topic') {
+                v.split(',').forEach(function (t) {
+                    var dec = decodeURIComponent(t);
+                    state.topics.add(dec);
+                    var cb = bar.querySelector('.pub-filter-topics-input[data-topics="' + dec.replace(/"/g, '\\"') + '"]');
+                    if (cb) cb.checked = true;
+                });
+            } else if (k === 'method') {
+                v.split(',').forEach(function (m) {
+                    var dec = decodeURIComponent(m);
+                    state.methods.add(dec);
+                    var cb = bar.querySelector('.pub-filter-methods-input[data-methods="' + dec.replace(/"/g, '\\"') + '"]');
                     if (cb) cb.checked = true;
                 });
             } else if (k === 'q') {

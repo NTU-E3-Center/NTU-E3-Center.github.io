@@ -7,7 +7,7 @@
     <title>{{ _short_title }} | E3 Center</title>
     {% set _meta_desc = seo_meta_description(pub.get('abstract'), pub['title'] ~ ' — ' ~ pub.get('journal', '') ~ ', E3 Center, NTU.') %}
     <meta name="description" content="{{ _meta_desc }}">
-    {% set _kw = (pub.get('tags') or []) + [pub.get('journal', ''), 'E3 Center', 'publication', 'sustainable energy', 'NTU', '台大', 'I-Yun Lisa Hsieh', '謝依芸'] %}
+    {% set _kw = (pub.get('topics') or []) + (pub.get('methods') or []) + [pub.get('journal', ''), 'E3 Center', 'publication', 'sustainable energy', 'NTU', '台大', 'I-Yun Lisa Hsieh', '謝依芸'] %}
     <meta name="keywords" content="{{ _kw | select | list | join(', ') }}">
 
     <link rel="canonical" href="https://e3center.caece.net{{ pub['pageLink'] }}" />
@@ -53,8 +53,8 @@
 
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=17">
-    <link rel="stylesheet" href="/css/subpage.css?v=43">
-    <link rel="stylesheet" href="/css/publication-item.css?v=6">
+    <link rel="stylesheet" href="/css/subpage.css?v=45">
+    <link rel="stylesheet" href="/css/publication-item.css?v=8">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -128,10 +128,13 @@
         <article class="pub-item-article">
 
             <header class="pub-item-header">
-                {% if pub.get('tags') %}
-                <ul class="pub-item-tags" aria-label="Topics">
-                    {% for tag in pub['tags'] %}
-                    <li class="pub-tag-chip">{{ tag }}</li>
+                {% if pub.get('topics') or pub.get('methods') %}
+                <ul class="pub-item-tags" aria-label="Topics and methods">
+                    {% for t in pub.get('topics', []) %}
+                    <li class="pub-tag-chip pub-tag-chip--topic">{{ t }}</li>
+                    {% endfor %}
+                    {% for m in pub.get('methods', []) %}
+                    <li class="pub-tag-chip pub-tag-chip--method">{{ m }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
