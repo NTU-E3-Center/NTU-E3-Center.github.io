@@ -171,7 +171,7 @@
             <span class="news-row-mm">{{ item['month'] }}</span>
             <span class="news-row-yy">20{{ item['year'][1:] }}</span>
             {% else %}
-            <span class="pub-status-badge" data-status="{{ status }}">In Progress</span>
+            <span class="pub-status-badge" data-status="{{ status }}">Manuscript</span>
             {% endif %}
         </div>
     {% endmacro %}
@@ -411,7 +411,7 @@
             <button class="pub-filter-trigger" type="button"
                     aria-haspopup="true" aria-expanded="false"
                     aria-controls="pub-status-panel">
-                <span class="pub-filter-trigger-label">Status</span>
+                <span class="pub-filter-trigger-label">Type</span>
                 <span class="pub-filter-trigger-count" hidden></span>
                 <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
                     <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
@@ -419,23 +419,23 @@
                 </svg>
             </button>
             <div class="pub-filter-panel" id="pub-status-panel" role="group"
-                 aria-label="Filter publications by status" hidden>
-                <label class="pub-filter-check">
-                    <input type="checkbox" class="pub-filter-status-input" data-status="forthcoming">
-                    <span class="pub-filter-check-label">In Progress</span>
-                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['forthcoming'] }}</span>
-                </label>
+                 aria-label="Filter publications by type" hidden>
                 <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="published">
-                    <span class="pub-filter-check-label">Published</span>
+                    <span class="pub-filter-check-label">Publication</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['published'] }}</span>
                 </label>
                 <label class="pub-filter-check">
+                    <input type="checkbox" class="pub-filter-status-input" data-status="forthcoming">
+                    <span class="pub-filter-check-label">Manuscript</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['forthcoming'] }}</span>
+                </label>
+                <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="books">
-                    <span class="pub-filter-check-label">Books</span>
+                    <span class="pub-filter-check-label">Book</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['books'] }}</span>
                 </label>
-                <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear type</button>
             </div>
         </div>
 
@@ -601,7 +601,7 @@
                 if (name === 'year') {
                     label.textContent = '20' + toHashYear(only);
                 } else if (name === 'status') {
-                    label.textContent = only.charAt(0).toUpperCase() + only.slice(1);
+                    label.textContent = STATUS_LABELS[only] || only;
                 } else {
                     /* Journal/topic/method names are long; show a count chip
                        rather than truncating a value into the trigger. */
@@ -627,7 +627,12 @@
     var journal = wireDropdown('journal', 'Journal');
     var topics  = wireDropdown('topics',  'Topic');
     var methods = wireDropdown('methods', 'Method');
-    var status  = wireDropdown('status',  'Status');
+    var status  = wireDropdown('status',  'Type');
+
+    /* Visible labels for internal status values (data-status). The internal
+       names stay (data-status="forthcoming") for URL-hash and dataset
+       stability; only the user-facing labels change. */
+    var STATUS_LABELS = { 'forthcoming': 'Manuscript', 'published': 'Publication', 'books': 'Book' };
 
     /* Outside click + Escape close every panel uniformly. */
     document.addEventListener('click', function (e) {
@@ -695,6 +700,59 @@
         return match;
     }
 
+    /* Faceted-search cross-filter: returns true if the row would match all
+       active filters EXCEPT the named dimension. Used to compute "how many
+       rows would this option add if I selected it" for every dimension
+       independently — standard Algolia / Booking.com pattern. */
+    function rowMatchesExcept(row, excludeDim, tokensList) {
+        var d = row.dataset;
+        if (excludeDim !== 'year'    && state.year.size    > 0 && !state.year.has(d.year))       return false;
+        if (excludeDim !== 'journal' && state.journal.size > 0 && !state.journal.has(d.journal)) return false;
+        if (excludeDim !== 'status'  && state.status.size  > 0 && !state.status.has(d.status))   return false;
+        if (excludeDim !== 'topics'  && !anyInBlob(state.topics,  d.topics))                     return false;
+        if (excludeDim !== 'methods' && !anyInBlob(state.methods, d.methods))                    return false;
+        if (tokensList.length > 0 && !tokensList.every(function (t) { return (d.pubSearch || '').indexOf(t) !== -1; })) return false;
+        return true;
+    }
+
+    /* For each dropdown, recompute the count beside every option (under
+       the OTHER active filters) and hide options whose count drops to 0 —
+       unless the option is currently selected (a selected option must
+       never vanish under the user). */
+    function recomputeOptionCounts() {
+        var ts = tokens(state.query);
+        dropdowns.forEach(function (api) {
+            if (!api) return;
+            var dim = api.name;
+            var counts = {};
+            rows.forEach(function (row) {
+                if (!rowMatchesExcept(row, dim, ts)) return;
+                var d = row.dataset;
+                if (dim === 'topics' || dim === 'methods') {
+                    var blob = d[dim];
+                    if (blob && blob.length > 2) {
+                        blob.slice(1, -1).split(',').forEach(function (v) {
+                            if (v) counts[v] = (counts[v] || 0) + 1;
+                        });
+                    }
+                } else {
+                    var v = d[dim];
+                    if (v) counts[v] = (counts[v] || 0) + 1;
+                }
+            });
+            api.checks.forEach(function (input) {
+                var val = input.dataset[dim];
+                var n = counts[val] || 0;
+                var labelEl = input.closest('.pub-filter-check');
+                if (!labelEl) return;
+                var countSpan = labelEl.querySelector('.pub-filter-check-count');
+                if (countSpan) countSpan.textContent = String(n);
+                /* Suppress (fade + collapse) when no matches AND not selected. */
+                labelEl.classList.toggle('is-suppressed', n === 0 && !input.checked);
+            });
+        });
+    }
+
     function apply() {
         var ts = tokens(state.query);
         var filtering = isFiltering();
@@ -744,6 +802,9 @@
         if (topics)  topics.update();
         if (methods) methods.update();
         if (status)  status.update();
+
+        /* Cross-filter dropdowns: live counts + hide-when-empty. */
+        recomputeOptionCounts();
     }
 
     /* ── URL hash sync ────────────────────────────────────────────────── */
