@@ -1111,7 +1111,10 @@
     }
 }
 
-/* Topic tags — sit above the title, leading the row. */
+/* Topic + method tags — sit above the title, leading the row.
+   Both are solid chips, distinguished by hue: topics are sky-blue
+   (--main-color-2), methods are accent-green (--r-green). Hue carries
+   the meaning so chips stay visually equal-weight on the row. */
 .pub-row-tags {
     list-style: none;
     margin: 0 0 0.4rem;
@@ -1131,6 +1134,11 @@
     border-radius: 2rem;
     color: var(--main-color-2);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+}
+
+.pub-row-tag--method {
+    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
+    background: color-mix(in srgb, var(--r-green) 14%, transparent);
 }
 
 /* Phone: collapse the publisher button to an icon. */
@@ -1861,6 +1869,7 @@
     margin: 0;
     accent-color: var(--main-color);
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .pub-filter-check:has(input:checked) {
@@ -1868,18 +1877,68 @@
     font-weight: 600;
 }
 
-/* Journal panel is wider (journal names are long) and scrollable when
-   the catalogue grows past the comfortable visible count. */
-.pub-filter-dropdown--journal .pub-filter-panel {
+/* Label takes remaining width so the count chip sits flush right. */
+.pub-filter-check-label {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Per-option count — right-aligned, muted, tabular numerals so the
+   column reads as a tidy ledger when the panel is open. */
+.pub-filter-check-count {
+    flex-shrink: 0;
+    margin-inline-start: 0.5rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--main-color) 8%, transparent);
+    color: color-mix(in srgb, var(--main-color) 70%, transparent);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+}
+
+/* When a row is checked, lift the count chip's contrast to mirror the
+   bolder label. */
+.pub-filter-check:has(input:checked) .pub-filter-check-count {
+    background: color-mix(in srgb, var(--main-color) 14%, transparent);
+    color: var(--main-color);
+}
+
+/* Journal / Topic / Method panels are wider (long values) and scrollable
+   when the list outgrows a comfortable visible count. */
+.pub-filter-dropdown--journal .pub-filter-panel,
+.pub-filter-dropdown--topic   .pub-filter-panel,
+.pub-filter-dropdown--method  .pub-filter-panel {
     min-width: 18rem;
     max-width: min(28rem, calc(100vw - 2rem));
     max-height: 22rem;
     overflow-y: auto;
 }
 
-.pub-filter-dropdown--journal .pub-filter-check span {
+.pub-filter-dropdown--journal .pub-filter-check .pub-filter-check-label,
+.pub-filter-dropdown--topic   .pub-filter-check .pub-filter-check-label,
+.pub-filter-dropdown--method  .pub-filter-check .pub-filter-check-label {
     white-space: normal;
     line-height: 1.35;
+}
+
+/* Topic / method options carry a small color swatch so the dropdown
+   ties visually back to the chip color used on each row. */
+.pub-filter-check--topic .pub-filter-check-label::before,
+.pub-filter-check--method .pub-filter-check-label::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-inline-end: 0.5rem;
+    border-radius: 50%;
+    vertical-align: 0.05em;
+    background: var(--main-color-2);
+}
+
+.pub-filter-check--method .pub-filter-check-label::before {
+    background: var(--r-green);
 }
 
 /* In-panel "Clear …" link — sits at the bottom of each dropdown panel,

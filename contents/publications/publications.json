@@ -10,7 +10,9 @@
                 "publisher": "Yi Pin Publishing (一品出版社)",
                 "year": "'25",
                 "isbn": "9786269995202",
-                "E3": true
+                "E3": true,
+                "topics": [],
+                "methods": []
             }
         ]
     },
@@ -34,9 +36,11 @@
                 "E3": true,
                 "slug": "2022-tw-power-sector-carbon-intensity",
                 "shortTitle": "TW Power Sector Carbon Intensity",
-                "tags": [
-                    "Decarbonization",
-                    "Energy Systems"
+                "topics": [
+                    "Power Sector & Grid"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
                 ],
                 "keywords": [
                     "Electric Power System",
@@ -90,13 +94,36 @@
                 "E3": true,
                 "slug": "2022-taiwan-energy-flow-sankey",
                 "shortTitle": "Taiwan Energy Flow Sankey",
-                "tags": ["Energy Systems", "Decarbonization", "Renewable Energy"],
-                "keywords": ["Energy Flow Analysis", "Sankey Diagram", "2050 Net-Zero Policy", "Renewable Energy"],
+                "topics": [
+                    "Power Sector & Grid",
+                    "Renewable Energy"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Energy Flow Analysis",
+                    "Sankey Diagram",
+                    "2050 Net-Zero Policy",
+                    "Renewable Energy"
+                ],
                 "authorList": [
-                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
-                    {"name": "Ting-Ling Chien", "webId": ""},
-                    {"name": "Hsin-Yun Tsai", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Kai-Yun Lo",
+                        "webId": "kaiyunlo"
+                    },
+                    {
+                        "name": "Ting-Ling Chien",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Hsin-Yun Tsai",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "To fight against climate change, Taiwan has recently published \"Taiwan's Pathway to Net-Zero Emissions in 2050\", which provided practical action plans for achieving the long-term reduction targets. Great impacts are anticipated during the transition toward a net-zero future. Understanding energy flows from resources to end users is essential for reducing the carbon footprint. Therefore, this study traces the energy flows throughout Taiwan's economy in 2020 using Sankey diagrams, mainly based on the Energy Balance Sheet. Three main energy stages are identified and well examined: primary energy supply, energy transformation, and energy consumption. Moreover, this study explores the potential energy flow impacts of the 2050 net-zero policy, focusing on the impacts of decarbonizing electricity generation and electrifying on-road vehicles. From now to 2050, the power sector will gradually shift to renewable-dominated systems, and the electricity consumption in the road transport sector will increase to nearly 18%. The Sankey diagrams of energy flow established in this paper serve as a valuable tool in sustainable development and energy management, contributing academic and practical insights to the ongoing net-zero transition.",
                 "journalZh": "臺灣能源期刊"
@@ -117,12 +144,34 @@
                 "E3": true,
                 "slug": "2023-vehicle-fleet-electrification-scooters",
                 "shortTitle": "Scooter Fleet Electrification & Net-Zero",
-                "tags": ["Transport", "Decarbonization"],
-                "keywords": ["Net-zero emissions", "Vehicle fleet model", "Two-wheelers", "Bootstrap confidence interval", "Life-cycle analysis", "Road transport electrification"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Net-zero emissions",
+                    "Vehicle fleet model",
+                    "Two-wheelers",
+                    "Bootstrap confidence interval",
+                    "Life-cycle analysis",
+                    "Road transport electrification"
+                ],
                 "authorList": [
-                    {"name": "Chia-Yu Tsai", "webId": "chiayutsai"},
-                    {"name": "Tsung-Heng Chang", "webId": "tsunghengchang"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Chia-Yu Tsai",
+                        "webId": "chiayutsai"
+                    },
+                    {
+                        "name": "Tsung-Heng Chang",
+                        "webId": "tsunghengchang"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Vehicle electrification is recognized as a pathway toward net-zero emissions. However, it is unclear if the existing timeline for banning internal combustion engines is sufficient to meet the climate goal, especially for the regions where two-wheelers dominate road transport. We develop a novel bootstrap-based modeling framework to examine fleet turnover and future greenhouse gas emissions during the decarbonization transformations. With the highest scooter density globally, Taiwan is selected as a case study. The model thoroughly captures the key road characteristics, including an inverse U-shaped relationship between scooter ownership and income. Under Taiwan's 2050 Net-Zero Pathway, transitioning to electric vehicles (EVs) will bring significant climate benefits but still fall short of the target. While the growing EV adoption shifts the carbon burden from transport to the power generation sector, these increased upstream emissions will eventually be counterbalanced by clean grid development following the power sector roadmap by 2050."
             },
@@ -142,12 +191,33 @@
                 "E3": true,
                 "slug": "2023-electrifying-scooters-taiwan",
                 "shortTitle": "Electrifying Scooters in Taiwan",
-                "tags": ["Transport", "Decarbonization"],
-                "keywords": ["Electric scooters", "Lifecycle assessment", "Total cost of ownership", "Battery swapping", "Net-zero emissions"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Electric scooters",
+                    "Lifecycle assessment",
+                    "Total cost of ownership",
+                    "Battery swapping",
+                    "Net-zero emissions"
+                ],
                 "authorList": [
-                    {"name": "Yuan-Hsi Chien", "webId": "yuanhsichien"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"},
-                    {"name": "Tsung-Heng Chang", "webId": "tsunghengchang"}
+                    {
+                        "name": "Yuan-Hsi Chien",
+                        "webId": "yuanhsichien"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Tsung-Heng Chang",
+                        "webId": "tsunghengchang"
+                    }
                 ],
                 "abstract": "Electrification is considered a key enabler for decarbonizing road transportation. Recently, increasing attention has been directed to the deployment of electric two-wheelers in cities across the globe. However, climate change mitigation potential across the diversity of today's available scooter models is still missing in the existing literature. With a focus on Taiwan—the world's highest density of scooters—we comprehensively examine the performances of 156 scooter models on the market to understand the potential cost and carbon trade-offs among two-wheeler purchase options. We find that such a trade-off does exist when choosing scooters with different powertrain technologies. Compared to gasoline scooters, low-carbon-emitting electric scooters are more costly to own but not necessarily more expensive to purchase—because battery-swapping techniques convert the capital cost of the battery itself into an operating expense. Surprisingly, all the Phase 7 emissions standard internal combustion engine scooters appear to meet the near-term climate goal for 2030 in Taiwan, providing a less-costly transition from liquid fuels to electrification. While all the e-scooters supplied with the current electric power meet the 2040 emissions reduction target, deep decarbonization of electricity generation is also required, along with a large-scale adoption (at least 90%) of electric scooters to achieve net-zero emissions by 2050."
             },
@@ -167,9 +237,13 @@
                 "E3": true,
                 "slug": "2023-ev-charging-solar-penetration",
                 "shortTitle": "EV Charging & Solar Penetration",
-                "tags": [
-                    "Decarbonization",
-                    "Transport"
+                "topics": [
+                    "Transport & Mobility",
+                    "Power Sector & Grid",
+                    "Air Pollution & Health"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
                 ],
                 "keywords": [
                     "Electric buses",
@@ -207,11 +281,28 @@
                 "E3": true,
                 "slug": "2023-rooftop-solar-incentive",
                 "shortTitle": "Rooftop Solar Incentive Design",
-                "tags": ["Renewable Energy", "Energy Systems"],
-                "keywords": ["Net-zero emissions", "Illegal rooftop dwelling", "Rooftop solar power", "Incentive scheme", "Supply curve"],
+                "topics": [
+                    "Renewable Energy"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Net-zero emissions",
+                    "Illegal rooftop dwelling",
+                    "Rooftop solar power",
+                    "Incentive scheme",
+                    "Supply curve"
+                ],
                 "authorList": [
-                    {"name": "Yu-Jui Chang", "webId": "yujuichang"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Yu-Jui Chang",
+                        "webId": "yujuichang"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Renewable energy plays a crucial role in achieving net-zero emissions. As an island with a high population density, Taiwan has increasingly favored rooftop solar photovoltaic (PV) systems over ground-mounted installations due to land-use competition. However, illegal rooftop dwellings in urban areas pose significant obstacles to renewable energy deployment. This study proposes a market-based incentive scheme for rooftop solar adoption to encourage property owners to shift away from illegal rooftop dwellings. We construct market supply curves for illegal rooftop rental housing based on real-world rental data and conduct a techno-economic analysis to examine the required government subsidy. The results provide empirical evidence for an important nonlinearity in the supply curves, implying that linearity-based policy frameworks may not be effective in achieving optimal results. We also identify that opportunity costs linked to rental loss constitute a substantial portion of total costs, deterring the owners from adopting the shift. The findings indicate that the existing feed-in-tariff policy is inadequate to incentivize property owners to deploy rooftop solar panels. The proposed scheme embraces the three dimensions of sustainable development—economic, social, and environmental, which could benefit cities worldwide with illegal rooftop structures."
             },
@@ -231,11 +322,31 @@
                 "E3": true,
                 "slug": "2023-lithium-ion-battery-carbon-footprint",
                 "shortTitle": "Lithium-Ion Battery Price & Carbon",
-                "tags": ["Transport", "Energy Systems", "Decarbonization"],
-                "keywords": ["Lithium-ion battery", "Techno-economic analysis", "Learning curve model", "Life cycle assessment", "Carbon footprint", "Carbon price"],
+                "topics": [
+                    "Battery & Energy Storage",
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Lithium-ion battery",
+                    "Techno-economic analysis",
+                    "Learning curve model",
+                    "Life cycle assessment",
+                    "Carbon footprint",
+                    "Carbon price"
+                ],
                 "authorList": [
-                    {"name": "Wei-Hsuan Chen", "webId": "weihsuanchen"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Wei-Hsuan Chen",
+                        "webId": "weihsuanchen"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Lithium-ion batteries (LIBs) play a crucial role in driving energy transitions, particularly in electric vehicles (EVs) and energy storage systems. Forecasting LIB prices has received significant attention due to the tightening of raw material markets. Additionally, the implementation of carbon pricing policies has highlighted the need to incorporate the carbon footprint in LIB price evaluation. This study presents a comprehensive analysis of the carbon footprint, pricing trajectories, and forthcoming carbon pricing ramifications associated with LIBs. Firstly, the findings derived from the life-cycle carbon footprint assessment indicate that the global production volume-weighted average carbon footprint of EV battery packs spans 49.2–81.1 kgCO2eq/kWh, depending on the chosen end-of-life treatment. Strategic end-of-life selections, aligned with battery chemical composition, can diminish the carbon footprint by up to 46% relative to improper disposal methods. Notably, direct cathode recycling of NCA and NMC622 batteries exhibits superior environmental performance. Secondly, techno-economic analysis predicts that the mean price of EV battery packs with diverse chemical compositions will decline to $75.1/kWh by 2030, factoring in the compound annual growth rate of critical raw material prices over the past decade. LFP batteries emerge as the top economic performers. Lastly, the results reveal that monetizing a battery's carbon footprint may offset battery price reductions through learning effects. This underscores the imperative of effective recycling for curtailing the carbon footprint and ensuring the enduring economic and environmental competitiveness of LIBs."
             },
@@ -255,12 +366,35 @@
                 "E3": true,
                 "slug": "2023-v2b-nearly-zero-energy-buildings",
                 "shortTitle": "V2B Strategy for Nearly Zero-Energy Buildings",
-                "tags": ["Renewable Energy", "Transport", "Decarbonization"],
-                "keywords": ["Vehicle-to-building", "Smart energy management system", "Electric vehicles", "Carbon emissions", "Economic analysis", "Peak shaving", "Nearly-zero energy buildings"],
+                "topics": [
+                    "V2G / V2B Integration",
+                    "Buildings & Smart Energy"
+                ],
+                "methods": [
+                    "Optimization"
+                ],
+                "keywords": [
+                    "Vehicle-to-building",
+                    "Smart energy management system",
+                    "Electric vehicles",
+                    "Carbon emissions",
+                    "Economic analysis",
+                    "Peak shaving",
+                    "Nearly-zero energy buildings"
+                ],
                 "authorList": [
-                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
-                    {"name": "Jian Hern Yeoh", "webId": "jianhernyeoh"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Kai-Yun Lo",
+                        "webId": "kaiyunlo"
+                    },
+                    {
+                        "name": "Jian Hern Yeoh",
+                        "webId": "jianhernyeoh"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "As countries worldwide strive for net-zero emissions, electric vehicles (EVs) have gained significant momentum. EVs, particularly through Vehicle-to-Everything (V2X) technology, including Vehicle-to-Building (V2B), are recognized as key enablers for achieving nearly-zero energy buildings (NZEB). This research presents an advanced Smart Energy Management System (SEMS) with a novel V2B strategy, offering precise one-hour resolution to reduce grid reliance and optimize peak load management. The SEMS coordinates building energy and EV charging while harnessing the potential of renewable energy resources and battery storage systems. By carefully scheduling EV charging and discharging activities, it maximizes the efficient use of available energy resources. Importantly, the algorithm integrates real-world EV parking patterns, accounting for factors such as fleet composition, parking durations, and charging priorities. Economic evaluation encompasses not only direct EV battery degradation costs but also external expenses associated with environmental impacts. Simulation outcomes underscore a remarkable reduction in building grid power demand (65%) and a substantial decrease in carbon emissions (64%). The PV+V2B Scenario emerges as the preferred choice, striking an optimal balance between initial investment costs, energy savings, and carbon footprint reductions. This study holds great academic and practical significance, contributing to the advancement of smart, sustainable, and economically viable net-zero cities."
             },
@@ -280,12 +414,33 @@
                 "E3": true,
                 "slug": "2023-sparse-trip-demand-e-scooter",
                 "shortTitle": "Sparse Trip Demand Prediction for E-Scooters",
-                "tags": ["Transport", "AI & Machine Learning"],
-                "keywords": ["Shared electric scooter (E-scooter)", "Sparse trip demand prediction", "Spatio-temporal graph neural networks", "Built environments", "Weather conditions", "Periodic features"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "AI & Machine Learning"
+                ],
+                "keywords": [
+                    "Shared electric scooter (E-scooter)",
+                    "Sparse trip demand prediction",
+                    "Spatio-temporal graph neural networks",
+                    "Built environments",
+                    "Weather conditions",
+                    "Periodic features"
+                ],
                 "authorList": [
-                    {"name": "Jia-Cherng Song", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"},
-                    {"name": "Chuin-Shan Chen", "webId": ""}
+                    {
+                        "name": "Jia-Cherng Song",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Chuin-Shan Chen",
+                        "webId": ""
+                    }
                 ],
                 "abstract": "The shared electric scooter (E-scooter) is an emerging micro-mobility mode in sustainable cities. Accurate hourly trip demand prediction is critical for effective service maintenance, but it poses a challenge due to the dynamic distribution influenced by urban complexity. We propose a model, the Sparse Diffusion Convolutional Gated Recurrent Unit (SpDCGRU), which incorporates diffusion convolution layers into the gated recurrent unit (GRU) model, enabling the simultaneous capture of spatio-temporal dependencies. Tackling the data in Louisville, Kentucky, USA, we demonstrate that spatial data reclustering and fusion loss training strategies contribute to the prediction performance. Moreover, the periodic and weather features positively impact predicting the low and high trip demand levels, respectively. Our model outperforms others in terms of overall performance and each trip demand level, with a 4.75% improvement in the mean absolute error (MAE) compared to the graph convolutional recurrent network (GCRN)."
             },
@@ -307,11 +462,30 @@
                 "E3": true,
                 "slug": "2023-ntu-fleet-electrification",
                 "shortTitle": "NTU Fleet Electrification: TCO & LCA",
-                "tags": ["Transport", "Decarbonization", "Air Pollution"],
-                "keywords": ["Carbon-neutral campus", "Total cost of ownership", "Electric vehicle", "Life cycle assessment", "Air pollutant"],
+                "topics": [
+                    "Transport & Mobility",
+                    "Air Pollution & Health"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Carbon-neutral campus",
+                    "Total cost of ownership",
+                    "Electric vehicle",
+                    "Life cycle assessment",
+                    "Air pollutant"
+                ],
                 "authorList": [
-                    {"name": "Han-Sheng Huang", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Han-Sheng Huang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "In June 2020, National Taiwan University released its first University Social Responsibility Report, detailing all the campus-wide efforts on sustainable developments—including its commitment to become Carbon-Neutral Campus by 2048. Vehicle electrification is believed to be an important action to achieve the climate goal. It is of timely importance to have an evaluation framework for exploring the potential tradeoffs between environmental and economic aspects involved in the near-term evolution. In the economic aspect, the total cost of ownership (TCO) analysis results highlight the importance of government subsidies and lower battery costs for electric vehicle fleets to achieve TCO parity with their fuel-powered counterparts. In the environmental aspect, the life-cycle assessment (LCA), derived from the GREET-Taiwan model (greenhouse gases, regulated emissions, and energy use in transportation), suggests that while fleet electrification could reduce life-cycle energy use and carbon emissions, it will cause more air pollution by creating much more sulfur oxide (SOx) emissions on the basis of per km—owing to the low vehicle use intensity of university fleets.",
                 "journalZh": "運輸學刊"
@@ -332,12 +506,32 @@
                 "E3": true,
                 "slug": "2024-distributional-effects-carbon-pricing",
                 "shortTitle": "Distributional Effects of Carbon Pricing",
-                "tags": ["Carbon Pricing", "Just Transition"],
-                "keywords": ["Carbon pricing", "Distributional effects", "Just transition", "Input-output modeling", "Regressivity"],
+                "topics": [
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Input-Output Modeling"
+                ],
+                "keywords": [
+                    "Carbon pricing",
+                    "Distributional effects",
+                    "Just transition",
+                    "Input-output modeling",
+                    "Regressivity"
+                ],
                 "authorList": [
-                    {"name": "Cheng-Hsiang Shei", "webId": "chenghsiangshei"},
-                    {"name": "John Chung-En Liu", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Cheng-Hsiang Shei",
+                        "webId": "chenghsiangshei"
+                    },
+                    {
+                        "name": "John Chung-En Liu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "As nations strive for a just transition to net-zero carbon emissions, the equitable distribution of carbon pricing's impact is of fundamental importance. Carbon pricing, a strategy recognized for its potentially regressive nature, tends to disproportionately burden lower-income households compared to wealthier counterparts. This study examined how the choice of income or expenditure as metrics for assessing carbon burdens and ranking household economic status influences these distributional effects. Our research, employing input-output models and the Taiwan 2021 Survey of Family Income and Expenditure, compared these two metrics. The findings revealed that income-based assessments would amplify the regressive impact of carbon pricing. Conversely, using expenditure as the base for carbon burden exhibited markedly reduced regressive effects. Moreover, the study highlighted the role of employment structures in determining the equity of ranking households by income or expenditure. The stability of distributional outcomes, when employing expenditure as the assessment base, suggested its superiority as a metric unaffected by ranking methodologies. Additionally, our analysis indicated that including gasoline in carbon pricing policies could counteract the regressive nature of such policies. This aligned with a just transition by potentially distributing the burden more evenly across socio-economic groups. By providing insights into the distributional effects of carbon pricing, this study contributed to the global pursuit of net-zero emissions while adhering to the principles of social equity and justice."
             },
@@ -358,13 +552,38 @@
                 "E3": true,
                 "slug": "2024-hydrogen-fuel-cells-road-transport",
                 "shortTitle": "Hydrogen Fuel Cells for Road Transport",
-                "tags": ["Transport", "Decarbonization", "Renewable Energy"],
-                "keywords": ["Life cycle assessment", "Hydrogen fuel cell vehicles", "Vehicle fleet dynamics", "Electrification strategies", "Greenhouse gas emissions"],
+                "topics": [
+                    "Transport & Mobility",
+                    "Hydrogen Economy"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Life cycle assessment",
+                    "Hydrogen fuel cell vehicles",
+                    "Vehicle fleet dynamics",
+                    "Electrification strategies",
+                    "Greenhouse gas emissions"
+                ],
                 "authorList": [
-                    {"name": "Wei-Hsuan Chen", "webId": "weihsuanchen"},
-                    {"name": "Ian Chen", "webId": ""},
-                    {"name": "Jo-Chen Meg Lin", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Wei-Hsuan Chen",
+                        "webId": "weihsuanchen"
+                    },
+                    {
+                        "name": "Ian Chen",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Jo-Chen Meg Lin",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "This study assesses the integration of hydrogen fuel cell vehicles (FCVs) with battery electric vehicles (BEVs) to support Taiwan's 2050 net-zero emissions goal. Using life cycle assessments and vehicle fleet modeling, we analyze hydrogen production pathways and forecast greenhouse gas (GHG) emissions across Taiwan's on-road vehicle fleet. Despite the BEV-FCV integration scenario, we project that the road transport sector could still emit 7.83 million tonnes of GHGs by 2050—145% above the government's target. Significant challenges include inadequate policies for electrifying heavy-duty vehicles, expected to contribute 50.4% of direct emissions in 2050, and the delayed phase-out of inefficient light-duty vehicles. Transitioning heavy-duty vehicles to zero-emission alternatives could reduce emissions by around 3.95 million tonnes. Our findings highlight the essential role of FCVs and robust hydrogen technologies in achieving sustainable transport, emphasizing the need for comprehensive electrification strategies."
             },
@@ -384,11 +603,31 @@
                 "E3": true,
                 "slug": "2024-hydrogen-storage-renewable-deployment",
                 "shortTitle": "Hydrogen Storage for Renewables",
-                "tags": ["Renewable Energy", "Energy Systems", "Decarbonization"],
-                "keywords": ["Net-zero transition", "Decarbonized power system", "Hydrogen energy storage", "Renewable energy", "Levelized cost of energy"],
+                "topics": [
+                    "Hydrogen Economy",
+                    "Battery & Energy Storage",
+                    "Renewable Energy"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis",
+                    "Optimization"
+                ],
+                "keywords": [
+                    "Net-zero transition",
+                    "Decarbonized power system",
+                    "Hydrogen energy storage",
+                    "Renewable energy",
+                    "Levelized cost of energy"
+                ],
                 "authorList": [
-                    {"name": "Yuan-Shin Fu", "webId": "yuanshinfu"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Yuan-Shin Fu",
+                        "webId": "yuanshinfu"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Renewable energy (RE) is pivotal for achieving a net-zero future, with energy storage systems essential for maximizing its utility. This study introduces a modeling framework that simulates large-scale RE deployment in Taiwan, emphasizing hydrogen as a primary storage medium. Utilizing hourly time steps, the model assesses various energy generation and storage configurations to demonstrate the technical feasibility of meeting Taiwan's 2050 net-zero target, which calls for a 60 % RE share primarily through solar and wind resources. However, achieving this target and the ambitious goal of 100 % RE penetration requires substantial enhancements in both generation capacity and storage solutions. The research evaluates the economic impacts by analyzing the levelized cost of energy (LCOE), revealing that optimal configurations, such as a wind capacity of 30 GW with a 5 % minimum capacity factor constraint on electrolyzers, significantly reduce LCOE to $0.176/kWh, underscoring the cost-effectiveness of hydrogen storage compared to battery alternatives in large-scale settings. The study underscores the necessity for ongoing investigations into replacing thermal power plants and maintaining grid stability amidst high RE penetration. To fully harness Taiwan's RE potential and contribute to global sustainability, effective deployment of hydrogen storage will require robust stakeholder support, continual technological advancements, and enabling policies. This framework, while tailored to Taiwan's power system, offers insights applicable to various global contexts."
             },
@@ -408,9 +647,12 @@
                 "E3": true,
                 "slug": "2024-ev-recharging-cost-china",
                 "shortTitle": "EV Recharging Cost in China",
-                "tags": [
-                    "Transport",
-                    "Decarbonization"
+                "topics": [
+                    "Transport & Mobility",
+                    "Battery & Energy Storage"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis"
                 ],
                 "keywords": [
                     "Electric vehicles",
@@ -451,9 +693,13 @@
                 "E3": true,
                 "slug": "2024-green-hydrogen-offshore-wind",
                 "shortTitle": "Green Hydrogen from Offshore Wind",
-                "tags": [
+                "topics": [
                     "Renewable Energy",
-                    "Decarbonization"
+                    "Hydrogen Economy"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis",
+                    "Life Cycle Assessment"
                 ],
                 "keywords": [
                     "Offshore wind energy",
@@ -494,9 +740,12 @@
                 "E3": true,
                 "slug": "2024-wind-power-prediction-deep-learning",
                 "shortTitle": "Wind Power Prediction with Deep Learning",
-                "tags": [
-                    "Renewable Energy",
-                    "AI & Machine Learning"
+                "topics": [
+                    "Renewable Energy"
+                ],
+                "methods": [
+                    "AI & Machine Learning",
+                    "Probabilistic / Quantile Methods"
                 ],
                 "keywords": [
                     "Wind power forecasting",
@@ -544,12 +793,33 @@
                 "E3": true,
                 "slug": "2024-solid-recovered-fuel-standards",
                 "shortTitle": "International SRF Standards",
-                "tags": ["Air Pollution", "Public Health", "Decarbonization"],
-                "keywords": ["Solid Recovered Fuel (SRF)", "Air Pollution Control", "Environmental Standards Comparison", "Carcinogenic Risk Assessment", "Dioxin Emissions"],
+                "topics": [
+                    "Air Pollution & Health",
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Solid Recovered Fuel (SRF)",
+                    "Air Pollution Control",
+                    "Environmental Standards Comparison",
+                    "Carcinogenic Risk Assessment",
+                    "Dioxin Emissions"
+                ],
                 "authorList": [
-                    {"name": "Dennis Kao", "webId": ""},
-                    {"name": "Tzu-Hsien Chuang", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Dennis Kao",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Tzu-Hsien Chuang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Since the launch of the second phase of the Air Pollution Control Program in 2024 and the publication of the \"Taiwan 2050 Net Zero Emissions Pathway and Strategy\" in 2022, addressing air pollution and waste reduction has become imperative. Solid Recovered Fuel (SRF), made from high-caloric waste like plastics, paper, and wood, not only helps tackle the increasing waste volume and insufficient incinerator capacity but also substitutes traditional coal, reducing petrochemical fuel use and CO2 emissions. However, concerns persist about the safety of SRF, particularly the potential dioxin emissions from burning waste plastics, posing health risks. While existing studies primarily focus on measuring dioxin emissions post-combustion, they often overlook a thorough quantification of the associated health risks. This study enhances understanding by comparing regulations from Taiwan, Japan, South Korea, Germany, and the EU, analyzing standards and emission limits for dioxins and heavy metals. It finds that regulations need more stringent updates to address gaps in heavy metal content regulation effectively. Moreover, this research applies regulatory standards for carcinogens like dioxins, lead, cadmium, and arsenic to assess cancer risks through direct inhalation, establishing that current regulations offer basic protection for public health, alleviating excessive concerns. This contribution underscores the necessity for rigorous standards and provides a comprehensive assessment of SRF's impact on health, guiding future policy enhancements.",
                 "journalZh": "臺灣能源期刊"
@@ -572,11 +842,30 @@
                 "E3": true,
                 "slug": "2024-bus-shelter-solar-pv-taipei",
                 "shortTitle": "Solar PV Bus Shelters in Taipei",
-                "tags": ["Renewable Energy", "Transport", "Energy Systems"],
-                "keywords": ["Bus Shelter", "Solar Photovoltaic", "Feed-in Tariff", "Cost-effectiveness Analysis", "Green Mobility"],
+                "topics": [
+                    "Renewable Energy",
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Bus Shelter",
+                    "Solar Photovoltaic",
+                    "Feed-in Tariff",
+                    "Cost-effectiveness Analysis",
+                    "Green Mobility"
+                ],
                 "authorList": [
-                    {"name": "Yuan-Hsi Chien", "webId": "yuanhsichien"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Yuan-Hsi Chien",
+                        "webId": "yuanhsichien"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "In alignment with the Paris Agreement's goals, the global imperative to reduce carbon emissions has positioned solar technology as a crucial renewable resource. Traditional bus shelters, which typically depend on central power grids, face increased energy demands and limited enhancements in functionality. This study conducts a seasonal analysis of solar photovoltaic (PV) systems installed in Taipei's bus shelters and evaluates their cost-effectiveness through Net Present Value (NPV) analysis, assessing the feasibility of energy self-sufficiency. The findings reveal that with adequate energy storage, bus shelters can achieve self-sufficiency from February to October, but require grid support from November to January. Scenario analysis shows that installing solar panels can reduce operating costs by 32.5%, and by 69.1% when paired with storage solutions. However, in the absence of feed-in tariffs (FIT), the payback period extends significantly, and setups relying solely on generation facilities may not attain break-even within a foreseeable timeline. Introducing FIT reduces the payback period to 11.8 years, markedly improving economic outcomes. Key factors such as efficiency of power generation, carbon fees, and installation capacity profoundly influence these economic benefits, highlighting the importance of meticulous device and location selection to maximize generation efficiency. This study offers valuable data for stakeholders and policymakers, enhancing the integration of solar energy in public infrastructures and aiding the pursuit of global sustainability goals.",
                 "journalZh": "臺灣能源期刊"
@@ -597,11 +886,32 @@
                 "E3": true,
                 "slug": "2025-v2g-scooter-battery-swap",
                 "shortTitle": "V2G Strategies in Scooter Battery Swapping",
-                "tags": ["Transport", "Energy Systems", "Decarbonization"],
-                "keywords": ["Electric scooters", "Battery swap stations", "Vehicle-to-grid (V2G) strategy", "Smart energy management system", "Peak shaving", "Emission management"],
+                "topics": [
+                    "Transport & Mobility",
+                    "V2G / V2B Integration",
+                    "Battery & Energy Storage"
+                ],
+                "methods": [
+                    "Optimization",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Electric scooters",
+                    "Battery swap stations",
+                    "Vehicle-to-grid (V2G) strategy",
+                    "Smart energy management system",
+                    "Peak shaving",
+                    "Emission management"
+                ],
                 "authorList": [
-                    {"name": "Yuan-Hsi Chien", "webId": "yuanhsichien"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Yuan-Hsi Chien",
+                        "webId": "yuanhsichien"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "With the global rise in electric scooter adoption and the expansion of battery swapping stations (BSSs), particularly in Taiwan—home to the world's densest network of these facilities—these stations are increasingly recognized as crucial energy storage hubs that enhance grid stability. This study introduces a smart energy management system designed for optimal charge and discharge management of BSSs, using Taiwan as a practical example. Central to our approach is a vehicle-to-grid (V2G) strategy, which, through hourly resolution analyses, assesses the impacts on grid peak demand, operational costs, and emissions. Our results indicate that V2G significantly reduces peak power demand by 110.1% compared to traditional charging methods and lowers operating costs by 18.9% through energy arbitrage. Although current emission reductions are modest due to Taiwan's limited renewable installed capacity, projections demonstrate that emissions could rise by 2% without strategic emission management. Our proposed V2G strategy targets both peak shaving and low-emission charging periods, potentially reducing emissions by 12.8% and supporting national sustainability targets. Furthermore, a comparative analysis shows that V2G is effective in both urban and rural settings, with rural areas achieving greater reductions in peak power demand and costs due to their higher idle battery capacity. This emphasizes the importance of tailored energy management strategies and underscores the critical role of well-designed BSS charging strategies in moving towards a sustainable, net-zero future."
             },
@@ -621,12 +931,34 @@
                 "E3": true,
                 "slug": "2025-urban-energy-flows-v2b-optimization",
                 "shortTitle": "Urban V2B Energy Optimization",
-                "tags": ["Energy Systems", "Transport", "Renewable Energy"],
-                "keywords": ["Urban Energy Systems", "V2B Integration", "Renewable Energy Management", "Smart Grid Optimization", "Carbon Emission Reduction"],
+                "topics": [
+                    "V2G / V2B Integration",
+                    "Buildings & Smart Energy",
+                    "Renewable Energy"
+                ],
+                "methods": [
+                    "Optimization"
+                ],
+                "keywords": [
+                    "Urban Energy Systems",
+                    "V2B Integration",
+                    "Renewable Energy Management",
+                    "Smart Grid Optimization",
+                    "Carbon Emission Reduction"
+                ],
                 "authorList": [
-                    {"name": "Jian Hern Yeoh", "webId": "jianhernyeoh"},
-                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Jian Hern Yeoh",
+                        "webId": "jianhernyeoh"
+                    },
+                    {
+                        "name": "Kai-Yun Lo",
+                        "webId": "kaiyunlo"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "The increasing integration of electric vehicles (EVs) into urban centers poses significant challenges for electrical grids, particularly in terms of energy management within buildings. This study introduces a scalable, multi-objective optimization model that utilizes Vehicle-to-Building (V2B) interactions to mitigate grid load by leveraging EVs as mobile energy storage units. This approach enhances grid stability and resilience while optimizing energy consumption, reducing peak loads, and minimizing emissions. We employ a weighted-sum method for flexible adaptability, allowing system priorities to be adjusted according to varying needs. The optimization tasks are handled using the Sequential Least Squares Programming (SLSQP) algorithm, which is well-suited for managing quadratic objective functions, nonlinear constraints, and bounded variables. Conducted at selected facilities at National Taiwan University (NTU), the model's effectiveness is demonstrated across four scenarios—each evaluating the contributions of photovoltaics (PV), V2B strategy, and an energy storage system (ESS) both individually and collectively. The results reveal significant benefits: a 46.79% annual reduction in grid energy consumption, along with notable decreases in daily peak load (63.49%), electricity costs (51.15%), and carbon emissions (45.99%) compared to a control setup. Additionally, our economic analysis underscores the cost-effectiveness of integrating PV with V2B technology, achieving a cost reduction of 40.83%. Although the inclusion of ESS incurs higher initial costs, it significantly improves peak load management by an additional 14.11%. This study not only underscores the practicality and economic viability of the model but also highlights its potential as a flexible tool in advancing sustainable urban energy solutions. Through comprehensive cost assessments and sensitivity analysis, this research enhances the capacity for intelligent, adaptable, and resource-efficient energy management in urban transport infrastructures."
             },
@@ -647,13 +979,37 @@
                 "E3": true,
                 "slug": "2025-bev-cost-carbon-taiwan",
                 "shortTitle": "BEV Cost & Carbon Tradeoffs in Taiwan",
-                "tags": ["Transport", "Decarbonization"],
-                "keywords": ["Battery electric vehicle", "Imported vehicle dynamics", "Life cycle assessment", "Net-zero emissions", "Total cost of ownership"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Battery electric vehicle",
+                    "Imported vehicle dynamics",
+                    "Life cycle assessment",
+                    "Net-zero emissions",
+                    "Total cost of ownership"
+                ],
                 "authorList": [
-                    {"name": "Jing-Siou Tseng", "webId": "jingsioutseng"},
-                    {"name": "Yuan-Hsi Chien", "webId": "yuanhsichien"},
-                    {"name": "Ruo-Wen Chen", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Jing-Siou Tseng",
+                        "webId": "jingsioutseng"
+                    },
+                    {
+                        "name": "Yuan-Hsi Chien",
+                        "webId": "yuanhsichien"
+                    },
+                    {
+                        "name": "Ruo-Wen Chen",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Battery Electric Vehicles (BEVs) are pivotal in advancing sustainable mobility and addressing climate change globally. An increasing number of regions, including Taiwan, are implementing plans to phase out the sale of Internal Combustion Engine Vehicles (ICEVs). In Taiwan, where the transportation sector contributes 13% of fossil carbon emissions, nearly half attributed to passenger vehicles, electrification is key to achieving net-zero emissions. This study provides a comprehensive life cycle assessment (LCA) and total cost of ownership (TCO) analysis of 182 vehicle models, including ICEVs, Hybrid Electric Vehicles (HEVs), and BEVs. Our findings reveal that BEVs reduce total CO2 emissions by an average of 20% compared to ICEVs, largely due to decreased emissions from electricity generation and reduced fuel consumption. Although BEVs initially present double the purchase costs of ICEVs, their long-term economic competitiveness is enhanced by lower operational and maintenance costs. Nevertheless, the environmental impact of BEVs depends heavily on the decarbonization of the power grid, and the prevalence of expensive imported BEVs challenges their adoption. This study highlights the necessity for specific policies, such as financial incentives, support for domestic BEV production, and accelerated grid decarbonization, to enhance BEV adoption in Taiwan. Such measures, coupled with increased public awareness, are crucial to ensuring Taiwan’s vehicle electrification aligns with its ambitious 2050 net-zero emission goals."
             },
@@ -674,12 +1030,33 @@
                 "E3": true,
                 "slug": "2025-e-moped-relocation-policy",
                 "shortTitle": "Real-Time E-Moped Relocation Policy",
-                "tags": ["Transport", "AI & Machine Learning"],
-                "keywords": ["Shared electric moped scooter service", "Real-time relocation", "Unmet demand-driven relocation", "Spatio-temporal demand prediction", "Graph neural network"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "AI & Machine Learning",
+                    "Optimization"
+                ],
+                "keywords": [
+                    "Shared electric moped scooter service",
+                    "Real-time relocation",
+                    "Unmet demand-driven relocation",
+                    "Spatio-temporal demand prediction",
+                    "Graph neural network"
+                ],
                 "authorList": [
-                    {"name": "Jia-Cherng Song", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"},
-                    {"name": "Chuin-Shan Chen", "webId": ""}
+                    {
+                        "name": "Jia-Cherng Song",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Chuin-Shan Chen",
+                        "webId": ""
+                    }
                 ],
                 "abstract": "The growing popularity of shared electric moped scooters (E-mopeds) as a sustainable and convenient transport option faces a fundamental challenge: demand often exceeds supply, necessitating efficient real-time relocation strategies. To address this, we propose an unmet demand-driven relocation policy to improve service efficiency and E-moped utilization. This policy leverages recurrent and diffusion convolutional graph neural networks alongside linear programming. Regional E-moped relocation is suggested to be triggered when its demand falls below a threshold parameter. We demonstrate that the unmet demand strategy consistently outperforms the traditional pick-up method. At a threshold of 3, the unmet demand approach results in 286 relocated E-mopeds compared to 100 using the pick-up strategy, emphasizing the importance of our study. These findings assist operators in implementing more efficient strategies and inform policymakers in refining the maximum fleet sizes and parking space allocation."
             },
@@ -699,13 +1076,36 @@
                 "E3": true,
                 "slug": "2025-cold-chain-transport-emissions",
                 "shortTitle": "Carbon Emissions in Cold Chain Transport",
-                "tags": ["Transport", "Decarbonization"],
-                "keywords": ["Cold chain logistics", "Refrigerated transport", "Carbon emissions modeling", "Decarbonization strategies", "Data-driven logistics study"],
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment"
+                ],
+                "keywords": [
+                    "Cold chain logistics",
+                    "Refrigerated transport",
+                    "Carbon emissions modeling",
+                    "Decarbonization strategies",
+                    "Data-driven logistics study"
+                ],
                 "authorList": [
-                    {"name": "Hung-Jui Lin", "webId": "hungjuilin"},
-                    {"name": "Pei-Ci Chen", "webId": "peicichen"},
-                    {"name": "Hsuan-Po Lin", "webId": ""},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Hung-Jui Lin",
+                        "webId": "hungjuilin"
+                    },
+                    {
+                        "name": "Pei-Ci Chen",
+                        "webId": "peicichen"
+                    },
+                    {
+                        "name": "Hsuan-Po Lin",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Sustainable urban development necessitates advanced low-carbon transportation strategies, particularly within the cold chain logistics sector, where transporting perishable goods significantly contributes to environmental emissions. This study addresses the gap in empirical research by deploying real-world data from 128 long-haul trips, provided by a logistics company, to develop a comprehensive bottom-up operational-level carbon emission model. Our model quantifies emissions through various operational phases—loading, unloading, and transport—capturing contributions from vehicle operation (driving and idling), refrigeration processes (including transition, infiltration, and pre-cooling), and refrigerant leakage. It further assesses the impact of ambient temperature on emissions and examines the effectiveness of decarbonization strategies such as employing shore power for pre-cooling and adopting low-carbon refrigerants. Validated against actual fuel consumption with an impressive accuracy of −1.84%, our findings significantly advance green logistics practices, offering practical insights for a transition towards net-zero emissions and improving the sustainability of cold chain transportation systems."
             },
@@ -725,12 +1125,32 @@
                 "E3": true,
                 "slug": "2025-ai-load-forecasting-university-buildings",
                 "shortTitle": "AI Load Forecasting in Campus Buildings",
-                "tags": ["AI & Machine Learning", "Energy Systems"],
-                "keywords": ["Smart buildings", "AI forecasting", "Pandemic energy impact", "Clustering in energy", "Campus energy management"],
+                "topics": [
+                    "Buildings & Smart Energy"
+                ],
+                "methods": [
+                    "AI & Machine Learning"
+                ],
+                "keywords": [
+                    "Smart buildings",
+                    "AI forecasting",
+                    "Pandemic energy impact",
+                    "Clustering in energy",
+                    "Campus energy management"
+                ],
                 "authorList": [
-                    {"name": "Yu-Shin Hu", "webId": "yushinhu"},
-                    {"name": "Kai-Yun Lo", "webId": "kaiyunlo"},
-                    {"name": "I-Yun Lisa Hsieh", "webId": "iyunlisahsieh"}
+                    {
+                        "name": "Yu-Shin Hu",
+                        "webId": "yushinhu"
+                    },
+                    {
+                        "name": "Kai-Yun Lo",
+                        "webId": "kaiyunlo"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
                 ],
                 "abstract": "Accurate forecasting of electricity demand is pivotal for optimizing energy management in smart buildings and propelling the advancement towards net-zero goals. However, scalable, accurate, and robust building load prediction models are scarce in educational campuses, whose diverse functions and consumption patterns, resembling large-scale urban environments, are often hindered by data scarcity and lack of cross-building heterogeneity analysis. This study presents an AI-based short-term building load forecasting framework integrating K-means clustering with BiLSTM regression, tailored for various energy consumption patterns across different building types. The model requires no auxiliary variables and is adaptable to both regular operational conditions and disruptions caused by the COVID-19 pandemic. The clustering-enhanced model adeptly identifies unique energy consumption patterns and significantly improves prediction accuracy, with a 3.65 % increase in mean R² and a 55.19 % reduction in standard deviation under normal conditions. During the pandemic, its performance is further amplified, with a 4.90 % increase in mean R² and a 62.41 % reduction in standard deviation, highlighting its robustness. The model shows particularly high accuracy in buildings with consistent energy profiles, such as teaching and research facilities, while it encounters greater challenges in mixed-use and office buildings due to their variable energy patterns. The pandemic underscores the model's limitations in adapting to abrupt operational shifts, signaling a pressing need for future enhancements to incorporate adaptive forecasting techniques. This research substantiates the application of AI in building energy systems, contributing to the development of nearly zero-energy buildings (NZEB) and supporting the transition towards sustainable urban energy systems."
             },
@@ -750,8 +1170,10 @@
                 "E3": true,
                 "slug": "2026-super-resolution-wind-mapping",
                 "shortTitle": "Super-Resolution Wind Mapping with Deep Learning",
-                "tags": [
-                    "Renewable Energy",
+                "topics": [
+                    "Renewable Energy"
+                ],
+                "methods": [
                     "AI & Machine Learning"
                 ],
                 "keywords": [],
@@ -783,9 +1205,11 @@
                 "E3": true,
                 "slug": "2026-pod-last-mile-logistics-lca",
                 "shortTitle": "POD Last-Mile LCA",
-                "tags": [
-                    "Decarbonization",
-                    "Transport"
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Life Cycle Assessment"
                 ],
                 "keywords": [
                     "Proof of Delivery (POD)",
@@ -828,9 +1252,11 @@
                 "E3": true,
                 "slug": "2026-boiler-air-pollution-taiwan",
                 "shortTitle": "Boiler Air Pollution Control",
-                "tags": [
-                    "Air Pollution",
-                    "Public Health"
+                "topics": [
+                    "Air Pollution & Health"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
                 ],
                 "keywords": [
                     "Boiler emissions",
@@ -876,9 +1302,13 @@
                 "E3": true,
                 "slug": "2026-equity-in-carbon-pricing",
                 "shortTitle": "Equity in Carbon Pricing",
-                "tags": [
-                    "Carbon Pricing",
-                    "Just Transition"
+                "topics": [
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Input-Output Modeling",
+                    "Causal Inference",
+                    "Probabilistic / Quantile Methods"
                 ],
                 "keywords": [
                     "Carbon pricing",
@@ -919,31 +1349,57 @@
                 "E3": false,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
             },
             {
                 "citationId": "",
-                "title": "Probabilistic Electricity Demand Forecasting for Buildings Using a VMD-Attentive Quantile Network",
+                "title": "Probabilistic Electricity Demand Forecasting for Buildings Using a Variational Mode Decomposition-Attentive Quantile Network",
                 "link": "",
-                "journal": "",
-                "volume": "",
+                "journal": "Energy & Buildings",
+                "volume": "366",
                 "issue": "",
-                "articleNo": "",
-                "doi": "",
+                "articleNo": "117696",
+                "doi": "10.1016/j.enbuild.2026.117696",
                 "year": "'26",
-                "month": "Mar.",
+                "month": "Jul.",
                 "authors": "Chun-Hao Huang, Yu-Shin Hu, I-Yun Lisa Hsieh",
-                "status": "working",
+                "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
-                "tags": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "slug": "2026-probabilistic-building-load-forecasting",
+                "shortTitle": "Probabilistic Building Load Forecasting (VMD)",
+                "topics": [
+                    "Buildings & Smart Energy"
+                ],
+                "methods": [
+                    "AI & Machine Learning",
+                    "Probabilistic / Quantile Methods"
+                ],
+                "keywords": [
+                    "Building energy demand",
+                    "Deep learning",
+                    "Probabilistic forecasting",
+                    "Quantile regression",
+                    "Variational Mode Decomposition"
+                ],
+                "authorList": [
+                    {
+                        "name": "Chun-Hao Huang",
+                        "webId": "chunhaohuang"
+                    },
+                    {
+                        "name": "Yu-Shin Hu",
+                        "webId": "yushinhu"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Accurate and reliable forecasting of building electricity demand is essential for energy management, demand response, and operational planning in smart buildings. However, building load profiles are influenced by interacting factors such as weather conditions, occupant behavior, and operational schedules, leading to nonstationary and multi-scale temporal patterns with inherent uncertainty that traditional deterministic models struggle to represent. To address these challenges, this study proposes a Variational Mode Decomposition (VMD)-Attentive Quantile Network for probabilistic building load forecasting, designed to jointly capture complex temporal dynamics and predictive uncertainty. The framework leverages VMD to separate load signals into frequency-specific components, enhancing robustness against nonstationary effects. A sequential GRU–LSTM encoder models complementary short-term fluctuations and long-term dependencies, while Multi-Head Attention dynamically weights influential time steps. An IMF-dependent gating mechanism suppresses high-entropy noise components. Quantile regression is incorporated to directly estimate conditional demand distributions and generate prediction intervals at multiple confidence levels. The model is evaluated on hourly electricity consumption data (2019–2023) from three functionally distinct campus buildings at National Taiwan University. Results indicate consistent outperformance of VMD-based benchmark models in point forecasting, with R² improvements of 8.4%–12.9% and reductions in MAE and RMSE of 16.9%–40.8% and 13.5%–39.6%, respectively. In probabilistic forecasting, the model produces more compact and reliable prediction intervals, reflected by lower PINAW and AIS values across confidence levels. Overall, the proposed approach offers a robust and interpretable solution for short-term building load forecasting across heterogeneous load patterns."
             },
             {
                 "citationId": "tUbPb-QAAAAJ:yoo2025sector",
@@ -961,9 +1417,11 @@
                 "E3": true,
                 "slug": "2026-hsr-sector-decarbonization",
                 "shortTitle": "HSR Sector Decarbonization",
-                "tags": [
-                    "Decarbonization",
-                    "Transport"
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Causal Inference"
                 ],
                 "keywords": [
                     "High speed rail",
@@ -1011,7 +1469,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1032,7 +1491,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1053,7 +1513,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1074,7 +1535,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1095,7 +1557,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1116,7 +1579,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1137,7 +1601,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1158,7 +1623,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1179,7 +1645,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1200,7 +1667,8 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": ""
@@ -1221,11 +1689,492 @@
                 "E3": true,
                 "slug": "",
                 "shortTitle": "",
-                "tags": [],
+                "topics": [],
+                "methods": [],
                 "keywords": [],
                 "authorList": [],
                 "abstract": "",
                 "journalZh": ""
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2020transitionev",
+                "title": "Transition to Electric Vehicles in China: Implications for Total Cost of Ownership and Cost to Society",
+                "link": "",
+                "journal": "SAE International Journal of Sustainable Transportation, Energy, Environment, & Policy",
+                "volume": "1",
+                "issue": "2",
+                "articleNo": "",
+                "pages": "87-101",
+                "doi": "10.4271/13-01-02-0005",
+                "year": "'20",
+                "month": "Jul.",
+                "authors": "I-Yun Lisa Hsieh, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2020-transition-ev-china-tco",
+                "shortTitle": "EV Transition in China (TCO & Society)",
+                "topics": [
+                    "Transport & Mobility",
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Climate change mitigation",
+                    "Electric vehicles",
+                    "Hybrid electric vehicles",
+                    "Cost analysis"
+                ],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "China is driving the transition away from internal combustion engine vehicles (ICEVs) to plug-in electric vehicles (PEVs, including plug-in hybrid electric vehicles (PHEVs) and battery electric vehicles (BEVs)) to address its pressing energy security and environmental pollution problems. The recent enactment of the dual-credit scheme mandate will compensate for the phase out of the subsidy program, while ostensibly shifting the burden of filling in the cost gap between PEVs and ICEVs from the government to the automakers (though in practice to car buyers). We estimate that creating an inflection point for PEV demand via the mandate will put substantial transition costs on the society—on average on the order of 100 billion Yuan per year from 2021 to 2030, consuming about 0.1% of China's growing GDP each year; these transition costs should be compared to societal benefits of PEVs (e.g., enhanced energy security, climate change mitigation, and improved public health) to evaluate the net social value of vehicle electrification. The consumer-centric total cost of ownership (TCO) is investigated using the local data: thanks to the generous subsidies, China's subsidized PEVs are in TCO parity with counterpart ICEVs from 2016 to 2020. Nevertheless, after subsidies are eliminated at the end of 2020, this TCO parity is unlikely to be achieved for BEVs, if the automakers keep the same price structure as today. The range of TCO ratio of BEV to ICEV for 2030 is: a lower quartile of 1.03; median of 1.07; and upper quartile of 1.10. It is uncertain how the cost gap will be covered when the subsidies are removed. However, automakers are expected to use internal subsidies to lower PEV prices and raise ICEV prices as needed to achieve the mandated percentage of sales."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:sun2024criticalmaterials",
+                "title": "Reducing supply risk of critical materials for clean energy via foreign direct investment",
+                "link": "",
+                "journal": "Nature Sustainability",
+                "volume": "7",
+                "issue": "",
+                "articleNo": "",
+                "pages": "672-681",
+                "doi": "10.1038/s41893-024-01329-3",
+                "year": "'24",
+                "month": "May",
+                "authors": "Xin Sun, Han Hao, Clara Galeazzi, Tomer Fishman, Dengye Xun, Magnus Ericsson, Gang Liu, I-Yun Lisa Hsieh, Zongwei Liu, Fuquan Zhao",
+                "status": "published",
+                "E3": true,
+                "slug": "2024-critical-materials-supply-risk",
+                "shortTitle": "Critical Materials Supply Risk (FDI)",
+                "topics": [
+                    "Battery & Energy Storage"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Xin Sun",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Han Hao",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Clara Galeazzi",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Tomer Fishman",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Dengye Xun",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Magnus Ericsson",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Gang Liu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Zongwei Liu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Fuquan Zhao",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "Existing research on the security of the supply of critical materials for clean energy generally aggregates information at the country level, a practice that obscures the extensive role of foreign direct investment (FDI) in the production of critical materials. FDI refers to an ownership stake in a company or project by an overseas investor. Here we establish a database for global mining of lithium, cobalt, nickel and platinum at company level, covering 240 countries and regions. We show that 47% of lithium, 71% of cobalt, 41% of nickel and 34% of platinum mined in 2019 were under FDI. We then explore how FDI may affect supply risks by proposing a supply risk index that allocates production of the critical materials to the country of origin of investors instead of the country where production is located. We present upper and lower bounds of the supply risk index that reflect scenarios where either all investors or only state investors prioritize the home-country demand, respectively. This study presents an approach for assessing the national supply risks of critical materials, considering the geographical allocation of FDI."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:verma2023voicesroad",
+                "title": "Driving a sustainable road transportation transformation",
+                "link": "",
+                "journal": "One Earth",
+                "volume": "6",
+                "issue": "1",
+                "articleNo": "",
+                "pages": "3-6",
+                "doi": "10.1016/j.oneear.2023.01.002",
+                "year": "'23",
+                "month": "Jan.",
+                "authors": "Ashish Verma, Jennifer Dunn, Alejandro Tirachini, Casper Boongaling Agaton, I-Yun Lisa Hsieh, Ahmad Mayyas, Shahana Althaf, Miloš N. Mladenović",
+                "status": "published",
+                "E3": true,
+                "slug": "2023-sustainable-road-transport-voices",
+                "shortTitle": "Sustainable Road Transport Transformation (Voices)",
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Ashish Verma",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Jennifer Dunn",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Alejandro Tirachini",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Casper Boongaling Agaton",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Ahmad Mayyas",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Shahana Althaf",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Miloš N. Mladenović",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "Strategies to sustainably transform road transformation often focus on electrification and environmental benefits. However, transportation is also intricately linked to socio-economic aspects of sustainable development and electrification poses its own challenges. This Voices asks: what actions are required to steer a clean, safe, efficient, and inclusive transformation of road transportation?"
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2020motorizationbattery",
+                "title": "Transition to electric vehicles in China: Implications for private motorization rate and battery market",
+                "link": "",
+                "journal": "Energy Policy",
+                "volume": "144",
+                "issue": "",
+                "articleNo": "111654",
+                "pages": "",
+                "doi": "10.1016/j.enpol.2020.111654",
+                "year": "'20",
+                "month": "Sep.",
+                "authors": "I-Yun Lisa Hsieh, Menghsuan Sam Pan, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2020-china-ev-motorization-battery",
+                "shortTitle": "China EV Motorization & Battery Market",
+                "topics": [
+                    "Transport & Mobility",
+                    "Battery & Energy Storage",
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis",
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Private car",
+                    "Electric vehicle",
+                    "Battery demand",
+                    "Spent battery",
+                    "Battery recycling"
+                ],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Menghsuan Sam Pan",
+                        "webId": ""
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "China has recently enacted the dual-credit mandate to replace the existing subsidies as a continued effort to electrify its ground transportation sector. This study quantifies the impacts of such policy transition on private motorization rate and battery market. Throughout the next decade, affordability remains the determinant for vehicle purchases; forcing broader adoption of pricier battery-powered cars without subsidies will inevitably diminish the market growth. Under the mandate, China's electric vehicle sales will continue to grow through 2030 despite the temporary car market contraction. Cumulative private electric vehicle sales are projected to reach 66 million by 2030 (with 37% sales market share); this will drive the battery demand from China's private car sector to expand rapidly and accumulate ~420 GWh (2 million tonnes) of spent lithium-ion batteries. This significant increase in battery demand will exacerbate pressure on the global supply for lithium and cobalt. The cobalt demand from China's private vehicle sector in 2030 alone would be almost half of the total global cobalt production in 2017; up to 16% of this 2030 demand could be satisfied by battery recycling. A recycling-based battery supply chain is needed to alleviate the concerns of supply shortages and to achieve a circular economy."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2019batterylearning",
+                "title": "Learning only buys you so much: Practical limits on battery price reduction",
+                "link": "",
+                "journal": "Applied Energy",
+                "volume": "239",
+                "issue": "",
+                "articleNo": "",
+                "pages": "218-224",
+                "doi": "10.1016/j.apenergy.2019.01.138",
+                "year": "'19",
+                "month": "Apr.",
+                "authors": "I-Yun Lisa Hsieh, Menghsuan Sam Pan, Yet-Ming Chiang, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2019-battery-price-learning-limits",
+                "shortTitle": "Battery Price Reduction Limits",
+                "topics": [
+                    "Battery & Energy Storage",
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Energy science",
+                    "Battery technology",
+                    "Energy storage",
+                    "Energy economics",
+                    "Electro mobility"
+                ],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Menghsuan Sam Pan",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Yet-Ming Chiang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "Wide deployment of electric vehicles (EVs) would greatly facilitate global de-carbonization, but achieving the emission targets depends on future battery prices. Conventional learning curves for manufacturing costs, used in many battery price projections, unrealistically predict battery prices will fall below $100/kWh by 2030, pushing EVs to hit price parity with internal combustion engine vehicles (ICEVs) in the absence of incentives. However, in reality, essential materials costs set practical lower bounds on battery prices. Our 2-stage learning curve model projects the active material costs and NMC-based Lithium-ion battery pack price with mineral and material costs as the respective price floors. The improved model predicts nickel-manganese-cobalt (NMC) battery prices will fall only to about $124/kWh by 2030 – much cheaper than today, but still too expensive to truly compete with ICEVs, due primarily to the high prices of cobalt, nickel, and lithium. Our results suggest that stabilizing raw materials prices and/or stimulating R&D activities on alternative battery chemistries will be important to achieve environmentally sustainable EV-based ground transportation at an attractive price."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2020taxifleets",
+                "title": "Recharging systems and business operations to improve the economics of electrified taxi fleets",
+                "link": "",
+                "journal": "Sustainable Cities and Society",
+                "volume": "57",
+                "issue": "",
+                "articleNo": "102119",
+                "pages": "",
+                "doi": "10.1016/j.scs.2020.102119",
+                "year": "'20",
+                "month": "Jun.",
+                "authors": "I-Yun Lisa Hsieh, Ashley Nunes, Menghsuan Sam Pan, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2020-electrified-taxi-fleets-china",
+                "shortTitle": "Electrified Taxi Fleet Economics",
+                "topics": [
+                    "Transport & Mobility",
+                    "Battery & Energy Storage"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis"
+                ],
+                "keywords": [
+                    "Fleet electrification",
+                    "Electric taxi",
+                    "Recharging infrastructure",
+                    "Battery swapping"
+                ],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Ashley Nunes",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Menghsuan Sam Pan",
+                        "webId": ""
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "While vehicle electrification offers great benefits to society, mass-market adoption of battery electric vehicles remains a challenge owing to the long recharging times and limited recharging infrastructure. High opportunity costs tied to long recharging times are particularly problematic for commercial fleet operators. With an aim to improve the economics of electrified taxi fleets, we present a framework for techno-economic analysis, examining the cost competitiveness of various recharging business models (i.e., combined ecosystems of recharging systems and taxi operations). When considering the achievable throughput of the recharging systems, we find that—on a per-kilometer basis—1) battery swapping emerges as a cost-effective option although it requires higher upfront investments for the battery inventory requirement; 2) increasing vehicle fleet size enhances the economic viability of double-shift taxi electrification. We expect that an electrified taxi fleet relying on the right recharging systems/operations could achieve cost parity with a gasoline-powered taxi system by 2022. Between now and then, the electrification of high-use vehicles requires government support; policies discussed include purchase subsidies and revenue-neutral gas tax imposition. By using real-world financial data taken from an operating electrified taxi fleet in Beijing, this paper provides a theoretical and practical reference for cities moving toward electric taxi ecosystems and sustainability."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:ou2021iscience2050",
+                "title": "China's vehicle electrification impacts on sales, fuel use, and battery material demand through 2050: Optimizing consumer and industry decisions",
+                "link": "",
+                "journal": "iScience",
+                "volume": "24",
+                "issue": "11",
+                "articleNo": "103375",
+                "pages": "",
+                "doi": "10.1016/j.isci.2021.103375",
+                "year": "'21",
+                "month": "Nov.",
+                "authors": "Shiqi Ou, I-Yun Lisa Hsieh, Xin He, Zhenhong Lin, Rujie Yu, Yan Zhou, Jessey Bouchard",
+                "status": "published",
+                "E3": true,
+                "slug": "2021-china-ev-2050-iscience",
+                "shortTitle": "China EV Market & Battery Materials to 2050",
+                "topics": [
+                    "Transport & Mobility",
+                    "Battery & Energy Storage",
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Shiqi Ou",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Xin He",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Zhenhong Lin",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Rujie Yu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Yan Zhou",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Jessey Bouchard",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "The promotion of plug-in electric vehicles (PEVs) is pivotal to China's carbon neutrality strategy. Therefore, it is important to understand the vehicle market evolution and its impacts in terms of costs, sales, industry fuel economy, and PEV's battery material demand. By examining vehicle technologies, cost, policy incentives, infrastructure, and driver behavior, this study quantitatively projects the dynamics of China's passenger vehicle market from 2020 to 2050 under multiple technology evolution scenarios. By 2050, battery electric vehicles could gain significant market share—as much as 30.4%–64.6%; and the industry's sales-weighted average fuel consumption could reach 1.81–3.11 L/100 km. Cumulative battery demand from PEVs could soar to over 700 GWh by 2050, whereas battery recycling alone could satisfy about 60% of the demand by 2050. The key metal supplies—lithium, cobalt, and nickel—for China's PEV market are projected, and nickel should be concerned more over the coming decades."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2022airquality",
+                "title": "An Integrated Assessment of Emissions, Air Quality, and Public Health Impacts of China's Transition to Electric Vehicles",
+                "link": "",
+                "journal": "Environmental Science & Technology",
+                "volume": "56",
+                "issue": "10",
+                "articleNo": "",
+                "pages": "6836-6846",
+                "doi": "10.1021/acs.est.1c06148",
+                "year": "'22",
+                "month": "May",
+                "authors": "I-Yun Lisa Hsieh, Guillaume P. Chossière, Emre Gençer, Hao Chen, Steven Barrett, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2022-china-ev-emissions-air-quality",
+                "shortTitle": "China EV Emissions, Air Quality & Health",
+                "topics": [
+                    "Transport & Mobility",
+                    "Air Pollution & Health",
+                    "Carbon Pricing & Policy"
+                ],
+                "methods": [
+                    "Life Cycle Assessment",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "electric vehicles",
+                    "life-cycle assessment",
+                    "cost-benefit analysis",
+                    "scenario analysis",
+                    "fleet modeling",
+                    "environmental impacts"
+                ],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Guillaume P. Chossière",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Emre Gençer",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Hao Chen",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Steven Barrett",
+                        "webId": ""
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "Electric vehicles (EVs) are a promising pathway to providing cleaner personal mobility. China provides substantial supports to increase EV market share. This study provides an extensive analysis of the currently unclear environmental and health benefits of these incentives at the provincial level. EVs in China have modest cradle-to-gate CO2 benefits (on average 29%) compared to conventional internal combustion engine vehicles (ICEVs), but have similar carbon emissions relative to hybrid electric vehicles. Well-to-wheel air pollutant emissions assessment shows that emissions associated with ICEVs are mainly from gasoline production, not the tailpipe, suggesting tighter emissions controls on refineries are needed to combat air pollution problems effectively. By integrating a vehicle fleet model into policy scenario analysis, we quantify the policy impacts associated with the passenger vehicles in the major Chinese provinces: broader EV penetration, especially combined with cleaner power generation, could deliver greater air quality and health benefits, but not necessarily significant climate change mitigation. The total value to society of the climate and mortality benefits in 2030 is found to be comparable to a prior estimate of the EV policy's economic costs."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsieh2018uncertaintycarsales",
+                "title": "Incorporating Multiple Uncertainties into Projections of Chinese Private Car Sales and Stock",
+                "link": "",
+                "journal": "Transportation Research Record",
+                "volume": "2672",
+                "issue": "47",
+                "articleNo": "",
+                "pages": "182-193",
+                "doi": "10.1177/0361198118791361",
+                "year": "'18",
+                "month": "Dec.",
+                "authors": "I-Yun Lisa Hsieh, Paul Natsuo Kishimoto, William H. Green",
+                "status": "published",
+                "E3": true,
+                "slug": "2018-china-car-sales-uncertainty",
+                "shortTitle": "China Private Car Sales Uncertainty",
+                "topics": [
+                    "Transport & Mobility"
+                ],
+                "methods": [
+                    "Probabilistic / Quantile Methods",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    },
+                    {
+                        "name": "Paul Natsuo Kishimoto",
+                        "webId": ""
+                    },
+                    {
+                        "name": "William H. Green",
+                        "webId": ""
+                    }
+                ],
+                "abstract": "China is in a fast-growing stage of mobility development, and its increasing demand for private cars comes with growing energy consumption and pollutant emissions. Uncertainty in Chinese parameterization of car ownership models makes forecasting these trends a challenge. We develop an application of the Monte Carlo method, conditioned on historical data, to sample parameters for a model projecting aspects of private car diffusion, such as the mix of new and replacement sales. Our model includes changes in per-capita disposable income—both the mean and level of inequality—and a measure of car affordability. By incorporating multiple uncertainties, we show a distribution of possible future outcomes: a low stock of 280 million (1st decile); median of 430 million; and high of 620 million vehicles (9th decile) in 2050. This illustrates the limitations of attempts to model vehicle markets at the national level, by showing how uncertainties in fundamental descriptors of growth lead to a broad range of possible outcomes. While uncertainty in projected per-capita ownership grows continually, the share of first-time purchases in sales is most uncertain in the near term and then narrows as the market saturates. Replacement purchases increasingly capture the sales market from 2025. Our results suggest that stakeholders have a narrow window of opportunity to regulate the fuel economy, pollution and other attributes of vehicles sold to first-time buyers. These may, in turn, shape consumers' experience and expectations of car ownership, affecting their additional and replacement purchases."
             }
         ]
     }

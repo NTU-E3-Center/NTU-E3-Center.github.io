@@ -33,6 +33,13 @@
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
 }
 
+/* Method chips: solid green variant so topic (blue) vs method (green) is
+   distinguishable by hue at chip-level glance. */
+.pub-tag-chip--method {
+    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
+    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+}
+
 .pub-item-title {
     font-size: clamp(1.625rem, 3.2vw, 2.125rem);
     font-weight: var(--fw-h1);
