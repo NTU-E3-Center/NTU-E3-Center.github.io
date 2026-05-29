@@ -2175,6 +2175,53 @@
                     }
                 ],
                 "abstract": "China is in a fast-growing stage of mobility development, and its increasing demand for private cars comes with growing energy consumption and pollutant emissions. Uncertainty in Chinese parameterization of car ownership models makes forecasting these trends a challenge. We develop an application of the Monte Carlo method, conditioned on historical data, to sample parameters for a model projecting aspects of private car diffusion, such as the mix of new and replacement sales. Our model includes changes in per-capita disposable income—both the mean and level of inequality—and a measure of car affordability. By incorporating multiple uncertainties, we show a distribution of possible future outcomes: a low stock of 280 million (1st decile); median of 430 million; and high of 620 million vehicles (9th decile) in 2050. This illustrates the limitations of attempts to model vehicle markets at the national level, by showing how uncertainties in fundamental descriptors of growth lead to a broad range of possible outcomes. While uncertainty in projected per-capita ownership grows continually, the share of first-time purchases in sales is most uncertain in the near term and then narrows as the market saturates. Replacement purchases increasingly capture the sales market from 2025. Our results suggest that stakeholders have a narrow window of opportunity to regulate the fuel economy, pollution and other attributes of vehicles sold to first-time buyers. These may, in turn, shape consumers' experience and expectations of car ownership, affecting their additional and replacement purchases."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:tam2025lcoctaiwan",
+                "title": "Assessment and Sensitivity Analysis of Electric Vehicle Charging Costs in Taiwan: A Levelized Cost Model Approach",
+                "titleZh": "臺灣電動車輛均化充電成本評估與敏感度分析",
+                "link": "",
+                "journal": "Transportation Planning Journal",
+                "journalZh": "運輸計劃季刊",
+                "volume": "54",
+                "issue": "4",
+                "articleNo": "",
+                "pages": "295-321",
+                "doi": "",
+                "year": "'25",
+                "month": "Dec.",
+                "authors": "Chon Man Tam, I-Yun Lisa Hsieh",
+                "status": "published",
+                "E3": true,
+                "slug": "2025-ev-charging-cost-taiwan-lcoc",
+                "shortTitle": "EV Charging Cost in Taiwan (LCOC)",
+                "topics": [
+                    "Transport & Mobility",
+                    "Power Sector & Grid"
+                ],
+                "methods": [
+                    "Techno-Economic Analysis",
+                    "Scenario & Pathway Analysis"
+                ],
+                "keywords": [
+                    "Electric vehicle",
+                    "Charging cost",
+                    "Levelized cost",
+                    "Time-of-use tariffs",
+                    "Electric vehicle charging infrastructure rate",
+                    "Sensitivity analysis"
+                ],
+                "authorList": [
+                    {
+                        "name": "Chon Man Tam",
+                        "webId": "chonmantam"
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "This study examines the cost implications of electric vehicles (EVs) in Taiwan, with a focus on promoting their widespread adoption to achieve the government's 2050 net-zero emissions target. Previous research has primarily compared the total ownership costs of EVs and conventional fuel vehicles, considering purchase and operational expenses. However, such studies often simplify charging costs by using a single electricity price rate. In reality, charging costs are influenced by various factors, including location, charging time, vehicle usage patterns, charging power, and equipment-related expenses. To comprehensively assess the current charging costs in Taiwan, this research employs a Levelized Cost of Charging (LCOC) model. The analysis considers different charging sites (residential, workplace, and public charging), electricity pricing schemes (stepwise power tariff, time-of-use tariffs), charging times (peak and off-peak), and vehicle driving distances. The results indicate that utilizing the \"Electric Vehicle Special Utility Rate\" during off-peak hours can significantly reduce levelized charging costs, which is especially advantageous for operators of public charging facilities. The study also uncovers substantial regional disparities in residential charging costs across different counties and cities, attributed to the considerable differences in residents' vehicle usage patterns and driving distances. Workplace and community (residential) charging sites exhibit the lowest and highest LCOC, respectively. Sensitivity analysis highlights driving distance as a key cost factor for residential charging, while charging time significantly impacts workplace and public charging costs. Moreover, increasing the utilization rate of charging infrastructure substantially lowers LCOC. Currently, the LCOC for workplace and public charging sites is competitive with the fuel costs of conventional gasoline vehicles. Notably, when the utilization rate exceeds 5.20% to 7.95%, the per-kilometer energy replenishment cost of EVs in workplace and public settings becomes lower than the historically lowest fuel costs of gasoline vehicles in Taiwan. These findings offer valuable academic and practical insights for policymakers to support the development and widespread adoption of EVs, aligning with Taiwan's emission reduction goals."
             }
         ]
     }
