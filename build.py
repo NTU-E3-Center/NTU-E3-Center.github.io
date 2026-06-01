@@ -759,6 +759,16 @@ def generate_sitemap():
                         changefreq="yearly", priority="0.6",
                         lastmod=latest_mtime("contents/publications/publications.json"))
 
+    # Project detail pages — one per flagship entry (slug + folder). lastmod tracks
+    # the project's own folder and the projects listing data file.
+    for section in structures.get('projects', []):
+        for item in section.get('items', []):
+            if item.get('pageLink'):
+                slug = item['slug']
+                add_url(f"{BASE}{item['pageLink']}", changefreq="monthly", priority="0.6",
+                        lastmod=latest_mtime(f"contents/projects/{slug}",
+                                             "contents/projects/projects.json"))
+
     tree = ElementTree(urlset)
     indent(tree, space="  ")
     sitemap_path = os.path.join(output_dir, "sitemap.xml")
