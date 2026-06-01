@@ -11,7 +11,8 @@
                 "endDate": "2027-12-31",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": "2026-green-finance-taiwan-india"
             },
             {
                 "titleZh": "多場域綠電轉供與儲能調度之資料驅動強韌性最佳化研究",
@@ -22,7 +23,8 @@
                 "endDate": "2026-10-31",
                 "fundingAgency": "國科會產學（聯齊科技）",
                 "fundingAgencyEn": "NSTC Industry-Academia Program (NextDrive Inc.)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "學門主題式計畫：因應極端水文氣象事件下永續交通安全與運輸系統韌性之創新方案 (1/3)",
@@ -33,7 +35,8 @@
                 "endDate": "2026-07-31",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "邁向智慧永續物流：結合人工智慧與真實數據於綠色車輛路徑規劃",
@@ -44,7 +47,8 @@
                 "endDate": "2028-07-31",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "永續能源與交通的系統性解決方案",
@@ -55,7 +59,8 @@
                 "endDate": "2026-06-30",
                 "fundingAgency": "國科會（臺荷 NSTC-NWO 雙邊交流）",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC) – Taiwan-Netherlands (NSTC-NWO) Bilateral Program",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "智慧型電池換電系統最佳化：運用人工智慧推動能源部門耦合達成淨零能耗建築",
@@ -66,7 +71,8 @@
                 "endDate": "2025-07-31",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "淨零碳排路徑下實現公正轉型: 台灣碳定價之分配效應評估",
@@ -77,7 +83,8 @@
                 "endDate": "2024-07-31",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "人工智慧加速淨零轉型：電力與運輸跨部門耦合",
@@ -88,7 +95,8 @@
                 "endDate": "2023-11-30",
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             }
         ]
     },
@@ -103,7 +111,8 @@
                 "endDate": "2024-10-31",
                 "fundingAgency": "艾立運能股份有限公司",
                 "fundingAgencyEn": "Ally Transport Co., Ltd.",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "鍋爐空氣污染排放管制 對污染排放、空氣品質和人民健康的影響綜合評估",
@@ -113,7 +122,8 @@
                 "endDate": "2024-11-30",
                 "fundingAgency": "環境部",
                 "fundingAgencyEn": "Ministry of Environment",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "太陽能候車亭研究計畫",
@@ -123,7 +133,8 @@
                 "endDate": "2024-05-31",
                 "fundingAgency": "臺北市公共運輸處",
                 "fundingAgencyEn": "Taipei City Public Transportation Office",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "人工智慧驅動的電動車到建築最佳化策略以實現永續智慧能源系統",
@@ -133,7 +144,8 @@
                 "endDate": "2026-12-31",
                 "fundingAgency": "國立臺灣大學高等教育深耕計畫－核心研究群計畫",
                 "fundingAgencyEn": "NTU Higher Education Sprout Project – Core Research Group Program",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "永續能源跨域應用人才培育計畫—永續能源跨域課程模組發展計畫",
@@ -143,7 +155,8 @@
                 "endDate": "2025-01-31",
                 "fundingAgency": "教育部",
                 "fundingAgencyEn": "Ministry of Education",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "邁向智慧綠色物流：冷鏈運輸與共同配送碳足跡管理系統開發",
@@ -153,7 +166,8 @@
                 "endDate": "2025-10-31",
                 "fundingAgency": "艾立運能股份有限公司",
                 "fundingAgencyEn": "Ally Transport Co., Ltd.",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "淨零與空污的潛在共益：電動化策略對空品、健康與碳排的影響評估",
@@ -163,7 +177,8 @@
                 "endDate": "2025-11-30",
                 "fundingAgency": "環境部",
                 "fundingAgencyEn": "Ministry of Environment",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "日本電力交易市場解析研究計畫",
@@ -173,7 +188,8 @@
                 "endDate": "2025-05-31",
                 "fundingAgency": "聯齊科技股份有限公司",
                 "fundingAgencyEn": "NextDrive Inc.",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "智慧與永續倉儲解決方案：全面碳足跡分析與建模",
@@ -183,7 +199,8 @@
                 "endDate": "2026-02-28",
                 "fundingAgency": "永聯物流開發股份有限公司",
                 "fundingAgencyEn": "Ally Logistic Property Co., Ltd. (ALP)",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "物流倉儲的建築資訊塑模與碳足跡認證管理",
@@ -193,7 +210,8 @@
                 "endDate": "2026-02-28",
                 "fundingAgency": "永聯物流開發股份有限公司",
                 "fundingAgencyEn": "Ally Logistic Property Co., Ltd. (ALP)",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "綠色工程跨領域微學程:國立臺灣大學產學合作培育計畫",
@@ -203,7 +221,8 @@
                 "endDate": "2027-02-28",
                 "fundingAgency": "教育部",
                 "fundingAgencyEn": "Ministry of Education",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "台灣電力排碳與能源轉型策略視覺化與工具開發",
@@ -213,7 +232,8 @@
                 "endDate": "2027-12-31",
                 "fundingAgency": "國立臺灣大學",
                 "fundingAgencyEn": "National Taiwan University",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "物流棧板的碳足跡認證管理",
@@ -223,7 +243,8 @@
                 "endDate": "2026-02-28",
                 "fundingAgency": "艾立棧板股份有限公司",
                 "fundingAgencyEn": "Ally Pallet Co., Ltd.",
-                "status": "已結案"
+                "status": "已結案",
+                "slug": ""
             },
             {
                 "titleZh": "基於電力需求預測之園區儲能規劃與調度研究",
@@ -233,7 +254,8 @@
                 "endDate": "2026-12-31",
                 "fundingAgency": "國立臺灣大學",
                 "fundingAgencyEn": "National Taiwan University",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "綠電轉供最佳化配置系統開發",
@@ -243,7 +265,8 @@
                 "endDate": "2027-01-31",
                 "fundingAgency": "天能綠電股份有限公司",
                 "fundingAgencyEn": "GREENET CO., LTD.",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "永續能源高中人才培育與教學模組建置",
@@ -253,7 +276,8 @@
                 "endDate": "2026-12-31",
                 "fundingAgency": "財團法人臺北市私立薇閣高級中學",
                 "fundingAgencyEn": "Wego Private Senior High School",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "綠氫前端風能預測核心技術之建置：短期與超短期風力發電預測模型研製",
@@ -263,7 +287,8 @@
                 "endDate": "2026-10-05",
                 "fundingAgency": "財團法人金屬工業研究發展中心",
                 "fundingAgencyEn": "Metal Industries Research & Development Centre (MIRDC)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             },
             {
                 "titleZh": "人工智慧與人類協同推動淨零物流轉型之臺英合作研究架構",
@@ -273,7 +298,8 @@
                 "endDate": "2026-12-31",
                 "fundingAgency": "教育部臺英大學聯盟 (TUKUC)",
                 "fundingAgencyEn": "Ministry of Education – Taiwan-UK University Consortium (TUKUC)",
-                "status": "執行中"
+                "status": "執行中",
+                "slug": ""
             }
         ]
     }
