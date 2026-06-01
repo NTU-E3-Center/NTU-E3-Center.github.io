@@ -6,7 +6,7 @@
     {% for members in structures['members'] %}
     {% if not (isHomePage and members['sectionTitle'] in ['Master Students', 'Alumni']) %}
     {% if members['form'] == 'L' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
+    <h3 class="section-eyebrow">{{ members['sectionTitle'] }}</h3>
     <section class="mem-section" who="{{ members['form'] }}">
         {% for member in members['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
@@ -43,7 +43,7 @@
         {% endfor %}
     </section>
     {% elif members['form'] == 'M' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
+    <h3 class="section-eyebrow">{{ members['sectionTitle'] }}</h3>
     <section class="mem-section" who="{{ members['form'] }}">
         {% for member in members['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
@@ -81,7 +81,7 @@
         {% endfor %}
     </section>
     {% elif members['form'] == 'S' %}
-    <h3>{{ members['sectionTitle'] }}</h3>
+    <h3 class="section-eyebrow">{{ members['sectionTitle'] }}</h3>
     {% if members['filter'] %}
     <div class="filter" where="{{ members['filterId'] }}">
         <span class="filter-title">{{ members['filterTitle'] }}</span>
