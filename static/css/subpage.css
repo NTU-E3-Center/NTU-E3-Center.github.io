@@ -1832,7 +1832,20 @@
     top: calc(100% + 0.375rem);
     left: 0;
     z-index: 50;
-    min-width: 100%;
+    /* All five filters (Year / Journal / Topic / Method / Type) share the
+       same panel footprint so the bar feels like one set of controls. The
+       min-width is wide enough that a Year row ("2024 · 12") sits comfortably,
+       and Journal/Topic/Method rows don't crowd. max-width caps the panel on
+       desktop; max-height + overflow-y handles long lists (mostly Journal). */
+    min-width: 16rem;
+    max-width: min(28rem, calc(100vw - 2rem));
+    max-height: 22rem;
+    overflow-y: auto;
+    /* Reserve scrollbar space whether or not it's actually needed, so panels
+       that scroll (Year / Journal / Topic / Method) have the same content
+       width as panels that don't (Type). Without this, the scrollbar steals
+       ~10px on scroll-triggering panels and rows look misaligned vs Type. */
+    scrollbar-gutter: stable;
     padding: 0.375rem;
     border: 0.125rem solid var(--main-color);
     border-radius: 0.75rem;
@@ -1840,7 +1853,9 @@
     box-shadow: 0.25rem 0.25rem 0 var(--main-shadow-color);
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    /* 2px was too tight — rows visually merged. 4px gives clear separation
+       between filter options without bloating the panel. */
+    gap: 0.25rem;
 }
 
 .pub-filter-panel[hidden] { display: none; }
@@ -1849,7 +1864,11 @@
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    padding: 0.5rem 0.75rem;
+    /* Fixed row height across every filter (Year / Journal / Topic / Method /
+       Type) so the dropdowns read as a uniform grid regardless of which
+       items they contain or whether the label has a leading color dot. */
+    min-height: 2.5rem;
+    padding: 0.375rem 0.75rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -1865,12 +1884,16 @@
         background var(--hover-transition-time),
         opacity 150ms ease,
         max-height 200ms ease,
+        min-height 200ms ease,
         padding-block 150ms ease;
 }
 
 .pub-filter-check.is-suppressed {
     opacity: 0;
+    /* Must zero out BOTH max-height and min-height — without overriding the
+       min-height baseline, the row would refuse to collapse. */
     max-height: 0;
+    min-height: 0;
     padding-block: 0;
     pointer-events: none;
 }
@@ -1898,10 +1921,16 @@
     font-weight: 600;
 }
 
-/* Label takes remaining width so the count chip sits flush right. */
+/* Label takes remaining width so the count chip sits flush right. Single-
+   line + ellipsis ensures every filter row has the same height regardless
+   of label length (long journal names truncate; full text is preserved in
+   the parent <label>'s title attribute for hover/tap-and-hold). */
 .pub-filter-check-label {
     flex: 1;
     min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Per-option count — right-aligned, muted, tabular numerals so the
@@ -1924,24 +1953,6 @@
 .pub-filter-check:has(input:checked) .pub-filter-check-count {
     background: color-mix(in srgb, var(--main-color) 14%, transparent);
     color: var(--main-color);
-}
-
-/* Journal / Topic / Method panels are wider (long values) and scrollable
-   when the list outgrows a comfortable visible count. */
-.pub-filter-dropdown--journal .pub-filter-panel,
-.pub-filter-dropdown--topic   .pub-filter-panel,
-.pub-filter-dropdown--method  .pub-filter-panel {
-    min-width: 18rem;
-    max-width: min(28rem, calc(100vw - 2rem));
-    max-height: 22rem;
-    overflow-y: auto;
-}
-
-.pub-filter-dropdown--journal .pub-filter-check .pub-filter-check-label,
-.pub-filter-dropdown--topic   .pub-filter-check .pub-filter-check-label,
-.pub-filter-dropdown--method  .pub-filter-check .pub-filter-check-label {
-    white-space: normal;
-    line-height: 1.35;
 }
 
 /* Topic / method options carry a small color swatch so the dropdown
@@ -2122,9 +2133,10 @@
         max-width: none;
     }
 
-    /* Phone journal panel: cap width to viewport so a long-named journal
-       never pushes the page horizontally. */
-    .pub-filter-dropdown--journal .pub-filter-panel {
+    /* Phone: every panel shrinks to fit a small viewport. Min stays
+       comfortable, max strictly caps to (viewport - 2rem) so a long-named
+       journal never pushes the page horizontally. */
+    .pub-filter-panel {
         min-width: 14rem;
         max-width: calc(100vw - 2rem);
     }
