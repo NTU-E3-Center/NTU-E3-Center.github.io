@@ -210,69 +210,9 @@ resBlockWithAni.forEach(block => {
     });
 });
 
-// * no priority
-// group life slider
-const glfSlider = document.querySelector('.glf-slider');
-const glfSliderCurrentNum = document.querySelector('.glf-slider-current-num');
-const glfSliderTotalNum = document.querySelector('.glf-slider-total-num');
-const glfSliderWrapper = document.querySelector('.glf-slider-wrapper');
-const glfSliderBlock = document.querySelectorAll('.glf-slider-block');
-const glfSliderBlockNum = document.querySelectorAll('.glf-slider-block').length;
-const blockNumMax = glfSliderBlockNum - 1;
-
-function glfSliderHandleSwipe(glfSliderTouchEndX) {
-    if (glfSliderTouchStartX - glfSliderTouchEndX > 50) {
-        glfSliderPush(1);
-    } else if (glfSliderTouchEndX - glfSliderTouchStartX > 50) {
-        glfSliderPush(-1);
-    };
-};
-
-glfSliderWrapper.style.setProperty('--_slide-to', 0);
-glfSliderCurrentNum.innerHTML = 1;
-glfSliderTotalNum.innerHTML = glfSliderBlockNum;
-
-let glfSliderTo = 0;
-function glfSliderPush(push) {
-    glfSliderBlock[glfSliderTo].style.setProperty('opacity', 0);
-
-    glfSliderTo += push;
-    glfSliderTo = glfSliderTo < 0 ? 0 : glfSliderTo;
-    glfSliderTo = glfSliderTo > blockNumMax ? blockNumMax : glfSliderTo;
-    glfSliderWrapper.style.setProperty('--_slide-to', glfSliderTo);
-
-    glfSliderCurrentNum.innerHTML = glfSliderTo + 1;
-
-    glfSliderBlock[glfSliderTo].style.setProperty('opacity', 1);
-};
-
-let glfSliderTouchStartX = 0;
-let glfSliderTouchIsDown = false;
-
-glfSlider.addEventListener('mousedown', (e) => {
-    glfSliderTouchIsDown = true;
-    glfSliderTouchStartX = e.pageX;
-});
-
-glfSlider.addEventListener('mouseup', (e) => {
-    if (!glfSliderTouchIsDown) return;
-    glfSliderTouchIsDown = false;
-    glfSliderHandleSwipe(e.pageX);
-});
-
-glfSlider.addEventListener('mouseleave', () => {
-    glfSliderTouchIsDown = false;
-});
-
-glfSlider.addEventListener('touchstart', (e) => {
-    glfSliderTouchStartX = e.touches[0].clientX;
-});
-
-glfSlider.addEventListener('touchend', (e) => {
-    const glfSliderTouchEndX = e.changedTouches[0].clientX;
-    glfSliderHandleSwipe(glfSliderTouchEndX);
-});
-
+// group-life now uses a CSS-only auto-scroll marquee (see .glf-marquee in
+// style.css). No JS needed — pause-on-hover is handled by CSS, the seamless
+// loop comes from rendering two copies of the photo set in the template.
 
 // * no priority
 // --- MODAL SETUP ---

@@ -226,6 +226,40 @@ document.querySelectorAll('.filter').forEach((filter) => {
     updateEmptyState();
 });
 
+// Scroll-spy: highlight the menu item matching the section currently in view.
+// Only runs on the homepage (presence of `<section id="home">`). For each
+// homepage section, find a `.menu-a` whose href ends with `#<id>` (anchor link)
+// or `/<id>` (subpage link with matching slug). When that section's top crosses
+// the upper viewport band, mark its menu item `.menu-a--active` + aria-current.
+if (document.querySelector('section#home')) {
+    const sections = Array.from(document.querySelectorAll('section[id]'))
+        .filter(s => s.id !== 'home');
+    const linkBySection = {};
+    sections.forEach(s => {
+        const id = s.id;
+        let link = document.querySelector(`.menu-a[href="/#${id}"], .menu-a[href="#${id}"]`);
+        if (!link) link = document.querySelector(`.menu-a[href$="/${id}"], .menu-a[href$="/${id}/"]`);
+        if (link) linkBySection[id] = link;
+    });
+    const links = Object.values(linkBySection);
+    if (links.length) {
+        const setActive = (activeId) => {
+            Object.entries(linkBySection).forEach(([id, link]) => {
+                const isActive = id === activeId;
+                link.classList.toggle('menu-a--active', isActive);
+                if (isActive) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+            });
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            });
+        }, { rootMargin: '-20% 0px -75% 0px', threshold: 0 });
+        sections.forEach(s => observer.observe(s));
+    }
+}
+
 // Member page — publication section "Show all N" / "Show less" toggle.
 // Reveals .pub-row--extra siblings within the same .pub-list. Toggling
 // .pub-list--expanded on the list lets CSS handle the peek-mask, backdrop
