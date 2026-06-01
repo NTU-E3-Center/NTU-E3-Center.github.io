@@ -63,6 +63,10 @@ contents/projects/<slug>/
 
 ```jsonc
 {
+  "shortTitle": "",       // optional concise title for the <title> tag + social cards
+                          // (keeps very long official names within the ~60-char SEO budget);
+                          // the full titleEn stays the visible heading. Omit if titleEn is short.
+
   "summary":   "",        // one-line EN teaser (used for meta description fallback)
   "summaryZh": "",
 
