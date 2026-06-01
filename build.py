@@ -96,6 +96,17 @@ def pub_slug(item):
     return f"{pub_year4(item) or 'na'}-{slugify_title(item.get('title', ''))}".strip('-')
 
 
+def proj_slug(item):
+    """Suggest a project slug `<startYear>-<title-slug>` (parallel to pub_slug).
+
+    The opt-in trigger is the explicit `slug` field in projects.json; this helper
+    only generates a candidate value to paste in. An explicit `slug` always wins."""
+    if item.get('slug'):
+        return item['slug']
+    year = (item.get('startDate') or '')[:4] or 'na'
+    return f"{year}-{slugify_title(item.get('titleEn', ''))}".strip('-')
+
+
 def _bibtex_authors(item):
     """'Last, First and Last, First'. Prefers structured authorList; falls back
     to the comma-separated `authors` string."""
@@ -221,6 +232,18 @@ if 'publications' in structures:
             if _item.get('abstract'):
                 _item['slug'] = pub_slug(_item)
                 _item['pageLink'] = f"/publications/{_item['slug']}/"
+
+# A project earns a detail page once its listing entry has a non-empty `slug`
+# AND a matching contents/projects/<slug>/project.json exists (opt-in, mirroring
+# publications-by-abstract). Annotate those entries with a pageLink so the
+# listing + homepage rows link to /projects/<slug>/.
+if 'projects' in structures:
+    for _section in structures['projects']:
+        for _item in _section.get('items', []):
+            _pslug = _item.get('slug')
+            if _pslug and os.path.isfile(
+                    os.path.join('contents', 'projects', _pslug, 'project.json')):
+                _item['pageLink'] = f"/projects/{_pslug}/"
 
 # Load page-body markdown for each subpage that has one.
 articles = {}
@@ -779,6 +802,8 @@ _SUBPAGE_IMAGE_SOURCES = [
     # (source_root,                  docs/assets/<folder>, sizes)
     ('contents/news/images',         'news',               [200, 400, 600, 800, 1200, 1600, 2000]),
     ('contents/group-life/images',   'group-life',         [200, 400, 600, 800, 1200, 1600, 2000]),
+    # Projects: walks contents/projects/<slug>/images/* → docs/assets/projects/<slug>/images/*
+    ('contents/projects',            'projects',           [200, 400, 600, 800, 1200, 1600, 2000]),
 ]
 
 def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None):
