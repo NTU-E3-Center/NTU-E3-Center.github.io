@@ -9,7 +9,11 @@
 {% set role = item.get('role', '') %}
 {% set start_yr = item['startDate'][:4] %}
 {% set end_yr = item['endDate'][:4] %}
+{% if item.get('pageLink') %}
+<a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
+{% else %}
 <div class="news-row" role="listitem">
+{% endif %}
 
     <div class="news-row-date">
         <span class="news-row-yy">{{ start_yr }}</span>
@@ -37,5 +41,9 @@
         </p>
     </div>
 
+{% if item.get('pageLink') %}
+</a>
+{% else %}
 </div>
+{% endif %}
 {% endmacro %}
