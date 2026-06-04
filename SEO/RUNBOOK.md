@@ -10,6 +10,23 @@ Operator-facing notes for keeping the site discoverable in Google.
 2. **Submit the sitemap** in GSC → *Sitemaps*: `https://e3center.caece.net/sitemap.xml`.
 3. **Link Google Analytics property** `G-JCJPED8JS6` to the GSC property (Admin → Associations).
 
+## Canonical tracking IDs (decided 2026-06-03)
+
+The site uses exactly **two** Google tags, both already in `templates/base.html`:
+
+| Tag | Type | ID |
+|---|---|---|
+| Google Analytics 4 | GA4 property | `G-JCJPED8JS6` |
+| Google Tag Manager | GTM container | `GTM-M3L6SMNZ` |
+
+**Do not add new GA4 properties or GTM containers.** Google's setup wizards generate a fresh ID every
+time you click "Set up"; those new IDs (e.g. `G-G2VVLGT4XF`, `GTM-N29TLBVR`) start from zero with **no
+historical data and no back-fill**, and the GSC link points at `G-JCJPED8JS6`. Keep using the two IDs above.
+If you ever genuinely need to migrate GA4, re-link the new property to Search Console and update this file.
+
+> ⚠️ Avoid double-counting: GA4 should be delivered by **one** path only — either the hard-coded `gtag.js`
+> block *or* a GA4 tag inside GTM, never both. Verify with GA4 DebugView / Tag Assistant.
+
 ## After publishing a new news item
 
 1. Push the change. Wait for the GitHub Actions deploy to finish (~2 min).

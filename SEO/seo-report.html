@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E3 Center · SEO Report & Action Plan · 2026-06-03</title>
+<style>
+  :root{
+    --navy:#0a557e; --navy-d:#073f5e; --teal:#0e7490; --sky:#2c6fbb;
+    --ink:#16242d; --body:#33454f; --muted:#647682; --faint:#8a99a3;
+    --bg:#eef3f6; --card:#ffffff; --line:#dce6eb; --line-d:#c4d3da;
+    --good:#157a4d; --good-bg:#e4f4ea; --warn:#b9791a; --warn-bg:#fbf1df;
+    --bad:#bb392b; --bad-bg:#fbe7e3; --info:#2c6fbb; --info-bg:#e7f0fa;
+    --shadow:0 1px 2px rgba(16,40,56,.06),0 6px 22px rgba(16,40,56,.07);
+    --radius:14px;
+    --mono:'SF Mono',ui-monospace,'Cascadia Code',Menlo,Consolas,monospace;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,'PingFang TC','Noto Sans TC',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);
+       font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.85em;background:#eef2f4;color:#0c3c57;
+       padding:.1em .4em;border-radius:5px;border:1px solid #e0e7eb;white-space:nowrap}
+  h1,h2,h3,h4{color:var(--ink);line-height:1.25;font-weight:650}
+  /* ---------- layout ---------- */
+  .shell{display:flex;max-width:1500px;margin:0 auto}
+  nav.side{position:sticky;top:0;align-self:flex-start;height:100vh;width:256px;flex:0 0 256px;
+       background:linear-gradient(178deg,var(--navy),var(--navy-d));color:#dbe8f0;
+       padding:26px 18px;overflow-y:auto}
+  nav.side .brand{font-weight:700;color:#fff;font-size:1.18rem;letter-spacing:.2px;margin:0 0 2px}
+  nav.side .sub{color:#9cc4da;font-size:.78rem;margin-bottom:22px}
+  nav.side a{display:block;color:#cfe2ee;padding:7px 11px;border-radius:8px;font-size:.9rem;
+       margin:1px 0;border-left:3px solid transparent;transition:.15s}
+  nav.side a:hover{background:rgba(255,255,255,.08);text-decoration:none;color:#fff}
+  nav.side a.active{background:rgba(255,255,255,.14);color:#fff;border-left-color:#5fd0c4;font-weight:600}
+  nav.side .navgrp{color:#7fb0cc;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;
+       margin:18px 0 4px 11px}
+  main{flex:1 1 auto;min-width:0;padding:0 clamp(20px,4vw,56px) 90px}
+  section{padding-top:34px;margin-top:8px;scroll-margin-top:14px}
+  /* ---------- hero ---------- */
+  .hero{background:linear-gradient(120deg,var(--navy),var(--teal));color:#fff;
+       border-radius:0 0 var(--radius) var(--radius);padding:38px clamp(22px,3.5vw,46px) 32px;
+       margin:0 calc(-1*clamp(20px,4vw,56px)) 0;box-shadow:var(--shadow)}
+  .hero h1{color:#fff;margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.15rem)}
+  .hero p{color:#e3f1f7;max-width:74ch;margin:.3em 0}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:.85rem;color:#cfe7f1}
+  .hero .meta b{color:#fff}
+  .tldr{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+       border-radius:10px;padding:14px 18px;margin-top:18px;color:#fff;font-size:.95rem}
+  /* ---------- generic blocks ---------- */
+  h2.sec{font-size:1.5rem;border-bottom:2px solid var(--line-d);padding-bottom:9px;margin:6px 0 4px;
+       display:flex;align-items:center;gap:11px}
+  h2.sec .n{background:var(--navy);color:#fff;font-size:.8rem;font-weight:700;width:27px;height:27px;
+       border-radius:7px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .lead{color:var(--muted);max-width:80ch;margin:.4em 0 1.2em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+       box-shadow:var(--shadow);padding:20px 22px;margin:14px 0}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
+  /* ---------- KPI tiles ---------- */
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 17px;
+       box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi .lab{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+  .kpi .val{font-size:1.92rem;font-weight:720;color:var(--ink);line-height:1.05;margin:6px 0 2px}
+  .kpi .was{font-size:.8rem;color:var(--faint)}
+  .kpi .delta{position:absolute;top:14px;right:15px;font-size:.78rem;font-weight:700;
+       padding:2px 8px;border-radius:20px}
+  .up{background:var(--good-bg);color:var(--good)} .dn{background:var(--bad-bg);color:var(--bad)}
+  .flat{background:#eef2f4;color:var(--muted)}
+  .kpi .bar{height:4px;border-radius:3px;margin-top:10px;background:linear-gradient(90deg,var(--teal),var(--sky))}
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line)}
+  th{background:#f4f8fa;color:var(--ink);font-weight:650;font-size:.82rem;text-transform:uppercase;letter-spacing:.03em}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:hover{background:#f7fbfc}
+  .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:20px;
+       vertical-align:middle}
+  .t-good{background:var(--good-bg);color:var(--good)} .t-bad{background:var(--bad-bg);color:var(--bad)}
+  .t-warn{background:var(--warn-bg);color:var(--warn)} .t-info{background:var(--info-bg);color:var(--info)}
+  /* ---------- pros / cons ---------- */
+  .pc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:10px;
+       overflow:hidden;margin:12px 0}
+  @media(max-width:680px){.pc{grid-template-columns:1fr}}
+  .pc .col{padding:13px 16px}
+  .pc .pros{background:var(--good-bg)} .pc .cons{background:var(--bad-bg);border-left:1px solid var(--line)}
+  .pc h5{margin:0 0 7px;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+  .pc .pros h5{color:var(--good)} .pc .cons h5{color:var(--bad)}
+  .pc ul{margin:0;padding-left:18px} .pc li{margin:3px 0;font-size:.88rem;color:var(--ink)}
+  /* ---------- action cards ---------- */
+  .lane-h{display:flex;align-items:center;gap:10px;margin:22px 0 4px;font-weight:700;color:var(--ink);font-size:1.05rem}
+  .lane-h .pill{font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:20px;color:#fff}
+  .pill.wk{background:var(--bad)} .pill.mo{background:var(--warn)} .pill.qt{background:var(--info)}
+  .act{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);
+       border-radius:10px;box-shadow:var(--shadow);padding:15px 18px;margin:10px 0}
+  .act.wk{border-left-color:var(--bad)} .act.mo{border-left-color:var(--warn)} .act.qt{border-left-color:var(--info)}
+  .act .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .act .ttl{font-weight:680;color:var(--ink);font-size:1.02rem}
+  .act .badges{display:flex;gap:6px;flex-wrap:wrap;flex:0 0 auto}
+  .badge{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+  .b-eff{background:#eef2f4;color:var(--body);border:1px solid var(--line-d)}
+  .b-imp{background:var(--navy);color:#fff}
+  .act .why{font-size:.9rem;color:var(--body);margin:8px 0 0}
+  .act .why .data{background:var(--info-bg);color:#1c4f86;border:1px solid #cfe0f3;border-radius:6px;
+       padding:1px 7px;font-weight:600;font-size:.84rem;white-space:nowrap}
+  .act .files{font-size:.82rem;color:var(--muted);margin-top:7px}
+  /* ---------- per-page cards ---------- */
+  .page-card{border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;margin:16px 0;background:var(--card)}
+  .page-card>.hd{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#f4f8fa;border-bottom:1px solid var(--line)}
+  .page-card>.hd .url{font-family:var(--mono);font-size:.92rem;color:var(--navy);font-weight:600}
+  .page-card>.hd .role{font-size:.78rem;color:var(--muted);margin-left:auto;text-align:right}
+  .page-card>.bd{padding:16px 20px}
+  .statline{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .chip{font-size:.78rem;background:#f0f4f6;border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--body)}
+  .chip b{color:var(--ink)}
+  .do{margin:6px 0} .do b{color:var(--navy)}
+  .callout{border-radius:10px;padding:13px 17px;margin:13px 0;font-size:.92rem;border:1px solid}
+  .co-warn{background:var(--warn-bg);border-color:#ecd3a3;color:#6c4d12}
+  .co-info{background:var(--info-bg);border-color:#cfe0f3;color:#1c456f}
+  .co-good{background:var(--good-bg);border-color:#bfe3cd;color:#0d5234}
+  .callout b{color:inherit}
+  /* ---------- charts ---------- */
+  .chartwrap{margin:8px 0}
+  .stack{display:flex;height:30px;border-radius:7px;overflow:hidden;border:1px solid var(--line);font-size:.74rem}
+  .stack > div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;white-space:nowrap;overflow:hidden}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:9px;font-size:.82rem;color:var(--muted)}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .hbar{display:grid;grid-template-columns:140px 1fr 58px;align-items:center;gap:10px;margin:5px 0;font-size:.85rem}
+  .hbar .track{background:#eef2f4;border-radius:6px;height:18px;overflow:hidden}
+  .hbar .fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--sky));border-radius:6px}
+  .hbar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  /* ---------- misc ---------- */
+  pre{background:#0d2c40;color:#dbeafc;border-radius:10px;padding:14px 16px;overflow-x:auto;
+      font-family:var(--mono);font-size:.82rem;line-height:1.55}
+  pre .c{color:#74a8c9} pre .k{color:#7fd0c4} pre .s{color:#e6b673}
+  .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line-d);color:var(--faint);font-size:.82rem}
+  .pillrow{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+  details.q{border:1px solid var(--line);border-radius:9px;margin:8px 0;background:var(--card);overflow:hidden}
+  details.q summary{padding:11px 16px;cursor:pointer;font-weight:600;color:var(--ink);background:#f6f9fb}
+  details.q[open] summary{border-bottom:1px solid var(--line)}
+  details.q .qb{padding:13px 16px;font-size:.9rem}
+  .scorecard{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  @media(max-width:680px){.scorecard{grid-template-columns:1fr}.shell{flex-direction:column}nav.side{position:static;width:auto;height:auto;flex-basis:auto}}
+  .scorecard>div{padding:14px 16px}
+  .scorecard>div:nth-child(1){background:#f4f8fa;border-right:1px solid var(--line)}
+  .vs-head{font-weight:700;color:var(--ink);margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="side">
+  <div class="brand">E3 Center — SEO</div>
+  <div class="sub">Report &amp; Action Plan · 2026-06-03</div>
+  <div class="navgrp">Diagnosis</div>
+  <a href="#snapshot">① Snapshot &amp; progress</a>
+  <a href="#mix">② What you rank for</a>
+  <div class="navgrp">What to do next</div>
+  <a href="#plan">③ Prioritised action plan</a>
+  <a href="#done">✓ Done &amp; verified</a>
+  <a href="#pages">④ Page-by-page strategy</a>
+  <div class="navgrp">Measurement</div>
+  <a href="#analytics">⑤ GSC vs GA4 — + your data</a>
+  <a href="#tags">⑥ Your 3 Google tags</a>
+  <a href="#data">⑦ Data to feed me next</a>
+  <a href="#metrics">⑧ Metrics to watch</a>
+</nav>
+<main>
+
+<header class="hero">
+  <h1>Search visibility: where you are, and what to do next</h1>
+  <p>A read of the latest Google Search Console data against the live site, turned into a prioritised plan.
+     The headline: the indexing problem that dominated last year's report is <b>largely fixed</b> — the job now
+     is to convert breadth into <b>topical rankings</b> and tighten the brand snippets you already win.</p>
+  <div class="meta">
+    <span><b>Primary data:</b> GSC 3-mo + new 12-mo exports · GA4 acquisition &amp; engagement</span>
+    <span><b>Windows:</b> GSC 3-mo (Mar–May) · 12-mo (to 2026-06-01) · GA4 (Mar 5–Jun 2)</span>
+    <span><b>Compared to:</b> prior 3-mo &amp; 12-mo exports (2026-05-06)</span>
+    <span><b>Scope:</b> recommendations only — no site code changed</span>
+  </div>
+  <div class="tldr">
+    <b>One-paragraph read:</b> In a fair 3-month-vs-3-month comparison, the number of distinct pages Google
+    ranks for you jumped from <b>9 → 56</b> (6.2×) and impressions rose <b>+61%</b>. Your first non-brand
+    <b>topical</b> queries began surfacing (“machine learning in energy”, “decarbonization”, “renewable energy”) — essentially absent before.
+    But two cheap things are still leaking value: the homepage <code>&lt;title&gt;</code> is the old short
+    string (so <code>caece.net</code> ranks <b>#1 with 0 clicks</b>) and <b>0 of 28</b> news items carry topic tags.
+    Fix those this week; build <code>/research/{topic}/</code> pages this month to capture the topical demand that's
+    already knocking. (The old member-URL duplicates are already auto-redirecting — see Action 3.)
+  </div>
+</header>
+
+<!-- ===================== 1. SNAPSHOT ===================== -->
+<section id="snapshot">
+  <h2 class="sec"><span class="n">1</span>Snapshot &amp; progress</h2>
+  <p class="lead">The only honest year-on-year comparison is like-for-like windows. Below is the latest
+     3 months vs the previous 3 months. Read CTR with care — it dipped because you now rank for many
+     <i>more</i> pages at deeper positions (a good problem), and because one junk query distorts the average (see §2).</p>
+
+  <div class="grid g4">
+    <div class="kpi"><div class="delta up">▲ 6.2×</div><div class="lab">Pages ranking</div>
+      <div class="val">56</div><div class="was">was 9 &nbsp;·&nbsp; distinct URLs w/ impressions</div><div class="bar"></div></div>
+    <div class="kpi"><div class="delta up">▲ 61%</div><div class="lab">Impressions</div>
+      <div class="val">15,331</div><div class="was">was 9,502</div><div class="bar"></div></div>
+    <div class="kpi"><div class="delta up">▲ 16%</div><div class="lab">Clicks</div>
+      <div class="val">265</div><div class="was">was 229</div><div class="bar"></div></div>
+    <div class="kpi"><div class="delta up">▲ 40%</div><div class="lab">Distinct queries</div>
+      <div class="val">80</div><div class="was">was 57</div><div class="bar"></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3 style="margin-top:0">Daily clicks &amp; impressions</h3>
+      <div class="chartwrap"><svg id="trend" viewBox="0 0 720 230" width="100%" height="230" role="img"
+           aria-label="Daily clicks and impressions, Mar–May 2026"></svg></div>
+      <div class="legend"><span><i style="background:#2c6fbb"></i>Impressions</span>
+        <span><i style="background:#bb392b"></i>Clicks</span>
+        <span style="color:var(--faint)">Mar 1 → May 28, 2026</span></div>
+      <p style="font-size:.85rem;color:var(--muted);margin:.6em 0 0">The late-March dip is the “e3” gaming-expo
+        noise receding; the May climb is your own pages (publications, members) being indexed and surfacing.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">3-month scorecard</h3>
+      <table>
+        <thead><tr><th>Metric</th><th class="num">Prev 3-mo</th><th class="num">Latest 3-mo</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          <tr><td>Pages ranking</td><td class="num">9</td><td class="num">56</td><td class="num"><span class="tag t-good">+522%</span></td></tr>
+          <tr><td>Impressions</td><td class="num">9,502</td><td class="num">15,331</td><td class="num"><span class="tag t-good">+61%</span></td></tr>
+          <tr><td>Clicks</td><td class="num">229</td><td class="num">265</td><td class="num"><span class="tag t-good">+16%</span></td></tr>
+          <tr><td>Queries</td><td class="num">57</td><td class="num">80</td><td class="num"><span class="tag t-good">+40%</span></td></tr>
+          <tr><td>CTR (all)</td><td class="num">2.41%</td><td class="num">1.73%</td><td class="num"><span class="tag t-warn">−0.7pp</span></td></tr>
+          <tr><td>Publication pages ranking</td><td class="num">0</td><td class="num">7</td><td class="num"><span class="tag t-good">new</span></td></tr>
+          <tr><td>Topical (non-brand) queries</td><td class="num">~1</td><td class="num">~6</td><td class="num"><span class="tag t-good">↑</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout co-good"><b>Verdict:</b> the SEO work shipped since the last report is working.
+        Indexing breadth — last year's #1 problem — is largely solved. The frontier moved from
+        “get indexed” to “rank for topics &amp; convert brand snippets”.</div>
+      <div class="callout co-info"><b>Zoom out (12-mo, new 2026-06-03 export):</b> across the full year, ranking
+        pages went <b>9 → 69</b> vs the prior 12 months — so the breadth gain is a durable trend, not a 3-month
+        blip. Annual impressions 44,983 → 50,817 (+13%) and clicks 806 → 867 (+8%) grew modestly, held back by the
+        flat “e3” noise; the real movement is in <i>page breadth</i> and the recent topical green shoots.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. QUERY MIX ===================== -->
+<section id="mix">
+  <h2 class="sec"><span class="n">2</span>What you actually rank for</h2>
+  <p class="lead">Splitting the 80 queries by intent shows the real shape of your visibility. One junk query —
+     <code>e3</code> gaming-expo cluster (the bare query plus its punctuation variants) is <b>81% of all impressions</b> and almost no clicks, so it
+     crushes the average CTR. Strip it out and the picture is healthy.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Impression share by query type (latest 3-mo)</h3>
+    <div class="stack">
+      <div style="width:81%;background:#9aa7af">“e3” cluster — gaming-expo noise · 12,406</div>
+      <div style="width:9%;background:#2c6fbb">topical+other · ~1,360</div>
+      <div style="width:3%;background:#0e7490">names · 414</div>
+      <div style="width:2%;background:#0a557e">brand · 309</div>
+      <div style="width:5%;background:#157a4d">translated/anon</div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#9aa7af"></i>Noise — ignore in trend</span>
+      <span><i style="background:#2c6fbb"></i>Topical / other</span>
+      <span><i style="background:#0e7490"></i>Names</span>
+      <span><i style="background:#0a557e"></i>Brand</span>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="kpi"><div class="lab">“Real” (non-noise) CTR</div><div class="val">~8.9%</div>
+        <div class="was">≈259 clicks / ≈2,925 impr</div></div>
+      <div class="kpi"><div class="lab">Brand CTR</div><div class="val">23%</div>
+        <div class="was">72 clicks / 309 impr — strong</div></div>
+      <div class="kpi"><div class="lab">Name CTR</div><div class="val">5.3%</div>
+        <div class="was">22 clicks / 415 impr — improvable</div></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3 style="margin-top:0">🌱 Topical green shoots <span class="tag t-good">new this period</span></h3>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:0">Non-brand topic queries are now surfacing
+        are surfacing — with <b>no dedicated pages targeting them</b>. This is demand knocking on a closed door.</p>
+      <table>
+        <thead><tr><th>Query</th><th class="num">Pos</th><th class="num">Impr</th></tr></thead>
+        <tbody>
+          <tr><td>renewable energy?</td><td class="num">2.0</td><td class="num">1</td></tr>
+          <tr><td>machine learning in renewable energy</td><td class="num">4.0</td><td class="num">1</td></tr>
+          <tr><td>machine learning in energy</td><td class="num">5.5</td><td class="num">2</td></tr>
+          <tr><td>decarbonization</td><td class="num">8.0</td><td class="num">1</td></tr>
+          <tr><td>v2b</td><td class="num">10</td><td class="num">1</td></tr>
+          <tr><td>wind plan</td><td class="num">48</td><td class="num">1</td></tr>
+        </tbody>
+      </table>
+      <div class="callout co-info"><b>So what:</b> these map almost 1:1 to <code>research.json</code> topics you
+        already defined (<code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code>…). Ship the research
+        pages (§4) and these go from 1 stray impression to a ranked page.</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">🩹 Brand snippets leaking clicks</h3>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:0">You rank well for these but earn
+        <b>zero clicks</b> — the SERP snippet doesn't reassure the searcher it's the site they want.
+        This is a title/description problem, not a ranking problem.</p>
+      <table>
+        <thead><tr><th>Query</th><th class="num">Pos</th><th class="num">Impr</th><th class="num">Clicks</th></tr></thead>
+        <tbody>
+          <tr><td><code>caece.net</code></td><td class="num">1.0</td><td class="num">15</td><td class="num"><span class="tag t-bad">0</span></td></tr>
+          <tr><td>i yun</td><td class="num">3.3</td><td class="num">40</td><td class="num"><span class="tag t-bad">0</span></td></tr>
+          <tr><td>謝依芸 台大</td><td class="num">10.2</td><td class="num">15</td><td class="num"><span class="tag t-bad">0</span></td></tr>
+          <tr><td>i-yun lisa hsieh</td><td class="num">5.2</td><td class="num">79</td><td class="num"><span class="tag t-good">10</span></td></tr>
+          <tr><td>黃榆庭 <span style="color:var(--faint)">(student)</span></td><td class="num">7.4</td><td class="num">30</td><td class="num"><span class="tag t-good">4</span></td></tr>
+        </tbody>
+      </table>
+      <div class="callout co-warn"><b>Biggest single waste on the site:</b> <code>caece.net</code> ranks
+        <b>position 1</b> and gets 0 clicks. The fix is one line — the <code>&lt;title&gt;</code> (Action 1).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. ACTION PLAN ===================== -->
+<section id="plan">
+  <h2 class="sec"><span class="n">3</span>Prioritised action plan — what to do next</h2>
+  <p class="lead">Ordered by leverage (impact ÷ effort), grouped by horizon. Each card cites the data point that
+     justifies it. <b>Effort:</b> 🟢 hour(s) · 🟡 days · 🔴 sustained. <b>Impact</b> badge = expected lift on
+     exposure/clicks. Completed items (1, 2, 3, 5) have moved to the <a href="#done">✓ Done &amp; verified</a> section below.</p>
+
+  <div class="lane-h"><span class="pill wk">THIS WEEK</span> Cheap, high-leverage — a single afternoon</div>
+
+  <div class="act wk">
+    <div class="top"><div class="ttl">4 · Decide the Google-tag situation (don't add a 3rd)</div>
+      <div class="badges"><span class="badge b-eff">🟢 decision</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">You already run <span class="data">GA4 G-JCJPED8JS6</span> + <span class="data">GTM-M3L6SMNZ</span>.
+      The snippet you were handed is a <i>second</i> GA4 property <span class="data">G-G2VVLGT4XF</span>.
+      Hard-coding it makes two GA4 properties collect in parallel = split, confusing data. Full detail in §6.</div>
+    <div class="files">Pick one canonical GA4 property; add it as a tag <i>inside GTM</i> rather than a 3rd hard-coded
+      script in <code>templates/base.html:36-50</code>. Update <code>SEO/RUNBOOK.md</code> to name the chosen ID.</div>
+  </div>
+
+  <div class="lane-h"><span class="pill mo">THIS MONTH</span> The strategic moves</div>
+
+  <div class="act mo">
+    <div class="top"><div class="ttl">6 · Ship <code>/research/{topic}/</code> pages — capture the topical demand</div>
+      <div class="badges"><span class="badge b-eff">🟡–🔴</span><span class="badge b-imp">Impact ★★★</span></div></div>
+    <div class="why">This is the single biggest opportunity. Topical queries are <i>already</i> appearing
+      (<span class="data">ML in energy · pos 5.5</span>, <span class="data">renewable energy · pos 2</span>) with
+      nothing to land on. Your <code>research.json</code> already defines the topics with tags
+      (<code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code>…) — they just render as a homepage
+      section, not as routable pages. One URL per topic is the unit that ranks.</div>
+    <div class="files">Add routed pages from the existing <code>research.json</code> scaffold (new template
+      <code>templates/pages/research/research-item.html</code> + entries in <code>pages.json</code>); each page:
+      topic definition (EN+中) → what the lab does → members → auto-filtered publications/news by keyword → CTA.</div>
+    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+      <li>Targets investigative + informational intent you currently win 0% of</li>
+      <li>Data scaffold already exists — mostly templating, not new content strategy</li>
+      <li>Becomes the hub that internal-links publications, news, members together</li>
+      <li>Long-tail topical queries are low-competition — academic labs win them fast</li></ul></div>
+      <div class="col cons"><h5>✗ Cons</h5><ul>
+      <li>Needs 800–1500 words of real content per topic to rank — writing effort</li>
+      <li>Thin pages hurt more than help; ship 2–3 strong ones before all six</li>
+      <li>6–12 weeks before topical rankings consolidate</li></ul></div></div>
+  </div>
+
+  <div class="act mo">
+    <div class="top"><div class="ttl">7 · Enrich &amp; publish at least one project detail page</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">The per-project detail-page machinery shipped (this branch) — but the one example is held
+      <i>unpublished</i>, so <span class="data">0 project pages</span> are live or in the sitemap. A funded-project
+      page with a grant number is the natural landing target for free backlinks from NSTC / partner registries.</div>
+    <div class="files">Enrich <code>contents/projects/2026-green-finance-taiwan-india/</code> and flip it to published;
+      confirm it lands in <code>sitemap.xml</code>.</div>
+  </div>
+
+  <div class="act mo">
+    <div class="top"><div class="ttl">8 · Redirect the orphan <code>/Solar-PV-on-Bus-Shelter/</code></div>
+      <div class="badges"><span class="badge b-eff">🟢</span><span class="badge b-imp">Impact ★</span></div></div>
+    <div class="why">A stale URL that isn't part of the current structure still pulls
+      <span class="data">15 impr · pos 26</span> — and it's a <i>topical</i> (solar PV) impression going to a dead
+      end. 301 it to the matching publication or the future <code>/research/solar-pv/</code> page to recycle the signal.</div>
+  </div>
+
+  <div class="act mo">
+    <div class="top"><div class="ttl">9 · PI page: lead with the topics you actually rank for</div>
+      <div class="badges"><span class="badge b-eff">🟢</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">The PI page is your highest-traffic member page (<span class="data">11 clicks · 187 impr</span>)
+      yet its <code>interests</code> are <i>Smart Grid Modeling, Energy Management Systems, Low Carbon Logistics</i>
+      — none of which match the live topical queries (ML in energy, renewables, transport electrification).
+      Lead the interests + first paragraph with the searched terms, and include all name spellings
+      (<code>I-Yun</code> / <code>Iyun</code> / <code>謝依芸</code>).</div>
+    <div class="files">Edit <code>interests</code> in <code>contents/members/iyunlisahsieh/member.json</code> and the bio
+      in <code>contents/members/iyunlisahsieh/about.md</code>.</div>
+  </div>
+
+  <div class="act mo">
+    <div class="top"><div class="ttl">10 · Make sure every published news item emits a detail page + sitemap entry</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why"><code>news.json</code> has <span class="data">28 items</span> but only
+      <span class="data">5 emit detail pages</span> — the other 23 are short link-only announcements with no
+      <code>pageLink</code>, so they never become indexable topical URLs. Your fastest topical channel is
+      mostly invisible to Google.</div>
+    <div class="files">For items worth a standalone page, add a <code>pageLink</code> + a 300+ word body in
+      <code>contents/news/news.json</code>; <code>build.py</code> emits the <code>/news/{slug}/</code> page and
+      sitemap <code>&lt;loc&gt;</code> from there.</div>
+  </div>
+
+  <div class="lane-h"><span class="pill qt">THIS QUARTER</span> Compounding bets</div>
+
+  <div class="act qt">
+    <div class="top"><div class="ttl">11 · Build <code>/join/</code> and <code>/collaborate/</code> landing pages</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★★</span></div></div>
+    <div class="why">Your two stated audiences — applicants and collaborators — still have no entry page. Both
+      arrive on transactional/investigative queries (<code>ntu sustainable energy phd</code>,
+      <code>transportation electrification research taiwan</code>) that a generic homepage can't satisfy. These
+      pages rank well even with low link equity because intent is so specific.</div>
+    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+      <li>Converts existing brand traffic into applications/partnerships</li>
+      <li>Highest <i>conversion</i> value of any page type for a lab</li>
+      <li>FAQ entries each rank for their specific question</li></ul></div>
+      <div class="col cons"><h5>✗ Cons</h5><ul>
+      <li>Needs real content (positions, process, partners) to not feel empty</li>
+      <li>Must be kept current — a stale “positions” list reads worse than none</li></ul></div></div>
+  </div>
+
+  <div class="act qt">
+    <div class="top"><div class="ttl">12 · Lock a controlled vocabulary across all channels</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">Publications already carry <span class="data">keywords on 35/52 entries</span>. For research pages to
+      auto-populate, publication <code>keywords</code>, news <code>topics</code>, project <code>topics</code> and
+      research slugs must share <i>one</i> term per concept (not “EV charging” vs “electric vehicle infrastructure”).</div>
+  </div>
+
+  <div class="act qt">
+    <div class="top"><div class="ttl">13 · Backlink audit-and-recovery</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★★ (slow)</span></div></div>
+    <div class="why">As a subdomain (<code>e3center.caece.net</code>), you inherit little authority automatically.
+      The highest-ROI work is recovering links that <i>should</i> already exist: NTU Civil Eng faculty page,
+      NSTC project registry, Google Scholar / ORCID profiles, co-author labs, conference bios. This is
+      administrative, not marketing — and it accelerates indexing too.</div>
+    <div class="files">See the archived <code>archive/strategy/backlinks.md §5</code> for the full venue checklist.</div>
+    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+      <li>Durable authority that makes every future page rank faster</li>
+      <li>Accelerates indexing — links are how Google discovers pages</li>
+      <li>Mostly free: recovering links that should already exist (admin work, not marketing)</li></ul></div>
+      <div class="col cons"><h5>✗ Cons</h5><ul>
+      <li>Slow — weeks to months before impact shows in search</li>
+      <li>Depends on third parties (departments, funders, editors) you don't control</li>
+      <li>Can't be shortcut; buying/scheming links risks penalties</li></ul></div></div>
+  </div>
+
+  <div class="act qt">
+    <div class="top"><div class="ttl">14 · Bilingual summaries on key pages</div>
+      <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★</span></div></div>
+    <div class="why">~90% of your audience is in Taiwan and a real share searches in Chinese. A 100–200 character
+      Chinese summary on the homepage, PI page, and research pages improves CTR on Chinese-name and topic queries
+      without a full <code>/zh/</code> build.</div>
+  </div>
+
+  <div class="lane-h"><span class="pill" style="background:var(--teal)">ANALYTICS SETUP</span> Measurement fixes your new GA4 data exposed</div>
+
+  <div class="act" style="border-left-color:var(--teal)">
+    <div class="top"><div class="ttl">15 · Set up GA4 key events (conversions)</div>
+      <div class="badges"><span class="badge b-eff">🟢 config</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">Your GA4 export shows <span class="data">Key events = 0</span> on every page — you're counting
+      pageviews but not <i>outcomes</i>. For a lab the real conversions are: a click on the contact email,
+      a <code>/join</code> or <code>/collaborate</code> CTA click, a publication-PDF download, and outbound clicks
+      to a DOI or a member's Scholar profile. Without these, GA4 can't tell you which pages actually generate
+      collaboration/applicant interest.</div>
+    <div class="files">In GA4 (or via your GTM container <code>GTM-M3L6SMNZ</code>): create events for the clicks
+      above and mark them as <b>Key events</b>. No site-code change required if done through GTM.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--teal)">
+    <div class="top"><div class="ttl">16 · UTM-tag the links you control</div>
+      <div class="badges"><span class="badge b-eff">🟢</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why"><span class="data">75% of your new users are “Direct”</span> — and “Direct” is largely a
+      junk bucket: untagged links from email signatures, slide QR codes, chat apps, and newsletters all collapse
+      into it. Add UTM parameters (<code>?utm_source=…&amp;utm_medium=…</code>) to the links <i>you</i> place, so
+      GA4 attributes them properly. You'll finally see which off-search channels actually drive visits.</div>
+    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+      <li>Turns the opaque 75% “Direct” into real, named channels</li>
+      <li>Shows whether email/slides/QR/social actually work — so you do more of what does</li>
+      <li>Zero site-code change; just how you write outbound links</li></ul></div>
+      <div class="col cons"><h5>✗ Cons</h5><ul>
+      <li>Only covers links you control — true type-ins stay “Direct”</li>
+      <li>Needs a shared convention so tags stay consistent across the team</li></ul></div></div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--teal)">
+    <div class="top"><div class="ttl">17 · Exclude internal traffic in GA4</div>
+      <div class="badges"><span class="badge b-eff">🟢 config</span><span class="badge b-imp">Impact ★★</span></div></div>
+    <div class="why">GA4 is almost certainly counting <b>your own team</b> — editing, testing, private-browsing
+      reloads — as real visitors. That's what inflates “Direct” to <span class="data">75%</span> and the new-user
+      ratio to <span class="data">~97%</span>. Until it's filtered, every GA4 read of audience size and channel mix
+      is muddied. (GSC is unaffected — it never sees your direct visits.)</div>
+    <div class="files">GA4 → Admin → <i>Data Streams</i> → Configure tag settings → <b>Define internal traffic</b>
+      (list office / home / VPN IPs); then Admin → <i>Data Settings → Data Filters</i> → set the “Internal Traffic”
+      filter to <b>Active</b>. Tell staff to avoid private/incognito when not testing. Caveat: IP filters miss
+      mobile/roaming staff, so still cross-check against GSC.</div>
+    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+      <li>Makes the channel mix and engagement numbers finally trustworthy</li>
+      <li>Reveals the <i>real</i> organic-search share — it'll jump well above 19%</li></ul></div>
+      <div class="col cons"><h5>✗ Cons</h5><ul>
+      <li>IP filtering is imperfect with dynamic / home / mobile addresses</li>
+      <li>Only filters going forward; past data stays contaminated</li></ul></div></div>
+  </div>
+</section>
+
+<!-- ===================== DONE ===================== -->
+<section id="done">
+  <h2 class="sec"><span class="n" style="background:var(--good)">✓</span>Done &amp; verified</h2>
+  <p class="lead">Items from the action plan that are already shipped or verified. Kept here with their original
+     numbers so the plan above stays purely forward-looking and the cross-references elsewhere still resolve.</p>
+
+  <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">1 · Homepage <code>&lt;title&gt;</code> rewritten</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-03</span><span class="badge b-eff">pending deploy</span></div></div>
+    <div class="why">Now <code>E3 Center · Energy × Economics × Environment · NTU 台大</code> — <i>center-forward</i>
+      (no founder name; the PI's member page owns name searches), spelling out <b>E3 = Energy × Economics ×
+      Environment</b> to disambiguate from the gaming-expo “E3” and add three research keywords at once.</div>
+    <div class="files">Applied to <code>contents/pages.json</code> (<code>index.title</code>) +
+      <code>templates/base.html:1</code> (<code>defaultTitle</code>); verified via local <code>build.py</code>
+      (homepage title renders, member/publication titles unaffected). <b>Goes live on the next push to
+      <code>source</code></b> — CI rebuilds and deploys to <code>gh-pages</code>.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">2 · <code>news.topics</code> populated on all 28 items</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-04</span><span class="badge b-eff">pending deploy</span></div></div>
+    <div class="why">Every news item now carries a <code>topics</code> array, classified (2-lens workflow + adversarial
+      reconcile) into a controlled vocabulary aligned to the <code>research.json</code> themes — the join key for
+      future <code>/research/</code> pages. <span class="data">14 tagged</span>, 14 left <code>[]</code> on purpose
+      (generic awards / promotions / editorial appointments with no research subject — avoids over-tagging). The 5
+      detail-page items now emit those topics into <code>&lt;meta keywords&gt;</code> (e.g.
+      <code>/news/2026-focus-news/</code> → “Wind Power, Hydrogen Energy …”); the other 23 store the tags for the join.</div>
+    <div class="files">Edited <code>contents/news/news.json</code> (formatting preserved, valid JSON); verified via
+      local build. <i>Honest scope:</i> <code>meta keywords</code> is a weak Google signal, so the direct ranking
+      lift is small — the payoff is the controlled vocabulary. Bigger follow-on: render topics as <b>visible tags</b>
+      and lead news titles with the topic.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">3 · Trailing-slash duplicate URLs</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ verified 2026-06-03</span><span class="badge b-eff">no code change</span></div></div>
+    <div class="why">Verified live: all 9 affected member URLs already <b>301-redirect</b> no-slash → slash, and the
+      canonical tag, internal links and sitemap are all on the slash form. The duplicate impressions in GSC are
+      legacy residue (from the old flat-file member pages) that Google is still consolidating — <b>nothing to fix in
+      code</b>.</div>
+    <div class="files">Optional nudge: in GSC, <i>URL Inspection</i> a no-slash URL to confirm “Page with redirect”,
+      then <i>Request Indexing</i> the slash versions of the top members. Do <b>not</b> use the Removals tool (same
+      content). Otherwise it resolves on its own over a few weeks.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">5 · Chinese text tagged with <code>lang="zh-Hant"</code></div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-04</span><span class="badge b-eff">pending deploy</span></div></div>
+    <div class="why">Pages stay <code>&lt;html lang="en"&gt;</code> (they're English-dominant — that's correct), and the
+      <i>Chinese passages</i> are now tagged inline with <code>lang="zh-Hant"</code> (Traditional script) — finishing
+      the pattern the publication/project detail pages already used. Helps screen-reader pronunciation, font fallback,
+      and gives Google a clean “this part is Chinese” signal instead of mis-firing “Translated results”.</div>
+    <div class="files">Tagged the member-name spans across <code>home/members.html</code>,
+      <code>pages/members.html</code>, and <code>pages/member/member.html</code> (41 names on the listing + cards +
+      detail H1). Publications/projects detail pages were already tagged. Verified via local build. <i>Left
+      untagged on purpose:</i> mixed-language news titles (no clean Chinese-only field) and the page-level
+      <code>&lt;html lang&gt;</code> override (low value until a <code>/zh/</code> page exists).</div>
+  </div>
+</section>
+
+<!-- ===================== 4. PAGE-BY-PAGE ===================== -->
+<section id="pages">
+  <h2 class="sec"><span class="n">4</span>Page-by-page strategy</h2>
+  <p class="lead">Main page, each subpage type, and each <i>sub-subpage</i> type — with the live data for each,
+     what's working, and the single most valuable move. Status legend:
+     <span class="tag t-good">strong</span> <span class="tag t-warn">needs work</span>
+     <span class="tag t-bad">leaking</span> <span class="tag t-info">opportunity</span></p>
+
+  <!-- HOMEPAGE -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/</span><span class="tag t-warn">needs work</span>
+      <span class="role">Main page · brand + navigational hub</span></div>
+    <div class="bd">
+      <div class="statline">
+        <span class="chip"><b>218</b> clicks</span><span class="chip"><b>14,401</b> impr</span>
+        <span class="chip">CTR <b>1.5%</b></span><span class="chip">pos <b>8.6</b></span>
+        <span class="chip">absorbs <b>~94%</b> of site impressions</span></div>
+      <p style="margin:.3em 0"><b>Working:</b> brand queries convert at 23%; it's the strongest page by far.
+        <b>Leaking:</b> the old <code>&lt;title&gt;</code> loses zero-click brand searches; research areas sit in
+        flat prose that ranks weakly.</p>
+      <div class="do">→ <b>Do:</b> Action 1 (title) + Action 5 (lang) now; restructure the About copy so each research
+        area is a heading/bullet, not a comma in a sentence — each becomes its own weak topical ranker that feeds
+        the research pages later.</div>
+      <div class="callout co-info"><b>Why not chase topics here:</b> the homepage serves navigational intent. Trying
+        to make it rank for “transportation electrification” too confuses Google about its purpose. Let the research
+        pages own topics; let the homepage own the brand.</div>
+    </div>
+  </div>
+
+  <!-- MEMBERS listing -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/members/</span><span class="tag t-warn">needs work</span>
+      <span class="role">Subpage · directory / listing</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip"><b>2</b> clicks</span><span class="chip"><b>84</b> impr</span>
+        <span class="chip">pos <b>9.9</b></span></div>
+      <p style="margin:.3em 0"><b>Do:</b> ensure every member is linked here with a crawlable
+        <code>&lt;a href&gt;</code> in the trailing-slash form (feeds indexing + fixes Action 3). Add a one-line
+        research focus under each name so the listing itself carries topical text.</p>
+    </div>
+  </div>
+
+  <!-- MEMBER sub-subpage -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/members/{webId}/</span><span class="tag t-info">opportunity</span>
+      <span class="role">Sub-subpage · one per person (38 live)</span></div>
+    <div class="bd">
+      <div class="statline">
+        <span class="chip">PI: <b>11</b>cl / <b>187</b>im</span>
+        <span class="chip">黃榆庭: <b>5</b>cl / <b>67</b>im</span>
+        <span class="chip">谢翔: <b>3</b>cl</span>
+        <span class="chip">JSON-LD ✓ Person+Breadcrumb</span></div>
+      <p style="margin:.3em 0"><b>Working:</b> meta + structured data are already solid; student names are starting
+        to rank (黃榆庭 now converts at 13%). <b>Gaps:</b> legacy trailing-slash dupes (now auto-redirecting, just
+        consolidating — Action 3); bios emphasise CV over <i>topics</i>; PI interests don't match live queries (Action 9).</p>
+      <div class="do">→ <b>Do per member:</b> lead the <code>interests</code> array with plain-language research
+        topics in EN + 中; make sure each page renders “Recent publications” as real linked text (it does);
+        cross-link to the relevant <code>/research/{topic}/</code> page once it exists.</div>
+      <div class="pc"><div class="col pros"><h5>✓ Why it pays</h5><ul>
+        <li>Name searches are high-intent (due-diligence, referrals)</li>
+        <li>Each member page is a topical landing for their niche</li></ul></div>
+        <div class="col cons"><h5>✗ Watch</h5><ul>
+        <li>Don't keyword-stuff bios — Google detects it; keep it human</li>
+        <li>Alumni pages can go stale; date them</li></ul></div></div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS listing -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/publications/</span><span class="tag t-good">strong</span>
+      <span class="role">Subpage · listing (now indexed!)</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip"><b>1</b> click</span><span class="chip"><b>119</b> impr</span>
+        <span class="chip">pos <b>8.9</b></span><span class="chip">CollectionPage JSON-LD ✓</span>
+        <span class="chip">keywords on <b>35</b>/52 · abstracts on <b>40</b>/52</span></div>
+      <p style="margin:.3em 0"><b>Big win:</b> this page was invisible last year and now ranks, with abstracts
+        and keywords on most entries (schema keys exist on all 52; 17 still need keyword text filled).
+        <b>Do:</b> finish tagging the untagged entries, then add a “filter by topic” anchor list so Google sees explicit topical
+        sections, and link each topic group to its <code>/research/</code> page.</p>
+    </div>
+  </div>
+
+  <!-- PUBLICATION sub-subpage -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/publications/{slug}/</span><span class="tag t-good">strong</span>
+      <span class="role">Sub-subpage · one per paper (40 live)</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip"><b>7</b> papers ranking</span>
+        <span class="chip">boiler-air-pollution <b>35</b>im</span>
+        <span class="chip">super-res-wind <b>20</b>im / pos 9.5</span>
+        <span class="chip">v2b-nzeb pos <b>6.8</b></span></div>
+      <p style="margin:.3em 0"><b>This is the success story of the period</b> — per-paper URLs now pull topical
+        impressions the homepage never could. <b>Do:</b> (1) ensure authors link to their member pages;
+        (2) add a “related news/projects” block; (3) keep the abstract near the top in plain language — it's
+        what ranks and what journalists quote.</p>
+      <div class="callout co-good"><b>Keep doing this.</b> Per-entry URLs + keywords + summaries is exactly the
+        pattern that's working. Extend the identical pattern to projects (Action 7).</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/projects/ &amp; /projects/{slug}/</span><span class="tag t-warn">needs work</span>
+      <span class="role">Subpage + sub-subpage · funded work</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip">listing: <b>0</b>cl / <b>9</b>im</span>
+        <span class="chip">detail pages live: <b>0</b></span>
+        <span class="chip">ItemList + JSON-LD ✓</span></div>
+      <p style="margin:.3em 0"><b>Channel built but dark.</b> Detail-page rendering shipped; the one example is
+        unpublished so nothing is live. <b>Do:</b> Action 7 — enrich + publish; add <code>topics</code> from the
+        shared vocabulary; cross-link members + resulting publications. Grant-number pages attract funder backlinks.</p>
+    </div>
+  </div>
+
+  <!-- NEWS -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/news/ &amp; /news/{slug}/</span><span class="tag t-warn">needs work</span>
+      <span class="role">Subpage + sub-subpage · topical engine</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip">listing: <b>9</b>cl / <b>362</b>im / pos <b>5.1</b></span>
+        <span class="chip">detail ranking: <b>4</b></span>
+        <span class="chip">topics filled: <b>0/28</b></span>
+        <span class="chip">detail pages: <b>5</b> (+1 listing)</span></div>
+      <p style="margin:.3em 0"><b>The listing ranks well</b> (pos 5.1) but individual stories barely surface, and
+        most aren't even in the sitemap. This is your fastest-shipping topical channel and it's under-used.</p>
+      <div class="do">→ <b>Do:</b> Action 2 (fill <code>topics</code>) + Action 10 (give substantive items a <code>pageLink</code>);
+        going forward, write <i>topic-led titles</i> (“Carbon pricing in Taiwan: new E3 paper…” not “Paper
+        accepted”) and open each article with 2–3 plain-language context sentences (that text becomes the SERP snippet).</div>
+      <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
+        <li>Fresh, dated, indexable URLs — Google loves recency here</li>
+        <li>Each post can rank for an event + an evergreen topic</li></ul></div>
+        <div class="col cons"><h5>✗ Cons</h5><ul>
+        <li>Posts under ~300 words aren't treated as substantive</li>
+        <li>Pure “we attended X” announcements rank for nothing</li></ul></div></div>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/research/{topic}/</span><span class="tag t-info">opportunity — biggest</span>
+      <span class="role">Sub-subpage type · not built yet</span></div>
+    <div class="bd">
+      <div class="statline"><span class="chip">routed pages: <b>0</b></span>
+        <span class="chip">topics defined in research.json: <b>✓</b></span>
+        <span class="chip">topical queries already arriving: <b>✓</b></span></div>
+      <p style="margin:.3em 0"><b>The highest-leverage new work.</b> Demand exists (ML/renewables queries), the
+        data scaffold exists (<code>research.json</code> with tagged topics), but there's no page to rank. Today
+        these topics only render as a homepage section — a <code>#anchor</code> can't rank independently; a URL can.</p>
+      <div class="do">→ <b>Do:</b> Action 6 — generate <code>/research/{researchId}/</code> from the existing data;
+        each page = definition → lab's work → members → auto-filtered publications/news → CTA. Start with
+        <code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code> (the ones already drawing impressions).</div>
+    </div>
+  </div>
+
+  <!-- MINOR -->
+  <div class="page-card">
+    <div class="hd"><span class="url">/contact/ · /group-life/ · /#videos</span><span class="tag t-good">fine</span>
+      <span class="role">Supporting pages</span></div>
+    <div class="bd">
+      <p style="margin:.3em 0"><code>/contact/</code> has good meta and is the conversion endpoint — make sure
+        <code>/join/</code> &amp; <code>/collaborate/</code> (Action 11) funnel into it. <code>/group-life/</code>
+        earns a few impressions (“e3 group photos” intent) — fine as-is. Videos is a homepage section, low priority.
+        <b>No urgent SEO work on these.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. GSC vs GA ===================== -->
+<section id="analytics">
+  <h2 class="sec"><span class="n">5</span>GSC vs Google Analytics — what each tells you</h2>
+  <p class="lead">You asked how these tools help your exposure. They answer <i>different</i> questions and you need
+     both: Search Console is about <b>getting found</b> (before the click); Analytics is about <b>what people do</b>
+     (after the click). Neither replaces the other.</p>
+
+  <div class="scorecard">
+    <div>
+      <div class="vs-head">🔎 Google Search Console (GSC)</div>
+      <p style="font-size:.9rem;margin:.3em 0">Google's own view of how you appear <b>in search results</b>. The
+        source of every number in this report. Free, authoritative for SEO.</p>
+      <b style="font-size:.82rem;color:var(--good)">Answers:</b>
+      <ul style="font-size:.88rem;margin:.3em 0">
+        <li>Which <b>queries</b> show your site, at what <b>position</b> &amp; <b>CTR</b></li>
+        <li>Which <b>pages</b> are indexed vs “discovered but not indexed”</li>
+        <li><b>Backlinks</b> Google sees (Links report)</li>
+        <li>Rich-result / structured-data status &amp; crawl errors</li>
+        <li>Sitemap fetch health</li>
+      </ul>
+      <b style="font-size:.82rem;color:var(--bad)">Blind to:</b>
+      <span style="font-size:.88rem">what happens after the click — bounce, time, paths, conversions; and any
+        non-Google traffic.</span>
+    </div>
+    <div>
+      <div class="vs-head">📊 Google Analytics 4 (GA4)</div>
+      <p style="font-size:.9rem;margin:.3em 0">Behaviour <b>on your site</b>, across <i>all</i> sources (search,
+        direct, referral, social). This is the <code>G-…</code> tag in your <code>&lt;head&gt;</code>.</p>
+      <b style="font-size:.82rem;color:var(--good)">Answers:</b>
+      <ul style="font-size:.88rem;margin:.3em 0">
+        <li>How visitors <b>arrive</b> (channels: organic, direct, referral, social)</li>
+        <li>Which <b>landing pages</b> get engagement vs bounce</li>
+        <li><b>Events</b>: clicks on email/PDF, scroll depth, outbound links</li>
+        <li>Geography, device, returning vs new, session paths</li>
+        <li>Referral traffic from backlinks (the human side of §3-13)</li>
+      </ul>
+      <b style="font-size:.82rem;color:var(--bad)">Blind to:</b>
+      <span style="font-size:.88rem">search queries, positions, impressions, indexing — everything pre-click.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">How to use them <i>together</i> for exposure</h3>
+    <div class="grid g3">
+      <div><b style="color:var(--navy)">1 · Find the leak</b><p style="font-size:.88rem;margin:.3em 0">GSC says
+        “high impressions, low CTR” → snippet problem (e.g. <code>caece.net</code>). GSC says “high CTR, low
+        impressions” → ranking/indexing problem → build/optimise the page.</p></div>
+      <div><b style="color:var(--navy)">2 · Close the loop</b><p style="font-size:.88rem;margin:.3em 0">GA4 says a
+        page gets clicks but visitors bounce in 5s → the page doesn't deliver what the snippet promised. Fix the
+        content, not the SEO.</p></div>
+      <div><b style="color:var(--navy)">3 · Prove value</b><p style="font-size:.88rem;margin:.3em 0">Link GA4 ↔ GSC
+        (Admin → Product links) so you can see, in one report, which <i>queries</i> lead to engaged sessions or a
+        contact-form submit — the actual goal.</p></div>
+    </div>
+    <div class="callout co-info"><b>Set up these GA4 events</b> (they're your real “conversions” for a lab):
+      clicks on the contact email, <code>/join</code> &amp; <code>/collaborate</code> CTA clicks, publication-PDF
+      downloads, and outbound clicks to DOIs / member scholar profiles. Without events, GA4 only shows pageviews.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">📊 Your GA4 data, read
+      <span style="font-weight:400;color:var(--muted);font-size:.85rem">· Mar 5 – Jun 2, 2026 · 893 new users</span></h3>
+    <p style="font-size:.9rem;margin:.2em 0 1em">You sent two GA4 exports. Here's what they add that Search
+      Console can't see — how people <i>arrive</i> and what they <i>do</i> once they're on the site.</p>
+
+    <h4 style="margin:.2em 0 .5em">How new visitors arrive (acquisition channels)</h4>
+    <div class="stack">
+      <div style="width:75%;background:#0a557e">Direct · 669 · 75%</div>
+      <div style="width:19%;background:#0e7490">Organic Search · 174 · 19%</div>
+      <div style="width:4%;background:#2c6fbb">Social · 36</div>
+      <div style="width:2%;background:#bb392b">Ref · 14</div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#0a557e"></i>Direct (type-in / bookmark / untagged links)</span>
+      <span><i style="background:#0e7490"></i>Organic Search</span>
+      <span><i style="background:#2c6fbb"></i>Organic Social</span>
+      <span><i style="background:#bb392b"></i>Referral (backlinks)</span>
+    </div>
+
+    <div class="callout co-warn" style="margin:11px 0 0"><b>⚠ Read “Direct” with suspicion — much of it is probably
+      your own team.</b> 669 direct new users is implausibly high for genuine type-ins to a lab few people have heard
+      of. The fingerprints fit internal/self-traffic: <b>~97% of users are “new”</b> (private/incognito browsing
+      resets cookies, so every staff reload looks like a brand-new visitor), Windows-heavy (485 — lab machines), and
+      the site is under active editing. Until you <b>filter internal traffic (Action 17)</b>, treat this split as
+      contaminated — and lean on <b>GSC</b> for the clean picture: it only logs real Google-search impressions, so
+      your own URL type-ins never appear in it. <b>That's why the search audience — your real external discovery — is
+      best read from Search Console, and it's exactly what this whole report's action plan targets.</b></div>
+
+    <div class="grid g4" style="margin-top:16px">
+      <div class="kpi"><div class="lab">Direct share</div><div class="val">75%</div><div class="was">likely mostly internal — filter it (17)</div></div>
+      <div class="kpi"><div class="lab">Organic search</div><div class="val">19%</div><div class="was">your real external search audience</div></div>
+      <div class="kpi"><div class="lab">Referral users</div><div class="val">14</div><div class="was">backlink gap, confirmed</div></div>
+      <div class="kpi"><div class="lab">New-user ratio</div><div class="val">97%</div><div class="was">very high → private-browsing tell</div></div>
+    </div>
+
+    <h4 style="margin:18px 0 .5em">What this changes</h4>
+    <div class="grid g2">
+      <div class="callout co-info" style="margin:0"><b>Discovery is the bottleneck, not the site.</b> Engagement
+        looks high (homepage 71% / 190s) — though internal traffic inflates that too, so read it as “the site itself
+        isn't the problem” rather than a precise figure. The leverage is in <i>getting found</i> by external
+        searchers (topical pages, better snippets), not redesigning pages.</div>
+      <div class="callout co-warn" style="margin:0"><b>Then tag the external links you control.</b> Once internal
+        traffic is filtered, the remaining “Direct” still mixes real type-ins with untagged email / slide-QR / chat
+        links. UTM-tag the ones you place (Action 16) so genuine outreach shows up as its own channel.</div>
+      <div class="callout co-warn" style="margin:0"><b>Referral = 14 users.</b> Almost nobody arrives from another
+        site linking to you — the human-traffic mirror of the backlink gap (Action 13). Each recovered
+        institutional / funder link adds a second channel that doesn't depend on Google's algorithm.</div>
+      <div class="callout co-info" style="margin:0"><b>16 pages were found but not visited.</b> Pages with ≥10 GSC
+        impressions and 0 GA4 sessions (e.g. a wind-power paper at 116 impr; several member pages) — page-level proof
+        that titles / descriptions, not rankings, are the leak (Action 1 + per-page meta).</div>
+    </div>
+    <div class="callout co-good"><b>International tilt worth noting:</b> by GA4 active users your #2 country is
+      <b>Singapore (79)</b>, then US (72), Vietnam (33), Japan (23) — a more engaged APAC audience than search
+      clicks alone suggested. A clean English presence plus the research pages serve them directly.</div>
+  </div>
+</section>
+
+<!-- ===================== 6. TAGS ===================== -->
+<section id="tags">
+  <h2 class="sec"><span class="n">6</span>Your three Google tags — and the new snippet</h2>
+  <p class="lead">You pasted a “Google tag” install snippet and asked what it is. It's a <b>GA4 measurement tag</b>.
+     Here's how it fits with what's already on your site — and why you should <b>not</b> just paste it in.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">What's installed right now (<code>templates/base.html:36-50</code>)</h3>
+    <table>
+      <thead><tr><th>Tag</th><th>Type</th><th>ID</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>gtag.js</td><td>GA4 property</td><td><code>G-JCJPED8JS6</code></td><td>Analytics (the one your RUNBOOK links to GSC)</td></tr>
+        <tr><td>Tag Manager</td><td>GTM container</td><td><code>GTM-M3L6SMNZ</code></td><td>Manages tags without code edits</td></tr>
+        <tr><td><span class="tag t-warn">new / pasted</span></td><td>GA4 property</td><td><code>G-G2VVLGT4XF</code></td><td>A <b>second, separate</b> GA4 property</td></tr>
+      </tbody>
+    </table>
+    <div class="callout co-warn"><b>The problem:</b> <code>G-G2VVLGT4XF</code> ≠ <code>G-JCJPED8JS6</code>. Hard-coding
+      it means <b>two GA4 properties collecting in parallel</b> — your data splits across two dashboards, neither
+      complete, and historical continuity breaks. The Chinese note “每個網頁只能加入一個 Google 代碼” is warning you
+      about exactly this kind of duplication.</div>
+
+    <h3>What I recommend</h3>
+    <div class="callout co-good"><b>✓ Decision (2026-06-03):</b> keep the existing IDs for both —
+      GA4 <code>G-JCJPED8JS6</code> and GTM <code>GTM-M3L6SMNZ</code> — and <b>discard</b> the two newly-generated
+      ones (<code>G-G2VVLGT4XF</code> and <code>GTM-N29TLBVR</code>). Since those two are already what's live in
+      <code>base.html</code>, this needs <b>no code change</b>. Rationale below: a new GA4 property starts from zero
+      with no back-fill, so switching would break the historical trend and the Search-Console link for the sake of
+      a few days of fresh data.</div>
+    <div class="pillrow">
+      <span class="tag t-good">Step 1 — Keep G-JCJPED8JS6 as the canonical GA4</span></div>
+    <p style="font-size:.9rem;margin:.3em 0">It already holds your history and is linked to Search Console. GA4
+      properties are independent buckets — data never migrates between them and a new property can't be back-filled —
+      so a fresh property would mean a broken timeline. In Google Analytics / Tag Manager admin, you can delete the
+      unused <code>G-G2VVLGT4XF</code> property and <code>GTM-N29TLBVR</code> container so they stop confusing future
+      setup wizards.</p>
+    <div class="pillrow"><span class="tag t-warn">Step 2 — Check you're not double-counting</span></div>
+    <p style="font-size:.9rem;margin:.3em 0"><code>base.html</code> loads GA4 <code>G-JCJPED8JS6</code> <i>twice over</i>
+      potentially: once as the hard-coded <code>gtag.js</code> block, and again <i>if</i> the <code>GTM-M3L6SMNZ</code>
+      container also contains a GA4 tag for the same ID. That double-fires pageviews and inflates your numbers. Pick
+      <b>one</b> delivery path: either keep the hard-coded <code>gtag.js</code> and make sure GTM has <i>no</i> GA4
+      tag, or move GA4 into GTM and remove the hard-coded block from <code>base.html</code>. Use GA4 <i>DebugView</i>
+      or the Tag Assistant to confirm each pageview is counted once.</p>
+    <div class="callout co-info"><b>Consent mode (the EEA note):</b> only relevant if you have meaningful European
+      traffic. Yours is ~90% Taiwan + a small APAC/US tail, so this is low priority — but if you ever run ads or
+      grow EU traffic, configure GTM consent mode then.</div>
+
+    <h3>The snippet itself, annotated</h3>
+<pre><span class="c">&lt;!-- Google tag (gtag.js) — loads the GA4 library --&gt;</span>
+&lt;script async src=<span class="s">"...gtag/js?id=G-G2VVLGT4XF"</span>&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function <span class="k">gtag</span>(){dataLayer.push(arguments);}
+  gtag(<span class="s">'js'</span>, new Date());
+  gtag(<span class="s">'config'</span>, <span class="s">'G-G2VVLGT4XF'</span>); <span class="c">// ← sends data to THIS property</span>
+&lt;/script&gt;</pre>
+    <p style="font-size:.86rem;color:var(--muted)">It loads Google's analytics library and starts sending pageviews
+      to property <code>G-G2VVLGT4XF</code>. Harmless on its own — the issue is only that you'd be running it
+      <i>alongside</i> an existing GA4 property.</p>
+  </div>
+</section>
+
+<!-- ===================== 7. DATA NEEDS ===================== -->
+<section id="data">
+  <h2 class="sec"><span class="n">7</span>Data to feed me next (to sharpen this)</h2>
+  <p class="lead">You've now sent the GA4 exports and a fresh 12-month GSC export — that closed most of the gaps
+     from the last version. Here's what's <b>in hand</b> and the few things <b>still missing</b> to sharpen the
+     next iteration.</p>
+
+  <div class="callout co-good"><b>✓ Received &amp; used in this report:</b> GA4 acquisition channels
+    (Direct/Organic/Social/Referral), GA4 landing-page engagement (rate, time, events), and the 12-month GSC
+    Performance export (all tabs). Folded into §1 (12-mo zoom-out) and §5 (GA4 read).</div>
+
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">🔎 Still want from Search Console</h3>
+      <ul style="font-size:.9rem">
+        <li><span class="tag t-good">✓ done</span> 12-month Performance export (the 2026-06-03 file).</li>
+        <li><b>Indexing → Pages report</b> <span class="tag t-warn">still needed</span> — the exact list of
+          “Discovered/Crawled – currently not indexed” URLs. 69 pages rank, but how many <i>exist but aren't
+          indexed</i>? This report can't see that without the Coverage export.</li>
+        <li><b>Links report</b> <span class="tag t-warn">still needed</span> — external links + top linking sites +
+          anchor text. The GA4 “Referral = 14” confirms the gap; this names <i>who</i> links to you (drives Action 13).</li>
+      </ul>
+    </div>
+    <div class="card"><h3 style="margin-top:0">📊 Still want from Google Analytics 4</h3>
+      <ul style="font-size:.9rem">
+        <li><span class="tag t-good">✓ done</span> Acquisition by channel + landing-page engagement.</li>
+        <li><b>Key events / conversions</b> <span class="tag t-bad">not a file — a setup task</span> — your export
+          shows <b>0</b> key events. This is the one item you can't just export; it must be <i>configured</i> (Action 15).</li>
+        <li><b>Organic-Search-only segment</b> <span class="tag t-warn">to focus on searchers</span> — a GA4
+          exploration filtered to <i>Session default channel group = Organic Search</i>, so we see the behaviour of
+          <b>just the people who found you via a search engine</b> (cleaner than the all-traffic landing-page export,
+          and free of the internal “Direct” noise).</li>
+        <li><b>Referral detail</b> <span class="tag t-warn">nice-to-have</span> — the specific sites behind those 14
+          referral users, to cross-check against the GSC Links report.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout co-good"><b>Cadence:</b> re-export GSC quarterly and drop the file in <code>SEO/data/</code>
+    with the existing naming pattern. I can refresh this report against it each time. Between exports, nothing here
+    needs re-checking — search changes are slow.</div>
+</section>
+
+<!-- ===================== 8. METRICS ===================== -->
+<section id="metrics">
+  <h2 class="sec"><span class="n">8</span>Metrics to watch (leading indicators)</h2>
+  <p class="lead">Ignore total clicks and aggregate CTR month-to-month — the “e3” noise makes them lie. Track these
+     instead; they move <i>before</i> traffic does.</p>
+  <div class="card">
+    <table>
+      <thead><tr><th>Metric</th><th>Now</th><th>6-mo target</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Distinct URLs ranking</td><td class="num">56</td><td class="num">80+</td><td>Indexing breadth — the engine of everything</td></tr>
+        <tr><td>Non-brand topical queries</td><td class="num">~6</td><td class="num">30+</td><td>The leading indicator for escaping brand-only ranking</td></tr>
+        <tr><td>Topical impressions (ex-“e3” cluster)</td><td class="num">~1,360</td><td class="num">4,000+</td><td>Demand reaching your topic pages</td></tr>
+        <tr><td><code>caece.net</code> / <code>i yun</code> CTR</td><td class="num">0%</td><td class="num">10%+</td><td>Proves the title fix (Action 1) worked</td></tr>
+        <tr><td>Research pages live &amp; indexed</td><td class="num">0</td><td class="num">3–6</td><td>The strategic bet (Action 6)</td></tr>
+        <tr><td>Referring domains (GSC Links)</td><td class="num">—</td><td class="num">+1–3/mo</td><td>Authority + faster indexing (Action 13)</td></tr>
+        <tr><td>Organic-search share of new users (GA4)</td><td class="num">19%</td><td class="num">30%+</td><td>SEO's slice of acquisition — understated until internal “Direct” is filtered (Action 17)</td></tr>
+        <tr><td>Referral users (GA4)</td><td class="num">14</td><td class="num">50+</td><td>Backlinks bringing real humans, not just authority</td></tr>
+        <tr><td>GA4 key events configured</td><td class="num">0</td><td class="num">4+</td><td>Until set up, you can't measure what converts (Action 15)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">
+    <b>E3 Center — SEO Report &amp; Action Plan.</b> Generated 2026-06-03 from
+    <code>SEO/data/gsc_2026-05-31_3mo/</code> + <code>gsc_2026-06-03_12mo/</code> (GSC “Performance on Search”) and
+    <code>ga4_2026-06-02_*</code> (GA4 acquisition + engagement), read against the live repository state.
+    Supersedes the strategy/recommendation markdown now archived in <code>SEO/archive/</code>; dated analyses remain
+    in <code>SEO/analysis/</code> as history. Recommendations only — no site code was modified.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// scroll-spy: highlight active nav item
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.side a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  function onScroll(){
+    var y=window.scrollY+120, cur=secs[0];
+    secs.forEach(function(s){ if(s.offsetTop<=y) cur=s; });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href')==='#'+(cur&&cur.id));
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+
+// trend chart: dual-line clicks + impressions
+(function(){
+  var clicks=[2,2,6,3,2,3,3,2,2,3,3,11,3,3,7,5,6,5,1,2,1,1,0,2,2,2,1,2,2,6,7,2,3,1,0,3,4,3,3,1,1,2,2,7,0,6,4,1,1,1,2,3,4,1,5,0,0,5,2,1,1,0,2,3,0,17,5,1,4,1,1,1,2,1,7,1,0,4,5,3,4,5,4,3,2,3,4,5,8];
+  var impr=[294,215,237,206,247,93,63,100,161,184,210,292,125,141,302,349,335,311,227,136,116,200,220,229,187,242,130,157,297,321,218,121,69,56,59,62,173,245,167,75,32,27,54,66,51,69,59,19,6,19,25,29,23,24,18,6,16,31,16,31,23,28,27,94,121,227,96,196,169,119,305,377,423,399,393,188,169,324,499,403,340,274,174,138,238,343,364,359,328];
+  var svg=document.getElementById('trend'); if(!svg) return;
+  var W=720,H=230,pl=40,pr=12,pt=12,pb=22, n=impr.length;
+  var maxI=Math.max.apply(null,impr), maxC=Math.max.apply(null,clicks);
+  function x(i){return pl+(W-pl-pr)*i/(n-1);}
+  function yI(v){return H-pb-(H-pt-pb)*v/maxI;}
+  function yC(v){return H-pb-(H-pt-pb)*v/maxC;}
+  function path(arr,yf){var d='';for(var i=0;i<arr.length;i++){d+=(i?'L':'M')+x(i).toFixed(1)+' '+yf(arr[i]).toFixed(1)+' ';}return d;}
+  var ns='http://www.w3.org/2000/svg', frag='';
+  // gridlines + y labels (impressions)
+  [0,0.25,0.5,0.75,1].forEach(function(f){
+    var yy=pt+(H-pt-pb)*f, val=Math.round(maxI*(1-f));
+    frag+='<line x1="'+pl+'" y1="'+yy+'" x2="'+(W-pr)+'" y2="'+yy+'" stroke="#e8eef1"/>';
+    frag+='<text x="'+(pl-6)+'" y="'+(yy+3)+'" text-anchor="end" font-size="9" fill="#9aa9b2">'+val+'</text>';
+  });
+  // area under impressions
+  frag+='<path d="'+path(impr,yI)+'L'+x(n-1)+' '+(H-pb)+' L'+x(0)+' '+(H-pb)+' Z" fill="#2c6fbb" opacity="0.08"/>';
+  frag+='<path d="'+path(impr,yI)+'" fill="none" stroke="#2c6fbb" stroke-width="1.8"/>';
+  frag+='<path d="'+path(clicks,yC)+'" fill="none" stroke="#bb392b" stroke-width="1.6"/>';
+  // x labels
+  [['Mar',0],['Apr',31],['May',61]].forEach(function(m){
+    frag+='<text x="'+x(m[1])+'" y="'+(H-6)+'" font-size="9" fill="#9aa9b2">'+m[0]+'</text>';
+  });
+  svg.innerHTML=frag;
+})();
+</script>
+</body>
+</html>
