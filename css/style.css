@@ -844,34 +844,47 @@
             }
         }
 
-        /* Inline links inside the about article. With 5 links across 3
-           justified paragraphs the default browser underline reads as
-           visual noise, so we differentiate via color + weight at rest
-           and sweep an underline in on hover.
+        /* Inline links inside the about article.
+
+           Design notes (iterated twice):
+           1. First version used a lighter color + no underline at rest +
+              hover-only underline. Read as LESS prominent than body prose
+              — backwards.
+           2. Second version bumped weight to 600 and used a full-opacity
+              persistent 1px underline. Read as TOO marked-up — five
+              bolded, underlined phrases across three paragraphs felt loud.
+
+           Current: same dark teal as body, same weight as body, and a
+           subtle persistent underline (~35% opacity of currentColor)
+           that's just visible enough to say "this is a link" without
+           competing with the prose. On hover/focus, the underline
+           ramps to full color at 2px and the text shifts to the accent
+           blue — clear interactive feedback that builds on the rest
+           state instead of replacing a hidden one.
 
            The underline uses a background-image gradient (not
            text-decoration) so multi-word link phrases inside justified
            paragraphs render a continuous baseline — text-decoration
-           inherits the wordspace gaps that justification introduces.
-
-           The sweep direction and easing match `.publication-global-cta a`
-           in member.css so the site's hover-reveal language stays
-           consistent. */
+           inherits the word-space gaps that justification introduces. */
         & a {
-            color: color-mix(in srgb, var(--main-color) 55%, var(--main-color-2) 45%);
+            color: var(--main-color);
             font-weight: 500;
             text-decoration: none;
-            background-image: linear-gradient(currentColor, currentColor);
+            background-image: linear-gradient(
+                color-mix(in srgb, currentColor 35%, transparent),
+                color-mix(in srgb, currentColor 35%, transparent)
+            );
             background-position: 0 100%;
             background-repeat: no-repeat;
-            background-size: 0% 1px;
+            background-size: 100% 1px;
             padding-bottom: 0.08em;
-            transition: background-size 280ms cubic-bezier(0.16, 1, 0.3, 1),
+            transition: background-size 200ms cubic-bezier(0.16, 1, 0.3, 1),
                         color 200ms ease-out;
 
             &:hover,
             &:focus-visible {
-                background-size: 100% 1px;
+                background-image: linear-gradient(currentColor, currentColor);
+                background-size: 100% 2px;
                 color: var(--main-color-2);
             }
 
