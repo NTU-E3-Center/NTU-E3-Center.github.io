@@ -1,11 +1,10 @@
 <section id="videos">
     <div class="section-title">
-        <h2>Videos</h2>
+        <h2>Featured Videos</h2>
 
     </div>
 
 {% for video in structures['videos'] %}
-    <h3>{{ video['sectionTitle'] }}</h3>
     {% if video['filter'] %}
     <div class="filter" where="{{ video['filterId'] }}">
         <span class="filter-title">{{ video['filterTitle'] }}</span>

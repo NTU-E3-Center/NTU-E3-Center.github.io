@@ -1,7 +1,7 @@
 {% from 'partials/proj-row.html' import proj_row %}
 <section id="projects">
     <div class="section-title">
-        <h2><a class="section-title-link" href="/projects/">Projects</a></h2>
+        <h2><a class="section-title-link" href="/projects/">Featured Projects</a></h2>
     </div>
 
     {# Collect every project, surface the most recently started ongoing ones —
@@ -21,7 +21,6 @@
 
     {% if ongoing %}
     <div class="publi-group">
-        <h3 class="publi-group-title">Currently Ongoing</h3>
         <div class="news-rows" role="list">
             {% for item in ongoing[:5] %}
             {{ proj_row(item) }}

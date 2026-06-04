@@ -300,7 +300,11 @@
         {% endfor %}
     {% endfor %}
     {% set years_sorted    = _year_counts.keys()    | list | sort(reverse=True) %}
-    {% set journals_sorted = _journal_counts.keys() | list | sort(case_sensitive=False) %}
+    {# Journals sort by count desc, alpha tiebreaker — matches the topic/method
+       behaviour below so all three multi-value facets read the same way and
+       the genuinely useful filters (journals with 2+ papers) surface above
+       the long tail of singletons. #}
+    {% set journals_sorted = _journal_counts | dictsort(by='value', reverse=True) | map(attribute=0) | list %}
     {# Topics + Methods sort by count desc, then alpha — most-used tags
        surface at the top so the filter feels weighted to what's actually
        in the catalogue. #}
@@ -349,7 +353,7 @@
             <div class="pub-filter-panel" id="pub-journal-panel" role="group"
                  aria-label="Filter publications by journal" hidden>
                 {% for j in journals_sorted %}
-                <label class="pub-filter-check">
+                <label class="pub-filter-check" title="{{ j }}">
                     <input type="checkbox" class="pub-filter-journal-input" data-journal="{{ j }}">
                     <span class="pub-filter-check-label">{{ j }}</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _journal_counts[j] }}</span>
@@ -373,7 +377,7 @@
             <div class="pub-filter-panel" id="pub-topic-panel" role="group"
                  aria-label="Filter publications by topic" hidden>
                 {% for t in topics_sorted %}
-                <label class="pub-filter-check pub-filter-check--topic">
+                <label class="pub-filter-check pub-filter-check--topic" title="{{ t }}">
                     <input type="checkbox" class="pub-filter-topics-input" data-topics="{{ t }}">
                     <span class="pub-filter-check-label">{{ t }}</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _topic_counts[t] }}</span>
@@ -397,7 +401,7 @@
             <div class="pub-filter-panel" id="pub-method-panel" role="group"
                  aria-label="Filter publications by method" hidden>
                 {% for m in methods_sorted %}
-                <label class="pub-filter-check pub-filter-check--method">
+                <label class="pub-filter-check pub-filter-check--method" title="{{ m }}">
                     <input type="checkbox" class="pub-filter-methods-input" data-methods="{{ m }}">
                     <span class="pub-filter-check-label">{{ m }}</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _method_counts[m] }}</span>
