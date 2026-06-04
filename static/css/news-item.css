@@ -163,6 +163,13 @@
 }
 
 .news-item-body {
+    /* Cap prose width to the 65–75ch readability band. The wrapping
+       .news-item-article still extends to 68rem so the title and hero
+       image can use the full width; this rule only narrows the body
+       column. Images keep their 50%-of-parent width below. */
+    max-width: 75ch;
+    margin-inline: auto;
+
     font-size: 1.25rem;
     line-height: 1.7;
     color: var(--main-color);

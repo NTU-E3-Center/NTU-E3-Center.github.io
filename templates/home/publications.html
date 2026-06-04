@@ -1,13 +1,12 @@
 <section id="publications">
     <div class="section-title">
-        <h2><a class="section-title-link" href="/publications/">Publications</a></h2>
+        <h2><a class="section-title-link" href="/publications/">Recent Publications</a></h2>
     </div>
 
     {% for publication in structures['home_publications'] %}
     {% set home_items = publication['items'][:publication['showInHome']] %}
     {% if home_items %}
     <div class="publi-group" id="home-pub-{{ loop.index }}">
-        <h3 class="publi-group-title">Recent Publications</h3>
         <div class="news-rows">
             {% for item in home_items %}
             {% set status = item.get('status', 'published') %}

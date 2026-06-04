@@ -6,7 +6,8 @@
 
     {% for about in structures['about'] %}
     {% if about['form'] == 'about' %}
-    <h3>{{ about['sectionTitle'] }}</h3>
+    {# Main about content carries the section identity — no eyebrow needed
+       (would just repeat "About Us"). Eyebrow only appears for Sponsors. #}
     <section class="abt-section" which="{{ about['form'] }}">
         <div class="abt-text">
             {% set articleVar = about['article'].split('/')[-1].split('.')[0] %}
@@ -20,7 +21,7 @@
         </div>
     </section>
     {% elif about['form'] == 'sponsors' and about['display'] %}
-    <h3>{{ about['sectionTitle'] }}</h3>
+    <h3 class="section-eyebrow">{{ about['sectionTitle'] }}</h3>
     <section class="abt-section" which="{{ about['form'] }}">
         {% for logo in about['logos'] %}
         <a{% if logo['logoLink'] %} href="{{ logo['logoLink'] }}" target="_blank"{% endif %}>
