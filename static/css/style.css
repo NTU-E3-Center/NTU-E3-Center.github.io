@@ -1874,154 +1874,110 @@
 }
 
 
-/* group-life — auto-scrolling marquee strip ─────────────────────────────────
-   Replaces the previous click-through slider. Photos drift horizontally at a
-   relaxed pace; hover/focus/touch-and-hold pauses the animation. The track
-   renders two identical copies of the photo set so the loop is seamless: when
-   the first copy has fully translated off-screen-left, the second copy is in
-   the same position the first started — the keyframe reset to translateX(0)
-   is invisible to the viewer. */
-.glf-marquee {
-    /* Card sizing — generous so each photo reads clearly when centred. */
-    --_card-w: clamp(22rem, 32vw, 30rem);
-    --_card-gap: 1.75rem;
-    --_card-pitch: calc(var(--_card-w) + var(--_card-gap));
+/* group-life */
+.glf-section[which='slider'] {
+    --_img-width: min(40rem, calc(100vw - 5rem));
+    --_img-aspect-ratio: 4/3;
+    --_img-border-r: 0.375rem;
+    --_img-border-w: 0.1875rem;
 
-    /* Step-pause cadence — N photos with a short slide between, then a hold
-       on each card. Must match `showInSlider` in
-       contents/group-life/group-life.json AND the number of keyframe pairs
-       in @keyframes glfMarqueeStepPause below. */
-    --_step-count: 10;
-    --_step-duration: 2.5s;
-    --_marquee-duration: calc(var(--_step-count) * var(--_step-duration));
+    --_block-skew: -1.5deg;
 
-    /* The track contains 3 copies of N items (positions 0…3N-1). At step 0
-       we want copy-2 (middle copy)'s first item — track-index N — centred at
-       50vw. Each step slides left by one --_card-pitch so the next item in
-       copy 2 takes the centre. At step N we land on copy-3's first item,
-       which is visually identical to copy-2's first item → the keyframe loop
-       reset is invisible to the viewer. */
-    --_center-offset: calc(50vw - var(--_step-count) * var(--_card-pitch) - var(--_card-w) / 2);
+    --_block-width: calc(var(--_img-width) + 2 * var(--_img-border-w));
+    --_block-height: calc(var(--_img-width) / (var(--_img-aspect-ratio)) + 2 * var(--_img-border-w));
+
+    /* --_tan-theta: tan(calc(90 - abs(var(--_block-skew)))); */
+    --_tan-theta: calc(-1 / tan(var(--_block-skew)));
+    --_tan-theta-2: calc(var(--_tan-theta) / (1 + sqrt(1 + pow(var(--_tan-theta), 2))));
+
+    --_actural-block-width: calc(var(--_block-width) + (var(--_block-height) / var(--_tan-theta)) - 2 * var(--_img-border-r) * (1 - 1 / var(--_tan-theta-2)));
+    --_actural-content-width: calc(var(--_actural-block-width) - 2 * var(--_img-border-w));
+
+    --_slider-gap: 2rem;
 
     display: grid;
     justify-content: center;
-}
+    justify-items: center;
 
-.glf-marquee-viewport {
-    width: 100%;
-    overflow: hidden;
-    /* Soft edge fades so cards enter/exit the strip gracefully. */
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
-            mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
-}
+    .glf-slider-header {
+        width: var(--_img-width);
 
-.glf-marquee-track {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--_card-gap);
-    width: max-content;
-    padding-block: 0.75rem;
-    animation: glfMarqueeStepPause var(--_marquee-duration) ease-in-out infinite;
-    will-change: transform;
-}
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
 
-/* Pause when the user shows intent to engage. :hover for pointer, :focus-within
-   for keyboard, :active covers touch-and-hold on phones. */
-.glf-marquee:hover .glf-marquee-track,
-.glf-marquee:focus-within .glf-marquee-track,
-.glf-marquee:active .glf-marquee-track {
-    animation-play-state: paused;
-}
+        .glf-slider-btns {
+            margin-block-end: 0.8rem;
 
-/* Each 10% slice = one card: 0–8% hold, 8–10% smooth slide to the next.
-   That gives ~2s hold + ~0.5s slide per card at --_step-duration: 2.5s.
-   Keyframe values offset --_center-offset by k card-pitches; at 100% we land
-   on copy-3's first item, identical to copy-2's first item → loop reset is
-   invisible. */
-@keyframes glfMarqueeStepPause {
-    0%,   8%  { transform: translateX(calc(var(--_center-offset) -  0 * var(--_card-pitch))); }
-    10%,  18% { transform: translateX(calc(var(--_center-offset) -  1 * var(--_card-pitch))); }
-    20%,  28% { transform: translateX(calc(var(--_center-offset) -  2 * var(--_card-pitch))); }
-    30%,  38% { transform: translateX(calc(var(--_center-offset) -  3 * var(--_card-pitch))); }
-    40%,  48% { transform: translateX(calc(var(--_center-offset) -  4 * var(--_card-pitch))); }
-    50%,  58% { transform: translateX(calc(var(--_center-offset) -  5 * var(--_card-pitch))); }
-    60%,  68% { transform: translateX(calc(var(--_center-offset) -  6 * var(--_card-pitch))); }
-    70%,  78% { transform: translateX(calc(var(--_center-offset) -  7 * var(--_card-pitch))); }
-    80%,  88% { transform: translateX(calc(var(--_center-offset) -  8 * var(--_card-pitch))); }
-    90%,  98% { transform: translateX(calc(var(--_center-offset) -  9 * var(--_card-pitch))); }
-    100%      { transform: translateX(calc(var(--_center-offset) - 10 * var(--_card-pitch))); }
-}
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
 
-.glf-marquee-item {
-    width: var(--_card-w);
-    margin: 0;
-    display: grid;
-    gap: 0.75rem;
-    user-select: none;
-    flex-shrink: 0;
-}
+            & svg:has(use[href*="#svg-slider-"]) {
+                width: 0.8125rem;
+            }
+        }
 
-.glf-marquee-img {
-    --_block-skew: -1.5deg;
-    --_adjusted-block-skew: var(--_block-skew);
-    --_adjusted-border-width: 0.1875rem;
-    --_adjusted-border-radius: 0.375rem;
-    --_adjusted-shadow-shift: var(--block-shadow-shift);
-
-    /* Required by .skewed-block[b-role="block"]'s sizing rule — without
-       these the wrapper collapses to 0×0 and the photo is invisible. The
-       wrapper fills its grid cell; aspect-ratio gives it height; the inner
-       <img> fills the wrapper via --_content-width. */
-    --_block-width: 100%;
-    --_block-height: auto;
-    --_content-width: 100%;
-
-    aspect-ratio: 4/3;
-    width: 100%;
-
-    & img {
-        width: 100%;
-        height: 100%;
-        /* `cover` fills the 4:3 frame edge-to-edge; portrait shots are
-           softly cropped top/bottom, landscape shots crop sides. */
-        object-fit: cover;
+        .glf-slider-num {
+            width: 3.8125rem;
+            margin-inline-start: 0.125rem;
+            font-size: 1.25rem;
+            text-align: center;
+        }
     }
-}
 
-.glf-marquee-caption {
-    display: grid;
-    gap: 0.25rem;
-    text-align: center;
-    padding-inline: 0.25rem;
-}
+    .glf-slider {
+        width: 100%;
+        padding-block-start: 0.5rem;
+        transform: translateY(-0.5rem);
+        overflow: hidden;
+    }
 
-.glf-marquee-date {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--main-color);
-    opacity: 0.55;
-}
+    .glf-slider-wrapper {
+        --_slider-transition-time: 0.4s;
+        --_slide-to: 0;
+        transform: translateX(calc(50% - (var(--_img-width) + var(--_slider-gap)) * var(--_slide-to)));
+        transition: var(--_slider-transition-time) cubic-bezier(0.3, 0.2, 0.2, 1.2);
 
-.glf-marquee-desc {
-    font-size: 0.9375rem;
-    line-height: 1.45;
-    color: var(--main-color);
-    text-wrap: balance;
-    /* Cap to 3 lines so every card has equal visual height. */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+        display: flex;
+        align-items: start;
+        gap: var(--_slider-gap);
+    }
 
-/* Accessibility: stop the animation for users who prefer reduced motion.
-   They still see the first set of cards; the "View all photos" CTA below
-   provides full access to the gallery. */
-@media (prefers-reduced-motion: reduce) {
-    .glf-marquee-track {
-        animation: none;
+    .glf-slider-block {
+        transform: translateX(-50%);
+        transition: calc(var(--_slider-transition-time) / 2);
+        user-select: none;
+
+        &+* {
+            opacity: 0;
+        }
+
+        .glf-slider-img {
+            --_adjusted-block-skew: var(--_block-skew);
+            --_adjusted-content-skew: calc(-1 * var(--_block-skew));
+
+            --_block-width: calc(var(--_img-width) + 0 * var(--_img-border-w));
+            --_block-height: calc((var(--_img-width) + 2 * var(--_img-border-w)) / (var(--_img-aspect-ratio)));
+            --_adjusted-border-width: var(--_img-border-w);
+            --_adjusted-border-radius: var(--_img-border-r);
+            --_adjusted-shadow-shift: var(--block-shadow-shift);
+            --_adjusted-hover-shadow-shift: var(--block-hover-shadow-shift);
+            --_content-width: var(--_actural-content-width);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glf-slider-text {
+            width: var(--_img-width);
+            margin-block-start: 0.75rem;
+            font-size: 1.25rem;
+            text-wrap: balance;
+            text-align: center;
+        }
     }
 }
 
@@ -2373,21 +2329,19 @@
         }
     }
 
-    .glf-marquee {
-        /* Phone: card fills most of the screen width; cadence stays at 2.5s
-           per step (≈2s pause + ≈0.5s slide). */
-        --_card-w: min(20rem, calc(100vw - 4rem));
-        --_card-gap: 1rem;
-        --_step-duration: 2.5s;
+    .glf-section[which='slider'] {
+        .glf-slider-btns svg {
+            width: 0.625rem;
+        }
+
+        .glf-slider-num {
+            width: 3.4375rem !important;
+            font-size: 1.125rem !important;
+        }
     }
 
-    .glf-marquee-viewport {
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 1.25rem, #000 calc(100% - 1.25rem), transparent);
-                mask-image: linear-gradient(to right, transparent, #000 1.25rem, #000 calc(100% - 1.25rem), transparent);
-    }
-
-    .glf-marquee-desc {
-        font-size: 0.875rem;
+    .glf-slider-text {
+        font-size: 1.125rem !important;
     }
 }
 
