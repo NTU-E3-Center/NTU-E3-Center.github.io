@@ -210,9 +210,122 @@ resBlockWithAni.forEach(block => {
     });
 });
 
-// group-life now uses a CSS-only auto-scroll marquee (see .glf-marquee in
-// style.css). No JS needed — pause-on-hover is handled by CSS, the seamless
-// loop comes from rendering two copies of the photo set in the template.
+// * no priority
+// group life slider
+const glfSlider = document.querySelector('.glf-slider');
+const glfSliderCurrentNum = document.querySelector('.glf-slider-current-num');
+const glfSliderTotalNum = document.querySelector('.glf-slider-total-num');
+const glfSliderWrapper = document.querySelector('.glf-slider-wrapper');
+const glfSliderBlock = document.querySelectorAll('.glf-slider-block');
+const glfSliderBlockNum = document.querySelectorAll('.glf-slider-block').length;
+const blockNumMax = glfSliderBlockNum - 1;
+
+function glfSliderHandleSwipe(glfSliderTouchEndX) {
+    if (glfSliderTouchStartX - glfSliderTouchEndX > 50) {
+        glfSliderPush(1);
+    } else if (glfSliderTouchEndX - glfSliderTouchStartX > 50) {
+        glfSliderPush(-1);
+    };
+};
+
+glfSliderWrapper.style.setProperty('--_slide-to', 0);
+glfSliderCurrentNum.innerHTML = 1;
+glfSliderTotalNum.innerHTML = glfSliderBlockNum;
+
+let glfSliderTo = 0;
+function glfSliderPush(push) {
+    glfSliderBlock[glfSliderTo].style.setProperty('opacity', 0);
+
+    glfSliderTo += push;
+    glfSliderTo = glfSliderTo < 0 ? 0 : glfSliderTo;
+    glfSliderTo = glfSliderTo > blockNumMax ? blockNumMax : glfSliderTo;
+    glfSliderWrapper.style.setProperty('--_slide-to', glfSliderTo);
+
+    glfSliderCurrentNum.innerHTML = glfSliderTo + 1;
+
+    glfSliderBlock[glfSliderTo].style.setProperty('opacity', 1);
+};
+
+let glfSliderTouchStartX = 0;
+let glfSliderTouchIsDown = false;
+
+glfSlider.addEventListener('mousedown', (e) => {
+    glfSliderTouchIsDown = true;
+    glfSliderTouchStartX = e.pageX;
+});
+
+glfSlider.addEventListener('mouseup', (e) => {
+    if (!glfSliderTouchIsDown) return;
+    glfSliderTouchIsDown = false;
+    glfSliderHandleSwipe(e.pageX);
+});
+
+glfSlider.addEventListener('mouseleave', () => {
+    glfSliderTouchIsDown = false;
+});
+
+glfSlider.addEventListener('touchstart', (e) => {
+    glfSliderTouchStartX = e.touches[0].clientX;
+});
+
+glfSlider.addEventListener('touchend', (e) => {
+    const glfSliderTouchEndX = e.changedTouches[0].clientX;
+    glfSliderHandleSwipe(glfSliderTouchEndX);
+});
+
+/* ── Group-life slider: auto-advance with hover/focus pause ───────────────
+   Auto-advance ticks the slider forward every N seconds when the user is
+   not interacting with it. When the slider reaches the final image it wraps
+   back to the first; this gives the section a passive "scroll" feel without
+   needing a click. Hover or keyboard-focus inside the slider area pauses
+   the timer; moving the pointer away or shifting focus resumes it. Users
+   with `prefers-reduced-motion: reduce` opt out entirely — they keep the
+   manual arrows + drag/swipe controls and never see the auto step. */
+(function () {
+    if (!glfSlider) return;
+
+    const GLF_AUTO_MS = 2500;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let autoTimer = null;
+
+    function tick() {
+        if (glfSliderTo >= blockNumMax) {
+            // At the last image — wrap to the first. `glfSliderPush` clamps,
+            // so step backward by N to land on index 0. The 0.4s wrapper
+            // transition makes the rewind read as part of the cycle.
+            glfSliderPush(-blockNumMax);
+        } else {
+            glfSliderPush(1);
+        }
+    }
+
+    function start() {
+        if (autoTimer || reducedMotion) return;
+        autoTimer = setInterval(tick, GLF_AUTO_MS);
+    }
+
+    function stop() {
+        if (!autoTimer) return;
+        clearInterval(autoTimer);
+        autoTimer = null;
+    }
+
+    // The slider has its own mouseenter/leave + focusin/out handlers for
+    // pointer state — adding more listeners stacks cleanly. We listen on
+    // .glf-section so hovering the title, counter, or buttons also pauses,
+    // not just the image area.
+    const glfSection = glfSlider.closest('.glf-section') || glfSlider;
+    glfSection.addEventListener('mouseenter', stop);
+    glfSection.addEventListener('mouseleave', start);
+    glfSection.addEventListener('focusin', stop);
+    glfSection.addEventListener('focusout', start);
+    // Pause while the user is actively dragging (touch + mouse).
+    glfSection.addEventListener('touchstart', stop, { passive: true });
+    glfSection.addEventListener('touchend', start);
+
+    start();
+}());
+
 
 // * no priority
 // --- MODAL SETUP ---
