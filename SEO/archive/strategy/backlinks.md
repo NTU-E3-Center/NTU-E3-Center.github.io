@@ -1,3 +1,7 @@
+> ⚠️ **SUPERSEDED (2026-06-03).** This document has been superseded by [`../../seo-report.html`](../../seo-report.html), the current SEO deliverable (a single self-contained HTML dashboard). It is retained here for historical reference only; its prose rationale still holds, but the up-to-date analysis, current data, and prioritized action plan now live in the HTML report.
+
+---
+
 # SEO Backlinks for E3 Center
 
 **Companion to:** [`../analysis/2026-05-06_12mo-insights.md`](../analysis/2026-05-06_12mo-insights.md), [`./search-intent.md`](./search-intent.md).

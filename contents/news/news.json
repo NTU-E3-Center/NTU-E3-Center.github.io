@@ -9,157 +9,205 @@
                 "link": "https://www.ce.ntu.edu.tw/%E6%81%AD%E8%B3%80%E8%AC%9D%E4%BE%9D%E8%8A%B8%E5%8A%A9%E7%90%86%E6%95%99%E6%8E%88%E6%A6%AE%E7%8D%B2109%E5%B9%B4%E3%80%8C%E8%87%BA%E5%A4%A7%E5%8B%87%E6%BA%90%E6%8B%94%E8%90%83%E8%AC%9B%E5%BA%A7/",
                 "year": "'20",
                 "month": "Nov.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "MIT Energy Initiative's magazine Energy Futures includes an article about Prof. Hsieh's Ph.D. work.",
                 "link": "https://energy.mit.edu/news/chinas-transition-to-electric-vehicles/",
                 "year": "'20",
                 "month": "Nov.",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "Prof. Hsieh's Ph.D. work on China's transition to electric vehicles is live on MIT News.",
                 "link": "https://news.mit.edu/2021/chinas-transition-electric-vehicles-0429",
                 "year": "'21",
                 "month": "Apr.",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "Prof. Hsieh wins the Outstanding Academic Advisor Award in the 1st Taiwan E-Intelligent Vehicle & Green Energy Technology Conference (臺灣智慧電動車及綠能科技研討會).",
                 "year": "'21",
                 "month": "Jul.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "A team from NTU E3 Group wins the Excellence Achievement Award in the Green Transportation Division of the 2021 Clean Energy Technology Innovation Contest (臺灣能潔能科技創意實作競賽).",
                 "year": "'21",
                 "month": "Oct.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "A team from NTU E3 Group wins the Excellence Award in the 2022 Unimicron ESG Technology Poster Competition (欣興電子技術交流海報競賽).",
                 "year": "'22",
                 "month": "Aug.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "NTU E3 Group wins the Best Paper Award and Prof. Hsieh wins the Outstanding Academic Advisor Award in the 2nd Taiwan E-Intelligent Vehicle & Green Energy Technology Conference (臺灣智慧電動車及綠能科技研討會).",
                 "year": "'22",
                 "month": "Sep.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "Congratulations to Yuan-Shin Fu (傅遠新) for winning the Excellence Poster Award at the 2022 TwIChE Annual Meeting.",
                 "year": "'22",
                 "month": "Dec.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh joins the Editorial Board of Communications Earth & Environment.",
                 "link": "https://www.nature.com/commsenv/editorial-board#I-YunLisaHsieh",
                 "year": "'23",
                 "month": "Jul.",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh's paper receives the 2022 ES&T Best Paper Award.",
                 "link": "https://pubs.acs.org/doi/10.1021/acs.est.4c02832",
                 "year": "'24",
                 "month": "Apr.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh writes a column on retiring batteries and vehicle networking for Critical Reviews (關鍵評論網).",
                 "link": "https://www.thenewslens.com/article/204563",
                 "year": "'24",
                 "month": "Jul.",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": [
+                    "Battery Swapping",
+                    "Vehicle-to-Grid"
+                ]
             },
             {
                 "title": "Prof. Hsieh promoted to Associate Professor.",
                 "year": "'24",
                 "month": "Aug.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh wins the Outstanding Teaching Award (優良教學獎) at NTU.",
                 "year": "'24",
                 "month": "Sep.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Congratulations to Yu-Shin Hu (胡羽忻) for winning the Best Innovation Paper at iCHE2024!",
                 "year": "'24",
                 "month": "Sep.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "HydrogenE3 wins the Excellence Team Award in the 2024 Ørsted Sustainable Innovation Accelerator (沃旭能源永續創新加速器競賽).",
                 "link": "https://www.nownews.com/news/6543572",
                 "year": "'24",
                 "month": "Oct.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": [
+                    "Hydrogen Energy"
+                ]
             },
             {
                 "title": "Congratulations to Chih-Yi Lu (呂芷儀) for winning the Best Paper Award at 2024 TEGA Conference!",
                 "year": "'24",
                 "month": "Nov.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh honored with the NTU Outstanding Scholar Award, 2024/08-2027/07 (臺大拔萃學者).",
                 "link": "https://my.ntu.edu.tw/professorships/professorships04.html",
                 "year": "'24",
                 "month": "Nov.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Prof. Hsieh honored with the Outstanding Young Transportation Professional Award (傑出運輸青年獎) by the Chinese Institute of Transportation.",
                 "link": "https://www.cit.org.tw/GoWeb2/include/index.php?Page=2&id=1176101416673ec3f8cca68",
                 "year": "'24",
                 "month": "Dec.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "Prof. Hsieh advocates for e-scooter policies, supported by academic research.",
                 "link": "https://www.ctee.com.tw/news/20241218700176-439901",
                 "year": "'24",
                 "month": "Dec.",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "E3's research featured by Asia Research News for advancing V2G strategies in e-scooter systems.",
                 "link": "https://www.asiaresearchnews.com/content/mobility-meets-energy-unlocking-new-roles-electric-scooter-batteries-smart-cities",
                 "year": "'25",
                 "month": "May",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": [
+                    "Vehicle-to-Grid",
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "E3 Center invited to join NTU Lab Spotlight platform to showcase research strengths and foster international collaboration.",
                 "link": "https://labspotlight.ntu.edu.tw/labs/116",
                 "year": "'25",
                 "month": "May",
-                "category": "Community and Outreach"
+                "category": "Community and Outreach",
+                "topics": []
             },
             {
                 "title": "Congratulations to Jian Hern Yeoh (楊建恆) for winning the Best Lightning Talk Award at CICTP 2025 Conference!",
                 "year": "'25",
                 "month": "Jul.",
                 "category": "Honors and Recognitions",
-                "pageLink": "/news/2025-cictp-best-lightning-talk/"
+                "pageLink": "/news/2025-cictp-best-lightning-talk/",
+                "topics": [
+                    "Vehicle Electrification"
+                ]
             },
             {
                 "title": "Congratulations to Shuo-Chen Lee (李碩宸) for receiving the People's Choice Poster Award at the 2025 GREENIE Conference.",
                 "year": "'25",
                 "month": "Sep.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Congratulations to Yu-Hsin Hu (胡羽忻) for receiving the 2025 Master's Thesis Honorable Mention Award from the Chinese Association for Energy Economics (CAEE).",
                 "year": "'25",
                 "month": "Nov.",
-                "category": "Honors and Recognitions"
+                "category": "Honors and Recognitions",
+                "topics": []
             },
             {
                 "title": "Inspiring Future Leaders: Energy Thinking Bootcamp at Wego Private Senior High School 臺北市私立薇閣高級中學",
@@ -167,7 +215,10 @@
                 "year": "'26",
                 "month": "Jan.",
                 "category": "Community and Outreach",
-                "pageLink": "/news/2026-wego-bootcamp/"
+                "pageLink": "/news/2026-wego-bootcamp/",
+                "topics": [
+                    "Energy Education"
+                ]
             },
             {
                 "title": "Bridging Borders for Net-Zero: Highlights from the 2026 NTU-UG Joint Seminar on Energy & Mobility",
@@ -175,7 +226,11 @@
                 "year": "'26",
                 "month": "Mar.",
                 "category": "Events and Exchanges",
-                "pageLink": "/news/2026-ntu-ug-joint-seminar/"
+                "pageLink": "/news/2026-ntu-ug-joint-seminar/",
+                "topics": [
+                    "Energy Education",
+                    "Net-Zero Transition"
+                ]
             },
             {
                 "title": "林宏叡（Hung-Jui Lin）於「2026年中華民國地理學會年會暨學術研討會」榮獲學生論文競賽特優獎!",
@@ -183,7 +238,8 @@
                 "year": "'26",
                 "month": "Apr.",
                 "category": "Honors and Recognitions",
-                "pageLink": "/news/2026-cgs-outstanding-award/"
+                "pageLink": "/news/2026-cgs-outstanding-award/",
+                "topics": []
             },
             {
                 "title": "Featured on Focus News (焦點時報): NTU E3 Center Kicks off Wind-to-Hydrogen Project with MIRDC",
@@ -191,7 +247,11 @@
                 "year": "'26",
                 "month": "Apr.",
                 "category": "Community and Outreach",
-                "pageLink": "/news/2026-focus-news/"
+                "pageLink": "/news/2026-focus-news/",
+                "topics": [
+                    "Wind Power",
+                    "Hydrogen Energy"
+                ]
             }
         ]
     }

@@ -1,3 +1,7 @@
+> ⚠️ **SUPERSEDED (2026-06-03).** This document has been superseded by [`../../seo-report.html`](../../seo-report.html), the current SEO deliverable (a single self-contained HTML dashboard). It is retained here for historical reference only; its prose rationale still holds, but the up-to-date analysis, current data, and prioritized action plan now live in the HTML report.
+
+---
+
 # Content Ideas for E3 Center
 
 **Companion to:** [`./page-recommendations.md`](./page-recommendations.md), [`../strategy/search-intent.md`](../strategy/search-intent.md).

@@ -1,3 +1,7 @@
+> ⚠️ **SUPERSEDED (2026-06-03).** This document has been superseded by [`../../seo-report.html`](../../seo-report.html), the current SEO deliverable (a single self-contained HTML dashboard). It is retained here for historical reference only; its prose rationale still holds, but the up-to-date analysis, current data, and prioritized action plan now live in the HTML report.
+
+---
+
 # Search Intent Strategy for E3 Center
 
 **Audience focus:** (1) researchers / industry / government looking for collaborators, (2) people interested in the field who don't yet know your lab.

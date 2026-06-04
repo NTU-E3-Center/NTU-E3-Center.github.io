@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set _title = proj['titleEn'] %}
+    {# Browser/social title: a concise `shortTitle` keeps the <title> within the
+       ~60-char SEO budget for projects with very long official names. The full
+       titleEn stays the visible <h1> and the JSON-LD name below. #}
+    {% set _short = proj.get('shortTitle') or _title %}
+    <title>{{ _short }} | E3 Center</title>
+    {% set _is_nstc = proj.get('grantNumber') %}
+    {% set _funder = 'National Science and Technology Council (NSTC)' if _is_nstc else proj.get('fundingAgencyEn', '') %}
+    {% set _meta_desc = seo_meta_description(proj.get('metaDescription') or proj.get('summary'), _title ~ ' — research project, E3 Center, NTU.') %}
+    <meta name="description" content="{{ _meta_desc }}">
+    {% set _kw = [_funder, 'E3 Center', 'research project', 'sustainable energy', 'NTU', '台大', 'I-Yun Lisa Hsieh', '謝依芸'] %}
+    <meta name="keywords" content="{{ _kw | select | list | join(', ') }}">
+
+    <link rel="canonical" href="https://e3center.caece.net{{ proj['pageLink'] }}" />
+
+    <meta property="og:url" content="https://e3center.caece.net{{ proj['pageLink'] }}" />
+    <meta property="og:title" content="{{ _short }} | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="{{ _meta_desc }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ _short }} | E3 Center" />
+    <meta name="twitter:description" content="{{ _meta_desc }}" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=17">
+    <link rel="stylesheet" href="/css/subpage.css?v=46">
+    <link rel="stylesheet" href="/css/project-item.css?v=1">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchProject",
+      "@id": "https://e3center.caece.net{{ proj['pageLink'] }}#project",
+      "name": {{ proj['titleEn'] | tojson }},
+      {% if proj.get('titleZh') %}"alternateName": {{ proj['titleZh'] | tojson }},
+      {% endif %}"description": {{ _meta_desc | tojson }},
+      "url": "https://e3center.caece.net{{ proj['pageLink'] }}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net{{ proj['pageLink'] }}" },
+      {% if proj.get('startDate') %}"startDate": {{ proj['startDate'] | tojson }},
+      {% endif %}{% if proj.get('endDate') %}"endDate": {{ proj['endDate'] | tojson }},
+      {% endif %}"funder": {
+        "@type": "Organization",
+        "name": {{ _funder | tojson }}
+      },
+      "member": [
+        {% set _comma = joiner(", ") %}
+        {% for p in proj.get('teamResolved') or [] %}{{ _comma() }}{
+          "@type": "Person",
+          "name": {{ p['name'] | tojson }}{% if p.get('pageLink') %},
+          "url": "https://e3center.caece.net{{ p['pageLink'] }}"{% endif %}
+        }{% endfor %}
+      ],
+      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 3, "name": {{ proj['titleEn'] | tojson }} }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% set subpageTitle = _short %}
+    {% set backLink = '/projects/' %}
+    {% set backLinkText = 'Projects' %}
+    {# The article renders its own visible h1 (.proj-item-title); suppress the sr-only one. #}
+    {% set suppressSrH1 = True %}
+    {% include 'partials/subpage-header.html' %}
+
+    {% set _role_en = {'主持人': 'Principal Investigator', '共同主持人': 'Co-PI'}.get(proj.get('role'), proj.get('role', '')) %}
+    {% set _status_en = {'執行中': 'Ongoing', '已結案': 'Concluded'}.get(proj.get('status'), proj.get('status', '')) %}
+    {% set _start_yr = (proj.get('startDate') or '')[:4] %}
+    {% set _end_yr = (proj.get('endDate') or '')[:4] %}
+
+    <main class="proj-item-main">
+        <article class="proj-item-article">
+
+            <header class="proj-item-header">
+                <h1 class="proj-item-title">{{ proj['titleEn'] }}</h1>
+                {% if proj.get('titleZh') %}
+                <p class="proj-item-title-zh" lang="zh-Hant">{{ proj['titleZh'] }}</p>
+                {% endif %}
+
+                <p class="proj-item-meta">
+                    {% if _status_en %}<span class="proj-status-pill proj-status-pill--{{ 'ongoing' if proj.get('status') == '執行中' else 'concluded' }}">{{ _status_en }}</span>{% endif %}
+                    {% if _role_en %}<span class="proj-meta-bit">{{ _role_en }}</span>{% endif %}
+                    {% if _start_yr %}<span class="proj-meta-bit">{{ _start_yr }}{% if _end_yr and _end_yr != _start_yr %}&ndash;{{ _end_yr }}{% endif %}</span>{% endif %}
+                </p>
+            </header>
+
+            <div class="proj-item-layout">
+                <div class="proj-item-content">
+
+                    {% if proj.get('summary') %}
+                    <p class="proj-item-lede">{{ proj['summary'] }}</p>
+                    {% endif %}
+
+                    {% if proj.get('narrativeHtml') %}
+                    <section class="proj-item-section" aria-labelledby="about-heading">
+                        <h2 id="about-heading" class="proj-item-section-title">About this project</h2>
+                        <div class="proj-item-prose">{{ proj['narrativeHtml'] | safe }}</div>
+                        {% if proj.get('narrativeZhHtml') %}
+                        <div class="proj-item-prose proj-item-prose-zh" lang="zh-Hant">{{ proj['narrativeZhHtml'] | safe }}</div>
+                        {% endif %}
+                    </section>
+                    {% endif %}
+
+                    {% if proj.get('keyFindings') %}
+                    <section class="proj-item-section" aria-labelledby="findings-heading">
+                        <h2 id="findings-heading" class="proj-item-section-title">Key findings</h2>
+                        <ul class="proj-findings">
+                            {% for f in proj['keyFindings'] %}
+                            <li>{{ f['text'] }}{% if f.get('textZh') %}<span class="proj-finding-zh" lang="zh-Hant">{{ f['textZh'] }}</span>{% endif %}</li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    {% endif %}
+
+                    {% if proj.get('outputs') %}
+                    <section class="proj-item-section" aria-labelledby="outputs-heading">
+                        <h2 id="outputs-heading" class="proj-item-section-title">Research outputs</h2>
+                        <ul class="proj-outputs">
+                            {% for o in proj['outputs'] %}
+                            <li class="proj-output">
+                                {% if o.get('type') %}<span class="proj-output-type">{{ o['type'] }}</span>{% endif %}
+                                {% if o.get('url') %}
+                                <a class="proj-output-link" href="{{ o['url'] }}" target="_blank" rel="noopener">{{ o.get('title') or o['url'] }}</a>
+                                {% else %}
+                                <span class="proj-output-title">{{ o.get('title', '') }}</span>
+                                {% endif %}
+                                {% if o.get('note') %}<span class="proj-output-note">{{ o['note'] }}</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    {% endif %}
+
+                    {% if proj.get('relatedPubsResolved') %}
+                    <section class="proj-item-section" aria-labelledby="pubs-heading">
+                        <h2 id="pubs-heading" class="proj-item-section-title">Related publications</h2>
+                        <ul class="proj-related">
+                            {% for p in proj['relatedPubsResolved'] %}
+                            {% set _pub_url = p.get('pageLink') or p.get('link') or ('https://doi.org/' ~ p['doi'] if p.get('doi') else None) %}
+                            <li class="proj-related-item">
+                                {% if _pub_url %}
+                                <a class="proj-related-link" href="{{ _pub_url }}"{% if not p.get('pageLink') %} target="_blank" rel="noopener"{% endif %}>{{ p['title'] }}</a>
+                                {% else %}
+                                <span class="proj-related-title">{{ p['title'] }}</span>
+                                {% endif %}
+                                <span class="proj-related-meta">
+                                    {%- if p.get('journal') %}<em>{{ p['journal'] }}</em>{% endif -%}
+                                    {%- if p.get('year') %} · {{ ('20' ~ p['year'][1:]) if p['year'].startswith("'") else p['year'] }}{% endif -%}
+                                </span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    {% endif %}
+
+                    {% if proj.get('galleryResolved') %}
+                    <section class="proj-item-section" aria-labelledby="gallery-heading">
+                        <h2 id="gallery-heading" class="proj-item-section-title">Gallery</h2>
+                        <div class="proj-gallery">
+                            {% for shot in proj['galleryResolved'] %}
+                            <figure class="proj-gallery-item">
+                                <a href="{{ shot['stem'] }}-1200w.webp" target="_blank" rel="noopener">
+                                    <img loading="lazy"
+                                         src="{{ shot['stem'] }}-600w.webp"
+                                         srcset="{{ shot['stem'] }}-400w.webp 400w, {{ shot['stem'] }}-600w.webp 600w, {{ shot['stem'] }}-800w.webp 800w, {{ shot['stem'] }}-1200w.webp 1200w"
+                                         sizes="(max-width: 56rem) 100vw, 50vw"
+                                         alt="{{ shot.get('caption') or proj['titleEn'] }}" draggable="false" />
+                                </a>
+                                {% if shot.get('caption') or shot.get('captionZh') %}
+                                <figcaption class="proj-gallery-caption">
+                                    {{ shot.get('caption', '') }}
+                                    {% if shot.get('captionZh') %}<span lang="zh-Hant">{{ shot['captionZh'] }}</span>{% endif %}
+                                </figcaption>
+                                {% endif %}
+                            </figure>
+                            {% endfor %}
+                        </div>
+                    </section>
+                    {% endif %}
+
+                </div>
+
+                <aside class="proj-item-aside">
+                    <div class="proj-meta-card">
+                        <p class="proj-meta-label">Funding</p>
+                        <p class="proj-meta-funder">{{ _funder }}</p>
+                        {% if not _is_nstc and proj.get('fundingAgency') %}
+                        <p class="proj-meta-funder-zh" lang="zh-Hant">{{ proj['fundingAgency'] }}</p>
+                        {% endif %}
+                        {% if _is_nstc %}
+                        <p class="proj-meta-detail">Grant no. {{ proj['grantNumber'] }}</p>
+                        {% endif %}
+                        {% if _role_en %}<p class="proj-meta-detail">Role: {{ _role_en }}</p>{% endif %}
+                        {% if proj.get('startDate') and proj.get('endDate') %}
+                        <p class="proj-meta-detail">{{ proj['startDate'] }} → {{ proj['endDate'] }}</p>
+                        {% endif %}
+                        {% if _status_en %}<p class="proj-meta-detail">Status: {{ _status_en }}</p>{% endif %}
+                    </div>
+
+                    {% if proj.get('partners') %}
+                    <div class="proj-side-block">
+                        <p class="proj-meta-label">Partners</p>
+                        <ul class="proj-partners">
+                            {% for pt in proj['partners'] %}
+                            <li class="proj-partner">
+                                {% if pt.get('logo') %}
+                                <img class="proj-partner-logo" loading="lazy"
+                                     src="/assets/projects/{{ proj['slug'] }}/images/{{ pt['logo'].rsplit('.', 1)[0] }}-400w.webp"
+                                     alt="{{ pt.get('name', '') }}" />
+                                {% endif %}
+                                <div class="proj-partner-text">
+                                    {% if pt.get('url') %}
+                                    <a class="proj-partner-name" href="{{ pt['url'] }}" target="_blank" rel="noopener">{{ pt.get('name', '') }}</a>
+                                    {% else %}
+                                    <span class="proj-partner-name">{{ pt.get('name', '') }}</span>
+                                    {% endif %}
+                                    {% if pt.get('nameZh') %}<span class="proj-partner-name-zh" lang="zh-Hant">{{ pt['nameZh'] }}</span>{% endif %}
+                                    {% if pt.get('role') %}<span class="proj-partner-role">{{ pt['role'] }}</span>{% endif %}
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if proj.get('teamResolved') %}
+                    <div class="proj-side-block">
+                        <p class="proj-meta-label">Team</p>
+                        <ul class="proj-team">
+                            {% for p in proj['teamResolved'] %}
+                            <li class="proj-team-member">
+                                {% if p.get('pageLink') %}
+                                <a class="proj-team-name" href="{{ p['pageLink'] }}">{{ p['name'] }}</a>
+                                {% else %}
+                                <span class="proj-team-name">{{ p['name'] }}</span>
+                                {% endif %}
+                                {% if p.get('role') %}<span class="proj-team-role">{{ p['role'] }}</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </aside>
+            </div>
+
+        </article>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    {% include 'partials/background.html' %}
+    {% include 'partials/to-top-btn.html' %}
+    {% include 'partials/menu.html' %}
+</body>
+</html>
