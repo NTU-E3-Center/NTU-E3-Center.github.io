@@ -325,19 +325,7 @@
   <h2 class="sec"><span class="n">3</span>Prioritised action plan — what to do next</h2>
   <p class="lead">Ordered by leverage (impact ÷ effort), grouped by horizon. Each card cites the data point that
      justifies it. <b>Effort:</b> 🟢 hour(s) · 🟡 days · 🔴 sustained. <b>Impact</b> badge = expected lift on
-     exposure/clicks. Completed items (1, 2, 3, 5) have moved to the <a href="#done">✓ Done &amp; verified</a> section below.</p>
-
-  <div class="lane-h"><span class="pill wk">THIS WEEK</span> Cheap, high-leverage — a single afternoon</div>
-
-  <div class="act wk">
-    <div class="top"><div class="ttl">4 · Decide the Google-tag situation (don't add a 3rd)</div>
-      <div class="badges"><span class="badge b-eff">🟢 decision</span><span class="badge b-imp">Impact ★★</span></div></div>
-    <div class="why">You already run <span class="data">GA4 G-JCJPED8JS6</span> + <span class="data">GTM-M3L6SMNZ</span>.
-      The snippet you were handed is a <i>second</i> GA4 property <span class="data">G-G2VVLGT4XF</span>.
-      Hard-coding it makes two GA4 properties collect in parallel = split, confusing data. Full detail in §6.</div>
-    <div class="files">Pick one canonical GA4 property; add it as a tag <i>inside GTM</i> rather than a 3rd hard-coded
-      script in <code>templates/base.html:36-50</code>. Update <code>SEO/RUNBOOK.md</code> to name the chosen ID.</div>
-  </div>
+     exposure/clicks. Completed items (1, 2, 3, 4, 5) have moved to the <a href="#done">✓ Done &amp; verified</a> section below.</p>
 
   <div class="lane-h"><span class="pill mo">THIS MONTH</span> The strategic moves</div>
 
@@ -553,6 +541,19 @@
   </div>
 
   <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">4 · Google-tag situation decided — one canonical GA4, no 3rd script</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ decided 2026-06-03</span><span class="badge b-eff">no code change</span></div></div>
+    <div class="why">Kept the pair already live in <code>base.html</code> — GA4 <span class="data">G-JCJPED8JS6</span> +
+      GTM <span class="data">GTM-M3L6SMNZ</span> — and <b>discarded</b> the two freshly-generated IDs you were handed
+      (<span class="data">G-G2VVLGT4XF</span>, <span class="data">GTM-N29TLBVR</span>). A second GA4 property would
+      split collection across two dashboards and start from <i>zero</i> history; one canonical property keeps the data —
+      and the existing GSC ↔ GA4 link — intact. No 3rd hard-coded tag added. Full rationale in §6.</div>
+    <div class="files">No code change — the canonical IDs were already what's live in <code>templates/base.html:36-50</code>.
+      Decision recorded in <code>SEO/RUNBOOK.md</code> (“Canonical tracking IDs — decided 2026-06-03”). Going forward,
+      any new tag goes <i>inside the GTM container</i>, never as another hard-coded script.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
     <div class="top"><div class="ttl">5 · Chinese text tagged with <code>lang="zh-Hant"</code></div>
       <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-04</span><span class="badge b-eff">pending deploy</span></div></div>
     <div class="why">Pages stay <code>&lt;html lang="en"&gt;</code> (they're English-dominant — that's correct), and the
@@ -564,6 +565,21 @@
       detail H1). Publications/projects detail pages were already tagged. Verified via local build. <i>Left
       untagged on purpose:</i> mixed-language news titles (no clean Chinese-only field) and the page-level
       <code>&lt;html lang&gt;</code> override (low value until a <code>/zh/</code> page exists).</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">Breadcrumb (<code>BreadcrumbList</code>) structured data — verified on every subpage</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ verified 2026-06-04</span><span class="badge b-eff">no code change</span></div></div>
+    <div class="why">Audited against Google's <code>BreadcrumbList</code> spec: all <b>10</b> subpage templates already emit
+      valid JSON-LD breadcrumb trails. Detail pages render a 3-level trail (Home › Section › <i>title</i>); the six list
+      pages render the 2-level minimum (Home › Section). Every dynamic title is escaped with Jinja <code>| tojson</code>,
+      the last item correctly omits <code>item</code> (Google falls back to the page URL), and <code>position</code> is
+      sequential from 1 — fully spec-compliant, so <b>nothing to add in code</b>.</div>
+    <div class="files">Verified in <code>templates/pages/{projects,news,publications}/*-item.html</code>,
+      <code>member/member.html</code>, and the six list templates. <b>Post-deploy validation (not code):</b>
+      (1) run a live URL through the <a href="https://search.google.com/test/rich-results">Rich Results Test</a> for 0
+      errors; (2) watch <i>GSC → Enhancements → Breadcrumbs</i> for valid items climbing with 0 invalid, once Google
+      re-crawls the newly-deployed pages.</div>
   </div>
 </section>
 

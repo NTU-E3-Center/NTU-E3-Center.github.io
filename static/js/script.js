@@ -273,6 +273,59 @@ glfSlider.addEventListener('touchend', (e) => {
     glfSliderHandleSwipe(glfSliderTouchEndX);
 });
 
+/* ── Group-life slider: auto-advance with hover/focus pause ───────────────
+   Auto-advance ticks the slider forward every N seconds when the user is
+   not interacting with it. When the slider reaches the final image it wraps
+   back to the first; this gives the section a passive "scroll" feel without
+   needing a click. Hover or keyboard-focus inside the slider area pauses
+   the timer; moving the pointer away or shifting focus resumes it. Users
+   with `prefers-reduced-motion: reduce` opt out entirely — they keep the
+   manual arrows + drag/swipe controls and never see the auto step. */
+(function () {
+    if (!glfSlider) return;
+
+    const GLF_AUTO_MS = 2500;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let autoTimer = null;
+
+    function tick() {
+        if (glfSliderTo >= blockNumMax) {
+            // At the last image — wrap to the first. `glfSliderPush` clamps,
+            // so step backward by N to land on index 0. The 0.4s wrapper
+            // transition makes the rewind read as part of the cycle.
+            glfSliderPush(-blockNumMax);
+        } else {
+            glfSliderPush(1);
+        }
+    }
+
+    function start() {
+        if (autoTimer || reducedMotion) return;
+        autoTimer = setInterval(tick, GLF_AUTO_MS);
+    }
+
+    function stop() {
+        if (!autoTimer) return;
+        clearInterval(autoTimer);
+        autoTimer = null;
+    }
+
+    // The slider has its own mouseenter/leave + focusin/out handlers for
+    // pointer state — adding more listeners stacks cleanly. We listen on
+    // .glf-section so hovering the title, counter, or buttons also pauses,
+    // not just the image area.
+    const glfSection = glfSlider.closest('.glf-section') || glfSlider;
+    glfSection.addEventListener('mouseenter', stop);
+    glfSection.addEventListener('mouseleave', start);
+    glfSection.addEventListener('focusin', stop);
+    glfSection.addEventListener('focusout', start);
+    // Pause while the user is actively dragging (touch + mouse).
+    glfSection.addEventListener('touchstart', stop, { passive: true });
+    glfSection.addEventListener('touchend', start);
+
+    start();
+}());
+
 
 // * no priority
 // --- MODAL SETUP ---
