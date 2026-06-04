@@ -1,0 +1,372 @@
+/* ── Project Item (detail) Page ──────────────────────────────────────────────
+   Standalone page generated per flagship project (see build.py
+   render_project_pages). Mirrors publication-item.css: subpage header, a
+   two-column reading-content + metadata-card layout, anchored to general.css
+   tokens. */
+
+.proj-item-main {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding: 3rem var(--gutter-x) 8rem;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+
+.proj-item-title {
+    font-size: clamp(1.625rem, 3.2vw, 2.125rem);
+    font-weight: var(--fw-h1);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--main-color);
+    margin: 0 0 1.25rem;
+}
+
+.proj-item-title:has(+ .proj-item-title-zh) {
+    margin-bottom: 0.4rem;
+}
+
+.proj-item-title-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: clamp(1.1875rem, 2.35vw, 1.5625rem);
+    font-weight: 400;
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    margin: 0 0 1.25rem;
+}
+
+.proj-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--main-color) 65%, transparent);
+}
+
+.proj-meta-bit {
+    font-weight: 500;
+}
+
+.proj-status-pill {
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.2rem 0.7rem;
+    border-radius: 2rem;
+    color: var(--main-color-2);
+    background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+}
+
+.proj-status-pill--ongoing {
+    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
+    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+}
+
+/* ── Two-column body ──────────────────────────────────────────────────────── */
+
+.proj-item-layout {
+    margin-block-start: 2.5rem;
+    padding-block-start: 2.5rem;
+    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: 2.5rem 3.5rem;
+    align-items: start;
+}
+
+.proj-item-content {
+    min-width: 0;
+}
+
+.proj-item-lede {
+    font-size: 1.1875rem;
+    line-height: 1.6;
+    color: var(--main-color);
+    margin: 0 0 2rem;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────────── */
+
+.proj-item-section {
+    margin-block-end: 2.5rem;
+}
+
+.proj-item-section-title {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+    opacity: 0.4;
+    margin: 0 0 0.875rem;
+}
+
+.proj-item-prose {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--main-color);
+
+    & p { margin: 0 0 1rem; }
+    & p:last-child { margin-bottom: 0; }
+    & a {
+        color: var(--main-color-2);
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+    }
+}
+
+.proj-item-prose-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    margin-block-start: 1.5rem;
+    padding-block-start: 1.5rem;
+    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+    color: color-mix(in srgb, var(--main-color) 82%, transparent);
+}
+
+.proj-findings {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--main-color);
+
+    & li { margin-block-end: 0.6rem; }
+}
+
+.proj-finding-zh {
+    display: block;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 0.9375rem;
+    color: color-mix(in srgb, var(--main-color) 68%, transparent);
+}
+
+.proj-outputs,
+.proj-related {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.proj-output {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.6rem;
+    padding-block: 0.6rem;
+    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+}
+
+.proj-output-type {
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--main-color-2);
+    background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.5rem;
+}
+
+.proj-output-link,
+.proj-related-link {
+    color: var(--main-color);
+    font-weight: 500;
+    text-decoration: none;
+    background-image: linear-gradient(var(--main-color-2), var(--main-color-2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 280ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease-out;
+
+    &:hover, &:focus-visible {
+        background-size: 100% 1px;
+        color: var(--main-color-2);
+    }
+}
+
+.proj-output-note {
+    width: 100%;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--main-color) 60%, transparent);
+}
+
+.proj-related-item {
+    padding-block: 0.7rem;
+    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+}
+
+.proj-related-meta {
+    display: block;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--main-color) 62%, transparent);
+    margin-block-start: 0.15rem;
+}
+
+/* ── Gallery ──────────────────────────────────────────────────────────────── */
+
+.proj-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.proj-gallery-item {
+    margin: 0;
+
+    & img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0.5rem;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+    }
+}
+
+.proj-gallery-caption {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--main-color) 62%, transparent);
+    margin-block-start: 0.4rem;
+
+    & span {
+        display: block;
+        font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+}
+
+/* ── Aside: metadata card + side blocks ───────────────────────────────────── */
+
+.proj-meta-card {
+    position: sticky;
+    top: 7rem;
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border-radius: 0.625rem;
+    background: color-mix(in srgb, var(--main-color) 4%, transparent);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.proj-meta-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    margin: 0 0 0.4rem;
+}
+
+.proj-meta-funder {
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    color: var(--main-color);
+    margin: 0;
+}
+
+.proj-meta-funder-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--main-color) 68%, transparent);
+    margin: 0.2rem 0 0;
+}
+
+.proj-meta-detail {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--main-color) 65%, transparent);
+    margin: 0.35rem 0 0;
+}
+
+.proj-side-block {
+    margin-block-start: 1.75rem;
+}
+
+.proj-partners,
+.proj-team {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.proj-partner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.6rem;
+    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+}
+
+.proj-partner-logo {
+    width: 2.75rem;
+    height: 2.75rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.proj-partner-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.proj-partner-name,
+.proj-team-name {
+    font-weight: 600;
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a.proj-partner-name:hover,
+a.proj-team-name:hover,
+a.proj-partner-name:focus-visible,
+a.proj-team-name:focus-visible {
+    color: var(--main-color-2);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.proj-partner-name-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--main-color) 68%, transparent);
+}
+
+.proj-partner-role,
+.proj-team-role {
+    font-size: 0.8125rem;
+    color: color-mix(in srgb, var(--main-color) 58%, transparent);
+}
+
+.proj-team-member {
+    padding-block: 0.55rem;
+    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 56rem) {
+    .proj-item-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .proj-item-aside {
+        order: -1;
+    }
+    .proj-meta-card {
+        position: static;
+    }
+}
+
+@media (max-width: 37.5rem) {
+    .proj-item-main {
+        padding-block: 2rem 5rem;
+    }
+    .proj-gallery {
+        grid-template-columns: 1fr;
+    }
+}
