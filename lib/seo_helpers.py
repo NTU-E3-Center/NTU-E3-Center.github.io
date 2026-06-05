@@ -6,23 +6,29 @@ import re
 
 
 def generate_meta_description(primary, *fallback_sources, max_chars=160, min_chars=70):
-    """Return a description string ≤ max_chars, truncated at word boundary.
+    """Return a description string ≤ max_chars, truncated at a sentence
+    boundary when one falls in [min_chars, max_chars], otherwise at a word
+    boundary.
 
     `primary` (e.g. an author override) is used as-is when truthy after
     whitespace collapse. Otherwise, the first non-empty `fallback_sources`
-    entry is used. All inputs are whitespace-collapsed.
+    entry is used. Inputs are whitespace-collapsed and lightly
+    punctuation-normalised: an internal doubled '.' or '。' that arose from
+    naive concatenation collapses to a single terminator; legitimate
+    ellipses ('...' / '…') and decimals like '3.14' are preserved.
 
-    The min_chars argument is informational only — used by validate_seo()
-    to flag too-short descriptions, not enforced here.
+    `min_chars` bounds sentence-boundary back-off so we never drop below
+    validate_seo()'s warning floor; it stays advisory for callers (build.py
+    logs a warning at the same threshold).
     """
     candidates = [primary, *fallback_sources]
     for raw in candidates:
         if not raw:
             continue
-        cleaned = _collapse_whitespace(raw)
+        cleaned = _normalize_punctuation(_collapse_whitespace(raw))
         if not cleaned:
             continue
-        return _truncate_at_word_boundary(cleaned, max_chars)
+        return _truncate_at_word_boundary(cleaned, max_chars, min_chars)
     return ""
 
 
@@ -30,11 +36,77 @@ def _collapse_whitespace(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
-def _truncate_at_word_boundary(s, max_chars):
+# Collapse an internal doubled sentence terminator that arose from naive
+# concatenation ('University.' + '. Research…' → 'University.. Research…').
+# Negative look-arounds preserve legitimate ellipses ('...' has 3 dots —
+# left alone) and CJK ellipsis runs.
+_DOUBLED_DOT_RE = re.compile(r"(?<!\.)\.{2}(?!\.)")
+_DOUBLED_CJK_DOT_RE = re.compile(r"(?<!。)。{2}(?!。)")
+
+
+def _normalize_punctuation(s):
+    if not s:
+        return s
+    s = _DOUBLED_DOT_RE.sub(".", s)
+    s = _DOUBLED_CJK_DOT_RE.sub("。", s)
+    return s
+
+
+_CJK_TERMINATORS = ("。", "！", "？")
+_ASCII_TERMINATORS = (".", "!", "?")
+
+# Tokens that commonly precede a '.' inside academic prose; the '.' after
+# these is NOT a sentence boundary. Matched case-insensitive against the
+# token between the prior whitespace and the '.'.
+_ABBREVIATIONS = frozenset({
+    "dr", "mr", "mrs", "ms", "st", "jr", "sr",
+    "ph.d", "m.d", "b.s", "m.s", "b.a", "m.a",
+    "i.e", "e.g", "etc", "vs", "cf", "approx", "ca",
+    "no", "vol", "fig", "eq", "pp", "ch", "sec", "p",
+    "co", "inc", "ltd", "et", "al",
+})
+
+
+def _is_sentence_boundary(s, i):
+    """True iff s[i] terminates a sentence in context.
+
+    CJK terminators ('。', '！', '？') are unambiguous. ASCII terminators
+    ('.', '!', '?') are accepted only when followed by whitespace or
+    end-of-string AND the token before the '.' is not in _ABBREVIATIONS
+    and not a single capital letter (an initial like 'I.', 'J.').
+    """
+    ch = s[i]
+    if ch in _CJK_TERMINATORS:
+        return True
+    if ch not in _ASCII_TERMINATORS:
+        return False
+    if i + 1 < len(s) and not s[i + 1].isspace():
+        return False
+    if ch == ".":
+        # Walk back to the prior whitespace; token = chars between space and '.'.
+        j = i - 1
+        while j >= 0 and not s[j].isspace():
+            j -= 1
+        token = s[j + 1:i].lower()
+        if token in _ABBREVIATIONS:
+            return False
+        # Single capital letter before '.' = initial (I., J., A.).
+        if len(token) == 1 and s[i - 1].isupper():
+            return False
+    return True
+
+
+def _truncate_at_word_boundary(s, max_chars, min_chars=0):
     if len(s) <= max_chars:
         return s
     cut = s[:max_chars]
-    # Walk back to last whitespace so we don't cut mid-word
+    # 1) Prefer the latest sentence boundary in [min_chars, max_chars] so the
+    #    snippet reads as a finished thought; the terminator is retained.
+    floor = max(min_chars - 1, 0)
+    for i in range(len(cut) - 1, floor, -1):
+        if _is_sentence_boundary(cut, i):
+            return cut[: i + 1].rstrip(" ,;:")
+    # 2) Fall back to the prior word-boundary behaviour: last ASCII space.
     last_space = cut.rfind(" ")
     if last_space > 0:
         return cut[:last_space].rstrip(" ,;:.")

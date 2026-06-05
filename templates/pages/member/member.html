@@ -19,15 +19,31 @@
       {% endfor %}
     {% endif %}
 
-    {# Compose name-led prefix (uses position when present, otherwise an E3 Center role descriptor).
-       Includes Chinese name for Taiwan-region SEO (matches both English and Chinese queries). #}
-    {% set _role = member.get('position') or 'researcher at E3 Center, NTU' %}
+    {# Compose name-led prefix. Trailing sentence-terminators on the role are
+       stripped so the literal '. Research interests:' / '. <about>' appended
+       below cannot produce a doubled period (seo_helpers also collapses '..'
+       defensively, but stripping here keeps the composed string clean). #}
+    {% set _role_raw = (member.get('position') or 'researcher at E3 Center, NTU') | trim %}
+    {% set _role = _role_raw.rstrip('. ,;:!?') %}
     {% set _name_prefix = _bilingual_name ~ ', ' ~ _role %}
 
     {# Fallbacks ordered by quality #}
     {% set _auto_desc_a = (_name_prefix ~ '. Research interests: ' ~ _interest) if _interest else '' %}
     {% set _auto_desc_b = (_name_prefix ~ '. ' ~ _ns.about_first) if _ns.about_first else '' %}
-    {% set _auto_desc_c = _bilingual_name ~ ' — member of E3 Center, National Taiwan University.' %}
+    {# Fallback C: a role-bearing line is distinct per-member (replaces the
+       prior 23-page-duplicate generic sentence). When the role-only string
+       is too short to clear validate_seo's 70-char floor, tail-pad with the
+       E3 Center tagline so the snippet still lands in the [70, 160] window. #}
+    {% if member.get('position') %}
+      {% set _role_only = _name_prefix ~ '.' %}
+      {% if (_role_only | length) >= 70 %}
+        {% set _auto_desc_c = _role_only %}
+      {% else %}
+        {% set _auto_desc_c = _role_only ~ ' E3 Center · Energy × Economics × Environment, National Taiwan University.' %}
+      {% endif %}
+    {% else %}
+      {% set _auto_desc_c = _bilingual_name ~ ' — member of E3 Center, National Taiwan University.' %}
+    {% endif %}
     {% set _meta_desc = seo_meta_description(member.get('metaDescription'), _auto_desc_a, _auto_desc_b, _auto_desc_c) %}
     <meta name="description" content="{{ _meta_desc }}">
     {% set _kw_parts = [member.get('engName'), member.get('chiName'), member.get('chiNameEng'), member.get('position')] %}
