@@ -186,10 +186,13 @@
     <b>One-paragraph read:</b> In a fair 3-month-vs-3-month comparison, the number of distinct pages Google
     ranks for you jumped from <b>9 → 56</b> (6.2×) and impressions rose <b>+61%</b>. Your first non-brand
     <b>topical</b> queries began surfacing (“machine learning in energy”, “decarbonization”, “renewable energy”) — essentially absent before.
-    But two cheap things are still leaking value: the homepage <code>&lt;title&gt;</code> is the old short
-    string (so <code>caece.net</code> ranks <b>#1 with 0 clicks</b>) and <b>0 of 28</b> news items carry topic tags.
-    Fix those this week; build <code>/research/{topic}/</code> pages this month to capture the topical demand that's
-    already knocking. (The old member-URL duplicates are already auto-redirecting — see Action 3.)
+    The two cheap leaks flagged here are now <b>fixed and awaiting deploy</b>: the homepage <code>&lt;title&gt;</code>
+    has been rewritten (so <code>caece.net</code>'s <b>#1-with-0-clicks</b> snippet should start converting once it
+    ships) and all <b>28 of 28</b> news items now carry topic tags. The open frontier is converting the topical
+    demand that's already knocking (“machine learning in energy”, “renewable energy”) into ranked pages — by giving
+    substantive news items their own URLs and leading member &amp; publication pages with the searched terms.
+    (The old member-URL duplicates are already auto-redirecting — see Action 3; items 1–5 and breadcrumbs
+    sit in <a href="#done">✓ Done &amp; verified</a>.)
   </div>
 </header>
 
@@ -295,9 +298,10 @@
           <tr><td>wind plan</td><td class="num">48</td><td class="num">1</td></tr>
         </tbody>
       </table>
-      <div class="callout co-info"><b>So what:</b> these map almost 1:1 to <code>research.json</code> topics you
-        already defined (<code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code>…). Ship the research
-        pages (§4) and these go from 1 stray impression to a ranked page.</div>
+      <div class="callout co-info"><b>So what:</b> these map almost 1:1 to topics you already publish on
+        (<code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code>…) but have no strong landing page for.
+        Lead your publication, news and member pages with these exact terms and the stray impressions turn into
+        ranked pages.</div>
     </div>
     <div class="card">
       <h3 style="margin-top:0">🩹 Brand snippets leaking clicks</h3>
@@ -315,7 +319,8 @@
         </tbody>
       </table>
       <div class="callout co-warn"><b>Biggest single waste on the site:</b> <code>caece.net</code> ranks
-        <b>position 1</b> and gets 0 clicks. The fix is one line — the <code>&lt;title&gt;</code> (Action 1).</div>
+        <b>position 1</b> and gets 0 clicks. The one-line fix — the rewritten <code>&lt;title&gt;</code> (Action 1) —
+        is <b>applied and awaiting deploy</b>; watch this query's CTR after the next push to <code>source</code>.</div>
     </div>
   </div>
 </section>
@@ -325,31 +330,11 @@
   <h2 class="sec"><span class="n">3</span>Prioritised action plan — what to do next</h2>
   <p class="lead">Ordered by leverage (impact ÷ effort), grouped by horizon. Each card cites the data point that
      justifies it. <b>Effort:</b> 🟢 hour(s) · 🟡 days · 🔴 sustained. <b>Impact</b> badge = expected lift on
-     exposure/clicks. Completed items (1, 2, 3, 4, 5) have moved to the <a href="#done">✓ Done &amp; verified</a> section below.</p>
+     exposure/clicks. Completed items (1–5, 8) plus the breadcrumb audit have moved to the
+     <a href="#done">✓ Done &amp; verified</a> section below. <b>Re-checked 2026-06-05; item 8 shipped 2026-06-08.</b>
+     The remaining items — 7, 9–17 — are still open.</p>
 
   <div class="lane-h"><span class="pill mo">THIS MONTH</span> The strategic moves</div>
-
-  <div class="act mo">
-    <div class="top"><div class="ttl">6 · Ship <code>/research/{topic}/</code> pages — capture the topical demand</div>
-      <div class="badges"><span class="badge b-eff">🟡–🔴</span><span class="badge b-imp">Impact ★★★</span></div></div>
-    <div class="why">This is the single biggest opportunity. Topical queries are <i>already</i> appearing
-      (<span class="data">ML in energy · pos 5.5</span>, <span class="data">renewable energy · pos 2</span>) with
-      nothing to land on. Your <code>research.json</code> already defines the topics with tags
-      (<code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code>…) — they just render as a homepage
-      section, not as routable pages. One URL per topic is the unit that ranks.</div>
-    <div class="files">Add routed pages from the existing <code>research.json</code> scaffold (new template
-      <code>templates/pages/research/research-item.html</code> + entries in <code>pages.json</code>); each page:
-      topic definition (EN+中) → what the lab does → members → auto-filtered publications/news by keyword → CTA.</div>
-    <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
-      <li>Targets investigative + informational intent you currently win 0% of</li>
-      <li>Data scaffold already exists — mostly templating, not new content strategy</li>
-      <li>Becomes the hub that internal-links publications, news, members together</li>
-      <li>Long-tail topical queries are low-competition — academic labs win them fast</li></ul></div>
-      <div class="col cons"><h5>✗ Cons</h5><ul>
-      <li>Needs 800–1500 words of real content per topic to rank — writing effort</li>
-      <li>Thin pages hurt more than help; ship 2–3 strong ones before all six</li>
-      <li>6–12 weeks before topical rankings consolidate</li></ul></div></div>
-  </div>
 
   <div class="act mo">
     <div class="top"><div class="ttl">7 · Enrich &amp; publish at least one project detail page</div>
@@ -359,14 +344,6 @@
       page with a grant number is the natural landing target for free backlinks from NSTC / partner registries.</div>
     <div class="files">Enrich <code>contents/projects/2026-green-finance-taiwan-india/</code> and flip it to published;
       confirm it lands in <code>sitemap.xml</code>.</div>
-  </div>
-
-  <div class="act mo">
-    <div class="top"><div class="ttl">8 · Redirect the orphan <code>/Solar-PV-on-Bus-Shelter/</code></div>
-      <div class="badges"><span class="badge b-eff">🟢</span><span class="badge b-imp">Impact ★</span></div></div>
-    <div class="why">A stale URL that isn't part of the current structure still pulls
-      <span class="data">15 impr · pos 26</span> — and it's a <i>topical</i> (solar PV) impression going to a dead
-      end. 301 it to the matching publication or the future <code>/research/solar-pv/</code> page to recycle the signal.</div>
   </div>
 
   <div class="act mo">
@@ -414,9 +391,10 @@
   <div class="act qt">
     <div class="top"><div class="ttl">12 · Lock a controlled vocabulary across all channels</div>
       <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★★</span></div></div>
-    <div class="why">Publications already carry <span class="data">keywords on 35/52 entries</span>. For research pages to
-      auto-populate, publication <code>keywords</code>, news <code>topics</code>, project <code>topics</code> and
-      research slugs must share <i>one</i> term per concept (not “EV charging” vs “electric vehicle infrastructure”).</div>
+    <div class="why">Publications already carry <span class="data">keywords on 35/53 entries</span> (and news
+      <code>topics</code> are now filled — item 2). For topic filtering and cross-linking to work, publication
+      <code>keywords</code>, news <code>topics</code> and project <code>topics</code> must share <i>one</i> term per
+      concept (not “EV charging” vs “electric vehicle infrastructure”).</div>
   </div>
 
   <div class="act qt">
@@ -441,7 +419,7 @@
     <div class="top"><div class="ttl">14 · Bilingual summaries on key pages</div>
       <div class="badges"><span class="badge b-eff">🟡</span><span class="badge b-imp">Impact ★</span></div></div>
     <div class="why">~90% of your audience is in Taiwan and a real share searches in Chinese. A 100–200 character
-      Chinese summary on the homepage, PI page, and research pages improves CTR on Chinese-name and topic queries
+      Chinese summary on the homepage and PI page improves CTR on Chinese-name and topic queries
       without a full <code>/zh/</code> build.</div>
   </div>
 
@@ -517,8 +495,9 @@
     <div class="top"><div class="ttl">2 · <code>news.topics</code> populated on all 28 items</div>
       <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-04</span><span class="badge b-eff">pending deploy</span></div></div>
     <div class="why">Every news item now carries a <code>topics</code> array, classified (2-lens workflow + adversarial
-      reconcile) into a controlled vocabulary aligned to the <code>research.json</code> themes — the join key for
-      future <code>/research/</code> pages. <span class="data">14 tagged</span>, 14 left <code>[]</code> on purpose
+      reconcile) into a controlled vocabulary aligned to the <code>research.json</code> themes — the shared
+      vocabulary for cross-linking topics across news, publications and members.
+      <span class="data">14 tagged</span>, 14 left <code>[]</code> on purpose
       (generic awards / promotions / editorial appointments with no research subject — avoids over-tagging). The 5
       detail-page items now emit those topics into <code>&lt;meta keywords&gt;</code> (e.g.
       <code>/news/2026-focus-news/</code> → “Wind Power, Hydrogen Energy …”); the other 23 store the tags for the join.</div>
@@ -568,6 +547,23 @@
   </div>
 
   <div class="act" style="border-left-color:var(--good)">
+    <div class="top"><div class="ttl">8 · Orphan <code>/Solar-PV-on-Bus-Shelter/</code> tool linked from its paper — not redirected</div>
+      <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ applied 2026-06-08</span><span class="badge b-eff">pending deploy</span></div></div>
+    <div class="why">The orphan turned out to be a <b>live interactive calculator</b> (候車亭架設太陽能板評估 — payback / NPV
+      for solar on bus shelters), not a dead page — and it maps 1:1 to a paper you already publish:
+      <span class="data">Green Transformation of Bus Shelters</span> (<code>2024-bus-shelter-solar-pv-taipei</code>,
+      <i>J. Taiwan Energy</i>). So instead of the planned 301 (which would have <i>destroyed</i> a useful tool), a
+      <b>“Try the interactive tool”</b> button was added to that paper's detail page. That hands the orphan an
+      <b>internal link from a page Google already ranks</b> — recycling its <span class="data">15 impr · pos 26</span>
+      onto a live URL — while keeping the calculator reachable. Strictly better than a redirect.</div>
+    <div class="files">New optional <code>toolUrl</code> field on the publication entry (back-filled empty across the
+      other 52 so the list schema stays uniform) + a second action button in
+      <code>templates/pages/publications/publication-item.html</code>. Verified via local build: the button renders on
+      the bus-shelter page only and links to <code>/Solar-PV-on-Bus-Shelter/</code>. <b>Post-deploy:</b> confirm the
+      link is live, then <i>URL-Inspect → Request Indexing</i> the tool URL so Google re-crawls it with the new inlink.</div>
+  </div>
+
+  <div class="act" style="border-left-color:var(--good)">
     <div class="top"><div class="ttl">Breadcrumb (<code>BreadcrumbList</code>) structured data — verified on every subpage</div>
       <div class="badges"><span class="badge" style="background:var(--good);color:#fff">✓ verified 2026-06-04</span><span class="badge b-eff">no code change</span></div></div>
     <div class="why">Audited against Google's <code>BreadcrumbList</code> spec: all <b>10</b> subpage templates already emit
@@ -601,14 +597,14 @@
         <span class="chip">CTR <b>1.5%</b></span><span class="chip">pos <b>8.6</b></span>
         <span class="chip">absorbs <b>~94%</b> of site impressions</span></div>
       <p style="margin:.3em 0"><b>Working:</b> brand queries convert at 23%; it's the strongest page by far.
-        <b>Leaking:</b> the old <code>&lt;title&gt;</code> loses zero-click brand searches; research areas sit in
-        flat prose that ranks weakly.</p>
-      <div class="do">→ <b>Do:</b> Action 1 (title) + Action 5 (lang) now; restructure the About copy so each research
-        area is a heading/bullet, not a comma in a sentence — each becomes its own weak topical ranker that feeds
-        the research pages later.</div>
+        <b>Leaking:</b> the rewritten <code>&lt;title&gt;</code> (Action 1, awaiting deploy) should stop the
+        zero-click brand losses; the remaining leak is research areas sitting in flat prose that ranks weakly.</p>
+      <div class="do">→ <b>Do:</b> Actions 1 (title) &amp; 5 (lang) are <b>done — awaiting deploy</b>; the remaining win
+        is to restructure the About copy so each research area is a heading/bullet, not a comma in a sentence —
+        each becomes its own weak topical ranker.</div>
       <div class="callout co-info"><b>Why not chase topics here:</b> the homepage serves navigational intent. Trying
-        to make it rank for “transportation electrification” too confuses Google about its purpose. Let the research
-        pages own topics; let the homepage own the brand.</div>
+        to make it rank for “transportation electrification” too confuses Google about its purpose. Let your
+        publication and news detail pages own topics; let the homepage own the brand.</div>
     </div>
   </div>
 
@@ -639,8 +635,7 @@
         to rank (黃榆庭 now converts at 13%). <b>Gaps:</b> legacy trailing-slash dupes (now auto-redirecting, just
         consolidating — Action 3); bios emphasise CV over <i>topics</i>; PI interests don't match live queries (Action 9).</p>
       <div class="do">→ <b>Do per member:</b> lead the <code>interests</code> array with plain-language research
-        topics in EN + 中; make sure each page renders “Recent publications” as real linked text (it does);
-        cross-link to the relevant <code>/research/{topic}/</code> page once it exists.</div>
+        topics in EN + 中; make sure each page renders “Recent publications” as real linked text (it does).</div>
       <div class="pc"><div class="col pros"><h5>✓ Why it pays</h5><ul>
         <li>Name searches are high-intent (due-diligence, referrals)</li>
         <li>Each member page is a topical landing for their niche</li></ul></div>
@@ -657,11 +652,11 @@
     <div class="bd">
       <div class="statline"><span class="chip"><b>1</b> click</span><span class="chip"><b>119</b> impr</span>
         <span class="chip">pos <b>8.9</b></span><span class="chip">CollectionPage JSON-LD ✓</span>
-        <span class="chip">keywords on <b>35</b>/52 · abstracts on <b>40</b>/52</span></div>
+        <span class="chip">keywords on <b>35</b>/53 · abstracts on <b>40</b>/53</span></div>
       <p style="margin:.3em 0"><b>Big win:</b> this page was invisible last year and now ranks, with abstracts
-        and keywords on most entries (schema keys exist on all 52; 17 still need keyword text filled).
+        and keywords on most entries (schema keys exist on all 53; 18 still need keyword text filled).
         <b>Do:</b> finish tagging the untagged entries, then add a “filter by topic” anchor list so Google sees explicit topical
-        sections, and link each topic group to its <code>/research/</code> page.</p>
+        sections on the page itself.</p>
     </div>
   </div>
 
@@ -704,36 +699,20 @@
     <div class="bd">
       <div class="statline"><span class="chip">listing: <b>9</b>cl / <b>362</b>im / pos <b>5.1</b></span>
         <span class="chip">detail ranking: <b>4</b></span>
-        <span class="chip">topics filled: <b>0/28</b></span>
+        <span class="chip">topics filled: <b>28/28</b> · 14 tagged</span>
         <span class="chip">detail pages: <b>5</b> (+1 listing)</span></div>
       <p style="margin:.3em 0"><b>The listing ranks well</b> (pos 5.1) but individual stories barely surface, and
         most aren't even in the sitemap. This is your fastest-shipping topical channel and it's under-used.</p>
-      <div class="do">→ <b>Do:</b> Action 2 (fill <code>topics</code>) + Action 10 (give substantive items a <code>pageLink</code>);
-        going forward, write <i>topic-led titles</i> (“Carbon pricing in Taiwan: new E3 paper…” not “Paper
-        accepted”) and open each article with 2–3 plain-language context sentences (that text becomes the SERP snippet).</div>
+      <div class="do">→ <b>Do:</b> Action 2 (fill <code>topics</code>) is <b>done</b> — next is Action 10 (give substantive
+        items a <code>pageLink</code>) and rendering those topics as <b>visible tags</b>. Going forward, write
+        <i>topic-led titles</i> (“Carbon pricing in Taiwan: new E3 paper…” not “Paper accepted”) and open each
+        article with 2–3 plain-language context sentences (that text becomes the SERP snippet).</div>
       <div class="pc"><div class="col pros"><h5>✓ Pros</h5><ul>
         <li>Fresh, dated, indexable URLs — Google loves recency here</li>
         <li>Each post can rank for an event + an evergreen topic</li></ul></div>
         <div class="col cons"><h5>✗ Cons</h5><ul>
         <li>Posts under ~300 words aren't treated as substantive</li>
         <li>Pure “we attended X” announcements rank for nothing</li></ul></div></div>
-    </div>
-  </div>
-
-  <!-- RESEARCH -->
-  <div class="page-card">
-    <div class="hd"><span class="url">/research/{topic}/</span><span class="tag t-info">opportunity — biggest</span>
-      <span class="role">Sub-subpage type · not built yet</span></div>
-    <div class="bd">
-      <div class="statline"><span class="chip">routed pages: <b>0</b></span>
-        <span class="chip">topics defined in research.json: <b>✓</b></span>
-        <span class="chip">topical queries already arriving: <b>✓</b></span></div>
-      <p style="margin:.3em 0"><b>The highest-leverage new work.</b> Demand exists (ML/renewables queries), the
-        data scaffold exists (<code>research.json</code> with tagged topics), but there's no page to rank. Today
-        these topics only render as a homepage section — a <code>#anchor</code> can't rank independently; a URL can.</p>
-      <div class="do">→ <b>Do:</b> Action 6 — generate <code>/research/{researchId}/</code> from the existing data;
-        each page = definition → lab's work → members → auto-filtered publications/news → CTA. Start with
-        <code>solar-pv</code>, <code>wind-power</code>, <code>ev-v2b</code> (the ones already drawing impressions).</div>
     </div>
   </div>
 
@@ -863,7 +842,7 @@
     </div>
     <div class="callout co-good"><b>International tilt worth noting:</b> by GA4 active users your #2 country is
       <b>Singapore (79)</b>, then US (72), Vietnam (33), Japan (23) — a more engaged APAC audience than search
-      clicks alone suggested. A clean English presence plus the research pages serve them directly.</div>
+      clicks alone suggested. A clean English presence and topic-led publication and news pages serve them directly.</div>
   </div>
 </section>
 
@@ -982,7 +961,6 @@
         <tr><td>Non-brand topical queries</td><td class="num">~6</td><td class="num">30+</td><td>The leading indicator for escaping brand-only ranking</td></tr>
         <tr><td>Topical impressions (ex-“e3” cluster)</td><td class="num">~1,360</td><td class="num">4,000+</td><td>Demand reaching your topic pages</td></tr>
         <tr><td><code>caece.net</code> / <code>i yun</code> CTR</td><td class="num">0%</td><td class="num">10%+</td><td>Proves the title fix (Action 1) worked</td></tr>
-        <tr><td>Research pages live &amp; indexed</td><td class="num">0</td><td class="num">3–6</td><td>The strategic bet (Action 6)</td></tr>
         <tr><td>Referring domains (GSC Links)</td><td class="num">—</td><td class="num">+1–3/mo</td><td>Authority + faster indexing (Action 13)</td></tr>
         <tr><td>Organic-search share of new users (GA4)</td><td class="num">19%</td><td class="num">30%+</td><td>SEO's slice of acquisition — understated until internal “Direct” is filtered (Action 17)</td></tr>
         <tr><td>Referral users (GA4)</td><td class="num">14</td><td class="num">50+</td><td>Backlinks bringing real humans, not just authority</td></tr>
