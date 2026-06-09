@@ -237,6 +237,18 @@
                         </a>
                         {% endif %}
 
+                        {# Optional interactive companion (e.g. a calculator/demo tool) hosted
+                           on-site. Renders a second action button only when the entry sets
+                           `toolUrl`; same-origin link, so it also gives the tool an internal
+                           link from a page Google already ranks. #}
+                        {% if pub.get('toolUrl') %}
+                        <a class="pub-action-btn skewed-block" b-role="btn" b-hoverable
+                           href="{{ pub['toolUrl'] }}" target="_blank" rel="noopener">
+                            <span>Try the interactive tool</span>
+                            <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        </a>
+                        {% endif %}
+
                         {% if pub.get('doi') %}
                         <p class="pub-item-doi">DOI<span>{{ pub['doi'] }}</span></p>
                         {% endif %}

@@ -23,6 +23,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC",
                 "title": "Assessing Power Sector Carbon Emission Intensity in Taiwan: Status Quo and Net-zero Future Perspectives",
+                "toolUrl": "",
                 "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/301",
                 "journal": "Journal of Taiwan Energy",
                 "volume": "9",
@@ -79,6 +80,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC",
                 "title": "Sankey-Diagram-Based Insights Into Taiwan’s Energy Flow: Status Quo and Net-Zero Future",
+                "toolUrl": "",
                 "titleZh": "基於桑基圖之臺灣能源流現況與2050淨零政策潛在影響之展望分析",
                 "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/37/306",
                 "journal": "Journal of Taiwan Energy",
@@ -131,6 +133,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:Se3iqnhoufwC",
                 "title": "Evaluating Vehicle Fleet Electrification Against Net-Zero Targets in Scooter-Dominated Road Transport",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Research Part D: Transport and Environment",
                 "volume": "114",
@@ -178,6 +181,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hqOjcs7Dif8C",
                 "title": "Beyond Personal Vehicles: How Electrifying Scooters Will Help Achieve Climate Mitigation Goals in Taiwan",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Strategy Reviews",
                 "volume": "45",
@@ -224,6 +228,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC",
                 "title": "Impacts of Electric Fleet Charging Patterns Under Different Solar Power Penetration Levels: Hourly Grid Variations and Operating Emissions",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Research Part D: Transport and Environment",
                 "volume": "122",
@@ -268,6 +273,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:8k81kl-MbHgC",
                 "title": "Transitioning From Illegal Rooftop Dwellings to Solar Pv: Market-based Incentive Design and Techno-economic Analysis",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Strategy Reviews",
                 "volume": "49",
@@ -309,6 +315,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:3fE2CSJIrl8C",
                 "title": "Techno-economic Analysis of Lithium-ion Battery Price Reduction Considering Carbon Footprint Based on Life Cycle Assessment",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Journal of Cleaner Production",
                 "volume": "425",
@@ -353,6 +360,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC",
                 "title": "Towards Nearly Zero-Energy Buildings: Smart Energy Management of Vehicle-to-Building (V2B) Strategy and Renewable Energy Sources",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Sustainable Cities and Society",
                 "volume": "99",
@@ -401,6 +409,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:kNdYIx-mwKoC",
                 "title": "Sparse Trip Demand Prediction for Shared E-Scooter Using Spatio-Temporal Graph Neural Networks",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Research Part D: Transport and Environment",
                 "volume": "125",
@@ -447,6 +456,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:ULOm3_A8WrAC",
                 "title": "Environmental Benefits and Ownership Costs of University Fleet Electrification: A Case Study of National Taiwan University",
+                "toolUrl": "",
                 "titleZh": "校園交通車及公務車電動化的環境效益與擁有成本分析：以臺灣大學為例",
                 "link": "",
                 "journal": "Journal of the Chinese Institute of Transportation",
@@ -493,6 +503,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:KlAtU1dfN6UC",
                 "title": "Distributional Effects of Carbon Pricing: An Analysis of Income-Based Versus Expenditure-Based Approaches",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Journal of Cleaner Production",
                 "volume": "465",
@@ -538,6 +549,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:M3ejUd6NZC8C",
                 "title": "Role of Hydrogen Fuel Cells in Achieving Road Transport Decarbonization: a Case Study From Taiwan",
+                "toolUrl": "",
                 "link": "",
                 "journal": "International Journal of Hydrogen Energy",
                 "volume": "80",
@@ -590,6 +602,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:4DMP91E08xMC",
                 "title": "Evaluating the Feasibility and Economics of Hydrogen Storage in Large-scale Renewable Deployment for Decarbonization",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Strategy Reviews",
                 "volume": "55",
@@ -634,6 +647,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:qxL8FJ1GzNcC",
                 "title": "Assessing Levelized Cost of Electric Vehicle Recharging in China",
+                "toolUrl": "",
                 "link": "",
                 "journal": "iScience",
                 "volume": "27",
@@ -680,6 +694,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC",
                 "title": "The Cost of Green: Analyzing the Economic Feasibility of Hydrogen Production From Offshore Wind Power",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Conversion and Management: X",
                 "volume": "24",
@@ -727,6 +742,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:aqlVkmm33-oC",
                 "title": "Reanalysis and Ground Station Data: Advanced Data Preprocessing in Deep Learning for Wind Power Prediction",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Applied Energy",
                 "volume": "375",
@@ -778,6 +794,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:9ZlFYXVOiuMC",
                 "title": "Comparison and Strategic Outlook of International Solid Recovered Fuel Standards",
+                "toolUrl": "",
                 "titleZh": "國際固體再生燃料標準的比較與策略展望",
                 "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/353",
                 "journal": "Journal of Taiwan Energy",
@@ -827,6 +844,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:QIV2ME_5wuYC",
                 "title": "Green Transformation of Bus Shelters: Implementation and Benefits of Solar Photovoltaic and Energy Storage Technologies",
+                "toolUrl": "/Solar-PV-on-Bus-Shelter/",
                 "titleZh": "公車候車亭的綠色轉型：太陽能光電與儲能技術的實踐與效益",
                 "link": "https://ea01.moeaea.gov.tw/a0101/01/publication/journal/thesis/45/355",
                 "journal": "Journal of Taiwan Energy",
@@ -873,6 +891,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:mVmsd5A6BfQC",
                 "title": "Enhancing Urban Energy Resilience: Vehicle-to-Grid (V2G) Strategies Within Electric Scooter Battery Swapping Ecosystems",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Sustainable Cities and Society",
                 "volume": "118",
@@ -918,6 +937,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:7PzlFSSx8tAC",
                 "title": "Optimizing Urban Energy Flows: Integrative Vehicle-to-Building Strategies and Renewable Energy Management",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Conversion and Management: X",
                 "volume": "26",
@@ -965,6 +985,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:IWHjjKOFINEC",
                 "title": "Costs and Carbon: Evaluating the Tradeoffs in Taiwan’s Shift Toward Electric Vehicles",
+                "toolUrl": "",
                 "link": "",
                 "journal": "International Journal of Sustainable Transportation",
                 "volume": "19",
@@ -1016,6 +1037,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:YOwf2qJgpHMC",
                 "title": "Real-Time Unmet Demand-Driven Relocation Policy to Improve Service Capacity of Shared E-Mopeds",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Journal of Urban Management",
                 "volume": "14",
@@ -1063,6 +1085,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:dhFuZR0502QC",
                 "title": "Quantifying Carbon Emissions in Cold Chain Transport: A Real-World Data-Driven Approach",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Research Part D: Transport and Environment",
                 "volume": "142",
@@ -1112,6 +1135,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:L8Ckcad2t8MC",
                 "title": "AI-driven Short-term Load Forecasting Enhanced by Clustering in Multi-type University Buildings: Insights Across Building Types and Pandemic Phases",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Journal of Building Engineering",
                 "volume": "104",
@@ -1157,6 +1181,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:mB3voiENLucC",
                 "title": "Super-Resolution Wind Mapping with Deep Learning for Scalable Renewable Energy Planning",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Communications Earth & Environment",
                 "volume": "7",
@@ -1192,6 +1217,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:digitalization-lca-pod",
                 "title": "Digitalization and decarbonization in last-mile logistics: a life cycle assessment of proof of delivery systems",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Letters",
                 "volume": "",
@@ -1239,6 +1265,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:boiler-air-pollution-taiwan",
                 "title": "Integrated assessment of boiler air pollution control policy: Impacts on emissions, air quality, and public health in Taiwan",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Atmospheric Pollution Research",
                 "volume": "17",
@@ -1289,6 +1316,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:ecological-economics-2026",
                 "title": "Equity in Carbon Pricing: Impacts on Household Carbon Burdens Across Different Demographics",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Ecological Economics",
                 "volume": "242",
@@ -1336,6 +1364,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:schneider2023comparative",
                 "title": "Comparative Life Cycle Assessment (LCA) on battery electric and combustion engine motorcycles in Taiwan",
+                "toolUrl": "",
                 "link": "https://doi.org/10.1016/j.jclepro.2023.137060",
                 "journal": "Journal of Cleaner Production",
                 "volume": "406",
@@ -1358,6 +1387,7 @@
             {
                 "citationId": "",
                 "title": "Probabilistic Electricity Demand Forecasting for Buildings Using a Variational Mode Decomposition-Attentive Quantile Network",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy & Buildings",
                 "volume": "366",
@@ -1404,6 +1434,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:yoo2025sector",
                 "title": "Sector-specific Decarbonization Effects of High-Speed Rails Expansions",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Economics",
                 "volume": "158",
@@ -1456,6 +1487,7 @@
             {
                 "citationId": "",
                 "title": "Digital Transformation and Carbon Redistribution in Warehouse Operations: Evidence from State-Persistent Simulation",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1478,6 +1510,7 @@
             {
                 "citationId": "",
                 "title": "Advancing Circular Logistics: Life Cycle Assessment of Structurally Reinforced Modular Plastic Pallets",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1500,6 +1533,7 @@
             {
                 "citationId": "",
                 "title": "Adaptive and Multifaceted Vehicle-to-Building (V2B) Energy Management: A Two-Stage Framework Addressing User Expectations and Uncertainty",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1522,6 +1556,7 @@
             {
                 "citationId": "",
                 "title": "Optimizing dynamic shared E-moped relocation with long-term effect via deep reinforcement learning",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1544,6 +1579,7 @@
             {
                 "citationId": "",
                 "title": "Decarbonizing First-Mile Cold Chain Freight: Empirical Analysis of Heavy-Duty Refrigerated Truck Operations",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1566,6 +1602,7 @@
             {
                 "citationId": "",
                 "title": "Double Energy Vulnerability in Taiwan: Household Energy Poverty Across Domestic and Transport Domains",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1588,6 +1625,7 @@
             {
                 "citationId": "",
                 "title": "Detection-Guided and Prompt-Augmented Transformers for Automated and Generalizable Cobb Angle Estimation in Spinal Radiographs",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1610,6 +1648,7 @@
             {
                 "citationId": "",
                 "title": "Contrastive Representation Learning for Robust Cross-Site Very Short-Term Photovoltaic Forecasting",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1632,6 +1671,7 @@
             {
                 "citationId": "",
                 "title": "Carbon pricing at the border: Product-level evidence on the impacts of the EU Carbon Border Adjustment Mechanism",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1654,6 +1694,7 @@
             {
                 "citationId": "",
                 "title": "Emission-aware routing for cold-chain last-mile logistics: A data-driven green vehicle routing framework with path-level emission modeling",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1676,6 +1717,7 @@
             {
                 "citationId": "",
                 "title": "淨零轉型下機車電動化的減碳效益：臺灣與中國之比較研究",
+                "toolUrl": "",
                 "link": "",
                 "journal": "",
                 "volume": "",
@@ -1699,6 +1741,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2020transitionev",
                 "title": "Transition to Electric Vehicles in China: Implications for Total Cost of Ownership and Cost to Society",
+                "toolUrl": "",
                 "link": "",
                 "journal": "SAE International Journal of Sustainable Transportation, Energy, Environment, & Policy",
                 "volume": "1",
@@ -1742,6 +1785,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:sun2024criticalmaterials",
                 "title": "Reducing supply risk of critical materials for clean energy via foreign direct investment",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Nature Sustainability",
                 "volume": "7",
@@ -1810,6 +1854,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:verma2023voicesroad",
                 "title": "Driving a sustainable road transportation transformation",
+                "toolUrl": "",
                 "link": "",
                 "journal": "One Earth",
                 "volume": "6",
@@ -1868,6 +1913,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2020motorizationbattery",
                 "title": "Transition to electric vehicles in China: Implications for private motorization rate and battery market",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Energy Policy",
                 "volume": "144",
@@ -1917,6 +1963,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2019batterylearning",
                 "title": "Learning only buys you so much: Practical limits on battery price reduction",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Applied Energy",
                 "volume": "239",
@@ -1968,6 +2015,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2020taxifleets",
                 "title": "Recharging systems and business operations to improve the economics of electrified taxi fleets",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Sustainable Cities and Society",
                 "volume": "57",
@@ -2018,6 +2066,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:ou2021iscience2050",
                 "title": "China's vehicle electrification impacts on sales, fuel use, and battery material demand through 2050: Optimizing consumer and industry decisions",
+                "toolUrl": "",
                 "link": "",
                 "journal": "iScience",
                 "volume": "24",
@@ -2076,6 +2125,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2022airquality",
                 "title": "An Integrated Assessment of Emissions, Air Quality, and Public Health Impacts of China's Transition to Electric Vehicles",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Environmental Science & Technology",
                 "volume": "56",
@@ -2138,6 +2188,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:hsieh2018uncertaintycarsales",
                 "title": "Incorporating Multiple Uncertainties into Projections of Chinese Private Car Sales and Stock",
+                "toolUrl": "",
                 "link": "",
                 "journal": "Transportation Research Record",
                 "volume": "2672",
@@ -2179,6 +2230,7 @@
             {
                 "citationId": "tUbPb-QAAAAJ:tam2025lcoctaiwan",
                 "title": "Assessment and Sensitivity Analysis of Electric Vehicle Charging Costs in Taiwan: A Levelized Cost Model Approach",
+                "toolUrl": "",
                 "titleZh": "臺灣電動車輛均化充電成本評估與敏感度分析",
                 "link": "https://www.airitilibrary.com/Article/Detail/10177159-N202603270008-00002",
                 "journal": "Transportation Planning Journal",
