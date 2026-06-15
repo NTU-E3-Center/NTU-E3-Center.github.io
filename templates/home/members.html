@@ -13,8 +13,10 @@
         <div class="mem-block">
             <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    width="600"
+                    height="800"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w,
@@ -50,8 +52,10 @@
         <a class="mem-block" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
             <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    width="600"
+                    height="800"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w,
@@ -109,8 +113,10 @@
         <a class="mem-block filter-content" where="{{ members['filterId'] }}" data-value="{{ member['admissionYear']}}" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
             <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
-                    loading="lazy" 
-                    src="{{ member['imgPath'] }}" 
+                    loading="lazy"
+                    width="300"
+                    height="400"
+                    src="{{ member['imgPath'] }}"
                     srcset="
                         {{ imgPathFront }}-200w.webp 200w,
                         {{ imgPathFront }}-400w.webp 400w

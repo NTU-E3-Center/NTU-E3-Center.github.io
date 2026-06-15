@@ -180,51 +180,102 @@ document.querySelectorAll('[class*="-img"]:has(img[loading="lazy"])').forEach((b
 // .filter-checkbox[where=ID] with .filter-content[where=ID][data-value=...]
 // and toggles content visibility. Empty-state message is appended after the
 // nearest .mem-section or .mem-alum-grid container, if present.
-document.querySelectorAll('.filter').forEach((filter) => {
-    const where = filter.getAttribute('where');
-    const allContents = document.querySelectorAll(`.filter-content[where="${where}"]`);
-    const originalDisplay = allContents.length ? getComputedStyle(allContents[0]).display : 'block';
-
-    const contentByValue = {};
-    allContents.forEach(elem => {
-        const val = elem.dataset.value;
-        if (!contentByValue[val]) contentByValue[val] = [];
-        contentByValue[val].push(elem);
+//
+// URL hash sync: each filter group serializes its checked values to
+// `#<where>=v1,v2&<otherWhere>=v3` so filtered views are shareable. Hash on
+// page load overrides the template's default-checked state.
+(function () {
+    const hashState = {};
+    (window.location.hash.slice(1) || '').split('&').forEach((pair) => {
+        if (!pair) return;
+        const eq = pair.indexOf('=');
+        if (eq < 0) return;
+        const k = decodeURIComponent(pair.slice(0, eq));
+        const v = pair.slice(eq + 1);
+        if (!k || !v) return;
+        hashState[k] = new Set(v.split(',').map(decodeURIComponent));
     });
 
-    const sibling = filter.nextElementSibling;
-    const section = sibling?.matches('.mem-section, .mem-alum-grid')
-        ? sibling
-        : document.querySelector(`.mem-section:has(.filter-content[where="${where}"]), .mem-alum-grid:has(.filter-content[where="${where}"])`);
-    let emptyMsg = null;
-    if (section) {
-        emptyMsg = document.createElement('p');
-        emptyMsg.className = 'filter-empty';
-        emptyMsg.textContent = 'No members match the selected filters.';
-        emptyMsg.style.display = 'none';
-        section.after(emptyMsg);
-    }
+    // Each filter group registers its current Set<value> here; writeHash()
+    // serializes all of them together so groups don't clobber each other.
+    const groupStates = {};
 
-    function updateEmptyState() {
-        if (!emptyMsg) return;
-        const anyVisible = Array.from(allContents).some(el => el.style.display !== 'none');
-        emptyMsg.style.display = anyVisible ? 'none' : 'block';
-    }
-
-    document.querySelectorAll(`.filter-checkbox[where="${where}"]`).forEach((checkbox) => {
-        (contentByValue[checkbox.value] || []).forEach(elem => {
-            elem.style.display = checkbox.checked ? originalDisplay : 'none';
+    function writeHash() {
+        const parts = [];
+        Object.keys(groupStates).sort().forEach((where) => {
+            const set = groupStates[where];
+            if (set.size === 0) return;
+            parts.push(
+                encodeURIComponent(where) + '=' +
+                Array.from(set).map(encodeURIComponent).join(',')
+            );
         });
-        checkbox.addEventListener('change', () => {
+        const hash = parts.length ? '#' + parts.join('&') : '';
+        try {
+            history.replaceState(
+                null, '',
+                hash || window.location.pathname + window.location.search
+            );
+        } catch (e) { /* file:// or sandbox — ignore */ }
+    }
+
+    document.querySelectorAll('.filter').forEach((filter) => {
+        const where = filter.getAttribute('where');
+        const allContents = document.querySelectorAll(`.filter-content[where="${where}"]`);
+        const originalDisplay = allContents.length ? getComputedStyle(allContents[0]).display : 'block';
+
+        const contentByValue = {};
+        allContents.forEach(elem => {
+            const val = elem.dataset.value;
+            if (!contentByValue[val]) contentByValue[val] = [];
+            contentByValue[val].push(elem);
+        });
+
+        const sibling = filter.nextElementSibling;
+        const section = sibling?.matches('.mem-section, .mem-alum-grid')
+            ? sibling
+            : document.querySelector(`.mem-section:has(.filter-content[where="${where}"]), .mem-alum-grid:has(.filter-content[where="${where}"])`);
+        let emptyMsg = null;
+        if (section) {
+            emptyMsg = document.createElement('p');
+            emptyMsg.className = 'filter-empty';
+            emptyMsg.textContent = 'No members match the selected filters.';
+            emptyMsg.style.display = 'none';
+            section.after(emptyMsg);
+        }
+
+        function updateEmptyState() {
+            if (!emptyMsg) return;
+            const anyVisible = Array.from(allContents).some(el => el.style.display !== 'none');
+            emptyMsg.style.display = anyVisible ? 'none' : 'block';
+        }
+
+        const checkboxes = document.querySelectorAll(`.filter-checkbox[where="${where}"]`);
+        const checked = new Set();
+        groupStates[where] = checked;
+
+        // Hash overrides template defaults when present for this `where` key.
+        const fromHash = hashState[where];
+        checkboxes.forEach((checkbox) => {
+            if (fromHash) checkbox.checked = fromHash.has(checkbox.value);
+            if (checkbox.checked) checked.add(checkbox.value);
             (contentByValue[checkbox.value] || []).forEach(elem => {
                 elem.style.display = checkbox.checked ? originalDisplay : 'none';
             });
-            updateEmptyState();
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) checked.add(checkbox.value);
+                else                  checked.delete(checkbox.value);
+                (contentByValue[checkbox.value] || []).forEach(elem => {
+                    elem.style.display = checkbox.checked ? originalDisplay : 'none';
+                });
+                updateEmptyState();
+                writeHash();
+            });
         });
-    });
 
-    updateEmptyState();
-});
+        updateEmptyState();
+    });
+}());
 
 // Scroll-spy: highlight the menu item matching the section currently in view.
 // Only runs on the homepage (presence of `<section id="home">`). For each

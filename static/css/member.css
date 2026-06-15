@@ -90,9 +90,10 @@ main {
         margin-right: 1rem;
 
         & img {
-            --_cot: calc(-1 * tan(var(--block-skew)));
-
-            height: calc(100% * (1 + var(--_cot)));
+            width: calc((1 + tan(var(--content-skew))) * 100%);
+            height: 100%;
+            object-fit: cover;
+            margin-inline: calc(-1 * tan(var(--content-skew)) / 2 * 100%);
         }
     }
 

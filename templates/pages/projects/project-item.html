@@ -60,7 +60,7 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=17">
     <link rel="stylesheet" href="/css/subpage.css?v=46">
-    <link rel="stylesheet" href="/css/project-item.css?v=1">
+    <link rel="stylesheet" href="/css/project-item.css?v=7">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -130,180 +130,197 @@
     {% set _start_yr = (proj.get('startDate') or '')[:4] %}
     {% set _end_yr = (proj.get('endDate') or '')[:4] %}
 
+    {# ── Editorial, section-stacked layout — intentionally distinct from the
+       two-column + sticky-sidebar publication-item page. The metadata that the
+       publication page parks in a right rail lives here in a horizontal facts
+       strip under the header; sub-sections stack full-width with card grids. #}
     <main class="proj-item-main">
         <article class="proj-item-article">
 
             <header class="proj-item-header">
+                <p class="proj-eyebrow">
+                    {% if _status_en %}<span class="proj-status-pill proj-status-pill--{{ 'ongoing' if proj.get('status') == '執行中' else 'concluded' }}">{{ _status_en }}</span>{% endif %}
+                    <span>Research Project</span>
+                </p>
                 <h1 class="proj-item-title">{{ proj['titleEn'] }}</h1>
                 {% if proj.get('titleZh') %}
                 <p class="proj-item-title-zh" lang="zh-Hant">{{ proj['titleZh'] }}</p>
                 {% endif %}
 
-                <p class="proj-item-meta">
-                    {% if _status_en %}<span class="proj-status-pill proj-status-pill--{{ 'ongoing' if proj.get('status') == '執行中' else 'concluded' }}">{{ _status_en }}</span>{% endif %}
-                    {% if _role_en %}<span class="proj-meta-bit">{{ _role_en }}</span>{% endif %}
-                    {% if _start_yr %}<span class="proj-meta-bit">{{ _start_yr }}{% if _end_yr and _end_yr != _start_yr %}&ndash;{{ _end_yr }}{% endif %}</span>{% endif %}
-                </p>
+                {# Horizontal facts strip — replaces the sidebar metadata card. #}
+                <dl class="proj-facts">
+                    {% if _role_en %}
+                    <div class="proj-fact"><dt>Role</dt><dd>{{ _role_en }}</dd></div>
+                    {% endif %}
+                    {% if _start_yr %}
+                    <div class="proj-fact"><dt>Duration</dt><dd>{{ _start_yr }}{% if _end_yr and _end_yr != _start_yr %}&ndash;{{ _end_yr }}{% endif %}</dd></div>
+                    {% endif %}
+                    <div class="proj-fact">
+                        <dt>Funder</dt>
+                        <dd>{{ _funder }}{% if not _is_nstc and proj.get('fundingAgency') %} <span lang="zh-Hant">({{ proj['fundingAgency'] }})</span>{% endif %}</dd>
+                    </div>
+                    {% if _is_nstc %}
+                    <div class="proj-fact"><dt>Grant no.</dt><dd>{{ proj['grantNumber'] }}</dd></div>
+                    {% endif %}
+                </dl>
             </header>
 
-            <div class="proj-item-layout">
-                <div class="proj-item-content">
+            {% if proj.get('summary') %}
+            <p class="proj-item-lede">{{ proj['summary'] }}</p>
+            {% endif %}
 
-                    {% if proj.get('summary') %}
-                    <p class="proj-item-lede">{{ proj['summary'] }}</p>
-                    {% endif %}
+            {% if proj.get('keyFindings') %}
+            <section class="proj-section" aria-labelledby="findings-heading">
+                <h2 id="findings-heading" class="proj-section-title">Key findings</h2>
+                <ol class="proj-findings-grid">
+                    {% for f in proj['keyFindings'] %}
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">{{ '%02d' % loop.index }}</span>
+                        <p class="proj-finding-text">{{ f['text'] }}</p>
+                        {% if f.get('textZh') %}<p class="proj-finding-text-zh" lang="zh-Hant">{{ f['textZh'] }}</p>{% endif %}
+                    </li>
+                    {% endfor %}
+                </ol>
+            </section>
+            {% endif %}
 
-                    {% if proj.get('narrativeHtml') %}
-                    <section class="proj-item-section" aria-labelledby="about-heading">
-                        <h2 id="about-heading" class="proj-item-section-title">About this project</h2>
-                        <div class="proj-item-prose">{{ proj['narrativeHtml'] | safe }}</div>
-                        {% if proj.get('narrativeZhHtml') %}
-                        <div class="proj-item-prose proj-item-prose-zh" lang="zh-Hant">{{ proj['narrativeZhHtml'] | safe }}</div>
+            {% if proj.get('narrativeHtml') %}
+            <section class="proj-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="proj-section-title">About this project</h2>
+                <div class="proj-prose">{{ proj['narrativeHtml'] | safe }}</div>
+                {% if proj.get('narrativeZhHtml') %}
+                <div class="proj-prose proj-prose-zh" lang="zh-Hant">{{ proj['narrativeZhHtml'] | safe }}</div>
+                {% endif %}
+            </section>
+            {% endif %}
+
+            {% if proj.get('outputs') %}
+            <section class="proj-section" aria-labelledby="outputs-heading">
+                <h2 id="outputs-heading" class="proj-section-title">Research outputs</h2>
+                <ul class="proj-outputs">
+                    {% for o in proj['outputs'] %}
+                    <li class="proj-output">
+                        {% if o.get('type') %}<span class="proj-output-type">{{ o['type'] }}</span>{% endif %}
+                        {% if o.get('url') %}
+                        <a class="proj-output-link" href="{{ o['url'] }}" target="_blank" rel="noopener">{{ o.get('title') or o['url'] }}</a>
+                        {% else %}
+                        <span class="proj-output-title">{{ o.get('title', '') }}</span>
                         {% endif %}
-                    </section>
-                    {% endif %}
+                        {% if o.get('note') %}<span class="proj-output-note">{{ o['note'] }}</span>{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
 
-                    {% if proj.get('keyFindings') %}
-                    <section class="proj-item-section" aria-labelledby="findings-heading">
-                        <h2 id="findings-heading" class="proj-item-section-title">Key findings</h2>
-                        <ul class="proj-findings">
-                            {% for f in proj['keyFindings'] %}
-                            <li>{{ f['text'] }}{% if f.get('textZh') %}<span class="proj-finding-zh" lang="zh-Hant">{{ f['textZh'] }}</span>{% endif %}</li>
-                            {% endfor %}
-                        </ul>
-                    </section>
-                    {% endif %}
-
-                    {% if proj.get('outputs') %}
-                    <section class="proj-item-section" aria-labelledby="outputs-heading">
-                        <h2 id="outputs-heading" class="proj-item-section-title">Research outputs</h2>
-                        <ul class="proj-outputs">
-                            {% for o in proj['outputs'] %}
-                            <li class="proj-output">
-                                {% if o.get('type') %}<span class="proj-output-type">{{ o['type'] }}</span>{% endif %}
-                                {% if o.get('url') %}
-                                <a class="proj-output-link" href="{{ o['url'] }}" target="_blank" rel="noopener">{{ o.get('title') or o['url'] }}</a>
-                                {% else %}
-                                <span class="proj-output-title">{{ o.get('title', '') }}</span>
-                                {% endif %}
-                                {% if o.get('note') %}<span class="proj-output-note">{{ o['note'] }}</span>{% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </section>
-                    {% endif %}
-
-                    {% if proj.get('relatedPubsResolved') %}
-                    <section class="proj-item-section" aria-labelledby="pubs-heading">
-                        <h2 id="pubs-heading" class="proj-item-section-title">Related publications</h2>
-                        <ul class="proj-related">
-                            {% for p in proj['relatedPubsResolved'] %}
-                            {% set _pub_url = p.get('pageLink') or p.get('link') or ('https://doi.org/' ~ p['doi'] if p.get('doi') else None) %}
-                            <li class="proj-related-item">
-                                {% if _pub_url %}
-                                <a class="proj-related-link" href="{{ _pub_url }}"{% if not p.get('pageLink') %} target="_blank" rel="noopener"{% endif %}>{{ p['title'] }}</a>
-                                {% else %}
-                                <span class="proj-related-title">{{ p['title'] }}</span>
-                                {% endif %}
-                                <span class="proj-related-meta">
-                                    {%- if p.get('journal') %}<em>{{ p['journal'] }}</em>{% endif -%}
-                                    {%- if p.get('year') %} · {{ ('20' ~ p['year'][1:]) if p['year'].startswith("'") else p['year'] }}{% endif -%}
-                                </span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </section>
-                    {% endif %}
-
-                    {% if proj.get('galleryResolved') %}
-                    <section class="proj-item-section" aria-labelledby="gallery-heading">
-                        <h2 id="gallery-heading" class="proj-item-section-title">Gallery</h2>
-                        <div class="proj-gallery">
-                            {% for shot in proj['galleryResolved'] %}
-                            <figure class="proj-gallery-item">
-                                <a href="{{ shot['stem'] }}-1200w.webp" target="_blank" rel="noopener">
-                                    <img loading="lazy"
-                                         src="{{ shot['stem'] }}-600w.webp"
-                                         srcset="{{ shot['stem'] }}-400w.webp 400w, {{ shot['stem'] }}-600w.webp 600w, {{ shot['stem'] }}-800w.webp 800w, {{ shot['stem'] }}-1200w.webp 1200w"
-                                         sizes="(max-width: 56rem) 100vw, 50vw"
-                                         alt="{{ shot.get('caption') or proj['titleEn'] }}" draggable="false" />
-                                </a>
-                                {% if shot.get('caption') or shot.get('captionZh') %}
-                                <figcaption class="proj-gallery-caption">
-                                    {{ shot.get('caption', '') }}
-                                    {% if shot.get('captionZh') %}<span lang="zh-Hant">{{ shot['captionZh'] }}</span>{% endif %}
-                                </figcaption>
-                                {% endif %}
-                            </figure>
-                            {% endfor %}
+            {% if proj.get('relatedPubsResolved') %}
+            <section class="proj-section" aria-labelledby="pubs-heading">
+                <h2 id="pubs-heading" class="proj-section-title">Related publications</h2>
+                <ul class="proj-pubs-grid">
+                    {% for p in proj['relatedPubsResolved'] %}
+                    {% set _pub_url = p.get('pageLink') or p.get('link') or ('https://doi.org/' ~ p['doi'] if p.get('doi') else None) %}
+                    <li>
+                        {% if _pub_url %}
+                        <a class="proj-pub-card" href="{{ _pub_url }}"{% if not p.get('pageLink') %} target="_blank" rel="noopener"{% endif %}>
+                            <span class="proj-pub-title">{{ p.get('shortTitle') or p['title'] }}</span>
+                            <span class="proj-pub-meta">
+                                {%- if p.get('journal') %}<em>{{ p['journal'] }}</em>{% endif -%}
+                                {%- if p.get('year') %} · {{ ('20' ~ p['year'][1:]) if p['year'].startswith("'") else p['year'] }}{% endif -%}
+                            </span>
+                        </a>
+                        {% else %}
+                        <div class="proj-pub-card proj-pub-card--static">
+                            <span class="proj-pub-title">{{ p['title'] }}</span>
+                            <span class="proj-pub-meta">
+                                {%- if p.get('journal') %}<em>{{ p['journal'] }}</em>{% endif -%}
+                                {%- if p.get('year') %} · {{ ('20' ~ p['year'][1:]) if p['year'].startswith("'") else p['year'] }}{% endif -%}
+                            </span>
                         </div>
-                    </section>
-                    {% endif %}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
 
+            {% if proj.get('galleryResolved') %}
+            <section class="proj-section" aria-labelledby="gallery-heading">
+                <h2 id="gallery-heading" class="proj-section-title">Gallery</h2>
+                <div class="proj-gallery">
+                    {% for shot in proj['galleryResolved'] %}
+                    <figure class="proj-gallery-item">
+                        <a href="{{ shot['stem'] }}-1200w.webp" target="_blank" rel="noopener">
+                            <img loading="lazy"
+                                 src="{{ shot['stem'] }}-600w.webp"
+                                 srcset="{{ shot['stem'] }}-400w.webp 400w, {{ shot['stem'] }}-600w.webp 600w, {{ shot['stem'] }}-800w.webp 800w, {{ shot['stem'] }}-1200w.webp 1200w"
+                                 sizes="(max-width: 56rem) 100vw, 50vw"
+                                 alt="{{ shot.get('caption') or proj['titleEn'] }}" draggable="false" />
+                        </a>
+                        {% if shot.get('caption') or shot.get('captionZh') %}
+                        <figcaption class="proj-gallery-caption">
+                            {{ shot.get('caption', '') }}
+                            {% if shot.get('captionZh') %}<span lang="zh-Hant">{{ shot['captionZh'] }}</span>{% endif %}
+                        </figcaption>
+                        {% endif %}
+                    </figure>
+                    {% endfor %}
                 </div>
+            </section>
+            {% endif %}
 
-                <aside class="proj-item-aside">
-                    <div class="proj-meta-card">
-                        <p class="proj-meta-label">Funding</p>
-                        <p class="proj-meta-funder">{{ _funder }}</p>
-                        {% if not _is_nstc and proj.get('fundingAgency') %}
-                        <p class="proj-meta-funder-zh" lang="zh-Hant">{{ proj['fundingAgency'] }}</p>
-                        {% endif %}
-                        {% if _is_nstc %}
-                        <p class="proj-meta-detail">Grant no. {{ proj['grantNumber'] }}</p>
-                        {% endif %}
-                        {% if _role_en %}<p class="proj-meta-detail">Role: {{ _role_en }}</p>{% endif %}
-                        {% if proj.get('startDate') and proj.get('endDate') %}
-                        <p class="proj-meta-detail">{{ proj['startDate'] }} → {{ proj['endDate'] }}</p>
-                        {% endif %}
-                        {% if _status_en %}<p class="proj-meta-detail">Status: {{ _status_en }}</p>{% endif %}
-                    </div>
+            {# People band — team chips + partners, full-width at the foot. #}
+            {% if proj.get('teamResolved') or proj.get('partners') %}
+            <footer class="proj-people">
+                {% if proj.get('teamResolved') %}
+                <div class="proj-people-block">
+                    <h2 class="proj-section-title">Team</h2>
+                    <ul class="proj-team-chips">
+                        {% for p in proj['teamResolved'] %}
+                        <li>
+                            {% if p.get('pageLink') %}
+                            <a class="proj-chip" href="{{ p['pageLink'] }}">
+                                <span class="proj-chip-name">{{ p['name'] }}</span>
+                                {% if p.get('role') %}<span class="proj-chip-role">{{ p['role'] }}</span>{% endif %}
+                            </a>
+                            {% else %}
+                            <span class="proj-chip proj-chip--static">
+                                <span class="proj-chip-name">{{ p['name'] }}</span>
+                                {% if p.get('role') %}<span class="proj-chip-role">{{ p['role'] }}</span>{% endif %}
+                            </span>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
 
-                    {% if proj.get('partners') %}
-                    <div class="proj-side-block">
-                        <p class="proj-meta-label">Partners</p>
-                        <ul class="proj-partners">
-                            {% for pt in proj['partners'] %}
-                            <li class="proj-partner">
-                                {% if pt.get('logo') %}
-                                <img class="proj-partner-logo" loading="lazy"
-                                     src="/assets/projects/{{ proj['slug'] }}/images/{{ pt['logo'].rsplit('.', 1)[0] }}-400w.webp"
-                                     alt="{{ pt.get('name', '') }}" />
-                                {% endif %}
-                                <div class="proj-partner-text">
-                                    {% if pt.get('url') %}
-                                    <a class="proj-partner-name" href="{{ pt['url'] }}" target="_blank" rel="noopener">{{ pt.get('name', '') }}</a>
-                                    {% else %}
-                                    <span class="proj-partner-name">{{ pt.get('name', '') }}</span>
-                                    {% endif %}
-                                    {% if pt.get('nameZh') %}<span class="proj-partner-name-zh" lang="zh-Hant">{{ pt['nameZh'] }}</span>{% endif %}
-                                    {% if pt.get('role') %}<span class="proj-partner-role">{{ pt['role'] }}</span>{% endif %}
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-
-                    {% if proj.get('teamResolved') %}
-                    <div class="proj-side-block">
-                        <p class="proj-meta-label">Team</p>
-                        <ul class="proj-team">
-                            {% for p in proj['teamResolved'] %}
-                            <li class="proj-team-member">
-                                {% if p.get('pageLink') %}
-                                <a class="proj-team-name" href="{{ p['pageLink'] }}">{{ p['name'] }}</a>
+                {% if proj.get('partners') %}
+                <div class="proj-people-block">
+                    <h2 class="proj-section-title">Partners</h2>
+                    <ul class="proj-partner-list">
+                        {% for pt in proj['partners'] %}
+                        <li class="proj-partner">
+                            {% if pt.get('logo') %}
+                            <img class="proj-partner-logo" loading="lazy"
+                                 src="/assets/projects/{{ proj['slug'] }}/images/{{ pt['logo'].rsplit('.', 1)[0] }}-400w.webp"
+                                 alt="{{ pt.get('name', '') }}" />
+                            {% endif %}
+                            <div class="proj-partner-text">
+                                {% if pt.get('url') %}
+                                <a class="proj-partner-name" href="{{ pt['url'] }}" target="_blank" rel="noopener">{{ pt.get('name', '') }}</a>
                                 {% else %}
-                                <span class="proj-team-name">{{ p['name'] }}</span>
+                                <span class="proj-partner-name">{{ pt.get('name', '') }}</span>
                                 {% endif %}
-                                {% if p.get('role') %}<span class="proj-team-role">{{ p['role'] }}</span>{% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                </aside>
-            </div>
+                                {% if pt.get('nameZh') %}<span class="proj-partner-name-zh" lang="zh-Hant">{{ pt['nameZh'] }}</span>{% endif %}
+                                {% if pt.get('role') %}<span class="proj-partner-role">{{ pt['role'] }}</span>{% endif %}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </footer>
+            {% endif %}
 
         </article>
     </main>

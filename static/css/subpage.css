@@ -1755,8 +1755,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    height: 2.25rem;
-    padding: 0 1rem;
+    min-height: 2.75rem;
+    padding: 0.375rem 1rem;
     border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
     border-radius: 2rem;
     background: var(--main-bg-color);
@@ -1866,9 +1866,10 @@
     gap: 0.625rem;
     /* Fixed row height across every filter (Year / Journal / Topic / Method /
        Type) so the dropdowns read as a uniform grid regardless of which
-       items they contain or whether the label has a leading color dot. */
-    min-height: 2.5rem;
-    padding: 0.375rem 0.75rem;
+       items they contain or whether the label has a leading color dot.
+       2.75rem = 44px to meet WCAG 2.5.5 / Apple HIG touch-target minimum. */
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -2026,7 +2027,7 @@
 
 .pub-filter-input {
     width: 100%;
-    height: 2.25rem;
+    height: 2.75rem;
     padding: 0 1rem 0 2.5rem;
     border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
     border-radius: 2rem;

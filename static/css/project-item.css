@@ -1,57 +1,49 @@
 /* ── Project Item (detail) Page ──────────────────────────────────────────────
-   Standalone page generated per flagship project (see build.py
-   render_project_pages). Mirrors publication-item.css: subpage header, a
-   two-column reading-content + metadata-card layout, anchored to general.css
-   tokens. */
+   Editorial, section-stacked layout — intentionally DISTINCT from the
+   publication-item page (which is a two-column reading area + sticky right
+   metadata card). Here the metadata sits in a horizontal facts strip under the
+   header, content stacks full-width in a single comfortable measure, and the
+   findings / publications / people read as card grids and chip rows. Anchored to
+   the shared tokens in general.css (Outfit + Noto Sans TC, E3 palette). */
 
 .proj-item-main {
+    /* Full-width shell carrying the site's viewport gutters. The readable
+       content column itself is capped and centered by .proj-item-article. */
     width: min(100%, 80rem);
     margin-inline: auto;
     padding: 3rem var(--gutter-x) 8rem;
+
+    /* Shared width for the whole content column (text, facts strip, card grids,
+       people band) — kept in one token so it's a single number to tune. */
+    --proj-measure: 46rem;
+}
+
+/* Center the ENTIRE content column (not just the text) within the page, for a
+   clean, minimal single-column layout. Every block inside inherits this width,
+   so they all line up as one centered rail. */
+.proj-item-article {
+    max-width: var(--proj-measure);
+    margin-inline: auto;
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
 
-.proj-item-title {
-    font-size: clamp(1.625rem, 3.2vw, 2.125rem);
-    font-weight: var(--fw-h1);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--main-color);
-    margin: 0 0 1.25rem;
-}
-
-.proj-item-title:has(+ .proj-item-title-zh) {
-    margin-bottom: 0.4rem;
-}
-
-.proj-item-title-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    font-size: clamp(1.1875rem, 2.35vw, 1.5625rem);
-    font-weight: 400;
-    line-height: 1.45;
-    color: color-mix(in srgb, var(--main-color) 72%, transparent);
-    margin: 0 0 1.25rem;
-}
-
-.proj-item-meta {
+.proj-eyebrow {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 0.75rem;
-    margin: 0;
-    font-size: 0.875rem;
-    color: color-mix(in srgb, var(--main-color) 65%, transparent);
-}
-
-.proj-meta-bit {
-    font-weight: 500;
+    gap: 0.6rem;
+    margin: 0 0 1.1rem;
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 50%, transparent);
 }
 
 .proj-status-pill {
     font-size: var(--fs-caption);
     font-weight: 600;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.04em;
     padding: 0.2rem 0.7rem;
     border-radius: 2rem;
     color: var(--main-color-2);
@@ -63,50 +55,99 @@
     background: color-mix(in srgb, var(--r-green) 14%, transparent);
 }
 
-/* ── Two-column body ──────────────────────────────────────────────────────── */
-
-.proj-item-layout {
-    margin-block-start: 2.5rem;
-    padding-block-start: 2.5rem;
-    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
-
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 20rem;
-    gap: 2.5rem 3.5rem;
-    align-items: start;
+/* Larger, tighter headline than the publication page for an editorial feel. */
+.proj-item-title {
+    font-size: clamp(1.875rem, 4vw, 2.75rem);
+    font-weight: var(--fw-h1);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--main-color);
+    margin: 0 0 0.5rem;
 }
 
-.proj-item-content {
+.proj-item-title:has(+ .proj-item-title-zh) {
+    margin-bottom: 0.35rem;
+}
+
+.proj-item-title-zh {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 400;
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    margin: 0;
+}
+
+/* Horizontal facts strip — the metadata the publication page parks in a right
+   rail. A hairline band of label/value cells, wrapping responsively. */
+.proj-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1.25rem 2.5rem;
+    max-width: var(--proj-measure);
+    margin: 2rem 0 0;
+    padding-block: 1.25rem;
+    border-block: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+}
+
+.proj-fact {
     min-width: 0;
 }
 
-.proj-item-lede {
-    font-size: 1.1875rem;
-    line-height: 1.6;
+.proj-fact dt {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    margin: 0 0 0.3rem;
+}
+
+.proj-fact dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.4;
     color: var(--main-color);
-    margin: 0 0 2rem;
 }
 
-/* ── Sections ─────────────────────────────────────────────────────────────── */
-
-.proj-item-section {
-    margin-block-end: 2.5rem;
+.proj-fact dd span[lang] {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-weight: 400;
+    color: color-mix(in srgb, var(--main-color) 68%, transparent);
 }
 
-.proj-item-section-title {
+/* ── Lede ─────────────────────────────────────────────────────────────────── */
+
+.proj-item-lede {
+    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--main-color) 92%, transparent);
+    margin: 2.5rem 0 0;
+    max-width: var(--proj-measure);
+}
+
+/* ── Sections (generous vertical rhythm; no columns) ──────────────────────── */
+
+.proj-section {
+    margin-block-start: 3.5rem;
+}
+
+.proj-section-title {
     font-size: var(--fs-eyebrow);
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--main-color);
     opacity: 0.4;
-    margin: 0 0 0.875rem;
+    margin: 0 0 1.25rem;
 }
 
-.proj-item-prose {
+.proj-prose {
     font-size: 1.0625rem;
-    line-height: 1.7;
+    line-height: 1.75;
     color: var(--main-color);
+    max-width: var(--proj-measure);
 
     & p { margin: 0 0 1rem; }
     & p:last-child { margin-bottom: 0; }
@@ -114,39 +155,77 @@
         color: var(--main-color-2);
         text-decoration: underline;
         text-underline-offset: 0.15em;
+
+        /* Every prose link renders the same accent color — including the
+           visited state and an <em> nested inside a link (the italic
+           *Helsingin Sanomat* title), which would otherwise look "off". */
+        &:visited { color: var(--main-color-2); }
+        & em { color: inherit; }
     }
 }
 
-.proj-item-prose-zh {
+.proj-prose-zh {
     font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    margin-block-start: 1.5rem;
-    padding-block-start: 1.5rem;
+    margin-block-start: 1.75rem;
+    padding-block-start: 1.75rem;
     border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
     color: color-mix(in srgb, var(--main-color) 82%, transparent);
+    max-width: var(--proj-measure);
 }
 
-.proj-findings {
-    margin: 0;
-    padding-inline-start: 1.25rem;
-    font-size: 1.0625rem;
-    line-height: 1.65;
-    color: var(--main-color);
+/* ── Key findings — numbered cards ────────────────────────────────────────── */
 
-    & li { margin-block-end: 0.6rem; }
-}
-
-.proj-finding-zh {
-    display: block;
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    font-size: 0.9375rem;
-    color: color-mix(in srgb, var(--main-color) 68%, transparent);
-}
-
-.proj-outputs,
-.proj-related {
+.proj-findings-grid {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+    max-width: var(--proj-measure);
+}
+
+.proj-finding-card {
+    padding: 1.5rem 1.5rem 1.75rem;
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border-radius: 0.75rem;
+    /* Pure outline box (no fill) — clean and minimal, consistent with pub cards. */
+    background: transparent;
+}
+
+.proj-finding-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--main-color-2);
+    margin: 0 0 0.85rem;
+}
+
+.proj-finding-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--main-color);
+}
+
+.proj-finding-text-zh {
+    margin: 0.65rem 0 0;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--main-color) 66%, transparent);
+}
+
+/* ── Research outputs — plain hairline list ───────────────────────────────── */
+
+.proj-outputs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--proj-measure);
 }
 
 .proj-output {
@@ -154,7 +233,7 @@
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.4rem 0.6rem;
-    padding-block: 0.6rem;
+    padding-block: 0.7rem;
     border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
 }
 
@@ -169,8 +248,7 @@
     padding: 0.1rem 0.5rem;
 }
 
-.proj-output-link,
-.proj-related-link {
+.proj-output-link {
     color: var(--main-color);
     font-weight: 500;
     text-decoration: none;
@@ -192,16 +270,64 @@
     color: color-mix(in srgb, var(--main-color) 60%, transparent);
 }
 
-.proj-related-item {
-    padding-block: 0.7rem;
-    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
+/* ── Related publications — card grid (vs. the bare list elsewhere) ───────── */
+
+.proj-pubs-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 0.875rem;
+    max-width: var(--proj-measure);
 }
 
-.proj-related-meta {
-    display: block;
-    font-size: 0.875rem;
+.proj-pub-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border-radius: 0.625rem;
+    text-decoration: none;
+    color: var(--main-color);
+    cursor: pointer;
+    transition:
+        border-color 200ms ease,
+        background 200ms ease,
+        transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover, &:focus-visible {
+        border-color: color-mix(in srgb, var(--main-color-2) 55%, transparent);
+        background: color-mix(in srgb, var(--main-color-2) 6%, transparent);
+        transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color-2);
+        outline-offset: 0.1875rem;
+    }
+}
+
+.proj-pub-card--static {
+    cursor: default;
+}
+
+.proj-pub-title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+}
+
+.proj-pub-meta {
+    font-size: 0.8125rem;
     color: color-mix(in srgb, var(--main-color) 62%, transparent);
-    margin-block-start: 0.15rem;
+    margin-block-start: auto;
+}
+
+.proj-pub-meta em {
+    font-style: italic;
 }
 
 /* ── Gallery ──────────────────────────────────────────────────────────────── */
@@ -210,6 +336,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
+    max-width: var(--proj-measure);
 }
 
 .proj-gallery-item {
@@ -237,67 +364,75 @@
     }
 }
 
-/* ── Aside: metadata card + side blocks ───────────────────────────────────── */
+/* ── People band — team chips + partners, full-width foot ─────────────────── */
 
-.proj-meta-card {
-    position: sticky;
-    top: 7rem;
-    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
-    border-radius: 0.625rem;
-    background: color-mix(in srgb, var(--main-color) 4%, transparent);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
+.proj-people {
+    margin-block-start: 4rem;
+    padding-block-start: 2.5rem;
+    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    display: grid;
+    gap: 2.75rem;
+    max-width: var(--proj-measure);
 }
 
-.proj-meta-label {
-    font-size: var(--fs-eyebrow);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--main-color) 45%, transparent);
-    margin: 0 0 0.4rem;
-}
-
-.proj-meta-funder {
-    font-size: 1.0625rem;
-    line-height: 1.4;
-    color: var(--main-color);
-    margin: 0;
-}
-
-.proj-meta-funder-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    font-size: 0.9375rem;
-    line-height: 1.4;
-    color: color-mix(in srgb, var(--main-color) 68%, transparent);
-    margin: 0.2rem 0 0;
-}
-
-.proj-meta-detail {
-    font-size: 0.875rem;
-    line-height: 1.45;
-    color: color-mix(in srgb, var(--main-color) 65%, transparent);
-    margin: 0.35rem 0 0;
-}
-
-.proj-side-block {
-    margin-block-start: 1.75rem;
-}
-
-.proj-partners,
-.proj-team {
+.proj-team-chips {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.proj-chip {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.55rem 0.9rem;
+    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 16%, transparent);
+    border-radius: 0.6rem;
+    text-decoration: none;
+    transition: border-color 200ms ease, background 200ms ease;
+}
+
+a.proj-chip:hover, a.proj-chip:focus-visible {
+    border-color: color-mix(in srgb, var(--main-color-2) 50%, transparent);
+    background: color-mix(in srgb, var(--main-color-2) 7%, transparent);
+}
+
+a.proj-chip:focus-visible {
+    outline: 0.125rem solid var(--main-color-2);
+    outline-offset: 0.125rem;
+}
+
+.proj-chip--static {
+    background: color-mix(in srgb, var(--main-color) 4%, transparent);
+}
+
+.proj-chip-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--main-color);
+}
+
+.proj-chip-role {
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--main-color) 58%, transparent);
+}
+
+.proj-partner-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
 }
 
 .proj-partner {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding-block: 0.6rem;
-    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
 }
 
 .proj-partner-logo {
@@ -312,17 +447,13 @@
     flex-direction: column;
 }
 
-.proj-partner-name,
-.proj-team-name {
+.proj-partner-name {
     font-weight: 600;
     color: var(--main-color);
     text-decoration: none;
 }
 
-a.proj-partner-name:hover,
-a.proj-team-name:hover,
-a.proj-partner-name:focus-visible,
-a.proj-team-name:focus-visible {
+a.proj-partner-name:hover, a.proj-partner-name:focus-visible {
     color: var(--main-color-2);
     text-decoration: underline;
     text-underline-offset: 0.15em;
@@ -334,31 +465,16 @@ a.proj-team-name:focus-visible {
     color: color-mix(in srgb, var(--main-color) 68%, transparent);
 }
 
-.proj-partner-role,
-.proj-team-role {
+.proj-partner-role {
     font-size: 0.8125rem;
     color: color-mix(in srgb, var(--main-color) 58%, transparent);
-}
-
-.proj-team-member {
-    padding-block: 0.55rem;
-    border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
-    display: flex;
-    flex-direction: column;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 
 @media (max-width: 56rem) {
-    .proj-item-layout {
+    .proj-pubs-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .proj-item-aside {
-        order: -1;
-    }
-    .proj-meta-card {
-        position: static;
     }
 }
 
@@ -366,7 +482,23 @@ a.proj-team-name:focus-visible {
     .proj-item-main {
         padding-block: 2rem 5rem;
     }
+    .proj-findings-grid {
+        grid-template-columns: 1fr;
+    }
     .proj-gallery {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Respect reduced-motion: keep hover feedback, drop the transforms/animations. */
+@media (prefers-reduced-motion: reduce) {
+    .proj-pub-card,
+    .proj-chip,
+    .proj-output-link {
+        transition: none;
+    }
+    .proj-pub-card:hover,
+    .proj-pub-card:focus-visible {
+        transform: none;
     }
 }

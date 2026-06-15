@@ -335,6 +335,10 @@ const mediaModalContentWrapper = document.querySelector('.media-modal-content-wr
 const mediaModalCaption = document.querySelector('.media-modal-caption');
 const allMediaBlocks = document.querySelectorAll('.zoomable');
 
+// Remember which element opened the modal so we can restore focus on close
+// (native <dialog> handles Esc + focus trap once showModal() is used).
+let mediaModalOpener = null;
+
 // --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
 function closeModal() {
     // 移除 modal 內容可以有效地停止影片/iframe 播放
@@ -343,9 +347,18 @@ function closeModal() {
     mediaModal.close();
 }
 
+// Return focus to whatever opened the modal (keyboard a11y).
+mediaModal.addEventListener('close', () => {
+    if (mediaModalOpener && typeof mediaModalOpener.focus === 'function') {
+        mediaModalOpener.focus();
+    }
+    mediaModalOpener = null;
+});
+
 // --- MAIN LOGIC FOR OPENING MODAL ---
 allMediaBlocks.forEach((block) => {
     block.addEventListener('click', () => {
+        mediaModalOpener = block;
         // 清除上一次的內容
         mediaModalContentWrapper.innerHTML = '';
 
@@ -429,60 +442,3 @@ mediaModal.addEventListener('click', (e) => {
     }
 });
 
-// cursor
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
-const delay = 4;
-
-const cursor = document.querySelector('.cursor');
-const cursorText = document.querySelector('.cursor-text');
-
-function animateCursor() {
-    let distX = mouseX - cursorX;
-    let distY = mouseY - cursorY;
-
-    cursorX = cursorX + (distX / delay);
-    cursorY = cursorY + (distY / delay);
-
-    if (cursorX + cursor.offsetWidth/2 >= document.documentElement.clientWidth) {
-        cursorX = document.documentElement.clientWidth - cursor.offsetWidth/2;
-    };
-
-
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
-
-    // console.log(cursor.clientWidth);
-
-    requestAnimationFrame(animateCursor);
-}
-// const windowWidth = document.documentElement.clientWidth;
-// const windowHeight = document.documentElement.clientHeight;
-
-// console.log(windowWidth, windowHeight);
-
-document.addEventListener('mousemove', function(e) {
-    mouseX = e.pageX;
-    mouseY = e.pageY;
-});
-// document.addEventListener('scroll', function(e) {
-//     mouseX = e.pageX;
-//     mouseY = e.pageY;
-// });
-
-
-
-// document.querySelectorAll('[hover-text]').forEach(elem => {
-//     elem.addEventListener('mouseover', function() {
-//         cursor.classList.add('hover-effect');
-//         // cursorText.innerHTML = 'fjooj';
-//         cursorText.innerHTML = elem.getAttribute('hover-text');
-//     });
-
-//     elem.addEventListener('mouseout', function() {
-//         cursor.classList.remove('hover-effect');
-//         cursorText.innerHTML = '';
-//     });
-// });
-
-// animateCursor();
