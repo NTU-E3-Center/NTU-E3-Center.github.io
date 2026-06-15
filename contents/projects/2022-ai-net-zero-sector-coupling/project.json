@@ -1,0 +1,33 @@
+{
+    "shortTitle": "AI for Net-Zero: Electricity–Transport Coupling",
+    "summary": "Uses artificial intelligence and interdisciplinary modeling to couple Taiwan’s electricity and transport sectors — long-term solar forecasting, solar-aware electric-bus charging strategies, and lithium-ion battery techno-economics — quantifying cross-sector decarbonization pathways toward net zero.",
+    "summaryZh": "運用人工智慧與跨領域建模，連結臺灣電力與運輸部門——涵蓋太陽能長期發電預測、配合太陽能的電動公車充電策略，以及鋰離子電池技術經濟分析——量化邁向淨零的跨部門減碳路徑。",
+    "keyFindings": [
+        {
+            "text": "An LSTM model forecasts regional long-term solar capacity factor with R² = 0.796, outperforming XGBoost, MLP, and the published benchmark (0.724); Kriging interpolation of weather-station data materially improves accuracy.",
+            "textZh": "以長短期記憶（LSTM）模型預測各區域太陽能長期容量因子，R² 達 0.796，優於 XGBoost、MLP 及文獻基準（0.724）；克利金法空間內插顯著提升準確度。"
+        },
+        {
+            "text": "Shifting urban electric-bus fleets from overnight to daytime charging cuts operational emissions: at 40–80 GW national solar capacity, per-km emissions fall to 523–459 gCO₂e/km (a 14–24% reduction), saving roughly 220 tonnes of CO₂e per day.",
+            "textZh": "將市區電動公車車隊由夜間充電改為日間充電可降低營運排放：在全國太陽能裝置容量達 40–80 GW 時，每公里排放降至 523–459 gCO₂e/km（減少約 14–24%），每日約可減排 220 公噸 CO₂e。"
+        },
+        {
+            "text": "A two-stage learning-curve model projects EV battery packs reaching the US$80/kWh target around 2027 (LFP packs by 2023–24), with consistent price declines across cathode chemistries and an extension to stationary energy-storage systems.",
+            "textZh": "二階段學習曲線模型推估電動車電池組約於 2027 年達到每瓩時 80 美元目標（磷酸鐵鋰電池於 2023–24 年率先達標），各正極材料價格皆呈一致下降趨勢，並延伸至定置型儲能系統。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC" },
+        { "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC" },
+        { "citationId": "tUbPb-QAAAAJ:3fE2CSJIrl8C" },
+        { "citationId": "tUbPb-QAAAAJ:kNdYIx-mwKoC" },
+        { "citationId": "tUbPb-QAAAAJ:8k81kl-MbHgC" },
+        { "citationId": "tUbPb-QAAAAJ:verma2023voicesroad" },
+        { "citationId": "tUbPb-QAAAAJ:ULOm3_A8WrAC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": ""
+}

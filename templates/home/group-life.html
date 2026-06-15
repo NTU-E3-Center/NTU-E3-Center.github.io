@@ -9,18 +9,20 @@
             <h3>{{ group_life['sliderTitle'] }}</h3>
 
             <div class="glf-slider-btns">
-                <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(-1)" aria-label="Last Photo">
-                    <svg><use href="/assets/sprite.svg#svg-slider-left"></use></svg>
+                <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(-1)" aria-label="Previous photo">
+                    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-slider-left"></use></svg>
                 </button>
 
-                <div class="glf-slider-num">
+                <div class="glf-slider-num" aria-live="polite" aria-atomic="true">
+                    <span class="sr-only">Photo </span>
                     <span class="glf-slider-current-num">1</span>
-                    <span>/</span>
+                    <span aria-hidden="true">/</span>
+                    <span class="sr-only"> of </span>
                     <span class="glf-slider-total-num">{{ group_life['showInSlider'] }}</span>
                 </div>
 
-                <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(1)" aria-label="Next Photo">
-                    <svg><use href="/assets/sprite.svg#svg-slider-right"></use></svg>
+                <button type="button" class="glf-slider-btn skewed-block" b-role="btn" b-hoverable onclick="glfSliderPush(1)" aria-label="Next photo">
+                    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-slider-right"></use></svg>
                 </button>
             </div>
         </div>

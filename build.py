@@ -3,7 +3,7 @@ import re
 import json
 import shutil
 import markdown
-from PIL import Image
+from PIL import Image, ImageOps
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup, escape
@@ -913,17 +913,26 @@ _SUBPAGE_IMAGE_SOURCES = [
     ('contents/projects',            'projects',           [200, 400, 600, 800, 1200, 1600, 2000]),
 ]
 
-def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None):
+def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None, target_aspect=None):
     """Resize `path` to each width in `sizes` and save WebP variants under
     `dst_path` as `{basename}-{size}w.webp`. When `basename` is None it is
     derived from the source filename; pass it explicitly when the source
     filename doesn't match the desired output stem (e.g. per-member photos
-    are all named `photo.{ext}` but must output as `{webId}-{size}w.webp`)."""
+    are all named `photo.{ext}` but must output as `{webId}-{size}w.webp`).
+
+    When `target_aspect=(w, h)` is given (e.g. (3, 4)), each output is
+    center-cropped to that aspect ratio before resizing. This lets templates
+    declare matching width/height attributes for CLS reservation."""
     if basename is None:
         basename = os.path.splitext(os.path.basename(path))[0]
     with Image.open(path) as img:
         for size in sizes:
-            img_resized = img.resize((size, int(size * img.height / img.width)))
+            if target_aspect:
+                w_aspect, h_aspect = target_aspect
+                target_size = (size, int(size * h_aspect / w_aspect))
+                img_resized = ImageOps.fit(img, target_size, centering=(0.5, 0.5))
+            else:
+                img_resized = img.resize((size, int(size * img.height / img.width)))
             webp_output_path = f"{dst_path}/{basename}-{size}w.webp"
             img_resized.save(webp_output_path, "WEBP", quality=compression_quality)
 
@@ -981,8 +990,8 @@ def compress_member_images():
                 break
         if not photo:
             continue
-        convert_to_webp(photo, dst_root, members_img_sizes, compression_quality=70, basename=web_id)
-        convert_to_webp(photo, dst_root, lazy_img_sizes, compression_quality=10, basename=web_id)
+        convert_to_webp(photo, dst_root, members_img_sizes, compression_quality=70, basename=web_id, target_aspect=(3, 4))
+        convert_to_webp(photo, dst_root, lazy_img_sizes, compression_quality=10, basename=web_id, target_aspect=(3, 4))
         print(f"{photo} → {dst_root}/{web_id}-*.webp")
         
 

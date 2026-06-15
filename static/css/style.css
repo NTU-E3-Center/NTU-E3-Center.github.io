@@ -1049,7 +1049,7 @@
 
     &[who='L'] {
         --_img-width: 15rem;
-        --_img-aspect-ratio: 4/5;
+        --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
         --_img-border-w: 0.1875rem;
 
@@ -1093,7 +1093,14 @@
         }
 
         .mem-img img {
-            width: calc((1 + tan(var(--content-skew))) * var(--_img-width) * 1.03);
+            /* Skew bleed: parent has skewX, so a 100%-wide img leaves
+               triangular gaps at the lean corners. (1 + tan(skew)) widens
+               the img enough to cover them. Height stays at 100% so the
+               bitmap doesn't get vertically over-stretched. */
+            width: calc((1 + tan(var(--content-skew))) * 100%);
+            height: 100%;
+            object-fit: cover;
+            margin-inline: calc(-1 * tan(var(--content-skew)) / 2 * 100%);
         }
 
         .mem-img[href] {
@@ -1159,7 +1166,7 @@
 
     &[who='M'] {
         --_img-width: 11rem;
-        --_img-aspect-ratio: 1/1;
+        --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
         --_img-border-w: 0.1875rem;
 
@@ -1214,7 +1221,7 @@
 
     &[who='S'] {
         --_img-width: 5rem;
-        --_img-aspect-ratio: 1/1;
+        --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.25rem;
         --_img-border-w: 0.125rem;
 
@@ -1263,8 +1270,10 @@
             background-size: auto 100%;
 
             & img {
-                height: calc((1 + tan(var(--content-skew))) * 100%);
-                width: auto;
+                width: calc((1 + tan(var(--content-skew))) * 100%);
+                height: 100%;
+                object-fit: cover;
+                margin-inline: calc(-1 * tan(var(--content-skew)) / 2 * 100%);
             }
         }
     }
@@ -1916,6 +1925,14 @@
 
             & svg:has(use[href*="#svg-slider-"]) {
                 width: 0.8125rem;
+            }
+
+            /* WCAG 2.5.5 / Apple HIG: 44 × 44 px minimum touch target */
+            .glf-slider-btn {
+                min-width: 2.75rem;
+                min-height: 2.75rem;
+                display: grid;
+                place-items: center;
             }
         }
 

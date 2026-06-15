@@ -16,7 +16,7 @@
         
         <div class="abt-logos">
             {% for logo in about['logos'] %}
-            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}">
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80" loading="lazy">
             {% endfor %}
         </div>
     </section>
@@ -24,8 +24,8 @@
     <h3 class="section-eyebrow">{{ about['sectionTitle'] }}</h3>
     <section class="abt-section" which="{{ about['form'] }}">
         {% for logo in about['logos'] %}
-        <a{% if logo['logoLink'] %} href="{{ logo['logoLink'] }}" target="_blank"{% endif %}>
-            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}">
+        <a{% if logo['logoLink'] %} href="{{ logo['logoLink'] }}" target="_blank" rel="noopener"{% endif %}>
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80" loading="lazy">
         </a>
         {% endfor %}
     </section>
