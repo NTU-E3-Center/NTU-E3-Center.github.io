@@ -52,12 +52,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..600&family=Noto+Sans+TC:wght@300..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=19">
-    <link rel="stylesheet" href="/css/style.css?v=21">
-    <link rel="stylesheet" href="/css/subpage.css?v=51">
+    <link rel="stylesheet" href="/css/general.css?v=20">
+    <link rel="stylesheet" href="/css/style.css?v=24">
+    <link rel="stylesheet" href="/css/subpage.css?v=52">
 
     <!-- js -->
-    <script defer src="/js/general.js?v=3"></script>
+    <script defer src="/js/general.js?v=4"></script>
 
     <!-- favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
@@ -172,7 +172,8 @@
                 <div class="contact-field">
                     <label for="contact-email">Email</label>
                     <input id="contact-email" type="email" class="skewed-block"
-                           name="Email" placeholder="you@example.com" required autocomplete="email">
+                           name="Email" placeholder="you@example.com" required
+                           autocomplete="email" inputmode="email" spellcheck="false">
                 </div>
             </div>
 
@@ -254,8 +255,8 @@
     <div class="body-bg-3"></div>
 </div>
 <dialog class="media-modal">
-    <button class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable>
-        <svg><use href="/assets/sprite.svg#svg-close"></use></svg>
+    <button type="button" class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable aria-label="Close media">
+        <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
     </button>
     
     <div class="media-modal-content-wrapper skewed-block" b-role="block">
@@ -279,8 +280,8 @@
 
     <ul class="menu-wrapper">
         <ui>
-            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                <svg width="1.6875rem"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
             </button>
         </ui>
 

@@ -681,6 +681,12 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
     & img {
         opacity: 0;
         transition: opacity 0.3s;
+        /* Containers have a fixed aspect (--_img-aspect-ratio) and the img
+           element's HTML width/height attrs lock it to the same aspect.
+           Cover (not fill) preserves bitmap aspect — so a cached older
+           bitmap with a different aspect crops gracefully instead of
+           visibly stretching while the new file is being revalidated. */
+        object-fit: cover;
     }
 
     &.lazy-img-loaded img,
@@ -949,6 +955,10 @@ body {
     bottom: 2rem;
     right: 2rem;
     transition: all var(--hover-transition-time), margin 0s;
+
+    /* WCAG 2.5.5 / Apple HIG: 44 × 44 px minimum touch target */
+    min-width: 2.75rem;
+    min-height: 2.75rem;
 
     /* work with js */
     /* scroll down then display grid */
