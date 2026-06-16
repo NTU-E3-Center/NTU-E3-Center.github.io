@@ -58,9 +58,9 @@
 }
 
 .pub-item-title-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     font-size: clamp(1.1875rem, 2.35vw, 1.5625rem);
-    font-weight: 400;
+    font-weight: var(--fw-light);
     line-height: 1.45;
     letter-spacing: 0;
     color: color-mix(in srgb, var(--main-color) 72%, transparent);
@@ -139,7 +139,7 @@
 
 .pub-meta-label {
     font-size: var(--fs-eyebrow);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--main-color) 45%, transparent);
@@ -158,7 +158,7 @@
    renders poorly), smaller, slightly muted; reads as the same field's second
    line, not as a new field. */
 .pub-meta-journal-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     font-size: 0.9375rem;
     line-height: 1.4;
     color: color-mix(in srgb, var(--main-color) 68%, transparent);
@@ -206,10 +206,9 @@
     color: color-mix(in srgb, var(--main-color) 45%, transparent);
 
     & span {
-        font-family: "SFMono-Regular", "SF Mono", "Menlo", "Consolas",
-                     "Liberation Mono", monospace;
+        font-family: var(--font-mono);
         font-size: 0.75rem;
-        font-weight: 400;
+        font-weight: var(--fw-light);
         letter-spacing: 0;
         text-transform: none;
         color: color-mix(in srgb, var(--main-color) 78%, transparent);
@@ -235,9 +234,8 @@
 }
 
 .pub-item-abstract {
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--main-color);
+    /* Size + line-height + colour + hyperlink inherited from the unified
+       prose recipe in general.css. */
     margin: 0;
 }
 
@@ -327,8 +325,7 @@
 /* Monospace is intentional here — a code/citation block is the one place the
    universal Outfit/Noto stack should yield to a fixed-width face. */
 .pub-bibtex {
-    font-family: "SFMono-Regular", "SF Mono", "Menlo", "Consolas",
-                 "Liberation Mono", monospace;
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--main-color);

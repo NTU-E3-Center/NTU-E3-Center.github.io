@@ -13,14 +13,14 @@ main {
 
 
 .main-info {
-    /* Same block-level cap + center as #about / #research / .publication
-       so the hero shares a consistent column with the prose blocks below.
-       width: 100% is required because `margin-inline: auto` on a grid item
-       suppresses the default stretch — without an explicit width the box
-       would shrink to content. With width: 100% + max-width, the block
-       always fills the parent up to the cap, then centers. */
+    /* Hero banner — photo + name/position/buttons.
+       Cap: 56rem. Wider than the prose measure (this isn't reading
+       material) but narrower than the parent's 75rem so the composition
+       stays tight. Math: photo 18rem + gap 2rem + meta column ~36rem.
+       width: 100% required because `margin-inline: auto` on a grid item
+       suppresses default stretch. */
     width: 100%;
-    max-width: 85ch;
+    max-width: 56rem;
     margin-inline: auto;
 
     display: grid;
@@ -57,7 +57,7 @@ main {
 }
 
     .sub-name {
-        font-size: 1.5rem;
+        font-size: var(--fs-heading-s);
         opacity: 0.7;
 
         & span {
@@ -132,8 +132,8 @@ main {
 }
 
 h2 {
-    font-size: 2.25rem;
-    font-weight: var(--fw-h2);
+    font-size: var(--fs-heading-l);
+    font-weight: var(--fw-display);
     line-height: 1.15;
     letter-spacing: -0.025em;
 
@@ -161,15 +161,15 @@ h2 {
    short. */
 #about {
     width: 100%;
-    max-width: 85ch;
+    max-width: var(--prose-measure);
     margin-inline: auto;
 
+    /* Typography (size / weight / line-height) inherited from the unified
+       prose recipe in general.css. Per-surface treatment kept here. */
     .content p {
-        font-size: 1.25rem;
         text-indent: 1.5rem;
         text-align: justify;
         hyphens: auto;
-        line-height: 1.55;
 
         &+* {
             margin-block-start: 1rem;
@@ -197,7 +197,7 @@ h2 {
     }
 
     .content li {
-        font-size: 1.25rem;
+        /* font-size inherited from --fs-prose. */
         margin-block-end: 0.5rem;
         text-align: justify;
     }
@@ -207,7 +207,7 @@ h2 {
 #research {
     /* Same block-level cap + center as #about / .publication. */
     width: 100%;
-    max-width: 85ch;
+    max-width: var(--prose-measure);
     margin-inline: auto;
 
     .content {
@@ -273,7 +273,7 @@ h2 {
         flex-direction: column;
 
         .res-tag {
-            font-size: 1.5rem;
+            font-size: var(--fs-heading-s);
             line-height: 1.1;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -301,7 +301,7 @@ h2 {
        85ch keeps publication, research and about all sharing the same
        column width inside <main>. */
     width: 100%;
-    max-width: 85ch;
+    max-width: var(--prose-measure);
     margin-inline: auto;
 
     /* The .news-row, .news-rows, .news-row-date, .news-row-title and
@@ -514,7 +514,7 @@ h2 {
    that don't fit the publications' compact MM/YY two-line column. */
 .cv-section {
     width: 100%;
-    max-width: 85ch;
+    max-width: var(--prose-measure);
     margin-inline: auto;
 
     .cv-row {
@@ -573,7 +573,7 @@ h2 {
    Sits below all of a member's publication sections. */
 .publication-global-cta {
     width: 100%;
-    max-width: 85ch;
+    max-width: var(--prose-measure);
     margin-inline: auto;
     margin-block-start: 0.5rem;
     display: flex;
@@ -727,11 +727,11 @@ h2 {
         }
     }
 
-    /* About body text */
+    /* About body text — font-size flows from --fs-prose. Tighten the
+       first-line indent for the narrower viewport. */
     #about {
         .content p,
         .content li {
-            font-size: 1rem;                /* 14px @14px root */
             text-indent: 1rem;
         }
 
@@ -793,14 +793,16 @@ h2 {
            down to 0.875rem at this breakpoint but leaves .publi-row-authors
            at its desktop 0.9375rem, which makes the authors LARGER than the
            title. Shrink the meta lines below the title size to fix that. */
+        /* T·7: floors — was 0.75/0.6875rem (below WCAG legibility on the
+           14-px mobile root). Bumped to keep the author rows readable. */
         .publi-row-authors {
-            font-size: 0.75rem;
-            line-height: 1.35;
+            font-size: 0.8125rem;
+            line-height: 1.4;
         }
 
         .publi-row-journal {
-            font-size: 0.6875rem;
-            line-height: 1.35;
+            font-size: 0.75rem;
+            line-height: 1.4;
         }
 
         .pub-keyword-chip {

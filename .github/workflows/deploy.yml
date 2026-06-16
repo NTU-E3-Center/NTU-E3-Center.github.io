@@ -42,8 +42,11 @@ jobs:
       - name: Run build script
         run: python build.py
 
-      # Deploy the build folder to the gh-pages branch
+      # Deploy the build folder to the gh-pages branch.
+      # Skipped on pull_request runs so open PRs only build as a CI check
+      # without overwriting the live site; deploys only fire after merge to source.
       - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/source'
         uses: peaceiris/actions-gh-pages@v4
         with:
           # This token is provided by Actions, you do not need to create your own token

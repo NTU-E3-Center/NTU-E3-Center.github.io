@@ -47,7 +47,7 @@
 
     .hp-title {
         & h1 {
-            font-size: 3rem;
+            font-size: var(--fs-display-m);
 
             display: flex;
 
@@ -64,7 +64,7 @@
 
     .hp-3e {
         & p {
-            font-size: 1.5rem;
+            font-size: var(--fs-heading-s);
 
             display: flex;
             align-items: baseline;
@@ -826,9 +826,9 @@
         flex-grow: 999;
         flex-basis: calc((min(100%, var(--_para-min-width)) - (100% - var(--_logo-width) - var(--_gap))) * 9999);
 
+        /* font-size + line-height + weight inherited from the unified
+           prose recipe in general.css. Per-surface treatment stays here. */
         & p {
-            /* margin-block-start: 1rem; */
-            font-size: 1.3125rem;
             text-indent: 2rem;
             text-align: justify;
             text-wrap: pretty;
@@ -844,61 +844,9 @@
             }
         }
 
-        /* Inline links inside the about article.
-
-           Design notes (iterated twice):
-           1. First version used a lighter color + no underline at rest +
-              hover-only underline. Read as LESS prominent than body prose
-              — backwards.
-           2. Second version bumped weight to 600 and used a full-opacity
-              persistent 1px underline. Read as TOO marked-up — five
-              bolded, underlined phrases across three paragraphs felt loud.
-
-           Current: same dark teal as body, same weight as body, and a
-           subtle persistent underline (~35% opacity of currentColor)
-           that's just visible enough to say "this is a link" without
-           competing with the prose. On hover/focus, the underline
-           ramps to full color at 2px and the text shifts to the accent
-           blue — clear interactive feedback that builds on the rest
-           state instead of replacing a hidden one.
-
-           The underline uses a background-image gradient (not
-           text-decoration) so multi-word link phrases inside justified
-           paragraphs render a continuous baseline — text-decoration
-           inherits the word-space gaps that justification introduces. */
-        & a {
-            color: var(--main-color);
-            font-weight: 500;
-            text-decoration: none;
-            background-image: linear-gradient(
-                color-mix(in srgb, currentColor 35%, transparent),
-                color-mix(in srgb, currentColor 35%, transparent)
-            );
-            background-position: 0 100%;
-            background-repeat: no-repeat;
-            background-size: 100% 1px;
-            padding-bottom: 0.08em;
-            transition: background-size 200ms cubic-bezier(0.16, 1, 0.3, 1),
-                        color 200ms ease-out;
-
-            &:hover,
-            &:focus-visible {
-                background-image: linear-gradient(currentColor, currentColor);
-                background-size: 100% 2px;
-                color: var(--main-color-2);
-            }
-
-            &:focus-visible {
-                outline: 2px solid currentColor;
-                outline-offset: 3px;
-                border-radius: 2px;
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
-        }
-
+        /* Inline links inherit the unified prose hyperlink recipe from
+           general.css (:where(.abt-text, ...) a). One link style across
+           every prose surface — no per-section divergence. */
     }
 
     .abt-logos {
@@ -1245,7 +1193,7 @@
 
             .mem-name {
                 width: var(--_mem-name-width);
-                font-size: 1.5rem;
+                font-size: var(--fs-heading-s);
                 line-height: 1;
                 transition: var(--hover-transition-time);
 
@@ -2287,8 +2235,8 @@
     }
 
     .abt-text p {
-        font-size: 1rem !important;
-        /* text-align: initial !important; */
+        /* Mobile font-size now inherits from --fs-prose (1.125rem); no
+           override needed. Keep the larger paragraph gap. */
 
         &+p {
             margin-block-start: 2rem !important;
