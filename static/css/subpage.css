@@ -1144,10 +1144,14 @@
     background: color-mix(in srgb, var(--r-green) 14%, transparent);
 }
 
-/* Phone: collapse the publisher button to an icon. */
+/* Phone: collapse the publisher button to an icon. WCAG 2.5.5 — keep
+   the tap target ≥ 44 × 44 px even when only the icon shows. */
 @media (max-width: 37.5rem) {
     .pub-row-publisher {
-        padding: 0.45rem 0.6rem;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        padding: 0.5rem;
+        justify-content: center;
 
         & span { display: none; }
     }
@@ -1621,6 +1625,20 @@
     margin-block-end: 3.5rem;
 }
 
+/* While a filter is active, fold the two status groups into one visual
+   list: hide both H2 headings and both show-more buttons, and collapse
+   the gap between groups. JS sets .is-filtered on #projects whenever
+   isFiltering() is true; the Status chip in the filter bar is then the
+   way to separate Ongoing from Concluded. */
+.projects-subpage.is-filtered .proj-status-title,
+.projects-subpage.is-filtered .proj-show-more {
+    display: none;
+}
+
+.projects-subpage.is-filtered .proj-status-group:not(:last-child) {
+    margin-block-end: 0;
+}
+
 /* Status heading (h2) — "Ongoing" / "Completed", with a dimmed count. */
 .proj-status-title {
     display: flex;
@@ -1639,13 +1657,23 @@
     opacity: 0.4;
 }
 
-/* Two-column row (date + body) — re-scopes the shared 3-column .news-row grid.
-   align-items:start so the date column tops out with the multi-line body.
-   Scoped to #projects so it covers both the /projects subpage and the homepage
+/* Three-column row (date + body + optional arrow). The arrow column is
+   `auto`, which collapses to 0 width on non-link rows that don't render
+   the arrow span — so flat <div> rows still read as two columns. Scoped
+   to #projects so it covers both the /projects subpage and the homepage
    Projects section (both carry id="projects"). */
 #projects .news-row {
-    grid-template-columns: 5.5rem 1fr;
+    grid-template-columns: 5.5rem 1fr auto;
     align-items: start;
+}
+
+/* Lift the at-rest arrow opacity above the news-subpage default (0.18 →
+   0.4) so the "this row leads somewhere" cue is discoverable at rest
+   without hover. Pairs with the cursor:pointer + background tint from
+   the shared .news-row--link rule. */
+.projects-subpage .news-row-arrow {
+    opacity: 0.4;
+    align-self: center;
 }
 
 #projects .news-row-date {
@@ -1696,13 +1724,13 @@
 
 @media (max-width: 64rem) {
     #projects .news-row {
-        grid-template-columns: 4rem 1fr;
+        grid-template-columns: 4rem 1fr auto;
     }
 }
 
 @media (max-width: 37.5rem) {
     #projects .news-row {
-        grid-template-columns: 3rem 1fr;
+        grid-template-columns: 3rem 1fr auto;
     }
 
     .proj-status-title {

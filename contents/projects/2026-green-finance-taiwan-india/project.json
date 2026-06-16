@@ -1,16 +1,27 @@
 {
     "shortTitle": "Green Finance for Net-Zero: Taiwan–India",
-    "summary": "A comparative Taiwan–India study of green finance instruments and how they can be designed to accelerate net-zero transitions across different economic and regulatory contexts.",
-    "summaryZh": "比較臺灣與印度綠色金融工具的跨國研究，探討如何在不同經濟與法規環境下設計工具以加速淨零轉型。",
+    "summary": "A two-year NSTC–ICSSR Taiwan–India study comparing how green finance instruments — green bonds, ESG funds, and sustainability-linked investments — perform under Taiwan's mature financial system and India's fast-growing market, and how they can be designed to accelerate net-zero transitions.",
+    "summaryZh": "國科會與印度（NSTC–ICSSR）兩年期臺印合作計畫，比較綠色金融工具（綠色債券、ESG 基金與永續連結投資）在臺灣成熟金融體系與印度快速成長市場下的成效，並探討如何設計這些工具以加速淨零轉型。",
     "keyFindings": [],
-    "partners": [],
-    "team": [
-        { "webId": "iyunlisahsieh", "name": "I-Yun Lisa Hsieh", "role": "Principal Investigator" }
+    "partners": [
+        {
+            "name": "Maulana Azad National Institute of Technology (MANIT), Bhopal",
+            "nameZh": "馬拉納．阿扎德國立理工學院（博帕爾）",
+            "url": "https://www.manit.ac.in",
+            "role": "Partner institution, India — Dr. Rahul Tiwari, Dept. of Architecture & Planning",
+            "logo": ""
+        },
+        {
+            "name": "Indian Council of Social Science Research (ICSSR)",
+            "nameZh": "印度社會科學研究委員會",
+            "url": "https://icssr.org",
+            "role": "Co-sponsor, India (NSTC–ICSSR joint call)",
+            "logo": ""
+        }
     ],
-    "relatedPublications": [
-        { "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC" }
-    ],
+    "team": [],
+    "relatedPublications": [],
     "outputs": [],
     "gallery": [],
-    "metaDescription": ""
+    "metaDescription": "An NSTC–ICSSR Taiwan–India study comparing green finance instruments and how they can accelerate net-zero transitions across two contrasting economies."
 }
