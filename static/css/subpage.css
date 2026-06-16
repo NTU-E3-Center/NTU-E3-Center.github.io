@@ -1669,9 +1669,10 @@
 
 /* Lift the at-rest arrow opacity above the news-subpage default (0.18 →
    0.4) so the "this row leads somewhere" cue is discoverable at rest
-   without hover. Pairs with the cursor:pointer + background tint from
-   the shared .news-row--link rule. */
-.projects-subpage .news-row-arrow {
+   without hover. Scoped to #projects so both the /projects subpage and
+   the homepage "Selected projects" section get the same affordance —
+   both wrappers carry id="projects". */
+#projects .news-row-arrow {
     opacity: 0.4;
     align-self: center;
 }
