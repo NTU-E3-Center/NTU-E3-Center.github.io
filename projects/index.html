@@ -52,9 +52,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=30">
+    <link rel="stylesheet" href="/css/general.css?v=31">
     <link rel="stylesheet" href="/css/style.css?v=31">
-    <link rel="stylesheet" href="/css/subpage.css?v=55">
+    <link rel="stylesheet" href="/css/subpage.css?v=58">
 
     <!-- js -->
     <script defer src="/js/general.js?v=4"></script>
@@ -481,11 +481,137 @@
 
 
 
-        <div class="proj-status-group">
+    <div class="pub-filter-bar proj-filter-bar">
+
+        <div class="pub-filter-dropdown" data-dropdown="year">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-year-panel">
+                <span class="pub-filter-trigger-label">Year</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-year-panel" role="group"
+                 aria-label="Filter projects by year" hidden>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2028">
+                    <span class="pub-filter-check-label">2028</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">1</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2027">
+                    <span class="pub-filter-check-label">2027</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">5</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2026">
+                    <span class="pub-filter-check-label">2026</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">16</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2025">
+                    <span class="pub-filter-check-label">2025</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">15</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2024">
+                    <span class="pub-filter-check-label">2024</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">8</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2023">
+                    <span class="pub-filter-check-label">2023</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">4</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="2022">
+                    <span class="pub-filter-check-label">2022</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">2</span>
+                </label>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear year</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown" data-dropdown="funder">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-funder-panel">
+                <span class="pub-filter-trigger-label">Funder</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-funder-panel" role="group"
+                 aria-label="Filter projects by funder" hidden>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-funder-input" data-funder="NSTC">
+                    <span class="pub-filter-check-label">NSTC</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">8</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-funder-input" data-funder="Ministry">
+                    <span class="pub-filter-check-label">Ministry / Gov</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">6</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-funder-input" data-funder="NTU">
+                    <span class="pub-filter-check-label">NTU</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">3</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-funder-input" data-funder="Industry">
+                    <span class="pub-filter-check-label">Industry</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">9</span>
+                </label>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear funder</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown" data-dropdown="status">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-status-panel">
+                <span class="pub-filter-trigger-label">Status</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-status-panel" role="group"
+                 aria-label="Filter projects by status" hidden>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-status-input" data-status="ongoing">
+                    <span class="pub-filter-check-label">Ongoing</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">13</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-status-input" data-status="concluded">
+                    <span class="pub-filter-check-label">Concluded</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">13</span>
+                </label>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
+            </div>
+        </div>
+
+        <button type="button" class="pub-filter-clear" hidden>Clear filters</button>
+        <span class="pub-filter-count" aria-live="polite" aria-atomic="true"></span>
+    </div>
+
+
+        <div class="proj-status-group" data-status="ongoing">
         <h2 class="proj-status-title">Ongoing<span class="proj-status-count">13</span></h2>
 
         <div class="news-rows" id="proj-ongoing-rows" role="list">
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="Ministry"
+   data-active-years=",2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -498,9 +624,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="Industry"
+   data-active-years=",2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -513,9 +643,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="Industry"
+   data-active-years=",2026,2027,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -529,9 +663,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <a class="news-row news-row--link" href="/projects/2026-green-finance-taiwan-india/" role="listitem"
+   data-status="ongoing"
+   data-funder="NSTC"
+   data-active-years=",2026,2027,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -545,9 +683,16 @@
         </p>
     </div>
 
-</div>
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
 
-            <div class="news-row" role="listitem">
+</a>
+
+            <div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NTU"
+   data-active-years=",2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -560,9 +705,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="Industry"
+   data-active-years=",2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2026</span>
@@ -575,9 +724,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><a class="news-row news-row--link" href="/projects/2025-multi-site-wheeling-storage/" role="listitem"
+   data-status="ongoing"
+   data-funder="NSTC"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -591,9 +744,16 @@
         </p>
     </div>
 
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
+
+</a>
 </div>
-</div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NSTC"
+   data-active-years=",2025,2026,2027,2028,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -607,9 +767,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NSTC"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -624,9 +788,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NSTC"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -640,9 +808,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="Ministry"
+   data-active-years=",2025,2026,2027,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -656,9 +828,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NTU"
+   data-active-years=",2025,2026,2027,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -672,9 +848,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="ongoing"
+   data-funder="NTU"
+   data-active-years=",2024,2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2024</span>
@@ -687,6 +867,7 @@
             <span class="proj-agency">NTU Higher Education Sprout Project – Core Research Group Program (<span lang="zh-Hant">國立臺灣大學高等教育深耕計畫－核心研究群計畫</span>)</span>
         </p>
     </div>
+
 
 </div>
 </div>
@@ -705,11 +886,14 @@
         </button>
     </div>
 
-        <div class="proj-status-group">
+        <div class="proj-status-group" data-status="concluded">
         <h2 class="proj-status-title">Concluded<span class="proj-status-count">13</span></h2>
 
         <div class="news-rows" id="proj-concluded-rows" role="list">
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -723,9 +907,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -739,9 +927,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2025,2026,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -755,9 +947,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2025,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -770,9 +966,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Ministry"
+   data-active-years=",2025,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2025</span>
@@ -785,9 +985,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="news-row" role="listitem">
+            <div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2024,2025,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2024</span>
@@ -801,9 +1005,13 @@
         </p>
     </div>
 
+
 </div>
 
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="NSTC"
+   data-active-years=",2024,2025,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2024</span>
@@ -817,9 +1025,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Ministry"
+   data-active-years=",2024,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2024</span>
@@ -832,9 +1044,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Ministry"
+   data-active-years=",2024,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2024</span>
@@ -847,9 +1063,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Industry"
+   data-active-years=",2023,2024,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2023</span>
@@ -863,9 +1083,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="NSTC"
+   data-active-years=",2023,2024,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2023</span>
@@ -879,9 +1103,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem">
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+   data-status="concluded"
+   data-funder="Ministry"
+   data-active-years=",2022,2023,2024,2025,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2022</span>
@@ -895,9 +1123,13 @@
         </p>
     </div>
 
+
 </div>
 </div>
-            <div class="proj-extra-item" hidden><a class="news-row news-row--link" href="/projects/2022-ai-net-zero-sector-coupling/" role="listitem">
+            <div class="proj-extra-item" hidden><a class="news-row news-row--link" href="/projects/2022-ai-net-zero-sector-coupling/" role="listitem"
+   data-status="concluded"
+   data-funder="NSTC"
+   data-active-years=",2022,2023,">
 
     <div class="news-row-date">
         <span class="news-row-yy">2022</span>
@@ -910,6 +1142,10 @@
             <span class="proj-agency">NSTC (<span lang="zh-Hant">國科會</span>); Grant no. 111-2222-E-002-019-</span>
         </p>
     </div>
+
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
 
 </a>
 </div>
@@ -929,7 +1165,14 @@
     </div>
 
 
+    <p class="pub-filter-empty proj-filter-empty" hidden>
+        No projects match these filters.
+        <button type="button" class="pub-filter-clear-inline">Clear filters</button>
+    </p>
+
 </section>
+
+<script defer src="/js/projects.js?v=4"></script>
  
 <footer>
     <div class="ftr-grid">
