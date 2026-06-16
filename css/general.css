@@ -182,6 +182,12 @@ i {
     color: var(--main-color);
 }
 
+/* Editorial inline-link recipe. Sits in the teal family (--link-color is
+   a touch lighter than body --main-color) so the link reads as part of
+   the prose, not a foreign accent. Three cues compound: color shift, bold
+   weight, and a faded currentColor underline. Hover/focus deepens the
+   color to body and solidifies the underline. Visited stays the rest
+   color so navigation history doesn't go purple. */
 :where(
     .abt-text,
     #about .content,
@@ -192,14 +198,16 @@ i {
     .pub-item-abstract,
     .contact-tagline
 ) a {
-    color: var(--main-color-2);
+    color: var(--link-color);
+    font-weight: var(--fw-bold);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--main-color-2) 35%, transparent);
+    text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
     text-decoration-thickness: 0.0625rem;
     text-underline-offset: 0.2em;
     transition:
-        text-decoration-color 240ms ease-out,
-        color 240ms ease-out;
+        text-decoration-color 200ms ease-out,
+        text-decoration-thickness 200ms ease-out,
+        color 200ms ease-out;
 }
 :where(
     .abt-text,
@@ -210,7 +218,7 @@ i {
     .news-item-body,
     .pub-item-abstract,
     .contact-tagline
-) a:visited { color: var(--main-color-2); }
+) a:visited { color: var(--link-color); }
 
 :where(
     .abt-text,
@@ -232,8 +240,9 @@ i {
     .pub-item-abstract,
     .contact-tagline
 ) a:focus-visible {
+    color: var(--main-color);
     text-decoration-color: currentColor;
-    color: color-mix(in srgb, var(--main-color-2) 75%, var(--main-color));
+    text-decoration-thickness: 0.09375rem;
 }
 
 :where(
@@ -349,6 +358,13 @@ i {
     --main-color-3: #badcea;
     --secondary-color: #c4c691;
     --page-bg-color: #f7fafb;
+
+    /* Inline-prose link color — slightly lighter than --main-color (body)
+       so the link reads as distinct without outweighing the prose it sits
+       in. Used by the unified :where() prose recipe below. Contrast on
+       --page-bg-color: 6.2:1 (AAA). The previous accent --main-color-2
+       (#4caedd) reads at ~2.2:1 and was failing AA for inline use. */
+    --link-color: #1a6489;
 
     --main-color-hsl: 201, 85%, 27%;
 
