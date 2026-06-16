@@ -34,7 +34,7 @@
     gap: 0.6rem;
     margin: 0 0 1.1rem;
     font-size: var(--fs-eyebrow);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--main-color) 50%, transparent);
@@ -70,9 +70,9 @@
 }
 
 .proj-item-title-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     font-size: clamp(1.25rem, 2.5vw, 1.625rem);
-    font-weight: 400;
+    font-weight: var(--fw-light);
     line-height: 1.4;
     color: color-mix(in srgb, var(--main-color) 72%, transparent);
     margin: 0;
@@ -96,8 +96,8 @@
 
 .proj-fact dt {
     font-size: var(--fs-eyebrow);
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: var(--fw-heading);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--main-color) 45%, transparent);
     margin: 0 0 0.3rem;
@@ -112,19 +112,19 @@
 }
 
 .proj-fact dd span[lang] {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    font-weight: 400;
+    font-family: var(--font-zh);
+    font-weight: var(--fw-light);
     color: color-mix(in srgb, var(--main-color) 68%, transparent);
 }
 
 /* ── Lede ─────────────────────────────────────────────────────────────────── */
 
+/* Size + line-height + colour from the unified prose recipe; .proj-item-lede
+   only sets margin + max-width. Recipe binds font-size to --fs-prose-lede. */
 .proj-item-lede {
-    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
-    line-height: 1.55;
-    color: color-mix(in srgb, var(--main-color) 92%, transparent);
     margin: 2.5rem 0 0;
-    max-width: var(--proj-measure);
+    max-width: var(--prose-measure);
+    color: color-mix(in srgb, var(--main-color) 92%, transparent);
 }
 
 /* ── Sections (generous vertical rhythm; no columns) ──────────────────────── */
@@ -135,7 +135,7 @@
 
 .proj-section-title {
     font-size: var(--fs-eyebrow);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--main-color);
@@ -143,34 +143,22 @@
     margin: 0 0 1.25rem;
 }
 
+/* Size + weight + line-height + hyperlink inherited from the unified
+   prose recipe in general.css. .proj-prose only sets layout here. */
 .proj-prose {
-    font-size: 1.0625rem;
-    line-height: 1.75;
-    color: var(--main-color);
-    max-width: var(--proj-measure);
+    max-width: var(--prose-measure);
 
     & p { margin: 0 0 1rem; }
     & p:last-child { margin-bottom: 0; }
-    & a {
-        color: var(--main-color-2);
-        text-decoration: underline;
-        text-underline-offset: 0.15em;
-
-        /* Every prose link renders the same accent color — including the
-           visited state and an <em> nested inside a link (the italic
-           *Helsingin Sanomat* title), which would otherwise look "off". */
-        &:visited { color: var(--main-color-2); }
-        & em { color: inherit; }
-    }
 }
 
 .proj-prose-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     margin-block-start: 1.75rem;
     padding-block-start: 1.75rem;
     border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
     color: color-mix(in srgb, var(--main-color) 82%, transparent);
-    max-width: var(--proj-measure);
+    max-width: var(--prose-measure);
 }
 
 /* ── Key findings — numbered cards ────────────────────────────────────────── */
@@ -195,8 +183,8 @@
 
 .proj-finding-num {
     display: block;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--fs-heading-s);
+    font-weight: var(--fw-heading);
     line-height: 1;
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
@@ -213,7 +201,7 @@
 
 .proj-finding-text-zh {
     margin: 0.65rem 0 0;
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     font-size: 0.875rem;
     line-height: 1.6;
     color: color-mix(in srgb, var(--main-color) 66%, transparent);
@@ -360,7 +348,7 @@
 
     & span {
         display: block;
-        font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+        font-family: var(--font-zh);
     }
 }
 
@@ -460,7 +448,7 @@ a.proj-partner-name:hover, a.proj-partner-name:focus-visible {
 }
 
 .proj-partner-name-zh {
-    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-family: var(--font-zh);
     font-size: 0.875rem;
     color: color-mix(in srgb, var(--main-color) 68%, transparent);
 }

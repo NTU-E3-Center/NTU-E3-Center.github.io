@@ -37,7 +37,10 @@
 }
 
 .subpage-header-logo img {
-    height: 3rem;
+    /* Wordmark is 4.94:1 (e3-center-logo-inline.svg) — height-based
+       sizing keeps the typographic weight aligned with the breadcrumb
+       trail-current at every breakpoint. */
+    height: 2.25rem;
     width: auto;
     display: block;
     transition: var(--hover-transition-time);
@@ -62,8 +65,8 @@
 }
 
 .trail-parent {
-    font-size: 0.6875rem;
-    font-weight: 600;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     line-height: 1.6;
     text-transform: uppercase;
@@ -88,8 +91,8 @@
 }
 
 .trail-current {
-    font-size: 1.5rem;
-    font-weight: 550;
+    font-size: var(--fs-heading-s);
+    font-weight: var(--fw-heading);
     line-height: 1.2;
     letter-spacing: -0.015em;
     color: var(--main-color);
@@ -111,7 +114,7 @@
     }
 
     .subpage-header-logo img {
-        height: 2.5rem;
+        height: 2rem;
     }
 
     .trail-current {
@@ -181,8 +184,8 @@
         margin-block: 3rem 0 !important;
         padding-block-end: 0 !important;
 
-        font-size: 0.6875rem;
-        font-weight: 600;
+        font-size: var(--fs-eyebrow);
+        font-weight: var(--fw-heading);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--main-color);
@@ -292,16 +295,16 @@
     }
 
     & .mem-row-en {
-        font-size: 2.25rem;
-        font-weight: 600;
+        font-size: var(--fs-heading-l);
+        font-weight: var(--fw-heading);
         line-height: 1;
         letter-spacing: -0.025em;
         color: var(--main-color);
     }
 
     & .mem-row-zh {
-        font-size: 1.25rem;
-        font-weight: 500;
+        font-size: var(--fs-body-l);
+        font-weight: var(--fw-body);
         line-height: 1;
         opacity: 0.6;
         color: var(--main-color);
@@ -1003,8 +1006,8 @@
     }
 
     & .publi-group-title {
-        font-size: 0.6875rem;
-        font-weight: 600;
+        font-size: var(--fs-eyebrow);
+        font-weight: var(--fw-heading);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--main-color);
@@ -1213,14 +1216,16 @@
    other declaration lives in style.css and is overridden by this file)
    and shrinks the keyword chip to match. */
 @media (max-width: 37.5rem) {
+    /* T·7: mobile floors — was 0.75/0.6875 (~10.5/9.6 px on the 14-px root),
+       below WCAG legibility. Bumped to keep author rows readable. */
     .publi-row-authors {
-        font-size: 0.75rem;
-        line-height: 1.35;
+        font-size: 0.8125rem;
+        line-height: 1.4;
     }
 
     .publi-row-journal {
-        font-size: 0.6875rem;
-        line-height: 1.35;
+        font-size: 0.75rem;
+        line-height: 1.4;
     }
 
     .pub-keyword-chip {
@@ -1314,29 +1319,15 @@
         }
     }
 
-    /* Paragraph: block-centered + text-align center. Caps line length so
-       the link doesn't dangle awkwardly when the box is wider than the prose. */
+    /* Paragraph: block-centered + text-align center. Size + weight +
+       line-height + hyperlink inherited from the unified prose recipe in
+       general.css. */
     .contact-tagline {
         max-width: 56rem;
         margin-inline: auto;
         margin-block-end: 3.5rem;
         text-align: center;
-        font-size: 1.125rem;
-        line-height: 1.65;
         color: color-mix(in srgb, var(--main-color) 75%, transparent);
-
-        & a {
-            color: var(--main-color);
-            text-decoration: underline;
-            text-underline-offset: 0.2em;
-            text-decoration-color: color-mix(in srgb, var(--main-color) 30%, transparent);
-            transition: var(--hover-transition-time);
-
-            &:hover {
-                text-decoration-color: var(--secondary-color);
-                opacity: 0.85;
-            }
-        }
     }
 
     .contact-grid {
@@ -1410,9 +1401,9 @@
     }
 
     .contact-info-label {
-        font-size: 0.6875rem;
-        font-weight: 600;
-        letter-spacing: 0.16em;
+        font-size: var(--fs-eyebrow);
+        font-weight: var(--fw-heading);
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         opacity: 0.5;
         margin-block-end: 0.125rem;
@@ -1427,8 +1418,8 @@
     }
 
     .contact-info-sub {
-        font-size: 0.8125rem;
-        font-weight: 400;
+        font-size: var(--fs-caption-s);
+        font-weight: var(--fw-light);
         line-height: 1.5;
         opacity: 0.6;
         margin-block-start: 0.25rem;
@@ -1459,8 +1450,8 @@
 
         & label {
             font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
+            font-weight: var(--fw-heading);
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             opacity: 0.55;
             color: var(--main-color);
