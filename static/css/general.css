@@ -92,6 +92,15 @@ a {
     text-decoration: none;
 }
 
+/* Baseline focus ring for keyboard navigation. Per-component rules
+   later in the cascade may override (e.g. filter triggers); this
+   guarantees every focusable element starts with a visible cue. */
+:focus-visible {
+    outline: 0.125rem solid var(--main-color-2);
+    outline-offset: 0.125rem;
+    border-radius: 0.125rem;
+}
+
 b,
 strong {
     font-weight: var(--fw-bold) !important;
@@ -1470,13 +1479,17 @@ body {
 
 /* Phone-specific menu trigger — flat (un-nested) for older Safari that
    doesn't support nested @media inside another @media block. Drops the
-   "Menu" label and matches the compact subpage header height. */
+   "Menu" label and matches the compact subpage header height. The min-
+   width/height meet WCAG 2.5.5 once the label collapses to an icon. */
 @media (max-width: 37.5rem) {
     .menu-btn {
-        /* `top` comes from the universal calc; just shrink the touch box. */
-        padding: 0.25rem 0.625rem;
-        min-height: 2rem;
+        /* `top` comes from the universal calc; centre the icon inside a
+           44 px box. */
+        padding: 0.5rem;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
         gap: 0;
+        justify-content: center;
     }
 
     .menu-btn p {

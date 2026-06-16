@@ -356,8 +356,14 @@
 
 .proj-people {
     margin-block-start: 4rem;
-    padding-block-start: 2.5rem;
+    /* This is a <footer> element, so the bare `footer{}` rule in general.css
+       (white fill + 3px border + gutter padding, meant for the SITE footer)
+       leaks onto it. Reset it here: the partners credit sits flush on the page
+       background with only a hairline divider — same treatment as every
+       section above, not a floating white card. */
+    padding: 2.5rem 0 0;
     border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    background: transparent;
     display: grid;
     gap: 2.75rem;
     max-width: var(--proj-measure);
@@ -412,22 +418,30 @@ a.proj-chip:focus-visible {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem 2rem;
+    display: grid;
+    gap: 1.75rem;
 }
 
 .proj-partner {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.25rem;
+}
+
+/* Brand-colored backing so white/transparent partner logos stay legible on the
+   light page. Width hugs the logo's intrinsic aspect (wordmarks stay wide). */
+.proj-partner-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.8rem;
+    flex-shrink: 0;
 }
 
 .proj-partner-logo {
-    width: 2.75rem;
-    height: 2.75rem;
-    object-fit: contain;
-    flex-shrink: 0;
+    height: 1.25rem;
+    width: auto;
+    display: block;
 }
 
 .proj-partner-text {
@@ -445,6 +459,12 @@ a.proj-partner-name:hover, a.proj-partner-name:focus-visible {
     color: var(--main-color-2);
     text-decoration: underline;
     text-underline-offset: 0.15em;
+}
+
+a.proj-partner-name:focus-visible {
+    outline: 0.125rem solid var(--main-color-2);
+    outline-offset: 0.2em;
+    border-radius: 0.125rem;
 }
 
 .proj-partner-name-zh {

@@ -1,0 +1,47 @@
+{
+    "shortTitle": "Multi-Site Green Power Wheeling & Storage",
+    "summary": "A mixed-integer optimization model that coordinates cross-site green-power wheeling, rooftop solar, and battery storage across a corporate group's offices, malls, and warehouses — minimising electricity cost and demand-charge risk while maximising renewable self-use. Validated on a full year of 15-minute data from three real sites in northern Taiwan.",
+    "summaryZh": "以混合整數最佳化模型統籌企業辦公樓、商場與倉儲等多場域的跨場域綠電轉供、屋頂太陽能與儲能調度，在最小化電費與超約風險的同時最大化再生能源自用率。模型以臺灣北部三個實際場域、全年 15 分鐘解析度資料驗證。",
+    "keyFindings": [
+        {
+            "text": "After optimization, grid demand at all three sites stayed strictly below contracted capacity (184 / 1,730 / 1,201 kW) for every one of the year's 35,040 fifteen-minute intervals — eliminating demand-penalty risk. Brown-electricity demand fell significantly at each site (permutation test p ≈ 0; −44%, −28%, −27% of baseline mean).",
+            "textZh": "最佳化後，三個場域全年 35,040 個 15 分鐘時段的市電需求皆嚴格控制在契約容量（184／1,730／1,201 kW）以下，徹底消除需量罰款風險；各場域市電需求顯著下降（置換檢定 p≈0，較基準平均減少約 44%、28%、27%）。"
+        },
+        {
+            "text": "Surplus rooftop solar from a 3,400 kWp warehouse is wheeled in real time to high-consumption sites — supplying ~3.4% of the mall's annual demand and ~4.6% of the office's — instead of being curtailed. On low-sun days the model automatically suspends wheeling to protect each site's own supply.",
+            "textZh": "倉儲場域 3,400 kWp 屋頂太陽能的剩餘電力即時轉供至高耗能場域，供應商場約 3.4%、辦公樓約 4.6% 的年度用電需求，取代棄光；於日照不足時模型自動停止轉供，優先保障各場域自用。"
+        },
+        {
+            "text": "Even with purchased green power priced above grid rates (NT$6.7/kWh), the group's total annual electricity bill fell ~NT$2.9M versus baseline — the mall alone saving ~NT$3.1M (−7.6%) — while the group banked 2,831 extra renewable-energy certificates (T-RECs) for Scope-2 and RE100 reporting.",
+            "textZh": "即使外購綠電單價（6.7 元/度）高於市電，全集團年度總電費仍較基準減少約 290 萬元，其中商場單一場域即節省約 310 萬元（−7.6%），同時額外取得 2,831 張再生能源憑證（T-RECs），可用於 Scope 2 與 RE100 申報。"
+        }
+    ],
+    "partners": [
+        {
+            "name": "NextDrive Inc. (聯齊科技)",
+            "nameZh": "聯齊科技",
+            "url": "https://www.nextdrive.io",
+            "role": "Industry partner, NSTC Industry–Academia Program — energy-management platform",
+            "logo": "nextdrive-logo.svg",
+            "logoBg": "#121a1f"
+        }
+    ],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [
+        {
+            "type": "Model",
+            "title": "Deployable MILP dispatch model (Python · CVXPY · HiGHS) coordinating multi-site wheeling, solar, and storage",
+            "url": "",
+            "note": ""
+        },
+        {
+            "type": "Recommendation",
+            "title": "Per-site optimal contract-capacity and green-power wheeling recommendations for integration into NextDrive's energy-management platform",
+            "url": "",
+            "note": ""
+        }
+    ],
+    "gallery": [],
+    "metaDescription": "A data-driven model coordinating multi-site green-power wheeling, solar, and battery storage — cutting grid reliance and demand charges while earning renewable-energy certificates."
+}

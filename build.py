@@ -237,6 +237,34 @@ if 'publications' in structures:
 # AND a matching contents/projects/<slug>/project.json exists (opt-in, mirroring
 # publications-by-abstract). Annotate those entries with a pageLink so the
 # listing + homepage rows link to /projects/<slug>/.
+#
+# Bucket the 17-distinct funder strings down to 6 readable categories driven by
+# the /projects filter bar — fine-grained enough to be useful, coarse enough to
+# scan. Active-year ranges (the years each project spans) are pre-computed here
+# too so the template doesn't recompute on every row.
+def _funder_bucket(item):
+    """Return one of: NSTC, Ministry, NTU, Industry.
+
+    Bilateral NSTC programs (NSTC-ICSSR, NSTC-NWO) stay in NSTC since they are
+    administered by NSTC. The single TUKUC (Taiwan-UK Consortium) entry folds
+    into Ministry under Ministry of Education. Taipei City Public Transportation
+    Office reads as a municipal/government counterpart and lands in Ministry
+    rather than Industry."""
+    if item.get('grantNumber'):
+        return 'NSTC'
+    fz = item.get('fundingAgency') or ''
+    fe = item.get('fundingAgencyEn') or ''
+    if fz.startswith('國科會') or 'National Science and Technology Council' in fe:
+        return 'NSTC'
+    if fz.startswith('環境部') or fz.startswith('教育部') \
+            or fz.startswith('臺北市') or 'Ministry of' in fe \
+            or 'Taipei City' in fe:
+        return 'Ministry'
+    if fz.startswith('國立臺灣大學') or 'National Taiwan University' in fe \
+            or fe.startswith('NTU '):
+        return 'NTU'
+    return 'Industry'
+
 if 'projects' in structures:
     for _section in structures['projects']:
         for _item in _section.get('items', []):
@@ -244,6 +272,16 @@ if 'projects' in structures:
             if _pslug and os.path.isfile(
                     os.path.join('contents', 'projects', _pslug, 'project.json')):
                 _item['pageLink'] = f"/projects/{_pslug}/"
+            _item['funderBucket'] = _funder_bucket(_item)
+            _start_yr = (_item.get('startDate') or '')[:4]
+            _end_yr   = (_item.get('endDate')   or '')[:4]
+            if _start_yr and _end_yr and _start_yr.isdigit() and _end_yr.isdigit():
+                _item['activeYears'] = [str(y) for y in
+                                        range(int(_start_yr), int(_end_yr) + 1)]
+            elif _start_yr:
+                _item['activeYears'] = [_start_yr]
+            else:
+                _item['activeYears'] = []
 
 # Load page-body markdown for each subpage that has one.
 articles = {}
@@ -947,13 +985,21 @@ def compress_and_convert_images():
         dst_root = f"docs/assets/{dst_folder}"
         for root, _, files in os.walk(src_root):
             for fname in files:
-                if not any(fname.lower().endswith(ext) for ext in image_extensions):
-                    continue
+                lower = fname.lower()
                 path = os.path.join(root, fname)
                 # Preserve subdirectory layout under src_root (e.g.
                 # contents/news/images/{slug}/0.jpg → docs/assets/news/{slug}/0-Nw.webp).
                 rel_dir = os.path.relpath(os.path.dirname(path), src_root)
                 dst_subdir = dst_root if rel_dir == '.' else os.path.join(dst_root, rel_dir)
+                # SVGs (e.g. partner logos) are vector — copy verbatim instead of
+                # rasterising to WebP, so they stay crisp at any size.
+                if lower.endswith('.svg'):
+                    os.makedirs(dst_subdir, exist_ok=True)
+                    shutil.copy2(path, dst_subdir)
+                    print(f"{path} → {dst_subdir}/ (svg)")
+                    continue
+                if not any(lower.endswith(ext) for ext in image_extensions):
+                    continue
                 os.makedirs(dst_subdir, exist_ok=True)
                 convert_to_webp(path, dst_subdir, sizes, compression_quality=70)
                 convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=10)

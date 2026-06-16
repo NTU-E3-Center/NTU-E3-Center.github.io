@@ -54,9 +54,9 @@
 {% from 'partials/proj-row.html' import proj_row %}
 <section id="projects" class="projects-subpage">
 
-    {# ── Collect every project across both source categories ───────────────
-       NSTC and Other are merged into one list; an item is NSTC iff it carries
-       a grantNumber, so no section bookkeeping is needed downstream. #}
+    {# ── Collect every project across both source categories. funderBucket
+       + activeYears are pre-computed in build.py so the filter bar reads
+       clean data. #}
     {% set all_items = [] %}
     {% for section in structures.get('projects', []) %}
         {% for item in section.get('items', []) %}
@@ -64,19 +64,128 @@
         {% endfor %}
     {% endfor %}
 
-    {# ── Macro: render a status group (Ongoing / Concluded) ─────────────────
-       One combined list, sorted newest-first by start date, tie-broken by end
-       date descending (longer projects first). Collapses past the 6th row,
-       reusing the publications' togglePubGroup() control. #}
-    {% macro status_group(label, status_value, slug) %}
+    {# ── Filter facet counts feed the chip labels ──────────────────────── #}
+    {% set _year_counts   = {} %}
+    {% set _funder_counts = {'NSTC': 0, 'Ministry': 0, 'NTU': 0, 'Industry': 0} %}
+    {% set _status_counts = {'ongoing': 0, 'concluded': 0} %}
+    {% for it in all_items %}
+        {% set _bucket = it.get('funderBucket') %}
+        {% if _bucket in _funder_counts %}
+            {% set _ = _funder_counts.update({_bucket: _funder_counts[_bucket] + 1}) %}
+        {% endif %}
+        {% if it.get('status') == '執行中' %}
+            {% set _ = _status_counts.update({'ongoing': _status_counts['ongoing'] + 1}) %}
+        {% elif it.get('status') == '已結案' %}
+            {% set _ = _status_counts.update({'concluded': _status_counts['concluded'] + 1}) %}
+        {% endif %}
+        {% for y in it.get('activeYears') or [] %}
+            {% set _ = _year_counts.update({y: _year_counts.get(y, 0) + 1}) %}
+        {% endfor %}
+    {% endfor %}
+    {% set years_sorted = _year_counts.keys() | list | sort(reverse=True) %}
+
+    {# Three facets — Year + Funder + Status. The two H2 group headings
+       below show by default to convey lab activity at-a-glance; once any
+       chip is active, JS adds .is-filtered to #projects which hides the
+       H2 split and collapses both groups into one combined list. The
+       Status chip then becomes the way to separate Ongoing vs Concluded
+       under the active filter. #}
+    <div class="pub-filter-bar proj-filter-bar">
+
+        <div class="pub-filter-dropdown" data-dropdown="year">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-year-panel">
+                <span class="pub-filter-trigger-label">Year</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-year-panel" role="group"
+                 aria-label="Filter projects by year" hidden>
+                {% for yr in years_sorted %}
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-year-input" data-year="{{ yr }}">
+                    <span class="pub-filter-check-label">{{ yr }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _year_counts[yr] }}</span>
+                </label>
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear year</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown" data-dropdown="funder">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-funder-panel">
+                <span class="pub-filter-trigger-label">Funder</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-funder-panel" role="group"
+                 aria-label="Filter projects by funder" hidden>
+                {% for key, label in [('NSTC', 'NSTC'), ('Ministry', 'Ministry / Gov'), ('NTU', 'NTU'), ('Industry', 'Industry')] %}
+                {% if _funder_counts[key] > 0 %}
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-funder-input" data-funder="{{ key }}">
+                    <span class="pub-filter-check-label">{{ label }}</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _funder_counts[key] }}</span>
+                </label>
+                {% endif %}
+                {% endfor %}
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear funder</button>
+            </div>
+        </div>
+
+        <div class="pub-filter-dropdown" data-dropdown="status">
+            <button class="pub-filter-trigger" type="button"
+                    aria-haspopup="true" aria-expanded="false"
+                    aria-controls="proj-status-panel">
+                <span class="pub-filter-trigger-label">Status</span>
+                <span class="pub-filter-trigger-count" hidden></span>
+                <svg class="pub-filter-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="pub-filter-panel" id="proj-status-panel" role="group"
+                 aria-label="Filter projects by status" hidden>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-status-input" data-status="ongoing">
+                    <span class="pub-filter-check-label">Ongoing</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['ongoing'] }}</span>
+                </label>
+                <label class="pub-filter-check">
+                    <input type="checkbox" class="proj-filter-status-input" data-status="concluded">
+                    <span class="pub-filter-check-label">Concluded</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['concluded'] }}</span>
+                </label>
+                <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
+            </div>
+        </div>
+
+        <button type="button" class="pub-filter-clear" hidden>Clear filters</button>
+        <span class="pub-filter-count" aria-live="polite" aria-atomic="true"></span>
+    </div>
+
+    {# ── Two status groups (Ongoing / Concluded) ──────────────────────────
+       Each is sorted newest-first by start date (longer projects tie-break
+       first). Show-more reuses togglePubGroup() — the same control the
+       publications page uses — so the two filter UIs stay consistent. #}
     {% set visible_n = 6 %}
+    {% macro status_group(label, status_value, slug) %}
     {% set items = all_items
         | selectattr('status', 'equalto', status_value)
         | sort(attribute='endDate', reverse=true)
         | sort(attribute='startDate', reverse=true)
         | list %}
     {% if items %}
-    <div class="proj-status-group">
+    <div class="proj-status-group" data-status="{{ slug }}">
         <h2 class="proj-status-title">{{ label }}<span class="proj-status-count">{{ items | length }}</span></h2>
 
         <div class="news-rows" id="proj-{{ slug }}-rows" role="list">
@@ -106,8 +215,15 @@
     {% endif %}
     {% endmacro %}
 
-    {{ status_group('Ongoing', '執行中', 'ongoing') }}
+    {{ status_group('Ongoing',   '執行中', 'ongoing') }}
     {{ status_group('Concluded', '已結案', 'concluded') }}
 
+    <p class="pub-filter-empty proj-filter-empty" hidden>
+        No projects match these filters.
+        <button type="button" class="pub-filter-clear-inline">Clear filters</button>
+    </p>
+
 </section>
+
+<script defer src="/js/projects.js?v=4"></script>
 {% endblock %}

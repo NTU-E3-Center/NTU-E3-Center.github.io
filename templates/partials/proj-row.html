@@ -9,10 +9,24 @@
 {% set role = item.get('role', '') %}
 {% set start_yr = item['startDate'][:4] %}
 {% set end_yr = item['endDate'][:4] %}
+{# Filter-bar dataset: status maps to the same data-status idiom the
+   publications filter uses ('ongoing'|'concluded'). data-active-years
+   is a comma-padded blob ",2024,2025,2026," so the JS can check
+   membership with a single indexOf — mirrors the topics/methods blob
+   pattern in publications.html for symmetry. #}
+{% set _status_slug = 'ongoing' if item.get('status') == '執行中' else ('concluded' if item.get('status') == '已結案' else '') %}
+{% set _years_list = item.get('activeYears') or [] %}
+{% set _years_blob = (',' ~ (_years_list | join(',')) ~ ',') if _years_list else '' %}
 {% if item.get('pageLink') %}
-<a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
+<a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem"
+   data-status="{{ _status_slug }}"
+   data-funder="{{ item.get('funderBucket', '') }}"
+   data-active-years="{{ _years_blob }}">
 {% else %}
-<div class="news-row" role="listitem">
+<div class="news-row" role="listitem"
+   data-status="{{ _status_slug }}"
+   data-funder="{{ item.get('funderBucket', '') }}"
+   data-active-years="{{ _years_blob }}">
 {% endif %}
 
     <div class="news-row-date">
@@ -40,6 +54,12 @@
             </span>
         </p>
     </div>
+
+    {% if item.get('pageLink') %}
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
+    {% endif %}
 
 {% if item.get('pageLink') %}
 </a>

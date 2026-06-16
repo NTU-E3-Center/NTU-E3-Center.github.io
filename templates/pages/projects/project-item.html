@@ -58,9 +58,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=30">
-    <link rel="stylesheet" href="/css/subpage.css?v=55">
-    <link rel="stylesheet" href="/css/project-item.css?v=11">
+    <link rel="stylesheet" href="/css/general.css?v=31">
+    <link rel="stylesheet" href="/css/subpage.css?v=58">
+    <link rel="stylesheet" href="/css/project-item.css?v=15">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -149,7 +149,8 @@
 
                 {# Horizontal facts strip — replaces the sidebar metadata card. #}
                 <dl class="proj-facts">
-                    {% if _role_en %}
+                    {# Role only shown when it isn't the default Principal Investigator (e.g. Co-PI). #}
+                    {% if _role_en and proj.get('role') != '主持人' %}
                     <div class="proj-fact"><dt>Role</dt><dd>{{ _role_en }}</dd></div>
                     {% endif %}
                     {% if _start_yr %}
@@ -170,8 +171,10 @@
             {% endif %}
 
             {% if proj.get('keyFindings') %}
+            {# Ongoing projects report "Preliminary results"; concluded ones "Key findings". #}
+            {% set _findings_label = 'Preliminary results' if proj.get('status') == '執行中' else 'Key findings' %}
             <section class="proj-section" aria-labelledby="findings-heading">
-                <h2 id="findings-heading" class="proj-section-title">Key findings</h2>
+                <h2 id="findings-heading" class="proj-section-title">{{ _findings_label }}</h2>
                 <ol class="proj-findings-grid">
                     {% for f in proj['keyFindings'] %}
                     <li class="proj-finding-card">
@@ -301,9 +304,11 @@
                         {% for pt in proj['partners'] %}
                         <li class="proj-partner">
                             {% if pt.get('logo') %}
-                            <img class="proj-partner-logo" loading="lazy"
-                                 src="/assets/projects/{{ proj['slug'] }}/images/{{ pt['logo'].rsplit('.', 1)[0] }}-400w.webp"
-                                 alt="{{ pt.get('name', '') }}" />
+                            {# SVG logos are referenced as-is; raster logos use the -400w WebP variant. #}
+                            {% set _logo_src = ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo']) if pt['logo'].endswith('.svg') else ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo'].rsplit('.', 1)[0] ~ '-400w.webp') %}
+                            <span class="proj-partner-logo-wrap"{% if pt.get('logoBg') %} style="background-color: {{ pt['logoBg'] }}"{% endif %}>
+                                <img class="proj-partner-logo" loading="lazy" src="{{ _logo_src }}" alt="{{ pt.get('name', '') }}" />
+                            </span>
                             {% endif %}
                             <div class="proj-partner-text">
                                 {% if pt.get('url') %}
