@@ -1881,6 +1881,16 @@
                 min-height: 2.75rem;
                 display: grid;
                 place-items: center;
+
+                /* P2·10 — visual treatment when JS has set aria-disabled
+                   because the slider is at its first or last slide.
+                   pointer-events: none stops clicks AND swipe handlers
+                   from re-entering glfSliderPush. */
+                &[aria-disabled="true"] {
+                    opacity: 0.35;
+                    cursor: not-allowed;
+                    pointer-events: none;
+                }
             }
         }
 
@@ -1908,6 +1918,18 @@
         display: flex;
         align-items: start;
         gap: var(--_slider-gap);
+    }
+
+    /* P1·8 — users who opt out of motion still get the slider's
+       full functionality (arrows, swipe, auto-advance), but the
+       slide change is instant instead of the 0.4s eased translate.
+       script.js already gates auto-advance off entirely under
+       reduced motion; this guards the manual-arrow path too. */
+    @media (prefers-reduced-motion: reduce) {
+        .glf-slider-wrapper,
+        .glf-slider-block {
+            transition: none;
+        }
     }
 
     .glf-slider-block {
@@ -2099,6 +2121,10 @@
         padding: var(--_padding);
         background-color: transparent;
         overflow: hidden;
+
+        /* P1·10 — trap scroll so flicking inside the lightbox doesn't
+           scroll the page underneath (mobile especially). */
+        overscroll-behavior: contain;
 
         display: grid;
         place-content: center;

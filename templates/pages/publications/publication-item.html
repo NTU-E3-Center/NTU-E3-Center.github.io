@@ -52,8 +52,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=32">
-    <link rel="stylesheet" href="/css/subpage.css?v=59">
+    <link rel="stylesheet" href="/css/general.css?v=34">
+    <link rel="stylesheet" href="/css/subpage.css?v=61">
     <link rel="stylesheet" href="/css/publication-item.css?v=11">
 
     <!-- js -->
@@ -199,13 +199,18 @@
                     <section class="pub-item-section" aria-labelledby="bibtex-heading">
                         <div class="pub-cite-header">
                             <h2 id="bibtex-heading" class="pub-item-section-title">Cite (BibTeX)</h2>
+                            {# P1·11 — aria-live="polite" on the label means
+                               its silent "Copy" → "Copied!" swap is announced
+                               by screen readers as a status update, not as a
+                               structural change. aria-atomic ensures the
+                               whole label is re-read (not just the diff). #}
                             <button class="pub-copy-btn" type="button" data-copy-target="bibtex-block">
                                 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="9" y="9" width="13" height="13" rx="2"/>
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                                 </svg>
-                                <span class="pub-copy-label">Copy</span>
+                                <span class="pub-copy-label" aria-live="polite" aria-atomic="true">Copy</span>
                             </button>
                         </div>
                         <pre class="pub-bibtex" id="bibtex-block"><code>{{ pub['bibtex'] }}</code></pre>

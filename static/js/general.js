@@ -169,12 +169,20 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 }());
 // Reveal lazy-loaded images: any [class*="-img"]:has(img[loading="lazy"]) starts at
 // opacity 0 (see general.css); JS adds .lazy-img-loaded once the img fires `load`.
-document.querySelectorAll('[class*="-img"]:has(img[loading="lazy"])').forEach((block) => {
-    const img = block.querySelector('img');
-    const lazyImgLoaded = () => block.classList.add('lazy-img-loaded');
-    if (img.complete) lazyImgLoaded();
-    else img.addEventListener('load', lazyImgLoaded);
-});
+//
+// P2·2 — cheap-selector early exit. The `[class*="-img"]:has(...)` query is
+// expensive to evaluate against the full document; skip it entirely when the
+// page has no lazy images (most subpages — only news/group-life/member tiles
+// use lazy loading). The querySelector below short-circuits at the first
+// match, so the no-lazy case pays just one selector walk.
+if (document.querySelector('img[loading="lazy"]')) {
+    document.querySelectorAll('[class*="-img"]:has(img[loading="lazy"])').forEach((block) => {
+        const img = block.querySelector('img');
+        const lazyImgLoaded = () => block.classList.add('lazy-img-loaded');
+        if (img.complete) lazyImgLoaded();
+        else img.addEventListener('load', lazyImgLoaded);
+    });
+}
 
 // Year-based filter (alumni on /members, group-life on home). Pairs each
 // .filter-checkbox[where=ID] with .filter-content[where=ID][data-value=...]

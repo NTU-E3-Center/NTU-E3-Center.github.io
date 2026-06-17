@@ -148,8 +148,12 @@
         flex-wrap: nowrap;
     }
 
+    /* P2·14 — was 0.625rem (10 px), below the WCAG advisory ~12 px
+       minimum for body-adjacent text on mobile. Lifted to 0.75rem
+       (12 px) — still functions as a quiet eyebrow before the trail
+       separator, just no longer microtype. */
     .trail-parent {
-        font-size: 0.625rem;
+        font-size: 0.75rem;
         flex-shrink: 0;
     }
 
@@ -1511,6 +1515,36 @@
         &:hover svg {
             translate: 0.1875rem -0.1875rem;
         }
+
+        /* P1·5 — submit lockout: greyed-out + no pointer while in-flight.
+           Pairs with [aria-busy="true"] set in the contact-form JS. */
+        &[disabled],
+        &[aria-busy="true"] {
+            cursor: progress;
+            opacity: 0.55;
+        }
+    }
+
+    /* P1·5 — status banner under the form. Lives in flex-flow with the
+       button (form is column-direction). Polite live region — the JS
+       updates aria-live="polite" so a screen reader announces success
+       or failure without interrupting current activity. */
+    .contact-form-status {
+        margin: 0;
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.25rem;
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        border-left: 0.1875rem solid currentColor;
+
+        &.is-success {
+            color: color-mix(in srgb, var(--r-green) 70%, #1a3d2e);
+            background: color-mix(in srgb, var(--r-green) 12%, transparent);
+        }
+        &.is-error {
+            color: color-mix(in srgb, var(--r-red) 75%, #4a1818);
+            background: color-mix(in srgb, var(--r-red) 12%, transparent);
+        }
     }
 }
 
@@ -1799,6 +1833,16 @@
     border-color: var(--main-color);
 }
 
+/* P2·7 — when the trigger is in BOTH active (dark teal bg) and focused
+   states, the default outline color (--main-color) matches the bg and
+   nearly disappears. Switch to the lighter accent so the ring stands
+   off the dark background; thicken slightly for parity with the
+   visually heavier active state. */
+.pub-filter-trigger.is-active:focus-visible {
+    outline-color: var(--main-color-2);
+    outline-width: 0.1875rem;
+}
+
 /* Year dropdown ─────────────────────────────────────────────────────── */
 .pub-filter-dropdown {
     position: relative;
@@ -2054,8 +2098,17 @@
     background: var(--main-bg-color);
     color: var(--main-color);
     font: inherit;
-    font-size: 0.875rem;
+    /* P2·13 — iOS Safari zooms the viewport when a focused input has
+       computed font-size below 16 px. Desktop keeps the tighter 14 px
+       so the filter row reads as a compact toolbar; mobile lifts to
+       16 px purely to suppress the auto-zoom. The keyboard-trigger
+       still fires at the right size, just no zoom snap. */
+    font-size: 1rem;
     transition: border-color var(--hover-transition-time);
+
+    @media (min-width: 48rem) {
+        font-size: 0.875rem;
+    }
 
     &::placeholder {
         color: var(--main-color);

@@ -48,7 +48,7 @@
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2025-smart-sustainable-logistics"
             },
             {
                 "titleZh": "永續能源與交通的系統性解決方案",
@@ -59,8 +59,8 @@
                 "endDate": "2026-06-30",
                 "fundingAgency": "國科會（臺荷 NSTC-NWO 雙邊交流）",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC) – Taiwan-Netherlands (NSTC-NWO) Bilateral Program",
-                "status": "執行中",
-                "slug": ""
+                "status": "已結案",
+                "slug": "2025-ntu-ug-energy-mobility"
             },
             {
                 "titleZh": "智慧型電池換電系統最佳化：運用人工智慧推動能源部門耦合達成淨零能耗建築",

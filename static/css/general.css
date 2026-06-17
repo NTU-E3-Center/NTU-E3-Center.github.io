@@ -101,6 +101,24 @@ a {
     border-radius: 0.125rem;
 }
 
+/* P1·1 — kill the 300 ms double-tap-to-zoom delay on every
+   interactive control. `manipulation` keeps panning + pinch-zoom
+   on the page but tells the browser these elements never need the
+   double-tap gesture, so taps fire immediately. Page background
+   keeps the default touch-action: auto. */
+a,
+button,
+input,
+select,
+textarea,
+summary,
+label,
+[role="button"],
+[role="tab"],
+[role="checkbox"] {
+    touch-action: manipulation;
+}
+
 b,
 strong {
     font-weight: var(--fw-bold) !important;
@@ -1218,6 +1236,13 @@ body {
         transform: skewX(var(--block-skew));
         transition: 0.3s;
 
+        /* P1·10 — keep mobile scroll trapped inside the drawer. Without
+           this, scrolling past the bottom of the drawer triggers the
+           underlying page to scroll (or the iOS rubber-band) which
+           confuses users and can dismiss the drawer accidentally. */
+        overscroll-behavior: contain;
+        overflow-y: auto;
+
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
@@ -1268,6 +1293,16 @@ body {
         pointer-events: none;
         right: calc(-100lvh * tan(var(--content-skew)) / 2 - 21rem);
         transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
+/* P2·11 — the menu-peek slide-in is a hover-triggered preview, not a
+   user-initiated action. Strip the transition for reduced-motion users
+   so the panel snaps to its peek position instead of sliding. The
+   panel still works the same way; only the animation is muted. */
+@media (prefers-reduced-motion: reduce) {
+    .menu.menu-peek .menu-wrapper {
+        transition: none;
     }
 }
 

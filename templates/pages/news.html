@@ -52,19 +52,23 @@
 <section id="news" class="news-subpage">
 
     {# ── Filter bar ─────────────────────────────────────────────────────── #}
+    {# P1·7 — proper tablist contract: each tab has an id, aria-controls
+       points at its panel, roving tabindex (only the selected tab is in
+       the focus order). Arrow-key / Home / End nav is wired in the JS
+       below. Panels carry role="tabpanel" + aria-labelledby. #}
     <div class="news-filter-bar" role="tablist" aria-label="Filter news by category">
-        <button class="news-filter-tab is-active" data-filter="all"
-                role="tab" aria-selected="true" type="button">All</button>
-        <button class="news-filter-tab" data-filter="Events and Exchanges"
-                role="tab" aria-selected="false" type="button">Events &amp; Exchanges</button>
-        <button class="news-filter-tab" data-filter="Honors and Recognitions"
-                role="tab" aria-selected="false" type="button">Honors &amp; Recognitions</button>
-        <button class="news-filter-tab" data-filter="Community and Outreach"
-                role="tab" aria-selected="false" type="button">Community &amp; Outreach</button>
+        <button id="news-tab-all" class="news-filter-tab is-active" data-filter="all"
+                role="tab" aria-selected="true" aria-controls="news-all" tabindex="0" type="button">All</button>
+        <button id="news-tab-events" class="news-filter-tab" data-filter="Events and Exchanges"
+                role="tab" aria-selected="false" aria-controls="news-events" tabindex="-1" type="button">Events &amp; Exchanges</button>
+        <button id="news-tab-honors" class="news-filter-tab" data-filter="Honors and Recognitions"
+                role="tab" aria-selected="false" aria-controls="news-honors" tabindex="-1" type="button">Honors &amp; Recognitions</button>
+        <button id="news-tab-outreach" class="news-filter-tab" data-filter="Community and Outreach"
+                role="tab" aria-selected="false" aria-controls="news-outreach" tabindex="-1" type="button">Community &amp; Outreach</button>
     </div>
 
     {# ── All items (flat, time-sorted, with category badge) ─────────────── #}
-    <section class="news-all-section" id="news-all">
+    <section class="news-all-section" id="news-all" role="tabpanel" aria-labelledby="news-tab-all">
         <div class="news-rows" role="list">
             {% for section in structures['news'] %}
             {% for item in section['items'][::-1] %}
@@ -124,7 +128,8 @@
     ] %}
 
     {% for cat_name, cat_slug in cat_list %}
-    <section class="news-cat-section" id="news-{{ cat_slug }}" data-cat="{{ cat_name }}" hidden>
+    <section class="news-cat-section" id="news-{{ cat_slug }}" data-cat="{{ cat_name }}"
+             role="tabpanel" aria-labelledby="news-tab-{{ cat_slug }}" hidden>
         <h2 class="news-cat-title">{{ cat_name }}</h2>
         <div class="news-rows" role="list">
 
@@ -187,11 +192,16 @@
         el.style.animation = '';
     }
 
-    function activate(filter) {
+    function activate(filter, opts) {
+        opts = opts || {};
         tabs.forEach(function (t) {
             var on = t.dataset.filter === filter;
             t.classList.toggle('is-active', on);
             t.setAttribute('aria-selected', on ? 'true' : 'false');
+            /* P1·7 — roving tabindex: only the active tab is in the
+               natural focus order, so Tab into the tablist always lands
+               on the current tab; arrow keys then move within. */
+            t.setAttribute('tabindex', on ? '0' : '-1');
         });
 
         if (filter === 'all') {
@@ -205,6 +215,11 @@
             });
         }
 
+        if (opts.focusActive) {
+            var active = Array.from(tabs).find(function (t) { return t.dataset.filter === filter; });
+            if (active) active.focus();
+        }
+
         if (history.replaceState) {
             var slug = filter === 'all' ? '' : '#' + filter.toLowerCase().replace(/ /g, '-');
             history.replaceState(null, '', slug || window.location.pathname);
@@ -214,6 +229,28 @@
     tabs.forEach(function (tab) {
         tab.addEventListener('click', function () { activate(tab.dataset.filter); });
     });
+
+    /* P1·7 — keyboard nav per WAI-ARIA tablist authoring pattern:
+       ArrowLeft / ArrowRight cycles through tabs (wrapping); Home / End
+       jumps to first / last. Activates the new tab AND focuses it so
+       the panel content updates immediately (automatic-activation pattern
+       — appropriate here because revealing a panel is cheap). */
+    var tabList = document.querySelector('.news-filter-bar[role="tablist"]');
+    if (tabList) {
+        tabList.addEventListener('keydown', function (e) {
+            var key = e.key;
+            if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'Home' && key !== 'End') return;
+            e.preventDefault();
+            var tabs_arr = Array.from(tabs);
+            var current  = tabs_arr.findIndex(function (t) { return t.getAttribute('aria-selected') === 'true'; });
+            var next;
+            if (key === 'ArrowLeft')  next = (current - 1 + tabs_arr.length) % tabs_arr.length;
+            if (key === 'ArrowRight') next = (current + 1) % tabs_arr.length;
+            if (key === 'Home')       next = 0;
+            if (key === 'End')        next = tabs_arr.length - 1;
+            activate(tabs_arr[next].dataset.filter, { focusActive: true });
+        });
+    }
 
     /* restore from URL hash */
     var hash = window.location.hash.slice(1);

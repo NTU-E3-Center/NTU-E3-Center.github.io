@@ -150,6 +150,17 @@
 
     & p { margin: 0 0 1rem; }
     & p:last-child { margin-bottom: 0; }
+
+    /* Restore list markers inside narrative prose (the global reset strips them). */
+    & ul {
+        list-style: disc;
+        padding-inline-start: 1.4rem;
+        margin: 0 0 1rem;
+        display: grid;
+        gap: 0.45rem;
+    }
+    & li { padding-inline-start: 0.2rem; }
+    & li:last-child { margin-bottom: 0; }
 }
 
 .proj-prose-zh {
