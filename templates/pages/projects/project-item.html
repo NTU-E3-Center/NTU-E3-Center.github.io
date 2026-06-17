@@ -58,9 +58,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=32">
-    <link rel="stylesheet" href="/css/subpage.css?v=59">
-    <link rel="stylesheet" href="/css/project-item.css?v=15">
+    <link rel="stylesheet" href="/css/general.css?v=40">
+    <link rel="stylesheet" href="/css/subpage.css?v=62">
+    <link rel="stylesheet" href="/css/project-item.css?v=17">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -303,13 +303,6 @@
                     <ul class="proj-partner-list">
                         {% for pt in proj['partners'] %}
                         <li class="proj-partner">
-                            {% if pt.get('logo') %}
-                            {# SVG logos are referenced as-is; raster logos use the -400w WebP variant. #}
-                            {% set _logo_src = ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo']) if pt['logo'].endswith('.svg') else ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo'].rsplit('.', 1)[0] ~ '-400w.webp') %}
-                            <span class="proj-partner-logo-wrap"{% if pt.get('logoBg') %} style="background-color: {{ pt['logoBg'] }}"{% endif %}>
-                                <img class="proj-partner-logo" loading="lazy" src="{{ _logo_src }}" alt="{{ pt.get('name', '') }}" />
-                            </span>
-                            {% endif %}
                             <div class="proj-partner-text">
                                 {% if pt.get('url') %}
                                 <a class="proj-partner-name" href="{{ pt['url'] }}" target="_blank" rel="noopener">{{ pt.get('name', '') }}</a>
@@ -319,6 +312,13 @@
                                 {% if pt.get('nameZh') %}<span class="proj-partner-name-zh" lang="zh-Hant">{{ pt['nameZh'] }}</span>{% endif %}
                                 {% if pt.get('role') %}<span class="proj-partner-role">{{ pt['role'] }}</span>{% endif %}
                             </div>
+                            {% if pt.get('logo') %}
+                            {# Logo sits to the right of the name. SVG logos are referenced as-is; raster logos use the -400w WebP variant. #}
+                            {% set _logo_src = ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo']) if pt['logo'].endswith('.svg') else ('/assets/projects/' ~ proj['slug'] ~ '/images/' ~ pt['logo'].rsplit('.', 1)[0] ~ '-400w.webp') %}
+                            <span class="proj-partner-logo-wrap"{% if pt.get('logoBg') %} style="background-color: {{ pt['logoBg'] }}"{% endif %}>
+                                <img class="proj-partner-logo" loading="lazy" src="{{ _logo_src }}" alt="{{ pt.get('name', '') }}" />
+                            </span>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>

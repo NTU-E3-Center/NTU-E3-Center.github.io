@@ -33,8 +33,27 @@
                 <div class="glf-slider-block" current-slide="{% if loop.index == 1 %}true{% else %}false{% endif %}">
                     {% set imgPathFront = item['imgPath'].split('.')[0] %}
                     <div class="glf-slider-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+                        {# P0·4 — width/height attrs lock the IMG to the
+                           same 4:3 aspect as the .skewed-block wrapper
+                           (--_img-aspect-ratio: 4/3 in style.css), giving
+                           the browser an intrinsic-AR hint during the
+                           pre-load layout pass. Closes the Lighthouse
+                           CLS warning even though the wrapper already
+                           reserves space via CSS. 800×600 is a
+                           representative 4:3 pair; actual rendered size
+                           is controlled by the .skewed-block recipe.
+
+                           P1·2 — the slider's FIRST visible slide is
+                           the only one above the fold; everything else
+                           sits behind the current-slide translate.
+                           Load the first eagerly with fetchpriority
+                           so it doesn't wait for the lazy IntersectionObserver
+                           to fire; keep the rest lazy so the user only
+                           downloads what they swipe to. #}
                         <img
-                            loading="lazy"
+                            loading="{% if loop.index == 1 %}eager{% else %}lazy{% endif %}"
+                            {% if loop.index == 1 %}fetchpriority="high"{% endif %}
+                            width="800" height="600"
                             src="{{ item['imgPath'] }}"
                             srcset="
                                 {{ imgPathFront }}-200w.webp 200w,

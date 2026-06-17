@@ -1,10 +1,16 @@
-<dialog class="media-modal">
+<dialog class="media-modal" aria-labelledby="media-modal-caption">
     <button type="button" class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable aria-label="Close media">
         <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
     </button>
-    
+
     <div class="media-modal-content-wrapper skewed-block" b-role="block">
-        </div>
-    
-    <span class="media-modal-caption skewed-block" b-role="btn"></span>
+    </div>
+
+    {# P2·9 — caption was a styled <span> with role-less inline semantics;
+       browsers and screen readers treated it as decorative text. Now a
+       <p> with id wired to the dialog's aria-labelledby so the modal's
+       accessible name comes from the visible caption text. b-role="btn"
+       kept — it's a CSS hook for .skewed-block padding tokens, not an
+       ARIA role, so screen readers see just the <p>. #}
+    <p id="media-modal-caption" class="media-modal-caption skewed-block" b-role="btn"></p>
 </dialog>

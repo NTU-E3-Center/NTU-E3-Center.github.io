@@ -1,0 +1,34 @@
+{
+    "shortTitle": "AI-Driven Green Vehicle Routing",
+    "summary": "A three-year project building data-driven, emission-aware Green Vehicle Routing (GVRP) for last-mile logistics — fusing real traffic and road-gradient data with vehicle-propulsion, refrigeration, and refrigerant-leakage emissions, plus AI optimization — to cut delivery carbon while keeping routes operationally practical. Validated on a real northern-Taiwan cold-chain network.",
+    "summaryZh": "三年期計畫，建構資料驅動、以排放為核心的綠色車輛路徑（GVRP）模型，應用於最後一哩物流——整合真實交通與道路坡度資料、車輛推進、冷凍與冷媒洩漏排放，以及人工智慧最佳化，在維持營運可行性的同時降低配送碳排放，並以臺灣北部實際冷鏈配送網路驗證。",
+    "keyFindings": [
+        {
+            "text": "Emission-aware routing cut cold-chain last-mile carbon by up to ~35% versus drivers' existing routes and consistently beat distance-minimizing VRP — confirming that the shortest route is rarely the lowest-emission one, since the greenest path avoids steep grades and congestion even when slightly longer.",
+            "textZh": "以排放為導向的路徑規劃，使冷鏈最後一哩碳排放較駕駛員既有路線最高降低約 35%，並穩定優於以距離最小化為目標的 VRP——證實最短路線通常並非碳排最低，因為最環保的路線會避開陡坡與壅塞，即使距離略長。"
+        },
+        {
+            "text": "Traffic and road gradient must be modeled together: the full model combining real Google-API traffic speeds with continuous road gradient gave the largest and most stable reductions across problem sizes, whereas gradient-only or traffic-only variants sometimes did worse than plain VRP.",
+            "textZh": "交通與道路坡度須一併建模：同時納入 Google API 真實交通車速與連續道路坡度的完整模型，在各種問題規模下皆取得最大且最穩定的減量；僅納入坡度或僅納入交通的版本，有時甚至不及一般 VRP。"
+        },
+        {
+            "text": "The framework integrates vehicle-propulsion (CMEM), refrigeration (ASHRAE), and refrigerant-leakage emissions with traffic and tunnel/bridge-smoothed elevation data, solved at scale — 223 convenience stores from a single Ruifang hub — by an Adaptive Large Neighborhood Search, and stays within ~3% of its optimum under ±5–15% emission-estimate uncertainty.",
+            "textZh": "框架整合車輛推進（CMEM）、冷凍（ASHRAE）與冷媒洩漏排放，並結合交通資料與經隧道／橋樑平滑處理的高程資料，以自適應大鄰域搜尋（ALNS）求解大規模問題（單一瑞芳場站、223 家便利商店）；於 ±5–15% 排放估算不確定性下，結果仍維持在最佳值約 3% 以內。"
+        }
+    ],
+    "partners": [
+        {
+            "name": "Ally Transport Co., Ltd.",
+            "nameZh": "艾立運能股份有限公司",
+            "url": "https://www.allytransport.com",
+            "role": "Industry partner, Taiwan — 3PL cold-chain operator (real delivery data)",
+            "logo": "ally-transport-logo.png",
+            "logoBg": "#1a2430"
+        }
+    ],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A data-driven Green Vehicle Routing project cutting cold-chain last-mile carbon with real traffic, gradient, and refrigeration modeling, validated on a northern-Taiwan 3PL network."
+}

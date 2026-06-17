@@ -11,7 +11,13 @@
         {% for member in members['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
         <div class="mem-block">
-            <a class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
+            {# P1·9 — pass the blur-up source via a CSS custom property
+               instead of an inline `background-image:` declaration. The
+               .mem-img rule below references `--mem-blur-src`, so the
+               heavy background-image syntax (url(...) + repeat + size)
+               lives in CSS where it can be cached + grepped, and only
+               the per-member image path travels via the HTML attr. #}
+            <a class="mem-img skewed-block" b-role="block" style="--mem-blur-src: url({{ imgPathFront }}-800w.webp);" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
                 <img
                     loading="lazy"
                     width="600"
@@ -50,7 +56,7 @@
         {% for member in members['members'] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
         <a class="mem-block" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+            <div class="mem-img skewed-block" b-role="block" style="--mem-blur-src: url({{ imgPathFront }}-20w.webp);">
                 <img
                     loading="lazy"
                     width="600"
@@ -111,7 +117,7 @@
         {% for member in members['members'][::-1] %}
         {% set imgPathFront = member['imgPath'].split('.')[0] %}
         <a class="mem-block filter-content" where="{{ members['filterId'] }}" data-value="{{ member['admissionYear']}}" {% if member['pageLink'] %}href="{{ member['pageLink'] }}"{% endif %}>
-            <div class="mem-img skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-20w.webp);">
+            <div class="mem-img skewed-block" b-role="block" style="--mem-blur-src: url({{ imgPathFront }}-20w.webp);">
                 <img
                     loading="lazy"
                     width="300"
