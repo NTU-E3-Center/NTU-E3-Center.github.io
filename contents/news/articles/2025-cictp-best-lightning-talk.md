@@ -1,0 +1,9 @@
+Congratulations to **[Jian Hern Yeoh (楊建恆)](/members/jianhernyeoh/)** for winning the **Best Lightning Talk Award** at **CICTP 2025** — the 25th COTA International Conference of Transportation Professionals — held July 22–25, 2025 in Guangzhou, China.
+
+His winning talk, **"Optimizing Grid Efficiency: A Dynamic V2B Strategy for Battery-Swapping Stations Using Multi-Objective Rolling Windows,"** presents a vehicle-to-building (V2B) dispatch strategy that lets electric-scooter battery-swapping stations act as flexible grid resources. By optimizing charging and discharging decisions over a multi-objective rolling-horizon window, the approach balances competing goals in real time — improving grid efficiency and lowering operating cost while keeping enough charged batteries on hand for riders. Delivered in the conference's fast-paced lightning-talk format, the presentation distilled this multi-objective optimization into a few sharp minutes — earning recognition for both the depth of the research and the clarity of its delivery.
+
+![Jian Hern Yeoh with his Best Lightning Talk Award certificate at CICTP 2025](/assets/news/2025-cictp-best-lightning-talk/1.jpg)
+
+Organized by the Chinese Overseas Transportation Association (COTA) and South China University of Technology (SCUT), and sponsored by ASCE and the Transportation Research Board (TRB), CICTP is one of the leading international gatherings for transportation researchers and practitioners. The 2025 edition was built around the theme **Transportation · Artificial Intelligence · Energy** — a natural fit for work at the intersection of electrified mobility and smart energy systems.
+
+We are incredibly proud of Jian Hern's achievement, and delighted to see the E3 Center's research on data-driven energy management for battery-swapping infrastructure recognized on an international stage.
