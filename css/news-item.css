@@ -259,7 +259,16 @@
         padding: 2rem 1.5rem 6rem;
     }
 
-    .news-item-hero-img img,
+    /* Shrink the wrapper's height token (not just the img's height
+       directly). Previously only the img got the smaller value, so the
+       skewed-block parent retained its desktop 28rem and a 10-16rem
+       white gap appeared below the photo on tablet + mobile. Token
+       update covers both wrapper (via --_block-height) and img (via the
+       same var). */
+    .news-item-hero-img {
+        --_block-height: 18rem;
+    }
+
     .news-item-hero-placeholder {
         height: 18rem;
     }
@@ -290,7 +299,11 @@
         margin-block-end: 1.75rem;
     }
 
-    .news-item-hero-img img,
+    /* Same token-update pattern as the tablet rule above. */
+    .news-item-hero-img {
+        --_block-height: 12rem;
+    }
+
     .news-item-hero-placeholder {
         height: 12rem;
     }
