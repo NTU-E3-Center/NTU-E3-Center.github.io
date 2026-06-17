@@ -187,27 +187,40 @@
             },
             {
                 "title": "Congratulations to Jian Hern Yeoh (楊建恆) for winning the Best Lightning Talk Award at CICTP 2025 Conference!",
+                "shortTitle": "2025 CICTP Best Lightning Talk",
                 "year": "'25",
                 "month": "Jul.",
                 "category": "Honors and Recognitions",
                 "pageLink": "/news/2025-cictp-best-lightning-talk/",
                 "topics": [
-                    "Vehicle Electrification"
+                    "Vehicle Electrification",
+                    "Battery Swapping",
+                    "Vehicle-to-Grid"
                 ]
             },
             {
                 "title": "Congratulations to Shuo-Chen Lee (李碩宸) for receiving the People's Choice Poster Award at the 2025 GREENIE Conference.",
+                "shortTitle": "2025 GREENIE Poster Award",
                 "year": "'25",
                 "month": "Sep.",
                 "category": "Honors and Recognitions",
-                "topics": []
+                "pageLink": "/news/2025-greenie-poster-award/",
+                "topics": [
+                    "Net-Zero Transition"
+                ]
             },
             {
-                "title": "Congratulations to Yu-Hsin Hu (胡羽忻) for receiving the 2025 Master's Thesis Honorable Mention Award from the Chinese Association for Energy Economics (CAEE).",
+                "title": "Congratulations to Yu-Hsin Hu (胡羽忻) for receiving the 2025 Outstanding Master's Thesis Award from the Chinese Association for Energy Economics (CAEE).",
+                "shortTitle": "2025 CAEE Outstanding Thesis Award",
                 "year": "'25",
                 "month": "Nov.",
                 "category": "Honors and Recognitions",
-                "topics": []
+                "pageLink": "/news/2025-caee-outstanding-thesis/",
+                "link": "http://www.caee.org.tw/page/print_114_award",
+                "topics": [
+                    "Vehicle Electrification",
+                    "Vehicle-to-Grid"
+                ]
             },
             {
                 "title": "Connecting Ideas Across Borders: NTU × Kyushu University Joint Workshop on Energy, Mobility, and Society",
