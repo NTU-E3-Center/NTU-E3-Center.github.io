@@ -36,8 +36,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const MAX_WAIT_TIME = 2500;
 
     // 任務一：正常載入
+    //
+    // P1·3 — `updateHpPlaneText` calls SVG.getBBox() twice. getBBox
+    // is synchronous and forces a layout pass; running it during the
+    // Promise.all constructor blocks first paint until the SVG hero
+    // is fully measured. Defer to the next animation frame so the
+    // browser finishes its initial layout before we touch the SVG —
+    // the bbox is now read from a settled tree and doesn't add to
+    // the paint-blocking work on the critical render path.
     const allResourcesPromise = Promise.all([
-        new Promise(resolve => { updateHpPlaneText(); resolve('Plane Updated'); }),
+        new Promise(resolve => {
+            requestAnimationFrame(() => { updateHpPlaneText(); resolve('Plane Updated'); });
+        }),
         new Promise(resolve => { change101Top(); resolve('101 Top Changed'); }),
         document.fonts.ready
     ]);
@@ -104,22 +114,45 @@ function renderRain() {
         hpSvgRain.innerHTML = drops;
     };
 
+    // P2·5 — 30-min localStorage cache. Open-Meteo gives 10 000 free
+    // calls/day so cost isn't the issue, but the homepage was firing the
+    // fetch on every page-load — visitors get the same current-weather
+    // payload regardless of which subpage they bounce through. A
+    // half-hour TTL covers a session of browsing without re-fetching;
+    // older payloads expire automatically.
+    const CACHE_KEY = 'e3-weather-cache';
+    const CACHE_MS  = 30 * 60 * 1000;
+
+    const renderFromData = function (data) {
+        // higher means more rain, ideally no less than 0.2
+        const precip = data.current.precipitation;
+        if (precip < 0.2) return;
+        const windDirectionDeg = data.current.wind_direction_10m;
+        // positive means rain from right to left, negative means rain from left to right
+        const windDirection = (windDirectionDeg > faceDirectionDeg && windDirectionDeg < 180 + faceDirectionDeg) ? 1 : -1;
+        const rainSlope = data.current.wind_speed_10m * 10 * windDirection;
+        makeItRain(true, rainSlope, precip, dropTime);
+        makeItRain(false, rainSlope, precip, dropTime);
+    };
+
+    try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && cached.ts && (performance.timeOrigin + performance.now()) - cached.ts < CACHE_MS) {
+            renderFromData(cached.data);
+            return;
+        }
+    } catch (e) { /* localStorage blocked / corrupted — fall through to fetch */ }
+
     fetch(weatherApiUrl)
         .then(res => res.json())
         .then(data => {
-            // higher means more rain, ideally no less than 0.2
-            const precip = data.current.precipitation;
-
-            if (precip >= 0.2) {
-                const windDirectionDeg = data.current.wind_direction_10m;
-                // positive means rain from right to left, negative means rain from left to right
-                const windDirection = (windDirectionDeg > faceDirectionDeg && windDirectionDeg < 180 + faceDirectionDeg) ? 1 : -1;
-
-                const rainSlope = data.current.wind_speed_10m * 10 * windDirection;
-
-                makeItRain(true, rainSlope, precip, dropTime);
-                makeItRain(false, rainSlope, precip, dropTime);
-            };
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    ts: performance.timeOrigin + performance.now(),
+                    data: data
+                }));
+            } catch (e) { /* quota / private mode — render without caching */ }
+            renderFromData(data);
         })
         .catch(error => console.log('Error fetching weather data:', error));
 };
@@ -186,27 +219,38 @@ window.addEventListener('load', animateHpTheSky);
 
 // * no priority
 // research animation: hover to start, mouseout to stop
+//
+// P2·12 — keyboard equivalent. Hover-only animations leave keyboard
+// users without the same affordance; focusin/focusout mirror the
+// mouseover/mouseout pair via the same begin/endElement calls, so a
+// Tab-into-block triggers the same motion path. resBlockAniRunning
+// stays the single source of truth so hover+focus can't double-fire.
 let resBlockAniRunning = false;
 const resBlockWithAni = Array.from(document.querySelectorAll('.res-block'))
     .filter(elem => elem.querySelector('animateMotion'));
 
+const startResBlockAni = block => {
+    if (resBlockAniRunning) return;
+    block.querySelectorAll('animateMotion').forEach(svgElem => svgElem.beginElement());
+    resBlockAniRunning = true;
+};
+const stopResBlockAni = block => {
+    block.querySelectorAll('animateMotion').forEach(svgElem => svgElem.endElement());
+    resBlockAniRunning = false;
+};
+
 resBlockWithAni.forEach(block => {
     block.addEventListener('mouseover', (e) => {
-        if (block.contains(e.target) && !resBlockAniRunning) {
-            block.querySelectorAll('animateMotion').forEach(svgElem => {
-                svgElem.beginElement();
-            });
-            resBlockAniRunning = true;
-        };
+        if (block.contains(e.target)) startResBlockAni(block);
     });
-
     block.addEventListener('mouseout', (e) => {
-        if (!block.contains(e.relatedTarget)) {
-            block.querySelectorAll('animateMotion').forEach(svgElem => {
-                svgElem.endElement();
-            });
-            resBlockAniRunning = false;
-        };
+        if (!block.contains(e.relatedTarget)) stopResBlockAni(block);
+    });
+    /* focusin/focusout bubble (unlike focus/blur) so a single listener
+       on the block covers Tab into any descendant link / control. */
+    block.addEventListener('focusin', () => startResBlockAni(block));
+    block.addEventListener('focusout', (e) => {
+        if (!block.contains(e.relatedTarget)) stopResBlockAni(block);
     });
 });
 
@@ -232,8 +276,29 @@ glfSliderWrapper.style.setProperty('--_slide-to', 0);
 glfSliderCurrentNum.innerHTML = 1;
 glfSliderTotalNum.innerHTML = glfSliderBlockNum;
 
+/* P2·10 — track the prev/next buttons so we can disable them at the
+   first / last slide. The auto-advance loop wraps with negative push
+   so it isn't affected by aria-disabled; only the manual arrows are. */
+const glfSliderPrevBtn = document.querySelector('.glf-slider-btn[aria-label="Previous photo"]');
+const glfSliderNextBtn = document.querySelector('.glf-slider-btn[aria-label="Next photo"]');
+
+function glfSliderUpdateArrowState() {
+    if (glfSliderPrevBtn) {
+        glfSliderPrevBtn.setAttribute('aria-disabled', glfSliderTo <= 0 ? 'true' : 'false');
+    }
+    if (glfSliderNextBtn) {
+        glfSliderNextBtn.setAttribute('aria-disabled', glfSliderTo >= blockNumMax ? 'true' : 'false');
+    }
+}
+
 let glfSliderTo = 0;
 function glfSliderPush(push) {
+    /* Block boundary clicks via aria-disabled so a sighted user doesn't
+       see the button "fire" when there's nowhere to go. Auto-advance
+       bypasses this by directly modifying glfSliderTo via push values. */
+    if (push === 1  && glfSliderTo >= blockNumMax) return;
+    if (push === -1 && glfSliderTo <= 0)            return;
+
     glfSliderBlock[glfSliderTo].style.setProperty('opacity', 0);
 
     glfSliderTo += push;
@@ -244,7 +309,11 @@ function glfSliderPush(push) {
     glfSliderCurrentNum.innerHTML = glfSliderTo + 1;
 
     glfSliderBlock[glfSliderTo].style.setProperty('opacity', 1);
+    glfSliderUpdateArrowState();
 };
+
+/* Initial state — prev is disabled on slide 1 of N. */
+glfSliderUpdateArrowState();
 
 let glfSliderTouchStartX = 0;
 let glfSliderTouchIsDown = false;
@@ -382,7 +451,11 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.src})`;
             mediaModalContentWrapper.style.aspectRatio = '16/9'; // YouTube 影片通常是 16:9
-            mediaModalCaption.innerHTML = caption;
+            /* P3·3 — use textContent not innerHTML on caption. Caption
+               sources are user-derived (alt text, data attributes) and
+               could contain HTML control chars (&, <) that innerHTML
+               would parse. textContent is purely literal. */
+            mediaModalCaption.textContent = caption;
 
             // 將建立好的 iframe 加入 modal
             mediaModalContentWrapper.appendChild(newIframe);
@@ -402,7 +475,7 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
             mediaModalContentWrapper.style.aspectRatio = `${clickedEl.naturalWidth}/${clickedEl.naturalHeight}`;
-            mediaModalCaption.innerHTML = clickedEl.alt;
+            mediaModalCaption.textContent = clickedEl.alt;
 
             mediaModalContentWrapper.appendChild(newImg);
 
@@ -422,7 +495,7 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.poster})`;
             mediaModalContentWrapper.style.aspectRatio = '16/9';
-            mediaModalCaption.innerHTML = clickedEl.dataset.caption;
+            mediaModalCaption.textContent = clickedEl.dataset.caption;
 
             mediaModalContentWrapper.appendChild(newVideo);
             mediaModalContentWrapper.classList.add("lazy-img-loaded");

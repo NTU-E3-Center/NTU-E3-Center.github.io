@@ -52,9 +52,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=32">
-    <link rel="stylesheet" href="/css/style.css?v=31">
-    <link rel="stylesheet" href="/css/subpage.css?v=59">
+    <link rel="stylesheet" href="/css/general.css?v=40">
+    <link rel="stylesheet" href="/css/style.css?v=34">
+    <link rel="stylesheet" href="/css/subpage.css?v=62">
 
     <!-- js -->
     <script defer src="/js/general.js?v=4"></script>
@@ -588,12 +588,12 @@
                 <label class="pub-filter-check">
                     <input type="checkbox" class="proj-filter-status-input" data-status="ongoing">
                     <span class="pub-filter-check-label">Ongoing</span>
-                    <span class="pub-filter-check-count" aria-hidden="true">13</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">12</span>
                 </label>
                 <label class="pub-filter-check">
                     <input type="checkbox" class="proj-filter-status-input" data-status="concluded">
                     <span class="pub-filter-check-label">Concluded</span>
-                    <span class="pub-filter-check-count" aria-hidden="true">13</span>
+                    <span class="pub-filter-check-count" aria-hidden="true">14</span>
                 </label>
                 <button type="button" class="pub-filter-panel-clear" hidden>Clear status</button>
             </div>
@@ -605,7 +605,7 @@
 
 
         <div class="proj-status-group" data-status="ongoing">
-        <h2 class="proj-status-title">Ongoing<span class="proj-status-count">13</span></h2>
+        <h2 class="proj-status-title">Ongoing<span class="proj-status-count">12</span></h2>
 
         <div class="news-rows" id="proj-ongoing-rows" role="list">
             <div class="news-row" role="listitem"
@@ -750,7 +750,7 @@
 
 </a>
 </div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
+            <div class="proj-extra-item" hidden><a class="news-row news-row--link" href="/projects/2025-smart-sustainable-logistics/" role="listitem"
    data-status="ongoing"
    data-funder="NSTC"
    data-active-years=",2025,2026,2027,2028,">
@@ -767,8 +767,11 @@
         </p>
     </div>
 
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
 
-</div>
+</a>
 </div>
             <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
    data-status="ongoing"
@@ -785,26 +788,6 @@
         <p class="proj-row-meta">
             <span class="proj-role-badge">Co-PI</span>
             <span class="proj-agency">NSTC (<span lang="zh-Hant">國科會</span>); Grant no. 114-2224-E-002-002-</span>
-        </p>
-    </div>
-
-
-</div>
-</div>
-            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
-   data-status="ongoing"
-   data-funder="NSTC"
-   data-active-years=",2025,2026,">
-
-    <div class="news-row-date">
-        <span class="news-row-yy">2025</span>
-        <span class="news-row-mm">&ndash;&nbsp;2026</span>
-    </div>
-
-    <div class="news-row-body">
-        <p class="news-row-title">Systematic Solutions for Sustainable Energy and Mobility System</p>
-        <p class="proj-row-meta">
-            <span class="proj-agency">NSTC (<span lang="zh-Hant">國科會</span>); Grant no. 114-2927-I-002-528</span>
         </p>
     </div>
 
@@ -878,7 +861,7 @@
                 aria-expanded="false"
                 aria-controls="proj-ongoing-rows"
                 onclick="togglePubGroup(this)">
-            <span class="btn-text">See 7 more</span>
+            <span class="btn-text">See 6 more</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -887,9 +870,32 @@
     </div>
 
         <div class="proj-status-group" data-status="concluded">
-        <h2 class="proj-status-title">Concluded<span class="proj-status-count">13</span></h2>
+        <h2 class="proj-status-title">Concluded<span class="proj-status-count">14</span></h2>
 
         <div class="news-rows" id="proj-concluded-rows" role="list">
+            <a class="news-row news-row--link" href="/projects/2025-ntu-ug-energy-mobility/" role="listitem"
+   data-status="concluded"
+   data-funder="NSTC"
+   data-active-years=",2025,2026,">
+
+    <div class="news-row-date">
+        <span class="news-row-yy">2025</span>
+        <span class="news-row-mm">&ndash;&nbsp;2026</span>
+    </div>
+
+    <div class="news-row-body">
+        <p class="news-row-title">Systematic Solutions for Sustainable Energy and Mobility System</p>
+        <p class="proj-row-meta">
+            <span class="proj-agency">NSTC (<span lang="zh-Hant">國科會</span>); Grant no. 114-2927-I-002-528</span>
+        </p>
+    </div>
+
+    <span class="news-row-arrow" aria-hidden="true">
+        <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+    </span>
+
+</a>
+
             <div class="news-row" role="listitem"
    data-status="concluded"
    data-funder="Industry"
@@ -988,7 +994,7 @@
 
 </div>
 
-            <div class="news-row" role="listitem"
+            <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
    data-status="concluded"
    data-funder="Industry"
    data-active-years=",2024,2025,">
@@ -1007,7 +1013,7 @@
 
 
 </div>
-
+</div>
             <div class="proj-extra-item" hidden><div class="news-row" role="listitem"
    data-status="concluded"
    data-funder="NSTC"
@@ -1156,7 +1162,7 @@
                 aria-expanded="false"
                 aria-controls="proj-concluded-rows"
                 onclick="togglePubGroup(this)">
-            <span class="btn-text">See 7 more</span>
+            <span class="btn-text">See 8 more</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -1227,15 +1233,15 @@
     <div class="body-bg-2"></div>
     <div class="body-bg-3"></div>
 </div>
-<dialog class="media-modal">
+<dialog class="media-modal" aria-labelledby="media-modal-caption">
     <button type="button" class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable aria-label="Close media">
         <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
     </button>
-    
+
     <div class="media-modal-content-wrapper skewed-block" b-role="block">
-        </div>
-    
-    <span class="media-modal-caption skewed-block" b-role="btn"></span>
+    </div>
+
+    <p id="media-modal-caption" class="media-modal-caption skewed-block" b-role="btn"></p>
 </dialog>
 <a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
@@ -1243,8 +1249,8 @@
     </svg>
     Top
 </a>
-<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
-    <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
+<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
     <p>Menu</p>
 </button>
 
@@ -1260,50 +1266,50 @@
 
         <ui>
             <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
                 <span>Home</span>
             </a>
         </ui>
 
         <ui>
             <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
-                <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
                 <span>About Us</span>
             </a>
         </ui>
         <ui>
             <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
-                <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
                 <span>Members</span>
             </a>
         </ui>
         <ui>
             <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
-                <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
                 <span>Publications</span>
             </a>
         </ui>
         <ui>
             <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
-                <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
                 <span>Projects</span>
             </a>
         </ui>
         <ui>
             <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
-                <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
                 <span>News</span>
             </a>
         </ui>
         <ui>
             <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
-                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
                 <span>Group Life</span>
             </a>
         </ui>
         <ui>
             <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
-                <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
                 <span>Contact Us</span>
             </a>
         </ui>

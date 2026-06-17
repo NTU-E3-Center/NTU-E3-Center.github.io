@@ -52,9 +52,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=32">
-    <link rel="stylesheet" href="/css/style.css?v=31">
-    <link rel="stylesheet" href="/css/subpage.css?v=59">
+    <link rel="stylesheet" href="/css/general.css?v=40">
+    <link rel="stylesheet" href="/css/style.css?v=34">
+    <link rel="stylesheet" href="/css/subpage.css?v=62">
 
     <!-- js -->
     <script defer src="/js/general.js?v=4"></script>
@@ -161,7 +161,7 @@
             </a>
         </aside>
 
-        <form class="contact-form" action="https://formspree.io/f/xandalro" method="POST">
+        <form class="contact-form" action="https://formspree.io/f/xandalro" method="POST" novalidate>
             <div class="contact-form-row">
                 <div class="contact-field">
                     <label for="contact-name">Name</label>
@@ -190,12 +190,84 @@
             </div>
 
             <button type="submit" class="contact-send skewed-block" b-role="btn" b-hoverable>
-                <span>Send message</span>
+                <span class="contact-send-label">Send message</span>
                 <svg viewBox="0 0 20 20" aria-hidden="true">
                     <polygon class="fill-m" points="0.1,11.5 14.2,11.5 8.6,17.1 10.7,19.2 19.9,10 10.7,0.8 8.6,2.9 14.2,8.5 0.1,8.5"/>
                 </svg>
             </button>
+
+            <p class="contact-form-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
         </form>
+
+        <script>
+        (function () {
+            var form    = document.querySelector('.contact-form');
+            if (!form) return;
+            var btn     = form.querySelector('.contact-send');
+            var label   = form.querySelector('.contact-send-label');
+            var status  = form.querySelector('.contact-form-status');
+            var origLabel = label ? label.textContent : 'Send message';
+
+            function setStatus(message, tone) {
+                if (!status) return;
+                status.textContent = message;
+                status.hidden = !message;
+                status.classList.toggle('is-error',   tone === 'error');
+                status.classList.toggle('is-success', tone === 'success');
+            }
+
+            function lock() {
+                btn.disabled = true;
+                btn.setAttribute('aria-busy', 'true');
+                if (label) label.textContent = 'Sending…';
+            }
+            function unlock() {
+                btn.disabled = false;
+                btn.removeAttribute('aria-busy');
+                if (label) label.textContent = origLabel;
+            }
+
+            form.addEventListener('submit', function (e) {
+                /* Native HTML5 validation first — Formspree won't even
+                   accept an empty name/email, so catch it before the
+                   network round-trip. */
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    setStatus('Please fill in the required fields and try again.', 'error');
+                    form.reportValidity();
+                    return;
+                }
+
+                e.preventDefault();
+                if (btn.disabled) return;          // submit lockout — guard against double-fire
+                setStatus('', null);
+                lock();
+
+                var data = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(function (resp) {
+                    if (resp.ok) {
+                        setStatus('Thanks — your message is on its way. We typically reply within a few working days.', 'success');
+                        form.reset();
+                    } else {
+                        return resp.json().catch(function () { return {}; }).then(function (body) {
+                            var msg = (body && body.errors && body.errors[0] && body.errors[0].message)
+                                || 'Sorry — we couldn’t send that. Please try again or email us directly.';
+                            setStatus(msg, 'error');
+                        });
+                    }
+                })
+                .catch(function () {
+                    setStatus('Network error — please check your connection and try again.', 'error');
+                })
+                .finally(unlock);
+            });
+        }());
+        </script>
 
     </div>
 
@@ -254,15 +326,15 @@
     <div class="body-bg-2"></div>
     <div class="body-bg-3"></div>
 </div>
-<dialog class="media-modal">
+<dialog class="media-modal" aria-labelledby="media-modal-caption">
     <button type="button" class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable aria-label="Close media">
         <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
     </button>
-    
+
     <div class="media-modal-content-wrapper skewed-block" b-role="block">
-        </div>
-    
-    <span class="media-modal-caption skewed-block" b-role="btn"></span>
+    </div>
+
+    <p id="media-modal-caption" class="media-modal-caption skewed-block" b-role="btn"></p>
 </dialog>
 <a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
@@ -270,8 +342,8 @@
     </svg>
     Top
 </a>
-<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
-    <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
+<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
     <p>Menu</p>
 </button>
 
@@ -287,50 +359,50 @@
 
         <ui>
             <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
                 <span>Home</span>
             </a>
         </ui>
 
         <ui>
             <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
-                <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
                 <span>About Us</span>
             </a>
         </ui>
         <ui>
             <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
-                <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
                 <span>Members</span>
             </a>
         </ui>
         <ui>
             <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
-                <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
                 <span>Publications</span>
             </a>
         </ui>
         <ui>
             <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
-                <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
                 <span>Projects</span>
             </a>
         </ui>
         <ui>
             <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
-                <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
                 <span>News</span>
             </a>
         </ui>
         <ui>
             <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
-                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
                 <span>Group Life</span>
             </a>
         </ui>
         <ui>
             <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
-                <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
                 <span>Contact Us</span>
             </a>
         </ui>

@@ -101,6 +101,24 @@ a {
     border-radius: 0.125rem;
 }
 
+/* P1·1 — kill the 300 ms double-tap-to-zoom delay on every
+   interactive control. `manipulation` keeps panning + pinch-zoom
+   on the page but tells the browser these elements never need the
+   double-tap gesture, so taps fire immediately. Page background
+   keeps the default touch-action: auto. */
+a,
+button,
+input,
+select,
+textarea,
+summary,
+label,
+[role="button"],
+[role="tab"],
+[role="checkbox"] {
+    touch-action: manipulation;
+}
+
 b,
 strong {
     font-weight: var(--fw-bold) !important;
@@ -256,6 +274,60 @@ i {
     .contact-tagline
 ) a em { color: inherit; }
 
+/* B·6 — external-link affordance for prose links. Any link whose href
+   starts with http(s) AND points off-site gets a small ↗ glyph after
+   the text so readers can preview "this opens elsewhere" before the
+   click. Internal site links and protocol-relative links (e.g. mailto:)
+   stay unmarked. Uses Unicode U+2197 (North East Arrow) — no SVG sprite
+   needed; renders crisply at the prose size, inherits link color. */
+:where(
+    .abt-text,
+    #about .content,
+    .proj-prose,
+    .proj-prose-zh,
+    .proj-item-lede,
+    .news-item-body,
+    .pub-item-abstract,
+    .contact-tagline
+) a[href^="http"]:not([href*="e3center.caece.net"]):not([href^="/"])::after {
+    /* B·6 — SVG-mask arrow. Both Unicode candidates (\2197 and \2192)
+       inherited unreliable font metrics — \2197 fell into emoji
+       presentation (wide), \2192 carried wide kerning whitespace in
+       Outfit's fallback chain. SVG mask gives a fixed 0.55em × 0.55em
+       box with currentColor fill — no font involvement at all, so the
+       horizontal footprint is exactly what's declared. */
+    content: "";
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-inline-start: 0.2em;
+    vertical-align: -0.02em;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3,7 L7,3 M4,3 L7,3 L7,6' stroke='black' fill='none' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M3,7 L7,3 M4,3 L7,3 L7,6' stroke='black' fill='none' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.55;
+    transition: transform 200ms ease-out, opacity 200ms ease-out;
+}
+
+:where(
+    .abt-text,
+    #about .content,
+    .proj-prose,
+    .proj-prose-zh,
+    .proj-item-lede,
+    .news-item-body,
+    .pub-item-abstract,
+    .contact-tagline
+) a[href^="http"]:not([href*="e3center.caece.net"]):not([href^="/"]):hover::after {
+    opacity: 1;
+    /* Nudge up + right, matching the arrow's direction. */
+    transform: translate(0.05em, -0.05em);
+}
+
 /* Lede tier — one notch larger than body. */
 .proj-item-lede {
     font-size: var(--fs-prose-lede);
@@ -365,6 +437,14 @@ i {
        --page-bg-color: 6.2:1 (AAA). The previous accent --main-color-2
        (#4caedd) reads at ~2.2:1 and was failing AA for inline use. */
     --link-color: #1a6489;
+
+    /* C·4 — single hairline-divider token. Previous spread: 10/12/14/16%
+       across news-row borders, project-prose top borders, project chip
+       outlines, footer rule, etc. — visual noise for one semantic role.
+       12% is the median; reads as a quiet divider against the page bg
+       at both desktop and print densities. Per-class overrides remain
+       possible by re-declaring color-mix with a different percentage. */
+    --line-soft: color-mix(in srgb, var(--main-color) 12%, transparent);
 
     --main-color-hsl: 201, 85%, 27%;
 
@@ -660,6 +740,16 @@ body {
     }
 }
 
+/* B·4 — disable hover lift on dense list buttons. The 2 px translate
+   delights when there's one CTA; on a row of filter chips, every hover
+   triggers neighbour reflow that reads as jitter. Override the
+   translate AND shadow-shift on dense controls so they keep the
+   border-radius bloom hint without the layout shift. */
+:where(.pub-filter-trigger, .pub-filter-check, .pub-filter-clear, .news-filter-tab, .glf-slider-btn) {
+    --_adjusted-hover-translate: 0;
+    --_adjusted-hover-shadow-shift: var(--btn-shadow-shift);
+}
+
 section:has(.section-title) {
     width: min(100%, 80rem);
     margin-inline: auto;
@@ -687,7 +777,11 @@ section:has(.section-title) {
         display: flex;
 
         & h2 {
-            font-size: 3.25rem;
+            /* C·3 — was 3.25rem; brought closer to the subpage h2 baseline
+               (2.25rem) so visitors moving home → subpage don't feel like
+               two different sites. 2.75rem still reads as the dominant
+               homepage section title; tracking unchanged. */
+            font-size: 2.75rem;
             font-weight: var(--fw-h1);
             letter-spacing: -0.03em;
         }
@@ -983,7 +1077,10 @@ footer {
     }
 
     & .ftr-link {
-        font-size: 1rem;
+        /* S·2 — was 1rem; collapsed to 0.875rem so footer carries one body
+           size (caption) plus the eyebrow column title. Hierarchy comes
+           from color + opacity, not size. */
+        font-size: 0.875rem;
         line-height: 1.4;
         color: var(--main-color);
         opacity: 0.8;
@@ -1051,7 +1148,10 @@ footer {
     }
 
     & .ftr-info {
-        font-size: 0.75rem;
+        /* S·2 — was 0.75rem; lifted to 0.875rem so the entire footer body
+           reads at one caption size. Opacity 0.5 carries the demotion that
+           size was being asked to do. */
+        font-size: 0.875rem;
         line-height: 1.5;
         color: var(--main-color);
         opacity: 0.5;
@@ -1147,7 +1247,19 @@ body {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    transition: all var(--hover-transition-time), margin 0s;
+    /* P2·1 — name the animated properties instead of `all`. `all`
+       forces the browser to monitor every computed property for change,
+       which adds invalidation work for properties we never animate. The
+       button needs: translate (hover lift), border-radius (hover bloom),
+       box-shadow (hover shadow), opacity (fade-in on scroll). margin
+       keeps its 0s override so display:grid → display:none transitions
+       don't catch a stale margin. */
+    transition:
+        translate var(--hover-transition-time),
+        border-radius var(--hover-transition-time),
+        box-shadow var(--hover-transition-time),
+        opacity var(--hover-transition-time),
+        margin 0s;
 
     /* WCAG 2.5.5 / Apple HIG: 44 × 44 px minimum touch target */
     min-width: 2.75rem;
@@ -1175,7 +1287,14 @@ body {
     top: calc((var(--header-h) - var(--menu-btn-h)) / 2);
     right: -1rem;
     z-index: 200;
-    transition: all var(--hover-transition-time), margin 0s;
+    /* P2·1 — same rationale as .to-top-btn above: name the animated
+       props instead of `all`. */
+    transition:
+        translate var(--hover-transition-time),
+        border-radius var(--hover-transition-time),
+        box-shadow var(--hover-transition-time),
+        opacity var(--hover-transition-time),
+        margin 0s;
 
     display: flex;
     align-items: center;
@@ -1217,6 +1336,13 @@ body {
         border-left: 0.1875rem solid var(--main-color);
         transform: skewX(var(--block-skew));
         transition: 0.3s;
+
+        /* P1·10 — keep mobile scroll trapped inside the drawer. Without
+           this, scrolling past the bottom of the drawer triggers the
+           underlying page to scroll (or the iOS rubber-band) which
+           confuses users and can dismiss the drawer accidentally. */
+        overscroll-behavior: contain;
+        overflow-y: auto;
 
         display: flex;
         flex-wrap: wrap;
@@ -1268,6 +1394,16 @@ body {
         pointer-events: none;
         right: calc(-100lvh * tan(var(--content-skew)) / 2 - 21rem);
         transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
+/* P2·11 — the menu-peek slide-in is a hover-triggered preview, not a
+   user-initiated action. Strip the transition for reduced-motion users
+   so the panel snaps to its peek position instead of sliding. The
+   panel still works the same way; only the animation is muted. */
+@media (prefers-reduced-motion: reduce) {
+    .menu.menu-peek .menu-wrapper {
+        transition: none;
     }
 }
 
@@ -1514,5 +1650,108 @@ body {
 
     .menu-btn svg {
         width: 1rem;
+    }
+}
+
+/* ============================================================
+   P3·9 — Minimal print stylesheet
+   ============================================================
+   When a researcher prints a publication detail / news article /
+   member CV, save ink + drop chrome that doesn't survive paper:
+   - hide site nav, menu trigger, footer columns, animated bg
+   - flatten brand teal to black + neutralise box-shadows
+   - print the link's href next to the link text so the URL survives
+   - unhide collapsed extras (no JS interaction available on paper)
+   - drop sticky positioning (already standard for print) */
+@media print {
+    :root {
+        --main-color: #000;
+        --main-shadow-color: transparent;
+        --page-bg-color: #fff;
+        --link-color: #000;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    /* Strip chrome that has no role on a printed page. */
+    .menu,
+    .menu-btn,
+    .body-bg,
+    [class*="body-bg-"],
+    .subpage-header,
+    .to-top-btn,
+    .glf-slider-btns,
+    .section-cta,
+    .pub-filter-bar,
+    .news-filter-bar,
+    .loading-overlay,
+    .media-modal {
+        display: none !important;
+    }
+
+    /* Footer keeps a one-line copyright + URL; everything else goes. */
+    footer .ftr-grid,
+    footer .ftr-bottom {
+        display: block !important;
+    }
+    footer .ftr-nav,
+    footer .ftr-contact,
+    footer .ftr-logo,
+    footer .ftr-tagline {
+        display: none !important;
+    }
+
+    /* Strip box shadows and skewed-block transforms — paper isn't 3D. */
+    .skewed-block,
+    [class*="skewed-block"] {
+        transform: none !important;
+        box-shadow: none !important;
+        border-color: #000 !important;
+    }
+
+    /* Reveal collapsed "see more" extras — no JS click on paper. */
+    .publi-extra-item,
+    .proj-extra-item {
+        display: block !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    .publi-show-more,
+    .proj-show-more {
+        display: none !important;
+    }
+
+    /* Print the href after each external link so the URL survives. The
+       :where prose recipe is now under the link-color: #000 above, so the
+       link text reads as plain black; the URL annotation is small grey. */
+    a[href^="http"]:not([href*="e3center.caece.net"])::after {
+        content: " (" attr(href) ")" !important;
+        font-size: 0.8em;
+        font-weight: normal;
+        color: #555;
+        background: none !important;
+        mask: none !important;
+        -webkit-mask: none !important;
+        width: auto !important;
+        height: auto !important;
+        display: inline !important;
+        vertical-align: baseline !important;
+        opacity: 1 !important;
+    }
+
+    /* Page break hints — sections + figures should try not to split. */
+    section,
+    article,
+    figure,
+    .pub-item-section,
+    .proj-section {
+        break-inside: avoid-page;
+    }
+
+    h1, h2, h3 {
+        break-after: avoid-page;
     }
 }

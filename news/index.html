@@ -52,9 +52,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=32">
-    <link rel="stylesheet" href="/css/style.css?v=31">
-    <link rel="stylesheet" href="/css/subpage.css?v=59">
+    <link rel="stylesheet" href="/css/general.css?v=40">
+    <link rel="stylesheet" href="/css/style.css?v=34">
+    <link rel="stylesheet" href="/css/subpage.css?v=62">
 
     <!-- js -->
     <script defer src="/js/general.js?v=4"></script>
@@ -93,6 +93,16 @@
               "position": 2,
               "item": {
                 "@type": "NewsArticle",
+                "headline": "Connecting Ideas Across Borders: NTU \u00d7 Kyushu University Joint Workshop on Energy, Mobility, and Society",
+                "datePublished": "2025-11-01",
+                "url": "https://e3center.caece.net/news/2025-ntu-ku-joint-workshop/"
+              }
+            }
+            ,{
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "NewsArticle",
                 "headline": "Inspiring Future Leaders: Energy Thinking Bootcamp at Wego Private Senior High School \u81fa\u5317\u5e02\u79c1\u7acb\u8587\u95a3\u9ad8\u7d1a\u4e2d\u5b78",
                 "datePublished": "2026-01-01",
                 "url": "https://e3center.caece.net/news/2026-wego-bootcamp/"
@@ -100,7 +110,7 @@
             }
             ,{
               "@type": "ListItem",
-              "position": 3,
+              "position": 4,
               "item": {
                 "@type": "NewsArticle",
                 "headline": "Bridging Borders for Net-Zero: Highlights from the 2026 NTU-UG Joint Seminar on Energy \u0026 Mobility",
@@ -110,7 +120,7 @@
             }
             ,{
               "@type": "ListItem",
-              "position": 4,
+              "position": 5,
               "item": {
                 "@type": "NewsArticle",
                 "headline": "\u6797\u5b8f\u53e1\uff08Hung-Jui Lin\uff09\u65bc\u300c2026\u5e74\u4e2d\u83ef\u6c11\u570b\u5730\u7406\u5b78\u6703\u5e74\u6703\u66a8\u5b78\u8853\u7814\u8a0e\u6703\u300d\u69ae\u7372\u5b78\u751f\u8ad6\u6587\u7af6\u8cfd\u7279\u512a\u734e!",
@@ -120,7 +130,7 @@
             }
             ,{
               "@type": "ListItem",
-              "position": 5,
+              "position": 6,
               "item": {
                 "@type": "NewsArticle",
                 "headline": "Featured on Focus News (\u7126\u9ede\u6642\u5831): NTU E3 Center Kicks off Wind-to-Hydrogen Project with MIRDC",
@@ -166,17 +176,17 @@
 <section id="news" class="news-subpage">
 
     <div class="news-filter-bar" role="tablist" aria-label="Filter news by category">
-        <button class="news-filter-tab is-active" data-filter="all"
-                role="tab" aria-selected="true" type="button">All</button>
-        <button class="news-filter-tab" data-filter="Events and Exchanges"
-                role="tab" aria-selected="false" type="button">Events &amp; Exchanges</button>
-        <button class="news-filter-tab" data-filter="Honors and Recognitions"
-                role="tab" aria-selected="false" type="button">Honors &amp; Recognitions</button>
-        <button class="news-filter-tab" data-filter="Community and Outreach"
-                role="tab" aria-selected="false" type="button">Community &amp; Outreach</button>
+        <button id="news-tab-all" class="news-filter-tab is-active" data-filter="all"
+                role="tab" aria-selected="true" aria-controls="news-all" tabindex="0" type="button">All</button>
+        <button id="news-tab-events" class="news-filter-tab" data-filter="Events and Exchanges"
+                role="tab" aria-selected="false" aria-controls="news-events" tabindex="-1" type="button">Events &amp; Exchanges</button>
+        <button id="news-tab-honors" class="news-filter-tab" data-filter="Honors and Recognitions"
+                role="tab" aria-selected="false" aria-controls="news-honors" tabindex="-1" type="button">Honors &amp; Recognitions</button>
+        <button id="news-tab-outreach" class="news-filter-tab" data-filter="Community and Outreach"
+                role="tab" aria-selected="false" aria-controls="news-outreach" tabindex="-1" type="button">Community &amp; Outreach</button>
     </div>
 
-    <section class="news-all-section" id="news-all">
+    <section class="news-all-section" id="news-all" role="tabpanel" aria-labelledby="news-tab-all">
         <div class="news-rows" role="list">
 
             <a class="news-row news-row--link" href="/news/2026-focus-news/" role="listitem">
@@ -246,6 +256,25 @@
                 <div class="news-row-body">
                     <span class="news-row-badge" data-cat="Community and Outreach">Outreach</span>
                     <p class="news-row-title">Inspiring Future Leaders: Energy Thinking Bootcamp at Wego Private Senior High School 臺北市私立薇閣高級中學</p>
+                </div>
+
+                <span class="news-row-arrow" aria-hidden="true">
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                </span>
+
+            </a>
+
+
+            <a class="news-row news-row--link" href="/news/2025-ntu-ku-joint-workshop/" role="listitem">
+
+                <div class="news-row-date">
+                    <span class="news-row-mm">Nov.</span>
+                    <span class="news-row-yy">2025</span>
+                </div>
+
+                <div class="news-row-body">
+                    <span class="news-row-badge" data-cat="Events and Exchanges">Events</span>
+                    <p class="news-row-title">Connecting Ideas Across Borders: NTU × Kyushu University Joint Workshop on Energy, Mobility, and Society</p>
                 </div>
 
                 <span class="news-row-arrow" aria-hidden="true">
@@ -681,7 +710,8 @@
     </section>
 
 
-    <section class="news-cat-section" id="news-events" data-cat="Events and Exchanges" hidden>
+    <section class="news-cat-section" id="news-events" data-cat="Events and Exchanges"
+             role="tabpanel" aria-labelledby="news-tab-events" hidden>
         <h2 class="news-cat-title">Events and Exchanges</h2>
         <div class="news-rows" role="list">
 
@@ -702,9 +732,26 @@
             </a>
 
 
+            <a class="news-row news-row--link" href="/news/2025-ntu-ku-joint-workshop/" role="listitem">
+
+                <div class="news-row-date">
+                    <span class="news-row-mm">Nov.</span>
+                    <span class="news-row-yy">2025</span>
+                </div>
+
+                <p class="news-row-title">Connecting Ideas Across Borders: NTU × Kyushu University Joint Workshop on Energy, Mobility, and Society</p>
+
+                <span class="news-row-arrow" aria-hidden="true">
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                </span>
+
+            </a>
+
+
         </div>
     </section>
-    <section class="news-cat-section" id="news-honors" data-cat="Honors and Recognitions" hidden>
+    <section class="news-cat-section" id="news-honors" data-cat="Honors and Recognitions"
+             role="tabpanel" aria-labelledby="news-tab-honors" hidden>
         <h2 class="news-cat-title">Honors and Recognitions</h2>
         <div class="news-rows" role="list">
 
@@ -966,7 +1013,8 @@
 
         </div>
     </section>
-    <section class="news-cat-section" id="news-outreach" data-cat="Community and Outreach" hidden>
+    <section class="news-cat-section" id="news-outreach" data-cat="Community and Outreach"
+             role="tabpanel" aria-labelledby="news-tab-outreach" hidden>
         <h2 class="news-cat-title">Community and Outreach</h2>
         <div class="news-rows" role="list">
 
@@ -1134,11 +1182,16 @@
         el.style.animation = '';
     }
 
-    function activate(filter) {
+    function activate(filter, opts) {
+        opts = opts || {};
         tabs.forEach(function (t) {
             var on = t.dataset.filter === filter;
             t.classList.toggle('is-active', on);
             t.setAttribute('aria-selected', on ? 'true' : 'false');
+            /* P1·7 — roving tabindex: only the active tab is in the
+               natural focus order, so Tab into the tablist always lands
+               on the current tab; arrow keys then move within. */
+            t.setAttribute('tabindex', on ? '0' : '-1');
         });
 
         if (filter === 'all') {
@@ -1152,6 +1205,11 @@
             });
         }
 
+        if (opts.focusActive) {
+            var active = Array.from(tabs).find(function (t) { return t.dataset.filter === filter; });
+            if (active) active.focus();
+        }
+
         if (history.replaceState) {
             var slug = filter === 'all' ? '' : '#' + filter.toLowerCase().replace(/ /g, '-');
             history.replaceState(null, '', slug || window.location.pathname);
@@ -1161,6 +1219,28 @@
     tabs.forEach(function (tab) {
         tab.addEventListener('click', function () { activate(tab.dataset.filter); });
     });
+
+    /* P1·7 — keyboard nav per WAI-ARIA tablist authoring pattern:
+       ArrowLeft / ArrowRight cycles through tabs (wrapping); Home / End
+       jumps to first / last. Activates the new tab AND focuses it so
+       the panel content updates immediately (automatic-activation pattern
+       — appropriate here because revealing a panel is cheap). */
+    var tabList = document.querySelector('.news-filter-bar[role="tablist"]');
+    if (tabList) {
+        tabList.addEventListener('keydown', function (e) {
+            var key = e.key;
+            if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'Home' && key !== 'End') return;
+            e.preventDefault();
+            var tabs_arr = Array.from(tabs);
+            var current  = tabs_arr.findIndex(function (t) { return t.getAttribute('aria-selected') === 'true'; });
+            var next;
+            if (key === 'ArrowLeft')  next = (current - 1 + tabs_arr.length) % tabs_arr.length;
+            if (key === 'ArrowRight') next = (current + 1) % tabs_arr.length;
+            if (key === 'Home')       next = 0;
+            if (key === 'End')        next = tabs_arr.length - 1;
+            activate(tabs_arr[next].dataset.filter, { focusActive: true });
+        });
+    }
 
     /* restore from URL hash */
     var hash = window.location.hash.slice(1);
@@ -1228,15 +1308,15 @@
     <div class="body-bg-2"></div>
     <div class="body-bg-3"></div>
 </div>
-<dialog class="media-modal">
+<dialog class="media-modal" aria-labelledby="media-modal-caption">
     <button type="button" class="media-modal-close-btn skewed-block" b-role="btn" b-hoverable aria-label="Close media">
         <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
     </button>
-    
+
     <div class="media-modal-content-wrapper skewed-block" b-role="block">
-        </div>
-    
-    <span class="media-modal-caption skewed-block" b-role="btn"></span>
+    </div>
+
+    <p id="media-modal-caption" class="media-modal-caption skewed-block" b-role="btn"></p>
 </dialog>
 <a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
@@ -1244,8 +1324,8 @@
     </svg>
     Top
 </a>
-<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable>
-    <svg><use href="/assets/sprite.svg#svg-menu"></use></svg>
+<button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
     <p>Menu</p>
 </button>
 
@@ -1261,50 +1341,50 @@
 
         <ui>
             <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
-                <svg><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
                 <span>Home</span>
             </a>
         </ui>
 
         <ui>
             <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
-                <svg><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
                 <span>About Us</span>
             </a>
         </ui>
         <ui>
             <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
-                <svg><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
                 <span>Members</span>
             </a>
         </ui>
         <ui>
             <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
-                <svg><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
                 <span>Publications</span>
             </a>
         </ui>
         <ui>
             <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
-                <svg><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
                 <span>Projects</span>
             </a>
         </ui>
         <ui>
             <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
-                <svg><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
                 <span>News</span>
             </a>
         </ui>
         <ui>
             <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
-                <svg><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
                 <span>Group Life</span>
             </a>
         </ui>
         <ui>
             <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
-                <svg><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
                 <span>Contact Us</span>
             </a>
         </ui>
