@@ -299,6 +299,11 @@
             {% set _ = _method_counts.update({m: _method_counts.get(m, 0) + 1}) %}
         {% endfor %}
     {% endfor %}
+    {# P3·7 — Year is the one facet that does NOT sort by count desc.
+       Time-natural ordering (newest first) is the user mental model for
+       browsing publications, regardless of which year has the most
+       papers. All other facets below sort by count — that's the
+       deliberate asymmetry, not a bug. #}
     {% set years_sorted    = _year_counts.keys()    | list | sort(reverse=True) %}
     {# Journals sort by count desc, alpha tiebreaker — matches the topic/method
        behaviour below so all three multi-value facets read the same way and

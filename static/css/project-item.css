@@ -437,6 +437,36 @@ a.proj-chip:focus-visible {
     display: flex;
     align-items: center;
     gap: 1.25rem;
+    /* USER REQ — stretch-click pattern. The <a> only wraps the partner
+       name today; clicking on the logo or surrounding whitespace did
+       nothing. position: relative anchors the stretched ::after on
+       a.proj-partner-name below — that pseudo expands to cover the
+       whole row so any click on the partner card activates the link. */
+    position: relative;
+
+    /* The whole row reads as interactive only when the partner has a
+       URL — pointer cursor + hover treatment scoped to :has() rather
+       than always. */
+    &:has(a.proj-partner-name) {
+        cursor: pointer;
+
+        &:hover,
+        &:focus-within {
+            .proj-partner-name {
+                color: var(--main-color-2);
+                text-decoration: underline;
+                text-underline-offset: 0.15em;
+            }
+        }
+    }
+}
+
+/* Stretched click target for the whole .proj-partner row. */
+a.proj-partner-name::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 /* Brand-colored backing so white/transparent partner logos stay legible on the

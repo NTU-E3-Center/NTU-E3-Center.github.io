@@ -451,7 +451,11 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.src})`;
             mediaModalContentWrapper.style.aspectRatio = '16/9'; // YouTube 影片通常是 16:9
-            mediaModalCaption.innerHTML = caption;
+            /* P3·3 — use textContent not innerHTML on caption. Caption
+               sources are user-derived (alt text, data attributes) and
+               could contain HTML control chars (&, <) that innerHTML
+               would parse. textContent is purely literal. */
+            mediaModalCaption.textContent = caption;
 
             // 將建立好的 iframe 加入 modal
             mediaModalContentWrapper.appendChild(newIframe);
@@ -471,7 +475,7 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
             mediaModalContentWrapper.style.aspectRatio = `${clickedEl.naturalWidth}/${clickedEl.naturalHeight}`;
-            mediaModalCaption.innerHTML = clickedEl.alt;
+            mediaModalCaption.textContent = clickedEl.alt;
 
             mediaModalContentWrapper.appendChild(newImg);
 
@@ -491,7 +495,7 @@ allMediaBlocks.forEach((block) => {
 
             mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.poster})`;
             mediaModalContentWrapper.style.aspectRatio = '16/9';
-            mediaModalCaption.innerHTML = clickedEl.dataset.caption;
+            mediaModalCaption.textContent = clickedEl.dataset.caption;
 
             mediaModalContentWrapper.appendChild(newVideo);
             mediaModalContentWrapper.classList.add("lazy-img-loaded");

@@ -990,6 +990,13 @@
         --_adjusted-shadow-shift: var(--block-shadow-shift);
         --_content-width: calc((1 + tan(var(--content-skew))) * var(--_img-width));
 
+        /* P1·9 — blur-up image source comes from the template via the
+           per-tile `--mem-blur-src` custom property; the actual
+           background-image declaration lives here in CSS so style+data
+           are separated. background-size is inherited from .skewed-block
+           via the `[class*="-img"]:has(img)` recipe in general.css. */
+        background-image: var(--mem-blur-src);
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1012,10 +1019,21 @@
             align-items: center;        /* vertically center text against photo */
             gap: 3rem;
             flex-wrap: wrap;
+            /* USER REQ — stretch-click pattern. Form L (faculty) renders
+               separate <a> for photo + name links and a non-link
+               description; only the photo+name were clickable, so
+               hovering the description text didn't read as interactive.
+               position: relative is the anchor for the stretched ::after
+               below on .mem-img — that pseudo expands to cover the whole
+               .mem-block so any click on the tile (including the
+               description) activates the photo's link. */
+            position: relative;
 
             /* Group hover effect for the entire block */
             &:hover,
             &:focus-within {
+                cursor: pointer;
+
                 .mem-img {
                     translate: var(--block-hover-translate) var(--block-hover-translate);
                     box-shadow: var(--block-hover-shadow-shift) var(--block-hover-shadow-shift) var(--main-shadow-color);
@@ -1025,6 +1043,22 @@
                 .mem-name {
                     translate: var(--block-hover-translate) var(--block-hover-translate);
                 }
+            }
+
+            /* Stretched click target — the photo's <a> carries the URL.
+               The ::after overlays the whole block; .mem-text below is
+               lifted above it so inner EngName/ChiName anchors stay
+               independently focusable, but a click anywhere ELSE on the
+               block falls through to the stretched photo link. */
+            .mem-img[href]::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+            }
+            .mem-text {
+                position: relative;
+                z-index: 2;
             }
 
             &:active {
@@ -2084,6 +2118,17 @@
         clip-path: polygon(0 0, 100% 0, 100% 100%);
         animation: l2 2s infinite cubic-bezier(0.3, 1, 0, 1);
     }
+
+    /* P3·2 — freeze the loader animation under reduced-motion. The
+       overlay still appears + dismisses on resource-ready (the parent's
+       opacity transition is also harmless to vestibular users), but the
+       infinite spin doesn't run. role="status" + aria-label on the
+       overlay still announces "Loading" to assistive tech. */
+    @media (prefers-reduced-motion: reduce) {
+        .loader {
+            animation: none;
+        }
+    }
 }
 
 @keyframes l2 {
@@ -2600,7 +2645,11 @@
     }
 
     .section-cta-btn {
+        /* P3·6 — bumped from 0.75em vertical padding to 0.875em so the
+           effective tap area clears WCAG 2.5.5 (44 × 44 px). 1rem font
+           × 1.6 line-height + 2 × 0.875em padding ≈ 44 px on mobile. */
         --_adjusted-font-size: 1rem;
-        --_adjusted-padding: 0.75em 1.5em;
+        --_adjusted-padding: 0.875em 1.5em;
+        min-height: 2.75rem;
     }
 }

@@ -8,12 +8,17 @@
    Padding-inline uses --gutter-x and constrains inner content to 80rem
    so the logo aligns flush with every section below it. */
 
+/* S·3 — header chrome trimmed ~30%. Padding-block 1.25rem → 0.875rem,
+   logo height 2.25rem → 2rem (desktop), trail-current --fs-heading-s
+   → 1.25rem. Result: ~4.5rem header height instead of ~6rem at desktop,
+   ~3.5rem instead of ~4.5rem on tablet. Content sits earlier in the
+   viewport; news article pages drop ~1.5rem of chrome above the hero. */
 .subpage-header {
     position: sticky;
     top: 0;
     z-index: 100;
     width: 100%;
-    padding-block: 1.25rem;
+    padding-block: 0.875rem;
     padding-inline: var(--gutter-x);
     background-color: var(--main-bg-color);
     border-bottom: 0.125rem solid var(--main-color);
@@ -39,8 +44,8 @@
 .subpage-header-logo img {
     /* Wordmark is 4.94:1 (e3-center-logo-inline.svg) — height-based
        sizing keeps the typographic weight aligned with the breadcrumb
-       trail-current at every breakpoint. */
-    height: 2.25rem;
+       trail-current at every breakpoint. S·3 trim: 2.25rem → 2rem. */
+    height: 2rem;
     width: auto;
     display: block;
     transition: var(--hover-transition-time);
@@ -91,7 +96,10 @@
 }
 
 .trail-current {
-    font-size: var(--fs-heading-s);
+    /* S·3 — was var(--fs-heading-s) (1.5rem); trimmed to 1.25rem so the
+       trail reads as a strong breadcrumb rather than competing with the
+       page's own h1. Pairs with the tighter header padding above. */
+    font-size: 1.25rem;
     font-weight: var(--fw-heading);
     line-height: 1.2;
     letter-spacing: -0.015em;
@@ -105,7 +113,7 @@
 
 @media (max-width: 64rem) {
     .subpage-header {
-        padding-block: 1rem;
+        padding-block: 0.75rem;
     }
 
     .subpage-header-inner {
@@ -114,11 +122,11 @@
     }
 
     .subpage-header-logo img {
-        height: 2rem;
+        height: 1.75rem;
     }
 
     .trail-current {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 }
 
@@ -658,15 +666,16 @@
     cursor: pointer;
     transition: background var(--hover-transition-time);
 
+    /* C·5 — row hover language: ONLY background tint + arrow nudge.
+       The previous title-opacity drop was a third cue layered on top
+       and read as "the title is dimming, not the row is brightening" —
+       confusing in lists where the user is scanning titles. Strip the
+       opacity shift; the tint + arrow do the work cleanly. */
     &:hover {
         background: color-mix(in srgb, var(--main-color) 4%, transparent);
 
-        & .news-row-title {
-            opacity: 0.65;
-        }
-
         & .news-row-arrow {
-            opacity: 0.6;
+            opacity: 0.7;
 
             & svg {
                 translate: 0.2rem 0;
@@ -1960,6 +1969,11 @@
     max-height: 0;
     min-height: 0;
     padding-block: 0;
+    /* P3·1 — opacity fade out of the suppressed state works for everyone,
+       including reduced-motion users (opacity is on WCAG 2.3.3's vestibular-
+       safe list). The no-preference media below adds background-color
+       transitions on top for hover; the suppress fade is independent. */
+    transition: opacity 150ms ease-out;
     pointer-events: none;
 }
 
