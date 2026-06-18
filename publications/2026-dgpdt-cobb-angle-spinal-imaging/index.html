@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGPDT for Cobb Angle Estimation | E3 Center</title>
+    <meta name="description" content="Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent.">
+    <meta name="keywords" content="AI & Machine Learning, IEEE Transactions on Medical Imaging, E3 Center, publication, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/publications/2026-dgpdt-cobb-angle-spinal-imaging/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/publications/2026-dgpdt-cobb-angle-spinal-imaging/" />
+    <meta property="og:title" content="DGPDT for Cobb Angle Estimation | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DGPDT for Cobb Angle Estimation | E3 Center" />
+    <meta name="twitter:description" content="Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent." />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=40">
+    <link rel="stylesheet" href="/css/subpage.css?v=62">
+    <link rel="stylesheet" href="/css/publication-item.css?v=11">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "@id": "https://e3center.caece.net/publications/2026-dgpdt-cobb-angle-spinal-imaging/#article",
+      "headline": "DGPDT: Detection-Guided and Prompt-Driven Transformers for Automated and Generalizable Cobb Angle Estimation",
+"description": "Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent.",
+      "url": "https://e3center.caece.net/publications/2026-dgpdt-cobb-angle-spinal-imaging/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/publications/2026-dgpdt-cobb-angle-spinal-imaging/" },
+      "datePublished": "2026-06-01",
+      "inLanguage": "en",
+      "author": [
+{
+          "@type": "Person",
+          "name": "Chih-Yi Lu",
+          "url": "https://e3center.caece.net/members/chihyilu/"        }, {
+          "@type": "Person",
+          "name": "Chen-Hung Tu"        }, {
+          "@type": "Person",
+          "name": "Chun-Yi Hsieh"        }, {
+          "@type": "Person",
+          "name": "Chi-Kuang Feng"        }, {
+          "@type": "Person",
+          "name": "I-Yun Lisa Hsieh",
+          "url": "https://e3center.caece.net/members/iyunlisahsieh/"        }      ],
+"isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Transactions on Medical Imaging"      },
+"sameAs": "https://doi.org/10.1109/TMI.2026.3701624",
+"publisher": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Publications", "item": "https://e3center.caece.net/publications/" },
+        { "@type": "ListItem", "position": 3, "name": "DGPDT: Detection-Guided and Prompt-Driven Transformers for Automated and Generalizable Cobb Angle Estimation" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="" width="232" height="47">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/publications/">Publications</a>
+            <span class="trail-current">DGPDT for Cobb Angle Estimation</span>
+        </nav>
+    </div>
+</header>
+    <main class="pub-item-main">
+        <article class="pub-item-article">
+
+            <header class="pub-item-header">
+                <ul class="pub-item-tags" aria-label="Topics and methods">
+                    <li class="pub-tag-chip pub-tag-chip--method">AI & Machine Learning</li>
+                </ul>
+
+                <h1 class="pub-item-title">DGPDT: Detection-Guided and Prompt-Driven Transformers for Automated and Generalizable Cobb Angle Estimation</h1>
+
+                <p class="pub-item-authors">
+<a class="pub-author-link" href="/members/chihyilu/">Chih-Yi Lu</a><span class="pub-author-sep">, </span><span>Chen-Hung Tu</span><span class="pub-author-sep">, </span><span>Chun-Yi Hsieh</span><span class="pub-author-sep">, </span><span>Chi-Kuang Feng</span><span class="pub-author-sep">, </span><a class="pub-author-link" href="/members/iyunlisahsieh/">I-Yun Lisa Hsieh</a>                </p>
+            </header>
+
+            <div class="pub-item-layout">
+                <div class="pub-item-content">
+                    <section class="pub-item-section" aria-labelledby="abstract-heading">
+                        <h2 id="abstract-heading" class="pub-item-section-title">Abstract</h2>
+                        <p class="pub-item-abstract">Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent. We introduce DGPDT (Detection-Guided Prompt-driven Transformer), a unified transformer-based framework that integrates vertebra detection and foundation-model segmentation for generalizable spinal analysis. A Roboflow Detection Transformer (RF-DETR) with a DINOv2 backbone localizes vertebrae, followed by post-processing to ensure anatomical continuity. The resulting bounding boxes serve as automatic prompts for a fine-tuned Segment Anything Model 2.1 (SAM 2.1), which generates high-resolution vertebral masks. Cobb angles are then computed from vertebral masks, enabling estimation of both main and compensatory curves. Evaluations on the in-house (TVGH-SpineXR) and external (SpineWeb-16) datasets demonstrate encouraging performance on both internal and external datasets, achieving mean Dice coefficients of 0.944 and 0.781, respectively, and mean absolute Cobb angle errors of approximately 2–3° in-domain and 4.93° under cross-domain evaluation. Despite being trained solely on TVGH-SpineXR, DGPDT maintains accuracy comparable to models trained directly on the benchmark dataset. By coupling detection-guided prompting with transformer-based segmentation, DGPDT achieves a clinically acceptable mean absolute error (<5°), suggesting good reproducibility and potential applicability beyond the training dataset.</p>
+
+                        <div class="pub-item-keywords-block">
+                            <h3 class="pub-item-keywords-label">Keywords</h3>
+                            <p class="pub-item-keywords">Cobb angle measurement; Scoliosis; Spinal radiographs; Vertebra detection; Transformer-based segmentation; Foundation models; RF-DETR; Segment Anything Model</p>
+                        </div>
+                    </section>
+
+                    <section class="pub-item-section" aria-labelledby="bibtex-heading">
+                        <div class="pub-cite-header">
+                            <h2 id="bibtex-heading" class="pub-item-section-title">Cite (BibTeX)</h2>
+                            <button class="pub-copy-btn" type="button" data-copy-target="bibtex-block">
+                                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                                <span class="pub-copy-label" aria-live="polite" aria-atomic="true">Copy</span>
+                            </button>
+                        </div>
+                        <pre class="pub-bibtex" id="bibtex-block"><code>@article{lu2026dgpdt,
+  title={DGPDT: Detection-Guided and Prompt-Driven Transformers for Automated and Generalizable Cobb Angle Estimation},
+  author={Lu, Chih-Yi and Tu, Chen-Hung and Hsieh, Chun-Yi and Feng, Chi-Kuang and Hsieh, I-Yun Lisa},
+  journal={IEEE Transactions on Medical Imaging},
+  year={2026},
+  month=jun,
+  doi={10.1109/TMI.2026.3701624}
+}</code></pre>
+                    </section>
+                </div>
+
+                <aside class="pub-item-aside">
+                    <div class="pub-meta-card">
+                        <p class="pub-meta-label">Published in</p>
+                        <p class="pub-meta-journal">IEEE Transactions on Medical Imaging</p>
+                        <p class="pub-meta-detail">2026</p>
+
+                        <a class="pub-action-btn skewed-block" b-role="btn" b-hoverable
+                           href="https://doi.org/10.1109/TMI.2026.3701624" target="_blank" rel="noopener">
+                            <span>View on publisher</span>
+                            <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+                        </a>
+
+
+                        <p class="pub-item-doi">DOI<span>10.1109/TMI.2026.3701624</span></p>
+                    </div>
+                </aside>
+            </div>
+
+        </article>
+    </main>
+
+<footer>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
+
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
+    </div>
+
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <ui>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </ui>
+
+        <ui>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </ui>
+
+        <ui>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </ui>
+        <ui>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </ui>
+    </ul>
+</nav>
+    <script>
+        document.querySelectorAll('.pub-copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var target = document.getElementById(btn.dataset.copyTarget);
+                if (!target) return;
+                var text = target.innerText;
+                var label = btn.querySelector('.pub-copy-label');
+                navigator.clipboard.writeText(text).then(function () {
+                    if (!label) return;
+                    var prev = label.textContent;
+                    label.textContent = 'Copied!';
+                    btn.classList.add('is-copied');
+                    setTimeout(function () {
+                        label.textContent = prev;
+                        btn.classList.remove('is-copied');
+                    }, 1800);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
