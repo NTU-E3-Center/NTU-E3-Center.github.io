@@ -1623,27 +1623,60 @@
                 "abstract": ""
             },
             {
-                "citationId": "",
-                "title": "Detection-Guided and Prompt-Augmented Transformers for Automated and Generalizable Cobb Angle Estimation in Spinal Radiographs",
+                "citationId": "tUbPb-QAAAAJ:lu2026dgpdt",
+                "title": "DGPDT: Detection-Guided and Prompt-Driven Transformers for Automated and Generalizable Cobb Angle Estimation",
                 "toolUrl": "",
-                "link": "",
-                "journal": "",
+                "link": "https://doi.org/10.1109/TMI.2026.3701624",
+                "journal": "IEEE Transactions on Medical Imaging",
                 "volume": "",
                 "issue": "",
                 "articleNo": "",
-                "doi": "",
+                "pages": "",
+                "doi": "10.1109/TMI.2026.3701624",
                 "year": "'26",
-                "month": "Mar.",
-                "authors": "Chih-Yi Lu, Tub, C. H., Hsieh, C. Y., Feng, C. K., I-Yun Lisa Hsieh",
-                "status": "working",
+                "month": "Jun.",
+                "authors": "Chih-Yi Lu, Chen-Hung Tu, Chun-Yi Hsieh, Chi-Kuang Feng, I-Yun Lisa Hsieh",
+                "status": "published",
                 "E3": true,
-                "slug": "",
-                "shortTitle": "",
+                "slug": "2026-dgpdt-cobb-angle-spinal-imaging",
+                "shortTitle": "DGPDT for Cobb Angle Estimation",
                 "topics": [],
-                "methods": [],
-                "keywords": [],
-                "authorList": [],
-                "abstract": ""
+                "methods": [
+                    "AI & Machine Learning"
+                ],
+                "keywords": [
+                    "Cobb angle measurement",
+                    "Scoliosis",
+                    "Spinal radiographs",
+                    "Vertebra detection",
+                    "Transformer-based segmentation",
+                    "Foundation models",
+                    "RF-DETR",
+                    "Segment Anything Model"
+                ],
+                "authorList": [
+                    {
+                        "name": "Chih-Yi Lu",
+                        "webId": "chihyilu"
+                    },
+                    {
+                        "name": "Chen-Hung Tu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Chun-Yi Hsieh",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Chi-Kuang Feng",
+                        "webId": ""
+                    },
+                    {
+                        "name": "I-Yun Lisa Hsieh",
+                        "webId": "iyunlisahsieh"
+                    }
+                ],
+                "abstract": "Accurate Cobb angle measurement is essential for scoliosis assessment but remains labor-intensive and observer-dependent. We introduce DGPDT (Detection-Guided Prompt-driven Transformer), a unified transformer-based framework that integrates vertebra detection and foundation-model segmentation for generalizable spinal analysis. A Roboflow Detection Transformer (RF-DETR) with a DINOv2 backbone localizes vertebrae, followed by post-processing to ensure anatomical continuity. The resulting bounding boxes serve as automatic prompts for a fine-tuned Segment Anything Model 2.1 (SAM 2.1), which generates high-resolution vertebral masks. Cobb angles are then computed from vertebral masks, enabling estimation of both main and compensatory curves. Evaluations on the in-house (TVGH-SpineXR) and external (SpineWeb-16) datasets demonstrate encouraging performance on both internal and external datasets, achieving mean Dice coefficients of 0.944 and 0.781, respectively, and mean absolute Cobb angle errors of approximately 2–3° in-domain and 4.93° under cross-domain evaluation. Despite being trained solely on TVGH-SpineXR, DGPDT maintains accuracy comparable to models trained directly on the benchmark dataset. By coupling detection-guided prompting with transformer-based segmentation, DGPDT achieves a clinically acceptable mean absolute error (<5°), suggesting good reproducibility and potential applicability beyond the training dataset."
             },
             {
                 "citationId": "",
