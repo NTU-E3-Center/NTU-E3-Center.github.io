@@ -2307,6 +2307,51 @@
                     }
                 ],
                 "abstract": "This study examines the cost implications of electric vehicles (EVs) in Taiwan, with a focus on promoting their widespread adoption to achieve the government's 2050 net-zero emissions target. Previous research has primarily compared the total ownership costs of EVs and conventional fuel vehicles, considering purchase and operational expenses. However, such studies often simplify charging costs by using a single electricity price rate. In reality, charging costs are influenced by various factors, including location, charging time, vehicle usage patterns, charging power, and equipment-related expenses. To comprehensively assess the current charging costs in Taiwan, this research employs a Levelized Cost of Charging (LCOC) model. The analysis considers different charging sites (residential, workplace, and public charging), electricity pricing schemes (stepwise power tariff, time-of-use tariffs), charging times (peak and off-peak), and vehicle driving distances. The results indicate that utilizing the \"Electric Vehicle Special Utility Rate\" during off-peak hours can significantly reduce levelized charging costs, which is especially advantageous for operators of public charging facilities. The study also uncovers substantial regional disparities in residential charging costs across different counties and cities, attributed to the considerable differences in residents' vehicle usage patterns and driving distances. Workplace and community (residential) charging sites exhibit the lowest and highest LCOC, respectively. Sensitivity analysis highlights driving distance as a key cost factor for residential charging, while charging time significantly impacts workplace and public charging costs. Moreover, increasing the utilization rate of charging infrastructure substantially lowers LCOC. Currently, the LCOC for workplace and public charging sites is competitive with the fuel costs of conventional gasoline vehicles. Notably, when the utilization rate exceeds 5.20% to 7.95%, the per-kilometer energy replenishment cost of EVs in workplace and public settings becomes lower than the historically lowest fuel costs of gasoline vehicles in Taiwan. These findings offer valuable academic and practical insights for policymakers to support the development and widespread adoption of EVs, aligning with Taiwan's emission reduction goals."
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:liu2017fairness",
+                "title": "Misfortune may be a blessing in disguise: Fairness perception and emotion modulate decision making",
+                "toolUrl": "",
+                "link": "https://doi.org/10.1111/psyp.12870",
+                "journal": "Psychophysiology",
+                "volume": "54",
+                "issue": "8",
+                "articleNo": "",
+                "pages": "1163-1179",
+                "doi": "10.1111/psyp.12870",
+                "year": "'17",
+                "month": "Aug.",
+                "authors": "Hong-Hsiang Liu, Yin-Dir Hwang, Ming H. Hsieh, Yung-Fong Hsu, Wen-Sung Lai",
+                "status": "published",
+                "E3": false,
+                "slug": "",
+                "shortTitle": "",
+                "topics": [],
+                "methods": [],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Hong-Hsiang Liu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Yin-Dir Hwang",
+                        "webId": "yindirhwang"
+                    },
+                    {
+                        "name": "Ming H. Hsieh",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Yung-Fong Hsu",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Wen-Sung Lai",
+                        "webId": ""
+                    }
+                ],
+                "abstract": ""
             }
         ]
     }

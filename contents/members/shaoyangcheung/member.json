@@ -1,10 +1,15 @@
 {
-  "position": "Year 1 Master's Student,\n\nDepartment of Civil Engineering,\n\nNational Taiwan University",
+  "position": "Year 1 Master's Student,\n\nComputer-Aided Engineering Division,\n\nDepartment of Civil Engineering,\n\nNational Taiwan University",
   "email": {
     "ntu": "r14521615@ntu.edu.tw",
     "preferred": ""
   },
-  "interests": [],
+  "interests": [
+    "Sustainable Aviation Fuel",
+    "Life Cycle Assessment",
+    "Techno-Economic Analysis",
+    "Low-Carbon Aviation"
+  ],
   "links": {
     "scholar": "",
     "orcid": "",
@@ -36,5 +41,5 @@
       "url": ""
     }
   ],
-  "metaDescription": ""
+  "metaDescription": "Shao Yang Cheung is an NTU Civil Engineering master's student researching sustainable aviation fuel using LCA and TEA."
 }

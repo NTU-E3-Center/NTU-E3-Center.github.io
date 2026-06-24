@@ -1,0 +1,45 @@
+{
+  "position": "Consulting Advisor (Part-time),\n\nE3 Research Center,\n\nNational Taiwan University",
+  "email": {
+    "ntu": "",
+    "preferred": "aady5566@gmail.com"
+  },
+  "interests": [
+    "Agentic AI Systems",
+    "AI Product Strategy & Operations",
+    "Multi-Agent Orchestration",
+    "Decision Science & Behavioral Modeling"
+  ],
+  "links": {
+    "scholar": "",
+    "orcid": "",
+    "linkedin": "https://www.linkedin.com/in/yd-huang/",
+    "researchgate": "",
+    "ntu_scholars": "",
+    "facebook": "",
+    "office": {
+      "text": "",
+      "url": ""
+    }
+  },
+  "awards": [],
+  "externalEngagements": [
+    {
+      "role": "Senior Director, Agentic AI",
+      "organization": "Appier",
+      "note": "",
+      "location": "Taipei, Taiwan",
+      "date": "2017-Present",
+      "url": "https://www.appier.com"
+    },
+    {
+      "role": "Adjunct Lecturer (AI Trends & Programming)",
+      "organization": "National Defense University",
+      "note": "",
+      "location": "Taipei, Taiwan",
+      "date": "2025-Present",
+      "url": ""
+    }
+  ],
+  "metaDescription": "Yin-Dir (YD) Hwang is a consulting advisor at NTU's E3 Center, focused on agentic-AI product strategy and its application to energy-transition systems. Senior Director of Agentic AI at Appier."
+}

@@ -27,11 +27,11 @@ import openpyxl
 
 from validate_member import validate_member_folder
 
-SECTION_ORDER = ['Principal Investigator', 'Full Time', 'Ph.D. Students', 'Master Students', 'Alumni']
+SECTION_ORDER = ['Principal Investigator', 'Staff', 'Ph.D. Students', 'Master Students', 'Alumni']
 
 SECTION_META = {
     'Principal Investigator': {'form': 'L'},
-    'Full Time':              {'form': 'M'},
+    'Staff':                  {'form': 'M'},
     'Ph.D. Students':         {'form': 'M'},
     'Master Students':        {'form': 'M'},
     'Alumni': {
