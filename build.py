@@ -964,6 +964,7 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=Non
     if basename is None:
         basename = os.path.splitext(os.path.basename(path))[0]
     with Image.open(path) as img:
+        img = ImageOps.exif_transpose(img)
         for size in sizes:
             if target_aspect:
                 w_aspect, h_aspect = target_aspect
