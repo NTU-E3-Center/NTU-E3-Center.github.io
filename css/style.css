@@ -20,14 +20,14 @@
         --_y-location: 17%;
 
         .hp-plane-text {
-            font-size: 1.375rem;
+            font-size: var(--fs-lede);
             color: var(--main-color);
         }
     }
 
     .hp-mainthing {
         width: min(100%, var(--_home-max-width));
-        padding-inline: 3rem 1.5rem;
+        padding-inline: var(--space-12) var(--space-6);
 
         position: relative;
         display: flex;
@@ -41,7 +41,7 @@
         width: 18rem;
 
         display: grid;
-        gap: 2.5rem;
+        gap: var(--space-10);
         justify-items: start;
     }
 
@@ -58,7 +58,7 @@
         }
 
         & span {
-            font-size: 1rem;
+            font-size: var(--fs-body-base);
         }
     }
 
@@ -73,7 +73,7 @@
                 content: '';
                 width: 0.75rem;
                 height: 0.25rem;
-                margin-left: 0.25rem;
+                margin-left: var(--space-1);
                 translate: 0 50%;
                 background-color: var(--secondary-color);
             }
@@ -81,7 +81,7 @@
     }
 
     .hp-about-us {
-        --_adjusted-font-size: 1.125rem;
+        --_adjusted-font-size: var(--fs-body);
         --_adjusted-border-width: 0.1875rem;
         --_adjusted-shadow-shift: 0.3125rem;
         --_adjusted-hover-shadow-shift: 0.4375rem;
@@ -93,11 +93,11 @@
         transform: translateX(-50%);
         bottom: var(--_window-padding);
         user-select: none;
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
 
         display: grid;
         place-items: center;
-        gap: 0.125rem;
+        gap: var(--space-1);
     }
 
     .hp-last-update {
@@ -105,7 +105,7 @@
         bottom: var(--_window-padding);
         right: max(var(--_window-padding), calc((100% - var(--_home-max-width))/2 + var(--_window-padding)));
         text-align: right;
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
     }
 
     /* Tablet + phone: column-stack the hero. */
@@ -116,24 +116,24 @@
         align-items: end;
 
         .hp-mainthing {
-            padding-block: 7rem 4rem;
-            padding-inline: 1rem;
+            padding-block: var(--space-28) var(--space-16);
+            padding-inline: var(--space-4);
             height: 100%;
 
             flex-direction: column;
             justify-content: space-around;
-            gap: 3rem;
+            gap: var(--space-12);
         }
 
         .hp-text {
             width: 100%;
-            padding-inline: 3rem;
-            gap: 2rem;
+            padding-inline: var(--space-12);
+            gap: var(--space-8);
         }
 
         .hp-about-us {
             justify-self: end;
-            margin-inline-end: 1rem;
+            margin-inline-end: var(--space-4);
         }
     }
 
@@ -149,7 +149,7 @@
         /* Keep About Us CTA visible — it's the only primary action above the
            fold. Shrink to fit the narrower viewport rather than hide. */
         .hp-about-us {
-            --_adjusted-font-size: 1rem;
+            --_adjusted-font-size: var(--fs-body-base);
             --_adjusted-padding: 0.625em 1.5em;
             margin-inline-end: 0;
         }
@@ -178,14 +178,14 @@
         }
 
         .hp-mainthing {
-            padding-block: 5rem 3rem;
+            padding-block: var(--space-20) var(--space-12);
             padding-inline: 0;
-            gap: 1rem;
+            gap: var(--space-4);
         }
 
         .hp-text {
-            padding-inline: 1rem;
-            gap: 1rem;
+            padding-inline: var(--space-4);
+            gap: var(--space-4);
         }
 
         .hp-img {
@@ -807,9 +807,9 @@
     /* --_para-min-width: 768px; */
     --_para-min-width: 50rem;
     --_logo-width: 15rem;
-    --_gap: 2rem;
+    --_gap: var(--space-8);
 
-    line-height: 1.5;
+    line-height: var(--lh-body-base);
 
     /* Inner padding removed: content aligns to the section-title's left
        edge, governed by the parent section's responsive padding-inline. */
@@ -840,7 +840,7 @@
             }
 
             &+p {
-                margin-block-start: 1rem;
+                margin-block-start: var(--space-4);
             }
         }
 
@@ -856,7 +856,7 @@
 
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem 4rem;
+        gap: var(--space-8) var(--space-16);
         justify-content: center;
 
         & img {
@@ -890,16 +890,16 @@
 .section-cta {
     display: flex;
     justify-content: center;
-    margin-block-start: 3rem;
+    margin-block-start: var(--space-12);
 }
 
 .section-cta-btn {
-    --_adjusted-font-size: 1.125rem;
+    --_adjusted-font-size: var(--fs-body);
     --_adjusted-padding: 0.875em 2em;
 
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: var(--space-2-5);
     cursor: pointer;
     transition: background-color 200ms ease-out, color 200ms ease-out;
 
@@ -917,7 +917,7 @@
 
 #members h3 {
     opacity: 0.6;
-    /* Inherits default h3 { margin-block: 4rem 1rem } from general.css for
+    /* Inherits default h3 { margin-block: var(--space-16) var(--space-4) } from general.css for
        subsequent group titles. The very first h3's top margin is zeroed
        by the universal rule below so --section-title-gap owns that rhythm. */
 
@@ -977,7 +977,7 @@
         & svg:has(use[href*="#svg-arrow-right"]) {
             display: inline-block;
             width: 0.75rem;
-            margin-inline-start: 0.25rem;
+            margin-inline-start: var(--space-1);
             transition: var(--hover-transition-time);
         }
     }
@@ -1010,14 +1010,14 @@
 
         display: grid;
         justify-items: center;          /* center the PI block horizontally */
-        gap: 1rem;
+        gap: var(--space-4);
 
         .mem-block {
             width: fit-content;
             max-width: 100%;
             display: flex;
             align-items: center;        /* vertically center text against photo */
-            gap: 3rem;
+            gap: var(--space-12);
             flex-wrap: wrap;
             /* USER REQ — stretch-click pattern. Form L (faculty) renders
                separate <a> for photo + name links and a non-link
@@ -1096,8 +1096,8 @@
             display: grid;
             align-content: start;
             justify-items: start;
-            gap: 1rem;
-            margin-left: 0.75rem;
+            gap: var(--space-4);
+            margin-left: var(--space-3);
 
             .mem-quote {
                 width: 0.875rem;
@@ -1113,12 +1113,12 @@
                 .EngName {
                     /* Capped at h3 (1.75rem) so the person-name subheading
                        never exceeds the section subheading above it. */
-                    font-size: 1.75rem;
-                    line-height: 1.1;
+                    font-size: var(--fs-h3);
+                    line-height: var(--lh-h1);
                 }
 
                 .ChiName {
-                    font-size: 1.25rem;
+                    font-size: var(--fs-lede);
                 }
             }
         }
@@ -1157,12 +1157,12 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1.5rem 4rem;
+        gap: var(--space-6) var(--space-16);
 
         .mem-block {
             flex: 0 0 var(--_img-width);
             display: grid;
-            gap: 1rem;
+            gap: var(--space-4);
             padding: 0.5rem;
             border-radius: 0.375rem;
             transition: background var(--hover-transition-time);
@@ -1176,15 +1176,15 @@
             transition: var(--hover-transition-time);
 
             display: grid;
-            gap: 0.25rem;
+            gap: var(--space-1);
 
             .mem-name-en {
-                font-size: 1.7rem;
+                font-size: var(--fs-h3);
                 line-height: 0.7;
 
                 display: flex;
                 align-items: center;
-                gap: 0.5rem;
+                gap: var(--space-2);
 
                 & svg {
                     height: 0.75em;
@@ -1192,7 +1192,7 @@
             }
 
             .mem-name-zh {
-                font-size: 1rem;
+                font-size: var(--fs-body-base);
             }
         }
 
@@ -1212,14 +1212,14 @@
 
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(var(--_mem-block-width), 1fr));
-        gap: 2rem 1rem;
+        gap: var(--space-8) var(--space-4);
         justify-content: space-between;
 
         .mem-block {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1rem;
+            gap: var(--space-4);
 
             .mem-img {
                 flex-shrink: 0;
@@ -1228,11 +1228,11 @@
             .mem-name {
                 width: var(--_mem-name-width);
                 font-size: var(--fs-heading-s);
-                line-height: 1;
+                line-height: var(--lh-flush);
                 transition: var(--hover-transition-time);
 
                 & span {
-                    font-size: 1rem;
+                    font-size: var(--fs-body-base);
                 }
             }
         }
@@ -1276,7 +1276,7 @@
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--_res-block-width), 1fr));
-    gap: 2rem 1rem;
+    gap: var(--space-8) var(--space-4);
     justify-content: center;
     justify-items: center;
 
@@ -1287,7 +1287,7 @@
     .res-block {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem 0.625rem;
+        gap: var(--space-4) var(--space-2-5);
         align-items: start;
         justify-content: center;
     }
@@ -1338,7 +1338,7 @@
         --_adjusted-hover-translate: var(--block-hover-translate);
         --_adjusted-hover-shadow-shift: var(--block-hover-shadow-shift);
 
-        margin-inline-end: 0.5rem;
+        margin-inline-end: var(--space-2);
 
         display: flex;
         align-items: center;
@@ -1357,8 +1357,8 @@
         align-content: start;
 
         .res-tag {
-            font-size: 1.625rem;
-            line-height: 1.1;
+            font-size: var(--fs-h3);
+            line-height: var(--lh-h1);
 
             .res-tag-icon {
                 color: var(--secondary-color);
@@ -1366,9 +1366,9 @@
         }
 
         .res-info-minor {
-            margin-block-start: 0.5rem;
+            margin-block-start: var(--space-2);
             padding-inline-start: 0.125rem;
-            font-size: 1.0625rem;
+            font-size: var(--fs-body);
             text-wrap: balance;
         }
     }
@@ -1710,7 +1710,7 @@
 .publi-section {
     --_font-size-l: 1.5rem;
     --_font-size-s: 1.0625rem;
-    --_block-gap: 0.75rem;
+    --_block-gap: var(--space-3);
 
     display: grid;
     justify-items: start;
@@ -1731,7 +1731,7 @@
 
     .publi-block {
         display: flex;
-        gap: 1rem;
+        gap: var(--space-4);
 
         .publi-date {
             margin-block-start: 0.4375rem;
@@ -1776,15 +1776,15 @@
         }
 
         .publi-subtitle {
-            margin-block-start: 0.125rem;
+            margin-block-start: var(--space-1);
             font-size: var(--_font-size-s);
         }
 
         @media (max-width: 64rem) {
-            --_block-gap: 1rem;
+            --_block-gap: var(--space-4);
 
             flex-direction: column;
-            gap: 0.125rem;
+            gap: var(--space-1);
         }
     }
 
@@ -1792,7 +1792,7 @@
 
 .more,
 .publi-more {
-    margin-block-start: 1rem;
+    margin-block-start: var(--space-4);
     /* No inline indent — aligns with section-title and inner content. */
     width: fit-content;
 
@@ -1828,26 +1828,26 @@
     }
 
     @media (max-width: 64rem) {
-        margin-block-start: 1.5rem;
+        margin-block-start: var(--space-6);
     }
 }
 
 /* publication meta lines (used in news-row layout) */
 .publi-row-journal,
 .publi-row-authors {
-    font-size: 0.875rem;
-    line-height: 1.4;
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-lede);
     opacity: 0.6;
     color: var(--main-color);
 }
 
 /* publication keyword chips */
-.pub-keywords { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.5rem; }
-.pub-keyword-chip { font-size: 0.8125rem; padding: 0.125rem 0.5rem; background: rgba(10, 85, 126, 0.08); border-radius: 999px; color: #0a557e; }
+.pub-keywords { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
+.pub-keyword-chip { font-size: var(--fs-secondary); padding: 0.125rem 0.5rem; background: rgba(10, 85, 126, 0.08); border-radius: 999px; color: #0a557e; }
 
 /* news */
 #news .publi-block-wrapper {
-    --_block-gap: 1rem;
+    --_block-gap: var(--space-4);
 }
 
 .publi-block--linked {
@@ -1884,7 +1884,7 @@
     --_actural-block-width: calc(var(--_block-width) + (var(--_block-height) / var(--_tan-theta)) - 2 * var(--_img-border-r) * (1 - 1 / var(--_tan-theta-2)));
     --_actural-content-width: calc(var(--_actural-block-width) - 2 * var(--_img-border-w));
 
-    --_slider-gap: 2rem;
+    --_slider-gap: var(--space-8);
 
     display: grid;
     justify-content: center;
@@ -1899,11 +1899,11 @@
         justify-content: space-between;
 
         .glf-slider-btns {
-            margin-block-end: 0.8rem;
+            margin-block-end: var(--space-3);
 
             display: flex;
             align-items: center;
-            gap: 0.625rem;
+            gap: var(--space-2-5);
 
             & svg:has(use[href*="#svg-slider-"]) {
                 width: 0.8125rem;
@@ -1930,8 +1930,8 @@
 
         .glf-slider-num {
             width: 3.8125rem;
-            margin-inline-start: 0.125rem;
-            font-size: 1.25rem;
+            margin-inline-start: var(--space-1);
+            font-size: var(--fs-lede);
             text-align: center;
         }
     }
@@ -1994,8 +1994,8 @@
 
         .glf-slider-text {
             width: var(--_img-width);
-            margin-block-start: 0.75rem;
-            font-size: 1.25rem;
+            margin-block-start: var(--space-3);
+            font-size: var(--fs-lede);
             text-wrap: balance;
             text-align: center;
         }
@@ -2009,13 +2009,13 @@
 
     display: grid;
     grid-template-columns: repeat(auto-fill, calc(var(--_img-width) + 2 * var(--_img-border-w)));
-    gap: 2rem;
+    gap: var(--space-8);
     justify-content: space-between;
 
     .glf-block {
         display: grid;
         justify-items: end;
-        gap: 0.5rem;
+        gap: var(--space-2);
     }
 
     .glf-img {
@@ -2032,7 +2032,7 @@
     }
 
     .glf-img-text {
-        margin-inline-end: 0.25rem;
+        margin-inline-end: var(--space-1);
     }
 
     @media (max-width: 64rem) {
@@ -2046,7 +2046,7 @@
        aligns with About / Members / Research above. The form below gets
        its own narrower max-width — only the form is centered, not the
        whole section. */
-    max-width: 40rem;
+    max-width: var(--w-form);
 
     & a {
         text-decoration: underline;
@@ -2058,22 +2058,22 @@
     }
 
     & form {
-        margin-block-start: 1rem;
+        margin-block-start: var(--space-4);
 
         display: grid;
-        gap: 1rem;
+        gap: var(--space-4);
 
         & input,
         & textarea {
             padding: 0.5rem 0.75rem;
-            font-size: 1.125rem;
+            font-size: var(--fs-body);
             resize: none;
         }
 
         .tac-infos {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: var(--space-4);
 
             .tac-name {
                 width: min(100%, 20ch);
@@ -2173,7 +2173,7 @@
 
         display: grid;
         place-content: center;
-        gap: 1rem;
+        gap: var(--space-4);
     }
 
     &::backdrop {
@@ -2196,7 +2196,7 @@
     }
 
     .media-modal-caption {
-        font-size: 1.25rem;
+        font-size: var(--fs-lede);
         text-align: center;
         text-wrap: balance;
         user-select: initial;
@@ -2231,7 +2231,7 @@
 
     .cursor-text {
         color: var(--main-color);
-        font-size: 1.5rem;
+        font-size: var(--fs-h3);
         font-weight: var(--fw-bold);
         text-align: center;
         /* opacity: 0; */
@@ -2266,7 +2266,7 @@
 
         .section-title {
             & h2 {
-                font-size: 2.5rem;
+                font-size: var(--fs-h1);
             }
 
             & svg {
@@ -2276,11 +2276,11 @@
         }
 
         & .section-subtitle {
-            margin-block-start: 0.25rem;
+            margin-block-start: var(--space-1);
 
             & div {
-                font-size: 1rem;
-                gap: 0.125rem;
+                font-size: var(--fs-body-base);
+                gap: var(--space-1);
             }
 
             & svg {
@@ -2290,8 +2290,8 @@
     }
 
     h3 {
-        margin-block: 2.5rem 0.75rem;
-        font-size: 1.25rem;
+        margin-block: var(--space-10) var(--space-3);
+        font-size: var(--fs-lede);
 
         &::after {
             width: 0.625rem;
@@ -2310,7 +2310,7 @@
            override needed. Keep the larger paragraph gap. */
 
         &+p {
-            margin-block-start: 2rem !important;
+            margin-block-start: var(--space-8) !important;
         }
     }
 
@@ -2320,34 +2320,34 @@
     .mem-section[who='L'] {
         .mem-name {
             .EngName {
-                font-size: 1.25rem;
-                line-height: 1.15;
+                font-size: var(--fs-lede);
+                line-height: var(--lh-h2);
             }
 
             .ChiName {
-                font-size: 1rem;
+                font-size: var(--fs-body-base);
             }
         }
 
         .mem-info {
-            font-size: 1rem;
+            font-size: var(--fs-body-base);
         }
     }
 
     .mem-section[who='M'] {
         .mem-name .mem-name-en {
-            font-size: 1.25rem;
+            font-size: var(--fs-lede);
         }
 
         .mem-name .mem-name-zh {
-            font-size: 0.875rem;
+            font-size: var(--fs-secondary);
         }
     }
 
     /* Research topic name — also a sub-sub heading (under h3 like
        "Energy / Economics / Environment"). Cap at h3 size. */
     .res-section .res-info .res-tag {
-        font-size: 1.25rem;
+        font-size: var(--fs-lede);
     }
 
     .publi-section {
@@ -2372,12 +2372,12 @@
 
         .glf-slider-num {
             width: 3.4375rem !important;
-            font-size: 1.125rem !important;
+            font-size: var(--fs-body) !important;
         }
     }
 
     .glf-slider-text {
-        font-size: 1.125rem !important;
+        font-size: var(--fs-body) !important;
     }
 }
 
@@ -2392,7 +2392,7 @@
         display: flex;
         flex-direction: column;
         align-items: end;
-        gap: 1rem;
+        gap: var(--space-4);
     }
 
     & a {
@@ -2414,7 +2414,7 @@
 
             & span {
                 translate: -0.25rem 0;
-                font-size: 1.5rem;
+                font-size: var(--fs-h3);
             }
 
         }
@@ -2427,7 +2427,7 @@
     }
 
     & span {
-        font-size: 1.25rem;
+        font-size: var(--fs-lede);
         user-select: none;
     }
 
@@ -2457,12 +2457,23 @@
    This block fixes the deltas that still break at iPhone SE / 14 / 15.
    ============================================================ */
 @media (max-width: 37.5rem) {
+    /* Homepage About prose — strip text-indent + tighten paragraph gap
+       on mobile. Same logic applied to member About / news article /
+       project prose so cross-subpage parity holds. */
+    .abt-text p {
+        text-indent: 0;
+
+        &+p {
+            margin-block-start: var(--space-3);
+        }
+    }
+
     /* Section heading — universal: every section that uses .section-title
        (Members, Publications, News, Research, Group Life, Videos) inherits
        this. Smaller h2 + matching SVG height keeps proportions correct. */
     section:has(.section-title) {
         .section-title h2 {
-            font-size: 2rem;
+            font-size: var(--fs-h2);
         }
 
         .section-title svg {
@@ -2471,14 +2482,14 @@
         }
 
         & .section-subtitle div {
-            font-size: 0.9375rem;
+            font-size: var(--fs-secondary);
         }
     }
 
     /* Sub-section headings — Director / PhD Students / Past News etc. */
     h3 {
-        font-size: 1.125rem;
-        margin-block: 1.75rem 0.625rem;
+        font-size: var(--fs-body);
+        margin-block: var(--space-7) var(--space-2-5);
     }
 
     /* Hero — h1 was 3rem (48px) inherited from the 100rem rule and never
@@ -2487,7 +2498,7 @@
         --_home-min-height: 38rem;
 
         .hp-title h1 {
-            font-size: 2.25rem;
+            font-size: var(--fs-h2);
 
             & svg {
                 height: 1.875rem;
@@ -2496,7 +2507,7 @@
         }
 
         .hp-3e p {
-            font-size: 1.25rem;
+            font-size: var(--fs-lede);
         }
     }
 
@@ -2505,10 +2516,10 @@
        once the viewport is narrow; only the logo row needed help. */
     .abt-section {
         --_logo-width: 12rem;
-        gap: 1.25rem 1rem;
+        gap: var(--space-5) var(--space-4);
 
         .abt-logos {
-            gap: 1.25rem 2rem;
+            gap: var(--space-5) var(--space-8);
 
             & img {
                 height: 4rem;
@@ -2516,7 +2527,7 @@
         }
 
         &[which='sponsors'] {
-            padding-inline: 1rem;
+            padding-inline: var(--space-4);
 
             & img {
                 height: 3rem;
@@ -2534,14 +2545,14 @@
         .mem-block {
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
+            gap: var(--space-3);
         }
 
         .mem-text {
             margin-left: 0;
             justify-items: center;
             text-align: center;
-            gap: 0.375rem;
+            gap: var(--space-1-5);
         }
 
         .mem-name {
@@ -2550,18 +2561,18 @@
 
             /* Hierarchy cap on phone: h3 = 1.125rem, so .EngName ≤ 1.125rem. */
             .EngName {
-                font-size: 1.125rem;
-                line-height: 1.2;
+                font-size: var(--fs-body);
+                line-height: var(--lh-h3);
             }
 
             .ChiName {
-                font-size: 0.875rem;
+                font-size: var(--fs-secondary);
             }
         }
 
         .mem-info {
-            font-size: 0.8125rem;
-            line-height: 1.45;
+            font-size: var(--fs-secondary);
+            line-height: var(--lh-secondary);
             text-wrap: pretty;
         }
     }
@@ -2570,20 +2581,20 @@
        rows so 2-per-row doesn't drift to one side. */
     .mem-section[who='M'] {
         --_img-width: 6.25rem;
-        gap: 2rem 1.5rem;
+        gap: var(--space-8) var(--space-6);
 
         .mem-block {
             padding: 0.25rem;
-            gap: 0.625rem;
+            gap: var(--space-2-5);
         }
 
         .mem-name .mem-name-en {
-            font-size: 1rem;
-            gap: 0.25rem;
+            font-size: var(--fs-body-base);
+            gap: var(--space-1);
         }
 
         .mem-name .mem-name-zh {
-            font-size: 0.75rem;
+            font-size: var(--fs-eyebrow);
         }
     }
 
@@ -2591,18 +2602,18 @@
        horizontal but allow each card to span the full row. */
     .mem-section[who='S'] {
         --_mem-block-width: 100%;
-        gap: 1rem;
+        gap: var(--space-4);
 
         .mem-block {
             justify-content: flex-start;
-            gap: 0.75rem;
+            gap: var(--space-3);
 
             .mem-name {
                 width: auto;
-                font-size: 1.25rem;
+                font-size: var(--fs-lede);
 
                 & span {
-                    font-size: 0.875rem;
+                    font-size: var(--fs-secondary);
                 }
             }
         }
@@ -2613,15 +2624,15 @@
        Let it shrink with viewport instead. */
     .res-section {
         --_res-info-width: min(20rem, calc(100vw - 4rem));
-        gap: 1.5rem;
+        gap: var(--space-6);
 
         /* Hierarchy cap: h3 phone = 1.125rem; .res-tag is sub-sub. */
         .res-info .res-tag {
-            font-size: 1.125rem;
+            font-size: var(--fs-body);
         }
 
         .res-info .res-info-minor {
-            font-size: 0.9375rem;
+            font-size: var(--fs-secondary);
         }
     }
 
@@ -2635,20 +2646,20 @@
        145px of empty right gutter. Two-up at narrower widths. */
     .glf-section[which='all'] {
         --_img-width: calc((100vw - 3rem) / 2 - 0.5rem);
-        gap: 1rem 0.75rem;
+        gap: var(--space-4) var(--space-3);
         justify-content: center;
     }
 
     /* CTA scales down slightly on tablet/phone */
     .section-cta {
-        margin-block-start: 2rem;
+        margin-block-start: var(--space-8);
     }
 
     .section-cta-btn {
         /* P3·6 — bumped from 0.75em vertical padding to 0.875em so the
            effective tap area clears WCAG 2.5.5 (44 × 44 px). 1rem font
            × 1.6 line-height + 2 × 0.875em padding ≈ 44 px on mobile. */
-        --_adjusted-font-size: 1rem;
+        --_adjusted-font-size: var(--fs-body-base);
         --_adjusted-padding: 0.875em 1.5em;
         min-height: 2.75rem;
     }

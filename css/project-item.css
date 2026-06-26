@@ -42,7 +42,7 @@
 
 .proj-status-pill {
     font-size: var(--fs-caption);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     letter-spacing: 0.04em;
     padding: 0.2rem 0.7rem;
     border-radius: 2rem;
@@ -57,9 +57,9 @@
 
 /* Larger, tighter headline than the publication page for an editorial feel. */
 .proj-item-title {
-    font-size: clamp(1.875rem, 4vw, 2.75rem);
-    font-weight: var(--fw-h1);
-    line-height: 1.12;
+    font-size: clamp(var(--fs-h2), 4vw, var(--fs-h1));
+    font-weight: var(--fw-display);
+    line-height: var(--lh-h1);
     letter-spacing: -0.025em;
     color: var(--main-color);
     margin: 0 0 0.5rem;
@@ -71,9 +71,9 @@
 
 .proj-item-title-zh {
     font-family: var(--font-zh);
-    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-size: clamp(var(--fs-lede), 2.5vw, var(--fs-h3));
     font-weight: var(--fw-light);
-    line-height: 1.4;
+    line-height: var(--lh-lede);
     color: color-mix(in srgb, var(--main-color) 72%, transparent);
     margin: 0;
 }
@@ -83,10 +83,10 @@
 .proj-facts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-    gap: 1.25rem 2.5rem;
+    gap: var(--space-5) var(--space-10);
     max-width: var(--proj-measure);
     margin: 2rem 0 0;
-    padding-block: 1.25rem;
+    padding-block: var(--space-5);
     border-block: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
 }
 
@@ -105,9 +105,9 @@
 
 .proj-fact dd {
     margin: 0;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.4;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-display);
+    line-height: var(--lh-lede);
     color: var(--main-color);
 }
 
@@ -130,7 +130,7 @@
 /* ── Sections (generous vertical rhythm; no columns) ──────────────────────── */
 
 .proj-section {
-    margin-block-start: 3.5rem;
+    margin-block-start: var(--space-14);
 }
 
 .proj-section-title {
@@ -165,7 +165,7 @@
 
 .proj-prose-zh {
     font-family: var(--font-zh);
-    margin-block-start: 1.75rem;
+    margin-block-start: var(--space-7);
     padding-block-start: 1.75rem;
     border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
     color: color-mix(in srgb, var(--main-color) 82%, transparent);
@@ -180,7 +180,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-    gap: 1rem;
+    gap: var(--space-4);
     max-width: var(--proj-measure);
 }
 
@@ -196,7 +196,7 @@
     display: block;
     font-size: var(--fs-heading-s);
     font-weight: var(--fw-heading);
-    line-height: 1;
+    line-height: var(--lh-flush);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
     color: var(--main-color-2);
@@ -205,16 +205,16 @@
 
 .proj-finding-text {
     margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-eyebrow);
     color: var(--main-color);
 }
 
 .proj-finding-text-zh {
     margin: 0.65rem 0 0;
     font-family: var(--font-zh);
-    font-size: 0.875rem;
-    line-height: 1.6;
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-eyebrow);
     color: color-mix(in srgb, var(--main-color) 66%, transparent);
 }
 
@@ -232,13 +232,13 @@
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.4rem 0.6rem;
-    padding-block: 0.7rem;
+    padding-block: var(--space-3);
     border-block-end: 0.0625rem solid color-mix(in srgb, var(--main-color) 10%, transparent);
 }
 
 .proj-output-type {
     font-size: var(--fs-caption);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--main-color-2);
@@ -249,7 +249,7 @@
 
 .proj-output-link {
     color: var(--main-color);
-    font-weight: 500;
+    font-weight: var(--fw-display);
     text-decoration: none;
     background-image: linear-gradient(var(--main-color-2), var(--main-color-2));
     background-position: 0 100%;
@@ -265,7 +265,7 @@
 
 .proj-output-note {
     width: 100%;
-    font-size: 0.875rem;
+    font-size: var(--fs-secondary);
     color: color-mix(in srgb, var(--main-color) 60%, transparent);
 }
 
@@ -277,7 +277,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    gap: 0.875rem;
+    gap: var(--space-3-5);
     max-width: var(--proj-measure);
 }
 
@@ -314,13 +314,13 @@
 }
 
 .proj-pub-title {
-    font-weight: 600;
-    font-size: 0.9375rem;
-    line-height: 1.4;
+    font-weight: var(--fw-heading);
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-lede);
 }
 
 .proj-pub-meta {
-    font-size: 0.8125rem;
+    font-size: var(--fs-secondary);
     color: color-mix(in srgb, var(--main-color) 62%, transparent);
     margin-block-start: auto;
 }
@@ -334,7 +334,7 @@
 .proj-gallery {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: var(--space-4);
     max-width: var(--proj-measure);
 }
 
@@ -352,10 +352,10 @@
 }
 
 .proj-gallery-caption {
-    font-size: 0.8125rem;
-    line-height: 1.4;
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-lede);
     color: color-mix(in srgb, var(--main-color) 62%, transparent);
-    margin-block-start: 0.4rem;
+    margin-block-start: var(--space-1-5);
 
     & span {
         display: block;
@@ -366,7 +366,7 @@
 /* ── People band — team chips + partners, full-width foot ─────────────────── */
 
 .proj-people {
-    margin-block-start: 4rem;
+    margin-block-start: var(--space-16);
     /* This is a <footer> element, so the bare `footer{}` rule in general.css
        (white fill + 3px border + gutter padding, meant for the SITE footer)
        leaks onto it. Reset it here: the partners credit sits flush on the page
@@ -376,7 +376,7 @@
     border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
     background: transparent;
     display: grid;
-    gap: 2.75rem;
+    gap: var(--space-10);
     max-width: var(--proj-measure);
 }
 
@@ -415,13 +415,13 @@ a.proj-chip:focus-visible {
 }
 
 .proj-chip-name {
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: var(--fw-heading);
+    font-size: var(--fs-secondary);
     color: var(--main-color);
 }
 
 .proj-chip-role {
-    font-size: 0.75rem;
+    font-size: var(--fs-eyebrow);
     color: color-mix(in srgb, var(--main-color) 58%, transparent);
 }
 
@@ -430,13 +430,13 @@ a.proj-chip:focus-visible {
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 1.75rem;
+    gap: var(--space-7);
 }
 
 .proj-partner {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: var(--space-5);
     /* USER REQ — stretch-click pattern. The <a> only wraps the partner
        name today; clicking on the logo or surrounding whitespace did
        nothing. position: relative anchors the stretched ::after on
@@ -491,7 +491,7 @@ a.proj-partner-name::after {
 }
 
 .proj-partner-name {
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     color: var(--main-color);
     text-decoration: none;
 }
@@ -510,12 +510,12 @@ a.proj-partner-name:focus-visible {
 
 .proj-partner-name-zh {
     font-family: var(--font-zh);
-    font-size: 0.875rem;
+    font-size: var(--fs-secondary);
     color: color-mix(in srgb, var(--main-color) 68%, transparent);
 }
 
 .proj-partner-role {
-    font-size: 0.8125rem;
+    font-size: var(--fs-secondary);
     color: color-mix(in srgb, var(--main-color) 58%, transparent);
 }
 
@@ -529,13 +529,21 @@ a.proj-partner-name:focus-visible {
 
 @media (max-width: 37.5rem) {
     .proj-item-main {
-        padding-block: 2rem 5rem;
+        padding-block: var(--space-8) var(--space-20);
     }
     .proj-findings-grid {
         grid-template-columns: 1fr;
     }
     .proj-gallery {
         grid-template-columns: 1fr;
+    }
+
+    /* Tighter paragraph rhythm on mobile — pairs with the global
+       --lh-body shrink to 1.55 and the news-item paragraph gap drop.
+       Same logic across prose surfaces; cross-subpage parity preserved. */
+    .proj-prose p,
+    .proj-prose-zh p {
+        margin-block-end: var(--space-3);
     }
 }
 
