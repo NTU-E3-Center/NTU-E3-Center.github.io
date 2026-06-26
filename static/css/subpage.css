@@ -18,7 +18,7 @@
     top: 0;
     z-index: 100;
     width: 100%;
-    padding-block: 0.875rem;
+    padding-block: var(--space-3-5);
     padding-inline: var(--gutter-x);
     background-color: var(--main-bg-color);
     border-bottom: 0.125rem solid var(--main-color);
@@ -33,7 +33,7 @@
 
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: var(--space-7);
 }
 
 .subpage-header-logo {
@@ -73,7 +73,7 @@
     font-size: var(--fs-eyebrow);
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
     text-transform: uppercase;
     color: var(--main-color);
     opacity: 0.55;
@@ -99,9 +99,9 @@
     /* S·3 — was var(--fs-heading-s) (1.5rem); trimmed to 1.25rem so the
        trail reads as a strong breadcrumb rather than competing with the
        page's own h1. Pairs with the tighter header padding above. */
-    font-size: 1.25rem;
+    font-size: var(--fs-lede);
     font-weight: var(--fw-heading);
-    line-height: 1.2;
+    line-height: var(--lh-h3);
     letter-spacing: -0.015em;
     color: var(--main-color);
     opacity: 0.9;
@@ -113,11 +113,11 @@
 
 @media (max-width: 64rem) {
     .subpage-header {
-        padding-block: 0.75rem;
+        padding-block: var(--space-3);
     }
 
     .subpage-header-inner {
-        gap: 1.25rem;
+        gap: var(--space-5);
         padding-inline-end: 5.5rem;
     }
 
@@ -126,7 +126,7 @@
     }
 
     .trail-current {
-        font-size: 1.125rem;
+        font-size: var(--fs-body);
     }
 }
 
@@ -137,11 +137,11 @@
        parent + separator + current chain inline so the trail stays one
        line tall. */
     .subpage-header {
-        padding-block: 0.625rem;
+        padding-block: var(--space-2-5);
     }
 
     .subpage-header-inner {
-        gap: 0.75rem;
+        gap: var(--space-3);
         padding-inline-end: 3rem;
     }
 
@@ -152,7 +152,7 @@
     .subpage-trail {
         flex-direction: row;
         align-items: baseline;
-        gap: 0.4rem;
+        gap: var(--space-1-5);
         flex-wrap: nowrap;
     }
 
@@ -161,13 +161,13 @@
        (12 px) — still functions as a quiet eyebrow before the trail
        separator, just no longer microtype. */
     .trail-parent {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
         flex-shrink: 0;
     }
 
     .trail-current {
-        font-size: 0.9375rem;
-        font-weight: 500;
+        font-size: var(--fs-secondary);
+        font-weight: var(--fw-display);
     }
 }
 
@@ -183,7 +183,7 @@
 .contact-subpage {
     width: min(100%, 80rem);
     margin-inline: auto;
-    padding-block: 4rem 8rem;
+    padding-block: var(--space-16) var(--space-32);
     padding-inline: var(--gutter-x);
 }
 
@@ -193,7 +193,7 @@
     /* Override the generic #members h3 border treatment */
     & .mem-group-title {
         border-bottom: none !important;
-        margin-block: 3rem 0 !important;
+        margin-block: var(--space-12) 0 !important;
         padding-block-end: 0 !important;
 
         font-size: var(--fs-eyebrow);
@@ -211,7 +211,7 @@
     /* ── Member row ─────────────────────────────────────────────────── */
 
     & .mem-rows {
-        margin-block-start: 1rem;
+        margin-block-start: var(--space-4);
         border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
     }
 
@@ -219,8 +219,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1.5rem;
-        padding-block: 1.75rem;
+        gap: var(--space-6);
+        padding-block: var(--space-7);
         padding-inline-start: 1.25rem;
         padding-inline-end: 0.25rem;
         border-bottom: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
@@ -258,7 +258,7 @@
     & .mem-card {
         display: flex;
         align-items: center;
-        gap: 3.5rem;
+        gap: var(--space-14);
         flex: 1;
         min-width: 0;
     }
@@ -295,21 +295,21 @@
     & .mem-row-info {
         display: flex;
         flex-direction: column;
-        gap: 0.375rem;
+        gap: var(--space-1-5);
         min-width: 0;
     }
 
     & .mem-row-names {
         display: flex;
         align-items: baseline;
-        gap: 0.625rem;
+        gap: var(--space-2-5);
         flex-wrap: wrap;
     }
 
     & .mem-row-en {
         font-size: var(--fs-heading-l);
         font-weight: var(--fw-heading);
-        line-height: 1;
+        line-height: var(--lh-flush);
         letter-spacing: -0.025em;
         color: var(--main-color);
     }
@@ -317,27 +317,27 @@
     & .mem-row-zh {
         font-size: var(--fs-body-l);
         font-weight: var(--fw-body);
-        line-height: 1;
+        line-height: var(--lh-flush);
         opacity: 0.6;
         color: var(--main-color);
     }
 
     & .mem-row-position {
-        margin-block-start: 0.25rem;
+        margin-block-start: var(--space-1);
 
         & p {
             margin: 0;
-            line-height: 1.35;
+            line-height: var(--lh-lede);
 
             &:first-child {
-                font-size: 1.0625rem;
-                font-weight: 600;
+                font-size: var(--fs-body);
+                font-weight: var(--fw-heading);
                 color: var(--main-color-2);
                 margin-block-end: 0.2rem;
             }
 
             &:not(:first-child) {
-                font-size: 1rem;
+                font-size: var(--fs-body-base);
                 opacity: 0.6;
                 color: var(--main-color);
             }
@@ -347,12 +347,12 @@
     & .mem-row-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-block-start: 0.625rem;
+        gap: var(--space-2);
+        margin-block-start: var(--space-2-5);
 
         & .mem-row-tag {
             --_adjusted-padding: 0.2rem 0.5rem;
-            --_adjusted-font-size: 0.8125rem;
+            --_adjusted-font-size: var(--fs-secondary);
             --_adjusted-border-radius: 0.1875rem;
 
             display: inline-flex;
@@ -384,21 +384,21 @@
     /* ── Alumni grid ─────────────────────────────────────────────────── */
 
     & .mem-group--alumni .filter {
-        margin-block: 1rem 0;
+        margin-block: var(--space-4) 0;
     }
 
     & .mem-alum-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-        gap: 2rem 1.25rem;
-        margin-block-start: 1.5rem;
+        gap: var(--space-8) var(--space-5);
+        margin-block-start: var(--space-6);
     }
 
     & .mem-alum-card {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.625rem;
+        gap: var(--space-2-5);
         text-decoration: none;
 
         &[href] {
@@ -459,15 +459,15 @@
 
         & .mem-alum-en {
             display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.2;
+            font-size: var(--fs-body-base);
+            font-weight: var(--fw-heading);
+            line-height: var(--lh-h3);
             color: var(--main-color);
         }
 
         & .mem-alum-zh {
             display: block;
-            font-size: 0.8125rem;
+            font-size: var(--fs-secondary);
             opacity: 0.5;
             color: var(--main-color);
             margin-block-start: 0.1rem;
@@ -478,11 +478,11 @@
 
     @media (max-width: 64rem) {
         & .mem-row {
-            gap: 0.75rem;
-            padding-block: 1.25rem;
+            gap: var(--space-3);
+            padding-block: var(--space-5);
         }
 
-        & .mem-card { gap: 2rem; }
+        & .mem-card { gap: var(--space-8); }
 
         & .mem-row-arrow { display: none; }
 
@@ -490,12 +490,12 @@
             --_img-width: 7rem;
         }
 
-        & .mem-row-en { font-size: 1.75rem; }
-        & .mem-row-zh { font-size: 1rem; }
+        & .mem-row-en { font-size: var(--fs-h3); }
+        & .mem-row-zh { font-size: var(--fs-body-base); }
 
         & .mem-alum-grid {
             grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-            gap: 1.5rem 0.75rem;
+            gap: var(--space-6) var(--space-3);
         }
 
         & .mem-alum-photo {
@@ -514,33 +514,33 @@
     & .mem-row-names {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.375rem;
+        gap: var(--space-1-5);
     }
 
     & .mem-row-en {
-        font-size: 2.75rem;
+        font-size: var(--fs-h1);
         letter-spacing: -0.03em;
     }
 
     & .mem-row-zh {
-        font-size: 1.375rem;
+        font-size: var(--fs-lede);
         opacity: 0.5;
     }
 
     & .mem-row-position {
-        margin-block-start: 0.5rem;
+        margin-block-start: var(--space-2);
 
         & p:first-child {
-            font-size: 1.0625rem;
+            font-size: var(--fs-body);
         }
 
         & p:not(:first-child) {
-            font-size: 0.9375rem;
+            font-size: var(--fs-secondary);
         }
     }
 
     & .mem-row-links {
-        margin-block-start: 1rem;
+        margin-block-start: var(--space-4);
     }
 
     @media (max-width: 64rem) {
@@ -548,8 +548,8 @@
             --_img-width: 8rem;
         }
 
-        & .mem-row-en { font-size: 2rem; }
-        & .mem-row-zh { font-size: 1.125rem; }
+        & .mem-row-en { font-size: var(--fs-h2); }
+        & .mem-row-zh { font-size: var(--fs-body); }
     }
 }
 
@@ -559,16 +559,16 @@
 .news-filter-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-block-end: 3.5rem;
+    gap: var(--space-2);
+    margin-block-end: var(--space-14);
 }
 
 .news-filter-tab {
     padding: 0.375rem 1.125rem;
     border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
     border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     color: var(--main-color);
     background: transparent;
@@ -611,7 +611,7 @@
 
 /* Category section */
 .news-cat-section {
-    margin-block-end: 4rem;
+    margin-block-end: var(--space-16);
 }
 
 /* Category header for the per-category tab panels. The active tab in the
@@ -640,8 +640,8 @@
     display: grid;
     grid-template-columns: 5.5rem 1fr auto;
     align-items: center;
-    gap: 1.5rem;
-    padding-block: 1.125rem;
+    gap: var(--space-6);
+    padding-block: var(--space-4);
     /* No padding-inline — first column aligns with the section gutter. */
     border-bottom: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
     text-decoration: none;
@@ -697,18 +697,18 @@
 }
 
 .news-row-mm {
-    font-size: 0.8125rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     color: var(--main-color);
     opacity: 0.45;
-    line-height: 1.3;
+    line-height: var(--lh-lede);
 }
 
 .news-row-yy {
-    font-size: 1.375rem;
-    font-weight: var(--fw-h1);
+    font-size: var(--fs-lede);
+    font-weight: var(--fw-display);
     letter-spacing: -0.025em;
-    line-height: 1.1;
+    line-height: var(--lh-h1);
     color: var(--main-color);
 }
 
@@ -716,7 +716,7 @@
 .news-row-body {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-1);
     min-width: 0;
 }
 
@@ -724,13 +724,13 @@
 .news-row-badge {
     display: inline-block;
     width: fit-content;
-    font-size: 0.625rem;
-    font-weight: 600;
+    font-size: var(--fs-badge);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 0.15rem 0.55rem;
     border-radius: 2rem;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
 
     &[data-cat="Events and Exchanges"] {
         color: var(--main-color-2);
@@ -750,8 +750,8 @@
 
 /* Title */
 .news-row-title {
-    font-size: 1.125rem;
-    line-height: 1.5;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body-base);
     color: var(--main-color);
     transition: opacity var(--hover-transition-time);
     margin: 0;
@@ -776,15 +776,15 @@
 
 @media (max-width: 64rem) {
     .news-filter-tab {
-        font-size: 0.8125rem;
+        font-size: var(--fs-secondary);
         padding: 0.3rem 0.875rem;
     }
 
     .news-row {
         grid-template-columns: 4rem 1fr auto;
-        gap: 0.875rem;
-        padding-inline: 0.25rem;
-        padding-block: 1rem;
+        gap: var(--space-3-5);
+        padding-inline: var(--space-1);
+        padding-block: var(--space-4);
     }
 
     /* Re-declare the no-date variant inside the same breakpoint so it wins
@@ -794,15 +794,15 @@
     }
 
     .news-row-mm {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
     }
 
     .news-row-yy {
-        font-size: 1.125rem;
+        font-size: var(--fs-body);
     }
 
     .news-row-title {
-        font-size: 1rem;
+        font-size: var(--fs-body-base);
     }
 }
 
@@ -818,24 +818,24 @@
     .publications-subpage,
     .projects-subpage,
     .group-life-subpage {
-        padding-block: 1.5rem 4rem;
+        padding-block: var(--space-6) var(--space-16);
     }
 
     /* ── Members listing ─────────────────────────────────────────── */
     .members-subpage {
         & .mem-rows {
-            margin-block-start: 0.5rem;
+            margin-block-start: var(--space-2);
         }
 
         & .mem-row {
-            gap: 0.75rem;
-            padding-block: 1rem;
+            gap: var(--space-3);
+            padding-block: var(--space-4);
             padding-inline-start: 0.5rem;
             padding-inline-end: 0.25rem;
         }
 
         & .mem-card {
-            gap: 1.5rem;
+            gap: var(--space-6);
         }
 
         & .mem-row-photo {
@@ -845,37 +845,37 @@
         }
 
         & .mem-row-en {
-            font-size: 1.25rem;       /* sub-sub under group title */
+            font-size: var(--fs-lede);       /* sub-sub under group title */
         }
 
         & .mem-row-zh {
-            font-size: 0.875rem;
+            font-size: var(--fs-secondary);
         }
 
         & .mem-row-position {
-            margin-block-start: 0.125rem;
+            margin-block-start: var(--space-1);
 
             & p:first-child {
-                font-size: 0.875rem;
+                font-size: var(--fs-secondary);
             }
 
             & p:not(:first-child) {
-                font-size: 0.8125rem;
+                font-size: var(--fs-secondary);
             }
         }
 
         & .mem-row-links {
-            margin-block-start: 0.375rem;
-            gap: 0.375rem;
+            margin-block-start: var(--space-1-5);
+            gap: var(--space-1-5);
 
             & .mem-row-tag {
-                --_adjusted-font-size: 0.75rem;
+                --_adjusted-font-size: var(--fs-eyebrow);
             }
         }
 
         & .mem-alum-grid {
             grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
-            gap: 1.25rem 0.625rem;
+            gap: var(--space-5) var(--space-2-5);
         }
 
         & .mem-alum-photo {
@@ -883,11 +883,11 @@
         }
 
         & .mem-alum-name .mem-alum-en {
-            font-size: 0.875rem;
+            font-size: var(--fs-secondary);
         }
 
         & .mem-alum-name .mem-alum-zh {
-            font-size: 0.75rem;
+            font-size: var(--fs-eyebrow);
         }
     }
 
@@ -898,34 +898,34 @@
         }
 
         & .mem-row-en {
-            font-size: 1.5rem;
+            font-size: var(--fs-h3);
         }
 
         & .mem-row-zh {
-            font-size: 1rem;
+            font-size: var(--fs-body-base);
         }
     }
 
     /* ── News listing ────────────────────────────────────────────── */
     .news-filter-tab {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
         padding: 0.25rem 0.75rem;
     }
 
     .news-cat-section {
-        margin-block-end: 2.5rem;
+        margin-block-end: var(--space-10);
     }
 
     .publications-subpage .publi-group-title {
-        font-size: 0.625rem;
-        margin-block-end: 0.625rem;
+        font-size: var(--fs-badge);
+        margin-block-end: var(--space-2-5);
     }
 
     .news-row {
         grid-template-columns: 3rem 1fr;       /* drop the trailing arrow column */
-        gap: 0.625rem;
-        padding-block: 0.75rem;
-        padding-inline: 0.25rem;
+        gap: var(--space-2-5);
+        padding-block: var(--space-3);
+        padding-inline: var(--space-1);
     }
 
     /* Restore the trailing column on mobile when a Publisher button is
@@ -958,32 +958,32 @@
     }
 
     .news-row-mm {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
     }
 
     .news-row-yy {
-        font-size: 0.9375rem;
+        font-size: var(--fs-secondary);
     }
 
     .news-row-title {
-        font-size: 0.875rem;
-        line-height: 1.4;
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-lede);
     }
 
     .news-row-badge {
-        font-size: 0.6875rem;
+        font-size: var(--fs-eyebrow);
         padding: 0.1rem 0.4rem;
     }
 
     /* ── Publications listing ────────────────────────────────────── */
     .publications-subpage {
         & .publi-group {
-            margin-block-end: 2.5rem;
+            margin-block-end: var(--space-10);
         }
     }
 
     .publi-show-more {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
         padding: 0.3rem 1rem;
     }
 
@@ -991,7 +991,7 @@
        the 0.75 rem font floor and 0.3rem 0.875rem padding floor required
        by DESIGN_RULES.md (Min mobile font & 44px tap target). */
     .publi-group-cta {
-        --_adjusted-font-size: 0.75rem;
+        --_adjusted-font-size: var(--fs-eyebrow);
         --_adjusted-padding: 0.35rem 0.875rem;
     }
 }
@@ -1015,7 +1015,7 @@
 
 .publications-subpage {
     & .publi-group {
-        margin-block-end: 3.5rem;
+        margin-block-end: var(--space-14);
     }
 
     & .publi-group-title {
@@ -1025,7 +1025,7 @@
         text-transform: uppercase;
         color: var(--main-color);
         opacity: 0.4;
-        margin-block: 0 1rem !important;
+        margin-block: 0 var(--space-4) !important;
 
         /* override general h3 decorator */
         &::after { display: none; }
@@ -1089,10 +1089,10 @@
 
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: var(--space-1-5);
     white-space: nowrap;
-    font-size: 0.8125rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     padding: 0.4rem 0.85rem;
     border-radius: 2rem;
@@ -1138,14 +1138,14 @@
 
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: var(--space-1-5);
 }
 
 .pub-row-tag {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
-    line-height: 1.4;
+    line-height: var(--lh-lede);
     padding: 0.1rem 0.6rem;
     border-radius: 2rem;
     color: var(--main-color-2);
@@ -1183,13 +1183,13 @@
 .proj-show-more {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: var(--space-1-5);
     margin: 1.25rem auto 0;
     padding: 0.375rem 1.25rem;
     border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
     border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     color: var(--main-color);
     background: transparent;
@@ -1218,8 +1218,8 @@
 
 /* Authors line */
 .publi-row-authors {
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: var(--fs-body-base);
+    line-height: var(--lh-lede);
     opacity: 0.6;
     color: var(--main-color);
 }
@@ -1236,17 +1236,17 @@
     /* T·7: mobile floors — was 0.75/0.6875 (~10.5/9.6 px on the 14-px root),
        below WCAG legibility. Bumped to keep author rows readable. */
     .publi-row-authors {
-        font-size: 0.8125rem;
-        line-height: 1.4;
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-lede);
     }
 
     .publi-row-journal {
-        font-size: 0.75rem;
-        line-height: 1.4;
+        font-size: var(--fs-eyebrow);
+        line-height: var(--lh-lede);
     }
 
     .pub-keyword-chip {
-        font-size: 0.625rem;
+        font-size: var(--fs-badge);
         padding: 0.1rem 0.45rem;
     }
 }
@@ -1259,8 +1259,8 @@
     align-items: baseline;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.4rem 1rem;
-    margin-block-end: 1rem;
+    gap: var(--space-1-5) var(--space-4);
+    margin-block-end: var(--space-4);
 
     /* Section margin lives on the wrapper now — kill the title's own
        margin so the gap-token above is the single source of truth. */
@@ -1277,7 +1277,7 @@
    Padding/font respect the mobile floors in DESIGN_RULES.md (§Color & Contrast
    line 428–429): font ≥ 0.75 rem, padding ≥ 0.3rem 0.875rem on mobile. */
 .publi-group-cta {
-    --_adjusted-font-size: 0.75rem;
+    --_adjusted-font-size: var(--fs-eyebrow);
     --_adjusted-padding: 0.4rem 0.9rem;
 
     display: inline-flex;
@@ -1285,7 +1285,7 @@
     gap: 0.4em;
     text-decoration: none;
     color: var(--main-color);
-    line-height: 1.25;
+    line-height: var(--lh-h3);
     /* Slightly muted at rest so it pairs visually with the title's
        opacity-0.4 eyebrow without competing; saturates on hover. */
     opacity: 0.8;
@@ -1316,12 +1316,12 @@
        inline-flex keeps the secondary-color square accent attached to the
        text instead of stretching across the full row. */
     .contact-lead {
-        font-size: 2.75rem;
-        font-weight: var(--fw-h1);
-        line-height: 1.1;
+        font-size: var(--fs-h1);
+        font-weight: var(--fw-display);
+        line-height: var(--lh-h1);
         letter-spacing: -0.025em;
         color: var(--main-color);
-        margin-block-end: 1rem;
+        margin-block-end: var(--space-4);
 
         display: inline-flex;
         align-items: baseline;
@@ -1330,7 +1330,7 @@
             content: '';
             width: 0.875rem;
             height: 0.3125rem;
-            margin-left: 0.375rem;
+            margin-left: var(--space-1-5);
             translate: 0 -0.125rem;
             background-color: var(--secondary-color);
         }
@@ -1340,9 +1340,9 @@
        line-height + hyperlink inherited from the unified prose recipe in
        general.css. */
     .contact-tagline {
-        max-width: 56rem;
+        max-width: var(--w-info);
         margin-inline: auto;
-        margin-block-end: 3.5rem;
+        margin-block-end: var(--space-14);
         text-align: center;
         color: color-mix(in srgb, var(--main-color) 75%, transparent);
     }
@@ -1352,7 +1352,7 @@
         /* Form on the left, info on the right (desktop). HTML order keeps
            the info first so the mobile stack reads info → form. */
         grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
-        gap: 3rem;
+        gap: var(--space-12);
         align-items: start;
     }
 
@@ -1365,7 +1365,7 @@
         padding-block-start: 1.875rem;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--space-4);
     }
 
     .contact-form {
@@ -1381,12 +1381,12 @@
        so the text reads upright inside the slanted card. */
     .contact-info-card {
         --_adjusted-padding: 1.25rem 1.5rem;
-        --_adjusted-font-size: 1rem;
+        --_adjusted-font-size: var(--fs-body-base);
         --_adjusted-shadow-shift: var(--block-shadow-shift);
 
         display: flex;
         align-items: flex-start;
-        gap: 1.125rem;
+        gap: var(--space-4);
         text-decoration: none;
         color: var(--main-color);
         cursor: pointer;
@@ -1414,7 +1414,7 @@
         flex-direction: column;
         flex: 1;
         min-width: 0;
-        gap: 0.375rem;
+        gap: var(--space-1-5);
     }
 
     .contact-info-label {
@@ -1423,13 +1423,13 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         opacity: 0.5;
-        margin-block-end: 0.125rem;
+        margin-block-end: var(--space-1);
     }
 
     .contact-info-value {
-        font-size: 1.0625rem;
-        font-weight: 600;
-        line-height: 1.3;
+        font-size: var(--fs-body);
+        font-weight: var(--fw-heading);
+        line-height: var(--lh-lede);
         overflow-wrap: anywhere;
         word-break: break-word;
     }
@@ -1437,9 +1437,9 @@
     .contact-info-sub {
         font-size: var(--fs-caption-s);
         font-weight: var(--fw-light);
-        line-height: 1.5;
+        line-height: var(--lh-body-base);
         opacity: 0.6;
-        margin-block-start: 0.25rem;
+        margin-block-start: var(--space-1);
         overflow-wrap: anywhere;
     }
 
@@ -1447,13 +1447,13 @@
     .contact-form {
         display: flex;
         flex-direction: column;
-        gap: 1.25rem;
+        gap: var(--space-5);
     }
 
     .contact-form-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
+        gap: var(--space-5);
 
         @media (max-width: 37.5rem) {
             grid-template-columns: 1fr;
@@ -1463,10 +1463,10 @@
     .contact-field {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: var(--space-2);
 
         & label {
-            font-size: 0.75rem;
+            font-size: var(--fs-eyebrow);
             font-weight: var(--fw-heading);
             letter-spacing: 0.14em;
             text-transform: uppercase;
@@ -1479,7 +1479,10 @@
         & textarea {
             width: 100%;
             padding: 0.75rem 1rem;
-            font-size: 1.0625rem;
+            /* max() pins this at ≥1.1875rem (~16.6 px at 14-px root) so iOS
+               Safari never triggers its <16px auto-zoom on focus, even after
+               --fs-body shrinks to 1.125rem on mobile. */
+            font-size: max(var(--fs-body), 1.1875rem);
             font-family: inherit;
             color: var(--main-color);
             resize: none;
@@ -1495,25 +1498,25 @@
         }
 
         & textarea {
-            line-height: 1.5;
+            line-height: var(--lh-body-base);
             min-height: 9rem;
         }
     }
 
     .contact-send {
-        --_adjusted-font-size: 1.0625rem;
+        --_adjusted-font-size: var(--fs-body);
         --_adjusted-padding: 0.75em 1.5em;
 
         align-self: flex-start;
         cursor: pointer;
         font-family: inherit;
-        font-weight: 500;
+        font-weight: var(--fw-display);
         color: var(--main-color);
         transition: var(--hover-transition-time);
 
         display: inline-flex;
         align-items: center;
-        gap: 0.625rem;
+        gap: var(--space-2-5);
 
         & svg {
             height: 0.75em;
@@ -1542,8 +1545,8 @@
         margin: 0;
         padding: 0.625rem 0.875rem;
         border-radius: 0.25rem;
-        font-size: 0.9375rem;
-        line-height: 1.5;
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-body-base);
         border-left: 0.1875rem solid currentColor;
 
         &.is-success {
@@ -1563,7 +1566,7 @@
 @media (max-width: 64rem) {
     .contact-subpage .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: var(--space-10);
     }
 
     .contact-subpage .contact-info,
@@ -1575,7 +1578,7 @@
     .contact-subpage .contact-info {
         padding-block-start: 0;
         flex-direction: column;
-        gap: 0.875rem;
+        gap: var(--space-3-5);
 
         & .contact-info-card {
             flex: 0 0 auto;
@@ -1588,22 +1591,22 @@
 @media (max-width: 37.5rem) {
     .contact-subpage {
         .contact-lead {
-            font-size: 1.875rem;
+            font-size: var(--fs-h3);
         }
 
         .contact-tagline {
-            font-size: 1rem;
-            margin-block-end: 2.25rem;
+            font-size: var(--fs-body-base);
+            margin-block-end: var(--space-8);
         }
 
         .contact-grid {
-            gap: 1.75rem;
+            gap: var(--space-7);
         }
 
         .contact-info {
             padding-block-start: 0;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: var(--space-2);
         }
 
         /* Compact single-row card: icon + value, that's it.
@@ -1612,10 +1615,10 @@
            basis and each card stretches to 256px tall. */
         .contact-info-card {
             --_adjusted-padding: 0.625rem 0.875rem;
-            --_adjusted-font-size: 0.875rem;
+            --_adjusted-font-size: var(--fs-secondary);
             flex: 0 0 auto;
             align-items: center;
-            gap: 0.625rem;
+            gap: var(--space-2-5);
         }
 
         .contact-info-icon {
@@ -1639,16 +1642,16 @@
 
         .contact-info-value {
             display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            line-height: 1.3;
+            font-size: var(--fs-secondary);
+            font-weight: var(--fw-display);
+            line-height: var(--lh-lede);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .contact-form {
-            gap: 1rem;
+            gap: var(--space-4);
         }
 
         .contact-send {
@@ -1665,7 +1668,7 @@
    collapsible past the 6th row via the shared togglePubGroup() control. */
 
 .projects-subpage .proj-status-group:not(:last-child) {
-    margin-block-end: 3.5rem;
+    margin-block-end: var(--space-14);
 }
 
 /* While a filter is active, fold the two status groups into one visual
@@ -1686,17 +1689,17 @@
 .proj-status-title {
     display: flex;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: var(--space-2);
     font-size: var(--fs-heading-s);
-    font-weight: var(--fw-h1);
+    font-weight: var(--fw-display);
     letter-spacing: -0.025em;
     color: var(--main-color);
-    margin-block: 0 1.5rem;
+    margin-block: 0 var(--space-6);
 }
 
 .proj-status-count {
     font-size: var(--fs-caption);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     opacity: 0.4;
 }
 
@@ -1730,9 +1733,9 @@
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: var(--space-1-5);
     font-size: var(--fs-caption);
-    line-height: 1.5;
+    line-height: var(--lh-body-base);
     margin: 0.3rem 0 0;
 }
 
@@ -1746,12 +1749,12 @@
 .proj-role-badge {
     flex-shrink: 0;
     font-size: var(--fs-badge);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 0.15rem 0.5rem;
     border-radius: 2rem;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
     color: var(--main-color-2);
     background: color-mix(in srgb, var(--main-color-2) 14%, transparent);
 }
@@ -1783,7 +1786,7 @@
 
     /* keep the badge above the ~0.75rem mobile floor (DESIGN_RULES §9, [A-1]) */
     .proj-role-badge {
-        font-size: 0.6875rem;
+        font-size: var(--fs-eyebrow);
     }
 }
 
@@ -1795,8 +1798,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
-    margin-block-end: 3rem;
+    gap: var(--space-3);
+    margin-block-end: var(--space-12);
 }
 
 /* Visually-hidden utility for off-screen labels */
@@ -1817,7 +1820,7 @@
 .pub-filter-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     min-height: 2.75rem;
     padding: 0.375rem 1rem;
     border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
@@ -1825,9 +1828,9 @@
     background: var(--main-bg-color);
     color: var(--main-color);
     font: inherit;
-    font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    line-height: var(--lh-flush);
     cursor: pointer;
     transition: border-color var(--hover-transition-time), background var(--hover-transition-time);
 }
@@ -1883,9 +1886,9 @@
     border-radius: 999px;
     background: var(--main-bg-color);
     color: var(--main-color);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    line-height: 1;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
+    line-height: var(--lh-flush);
 }
 
 .pub-filter-chev {
@@ -1928,7 +1931,7 @@
     flex-direction: column;
     /* 2px was too tight — rows visually merged. 4px gives clear separation
        between filter options without bloating the panel. */
-    gap: 0.25rem;
+    gap: var(--space-1);
 }
 
 .pub-filter-panel[hidden] { display: none; }
@@ -1936,7 +1939,7 @@
 .pub-filter-check {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: var(--space-2-5);
     /* Fixed row height across every filter (Year / Journal / Topic / Method /
        Type) so the dropdowns read as a uniform grid regardless of which
        items they contain or whether the label has a leading color dot.
@@ -1944,8 +1947,8 @@
     min-height: 2.75rem;
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-display);
     color: var(--main-color);
     cursor: pointer;
     white-space: nowrap;
@@ -1997,7 +2000,7 @@
 
 .pub-filter-check:has(input:checked) {
     color: var(--main-color);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
 }
 
 /* Label takes remaining width so the count chip sits flush right. Single-
@@ -2016,15 +2019,15 @@
    column reads as a tidy ledger when the panel is open. */
 .pub-filter-check-count {
     flex-shrink: 0;
-    margin-inline-start: 0.5rem;
+    margin-inline-start: var(--space-2);
     padding: 0.05rem 0.4rem;
     border-radius: 999px;
     background: color-mix(in srgb, var(--main-color) 8%, transparent);
     color: color-mix(in srgb, var(--main-color) 70%, transparent);
-    font-size: 0.6875rem;
-    font-weight: 600;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
     font-variant-numeric: tabular-nums;
-    line-height: 1.4;
+    line-height: var(--lh-lede);
 }
 
 /* When a row is checked, lift the count chip's contrast to mirror the
@@ -2042,7 +2045,7 @@
     display: inline-block;
     width: 0.5rem;
     height: 0.5rem;
-    margin-inline-end: 0.5rem;
+    margin-inline-end: var(--space-2);
     border-radius: 50%;
     vertical-align: 0.05em;
     background: var(--main-color-2);
@@ -2055,15 +2058,15 @@
 /* In-panel "Clear …" link — sits at the bottom of each dropdown panel,
    visible only when that dimension has at least one selection. */
 .pub-filter-panel-clear {
-    margin-block-start: 0.25rem;
+    margin-block-start: var(--space-1);
     padding: 0.5rem 0.75rem;
     border: none;
     border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
     background: transparent;
     color: var(--main-color);
     font: inherit;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
     text-align: left;
     cursor: pointer;
     opacity: 0.7;
@@ -2089,7 +2092,7 @@
     display: inline-flex;
     align-items: center;
     flex: 1 1 16rem;
-    max-width: 22rem;
+    max-width: var(--w-control);
     min-width: 0;
 
     & > svg {
@@ -2117,11 +2120,11 @@
        so the filter row reads as a compact toolbar; mobile lifts to
        16 px purely to suppress the auto-zoom. The keyboard-trigger
        still fires at the right size, just no zoom snap. */
-    font-size: 1rem;
+    font-size: var(--fs-body-base);
     transition: border-color var(--hover-transition-time);
 
     @media (min-width: 48rem) {
-        font-size: 0.875rem;
+        font-size: var(--fs-secondary);
     }
 
     &::placeholder {
@@ -2149,8 +2152,8 @@
     background: transparent;
     color: var(--main-color);
     font: inherit;
-    font-size: 0.8125rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     padding: 0.25rem;
     cursor: pointer;
     text-decoration: underline;
@@ -2167,12 +2170,12 @@
 }
 
 .pub-filter-empty {
-    padding-block: 3rem;
+    padding-block: var(--space-12);
     text-align: center;
     color: var(--main-color);
     opacity: 0.7;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: var(--fs-body-base);
+    line-height: var(--lh-eyebrow);
 }
 
 .pub-filter-clear-inline {
@@ -2181,7 +2184,7 @@
     color: var(--main-color);
     font: inherit;
     font-size: inherit;
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 0.2em;
@@ -2201,10 +2204,10 @@
     width: fit-content;
     padding: 0.25rem 0.55rem;
     border-radius: 2rem;
-    font-size: 0.625rem;
-    font-weight: 600;
+    font-size: var(--fs-badge);
+    font-weight: var(--fw-heading);
     letter-spacing: 0.1em;
-    line-height: 1;
+    line-height: var(--lh-flush);
     text-transform: uppercase;
     text-align: center;
     color: color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
@@ -2213,7 +2216,7 @@
 
 @media (max-width: 48rem) {
     .pub-filter-bar {
-        gap: 0.5rem;
+        gap: var(--space-2);
     }
 
     .pub-filter-search {

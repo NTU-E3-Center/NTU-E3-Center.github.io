@@ -10,7 +10,7 @@
 
 .news-item-hero {
     position: relative;
-    margin-block-end: 3rem;
+    margin-block-end: var(--space-12);
 }
 
 .news-item-hero-img {
@@ -50,7 +50,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: var(--space-4);
 
     background: repeating-linear-gradient(
         -45deg,
@@ -83,19 +83,19 @@
     left: 2rem;
 
     --_adjusted-padding: 0.625rem 1rem;
-    --_adjusted-font-size: 1rem;
+    --_adjusted-font-size: var(--fs-body-base);
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    line-height: 1.1;
+    line-height: var(--lh-h1);
     gap: 0.1rem;
     pointer-events: none;
 }
 
 .news-item-date-mm {
-    font-size: 0.9375rem;
-    font-weight: 600;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
     color: var(--main-color);
     opacity: 0.7;
 }
@@ -110,7 +110,7 @@
 /* ── Article ──────────────────────────────────────────────────────────────── */
 
 .news-item-article {
-    max-width: 68rem;
+    max-width: var(--w-article);
     margin-inline: auto;
     padding-block-start: 1.5rem;
 }
@@ -118,7 +118,7 @@
 .news-item-header {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-4);
 }
 
 .news-item-category {
@@ -132,22 +132,22 @@
 }
 
 .news-item-title {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: var(--fw-h1);
-    line-height: 1.15;
+    font-size: clamp(var(--fs-h2), 4vw, var(--fs-h1));
+    font-weight: var(--fw-display);
+    line-height: var(--lh-h2);
     letter-spacing: -0.025em;
     color: var(--main-color);
     margin: 0;
 }
 
 .news-item-ext-link {
-    --_adjusted-font-size: 0.9375rem;
+    --_adjusted-font-size: var(--fs-secondary);
     --_adjusted-padding: 0.45em 0.9em;
     width: fit-content;
 
     display: flex;
     align-items: center;
-    gap: 0.375rem;
+    gap: var(--space-1-5);
 
     & svg {
         height: 0.75em;
@@ -159,7 +159,7 @@
 .news-item-divider {
     height: 0.0625rem;
     background: color-mix(in srgb, var(--main-color) 14%, transparent);
-    margin-block: 2rem;
+    margin-block: var(--space-8);
 }
 
 .news-item-body {
@@ -174,62 +174,62 @@
     margin-inline: auto;
 
     & p {
-        margin-block-end: 1.25rem;
+        margin-block-end: var(--space-5);
         text-align: justify;
         hyphens: auto;
     }
 
     /* ── Heading hierarchy ── */
     & h2 {
-        font-size: 1.875rem;
+        font-size: var(--fs-h3);
         font-weight: var(--fw-display);
-        line-height: 1.2;
+        line-height: var(--lh-h3);
         letter-spacing: -0.02em;
-        margin-block: 2.5rem 1rem;
+        margin-block: var(--space-10) var(--space-4);
     }
 
     & h3 {
         font-size: var(--fs-heading-s);
         font-weight: var(--fw-display);
-        line-height: 1.25;
+        line-height: var(--lh-h3);
         letter-spacing: -0.015em;
-        margin-block: 2rem 0.75rem;
+        margin-block: var(--space-8) var(--space-3);
     }
 
     & h4 {
-        font-size: 1.25rem;
+        font-size: var(--fs-lede);
         font-weight: var(--fw-display);
-        line-height: 1.3;
-        margin-block: 1.75rem 0.5rem;
+        line-height: var(--lh-lede);
+        margin-block: var(--space-7) var(--space-2);
     }
 
     /* h5 / h6 — smaller, keep --fw-heading (600) so they don't lose
        presence at body-tier sizes. h6 is also uppercased like an eyebrow. */
     & h5 {
-        font-size: 1.0625rem;
+        font-size: var(--fs-body);
         font-weight: var(--fw-heading);
-        line-height: 1.4;
-        margin-block: 1.5rem 0.5rem;
+        line-height: var(--lh-lede);
+        margin-block: var(--space-6) var(--space-2);
         opacity: 0.85;
     }
 
     & h6 {
-        font-size: 0.9375rem;
+        font-size: var(--fs-secondary);
         font-weight: var(--fw-heading);
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        margin-block: 1.25rem 0.5rem;
+        margin-block: var(--space-5) var(--space-2);
         opacity: 0.5;
     }
 
     & ul, & ol {
         padding-inline-start: 1.5rem;
-        margin-block-end: 1.25rem;
+        margin-block-end: var(--space-5);
     }
 
     /* font-size inherited from --fs-prose via the unified prose recipe. */
     & li {
-        margin-block-end: 0.375rem;
+        margin-block-end: var(--space-1-5);
         text-align: justify;
         hyphens: auto;
     }
@@ -238,7 +238,7 @@
 .news-item-placeholder {
     opacity: 0.35;
     font-style: italic;
-    font-size: 1.25rem;
+    font-size: var(--fs-lede);
 }
 
 /* Inline images from article markdown — half paragraph width, centred */
@@ -247,7 +247,7 @@
     height: auto;
     border-radius: 0.375rem;
     display: block;
-    margin-block: 1.75rem;
+    margin-block: var(--space-7);
     margin-inline: auto;
     object-fit: cover;
 }
@@ -278,9 +278,8 @@
         bottom: -0.625rem;
     }
 
-    .news-item-title {
-        font-size: 1.625rem;
-    }
+    /* Title sizing is driven by the clamp() in the base rule —
+       --fs-h2 floor at tablet ≈ 2rem keeps clear hierarchy over body. */
 
     /* On small screens, let images breathe at 80% instead of cramped 50% */
     .news-item-body img {
@@ -291,12 +290,12 @@
 /* Phone overrides — match the compact look used on member individual page. */
 @media (max-width: 37.5rem) {
     .news-item-main {
-        padding-block: 1.5rem 4rem;
+        padding-block: var(--space-6) var(--space-16);
         padding-inline: var(--gutter-x);
     }
 
     .news-item-hero {
-        margin-block-end: 1.75rem;
+        margin-block-end: var(--space-7);
     }
 
     /* Same token-update pattern as the tablet rule above. */
@@ -311,16 +310,16 @@
     .news-item-date-badge {
         left: 0.75rem;
         bottom: -0.5rem;
-        --_adjusted-font-size: 0.8125rem;
+        --_adjusted-font-size: var(--fs-secondary);
         --_adjusted-padding: 0.45rem 0.75rem;
     }
 
     .news-item-date-mm {
-        font-size: 0.75rem;
+        font-size: var(--fs-eyebrow);
     }
 
     .news-item-date-yy {
-        font-size: 1.125rem;
+        font-size: var(--fs-body);
     }
 
     .news-item-article {
@@ -328,37 +327,38 @@
     }
 
     .news-item-header {
-        gap: 0.625rem;
+        gap: var(--space-2-5);
     }
 
     .news-item-category {
-        font-size: 0.625rem;
+        font-size: var(--fs-badge);
     }
 
-    .news-item-title {
-        font-size: 1.375rem;
-    }
+    /* Title size driven by clamp() in base rule (floor --fs-h2 mobile = 1.75rem).
+       Body at mobile is --fs-body = 1.1875rem, so ratio is ~1.47x — clear hierarchy. */
 
     .news-item-ext-link {
-        --_adjusted-font-size: 0.8125rem;
+        --_adjusted-font-size: var(--fs-secondary);
     }
 
     .news-item-divider {
-        margin-block: 1.25rem;
+        margin-block: var(--space-5);
     }
 
     .news-item-body {
-        /* Body size + line-height inherited from --fs-prose / --lh-prose;
-           only h-stack sizes need mobile tuning. */
+        /* Body size + line-height inherited from --fs-body / --lh-body
+           (mobile --lh-body tightens to 1.55). Drop paragraph gap one
+           tier for a denser reading rhythm — pairs with the tightened
+           leading; the page no longer feels "spread out" on a phone. */
         & p {
-            margin-block-end: 0.875rem;
+            margin-block-end: var(--space-3);
         }
 
-        & h2 { font-size: 1.375rem; margin-block: 1.5rem 0.625rem; }
-        & h3 { font-size: 1.125rem; margin-block: 1.25rem 0.5rem; }
-        & h4 { font-size: 1rem;     margin-block: 1.125rem 0.4rem; }
-        & h5 { font-size: 0.9375rem; margin-block: 1rem 0.4rem; }
-        & h6 { font-size: 0.8125rem; margin-block: 0.875rem 0.4rem; }
+        & h2 { font-size: var(--fs-lede); margin-block: var(--space-6) var(--space-2-5); }
+        & h3 { font-size: var(--fs-body); margin-block: var(--space-5) var(--space-2); }
+        & h4 { font-size: var(--fs-body-base);     margin-block: var(--space-4) var(--space-1-5); }
+        & h5 { font-size: var(--fs-secondary); margin-block: var(--space-4) var(--space-1-5); }
+        & h6 { font-size: var(--fs-secondary); margin-block: var(--space-3-5) var(--space-1-5); }
 
         & li {
             margin-block-end: 0.3125rem;
@@ -366,12 +366,12 @@
     }
 
     .news-item-placeholder {
-        font-size: 1rem;
+        font-size: var(--fs-body-base);
     }
 
     .news-item-body img {
         width: 100%;
-        margin-block: 1.25rem;
+        margin-block: var(--space-5);
     }
 }
 

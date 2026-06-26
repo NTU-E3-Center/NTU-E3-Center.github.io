@@ -16,7 +16,7 @@
 
 body {
     max-width: 100%;
-    line-height: 1.55;
+    line-height: var(--lh-body-base);
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
 }
@@ -63,22 +63,22 @@ h6 {
 }
 
 h1 {
-    font-size: var(--fs-display-l);
-    line-height: 1.1;
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
     letter-spacing: -0.03em;
     font-weight: var(--fw-display);
 }
 
 h2 {
-    font-size: var(--fs-heading-l);
-    line-height: 1.15;
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
     letter-spacing: -0.025em;
     font-weight: var(--fw-display);
 }
 
 h3 {
-    font-size: var(--fs-heading-m);
-    line-height: 1.2;
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
     letter-spacing: -0.02em;
     font-weight: var(--fw-display);
 }
@@ -150,20 +150,20 @@ i {
    for these utilities first. */
 .text-eyebrow {
     font-size: var(--fs-eyebrow);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
     color: var(--main-color);
     opacity: 0.4;
 }
 
 .text-badge {
     font-size: var(--fs-badge);
-    font-weight: 600;
+    font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
     padding: 0.15rem 0.55rem;
     /* Color is caller-supplied — badges are status-coded via --r-* tokens. */
 }
@@ -194,9 +194,9 @@ i {
     .pub-item-abstract,
     .contact-tagline
 ) {
-    font-size: var(--fs-prose);
+    font-size: var(--fs-body);
     font-weight: var(--fw-body);
-    line-height: var(--lh-prose);
+    line-height: var(--lh-body);
     color: var(--main-color);
 }
 
@@ -379,41 +379,100 @@ i {
        §2.2. These are additive: existing CSS still uses hard-coded rem
        values; new CSS should prefer these tokens. Sizes given in rem;
        mobile root scales to 14px via `html { font-size: 87.5% }`. */
-    --fs-display-xl: 3.25rem;   /* homepage section titles */
-    --fs-display-l:  3.5rem;    /* h1 baseline */
-    --fs-display-m:  3rem;      /* homepage hero */
-    --fs-display-s:  2.75rem;   /* breadcrumb parent, member-profile h1, contact-lead */
-    --fs-heading-l:  2.25rem;   /* h2 baseline */
-    --fs-heading-m:  1.75rem;   /* h3 baseline */
-    --fs-heading-s:  1.5rem;    /* publication title, news-item year */
-    --fs-body-xl:    1.375rem;  /* breadcrumb current, news-row year */
-    --fs-body-l:     1.25rem;   /* section subtitle, slider caption */
-    --fs-body:       1.0625rem; /* publication subtitle, contact value */
-    --fs-body-base:  1rem;      /* default paragraph */
-    --fs-body-s:     0.9375rem; /* publication authors, mobile body */
-    --fs-caption:    0.875rem;  /* filter labels */
+    /* v3 content-type taxonomy. Three groups; each behaves differently
+       across breakpoints (see @media blocks below). Hierarchy invariant:
+       at every breakpoint, smallest heading > largest content. */
+
+    /* HEADING group */
+    --fs-h1: 3rem;
+    --fs-h2: 2.25rem;
+    --fs-h3: 1.75rem;
+
+    /* CONTENT group */
+    --fs-lede:      1.375rem;
+    --fs-body:      1.125rem;
+    --fs-body-base: 1rem;
+    --fs-secondary: 0.875rem;
+
+    /* LABEL group */
+    --fs-eyebrow: 0.6875rem;
+    --fs-badge:   0.625rem;
+
+    /* Deprecated aliases — kept so legacy var(--fs-*) call sites resolve
+       during the migration. Remove once all call sites are migrated. */
+    --fs-display-xl: var(--fs-h1);
+    --fs-display-l:  var(--fs-h1);
+    --fs-display-m:  var(--fs-h1);
+    --fs-display-s:  var(--fs-h1);
+    --fs-heading-l:  var(--fs-h2);
+    --fs-heading-m:  var(--fs-h3);
+    --fs-heading-s:  var(--fs-h3);
+    --fs-body-xl:    var(--fs-lede);
+    --fs-body-l:     var(--fs-lede);
+    --fs-body-s:     var(--fs-secondary);
+    --fs-caption:    var(--fs-secondary);
+    --fs-caption-s:  var(--fs-secondary);
+    --fs-prose:      var(--fs-body);
+    --fs-prose-lede: var(--fs-lede);
+
+    /* Spacing scale — rem-based ladder used for every gap / padding-block /
+       margin-block / margin-inline-start declaration sitewide. v3 S-track.
+       Powers of √2 between 0.5 and 4rem with half-steps where common.
+       Use the smallest token that conveys the right rhythm; per-surface
+       overrides become declarative ("space-4" not "16px"). */
+    --space-1:    0.25rem;   /*  4px */
+    --space-1-5:  0.375rem;  /*  6px */
+    --space-2:    0.5rem;    /*  8px */
+    --space-2-5:  0.625rem;  /* 10px */
+    --space-3:    0.75rem;   /* 12px */
+    --space-3-5:  0.875rem;  /* 14px */
+    --space-4:    1rem;      /* 16px — most common card gap */
+    --space-5:    1.25rem;   /* 20px */
+    --space-6:    1.5rem;    /* 24px */
+    --space-7:    1.75rem;   /* 28px */
+    --space-8:    2rem;      /* 32px */
+    --space-10:   2.5rem;    /* 40px */
+    --space-12:   3rem;      /* 48px */
+    --space-14:   3.5rem;    /* 56px */
+    --space-16:   4rem;      /* 64px */
+    --space-20:   5rem;      /* 80px */
+    --space-24:   6rem;      /* 96px */
+    --space-28:   7rem;      /* 112px */
+    --space-32:   8rem;      /* 128px */
+
+    /* Container width tokens — one per semantic role. Replaces the six
+       hard-coded outer widths (22 / 40 / 56 / 60 / 64 / 68rem) that
+       drifted across files. v3 Q-track. */
+    --w-section: 80rem;   /* Full-width page / homepage section */
+    --w-article: 68rem;   /* Detail-page outer container (news, project, publication, member) */
+    --w-info:    56rem;   /* Profile / tagline frames (member.main-info, contact-tagline) */
+    --w-form:    40rem;   /* Form rows, compact info groups */
+    --w-control: 22rem;   /* Dropdown panels, filter search */
 
     /* Prose measure — standard reading line length. 45–75ch is the
        typographic research band (Bringhurst); 65ch is the modern web
-       baseline (Tailwind prose, MDN, GitHub). Apply to any container
-       whose primary content is paragraph text. */
+       baseline (Tailwind prose, MDN, GitHub). */
     --prose-measure: 65ch;
-    --fs-caption-s:  0.8125rem; /* row month, secondary meta */
-    --fs-eyebrow:    0.6875rem; /* group/category eyebrow labels */
-    --fs-badge:      0.625rem;  /* status/category badge */
+    --w-prose: var(--prose-measure);  /* alias under the new naming */
 
-    /* Prose line-height — single anchor for running body text.
-       Picked at 1.7 to match the two newest files (news-item, publication-item).
-       Apply via `line-height: var(--lh-prose)` in any container whose
-       primary content is paragraphs / lists. */
-    --lh-prose: 1.7;
+    /* Line-height ladder — paired one-to-one with the font-size tokens
+       above. HEADING tight (1.1–1.2) so big type stacks closely.
+       CONTENT comfortable (lede 1.4 / body 1.7 / base 1.55 / secondary
+       1.45) so prose breathes. LABEL neutral (1.6) — labels are mostly
+       single-line. Apply via `line-height: var(--lh-h3)` etc. */
+    --lh-h1:        1.1;
+    --lh-h2:        1.15;
+    --lh-h3:        1.2;
+    --lh-lede:      1.4;
+    --lh-body:      1.7;
+    --lh-body-base: 1.55;
+    --lh-secondary: 1.45;
+    --lh-eyebrow:   1.6;
+    --lh-badge:     1.6;
+    --lh-flush:     1;     /* single-line UI (buttons, chips, icon containers) */
 
-    /* Prose size ladder — applied via the .prose recipe below.
-       --fs-prose       — body of any "about", article, abstract, project prose.
-       --fs-prose-lede  — the opening lede paragraph one tier larger.
-       One size, one weight, one line-height across every prose surface. */
-    --fs-prose:      1.125rem;
-    --fs-prose-lede: 1.25rem;
+    /* Deprecated alias — old --lh-prose calls resolve to --lh-body. */
+    --lh-prose: var(--lh-body);
 
     /* Font families — three roles, three tokens. Outfit covers Latin;
        Noto Sans TC covers CJK and is loaded as the global fallback. The
@@ -464,7 +523,7 @@ i {
 
     --selection-color: #0a557edd;
 
-    --para-max-width: 60rem;
+    --para-max-width: var(--w-article);
 
     --btn-border-width: 0.125rem;
     --btn-border-radius: 0.25rem;
@@ -499,7 +558,7 @@ i {
        --section-title-gap   space between .section-title and first content row
     */
     --section-pad-y: 8rem;
-    --section-title-gap: 2.5rem;
+    --section-title-gap: var(--space-10);
 
     /* Subpage header geometry — used to vertically center the fixed menu
        button against the header. If you change the header padding-block or
@@ -515,14 +574,16 @@ i {
     :root {
         --gutter-x: clamp(2rem, 5vw, 4rem);
         --section-pad-y: 6rem;
-        --section-title-gap: 2rem;
+        --section-title-gap: var(--space-8);
         --header-h: 4.5rem;
         --menu-btn-h: 2.75rem;
 
-        /* Tablet prose — slightly tighter than desktop because the line
-           length is narrower; the smaller size still reads comfortably. */
-        --fs-prose:      1.0625rem;   /* 17px */
-        --fs-prose-lede: 1.1875rem;   /* 19px */
+        /* Tablet typography per group */
+        --fs-h1:   2.5rem;
+        --fs-h2:   2rem;
+        --fs-h3:   1.625rem;
+        --fs-lede: 1.25rem;
+        --fs-body: 1.0625rem;
     }
 }
 
@@ -530,21 +591,29 @@ i {
     :root {
         --gutter-x: 2rem;
         --section-pad-y: 4rem;
-        --section-title-gap: 1.5rem;
+        --section-title-gap: var(--space-6);
         --header-h: 2.75rem;
         --menu-btn-h: 2rem;
 
-        /* Mobile floors — the 14px root would otherwise render
-           --fs-eyebrow at ~9.6px and --fs-badge at ~8.75px, both
-           below WCAG legibility floor. Bumped here so callers don't
-           need to special-case mobile. (See audit T·3.) */
+        /* Mobile typography per group. Body shrinks slightly from 1.1875rem
+           to 1.125rem (15.75 px effective at 14-px root) — still above the
+           common-readable floor; the iOS 16-px auto-zoom floor is preserved
+           on form inputs via an explicit override below (search "form auto-zoom").
+           Label group bumps to clear WCAG floor (without it, 87.5% root
+           drops eyebrow to ~9.6 px / badge to ~8.75 px). */
+        --fs-h1:   2rem;
+        --fs-h2:   1.75rem;
+        --fs-h3:   1.5rem;
+        --fs-lede: 1.25rem;
+        --fs-body: 1.125rem;
+
         --fs-eyebrow: 0.8125rem;
         --fs-badge:   0.75rem;
 
-        /* Mobile prose — bumped above the 16px iOS auto-zoom floor.
-           At 14-px root, 1.1875rem = 16.6px effective. */
-        --fs-prose:      1.1875rem;
-        --fs-prose-lede: 1.3125rem;
+        /* Tighter leading on mobile prose — Bringhurst's 1.5 floor.
+           Same legibility, ~10% less vertical bulk, content feels
+           denser without sacrificing per-line readability. */
+        --lh-body: 1.55;
     }
     /* Scale every rem-based size proportionally on phone. 87.5% = 14px
        root — body text drops to 14px, headings/padding shrink ~12.5%. */
@@ -557,8 +626,10 @@ i {
    editorial scale used by Medium (21px wide), NYT (19-21px), Atlantic. */
 @media (min-width: 90rem) {
     :root {
-        --fs-prose:      1.1875rem;   /* 19px */
-        --fs-prose-lede: 1.375rem;    /* 22px */
+        /* Wide tier — typography only; label group stays constant */
+        --fs-h1:   3.25rem;
+        --fs-lede: 1.5rem;
+        --fs-body: 1.1875rem;
     }
 }
 
@@ -781,8 +852,8 @@ section:has(.section-title) {
                (2.25rem) so visitors moving home → subpage don't feel like
                two different sites. 2.75rem still reads as the dominant
                homepage section title; tracking unchanged. */
-            font-size: 2.75rem;
-            font-weight: var(--fw-h1);
+            font-size: var(--fs-h1);
+            font-weight: var(--fw-display);
             letter-spacing: -0.03em;
         }
 
@@ -823,14 +894,14 @@ section:has(.section-title) {
     }
 
     & .section-subtitle {
-        margin-inline-start: 0.25rem;
+        margin-inline-start: var(--space-1);
 
         display: flex;
         flex-wrap: wrap;
-        gap: 0.75rem;
+        gap: var(--space-3);
 
         &>* {
-            font-size: 1.25rem;
+            font-size: var(--fs-lede);
             translate: 0 -0.4375rem;
 
             display: flex;
@@ -841,7 +912,7 @@ section:has(.section-title) {
 }
 
 h3 {
-    margin-block: 4rem 1rem;
+    margin-block: var(--space-16) var(--space-4);
 
     display: flex;
     align-items: baseline;
@@ -850,7 +921,7 @@ h3 {
         content: '';
         width: 0.75rem;
         height: 0.25rem;
-        margin-left: 0.25rem;
+        margin-left: var(--space-1);
         translate: 0 50%;
         background-color: var(--secondary-color);
     }
@@ -865,14 +936,14 @@ h3 {
     font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    line-height: 1.6;
+    line-height: var(--lh-eyebrow);
     color: var(--main-color);
     opacity: 0.65;
-    margin-block: 3rem 1.25rem;
+    margin-block: var(--space-12) var(--space-5);
 
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: var(--space-2-5);
 
     &::before {
         content: '';
@@ -895,24 +966,24 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
 }
 
 .filter {
-    margin-block-end: 2rem;
+    margin-block-end: var(--space-8);
 
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 
     .filter-title+* {
-        margin-inline-start: 0.5rem !important;
+        margin-inline-start: var(--space-2) !important;
     }
 
     .filter-title {
-        font-size: 0.875rem;
+        font-size: var(--fs-secondary);
         opacity: 0.6;
     }
 
     .filter-block {
         --_adjusted-padding: 0.25rem 0.5rem;
-        margin-inline-start: 1rem;
+        margin-inline-start: var(--space-4);
 
         display: flex;
         align-items: center;
@@ -922,12 +993,12 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
 
             &:checked+.filter-label svg {
                 width: 1.0625rem;
-                margin-inline-end: 0.25rem;
+                margin-inline-end: var(--space-1);
             }
         }
 
         .filter-label {
-            font-size: 0.875rem;
+            font-size: var(--fs-secondary);
             transform: skewX(var(--content-skew));
 
             & svg {
@@ -943,7 +1014,7 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
 .filter-empty {
     padding: 1rem;
     opacity: 0.5;
-    font-size: 1rem;
+    font-size: var(--fs-body-base);
 }
 
 [class*="-img"]:has(img),
@@ -1017,7 +1088,7 @@ footer {
 
         display: grid;
         grid-template-columns: 1.4fr 1fr 1.2fr;
-        gap: 1.75rem 3rem;
+        gap: var(--space-7) var(--space-12);
         align-items: start;
     }
 
@@ -1046,20 +1117,20 @@ footer {
     }
 
     & .ftr-tagline {
-        margin-block-start: 0.625rem;
-        max-width: 22rem;
-        font-size: 0.875rem;
-        line-height: 1.5;
+        margin-block-start: var(--space-2-5);
+        max-width: var(--w-control);
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-body-base);
         opacity: 0.65;
         color: var(--main-color);
     }
 
     & .ftr-col-title {
-        margin-block-end: 0.625rem;
+        margin-block-end: var(--space-2-5);
         font-size: var(--fs-eyebrow);
         font-weight: var(--fw-heading);
         letter-spacing: 0.14em;
-        line-height: 1.6;
+        line-height: var(--lh-eyebrow);
         text-transform: uppercase;
         color: var(--main-color);
         opacity: 0.4;
@@ -1070,7 +1141,7 @@ footer {
     & .ftr-nav ul {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 0.4rem 1.25rem;
+        gap: var(--space-1-5) var(--space-5);
         padding: 0;
         margin: 0;
         list-style: none;
@@ -1080,8 +1151,8 @@ footer {
         /* S·2 — was 1rem; collapsed to 0.875rem so footer carries one body
            size (caption) plus the eyebrow column title. Hierarchy comes
            from color + opacity, not size. */
-        font-size: 0.875rem;
-        line-height: 1.4;
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-lede);
         color: var(--main-color);
         opacity: 0.8;
         transition: opacity var(--hover-transition-time);
@@ -1107,10 +1178,10 @@ footer {
     & .ftr-contact-row {
         display: flex;
         align-items: flex-start;
-        gap: 0.5rem;
-        padding-block: 0.05rem;
-        font-size: 0.875rem;
-        line-height: 1.45;
+        gap: var(--space-2);
+        padding-block: var(--space-1);
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-secondary);
         color: var(--main-color);
         opacity: 0.85;
         transition: opacity var(--hover-transition-time);
@@ -1142,7 +1213,7 @@ footer {
     & .ftr-bottom {
         width: min(100%, 80rem);
         margin-inline: auto;
-        margin-block-start: 1.5rem;
+        margin-block-start: var(--space-6);
         padding-block-start: 1rem;
         border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
     }
@@ -1151,8 +1222,8 @@ footer {
         /* S·2 — was 0.75rem; lifted to 0.875rem so the entire footer body
            reads at one caption size. Opacity 0.5 carries the demotion that
            size was being asked to do. */
-        font-size: 0.875rem;
-        line-height: 1.5;
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-body-base);
         color: var(--main-color);
         opacity: 0.5;
     }
@@ -1161,7 +1232,7 @@ footer {
 @media (max-width: 64rem) {
     footer .ftr-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem 3rem;
+        gap: var(--space-6) var(--space-12);
     }
 
     footer .ftr-brand {
@@ -1270,7 +1341,7 @@ body {
     display: none;
     place-content: center;
     justify-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
 
     & svg {
         width: 1.25rem;
@@ -1279,7 +1350,7 @@ body {
 
 /* menu */
 .menu-btn {
-    --_adjusted-font-size: 1.125rem;
+    --_adjusted-font-size: var(--fs-body);
 
     position: fixed;
     /* Vertically center the button against the subpage header at every
@@ -1298,14 +1369,14 @@ body {
 
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
 
     & svg {
         width: 1rem;
     }
 
     & p {
-        margin-inline-end: 1rem;
+        margin-inline-end: var(--space-4);
     }
 }
 
@@ -1349,7 +1420,7 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: end;
-        gap: 2rem;
+        gap: var(--space-8);
 
         &>* {
             transform: skewX(calc(-1 * var(--block-skew)));
@@ -1361,13 +1432,13 @@ body {
     }
 
     .menu-a {
-        --_adjusted-font-size: 1.25rem;
+        --_adjusted-font-size: var(--fs-lede);
 
         width: var(--_menu-a-width);
 
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: var(--space-2);
     }
 
     & svg {
@@ -1502,7 +1573,7 @@ body {
         /* `top` is computed by the calc on .menu-btn using --header-h /
            --menu-btn-h tokens — no need to override per breakpoint. */
         right: 0;
-        padding-block: 0.5rem;
+        padding-block: var(--space-2);
         min-height: 2.75rem;
     }
 }
@@ -1523,7 +1594,7 @@ body {
                translated off-screen by (-100lvh * tan(3°) / 2) ≈ 22px on
                a tall phone, plus the parallelogram's slanted right edge
                eats more horizontal room. 3rem keeps text fully visible. */
-            padding-inline: 1.25rem 3rem;
+            padding-inline: var(--space-5) var(--space-12);
             gap: clamp(0.5rem, 1.4dvh, 1rem);
             justify-content: safe center;
             /* Stretch flex children so every <ui> wrapper spans the full
@@ -1585,7 +1656,7 @@ body {
 
         & .ftr-grid {
             grid-template-columns: 1fr;
-            gap: 1.25rem;
+            gap: var(--space-5);
         }
 
         & .ftr-brand {
@@ -1597,13 +1668,13 @@ body {
         }
 
         & .ftr-tagline {
-            font-size: 0.8125rem;
-            margin-block-start: 0.5rem;
+            font-size: var(--fs-secondary);
+            margin-block-start: var(--space-2);
         }
 
         & .ftr-col-title {
-            margin-block-end: 0.5rem;
-            font-size: 0.625rem;
+            margin-block-end: var(--space-2);
+            font-size: var(--fs-badge);
         }
 
         & .ftr-nav ul {
@@ -1611,20 +1682,20 @@ body {
         }
 
         & .ftr-link {
-            font-size: 0.875rem;
+            font-size: var(--fs-secondary);
         }
 
         & .ftr-contact-row {
-            font-size: 0.8125rem;
+            font-size: var(--fs-secondary);
         }
 
         & .ftr-bottom {
-            margin-block-start: 1.25rem;
+            margin-block-start: var(--space-5);
             padding-block-start: 0.875rem;
         }
 
         & .ftr-info {
-            font-size: 0.6875rem;
+            font-size: var(--fs-eyebrow);
         }
     }
 }
