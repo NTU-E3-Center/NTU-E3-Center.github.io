@@ -1,0 +1,40 @@
+{
+  "position": "Undergraduate (Pre-Master's) Student",
+  "email": {
+    "ntu": "",
+    "preferred": ""
+  },
+  "interests": [],
+  "links": {
+    "scholar": "",
+    "orcid": "",
+    "linkedin": "",
+    "researchgate": "",
+    "facebook": "",
+    "office": {
+      "text": "",
+      "url": ""
+    }
+  },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "metaDescription": ""
+}
