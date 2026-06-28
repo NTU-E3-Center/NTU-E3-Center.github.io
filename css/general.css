@@ -1017,7 +1017,13 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
     font-size: var(--fs-body-base);
 }
 
-[class*="-img"]:has(img),
+/* :has(img[loading="lazy"]) — scope the reveal-on-load only to lazy
+   containers. Previously this selector was `:has(img)` (any image)
+   which set every img to opacity:0 by default — but the JS reveal
+   only fires for lazy imgs, so eager imgs (e.g., group-life slider's
+   first slide) stayed invisible forever and the 20w background
+   placeholder was the only thing visible. */
+[class*="-img"]:has(img[loading="lazy"]),
 .media-modal-content-wrapper {
     background-size: var(--_content-width);
     background-position: center;
@@ -1048,6 +1054,14 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
     &.lazy-img-loaded::before {
         opacity: 1;
     }
+}
+
+/* Eager-loaded image containers (e.g., group-life slider first slide):
+   no opacity-fade-in dance needed — show the image as soon as it paints.
+   Still apply object-fit:cover so cached older bitmaps with a different
+   aspect crop gracefully instead of stretching. */
+[class*="-img"]:has(img[loading="eager"]) img {
+    object-fit: cover;
 }
 
 .sr-only {
@@ -1382,7 +1396,10 @@ body {
 
 .menu {
     --_menu-width: 25rem;
-    --_menu-a-width: 11rem;
+    /* Sized to fit the longest label ("Publications") at --fs-lede
+       with icon + gap, plus skewed-block padding. Bumped from 11rem
+       (which forced "Group Life" / "Contact Us" to wrap to two rows). */
+    --_menu-a-width: 13rem;
 
     position: fixed;
     inset: 0;
@@ -1402,7 +1419,9 @@ body {
         top: 0;
         right: calc(-1 * var(--_menu-width) - 100lvh * tan(var(--content-skew)) / 2);
         height: 100%;
-        padding: 2rem 4rem 2rem 3rem;
+        /* dvh-scaled padding so the drawer doesn't crowd against short viewports */
+        padding-block: clamp(1rem, 3dvh, 2rem);
+        padding-inline: 3rem 4rem;
         background-color: var(--main-bg-color);
         border-left: 0.1875rem solid var(--main-color);
         transform: skewX(var(--block-skew));
@@ -1416,11 +1435,19 @@ body {
         overflow-y: auto;
 
         display: flex;
-        flex-wrap: wrap;
+        /* nowrap — items must stay in a single column. On short screens
+           the menu items + gaps would previously wrap into a 2nd column
+           because column flex with wrap promotes to columns when content
+           exceeds the cross axis. With nowrap, items shrink (via dvh
+           clamps on font + gap below) and overflow scrolls if needed. */
+        flex-wrap: nowrap;
         flex-direction: column;
         justify-content: center;
         align-items: end;
-        gap: var(--space-8);
+        /* dvh-scaled gap — shrinks from 2rem on tall viewports down to
+           0.625rem on short ones (e.g., laptop in browser-zoom mode,
+           rotated tablet, short windowed viewport). */
+        gap: clamp(0.625rem, 2dvh, 2rem);
 
         &>* {
             transform: skewX(calc(-1 * var(--block-skew)));
@@ -1432,17 +1459,29 @@ body {
     }
 
     .menu-a {
-        --_adjusted-font-size: var(--fs-lede);
+        /* dvh-clamped font — at 720dvh+ the original --fs-lede (~22px) renders.
+           Below ~600dvh the size shrinks toward --fs-body so all items fit. */
+        --_adjusted-font-size: clamp(var(--fs-body), 2.6dvh, var(--fs-lede));
 
+        /* Fixed width so every button in the drawer reads as the same
+           tile. --_menu-a-width is sized to fit the longest label
+           ("Publications") + icon + gap; nowrap on the inner span is
+           the safety net so no item can ever wrap to a second row. */
         width: var(--_menu-a-width);
 
         display: flex;
         align-items: center;
         gap: var(--space-2);
+
+        & span {
+            white-space: nowrap;
+        }
     }
 
+    /* SVG icons next to each menu item also shrink with viewport height
+       to keep proportions with the dvh-clamped font. */
     & svg {
-        width: 1.375rem;
+        width: clamp(1.125rem, 2.8dvh, 1.375rem);
     }
 }
 
@@ -1480,13 +1519,18 @@ body {
 
 /* Scroll-spy active state — JS sets .menu-a--active + aria-current="location"
    on the menu item matching the section currently in view. Inverted color
-   block reads as a quiet "you are here" without competing with hover state. */
+   block reads as a quiet "you are here" without competing with hover state.
+   The descendant selector `.menu-a--active *` is required because the
+   universal `* { color: var(--main-color) }` reset in general.css:6 sets
+   color directly on every descendant (specificity 0,0,0), which would
+   otherwise win over inherited color from the .menu-a--active class.
+   Sprite paths use fill="currentColor" so the icons follow the color too. */
 .menu-a--active {
     background-color: var(--main-color);
-    color: var(--main-bg-color);
 }
-.menu-a--active svg {
-    fill: var(--main-bg-color);
+.menu-a--active,
+.menu-a--active * {
+    color: var(--main-bg-color);
 }
 
 /* sprite symbols */

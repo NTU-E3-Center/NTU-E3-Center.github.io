@@ -1929,10 +1929,13 @@
         }
 
         .glf-slider-num {
-            width: 3.8125rem;
+            /* nowrap — "10 / 10" was wrapping into two rows because the
+               '/' acts as a soft break point inside a fixed-width box. */
+            white-space: nowrap;
             margin-inline-start: var(--space-1);
-            font-size: var(--fs-lede);
+            font-size: var(--fs-body);
             text-align: center;
+            font-variant-numeric: tabular-nums;
         }
     }
 
@@ -1995,7 +1998,10 @@
         .glf-slider-text {
             width: var(--_img-width);
             margin-block-start: var(--space-3);
-            font-size: var(--fs-lede);
+            /* Captions are 1–2 lines of supporting context, not headings —
+               drop from --fs-lede (1.375rem) to --fs-body (1.125rem) so
+               they read as a quiet line below the photo. */
+            font-size: var(--fs-body);
             text-wrap: balance;
             text-align: center;
         }
@@ -2370,14 +2376,9 @@
             width: 0.625rem;
         }
 
-        .glf-slider-num {
-            width: 3.4375rem !important;
-            font-size: var(--fs-body) !important;
-        }
-    }
-
-    .glf-slider-text {
-        font-size: var(--fs-body) !important;
+        /* slider-num + slider-text now inherit --fs-body from the desktop
+           rules — same size on every breakpoint, RWD does the rest via
+           the 87.5% root scale at ≤37.5rem. No mobile override needed. */
     }
 }
 
