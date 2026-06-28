@@ -52,19 +52,24 @@
         {% for item in group_life['items'][::-1] %}
         <div class="glf-block filter-content" where="{{ group_life['filterId'] }}" data-value="{{item['year']}}">
             {% set imgPathFront = item['imgPath'].split('.')[0] %}
+            {# Cache-bust query — mirrors the homepage slider (see
+               templates/home/group-life.html) so the regenerated
+               (no-longer-upscaled) variants get refetched. Bump here
+               and there together. #}
+            {% set imgV = 'v=2' %}
             <div class="glf-img skewed-block zoomable" b-role="block" b-hoverable style="background-image: url({{ imgPathFront }}-20w.webp);">
                 <img
                     loading="lazy"
                     width="800" height="600"
-                    src="{{ item['imgPath'] }}"
+                    src="{{ item['imgPath'] }}?{{ imgV }}"
                     srcset="
-                        {{ imgPathFront }}-200w.webp 200w,
-                        {{ imgPathFront }}-400w.webp 400w,
-                        {{ imgPathFront }}-600w.webp 600w,
-                        {{ imgPathFront }}-800w.webp 800w,
-                        {{ imgPathFront }}-1200w.webp 1200w,
-                        {{ imgPathFront }}-1600w.webp 1600w,
-                        {{ imgPathFront }}-2000w.webp 2000w
+                        {{ imgPathFront }}-200w.webp?{{ imgV }} 200w,
+                        {{ imgPathFront }}-400w.webp?{{ imgV }} 400w,
+                        {{ imgPathFront }}-600w.webp?{{ imgV }} 600w,
+                        {{ imgPathFront }}-800w.webp?{{ imgV }} 800w,
+                        {{ imgPathFront }}-1200w.webp?{{ imgV }} 1200w,
+                        {{ imgPathFront }}-1600w.webp?{{ imgV }} 1600w,
+                        {{ imgPathFront }}-2000w.webp?{{ imgV }} 2000w
                     "
                     sizes="20rem"
                     alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"

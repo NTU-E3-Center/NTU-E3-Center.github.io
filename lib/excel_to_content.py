@@ -144,9 +144,14 @@ def find_image(web_id: str) -> str:
     return '/assets/members/nobody.svg'
 
 
-def get_icon(current_position: str, batch: str) -> str:
+def get_icon(current_position: str, batch: str, section: str = '') -> str:
     pos = (current_position or '').strip()
     b   = (batch or '').strip()
+    sec = (section or '').strip()
+    # Full-time staff (RAs, advisors) all share the assistant icon, regardless
+    # of whether a per-row Position is filled in.
+    if sec == 'Staff':
+        return '/assets/sprite.svg#svg-assistant'
     if pos == 'RA':
         return '/assets/sprite.svg#svg-assistant'
     if pos.startswith('PHD'):
@@ -295,7 +300,7 @@ def build_member_data():
         has_page      = bool(about or position)
         display_email = email or ntu_email
         img_path      = find_image(web_id)
-        icon          = get_icon(curr_pos, batch)
+        icon          = get_icon(curr_pos, batch, section)
         is_pi         = (section == 'Principal Investigator')
 
         # ── per-member JSON ───────────────────────────────────────────────────────

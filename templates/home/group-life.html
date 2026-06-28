@@ -50,19 +50,27 @@
                            so it doesn't wait for the lazy IntersectionObserver
                            to fire; keep the rest lazy so the user only
                            downloads what they swipe to. #}
+                        {# Cache-bust query — bumped after the 2026-06 fix
+                           that capped WebP variants at source resolution.
+                           Without it, browsers continue serving the older
+                           upscaled (blurry) 1600w / 2000w files from cache
+                           on the same URL. Bump again on any future image
+                           regeneration that needs to invalidate cached
+                           variants. #}
+                        {% set imgV = 'v=2' %}
                         <img
                             loading="{% if loop.index == 1 %}eager{% else %}lazy{% endif %}"
                             {% if loop.index == 1 %}fetchpriority="high"{% endif %}
                             width="800" height="600"
-                            src="{{ item['imgPath'] }}"
+                            src="{{ item['imgPath'] }}?{{ imgV }}"
                             srcset="
-                                {{ imgPathFront }}-200w.webp 200w,
-                                {{ imgPathFront }}-400w.webp 400w,
-                                {{ imgPathFront }}-600w.webp 600w,
-                                {{ imgPathFront }}-800w.webp 800w,
-                                {{ imgPathFront }}-1200w.webp 1200w,
-                                {{ imgPathFront }}-1600w.webp 1600w,
-                                {{ imgPathFront }}-2000w.webp 2000w
+                                {{ imgPathFront }}-200w.webp?{{ imgV }} 200w,
+                                {{ imgPathFront }}-400w.webp?{{ imgV }} 400w,
+                                {{ imgPathFront }}-600w.webp?{{ imgV }} 600w,
+                                {{ imgPathFront }}-800w.webp?{{ imgV }} 800w,
+                                {{ imgPathFront }}-1200w.webp?{{ imgV }} 1200w,
+                                {{ imgPathFront }}-1600w.webp?{{ imgV }} 1600w,
+                                {{ imgPathFront }}-2000w.webp?{{ imgV }} 2000w
                             "
                             sizes="(max-width: 45rem) 100svw, 45rem"
                             alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"

@@ -965,13 +965,22 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=Non
         basename = os.path.splitext(os.path.basename(path))[0]
     with Image.open(path) as img:
         img = ImageOps.exif_transpose(img)
+        src_w = img.width
         for size in sizes:
+            # Never upscale: when the requested width exceeds the source
+            # width, cap at the source. Pillow's resize can't add detail —
+            # upscaled WebPs look soft on retina screens (see Jun '26
+            # group-life: 1477-px source upscaled to 2000w rendered blurry).
+            effective_size = min(size, src_w)
             if target_aspect:
                 w_aspect, h_aspect = target_aspect
-                target_size = (size, int(size * h_aspect / w_aspect))
+                target_size = (effective_size, int(effective_size * h_aspect / w_aspect))
                 img_resized = ImageOps.fit(img, target_size, centering=(0.5, 0.5))
             else:
-                img_resized = img.resize((size, int(size * img.height / img.width)))
+                img_resized = img.resize((effective_size, int(effective_size * img.height / img.width)))
+            # Keep the original {basename}-{size}w.webp naming so srcset
+            # references don't break; the file just stops growing past
+            # the source resolution.
             webp_output_path = f"{dst_path}/{basename}-{size}w.webp"
             img_resized.save(webp_output_path, "WEBP", quality=compression_quality)
 
