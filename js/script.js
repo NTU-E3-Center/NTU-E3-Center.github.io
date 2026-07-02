@@ -59,16 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // 比賽開始！看是正常載入比較快，還是超時比較快
     Promise.race([allResourcesPromise, timeoutPromise])
-        .then(result => {
-            if (result === 'Timeout') {
-                console.warn('Loading fallback triggered by Promise.race.');
-            } else {
-                console.log('All resources loaded successfully.');
-            }
-        })
-        .catch(error => {
-            console.error('An error occurred during loading:', error);
-        })
+        .catch(() => { /* load error — the overlay is hidden in finally regardless */ })
         .finally(() => {
             // 不論 Promise.race 的結果是成功、失敗還是超時，
             // 最後都一定要隱藏遮罩
@@ -154,7 +145,7 @@ function renderRain() {
             } catch (e) { /* quota / private mode — render without caching */ }
             renderFromData(data);
         })
-        .catch(error => console.log('Error fetching weather data:', error));
+        .catch(() => { /* weather is non-critical decoration — ignore fetch errors */ });
 };
 window.addEventListener('load', renderRain);
 
@@ -530,4 +521,46 @@ mediaModal.addEventListener('click', (e) => {
         closeModal();
     }
 });
+
+
+// --- HERO PLANE BANNER: grow the banner to fit the news headline ---
+// The banner rects in home.svg ship at a fixed width (900/909 user units), but
+// the title inside is a non-wrapping SVG <text> pulling the latest news
+// headline — a long one overflows the box. Measure the rendered text and widen
+// the rects to contain it. Anchored at the left (near the plane), so the box
+// only ever grows rightward; short titles keep their authored width.
+function fitPlaneBanner() {
+    const text = document.querySelector('.hp-plane-text');
+    const box = document.querySelector('.hp-plane-text-box');
+    const bg = document.querySelector('.hp-plane-text-bg');
+    if (!text || !box || !bg) return;
+
+    const PAD = 15;        // text's left inset within the bg rect, mirrored right
+    const BOX_EXTRA = 9;   // outer frame is 4.5u larger than the bg on each side
+    const MIN_BG = 900;    // authored bg width — never shrink below it
+
+    let textW;
+    try { textW = text.getBBox().width; } catch (e) { return; } // not rendered yet
+    if (!textW) return;
+
+    const bgW = Math.max(MIN_BG, Math.round(textW + PAD * 2));
+    bg.setAttribute('width', bgW);
+    box.setAttribute('width', bgW + BOX_EXTRA);
+}
+
+if (document.querySelector('.hp-plane-text')) {
+    // getBBox is only accurate once webfonts have loaded; re-fit on resize
+    // because the headline's user-unit width tracks the root font-size, which
+    // shrinks at the mobile breakpoint.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitPlaneBanner);
+    } else {
+        fitPlaneBanner();
+    }
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitPlaneBanner, 150);
+    });
+}
 
