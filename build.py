@@ -421,24 +421,16 @@ def render_member_pages():
                     if (item.get('citationId')
                             and item.get('status') == 'published'
                             and web_id in author_web_ids):
-                        year = item.get('year', 0)
-                        month_str = item.get('month', '')
+                        matching_items.append(item)
 
-                        months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-                        month_num = 0
-                        for i, m in enumerate(months):
-                            if m in month_str.lower():
-                                month_num = i + 1
-                                break
-
-                        matching_items.append({
-                            'id': item['citationId'],
-                            'year': year,
-                            'month': month_num
-                        })
-
-            matching_items.sort(key=lambda x: (x['year'], x['month']), reverse=True)
-            matching_citations = [item['id'] for item in matching_items]
+            # Sort by issue date, newest first, via the shared sort key. Routing
+            # through get_pub_sort_key (instead of re-parsing year/month here)
+            # keeps a single source of truth and normalizes the "'YY" string,
+            # plain int, and missing-date forms to a uniform (int, int) tuple.
+            # A raw (year, month) sort would raise TypeError the moment a str
+            # year and an int-default year were compared.
+            matching_items.sort(key=get_pub_sort_key, reverse=True)
+            matching_citations = [item['citationId'] for item in matching_items]
 
             pub_sections = page_content.setdefault('PublicationSection', [])
             journal_section = next((s for s in pub_sections if s.get('sectionTitle') == 'Journal Publications'), None)
@@ -618,8 +610,15 @@ def render_project_pages():
             if not os.path.isfile(detail_path):
                 continue
 
-            with open(detail_path, 'r', encoding='utf-8') as f:
-                detail = json.load(f)
+            try:
+                with open(detail_path, 'r', encoding='utf-8') as f:
+                    detail = json.load(f)
+            except (json.JSONDecodeError, OSError) as e:
+                # A malformed detail file is treated like a missing one: skip
+                # this project's page with a loud, located warning rather than
+                # crashing the entire build on a single content typo.
+                print(f"  ⚠ Skipping project '{slug}': cannot read {detail_path} ({e})")
+                continue
 
             proj = dict(item)
             proj.update(detail)
