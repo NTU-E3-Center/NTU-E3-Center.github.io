@@ -426,7 +426,13 @@ mediaModal.addEventListener('close', () => {
 
 // --- MAIN LOGIC FOR OPENING MODAL ---
 allMediaBlocks.forEach((block) => {
-    block.addEventListener('click', () => {
+    // Keyboard a11y: a `.zoomable` block is a plain element, so expose it to
+    // assistive tech and keyboard users as an operable button. Guarded so a
+    // template that already sets these attributes isn't overridden.
+    if (!block.hasAttribute('tabindex')) block.tabIndex = 0;
+    if (!block.hasAttribute('role')) block.setAttribute('role', 'button');
+
+    const openMedia = () => {
         mediaModalOpener = block;
         // 清除上一次的內容
         mediaModalContentWrapper.innerHTML = '';
@@ -503,6 +509,16 @@ allMediaBlocks.forEach((block) => {
 
         // 最後，顯示 modal
         mediaModal.showModal();
+    };
+
+    block.addEventListener('click', openMedia);
+    // Enter and Space activate the block like a native button; preventDefault
+    // stops Space from scrolling the page before the modal opens.
+    block.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault();
+            openMedia();
+        }
     });
 });
 
