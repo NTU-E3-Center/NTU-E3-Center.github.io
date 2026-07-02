@@ -482,8 +482,11 @@ def render_news_pages():
             article_key = f'news/{slug}'
             news_content = articles.get(article_key)
             if news_content:
+                # Match the same extensions compress_and_convert_images()
+                # converts, so an inline .gif/.bmp/.tiff isn't left pointing at
+                # an original that never gets copied to docs/.
                 news_content = re.sub(
-                    r'src="(/assets/news/[^"]+?)\.(?:jpe?g|png)"',
+                    r'src="(/assets/news/[^"]+?)\.(?:jpe?g|png|gif|bmp|tiff)"',
                     r'src="\1-1200w.webp"',
                     news_content
                 )
@@ -937,12 +940,17 @@ def copy_videos():
 members_img_sizes = [200, 400, 600, 800]
 lazy_img_sizes    = [20]
 
+# Responsive widths emitted for every subpage image (news, group-life,
+# projects). Single source of truth so the srcset ladder can't drift between
+# sources — keep in sync with the widths templates build into their srcset.
+SUBPAGE_IMG_WIDTHS = [200, 400, 600, 800, 1200, 1600, 2000]
+
 _SUBPAGE_IMAGE_SOURCES = [
     # (source_root,                  docs/assets/<folder>, sizes)
-    ('contents/news/images',         'news',               [200, 400, 600, 800, 1200, 1600, 2000]),
-    ('contents/group-life/images',   'group-life',         [200, 400, 600, 800, 1200, 1600, 2000]),
+    ('contents/news/images',         'news',               SUBPAGE_IMG_WIDTHS),
+    ('contents/group-life/images',   'group-life',         SUBPAGE_IMG_WIDTHS),
     # Projects: walks contents/projects/<slug>/images/* → docs/assets/projects/<slug>/images/*
-    ('contents/projects',            'projects',           [200, 400, 600, 800, 1200, 1600, 2000]),
+    ('contents/projects',            'projects',           SUBPAGE_IMG_WIDTHS),
 ]
 
 def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None, target_aspect=None):
@@ -986,7 +994,7 @@ def compress_and_convert_images():
         if not os.path.isdir(src_root):
             continue
         print(f"--- Images found in '{dst_folder}' ---")
-        dst_root = f"docs/assets/{dst_folder}"
+        dst_root = os.path.join(output_dir, "assets", dst_folder)
         for root, _, files in os.walk(src_root):
             for fname in files:
                 lower = fname.lower()
@@ -1020,7 +1028,7 @@ def compress_member_images():
     references are byte-identical to the legacy contents/images/members/
     pipeline — only the SOURCE location moved into the per-member folder."""
     members_root = 'contents/members'
-    dst_root = 'docs/assets/members'
+    dst_root = os.path.join(output_dir, "assets", "members")
     photo_exts = ('.jpg', '.jpeg', '.png')
 
     if not os.path.isdir(members_root):
@@ -1047,6 +1055,14 @@ def compress_member_images():
 
 # Run the build process
 if __name__ == "__main__":
+    # Start from a clean output dir so content removed from contents/ (a deleted
+    # article, a dropped abstract, a renamed slug) can't leave a stale page or a
+    # dangling sitemap entry behind. docs/ is gitignored and fully regenerated
+    # by the steps below.
+    if os.path.isdir(output_dir):
+        shutil.rmtree(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
+
     print("Rendering templates...")
     render_templates()
     print("Rendering member pages...")

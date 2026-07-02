@@ -146,6 +146,12 @@ def _check_schema(data: Any, schema: Any, path: str) -> list[ValidationIssue]:
     """
     issues: list[ValidationIssue] = []
 
+    # A JSON null is treated like an absent optional field — tolerated, not a
+    # hard error. Absent keys are already skipped in the dict branch below; a
+    # null value should behave the same rather than failing the whole build.
+    if data is None:
+        return issues
+
     if schema is str:
         if not isinstance(data, str):
             issues.append(ValidationIssue(
