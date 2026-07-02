@@ -16,8 +16,7 @@ docs/
 
 .claude/
 
-# Local-only docs and dev artifacts (kept on disk, not on GitHub)
-CLAUDE.md
+# Local-only dev artifacts (kept on disk, not on GitHub)
 tests/
 plans/
 specs/
