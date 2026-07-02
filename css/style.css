@@ -1147,19 +1147,30 @@
 
 
     &[who='M'] {
-        --_img-width: 10rem;
+        /* Fluid image width + horizontal gap sized so 5 blocks per row
+           always fit the section's inner content width at every
+           non-mobile viewport (verified 768 px → 1920 px).
+
+           NOTE the 9.5 rem ceiling (not 10.5): each .mem-block's actual
+           outer width is `--_img-width + 0.375 rem (border) + 1 rem
+           (padding)` because .mem-img needs to hold the border-included
+           block and the block's `min-width: auto` (default) promotes
+           basis to min-content. At 9.5 rem cap the per-block outer is
+           ~10.875 rem, so `5 × 10.875 + 4 × 3 rem gap = 66.375 rem`
+           fits within the ~68 rem inner section width at widescreen
+           (80 rem section – 2 × 6 rem gutter). Raising the cap even by
+           1 rem tips the row past the 68 rem boundary and wraps to 4+1
+           at 16" MacBook (1728 px) and 4K (1920 px). Mobile (≤37.5 rem)
+           overrides both below to fall back to the 2-per-row grid. */
+        --_img-width: clamp(5.5rem, 12.5vw, 9.5rem);
         --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
         --_img-border-w: 0.1875rem;
 
-        /* Flex with fixed gap + center justification. Sized so 5 blocks
-           fit per row inside the ~68rem inner section width at desktop:
-           5 × 10rem (img) + 4 × 3rem (gap) = 62rem. Centers any partial
-           row (e.g. 4 members in a 5-column-capable space). */
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: var(--space-6) var(--space-12);
+        gap: var(--space-6) clamp(1rem, 2vw, 3rem);
 
         .mem-block {
             flex: 0 0 var(--_img-width);
