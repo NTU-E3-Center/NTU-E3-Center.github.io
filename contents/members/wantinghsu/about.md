@@ -1,0 +1,5 @@
+Wan-Ting (Wanting) Hsu is Director of Strategic Partnerships at the E3 Research Center at National Taiwan University. She builds cross-sector partnerships among academia, government, industry, utilities, technology providers, and startups, translating research in energy transition and AI-enabled infrastructure into pilot projects and scalable applications.
+
+Previously, she was a Senior Manager at Deloitte, leading strategy and transformation initiatives across smart cities, energy systems, critical infrastructure, climate technology, and startup innovation. Her work included vehicle-to-grid applications, AI-driven infrastructure governance and transformation, climate intelligence products, and digital twin platforms.
+
+Before joining Deloitte, she worked on urban data analytics and planning projects with Beijing City Lab, the World Bank, AECOM, and leading technology companies. She holds an M.S.E. in Urban and Rural Planning with a certificate in Big Data Analytics from Tsinghua University and a B.S. in Urban Planning from National Cheng Kung University.

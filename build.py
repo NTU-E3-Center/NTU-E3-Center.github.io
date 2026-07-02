@@ -413,49 +413,44 @@ def render_member_pages():
             if interest_html:
                 member['interest_content'] = interest_html
 
-            # Auto-populate Journal Publications if pubName is set
-            pub_name = member.get('pubName')
-            if pub_name:
-                matching_items = []
-                for pub_section in structures.get('publications', []):
-                    for item in pub_section.get('items', []):
-                        if (item.get('citationId')
-                                and item.get('status') == 'published'
-                                and pub_name in item.get('authors', '')):
-                            # Extract year and month for sorting
-                            year = item.get('year', 0)
-                            month_str = item.get('month', '')
-                        
-                            # Very basic heuristic for month to help sorting (e.g. "Jan." -> 1, "Feb." -> 2)
-                            months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-                            month_num = 0
-                            for i, m in enumerate(months):
-                                if m in month_str.lower():
-                                    month_num = i + 1
-                                    break
-                                
-                            matching_items.append({
-                                'id': item['citationId'],
-                                'year': year,
-                                'month': month_num
-                            })
-            
-                # Sort descending by year, then descending by month
-                matching_items.sort(key=lambda x: (x['year'], x['month']), reverse=True)
-            
-                matching_citations = [item['id'] for item in matching_items]
-            
-                pub_sections = page_content.setdefault('PublicationSection', [])
-                journal_section = next((s for s in pub_sections if s.get('sectionTitle') == 'Journal Publications'), None)
-            
-                if not journal_section:
-                    journal_section = {
-                        "sectionTitle": "Journal Publications",
-                        "publications": []
-                    }
-                    pub_sections.insert(0, journal_section)
-                
-                journal_section['publications'] = matching_citations
+            # Auto-populate Journal Publications by matching authorList[].webId
+            matching_items = []
+            for pub_section in structures.get('publications', []):
+                for item in pub_section.get('items', []):
+                    author_web_ids = {a.get('webId') for a in item.get('authorList', []) if a.get('webId')}
+                    if (item.get('citationId')
+                            and item.get('status') == 'published'
+                            and web_id in author_web_ids):
+                        year = item.get('year', 0)
+                        month_str = item.get('month', '')
+
+                        months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+                        month_num = 0
+                        for i, m in enumerate(months):
+                            if m in month_str.lower():
+                                month_num = i + 1
+                                break
+
+                        matching_items.append({
+                            'id': item['citationId'],
+                            'year': year,
+                            'month': month_num
+                        })
+
+            matching_items.sort(key=lambda x: (x['year'], x['month']), reverse=True)
+            matching_citations = [item['id'] for item in matching_items]
+
+            pub_sections = page_content.setdefault('PublicationSection', [])
+            journal_section = next((s for s in pub_sections if s.get('sectionTitle') == 'Journal Publications'), None)
+
+            if not journal_section:
+                journal_section = {
+                    "sectionTitle": "Journal Publications",
+                    "publications": []
+                }
+                pub_sections.insert(0, journal_section)
+
+            journal_section['publications'] = matching_citations
 
             output = template.render(
                 pages=pages,

@@ -2,7 +2,7 @@
 """
 excel_to_content.py
 
-Merges the admin roster (contents/member-info.xlsx — 11 admin columns) with
+Merges the admin roster (contents/member-info.xlsx — 12 admin columns) with
 the per-member content folders (contents/members/{webId}/) and produces the
 in-memory member data the build needs.
 
@@ -39,7 +39,7 @@ SECTION_META = {
         'filter': True,
         'filterId': 'lum',
         'filterTitle': 'Filter by Admission Year:',
-        'filterDefaultCheck': 5,
+        'filterDefaultCheck': 6,  # check all cohorts down to the founding '19 by default
     },
 }
 
@@ -99,6 +99,14 @@ def build_profile_links_from_dict(links: dict):
             'icon': '/assets/sprite.svg#svg-linkedin',
             'text': 'LinkedIn',
             'link': li,
+        })
+
+    web = (links.get('website') or '').strip()
+    if web:
+        visible.append({
+            'icon': '/assets/sprite.svg#svg-arrow-top-right',
+            'text': 'Personal Website',
+            'link': web,
         })
 
     for key in ('researchgate', 'ntu_scholars', 'facebook'):
@@ -176,7 +184,7 @@ _EMPTY_CONTENT = {
     'email': {'ntu': '', 'preferred': ''},
     'interests': [],
     'links': {
-        'scholar': '', 'orcid': '', 'linkedin': '',
+        'scholar': '', 'orcid': '', 'linkedin': '', 'website': '',
         'researchgate': '', 'ntu_scholars': '', 'facebook': '',
         'office': {'text': '', 'url': ''},
     },
@@ -256,7 +264,7 @@ def build_member_data():
 
     def col(row, name):
         """Read an admin column by name. Raises if the column is absent — the
-        slim Excel must have all 11 admin columns."""
+        slim Excel must have all 12 admin columns."""
         idx = headers.index(name)
         val = row[idx]
         return val if val is not None else ''
@@ -281,6 +289,10 @@ def build_member_data():
         nickname  = str(col(row, 'Nickname')             or '').strip()
         chi_name  = str(col(row, 'Chinese Name')         or '').strip()
         full_name = str(col(row, 'Full Name')            or '').strip()
+        # Publication Name is optional; falls back to Full Name when blank.
+        # Use when a member publishes under a spelling that differs from their
+        # displayed English name (e.g. hyphenated vs. one-word).
+        pub_name  = str(col(row, 'Publication Name')     or '').strip() or full_name
         section   = str(col(row, 'Website Section')      or '').strip()
         adm_year  = col(row, 'Admission Year')
         graduated = str(col(row, 'Graduated')            or '').strip()
@@ -312,7 +324,7 @@ def build_member_data():
 
             member_json = {
                 'chiNameEng':      display_name(full_name, nickname),
-                'pubName':         full_name,   # plain Full Name for publication matching
+                'pubName':         pub_name,    # for publication author-bolding (defaults to Full Name)
                 'metaDescription': meta_description,
                 'position':        position_for_seo,
                 'awards':          list(content.get('awards') or []),

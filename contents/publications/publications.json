@@ -2352,6 +2352,133 @@
                     }
                 ],
                 "abstract": ""
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:zhang2023bikeability",
+                "title": "Understanding Bikeability: Insight Into the Cycling-City Relationship Using Massive Dockless Bike-Sharing Records in Beijing",
+                "toolUrl": "",
+                "link": "https://link.springer.com/chapter/10.1007/978-3-031-31746-0_7",
+                "journal": "Intelligence for Future Cities: Planning Through Big Data and Urban Analytics (Springer)",
+                "volume": "",
+                "issue": "",
+                "articleNo": "",
+                "pages": "109–123",
+                "doi": "10.1007/978-3-031-31746-0_7",
+                "year": "'23",
+                "month": "Jun.",
+                "authors": "Enjia Zhang, Wanting Hsu, Ying Long, Scott Hawken",
+                "status": "published",
+                "E3": false,
+                "slug": "",
+                "shortTitle": "",
+                "topics": [],
+                "methods": [],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Enjia Zhang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Wanting Hsu",
+                        "webId": "wantinghsu"
+                    },
+                    {
+                        "name": "Ying Long",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Scott Hawken",
+                        "webId": ""
+                    }
+                ],
+                "abstract": ""
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:hsu2022micropublic",
+                "title": "Valuing the Micropublic Space: A Perspective From Beijing Housing Prices",
+                "toolUrl": "",
+                "link": "https://ascelibrary.org/doi/abs/10.1061/%28ASCE%29UP.1943-5444.0000794",
+                "journal": "Journal of Urban Planning and Development",
+                "volume": "148",
+                "issue": "2",
+                "articleNo": "",
+                "pages": "",
+                "doi": "10.1061/(ASCE)UP.1943-5444.0000794",
+                "year": "'22",
+                "month": "Feb.",
+                "authors": "Wanting Hsu, Yuyang Zhang, Ying Long",
+                "status": "published",
+                "E3": false,
+                "slug": "",
+                "shortTitle": "",
+                "topics": [],
+                "methods": [],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Wanting Hsu",
+                        "webId": "wantinghsu"
+                    },
+                    {
+                        "name": "Yuyang Zhang",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Ying Long",
+                        "webId": ""
+                    }
+                ],
+                "abstract": ""
+            },
+            {
+                "citationId": "tUbPb-QAAAAJ:long2020urbanplanning",
+                "title": "Evaluation of Urban Planning Implementation From Spatial Dimension: An Analytical Framework for Chinese Cities and Case Study of Beijing",
+                "toolUrl": "",
+                "link": "https://www.sciencedirect.com/science/article/abs/pii/S0197397518312219",
+                "journal": "Habitat International",
+                "volume": "101",
+                "issue": "",
+                "articleNo": "102197",
+                "pages": "",
+                "doi": "10.1016/j.habitatint.2020.102197",
+                "year": "'20",
+                "month": "Jul.",
+                "authors": "Ying Long, Haoying Han, Shih-Kung Lai, Zimu Jia, Wenyue Li, Wanting Hsu",
+                "status": "published",
+                "E3": false,
+                "slug": "",
+                "shortTitle": "",
+                "topics": [],
+                "methods": [],
+                "keywords": [],
+                "authorList": [
+                    {
+                        "name": "Ying Long",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Haoying Han",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Shih-Kung Lai",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Zimu Jia",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Wenyue Li",
+                        "webId": ""
+                    },
+                    {
+                        "name": "Wanting Hsu",
+                        "webId": "wantinghsu"
+                    }
+                ],
+                "abstract": ""
             }
         ]
     }

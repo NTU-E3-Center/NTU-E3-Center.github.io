@@ -57,6 +57,7 @@ _SCHEMA: dict[str, Any] = {
         "scholar": str,
         "orcid": str,
         "linkedin": str,
+        "website": str,
         "researchgate": str,
         "ntu_scholars": str,
         "facebook": str,
@@ -74,7 +75,7 @@ _SCHEMA: dict[str, Any] = {
 # `orcid` is intentionally NOT in this list — it may be a bare ORCID iD
 # (e.g. 0009-0001-5290-5544), which excel_to_content.normalize_orcid expands
 # into a URL. It gets its own pattern check below.
-_URL_LINK_KEYS = ("scholar", "linkedin", "researchgate", "ntu_scholars", "facebook")
+_URL_LINK_KEYS = ("scholar", "linkedin", "website", "researchgate", "ntu_scholars", "facebook")
 
 # An ORCID iD is four groups of four digits; the last group's final char may
 # be X. Matches both a bare iD and the iD embedded in an orcid.org URL.
