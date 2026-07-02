@@ -98,7 +98,7 @@ Open `contents/publications/publications.json`. Find the right section (e.g., `"
   "authors": "F. Lastname, A. Coauthor",
   "title": "Publication Title",
   "journal": "Journal Name",
-  "year": 2025,
+  "year": "'25",
   "month": "Jan.",
   "E3": true,
   "status": "published"
@@ -106,6 +106,9 @@ Open `contents/publications/publications.json`. Find the right section (e.g., `"
 ```
 
 - `citationId` — unique identifier
+- `year` / `month` — the journal **issue** date, as a `"'YY"` string and a
+  three-letter `"Mon."` abbreviation (not the "available online" date — see
+  [CLAUDE.md](CLAUDE.md)). Sorting relies on this format.
 - `E3: true` + `status: "published"` — needed to show on the homepage
 - `authors` must include the member's `pubName` exactly for it to appear on their profile page automatically
 
