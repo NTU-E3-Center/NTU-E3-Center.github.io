@@ -3,7 +3,7 @@
 
 On June 18, the E3 Center hosted the final showcase of its 2026 Student Research Program — the culmination of a semester-long collaboration in which eight high-school students from Taipei's Wego Private Senior High School (臺北市私立薇閣高級中學) pursued their own research projects under the mentorship of the E3 team.
 
-The event opened with a welcome address from **[Dr. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)**, greeting the distinguished guests from Wego — including the school's Board Chairman (董事長), Principal (校長), and Teachers. Throughout the semester, three E3 mentors — PhD students [Hung-Jui Lin](/members/hungjuilin/) and [Chih-Yi Lu](/members/chihyilu/), together with master's student [Yu-Ran Keng](/members/yurankeng/) — had guided the eight students from their first questions to their final results, and the showcase was their stage to present what they discovered.
+The event opened with a welcome address from **[Dr. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)**, greeting the distinguished guests from Wego — including the school's Board Chairman (董事長), Principal (校長), and Teachers. Throughout the semester, three E3 mentors — PhD students [Hung-Jui Lin](/members/hungjuilin/) and [Chih-Yi Lu](/members/chihyilu/), together with master's student [Yu-Ran Keng](/members/yurankeng/) — had guided the eight students from their first questions to their final results — a program coordinated throughout by master's student [Yi-Ya Yu](/members/yiyayu/) under Dr. Hsieh's direction. The showcase was the students' stage to present what they had discovered.
 
 ![Dr. I-Yun Lisa Hsieh delivers the opening remarks and welcomes the guests from Wego](/assets/news/2026-wego-research-showcase/1.jpg)
 
