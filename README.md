@@ -36,7 +36,7 @@ Pushing to the `source` branch triggers a GitHub Actions workflow (`.github/work
 ```bash
 conda create -n E3website python=3.9
 conda activate E3website
-pip install markdown Pillow jinja2 openpyxl
+pip install -r requirements.txt
 ```
 
 ### Build and preview
