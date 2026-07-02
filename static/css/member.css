@@ -159,7 +159,7 @@ h2 {
    required because `margin-inline: auto` on a grid item suppresses stretch
    — without it the section would collapse to content width when prose is
    short. */
-#about {
+#about, #interest {
     width: 100%;
     max-width: var(--prose-measure);
     margin-inline: auto;
@@ -730,7 +730,7 @@ h2 {
     /* About body text — strip text-indent on mobile. Indents read as
        visual mass at narrow widths; without them, paragraphs feel
        cleaner and lines start aligned with the prose column edge. */
-    #about {
+    #about, #interest {
         .content p,
         .content li {
             text-indent: 0;
