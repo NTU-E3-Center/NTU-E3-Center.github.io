@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Audit — NTU E3 Center Website (Static-Site Generator)</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --ink:#1e293b; --muted:#64748b; --faint:#94a3b8;
+    --border:#e2e8f0; --border-strong:#cbd5e1; --accent:#0f766e; --accent-soft:#ccfbf1;
+    --crit-fg:#b91c1c; --crit-bg:#fee2e2; --crit-bd:#ef4444;
+    --high-fg:#c2410c; --high-bg:#ffedd5; --high-bd:#f97316;
+    --med-fg:#b45309;  --med-bg:#fef3c7;  --med-bd:#f59e0b;
+    --low-fg:#475569;  --low-bg:#f1f5f9;  --low-bd:#cbd5e1;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  code{font-family:var(--mono);font-size:.86em;background:#eef2f6;color:#0f172a;padding:1px 5px;border-radius:4px;border:1px solid #e2e8f0;word-break:break-word;}
+
+  /* Header */
+  header.masthead{background:#0f172a;color:#e2e8f0;padding:2.4rem 1.6rem 2rem;border-bottom:4px solid var(--accent);}
+  header.masthead .wrap{max-width:1180px;margin:0 auto;}
+  header.masthead h1{margin:0 0 .3rem;font-size:1.85rem;letter-spacing:-.01em;color:#fff;}
+  header.masthead p.sub{margin:.2rem 0;color:#94a3b8;font-size:.98rem;}
+  .meta-line{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.82rem;color:#cbd5e1;}
+  .meta-line span b{color:#fff;font-weight:600;}
+
+  /* Layout */
+  .layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:236px 1fr;gap:2.2rem;padding:2rem 1.6rem 4rem;}
+  nav.toc{position:sticky;top:1rem;align-self:start;font-size:.85rem;max-height:calc(100vh - 2rem);overflow:auto;}
+  nav.toc h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin:0 0 .5rem;}
+  nav.toc ol{list-style:none;margin:0 0 1rem;padding:0;}
+  nav.toc li{margin:.15rem 0;}
+  nav.toc a{color:#334155;display:block;padding:.18rem .5rem;border-left:2px solid var(--border);border-radius:0 4px 4px 0;}
+  nav.toc a:hover{background:var(--accent-soft);border-left-color:var(--accent);text-decoration:none;}
+  nav.toc ol.sub{margin:.1rem 0 .4rem .6rem;font-size:.8rem;}
+  nav.toc ol.sub a{color:var(--muted);}
+
+  main{min-width:0;}
+  section.block{margin-bottom:2.6rem;}
+  section.block > h2{font-size:1.35rem;margin:0 0 .4rem;padding-bottom:.4rem;border-bottom:2px solid var(--border-strong);letter-spacing:-.01em;}
+  section.block > p.lead{color:#334155;margin:.6rem 0 1.1rem;}
+  h3.pillar{font-size:1.08rem;margin:1.8rem 0 .8rem;color:var(--accent);display:flex;align-items:center;gap:.5rem;}
+  h3.pillar .n{background:var(--accent);color:#fff;font-size:.72rem;width:1.4rem;height:1.4rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;}
+
+  /* Summary stat band */
+  .stats{display:flex;flex-wrap:wrap;gap:.8rem;margin:1rem 0 1.4rem;}
+  .stat{flex:1 1 120px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.8rem .9rem;text-align:center;}
+  .stat .num{font-size:1.7rem;font-weight:700;line-height:1;}
+  .stat .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:.3rem;}
+  .stat.crit .num{color:var(--crit-fg);} .stat.high .num{color:var(--high-fg);}
+  .stat.med .num{color:var(--med-fg);}  .stat.low .num{color:var(--low-fg);}
+
+  /* Badges */
+  .badge{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.14rem .5rem;border-radius:999px;border:1px solid;white-space:nowrap;}
+  .badge.critical{color:var(--crit-fg);background:var(--crit-bg);border-color:var(--crit-bd);}
+  .badge.high{color:var(--high-fg);background:var(--high-bg);border-color:var(--high-bd);}
+  .badge.medium{color:var(--med-fg);background:var(--med-bg);border-color:var(--med-bd);}
+  .badge.low{color:var(--low-fg);background:var(--low-bg);border-color:var(--low-bd);}
+  .effort{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+
+  /* Finding cards */
+  .finding{background:var(--surface);border:1px solid var(--border);border-left-width:4px;border-radius:8px;padding:.85rem 1rem;margin:.7rem 0;break-inside:avoid;}
+  .finding.sev-medium{border-left-color:var(--med-bd);}
+  .finding.sev-low{border-left-color:var(--low-bd);}
+  .finding .fhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .7rem;margin-bottom:.35rem;}
+  .finding .fhead h4{margin:0;font-size:.98rem;flex:1 1 auto;min-width:200px;}
+  .finding .floc{font-family:var(--mono);font-size:.76rem;color:#0f172a;background:#eef2f6;padding:1px 6px;border-radius:4px;border:1px solid #e2e8f0;}
+  .finding dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.15rem .8rem;font-size:.87rem;}
+  .finding dt{font-weight:600;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding-top:.12rem;}
+  .finding dd{margin:0;color:#334155;}
+  .finding .xref{font-size:.76rem;color:var(--faint);font-style:italic;margin-top:.35rem;}
+
+  /* Critical fixes table/cards */
+  .cfix{background:var(--surface);border:1px solid var(--med-bd);border-radius:8px;padding:1rem 1.1rem;margin:.9rem 0;break-inside:avoid;}
+  .cfix .fhead{display:flex;flex-wrap:wrap;gap:.5rem .7rem;align-items:baseline;margin-bottom:.5rem;}
+  .cfix h4{margin:0;font-size:1.02rem;flex:1 1 auto;}
+  .cfix dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.3rem .9rem;font-size:.9rem;}
+  .cfix dt{font-weight:700;color:var(--crit-fg);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;}
+  .cfix dt.fix{color:var(--accent);}
+  .cfix dd{margin:0;}
+  .note{background:#fffbeb;border:1px solid var(--med-bd);border-radius:8px;padding:.8rem 1rem;font-size:.9rem;color:#78350f;}
+  .note.good{background:#f0fdfa;border-color:#5eead4;color:#115e59;}
+
+  /* Tree */
+  pre.tree{background:#0f172a;color:#e2e8f0;border-radius:8px;padding:1.1rem 1.2rem;overflow:auto;font-family:var(--mono);font-size:.8rem;line-height:1.5;}
+  pre.tree .c{color:#5eead4;}
+  pre.tree .new{color:#fcd34d;}
+
+  /* Checklist */
+  .checklist h3{font-size:1rem;margin:1.4rem 0 .5rem;}
+  .checklist h3.hp{color:var(--high-fg);} .checklist h3.mp{color:var(--med-fg);} .checklist h3.lp{color:var(--low-fg);}
+  ul.checks{list-style:none;margin:0 0 1rem;padding:0;}
+  ul.checks li{padding:.32rem 0 .32rem 1.7rem;text-indent:-1.7rem;border-bottom:1px dashed var(--border);font-size:.9rem;}
+  ul.checks li::before{content:"\2610";color:var(--faint);font-size:1.05rem;margin-right:.55rem;}
+  ul.checks li b{color:var(--ink);}
+  .tag{font-size:.68rem;color:var(--muted);font-family:var(--mono);}
+
+  footer.foot{max-width:1180px;margin:0 auto;padding:1.5rem 1.6rem 3rem;color:var(--faint);font-size:.8rem;border-top:1px solid var(--border);}
+
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+    nav.toc{position:static;max-height:none;border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:1rem;margin-bottom:1rem;}
+    .finding dl,.cfix dl{grid-template-columns:1fr;gap:.05rem;}
+    .finding dt,.cfix dt{margin-top:.4rem;}
+  }
+  @media print{
+    body{background:#fff;font-size:11px;}
+    header.masthead{background:#fff;color:#000;border-bottom:2px solid #000;}
+    header.masthead h1,header.masthead p.sub,.meta-line,.meta-line span b{color:#000;}
+    nav.toc{display:none;}
+    .layout{display:block;max-width:none;padding:0 .5rem;}
+    .finding,.cfix,.stat,.note{box-shadow:none;}
+    pre.tree{background:#f1f5f9;color:#0f172a;border:1px solid #cbd5e1;}
+    a{color:#000;text-decoration:none;}
+    section.block{break-inside:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Code Audit &mdash; NTU E3 Center Website</h1>
+    <p class="sub">Data-driven custom Python static-site generator (<code>build.py</code> &rarr; <code>contents/</code> + <code>templates/</code> + <code>static/</code> &rarr; <code>docs/</code>), deployed to GitHub Pages via Actions on push to <code>source</code>. Live at e3center.caece.net.</p>
+    <div class="meta-line">
+      <span><b>Audience:</b> maintaining engineer</span>
+      <span><b>Date:</b> 2026-07-02</span>
+      <span><b>Findings:</b> 59 confirmed (7 medium, 52 low)</span>
+      <span><b>Critical / High:</b> 0</span>
+      <span><b>Rejected as false positives:</b> 4</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#exec">1. Executive Summary</a></li>
+      <li><a href="#remediation">&#9733; Remediation Status</a></li>
+      <li><a href="#critical">2. Critical Fixes</a></li>
+      <li><a href="#pillars">3. Findings by Pillar</a>
+        <ol class="sub">
+          <li><a href="#p-arch">Architecture &amp; Folder Structure</a></li>
+          <li><a href="#p-data">Data Structures &amp; State</a></li>
+          <li><a href="#p-cq">Code Quality &amp; Performance</a></li>
+          <li><a href="#p-maint">Maintainability &amp; Automation</a></li>
+        </ol>
+      </li>
+      <li><a href="#reorg">4. Architecture &amp; Content Grouping</a></li>
+      <li><a href="#checklist">5. Action Item Checklist</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <section class="block" id="exec">
+    <h2>Executive Summary</h2>
+    <div class="note good" style="margin-bottom:1rem;"><b>Update &mdash; 2026-07-03:</b> 12 of the 59 findings are now <b>resolved</b> (all 3 fix-first items, both latent build-crash paths, and 7 secondary cleanups). See <a href="#remediation">Remediation Status</a>. The assessment below reflects the <em>original</em> audit state.</div>
+    <p class="lead">This is a healthy, well-structured custom static-site generator: adversarial verification of every candidate found <b>no critical or high-severity defects</b>&mdash;all 59 confirmed findings are medium (7) or low (52), and the profile is dominated by maintainability/DRY debt rather than correctness, security, or availability bugs. The few items worth prioritizing are two latent <em>build-crash</em> paths (an int-vs-string <code>year</code> and a missing <code>beautifulsoup4</code> in the README's install line), one WCAG keyboard-access gap in the media lightbox, and repo-hygiene bloat (110&nbsp;MB of unreferenced PDFs and un-LFS'd binaries pushing <code>.git</code> to ~426&nbsp;MB). Everything else is copy-paste duplication, magic constants, and documentation drift that a small academic-lab team can burn down incrementally with low risk.</p>
+
+    <div class="stats">
+      <div class="stat crit"><div class="num">0</div><div class="lbl">Critical</div></div>
+      <div class="stat high"><div class="num">0</div><div class="lbl">High</div></div>
+      <div class="stat med"><div class="num">7</div><div class="lbl">Medium</div></div>
+      <div class="stat low"><div class="num">52</div><div class="lbl">Low</div></div>
+      <div class="stat"><div class="num">59</div><div class="lbl">Total</div></div>
+      <div class="stat" style="background:#f0fdfa;border-color:#5eead4;"><div class="num" style="color:#0f766e;">12</div><div class="lbl">Resolved 07-03</div></div>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted);margin:0;">4 candidate findings were rejected as false positives during verification (unconditional static/video re-copy; the write-only <code>graduated</code> key; the "cwd-dependent" <code>validate_member</code> import; and citationId prefix denormalization) and are excluded below.</p>
+  </section>
+
+  <!-- 1b. REMEDIATION STATUS -->
+  <style>
+    .rem-table{width:100%;border-collapse:collapse;font-size:.86rem;margin:.6rem 0 1.2rem;}
+    .rem-table th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:2px solid var(--border-strong);padding:.4rem .6rem;}
+    .rem-table td{border-bottom:1px solid var(--border);padding:.5rem .6rem;vertical-align:top;color:#334155;}
+    .rem-table code{font-size:.8em;}
+    .badge.resolved{color:#166534;background:#dcfce7;border-color:#22c55e;}
+    .rem-commit{font-family:var(--mono);font-size:.76rem;color:#0f766e;white-space:nowrap;}
+    ul.checks li.done{color:var(--faint);}
+    ul.checks li.done b{color:var(--muted);text-decoration:line-through;text-decoration-color:#94a3b8;}
+    ul.checks li.done::before{content:"\2611";color:#16a34a;}
+  </style>
+  <section class="block" id="remediation">
+    <h2>Remediation Status <span style="font-size:.85rem;font-weight:400;color:var(--muted);">&mdash; updated 2026-07-03</span></h2>
+    <p class="lead"><b>12 of the 59 findings have been remediated</b> &mdash; all 3 fix-first items, both latent build-crash paths, and 7 secondary findings &mdash; each verified by a clean rebuild and a before/after <code>docs/</code> diff showing only the intended changes. A hero-banner overflow bug (reported separately, not an audit finding) was fixed in the same effort. Remaining items are deferred below, pending a decision or a focused follow-up pass.</p>
+
+    <h3 class="pillar" style="color:#166534;"><span class="n" style="background:#16a34a;">&#10003;</span>Resolved (12)</h3>
+    <table class="rem-table">
+      <thead><tr><th style="width:38%">Finding</th><th>What shipped</th><th>Commit</th></tr></thead>
+      <tbody>
+        <tr><td>README pip list omits <code>beautifulsoup4</code> (fresh-build crash)</td><td>Setup line &rarr; <code>pip install -r requirements.txt</code></td><td class="rem-commit">33dc72c</td></tr>
+        <tr><td><code>year</code> str/int member-sort <code>TypeError</code> + README example</td><td>Sort routed through <code>get_pub_sort_key</code>; README &rarr; <code>"'25"</code></td><td class="rem-commit">6ba52da<br>+ 7fe0921</td></tr>
+        <tr><td>Zoomable lightbox mouse-only (WCAG 2.1.1)</td><td><code>role=button</code> + <code>tabindex</code> + Enter/Space <code>keydown</code></td><td class="rem-commit">26e0844</td></tr>
+        <tr><td>Malformed <code>project.json</code> aborts the whole build</td><td>try/except &rarr; warn-and-skip with the offending path</td><td class="rem-commit">6ba52da</td></tr>
+        <tr><td>JSON <code>null</code> hard-fails member validation</td><td><code>null</code> treated like an absent optional key</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>Responsive-width ladder duplicated 3&times;</td><td><code>SUBPAGE_IMG_WIDTHS</code> single source of truth</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>Image pipeline ignores <code>output_dir</code></td><td>Both destination roots use <code>output_dir</code></td><td class="rem-commit">07-03</td></tr>
+        <tr><td>No <code>docs/</code> cleanup &mdash; deleted content leaves stale pages</td><td>Clean-slate wipe at build start</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>News inline-image rewrite misses gif/bmp/tiff</td><td>Regex matches the full conversion set</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>Invalid <code>&lt;ui&gt;</code> menu markup</td><td><code>&lt;ui&gt;</code> &rarr; <code>&lt;li&gt;</code> (3&times;)</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>Duplicate <code>id="about"</code> on member pages</td><td>Research-Interest &rarr; <code>id="interest"</code>; style hooks ported in general.css + member.css</td><td class="rem-commit">07-03</td></tr>
+        <tr><td>Production console logging + invalid <code>&lt;/br&gt;</code></td><td>4 <code>console.*</code> removed; <code>&lt;/br&gt;</code> &rarr; <code>&lt;br&gt;</code></td><td class="rem-commit">07-03</td></tr>
+        <tr><td colspan="2"><em>Not an audit finding &mdash;</em> hero plane banner overflowed on long news headlines</td><td class="rem-commit">07-03</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.82rem;color:var(--muted);margin:-.6rem 0 1.4rem;"><b>Commits:</b> the fix-first items shipped in <code>6ba52da</code> / <code>33dc72c</code> / <code>26e0844</code> (pushed earlier); the <code>07-03</code> batch in <code>e7dd536</code> (build hardening), <code>7820b34</code> (frontend fixes), and <code>7fe0921</code> (README). Cache-busters bumped alongside asset edits: <code>general.css v50&rarr;v51</code> (all 5 references, incl. the 4 base-bypassing detail templates), <code>member.css v32&rarr;v33</code>, <code>script.js v2&rarr;v3</code>.</p>
+
+    <h3 class="pillar" style="color:var(--muted);"><span class="n" style="background:var(--faint);">&hellip;</span>Deferred</h3>
+    <table class="rem-table">
+      <thead><tr><th style="width:38%">Finding</th><th>Why deferred</th></tr></thead>
+      <tbody>
+        <tr><td>Member <code>&lt;img&gt;</code> <code>.jpg</code> fallback</td><td><b>Not reproduced</b> &mdash; no such fallback exists in the templates; treated as a false positive, no change made.</td></tr>
+        <tr><td>110&nbsp;MB PDF archive &amp; Git LFS for binaries</td><td><b>Needs your decision</b> &mdash; reclaiming the ~426&nbsp;MB <code>.git</code> means a destructive history rewrite (filter-repo/BFG) that must be coordinated.</td></tr>
+        <tr><td>Four detail templates bypass <code>base.html</code></td><td>Large refactor (~90-line head extraction); own change with a full visual regression check.</td></tr>
+        <tr><td>Central config for the domain (~90 hardcoded copies)</td><td>Medium refactor spanning <code>build.py</code> + 15 templates; own pass.</td></tr>
+        <tr><td><code>responsive-img</code> Jinja macro + faceted-filter module</td><td>High-value DRY; own pass with byte-equivalence checks on every image page.</td></tr>
+        <tr><td><code>aria-hidden</code> consistency on sprite SVGs</td><td>Needs per-icon decorative-vs-meaningful judgment across 52 uses.</td></tr>
+        <tr><td>WebP cache, build-walk dedup, data normalization, CI hardening, Python/CSS tidies</td><td>Remaining low-severity backlog &mdash; see the checklist below.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 2. CRITICAL FIXES -->
+  <section class="block" id="critical">
+    <h2>Critical Fixes</h2>
+    <div class="note good">
+      <b>No critical or high-severity findings survived verification.</b> The site builds, deploys, and renders correctly. The three items below are the medium-severity findings that can actually break a build or a user-facing feature&mdash;treat them as <b>fix-first</b>. A short list of additional latent crash paths (all low) follows.
+    </div>
+
+    <div class="cfix">
+      <div class="fhead"><span class="badge medium">Medium</span> <span class="badge resolved">&#10003; Resolved</span><h4>Publication <code>year</code> is str/int contradictory; member-page sort crashes on an int year</h4><span class="floc">build.py:424, 440</span></div>
+      <dl>
+        <dt>What breaks</dt><dd>README.md:101 documents <code>"year": 2025</code> (int), but CLAUDE.md and all 57 entries store <code>"'YY"</code> strings. <code>get_pub_sort_key</code> normalizes; the member-page sort reads <code>item.get('year', 0)</code> and sorts on the raw <code>(x['year'], x['month'])</code> tuple. A contributor copying the README verbatim adds an int year&mdash;if that paper lists an E3 member, the member-page sort mixes <code>int</code> and <code>str</code> and raises <code>TypeError</code> at build time (blocks the deploy; no broken site is served).</dd>
+        <dt class="fix">Fix</dt><dd>Route the member sort through <code>get_pub_sort_key</code> (single source of truth), drop the <code>0</code> int default, and correct README.md:101 to <code>"year": "'25"</code>.</dd>
+      </dl>
+    </div>
+
+    <div class="cfix">
+      <div class="fhead"><span class="badge medium">Medium</span> <span class="badge resolved">&#10003; Resolved</span><h4>README's pip list omits <code>beautifulsoup4</code> &mdash; a fresh local build crashes</h4><span class="floc">README.md:39</span></div>
+      <dl>
+        <dt>What breaks</dt><dd>README:39 says <code>pip install markdown Pillow jinja2 openpyxl</code>, but <code>build.py:821</code> imports <code>from bs4 import BeautifulSoup</code> inside <code>validate_seo()</code> (called unconditionally at build.py:1068). A new contributor's build runs to "Validating SEO..." then dies with <code>ModuleNotFoundError: No module named 'bs4'</code>. (<code>markupsafe</code> is a jinja2 transitive dep and is <em>not</em> actually missing.)</dd>
+        <dt class="fix">Fix</dt><dd>Replace README:39 with <code>pip install -r requirements.txt</code> and delete the hand-maintained package list (requirements.txt already claims to be the single source of truth).</dd>
+      </dl>
+    </div>
+
+    <div class="cfix">
+      <div class="fhead"><span class="badge medium">Medium</span> <span class="badge resolved">&#10003; Resolved</span><h4>Zoomable media lightbox is mouse-only &mdash; no keyboard access (WCAG 2.1.1 A)</h4><span class="floc">static/js/script.js:428</span></div>
+      <dl>
+        <dt>What breaks</dt><dd>The <code>.zoomable</code> tiles are plain <code>&lt;div&gt;</code>s with only a <code>click</code> handler&mdash;no <code>tabindex</code>, <code>role</code>, or <code>keydown</code>. Keyboard/switch users cannot open group-life photos or, critically, play the Featured Videos YouTube embed (the modal is the only playback path). (Evidence note: <code>templates/home/group-life.html:60</code> is the homepage slider, not a lightbox tile; the real tiles are <code>templates/pages/group-life.html:60</code> and <code>templates/home/videos.html:49/58</code>.)</dd>
+        <dt class="fix">Fix</dt><dd>Render tiles as <code>&lt;button&gt;</code> (or add <code>tabindex="0"</code> + <code>role="button"</code>) and a <code>keydown</code> handler for Enter/Space that runs the same open logic; the modal already restores focus to the opener.</dd>
+      </dl>
+    </div>
+
+    <div class="note good">
+      <b>&#10003; Resolved 2026-07-03 &mdash; additional latent crash / build-integrity paths:</b>
+      malformed <code>project.json</code> now warns-and-skips with the offending path instead of aborting (build.py:621); a JSON <code>null</code> on a member str-leaf is now treated as an absent optional key (validate_member.py); and the member-page sort now routes through <code>get_pub_sort_key</code> (single source of truth) instead of the type-fragile inline month/year parser.
+    </div>
+  </section>
+
+  <!-- 3. FINDINGS BY PILLAR -->
+  <section class="block" id="pillars">
+    <h2>Findings by Pillar</h2>
+    <p class="lead">All 59 confirmed findings, grouped under the four pillars. Severities shown are the post-verification (adjusted) values.</p>
+
+    <!-- PILLAR 1: ARCHITECTURE -->
+    <h3 class="pillar" id="p-arch"><span class="n">1</span>Architecture &amp; Folder Structure</h3>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>110&nbsp;MB of publication PDFs tracked but never referenced or built</h4><span class="floc">contents/publications/files/</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>~110&nbsp;MB across 24 PDFs; <code>grep -c "files/" publications.json</code> = 0; <code>build.py</code> never copies the folder; undocumented in STRUCTURE.md/README.</dd>
+        <dt>Impact</dt><dd>Dead weight inflating the working tree (~258&nbsp;MB) and <code>.git</code> (~426&nbsp;MB); slower clones/checkouts. No functional or deploy impact, and size is well within GitHub's comfort zone.</dd>
+        <dt>Fix</dt><dd><code>git rm</code> the folder (or move to a Release asset / shared drive); if PDF downloads are wanted, add a <code>file</code> field to publications.json + a copy step. History purge (filter-repo/BFG) is optional and destructive.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Internal SEO/analytics artifacts &amp; design docs sit top-level, mixed with build inputs</h4><span class="floc">SEO/, DESIGN_RULES/</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>SEO/</code> (~412&nbsp;KB of GA4/GSC CSVs, xlsx, zips, a <code>seo-report.html</code>, analysis markdown) and <code>DESIGN_RULES/</code> live at repo root; neither is read by <code>build.py</code>.</dd>
+        <dt>Impact</dt><dd>Top level no longer cleanly signals what the SSG consumes. (Both are already documented in STRUCTURE.md/README, so the boundary is partly signposted; <code>seo-report.html</code> is a hand-curated deliverable, <em>not</em> a regenerable build product&mdash;do not gitignore it.)</dd>
+        <dt>Fix</dt><dd>Group non-build operational material under one top-level namespace (e.g. <code>ops/</code> containing SEO/ and DESIGN_RULES/).</dd>
+      </dl>
+    </article>
+
+    <!-- PILLAR 2: DATA STRUCTURES -->
+    <h3 class="pillar" id="p-data"><span class="n">2</span>Data Structures &amp; State Management</h3>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><code>year</code> format is doc-vs-data contradictory; two sort paths parse it inconsistently (member sort crashes on int)</h4><span class="floc">build.py:424, 440</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>README:101 shows int <code>2025</code>; CLAUDE.md + all 57 entries use string <code>"'YY"</code>. <code>get_pub_sort_key</code> normalizes to <code>int(20YY)</code>; the member path sorts on the raw string. Mixing an int year with existing string years raises <code>TypeError</code>.</dd>
+        <dt>Impact</dt><dd>Silent until it hits member pages; the current data "works" only because every year is a same-width <code>"'YY"</code> string. Build-time crash, caught before deploy.</dd>
+        <dt>Fix</dt><dd>Pick one canonical type: keep <code>"'YY"</code>, fix README:101, and reuse <code>get_pub_sort_key</code> in the member sort. (See Critical Fixes.)</dd>
+      </dl>
+      <div class="xref">Overlaps with the two Code-Quality sort findings below (same root cause).</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4><code>display_name()</code> silently discards any nickname with no ASCII letters (CJK / numeric)</h4><span class="floc">lib/excel_to_content.py:132</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>re.sub(r'[^a-z]','',nickname)</code> becomes <code>''</code> for a CJK/numeric nickname; <code>fn.startswith('')</code> is always True, so the nickname is dropped from <code>chiNameEng</code>, while the roster card renders the raw nickname.</dd>
+        <dt>Impact</dt><dd>Latent only&mdash;all 40 members use ASCII nicknames and Chinese names live in a dedicated column. Would produce card-vs-heading inconsistency for CJK nicknames.</dd>
+        <dt>Fix</dt><dd>Only take the startswith shortcut when <code>nk</code> is non-empty; otherwise fall through to <code>full_name (nickname)</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Duplicate WebID in the roster silently overwrites the member page and double-renders the folder</h4><span class="floc">lib/excel_to_content.py:383</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>members_by_id_inmem[web_id] = ...</code> with no duplicate detection; a second row with the same WebID produces two roster cards but one (last-wins) page written to the same <code>docs/members/{web_id}/index.html</code>.</dd>
+        <dt>Impact</dt><dd>Overwrites Excel-derived identity fields (awards/links come from the shared folder and are unchanged). Visibly broken listing, caught on review; no persistent data loss (Excel is source of truth).</dd>
+        <dt>Fix</dt><dd>Track seen WebIDs in a set; raise <code>SystemExit(2)</code> (matching the folder-validation failure mode) or at minimum print a loud WARNING on the first collision.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Publication <code>year</code> is a str but the member path sorts on the raw string with an int default 0</h4><span class="floc">build.py:424</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Inline sort ignores the canonical <code>get_pub_sort_key</code>/<code>pub_year4</code>; the month-name loop is copy-pasted from L59&ndash;64, and the <code>0</code> default is an int.</dd>
+        <dt>Impact</dt><dd>Sorts correctly today (uniform same-century <code>"'YY"</code>); crash paths are latent. This is the data-structures view of the same defect flagged in Critical Fixes.</dd>
+        <dt>Fix</dt><dd>Reuse <code>get_pub_sort_key(item)</code> and drop the inline months list / int-0 default.</dd>
+      </dl>
+      <div class="xref">Duplicate root cause of the Critical Fixes year finding and the Code-Quality "duplicated sort" finding.</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>publications.json entries do not share uniform keys (violates the CLAUDE.md convention)</h4><span class="floc">contents/publications/publications.json</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>5 distinct key signatures: <code>pages</code> in 24/57, <code>titleZh</code> in 6, <code>journalZh</code> in 7; the Book entry is a different shape; projects.json has the same drift (8 <code>grantNumber</code> vs 18 without).</dd>
+        <dt>Impact</dt><dd>Convention violation with no runtime break&mdash;all consumers use <code>.get()</code>/<code>or ''</code>/<code>{% if %}</code> and Jinja runs with lenient Undefined, so missing keys render empty.</dd>
+        <dt>Fix</dt><dd>Normalize to one key set (empty strings for blanks), keep the Book as an explicit <code>type</code>-discriminated variant, and enforce in a new content validator.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>pages.json disables the Videos nav item by underscore-prefixing its keys instead of a boolean flag</h4><span class="floc">contents/pages.json:42</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The Videos entry uses <code>_id/_title/_link/_icon</code>. Nav items are dropped by explicit <code>{% if section.id %}</code> guards (menu.html:27, footer.html:18); the home section include is suppressed by <code>ignore missing</code>.</dd>
+        <dt>Impact</dt><dd>Feature-toggle-by-key-rename is fragile and non-obvious; re-enabling requires renaming four keys in lockstep. Functions correctly today.</dd>
+        <dt>Fix</dt><dd>Represent the toggle as data (<code>"enabled": false</code>) and filter on it, keeping every entry the same shape.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>videos.json ships placeholder + near-duplicate entries with heterogeneous keys and no validation</h4><span class="floc">contents/videos/videos.json:9</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>All 3 items carry copy-paste "David Chang" placeholder descriptions; the two YouTube entries share <code>ytSourceId</code> (an intentional two-branch template demo, not accidental). The section is currently disabled.</dd>
+        <dt>Impact</dt><dd>Test cruft that is not rendered; would show placeholder cards if the section were enabled.</dd>
+        <dt>Fix</dt><dd>Replace placeholder descriptions with real content before enabling; optionally validate the youtube-vs-local variants in the content validator.</dd>
+      </dl>
+    </article>
+
+    <!-- PILLAR 3: CODE QUALITY -->
+    <h3 class="pillar" id="p-cq"><span class="n">3</span>Code Quality, Performance &amp; Edge Cases</h3>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>Zoomable media lightbox is mouse-only &mdash; no keyboard access</h4><span class="floc">static/js/script.js:428</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Only a <code>click</code> listener; <code>.zoomable</code> tiles are plain <code>&lt;div&gt;</code>s with no <code>tabindex</code>/<code>role</code>/<code>keydown</code> (templates/pages/group-life.html:60, templates/home/videos.html:49/58).</dd>
+        <dt>Impact</dt><dd>Keyboard/switch users cannot open group-life photos or play the Featured Videos embed&mdash;WCAG 2.1.1 (Level A) failure. Real functional loss for that widget.</dd>
+        <dt>Fix</dt><dd>Render tiles as <code>&lt;button&gt;</code> (or add tabindex+role) with an Enter/Space <code>keydown</code>; the modal already restores focus. (See Critical Fixes.)</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Image conversion regenerates every WebP variant on every build (no caching)</h4><span class="floc">build.py:1009</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>convert_to_webp</code> re-encodes every width unconditionally with no <code>exists</code>/<code>mtime</code> check; ~500 variants re-encoded (~40s measured) even when nothing changed.</dd>
+        <dt>Impact</dt><dd>Build-time only; correct output always produced. Slows local iteration and wastes CI CPU.</dd>
+        <dt>Fix</dt><dd>Skip when all <code>{basename}-{size}w.webp</code> exist and are newer than the source; also invalidate the cache when <code>sizes</code>, <code>quality</code>, or <code>target_aspect</code> change in code.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>O(members &times; publications) author matching; publication list walked several times</h4><span class="floc">build.py:418</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The author match scans all pub sections inside the per-member loop (and re-parses month strings per member); <code>pub_by_id</code> is built twice; home/abstract/sitemap re-walk the list.</dd>
+        <dt>Impact</dt><dd>~2,300 trivial iterations, sub-10&nbsp;ms, dominated by template rendering&mdash;no measurable impact.</dd>
+        <dt>Fix</dt><dd>Build one <code>webid &rarr; sorted citationIds</code> index (and one shared <code>pub_by_id</code>) in a single pass; reuse in project pages and the sitemap.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Duplicated, divergent, type-fragile publication sort inside render_member_pages</h4><span class="floc">build.py:424&ndash;440</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Inline sort on raw string year vs the normalized <code>get_pub_sort_key</code>; months list copy-pasted L59&rarr;L427; int-0 default; <code>month.lower()</code> would raise on a null month.</dd>
+        <dt>Impact</dt><dd>Order is identical to the canonical path today; TypeError/AttributeError paths are latent (require data violating the repo conventions).</dd>
+        <dt>Fix</dt><dd>Delete the inline sort/month loop, reuse <code>get_pub_sort_key</code>, guard month with <code>(item.get('month') or '')</code> (also in <code>get_pub_sort_key</code>), and hoist the months list to a module constant.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>render_project_pages parses project.json with no error handling</h4><span class="floc">build.py:621</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Bare <code>json.load</code>, no try/except; a malformed file aborts the build with a raw <code>JSONDecodeError</code> whose path is only implicit in the traceback.</dd>
+        <dt>Impact</dt><dd>Both member and project pipelines already hard-fail on bad JSON; the real gap is message clarity (members print a clean path + line/col).</dd>
+        <dt>Fix</dt><dd>Catch <code>JSONDecodeError</code>, print a targeted message with <code>detail_path</code> + line/col, and <code>SystemExit</code> (mirroring members)&mdash;not a silent skip.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Sitemap lastmod computation does redundant walks and repeated stats</h4><span class="floc">build.py:743</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Homepage lastmod walks the whole contents tree once; <code>publications.json</code>'s mtime is re-stat'd ~41&times; across the member loop plus per-publication. (It is a file, so it's a single <code>getmtime</code>, not a walk; the news loop does not touch it.)</dd>
+        <dt>Impact</dt><dd>A few hundred cheap, inode-cached syscalls&mdash;single-digit ms on a 223-file tree.</dd>
+        <dt>Fix</dt><dd>Compute each shared mtime once (e.g. <code>pubs_json_mtime</code>) and memoize the dir-walk by path.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Member <code>&lt;img src&gt;</code> fallback points at a non-existent plain .jpg</h4><span class="floc">build.py:1044</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Only <code>{webId}-Nw.webp</code> is emitted, but <code>find_image</code> returns <code>/assets/members/{webId}.jpg</code>, used directly as the <code>&lt;img src&gt;</code>.</dd>
+        <dt>Impact</dt><dd>Vestigial dead value: the width-descriptor <code>srcset</code> means conformant browsers ignore <code>src</code> entirely, so no 404 request is made and photos display normally.</dd>
+        <dt>Fix</dt><dd>Point <code>imgPath</code> at an emitted file (e.g. the <code>-800w.webp</code> variant or the derived webp basename) and align <code>find_image</code> with what the pipeline produces.</dd>
+      </dl>
+      <div class="xref">Subset of the Maintainability "photo-discovery triplicated" finding.</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Inline news-image src rewrite only covers jpg/png, but conversion also handles gif/bmp/tiff</h4><span class="floc">build.py:494</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Rewrite regex is <code>jpe?g|png</code> &rarr; <code>-1200w.webp</code>, while <code>compress_and_convert_images</code> also converts gif/bmp/tiff and raw originals are not copied to <code>docs/</code>.</dd>
+        <dt>Impact</dt><dd>Latent&mdash;all 31 current news images are <code>.jpg</code>; a <code>.gif/.tiff/.bmp</code> inline reference would 404 with no build warning.</dd>
+        <dt>Fix</dt><dd>Broaden the regex to the shared raster-extension set, or warn when an inline reference falls outside the rewrite set.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>convert_to_webp re-opens/decodes each source image twice (full-size + lazy pass)</h4><span class="floc">build.py:1009&ndash;1010</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Two separate <code>convert_to_webp</code> calls per image, each doing its own <code>Image.open</code> + <code>ImageOps.exif_transpose</code>.</dd>
+        <dt>Impact</dt><dd>Doubles decode/transpose per source (a few ms); compounds the no-caching finding.</dd>
+        <dt>Fix</dt><dd>Accept multiple <code>(sizes, quality)</code> groups in one call so the source is opened/transposed once.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>member.json is opened and JSON-parsed twice per member</h4><span class="floc">lib/excel_to_content.py:222</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>validate_member_folder</code> parses the file (validate_member.py:231), then <code>load_member_content</code> re-opens and re-parses it, discarding validate's already-parsed dict.</dd>
+        <dt>Impact</dt><dd>43 tiny (~1&nbsp;KB) files&mdash;negligible I/O; TOCTOU concern is not realistic for a single-threaded build.</dd>
+        <dt>Fix</dt><dd>Have <code>validate_member_folder</code> accept (or return) a pre-parsed dict and pass that single parse into the merge step.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4><code>col()</code> and the WebID read do a linear <code>headers.index()</code> on every cell of every row</h4><span class="floc">lib/excel_to_content.py:268, 284</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>headers.index(name)</code> ~11&times;/row plus a per-row <code>headers.index('WebID')</code>; the sibling <code>audit_authors.load_roster</code> precomputes <code>{h:i}</code> once. <code>col()</code> raises a bare, context-free <code>ValueError</code> on a missing column.</dd>
+        <dt>Impact</dt><dd>~5,760 comparisons at build time&mdash;microseconds. Mainly an anti-pattern vs the sibling loader plus a cryptic missing-column error.</dd>
+        <dt>Fix</dt><dd>Build <code>col_idx = {h:i for i,h in enumerate(headers)}</code> once; wrap missing required columns in a clear message.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Excel booleans parsed with two different, uncentralized idioms</h4><span class="floc">lib/excel_to_content.py:299, 334</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>.strip().upper() == 'TRUE'</code> vs <code>graduated.lower() == 'true'</code>&mdash;two spellings of the same parse.</dd>
+        <dt>Impact</dt><dd>No functional bug (both handle real bools and TRUE/FALSE); the concern is drift and a minor validation gap (non-TRUE text silently treated as False).</dd>
+        <dt>Fix</dt><dd>Add one <code>_excel_bool(cell)</code> helper and use it for both fields.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Defaults deep-copied via <code>json.loads(json.dumps(...))</code> instead of <code>copy.deepcopy</code></h4><span class="floc">lib/excel_to_content.py:219</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>A serialize+parse round-trip is used to get a fresh per-member copy of the nested defaults dict.</dd>
+        <dt>Impact</dt><dd>Correct today (defaults are JSON-serializable); obscures intent and would break on a tuple/date default. Cosmetic.</dd>
+        <dt>Fix</dt><dd><code>import copy; content = copy.deepcopy(_EMPTY_CONTENT)</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4><code>strip_markdown()</code> mangles snake_case identifiers and misses multi-line emphasis</h4><span class="floc">lib/seo_helpers.py:119</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>(_{1,3})(.+?)\1</code> matches <code>_var_</code> in <code>my_var_name</code> and drops the underscores (needs 2+ underscores); the lazy <code>.+?</code> doesn't span newlines, leaving literal <code>**</code>/<code>_</code>.</dd>
+        <dt>Impact</dt><dd>Would corrupt SEO meta descriptions mentioning snake_case tokens; no current content triggers it.</dd>
+        <dt>Fix</dt><dd>Bound underscore emphasis by non-word chars, or render markdown&rarr;HTML then strip tags via the existing <code>_HTML_TAG_RE</code> path.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Inconsistent month abbreviations ('May.' vs 'May') in publications.json</h4><span class="floc">contents/publications/publications.json:1096</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>"May."</code> (lines 1096, 1761) vs <code>"May"</code> (1830, 2170); all other months use the 3-letter+period form. Sort and BibTeX tolerate both.</dd>
+        <dt>Impact</dt><dd>Human-facing pub list and member CVs render <code>May.</code> beside <code>May</code>&mdash;a visible inconsistency (and the period is simply wrong for a 3-letter month).</dd>
+        <dt>Fix</dt><dd>Standardize to <code>"May"</code> across the file; add a canonical month enum to the content validator.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Faceted-filter engine duplicated: publications inline <code>&lt;script&gt;</code> vs projects.js</h4><span class="floc">templates/pages/publications.html:497; static/js/projects.js</span><span class="effort">Effort: large</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The dropdown driver (<code>wireDropdown</code>, outside-click/Escape/clearAll) is near-verbatim across both; facet logic differs materially (projects is a leaner sibling). general.js is a simpler, different year filter&mdash;not a third copy of this engine.</dd>
+        <dt>Impact</dt><dd>A dropdown bugfix or a11y improvement must be applied in two places.</dd>
+        <dt>Fix</dt><dd>Extract the shared dropdown plumbing into one <code>static/js/</code> module; move the inline publications script into it.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Responsive <code>&lt;img&gt;</code> srcset + blur-up block hand-repeated across templates</h4><span class="floc">templates/pages/member/member.html:21 (+8 sites)</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The srcset/blur-up idiom is repeated ~8&times; across members/group-life/news templates and has already drifted (member L blur uses <code>-800w</code> vs M/S <code>-20w</code>; group-life <code>?v=2</code> had to be edited twice). <code>partials/proj-row.html</code> proves macros work here.</dd>
+        <dt>Impact</dt><dd>Maintainability only&mdash;the sites diverge substantially (blur mechanism, wrappers, aspect ratio, ladder length), so only the inner <code>&lt;img&gt;</code> cleanly factors out.</dd>
+        <dt>Fix</dt><dd>Add a <code>partials/responsive-img.html</code> macro for the inner <code>&lt;img&gt;</code>; call it from every image site.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Invalid <code>&lt;ui&gt;</code> element used for menu list items (should be <code>&lt;li&gt;</code>)</h4><span class="floc">templates/partials/menu.html:13</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Inside <code>&lt;ul class="menu-wrapper"&gt;</code> the items are wrapped in <code>&lt;ui&gt;...&lt;/ui&gt;</code> (not a real element), so the <code>&lt;ul&gt;</code> has no <code>&lt;li&gt;</code> children (acknowledged in a general.css comment).</dd>
+        <dt>Impact</dt><dd>The <code>&lt;ul&gt;</code> is not announced as "list, N items"; the nested links/buttons remain individually focusable and labeled.</dd>
+        <dt>Fix</dt><dd>Replace every <code>&lt;ui&gt;</code>/<code>&lt;/ui&gt;</code> with <code>&lt;li&gt;</code>/<code>&lt;/li&gt;</code> (CSS targets <code>.menu-wrapper &gt; *</code>, so no CSS change needed).</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Duplicate <code>id="about"</code> emitted on member profile pages</h4><span class="floc">templates/pages/member/member.html:242, 313</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>id="about"</code> is emitted for the About section and reused for the Research Interest block at :313, producing a duplicate on the 13 of 40 member pages that have both. (<code>aboutSection</code> is always single and <code>researchSection</code> is never populated, so the <code>id="research"</code> dup is latent only.)</dd>
+        <dt>Impact</dt><dd>Invalid HTML; a <code>#about</code> fragment resolves only to the first match (no such links exist today).</dd>
+        <dt>Fix</dt><dd>Give Research Interest its own id (e.g. <code>research-interest</code>); optionally suffix looped section ids with <code>loop.index</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>script.js does unguarded top-level DOM writes before its own null guard; pollutes global scope</h4><span class="floc">static/js/script.js:275</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>L275&ndash;343 dereference slider elements before the <code>if (!glfSlider) return;</code> guard at L354; a throw would halt the media-modal wiring at L401&ndash;517. <code>renderRain</code> also depends on <code>getRandomInt</code> leaked globally from general.js.</dd>
+        <dt>Impact</dt><dd>Homepage-only, latent&mdash;group-life currently has content and the videos section is disabled, so nothing throws today.</dd>
+        <dt>Fix</dt><dd>Wrap the slider init in <code>if (glfSlider) { ... }</code>; optionally isolate each concern in an IIFE and export shared helpers explicitly.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Inconsistent <code>aria-hidden</code> on decorative sprite SVGs</h4><span class="floc">templates/home/home.html:7</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Only 29 of 73 <code>&lt;svg&gt;</code> carry <code>aria-hidden</code>; the homepage logo, research-field icons (research.html), and member-name icons (home/members.html:80,86) do not, despite being purely decorative next to visible text.</dd>
+        <dt>Impact</dt><dd>Some assistive tech announces empty/unnamed graphics; the coverage gap makes the a11y contract look intentional in some places and forgotten in others.</dd>
+        <dt>Fix</dt><dd>Add <code>aria-hidden="true"</code> (and <code>focusable="false"</code> for legacy IE) to every decorative sprite SVG, ideally via an icon macro.</dd>
+      </dl>
+    </article>
+
+    <!-- PILLAR 4: MAINTAINABILITY -->
+    <h3 class="pillar" id="p-maint"><span class="n">4</span>Maintainability &amp; Automation</h3>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>Photo-discovery convention triplicated; <code>find_image()</code> returns a path the build never emits</h4><span class="floc">lib/excel_to_content.py:151</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The same glob (stem <code>=='photo'</code>, ext jpg/jpeg/png) is copy-pasted in <code>find_image</code>, <code>build.py:1036&ndash;1041</code>, and <code>validate_member.py:251&ndash;252</code>. <code>find_image</code> returns <code>/assets/members/{webId}{sourceExt}</code>, but only <code>{webId}-Nw.webp</code> is emitted&mdash;so the returned path is a dangling reference surviving only as the never-fetched <code>&lt;img src&gt;</code> fallback.</dd>
+        <dt>Impact</dt><dd>Changing the source format or photo stem in one site silently breaks the others; <code>find_image</code> advertises a file the emitter never generates.</dd>
+        <dt>Fix</dt><dd>Extract one <code>find_member_photo(web_id)</code> helper used by all three call sites, and derive <code>imgPath</code> from the <em>emitted</em> webp basename (<code>/assets/members/{webId}</code>).</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>Large binaries committed directly instead of via Git LFS or an assets pipeline</h4><span class="floc">contents/videos/2025-1.mp4</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>.git</code> is ~426&nbsp;MB: a 17&nbsp;MB mp4, ~60&nbsp;MB news images, ~38&nbsp;MB group-life, ~33&nbsp;MB member photos&mdash;all raw originals (WebP variants are generated into <code>docs/</code>). No <code>.gitattributes</code>/LFS; history already carries ~55&nbsp;MB of orphaned blobs.</dd>
+        <dt>Impact</dt><dd>Every binary revision is stored whole forever; the repo grows unbounded as media is added; clones/CI get slower.</dd>
+        <dt>Fix</dt><dd>Track large media via <code>.gitattributes</code>/Git LFS (future commits only), or host video on YouTube (already supported). Reclaim existing history with filter-repo/BFG (destructive, optional). Note GitHub Pages doesn't serve LFS&mdash;fine here, since served assets are the regenerated <code>docs/</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>Four detail-page templates copy-paste the entire <code>&lt;head&gt;</code> instead of extending base.html</h4><span class="floc">templates/pages/{member/member, news/news-item, projects/project-item, publications/publication-item}.html</span><span class="effort">Effort: large</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Each standalone doc repeats the GTM/gtag loader, verification meta, Outfit/Noto Sans TC font block, OG/Twitter scaffold, and favicon block already in base.html (each marker appears in 5 files). 7 other templates already <code>{% extends 'base.html' %}</code>. Drift: base loads <code>general.js?v=4</code> while the 4 detail pages load <code>general.js</code> with no cache-bust.</dd>
+        <dt>Impact</dt><dd>~90 lines of head boilerplate &times;4; any change (GA ID, fonts, favicon) needs 5 synced edits and can serve stale JS after deploy.</dd>
+        <dt>Fix</dt><dd>Make the detail templates extend base.html (per-page CSS &rarr; <code>{% block headExtra %}</code>, JSON-LD &rarr; <code>{% block jsonld %}</code>), or at minimum extract a <code>partials/head-common.html</code> include.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-medium">
+      <div class="fhead"><span class="badge medium">Medium</span><h4>README pip list omits <code>beautifulsoup4</code> &mdash; a fresh local build crashes</h4><span class="floc">README.md:39</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>README:39 says <code>pip install markdown Pillow jinja2 openpyxl</code>, but <code>build.py:821</code> imports <code>bs4</code> in <code>validate_seo()</code>; requirements.txt lists <code>beautifulsoup4&gt;=4.12</code> and claims single source of truth.</dd>
+        <dt>Impact</dt><dd>A new contributor's build dies with <code>ModuleNotFoundError: No module named 'bs4'</code> at the SEO step.</dd>
+        <dt>Fix</dt><dd>Replace README:39 with <code>pip install -r requirements.txt</code> and delete the hand list. (See Critical Fixes.)</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Output directory hardcoded as literal "docs" in the image pipeline (bypasses <code>output_dir</code>)</h4><span class="floc">build.py:990, 1024</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>output_dir = "docs"</code> (L179) is honored everywhere except the two image functions, which hardcode <code>f"docs/assets/{dst_folder}"</code> and <code>'docs/assets/members'</code>.</dd>
+        <dt>Impact</dt><dd>Latent&mdash;retargeting output would split HTML and images. "docs" is a fixed Pages requirement, so a change is unlikely and would be obvious on first preview.</dd>
+        <dt>Fix</dt><dd><code>os.path.join(output_dir, 'assets', ...)</code> in both functions.</dd>
+      </dl>
+      <div class="xref">Reported twice in the finding set (identical to a second image-pipeline finding at build.py:990).</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>No single source of truth for the site domain (hardcoded across build.py + templates)</h4><span class="floc">build.py:326, 728</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>https://e3center.caece.net</code> appears ~90 times across ~17 files, including an inline literal at build.py:326 and a separate <code>BASE</code> constant at build.py:728, plus every page template and static/404.html.</dd>
+        <dt>Impact</dt><dd>A domain change (or a staging origin) requires a multi-file find-replace; a missed copy silently mismatches canonical/OG/JSON-LD. No drift exists today.</dd>
+        <dt>Fix</dt><dd>Define <code>SITE_URL</code> once (env-overridable), register it as a Jinja global, reference <code>{{ SITE_URL }}</code> in templates, and reuse it for <code>BASE</code> in the sitemap.</dd>
+      </dl>
+      <div class="xref">Raised three times in the finding set (as "two places", "92&times;/16 files", and "110&times;/15 files") &mdash; same root cause.</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Magic image-size lists and image-extension sets duplicated with inconsistencies</h4><span class="floc">build.py:943</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The width list <code>[200,400,600,800,1200,1600,2000]</code> is repeated 3&times; (L943/944/946). The two <code>image_extensions</code> sets differ by only <code>.webp</code> (present at L476, absent at L984); both already include gif/bmp/tiff.</dd>
+        <dt>Impact</dt><dd>Copy-paste maintenance hazard; only the responsive-width list is truly duplicated (<code>lazy_img_sizes</code>/<code>members_img_sizes</code> are already constants).</dd>
+        <dt>Fix</dt><dd>Centralize <code>RESPONSIVE_WIDTHS</code> and a single documented raster-extension set at module top.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>No docs/ cleanup step &mdash; deleted content leaves stale rendered pages (non-idempotent output)</h4><span class="floc">build.py:1050</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The <code>__main__</code> sequence only ever <code>makedirs(exist_ok=True)</code> into <code>docs/</code>; nothing removes the tree first (the only <code>rmtree</code> is per static subdir).</dd>
+        <dt>Impact</dt><dd>Local-only: a reused <code>docs/</code> retains orphaned HTML/WebP. Production is immune (CI checks out clean; peaceiris replaces the branch), and the sitemap is built from data, not by walking <code>docs/</code>.</dd>
+        <dt>Fix</dt><dd>At build start, <code>rmtree docs/</code> then recreate (opt-outable if CI already does a clean checkout).</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>validate_member: a JSON null hard-fails the build while an absent key is tolerated</h4><span class="floc">validate_member.py:149</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>The str-leaf check flags <code>None</code> as an error-level issue, and <code>load_member_content</code> raises <code>SystemExit(2)</code> on any error&mdash;yet <code>_check_schema</code> deliberately tolerates missing keys.</dd>
+        <dt>Impact</dt><dd>Inconsistent policy: omitting <code>position</code> is fine, but <code>"position": null</code> aborts the deploy (the published site stays live; the editor gets a clear message).</dd>
+        <dt>Fix</dt><dd>Treat null as blank/missing (warn, not error) for str leaves, or coerce <code>null&rarr;""</code> before schema validation.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Two Excel roster loaders diverge: explicit sheet vs <code>wb.active</code>, and re-implemented parsing</h4><span class="floc">audit_authors.py:52</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>build_member_data</code> opens <code>ws = wb['Members']</code> while <code>audit_authors.load_roster</code> uses <code>ws = wb.active</code> and rebuilds its own header index/extraction; both read the same 4 columns.</dd>
+        <dt>Impact</dt><dd>Currently the workbook's single "Members" sheet is also active, so the tools agree. A second active sheet would likely raise a loud <code>KeyError</code>, not silently mislead; audit_authors is a standalone tool, not part of the build.</dd>
+        <dt>Fix</dt><dd>Expose one <code>load_roster()</code>/sheet-open helper (explicit sheet name) in <code>lib/</code> and import it in both tools.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Missing type hints and a stale docstring path in excel_to_content</h4><span class="floc">lib/excel_to_content.py:246</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>build_member_data()</code>/<code>col()</code> lack return annotations; the module docstring (lines 5, 13) says <code>contents/member-info.xlsx</code> while the real path is <code>contents/members/member-info.xlsx</code>. (The "unclosed workbook / FD leak" sub-claim was refuted&mdash;openpyxl closes the archive in non-read-only mode, so <code>wb.close()</code> would be a no-op.)</dd>
+        <dt>Impact</dt><dd>Cosmetic maintainability nits; the stale path can mislead editors about the source of truth.</dd>
+        <dt>Fix</dt><dd>Add a TypedDict for the return value, annotate the public functions, and fix the docstring path.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>No central config module: constants (output dir, image tiers, WebP quality) inline</h4><span class="floc">build.py:179</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>No <code>config.py</code>/<code>constants.py</code>; the domain, image size tiers, and WebP quality (70/10/100) are inline magic values. (build.py already uses the <code>output_dir</code> variable in nearly all HTML/sitemap/copy paths and defines a local <code>BASE</code>&mdash;so this overlaps the domain/output-dir findings.)</dd>
+        <dt>Impact</dt><dd>Changing the domain/output dir/quality means hunting across Python, HTML, CSS, JS.</dd>
+        <dt>Fix</dt><dd>Introduce a config module (<code>SITE_URL</code>, <code>OUTPUT_DIR</code>, <code>IMG_SIZES</code>, <code>WEBP_QUALITY</code>, <code>SECTION_ORDER</code>) and expose <code>SITE_URL</code> to Jinja.</dd>
+      </dl>
+      <div class="xref">Overlaps the domain, output_dir, and image-size-list findings.</div>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>CWD-dependent relative paths throughout build.py and excel_to_content.py</h4><span class="floc">lib/excel_to_content.py:261</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Bare relative paths (<code>'contents/members/member-info.xlsx'</code>, <code>"docs"</code>) throughout; <code>audit_authors.py</code> anchors correctly with <code>ROOT = Path(__file__).resolve().parent</code>.</dd>
+        <dt>Impact</dt><dd>The build assumes CWD == repo root; running elsewhere fails loudly with <code>FileNotFoundError</code> (the documented/CI invocation always uses the root, so it never bites normally).</dd>
+        <dt>Fix</dt><dd>Define one <code>PROJECT_ROOT = Path(__file__).resolve().parent</code> (in the config module) and derive all paths from it.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Redundant tracked artifacts: duplicate logo SVG and SEO zips shadowing their extractions</h4><span class="floc">static/assets/images/e3-logo-icon 2.svg</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>e3-logo-icon 2.svg</code> is byte-identical to <code>e3-logo-icon.svg</code> (a macOS Finder duplicate; only the un-suffixed name is referenced). SEO/data tracks both <code>gsc_*.zip</code> archives and their same-named CSV folders (renamed English extractions of the same GSC data).</dd>
+        <dt>Impact</dt><dd>Dead/duplicated files clutter the tree and mislead about the canonical asset; committing archive + contents doubles stored bytes.</dd>
+        <dt>Fix</dt><dd>Delete the <code>' 2'</code> SVG; keep either the zip or the CSVs (not both) and gitignore the redundant form.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Legacy archival spreadsheet tracked in the code repo</h4><span class="floc">contents/members/member-info.legacy.xlsx</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>~22&nbsp;KB documented as a read-only archive (README:89, STRUCTURE:40); no code reads it (only <code>member-info.xlsx</code> is loaded).</dd>
+        <dt>Impact</dt><dd>A never-read binary sits beside the real build input (an intentional, documented archive rather than accidental cruft; the <code>.legacy.</code> name largely mitigates confusion).</dd>
+        <dt>Fix</dt><dd>Remove from the working tree (recoverable from history) or relocate to a clearly-separated archive area outside <code>contents/</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Documentation drift: STRUCTURE.md and the excel_to_content docstring diverge from reality</h4><span class="floc">STRUCTURE.md:56</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>STRUCTURE.md documents a <code>contents/research/images/</code> that doesn't exist; the docstring cites the wrong xlsx path and "12 admin columns" (real is 11); the 110&nbsp;MB <code>publications/files/</code> is documented nowhere; README:39's pip list omits <code>beautifulsoup4</code>.</dd>
+        <dt>Impact</dt><dd>Contributors chase phantom folders, get the wrong path/column count, and miss a dependency&mdash;eroding trust in the docs.</dd>
+        <dt>Fix</dt><dd>Reconcile docs with the tree; point README setup at <code>pip install -r requirements.txt</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Only member.json is schema-validated at build time; all other content JSON is unchecked</h4><span class="floc">validate_member.py / build.py:194</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Every other content file is loaded with a bare <code>json.load</code> and no schema/type/uniqueness check. Silent footguns: <code>item.get('E3') is True</code> (an identity check a string <code>"true"</code> fails, hiding a paper) and duplicate <code>citationId</code> overwriting the member/project lookup.</dd>
+        <dt>Impact</dt><dd>Truly-silent failures are narrow/cosmetic; the worst type error (int year) is a loud build crash, not a silent ship. (A duplicate citationId does <em>not</em> drop a detail page&mdash;those are generated per-abstract.)</dd>
+        <dt>Fix</dt><dd>Add a <code>validate_content.py</code> mirroring <code>_check_schema</code> (uniform keys, types, citationId uniqueness/non-empty-when-published) and call it before rendering.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4><code>.publi-row-authors</code>/<code>.publi-row-journal</code> defined in two CSS files, resolved by load order</h4><span class="floc">static/css/style.css:1849; subpage.css:1220</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Both files declare <code>.publi-row-authors</code> at equal specificity; base.html loads style.css before subpage.css, so the subpage rule (1rem) wins on the homepage and the style.css declaration is dead.</dd>
+        <dt>Impact</dt><dd>A dead declaration plus cascade-order fragility. (The rendered authors&gt;journal size actually matches the documented DESIGN_RULES intent, so there is no visual bug; note subpage.css has no desktop journal rule, so don't naively delete the style.css copy.)</dd>
+        <dt>Fix</dt><dd>Keep one authoritative <code>.publi-row-*</code> rule; if the homepage needs a different size, scope it explicitly (e.g. <code>#publications .publi-row-authors</code>).</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Spacing token scale exists but is bypassed by off-scale magic rem values</h4><span class="floc">static/css/project-item.css:34</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>A <code>--space-1 &hellip; --space-32</code> scale exists, yet project-item.css uses off-grid values (<code>0.6rem</code>, <code>0.35rem</code>, <code>1.4rem</code>, <code>0.45rem</code>, <code>0.65rem</code>). (One cited value, <code>2.5rem</code>, equals <code>--space-10</code> exactly; the DESIGN_RULES K-1 citation governs font-size tokens, not spacing, and permits hardcoded-rem coexistence.)</dd>
+        <dt>Impact</dt><dd>Vertical rhythm drifts off the 4px grid; the spacing system can't be re-tuned centrally. No functional/visual break.</dd>
+        <dt>Fix</dt><dd>Snap these to the nearest <code>--space-*</code> token (a cosmetic redesign choice, since pixel values shift slightly); optionally add a grep lint for raw rem in gap/padding/margin.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Production console logging, invalid <code>&lt;/br&gt;</code>, and stale DESIGN_RULES font weights</h4><span class="floc">static/js/script.js:64; templates/home/home.html:35; DESIGN_RULES/typography.md:26</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>script.js ships <code>console.warn/log/error</code> on the loading path and in <code>renderRain</code>; home.html:35 uses the invalid <code>&lt;/br&gt;</code>; typography.md says fonts load <code>wght@300..600</code> with a 300-weight sep, but base.html loads <code>wght@400..600</code> and <code>--fw-light: 400</code>. The docs are declared authoritative, so the drift is a concrete risk of re-introducing a faux-300 weight.</dd>
+        <dt>Impact</dt><dd>Console noise, a malformed tag, and a spec that misleads about available font weights.</dd>
+        <dt>Fix</dt><dd>Strip/gate the console statements; change <code>&lt;/br&gt;</code> to <code>&lt;br&gt;</code>; update typography.md to <code>wght@400..600</code> / <code>--fw-light: 400</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>CI Python is unpinned ('3.x') and disagrees with README's declared 3.9</h4><span class="floc">.github/workflows/deploy.yml:35</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>deploy.yml sets <code>python-version: '3.x'</code> (floating) while README pins local dev to 3.9 via conda; nothing reconciles them, and deps are range-pinned.</dd>
+        <dt>Impact</dt><dd>Non-reproducible builds; a runner Python bump could break the deploy. (Mitigated: PR builds run on the same '3.x', and a failed build leaves the live site up.)</dd>
+        <dt>Fix</dt><dd>Add a <code>.python-version</code> (e.g. <code>3.12</code>), point setup-python at it via <code>python-version-file</code>, and align the README.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>CI has no validation gate &mdash; it only builds and deploys; SEO checks are non-fatal, author audit never runs</h4><span class="floc">.github/workflows/deploy.yml:42</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>CI runs install &rarr; <code>python build.py</code> &rarr; deploy. <code>validate_seo()</code> is warn-only (prints in yellow); <code>audit_authors.py</code> is invoked nowhere. No lint/schema/link check.</dd>
+        <dt>Impact</dt><dd>A degraded (exit-0-with-warnings) build&mdash;broken JSON-LD, missing canonical, duplicate descriptions&mdash;deploys with no blocking gate (though warnings do print in the log).</dd>
+        <dt>Fix</dt><dd>Add a <code>--strict</code> flag to build.py that turns key SEO warnings into a non-zero exit, run it as a PR check. (Do <em>not</em> make <code>audit_authors.py</code> a hard gate&mdash;legitimate external co-authors would false-positive constantly.)</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Image srcset widths are duplicated between build.py and templates with no shared source</h4><span class="floc">build.py:943; templates/pages/group-life.html, member/member.html</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>build.py declares generated widths while ~8 template blocks hardcode matching srcset entries independently; no Jinja global couples them.</dd>
+        <dt>Impact</dt><dd>No current defect (all template widths are generated). A future size-list edit could leave templates referencing non-existent variants. Note templates intentionally use per-context <em>subsets</em> of the generated superset.</dd>
+        <dt>Fix</dt><dd>Expose width lists as Jinja globals and render srcset from a shared macro so one Python list drives both generation and markup.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Dependencies are range-pinned (<code>&gt;=</code>) with no lockfile</h4><span class="floc">requirements.txt:8</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Only lower bounds are pinned; no lockfile exists; each CI run resolves the newest compatible versions.</dd>
+        <dt>Impact</dt><dd>Non-reproducible dependency sets. (Build-time only, and a breaking bump fails the build loudly&mdash;the deploy is gated on build success, so the live site is not corrupted.)</dd>
+        <dt>Fix</dt><dd>Pin exact versions (<code>==</code>) or generate a <code>requirements.lock</code> that CI installs; add Dependabot to bump it deliberately.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Third-party deploy action pinned to a mutable major tag</h4><span class="floc">.github/workflows/deploy.yml:50</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>peaceiris/actions-gh-pages@v4</code> (plus <code>actions/checkout@v4</code>, <code>setup-python@v5</code>) are floating tags; the third-party action holds <code>contents: write</code> to the Pages branch.</dd>
+        <dt>Impact</dt><dd>A retagged/compromised release could run with write access. (Blast radius is limited to this single public repo's auto-generated <code>GITHUB_TOKEN</code>&mdash;no org secrets.)</dd>
+        <dt>Fix</dt><dd>Pin the third-party action to a full commit SHA with a <code># v4.x.x</code> comment; enable Dependabot's github-actions ecosystem.</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>No pip caching in CI</h4><span class="floc">.github/workflows/deploy.yml:33</span><span class="effort">Effort: small</span></div>
+      <dl>
+        <dt>Evidence</dt><dd><code>setup-python@v5</code> has no <code>cache: 'pip'</code>; every run reinstalls all wheels from scratch.</dd>
+        <dt>Impact</dt><dd>Marginally slower CI (Pillow ships prebuilt wheels, so the real saving is a few seconds).</dd>
+        <dt>Fix</dt><dd>Add <code>cache: 'pip'</code> to the setup-python <code>with:</code> block (keyed on requirements.txt).</dd>
+      </dl>
+    </article>
+
+    <article class="finding sev-low">
+      <div class="fhead"><span class="badge low">Low</span><h4>Repetitive operator flows are unscripted &mdash; no Makefile, no image-registration reconciler</h4><span class="floc">README.md:72</span><span class="effort">Effort: medium</span></div>
+      <dl>
+        <dt>Evidence</dt><dd>Member packaging, group-life image registration, and local preview are documented as multi-step manual rituals; no Makefile/pyproject in the root. (News images are auto-discovered from the folder, so the news-registration risk and reconciler do not apply.)</dd>
+        <dt>Impact</dt><dd>Routine content ops are copy-paste sequences prone to omitted steps. The project already has CI/CD, pinned deps, build-time validation, and helper scripts, so this is a convenience gap.</dd>
+        <dt>Fix</dt><dd>Add a Makefile (<code>build</code>, <code>serve</code>, <code>package-member WEBID=</code>, <code>audit</code>); optionally a reconciler that warns on group-life images missing from group-life.json.</dd>
+      </dl>
+    </article>
+
+  </section>
+
+  <!-- 4. ARCHITECTURE & CONTENT GROUPING -->
+  <section class="block" id="reorg">
+    <h2>Architecture &amp; Content Grouping Recommendations</h2>
+    <p class="lead">The architecture findings converge on one theme: the repo root and <code>contents/</code> no longer cleanly separate <em>what the SSG consumes</em> from <em>operational/archival material and heavy binaries</em>. None of this is broken&mdash;the build ignores the extra material&mdash;but tightening the boundary reduces clone size, onboarding confusion, and history bloat. Concrete moves:</p>
+    <ol>
+      <li><b>Purge or wire up the 110&nbsp;MB PDF archive</b> (<code>contents/publications/files/</code>). Either <code>git rm</code> it (and move the archive to a Release asset / shared drive), or, if downloads are a real feature, add a <code>file</code> field to publications.json plus a copy step. Nothing currently references it.</li>
+      <li><b>Move large source binaries to Git LFS</b> (or externalize video to YouTube). Add a <code>.gitattributes</code> for <code>*.mp4</code> and source-resolution photos so future revisions don't accrete into history. A one-time filter-repo/BFG purge (destructive) reclaims the existing ~426&nbsp;MB if size matters.</li>
+      <li><b>Quarantine non-build material under a single <code>ops/</code> namespace</b> so the top level advertises only build inputs: relocate <code>SEO/</code> and <code>DESIGN_RULES/</code> there. Keep the hand-curated <code>seo-report.html</code> tracked (it has no generator); drop redundant zip-vs-CSV duplication.</li>
+      <li><b>Introduce a config module + <code>PROJECT_ROOT</code></b> to kill the domain (~90 copies), <code>output_dir</code>, image-tier, and quality magic values, and to make paths CWD-independent.</li>
+      <li><b>Remove tracked cruft</b>: the duplicate <code>e3-logo-icon 2.svg</code> and the read-only <code>member-info.legacy.xlsx</code> (recoverable from history).</li>
+    </ol>
+
+    <p style="margin-top:1.2rem;">Proposed refined layout (new/changed items marked):</p>
+<pre class="tree">
+NTU-E3-Center.github.io/
+├── build.py
+├── <span class="new">config.py</span>                      <span class="c"># NEW SITE_URL, OUTPUT_DIR, IMG_SIZES, WEBP_QUALITY, PROJECT_ROOT</span>
+├── requirements.txt
+├── <span class="new">requirements.lock</span>              <span class="c"># NEW pinned set installed by CI</span>
+├── <span class="new">.python-version</span>                <span class="c"># NEW single interpreter pin (aligns CI + README)</span>
+├── <span class="new">.gitattributes</span>                 <span class="c"># NEW Git LFS for *.mp4 + source-resolution photos</span>
+├── <span class="new">Makefile</span>                       <span class="c"># NEW build / serve / package-member / audit targets</span>
+├── validate_member.py
+├── <span class="new">validate_content.py</span>            <span class="c"># NEW schema/type/uniqueness for pubs/news/projects/videos</span>
+├── audit_authors.py
+├── lib/
+│   ├── excel_to_content.py
+│   ├── seo_helpers.py
+│   └── <span class="new">media.py</span>                   <span class="c"># NEW find_member_photo() + RESPONSIVE_WIDTHS (shared)</span>
+├── contents/                     <span class="c"># ONLY build inputs the SSG consumes</span>
+│   ├── pages.json
+│   ├── members/
+│   │   └── member-info.xlsx       <span class="c"># legacy .xlsx removed</span>
+│   ├── publications/
+│   │   └── publications.json      <span class="c"># files/ (110 MB PDFs) removed OR wired to a `file` field</span>
+│   ├── news/  group-life/  projects/  videos/  research/
+├── templates/
+│   ├── base.html
+│   ├── partials/
+│   │   ├── <span class="new">head-common.html</span>       <span class="c"># NEW shared analytics/fonts/favicon include</span>
+│   │   └── <span class="new">responsive-img.html</span>    <span class="c"># NEW srcset/blur-up macro</span>
+│   └── pages/…                    <span class="c"># detail templates now {% extends 'base.html' %}</span>
+├── static/                       <span class="c"># duplicate 'e3-logo-icon 2.svg' removed</span>
+├── <span class="new">ops/</span>                           <span class="c"># NEW non-build operational material (was top-level)</span>
+│   ├── SEO/                       <span class="c"># GA4/GSC exports, seo-report.html</span>
+│   └── DESIGN_RULES/
+└── docs/                         <span class="c"># generated, gitignored</span>
+</pre>
+  </section>
+
+  <!-- 5. ACTION ITEM CHECKLIST -->
+  <section class="block checklist" id="checklist">
+    <h2>Action Item Checklist</h2>
+    <p class="lead">Prioritized by severity &times; effort&mdash;quick, high-impact wins first. Related findings are consolidated into single actionable steps.</p>
+
+    <h3 class="hp">High Priority (fix-first: build integrity, correctness, quick wins)</h3>
+    <ul class="checks">
+      <li class="done"><b>Repoint README setup to <code>pip install -r requirements.txt</code></b> and delete the hand-maintained pip list &mdash; removes the <code>bs4</code> fresh-build crash. <span class="tag">[medium · small]</span></li>
+      <li class="done"><b>Make the member-page publication sort reuse <code>get_pub_sort_key</code></b>, drop the int-0 default, guard <code>month</code>, and fix README:101 to <code>"year": "'25"</code> &mdash; removes the int-year <code>TypeError</code> build crash and unifies the two sort paths. <span class="tag">[medium · small]</span></li>
+      <li class="done"><b>Make the zoomable lightbox keyboard-accessible</b> &mdash; render tiles as <code>&lt;button&gt;</code> (or tabindex+role) with an Enter/Space <code>keydown</code>. Fixes the WCAG 2.1.1 failure that blocks Featured Videos playback. <span class="tag">[medium · medium]</span></li>
+      <li><b>Extract one <code>find_member_photo()</code> helper</b> shared by <code>find_image</code>, <code>compress_member_images</code>, and <code>validate_member</code>, and derive <code>imgPath</code> from the emitted webp basename. <span class="tag">[medium · medium]</span></li>
+    </ul>
+
+    <h3 class="mp">Medium Priority (repo hygiene, robustness, automation gates)</h3>
+    <ul class="checks">
+      <li><b>Remove or wire up the 110&nbsp;MB <code>contents/publications/files/</code> PDF archive</b> (git rm, or add a <code>file</code> field + copy step). <span class="tag">[medium · small]</span></li>
+      <li><b>Add <code>.gitattributes</code>/Git LFS for <code>*.mp4</code> and source photos</b> (or move video to YouTube); plan a one-time filter-repo/BFG purge if reclaiming history matters. <span class="tag">[medium · medium]</span></li>
+      <li><b>Make the four detail templates <code>{% extends 'base.html' %}</code></b> (or extract <code>partials/head-common.html</code>); resolves ~90-line head duplication and the <code>general.js</code> cache-bust drift. <span class="tag">[medium · large]</span></li>
+      <li class="done"><b>Harden content loading</b>: wrap <code>project.json</code> in try/except with a targeted <code>SystemExit</code> message, and treat member JSON <code>null</code> as blank instead of hard-failing. <span class="tag">[low · small]</span></li>
+      <li><b>Add <code>validate_content.py</code></b> covering publications/news/projects/videos (uniform keys, types, citationId uniqueness) and call it before rendering. <span class="tag">[low · medium]</span></li>
+      <li><b>Introduce <code>config.py</code> + <code>PROJECT_ROOT</code></b> for <code>SITE_URL</code> (Jinja global), <code>OUTPUT_DIR</code>, <code>RESPONSIVE_WIDTHS</code>, and <code>WEBP_QUALITY</code>; route the image pipeline and templates through them. <span class="tag">[low · medium]</span></li>
+      <li class="done"><b>Add a docs/ cleanup step</b> at build start for idempotent local output. <span class="tag">[low · small]</span></li>
+      <li><b>Pin CI Python via <code>.python-version</code></b> and align the README; pin the peaceiris action to a commit SHA; enable Dependabot (pip + github-actions). <span class="tag">[low · small]</span></li>
+      <li><b>Add a strict SEO gate</b>: a <code>build.py --strict</code> flag turning invalid-JSON-LD/missing-canonical warnings into a non-zero exit, run as a PR check. <span class="tag">[low · medium]</span></li>
+    </ul>
+
+    <h3 class="lp">Low Priority (cleanup, consistency, micro-optimizations)</h3>
+    <ul class="checks">
+      <li><b>Cache the WebP pipeline</b>: skip re-encoding when variants exist and are newer than the source (invalidate on sizes/quality/aspect change); merge the full+lazy passes into one <code>Image.open</code>. <span class="tag">[low · medium]</span></li>
+      <li><b>De-duplicate build-time walks</b>: one <code>webid&rarr;citationIds</code> index + shared <code>pub_by_id</code>; memoize sitemap mtimes; precompute a <code>{header:idx}</code> map for the roster. <span class="tag">[low · small]</span></li>
+      <li><b>Pin the domain to one source</b> (~90 hardcoded copies) via the config <code>SITE_URL</code> global. <span class="tag">[low · medium]</span></li>
+      <li><b>Add a <code>partials/responsive-img.html</code> macro</b> and extract the shared faceted-filter dropdown module. <span class="tag">[low · medium/large]</span></li>
+      <li><b>Fix template validity/a11y</b>: <code>&lt;ui&gt;</code>&rarr;<code>&lt;li&gt;</code> in menu.html; unique id for the Research Interest section; <code>aria-hidden</code> on decorative SVGs; <code>&lt;/br&gt;</code>&rarr;<code>&lt;br&gt;</code>. <span class="tag">[low · small]</span> <span class="tag" style="color:#166534;">[&#10003; done except the <code>aria-hidden</code> sprite sweep]</span></li>
+      <li><b>Guard homepage JS</b>: wrap the group-life slider init in <code>if (glfSlider) { ... }</code>. <span class="tag">[low · small]</span></li>
+      <li><b>Normalize content data</b>: uniform keys across publications/projects entries (empty strings), standardize <code>"May"</code>, replace videos.json placeholders, convert the Videos nav toggle to an <code>enabled</code> flag. <span class="tag">[low · small/medium]</span></li>
+      <li><b>Small Python tidies</b>: <code>copy.deepcopy</code> for defaults; single <code>_excel_bool()</code> helper; guard <code>display_name</code> empty-nickname case; detect duplicate WebIDs; read member.json once; bound <code>strip_markdown</code> underscore emphasis; add type hints/return TypedDict. <span class="tag">[low · small]</span></li>
+      <li><b>De-clutter the tree</b>: delete <code>e3-logo-icon 2.svg</code>, drop the SEO zip-vs-CSV duplication, relocate the legacy xlsx, and reconcile STRUCTURE.md/docstring drift. <span class="tag">[low · small]</span></li>
+      <li><b>CSS consistency</b>: collapse the duplicated <code>.publi-row-*</code> rules to one authoritative file; snap off-scale spacing to <code>--space-*</code> tokens. <span class="tag">[low · small/medium]</span></li>
+      <li><b>CI niceties</b>: add <code>cache: 'pip'</code>; add a Makefile (<code>build</code>/<code>serve</code>/<code>package-member</code>/<code>audit</code>). <span class="tag">[low · small/medium]</span></li>
+    </ul>
+  </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  NTU E3 Center &mdash; static-site generator code audit · 59 confirmed findings (7 medium, 52 low; 0 critical/high) · 4 candidates rejected as false positives · generated 2026-07-02. Severities reflect post-verification (adjusted) values, calibrated for a small, low-traffic academic-lab site.
+</footer>
+
+</body>
+</html>
