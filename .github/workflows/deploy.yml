@@ -32,7 +32,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version-file: '.python-version'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -47,7 +48,7 @@ jobs:
       # without overwriting the live site; deploys only fire after merge to source.
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/source'
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@329bcc8f12caed2cefe5a5b80781499a6f3b361b # v4
         with:
           # This token is provided by Actions, you do not need to create your own token
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Keep the GitHub Actions used by the deploy workflow up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+
+  # Keep the Python build dependencies (Pillow, jinja2, markdown, …) current.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"

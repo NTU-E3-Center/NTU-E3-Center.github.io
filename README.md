@@ -29,12 +29,12 @@ Pushing to the `source` branch triggers a GitHub Actions workflow (`.github/work
 
 ### Prerequisites
 
-- Conda (Miniconda or Anaconda) with Python 3.9
+- Conda (Miniconda or Anaconda) with Python 3.12
 
 ### Setup (first time)
 
 ```bash
-conda create -n E3website python=3.9
+conda create -n E3website python=3.12
 conda activate E3website
 pip install -r requirements.txt
 ```
