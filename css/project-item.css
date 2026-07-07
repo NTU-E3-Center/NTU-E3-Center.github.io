@@ -14,8 +14,10 @@
     padding: 3rem var(--gutter-x) 8rem;
 
     /* Shared width for the whole content column (text, facts strip, card grids,
-       people band) — kept in one token so it's a single number to tune. */
-    --proj-measure: 46rem;
+       people band) — kept in one token so it's a single number to tune. The
+       body prose stays capped at --prose-measure independently, so this only
+       widens the header/facts/cards rail. */
+    --proj-measure: 58rem;
 }
 
 /* Center the ENTIRE content column (not just the text) within the page, for a
@@ -57,7 +59,7 @@
 
 /* Larger, tighter headline than the publication page for an editorial feel. */
 .proj-item-title {
-    font-size: clamp(var(--fs-h2), 4vw, var(--fs-h1));
+    font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
     font-weight: var(--fw-display);
     line-height: var(--lh-h1);
     letter-spacing: -0.025em;
