@@ -48,7 +48,7 @@ jobs:
       # without overwriting the live site; deploys only fire after merge to source.
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/source'
-        uses: peaceiris/actions-gh-pages@329bcc8f12caed2cefe5a5b80781499a6f3b361b # v4
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
         with:
           # This token is provided by Actions, you do not need to create your own token
           github_token: ${{ secrets.GITHUB_TOKEN }}
