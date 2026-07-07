@@ -11,6 +11,9 @@ from markupsafe import Markup, escape
 # ── Sync content from Excel before building ───────────────────────────────────
 from lib.excel_to_content import build_member_data
 from lib import seo_helpers
+from config import (SITE_URL, OUTPUT_DIR, SUBPAGE_IMG_WIDTHS,
+                    MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS,
+                    WEBP_QUALITY, WEBP_LAZY_QUALITY)
 _member_data = build_member_data()
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -176,7 +179,7 @@ with open("contents/pages.json", "r") as f:
     pages = json.load(f)
 
 # Output directory
-output_dir = "docs"
+output_dir = OUTPUT_DIR
 
 # Load JSON for each subpage from its dedicated folder. Each entry is
 # (key_in_structures, path).
@@ -323,7 +326,7 @@ def render_templates():
                 template_file = page_data.get("template", template_name)
                 template = env.get_template(f"{template_file}.html")
                 path_segment = page_data["path"]
-                canonical = f"https://e3center.caece.net/{path_segment}/" if path_segment else "https://e3center.caece.net/"
+                canonical = f"{SITE_URL}/{path_segment}/" if path_segment else f"{SITE_URL}/"
                 render_args = {
                     "pages": pages,
                     "title": page_data.get("title"),
@@ -727,7 +730,7 @@ def generate_sitemap():
             return today
         return datetime.fromtimestamp(latest).strftime("%Y-%m-%d")
 
-    BASE = "https://e3center.caece.net"
+    BASE = SITE_URL
 
     urlset = Element("urlset")
     urlset.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
@@ -937,14 +940,11 @@ def copy_videos():
 # Compress images and convert to WebP format. Each subpage's image source
 # folder is now self-contained; the (source_root, output_folder, sizes) tuples
 # describe what to process.
-members_img_sizes = [200, 400, 600, 800]
-lazy_img_sizes    = [20]
+members_img_sizes = MEMBER_IMG_WIDTHS
+lazy_img_sizes    = LAZY_IMG_WIDTHS
 
-# Responsive widths emitted for every subpage image (news, group-life,
-# projects). Single source of truth so the srcset ladder can't drift between
-# sources — keep in sync with the widths templates build into their srcset.
-SUBPAGE_IMG_WIDTHS = [200, 400, 600, 800, 1200, 1600, 2000]
-
+# SUBPAGE_IMG_WIDTHS / MEMBER_IMG_WIDTHS / LAZY_IMG_WIDTHS live in config.py —
+# a single source of truth kept in sync with the srcset ladders in templates.
 _SUBPAGE_IMAGE_SOURCES = [
     # (source_root,                  docs/assets/<folder>, sizes)
     ('contents/news/images',         'news',               SUBPAGE_IMG_WIDTHS),
@@ -953,7 +953,7 @@ _SUBPAGE_IMAGE_SOURCES = [
     ('contents/projects',            'projects',           SUBPAGE_IMG_WIDTHS),
 ]
 
-def convert_to_webp(path, dst_path, sizes, compression_quality=100, basename=None, target_aspect=None):
+def convert_to_webp(path, dst_path, sizes, compression_quality=WEBP_QUALITY, basename=None, target_aspect=None):
     """Resize `path` to each width in `sizes` and save WebP variants under
     `dst_path` as `{basename}-{size}w.webp`. When `basename` is None it is
     derived from the source filename; pass it explicitly when the source
@@ -1013,8 +1013,8 @@ def compress_and_convert_images():
                 if not any(lower.endswith(ext) for ext in image_extensions):
                     continue
                 os.makedirs(dst_subdir, exist_ok=True)
-                convert_to_webp(path, dst_subdir, sizes, compression_quality=70)
-                convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=10)
+                convert_to_webp(path, dst_subdir, sizes, compression_quality=WEBP_QUALITY)
+                convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=WEBP_LAZY_QUALITY)
                 print(f"{path} → {dst_subdir}/")
 
 
@@ -1048,8 +1048,8 @@ def compress_member_images():
                 break
         if not photo:
             continue
-        convert_to_webp(photo, dst_root, members_img_sizes, compression_quality=70, basename=web_id, target_aspect=(3, 4))
-        convert_to_webp(photo, dst_root, lazy_img_sizes, compression_quality=10, basename=web_id, target_aspect=(3, 4))
+        convert_to_webp(photo, dst_root, members_img_sizes, compression_quality=WEBP_QUALITY, basename=web_id, target_aspect=(3, 4))
+        convert_to_webp(photo, dst_root, lazy_img_sizes, compression_quality=WEBP_LAZY_QUALITY, basename=web_id, target_aspect=(3, 4))
         print(f"{photo} → {dst_root}/{web_id}-*.webp")
         
 
