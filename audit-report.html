@@ -214,6 +214,17 @@
     </table>
     <p style="font-size:.82rem;color:var(--muted);margin:-.6rem 0 1.4rem;"><b>Commits:</b> the fix-first items shipped in <code>6ba52da</code> / <code>33dc72c</code> / <code>26e0844</code> (pushed earlier); the <code>07-03</code> batch in <code>e7dd536</code> (build hardening), <code>7820b34</code> (frontend fixes), and <code>7fe0921</code> (README). Cache-busters bumped alongside asset edits: <code>general.css v50&rarr;v51</code> (all 5 references, incl. the 4 base-bypassing detail templates), <code>member.css v32&rarr;v33</code>, <code>script.js v2&rarr;v3</code>.</p>
 
+    <h3 class="pillar" style="color:#166534;"><span class="n" style="background:#16a34a;">&#43;</span>Post-audit UX refinements <span style="font-size:.72rem;font-weight:400;color:var(--muted);">(display polish beyond the 59 findings, 2026-07-03)</span></h3>
+    <table class="rem-table">
+      <thead><tr><th style="width:38%">Display issue (user-reported)</th><th>What shipped</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Hero plane banner overflowed on long news headlines</td><td>JS grows the banner rects to fit the title (never below authored width)</td><td class="rem-commit">7820b34</td></tr>
+        <tr><td>News hero photo rendered sideways (2025 NTU&times;KU)</td><td>Stripped a bogus EXIF &ldquo;rotate 90&deg;&rdquo; tag from the source; webp now landscape (1200&times;743)</td><td class="rem-commit">d5ccf71</td></tr>
+        <tr><td>Project/news detail titles too large on wide screens</td><td>Capped the title clamp at <code>--fs-h2</code> (was <code>--fs-h1</code>); widened the project rail 46rem&rarr;58rem</td><td class="rem-commit">739b66a</td></tr>
+        <tr><td>News title flush-left, unbalanced vs the centered body</td><td>Header + divider now share the body&rsquo;s centered readability column (one unified column)</td><td class="rem-commit">739b66a</td></tr>
+      </tbody>
+    </table>
+
     <h3 class="pillar" style="color:var(--muted);"><span class="n" style="background:var(--faint);">&hellip;</span>Deferred</h3>
     <table class="rem-table">
       <thead><tr><th style="width:38%">Finding</th><th>Why deferred</th></tr></thead>
