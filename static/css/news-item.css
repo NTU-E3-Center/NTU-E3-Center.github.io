@@ -126,6 +126,16 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+
+    /* Sit the eyebrow + title in the same centered readable column as the
+       body, instead of spanning the full 68rem article left-aligned. Setting
+       font-size to --fs-body makes the 65ch measure resolve to the exact same
+       width as .news-item-body, so the two share one left edge and center as a
+       single column (the hero image stays full-width above). */
+    max-width: var(--prose-measure);
+    margin-inline: auto;
+    width: 100%;
+    font-size: var(--fs-body);
 }
 
 .news-item-category {
@@ -139,7 +149,7 @@
 }
 
 .news-item-title {
-    font-size: clamp(var(--fs-h2), 4vw, var(--fs-h1));
+    font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
     font-weight: var(--fw-display);
     line-height: var(--lh-h2);
     letter-spacing: -0.025em;
@@ -167,6 +177,11 @@
     height: 0.0625rem;
     background: color-mix(in srgb, var(--main-color) 14%, transparent);
     margin-block: var(--space-8);
+
+    /* Match the centered content column (same width/context as the body). */
+    max-width: var(--prose-measure);
+    margin-inline: auto;
+    font-size: var(--fs-body);
 }
 
 .news-item-body {
