@@ -116,9 +116,11 @@
             },
             {
                 "title": "Congratulations to Yu-Shin Hu (胡羽忻) for winning the Best Innovation Paper at iCHE2024!",
+                "shortTitle": "2024 iCHE Best Innovation Paper",
                 "year": "'24",
                 "month": "Sep.",
                 "category": "Honors and Recognitions",
+                "pageLink": "/news/2024-iche-best-innovation-paper/",
                 "topics": []
             },
             {
@@ -210,7 +212,7 @@
                 ]
             },
             {
-                "title": "Congratulations to Yu-Hsin Hu (胡羽忻) for receiving the 2025 Outstanding Master's Thesis Award from the Chinese Association for Energy Economics (CAEE).",
+                "title": "Congratulations to Yu-Shin Hu (胡羽忻) for receiving the 2025 Outstanding Master's Thesis Award from the Chinese Association for Energy Economics (CAEE).",
                 "shortTitle": "2025 CAEE Outstanding Thesis Award",
                 "year": "'25",
                 "month": "Nov.",
@@ -287,6 +289,17 @@
                 "pageLink": "/news/2026-wego-research-showcase/",
                 "topics": [
                     "Energy Education"
+                ]
+            },
+            {
+                "title": "Congratulations to Yun-Yi Tu (杜勻沂) for receiving a National Science and Technology Council (NSTC) Undergraduate Research Grant (國科會大專學生研究計畫).",
+                "shortTitle": "2026 NSTC Undergraduate Grant",
+                "year": "'26",
+                "month": "Jun.",
+                "category": "Honors and Recognitions",
+                "pageLink": "/news/2026-nstc-undergraduate-grant/",
+                "topics": [
+                    "Vehicle-to-Grid"
                 ]
             }
         ]

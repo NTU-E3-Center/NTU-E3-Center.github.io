@@ -18,12 +18,20 @@
   },
   "awards": [
     {
-      "title": "",
-      "titleZh": "",
-      "organization": "",
+      "title": "Outstanding Master's Thesis Award",
+      "titleZh": "優秀論文獎",
+      "organization": "Chinese Association for Energy Economics (CAEE)",
       "note": "",
-      "date": "",
-      "url": ""
+      "date": "Nov 2025",
+      "url": "/news/2025-caee-outstanding-thesis/"
+    },
+    {
+      "title": "Best Innovation Paper",
+      "titleZh": "",
+      "organization": "iCHE 2024",
+      "note": "",
+      "date": "Sep 2024",
+      "url": "/news/2024-iche-best-innovation-paper/"
     }
   ],
   "externalEngagements": [

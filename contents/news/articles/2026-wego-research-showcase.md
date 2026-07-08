@@ -20,3 +20,6 @@ The afternoon closed with feedback from the judging panel and an award ceremony 
 ![Group photo of all students and guests](/assets/news/2026-wego-research-showcase/5.jpg)
 
 Programs like this reflect the E3 Center's commitment to nurturing the next generation of researchers — giving curious young students an early, hands-on taste of what it means to ask a question, investigate it rigorously, and share what they discover. We congratulate all eight students on their accomplishments, and thank Wego Private Senior High School for a wonderful collaboration.
+
+---
+**Read the full coverage on NextApple (壹蘋新聞網):** [《薇閣高中生走進台大研究室　8學生發表能源永續研究成果》](https://news.nextapple.com/life/20260703/6EEBDBF7DBFA5919E00729B1DEE2CBB9)
