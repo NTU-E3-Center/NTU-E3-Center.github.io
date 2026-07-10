@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFC Energy Optimization for AI Data Centers | E3 Center</title>
+    <meta name="description" content="A new NTU-Delta Electronics Innovation Research Funding project building a multi-objective optimization framework for powering AI data centers with solid oxide">
+    <meta name="keywords" content="NTU-Delta Electronics Innovation Research Funding, E3 Center, research project, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/projects/2026-sofc-ai-data-centers/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/projects/2026-sofc-ai-data-centers/" />
+    <meta property="og:title" content="SOFC Energy Optimization for AI Data Centers | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="A new NTU-Delta Electronics Innovation Research Funding project building a multi-objective optimization framework for powering AI data centers with solid oxide" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SOFC Energy Optimization for AI Data Centers | E3 Center" />
+    <meta name="twitter:description" content="A new NTU-Delta Electronics Innovation Research Funding project building a multi-objective optimization framework for powering AI data centers with solid oxide" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=51">
+    <link rel="stylesheet" href="/css/subpage.css?v=66">
+    <link rel="stylesheet" href="/css/project-item.css?v=22">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchProject",
+      "@id": "https://e3center.caece.net/projects/2026-sofc-ai-data-centers/#project",
+      "name": "Energy System Optimization and Carbon Analysis of Solid Oxide Fuel Cells in AI Data Centers",
+"alternateName": "AI \u8cc7\u6599\u4e2d\u5fc3\u4e2d\u56fa\u614b\u6c27\u5316\u7269\u71c3\u6599\u96fb\u6c60\u4e4b\u80fd\u6e90\u914d\u7f6e\u6700\u4f73\u5316\u8207\u78b3\u6392\u653e\u5206\u6790",
+"description": "A new NTU-Delta Electronics Innovation Research Funding project building a multi-objective optimization framework for powering AI data centers with solid oxide",
+      "url": "https://e3center.caece.net/projects/2026-sofc-ai-data-centers/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/projects/2026-sofc-ai-data-centers/" },
+"startDate": "2026-08-01",
+"endDate": "2027-07-31",
+"funder": {
+        "@type": "Organization",
+        "name": "NTU-Delta Electronics Innovation Research Funding"
+      },
+      "member": [
+      ],
+      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 3, "name": "Energy System Optimization and Carbon Analysis of Solid Oxide Fuel Cells in AI Data Centers" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="" width="232" height="47">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/projects/">Projects</a>
+            <span class="trail-current">SOFC Energy Optimization for AI Data Centers</span>
+        </nav>
+    </div>
+</header>
+
+    <main class="proj-item-main">
+        <article class="proj-item-article">
+
+            <header class="proj-item-header">
+                <p class="proj-eyebrow">
+<span class="proj-status-pill proj-status-pill--ongoing">Ongoing</span>                    <span>Research Project</span>
+                </p>
+                <h1 class="proj-item-title">Energy System Optimization and Carbon Analysis of Solid Oxide Fuel Cells in AI Data Centers</h1>
+                <p class="proj-item-title-zh" lang="zh-Hant">AI 資料中心中固態氧化物燃料電池之能源配置最佳化與碳排放分析</p>
+
+                <dl class="proj-facts">
+                    <div class="proj-fact"><dt>Duration</dt><dd>2026&ndash;2027</dd></div>
+                    <div class="proj-fact">
+                        <dt>Funder</dt>
+                        <dd>NTU-Delta Electronics Innovation Research Funding <span lang="zh-Hant">(國立臺灣大學台達電子創新研究基金)</span></dd>
+                    </div>
+                </dl>
+            </header>
+
+            <p class="proj-item-lede">A new NTU-Delta Electronics Innovation Research Funding project on how to power energy-hungry AI data centers with solid oxide fuel cells (SOFC). It builds a multi-objective optimization framework that sizes and dispatches an integrated SOFC + solar-PV + storage + grid system — with hydrogen/natural-gas fuel blending and waste-heat-driven cooling — to trade off lifecycle cost, carbon emissions, and supply reliability, and to chart a low-carbon transition pathway under different carbon-pricing scenarios. Led by the E3 Center in collaboration with Delta Electronics.</p>
+
+
+            <section class="proj-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="proj-section-title">About this project</h2>
+                <div class="proj-prose"><p>Artificial intelligence has turned data centers into one of the fastest-growing
+loads on the grid. The International Energy Agency projects data-center
+electricity demand growing around 15% a year, approaching 1,000 TWh — roughly 3%
+of global electricity — by 2030, four times the growth rate of the wider
+economy. These facilities need power that is not only low-carbon but continuously
+reliable, and increasingly independent of a strained central grid. This new
+NTU-Delta Electronics Innovation Research Funding project (2026–2027), led by the
+E3 Center in collaboration with Delta Electronics, asks how best to meet that
+demand.</p>
+<p>The project centers on the <strong>solid oxide fuel cell (SOFC)</strong>. Unlike the
+proton-exchange-membrane cells usually studied as short-duration backup, an SOFC
+combines high electrical efficiency with steady, long-duration operation and
+high-temperature waste heat that can be recovered for cooling — making it well
+suited as <em>baseload</em> power for a data center. It is also fuel-flexible, able to
+run on natural gas, hydrogen, or a blend, which makes it deployable today while
+the hydrogen economy matures. Most existing work looks at a single technology or
+a pure-hydrogen PV route; this project instead treats the data center as a
+<strong>multi-energy system</strong>, co-optimizing SOFC, solar PV, storage, and the grid,
+with hydrogen/natural-gas blending, combined-heat-and-power cooling via absorption
+chillers, and a comparison of two renewable pathways — PV used directly versus PV
+used to electrolyze hydrogen for the fuel cell.</p>
+<p>The work pursues three objectives. <strong>First</strong>, to build a data-center multi-energy
+configuration optimization model integrating SOFC, PV, storage, and grid, with
+generation cost, carbon targets, and supply-reliability constraints — solved with
+a genetic algorithm (NSGA-II) to trace the cost-versus-carbon trade-off and
+find the optimal natural-gas/hydrogen blend. <strong>Second</strong>, to analyze how renewable
+configuration and the SOFC supply ratio shape system benefits — running
+full-year hourly simulations, comparing the PV-direct and PV-to-hydrogen paths,
+and quantifying how much of the cooling load SOFC waste heat can serve.
+<strong>Third</strong>, to assess how carbon-pricing mechanisms reshape the transition
+pathway — evaluating lifecycle cost, levelized cost of energy, net present value,
+and payback under different carbon-fee and electricity-price scenarios.</p>
+<p>Together these produce a decision-support framework — spanning capacity sizing,
+hourly dispatch, and techno-economic evaluation — that data-center operators can
+use to plan a phased, low-carbon transition. As a cross-appointment between civil
+engineering (computer-aided engineering) and chemical engineering, and grounded
+in industry practice through Delta Electronics, the project is positioned to
+strengthen Taiwan's capacity in low-carbon data centers, fuel-cell and hydrogen
+deployment, and smart-energy-system integration as AI-driven electricity demand
+continues to climb.</p></div>
+                <div class="proj-prose proj-prose-zh" lang="zh-Hant"><p>人工智慧已使資料中心成為電網上成長最快的負載之一。國際能源總署（IEA）預估，
+資料中心用電需求年成長率約 15%，至 2030 年將接近 1,000 TWh、約占全球用電量的
+3%，成長速度為整體經濟的四倍。這類設施所需的電力不僅要低碳，更要能長時間穩定
+供應，並逐步降低對承壓中央電網的依賴。本全新之國立臺灣大學台達電子創新研究
+基金計畫（2026–2027），由 E3 中心主持、並與台達電子合作，探討如何最妥善地
+滿足此一需求。</p>
+<p>計畫聚焦於<strong>固態氧化物燃料電池（SOFC）</strong>。相較於常被視為短時備援的質子交換膜
+燃料電池，SOFC 兼具高發電效率與長時間穩定運轉能力，並可回收高溫廢熱用於冷卻，
+因而特別適合作為資料中心的<em>基載</em>電力。其燃料彈性亦高，可使用天然氣、氫氣或
+兩者混摻，使其在氫能基礎設施尚未成熟之際即可實務部署。既有研究多聚焦單一技術
+或純氫的太陽能路徑；本計畫則將資料中心視為<strong>多能源系統</strong>，統整 SOFC、太陽光電、
+儲能與電網進行協同最佳化，並納入氫氣／天然氣混摻、以吸收式製冷機進行熱電共生
+（CHP）冷卻，以及兩種再生能源路徑的比較——太陽光電直接供電，或太陽光電經
+電解製氫後供燃料電池使用。</p>
+<p>計畫設定三項研究目標。<strong>其一</strong>，建立整合 SOFC、太陽光電、儲能與電網之資料中心
+多能源配置最佳化模型，納入發電成本、碳排放目標與供電穩定性限制，並以遺傳演算法
+（NSGA-II）求解，描繪成本與碳排的權衡關係、求得天然氣／氫氣的最適混摻比例。
+<strong>其二</strong>，分析再生能源配置與 SOFC 供應比例如何影響系統效益——進行全年逐時模擬，
+比較太陽光電直接供電與製氫兩種路徑，並量化 SOFC 廢熱可承擔多少冷卻負載。
+<strong>其三</strong>，評估碳定價機制如何重塑轉型路徑——在不同碳費與電價情境下，計算生命
+週期成本、平準化能源成本、淨現值與投資回收期。</p>
+<p>上述工作將產出一套涵蓋容量配置、逐時調度與技術經濟評估的決策分析框架，供資料
+中心業者規劃分階段的低碳轉型。本計畫橫跨土木工程（電腦輔助工程組）與化學工程
+之合聘，並透過台達電子的產業實務基礎，可望強化臺灣在低碳資料中心、燃料電池與
+氫能部署，以及智慧能源系統整合等領域的能量，以因應持續攀升的 AI 用電需求。</p></div>
+            </section>
+
+
+
+
+
+        </article>
+    </main>
+
+<footer>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
+
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
+    </div>
+
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <li>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </li>
+
+        <li>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </li>
+        <li>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </li>
+        <li>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </li>
+        <li>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </li>
+        <li>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </li>
+        <li>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </li>
+    </ul>
+</nav></body>
+</html>

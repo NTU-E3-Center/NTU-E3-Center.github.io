@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Power Forecasting for Green Hydrogen | E3 Center</title>
+    <meta name="description" content="Short- and ultra-short-term wind-power forecasting for green-hydrogen production — feeding electrolyzer scheduling and hydrogen-cost (LCOH) estimates.">
+    <meta name="keywords" content="Metal Industries Research & Development Centre (MIRDC), E3 Center, research project, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/projects/2026-wind-forecasting-green-hydrogen/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/projects/2026-wind-forecasting-green-hydrogen/" />
+    <meta property="og:title" content="Wind Power Forecasting for Green Hydrogen | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="Short- and ultra-short-term wind-power forecasting for green-hydrogen production — feeding electrolyzer scheduling and hydrogen-cost (LCOH) estimates." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wind Power Forecasting for Green Hydrogen | E3 Center" />
+    <meta name="twitter:description" content="Short- and ultra-short-term wind-power forecasting for green-hydrogen production — feeding electrolyzer scheduling and hydrogen-cost (LCOH) estimates." />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=51">
+    <link rel="stylesheet" href="/css/subpage.css?v=66">
+    <link rel="stylesheet" href="/css/project-item.css?v=22">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchProject",
+      "@id": "https://e3center.caece.net/projects/2026-wind-forecasting-green-hydrogen/#project",
+      "name": "Establishment of Core Front-End Wind Power Forecasting Technology for Green Hydrogen: Development of Short-Term and Ultra-Short-Term Wind Power Generation Forecasting Models",
+"alternateName": "\u7da0\u6c2b\u524d\u7aef\u98a8\u80fd\u9810\u6e2c\u6838\u5fc3\u6280\u8853\u4e4b\u5efa\u7f6e\uff1a\u77ed\u671f\u8207\u8d85\u77ed\u671f\u98a8\u529b\u767c\u96fb\u9810\u6e2c\u6a21\u578b\u7814\u88fd",
+"description": "Short- and ultra-short-term wind-power forecasting for green-hydrogen production \u2014 feeding electrolyzer scheduling and hydrogen-cost (LCOH) estimates.",
+      "url": "https://e3center.caece.net/projects/2026-wind-forecasting-green-hydrogen/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/projects/2026-wind-forecasting-green-hydrogen/" },
+"startDate": "2026-03-12",
+"endDate": "2026-10-05",
+"funder": {
+        "@type": "Organization",
+        "name": "Metal Industries Research \u0026 Development Centre (MIRDC)"
+      },
+      "member": [
+      ],
+      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 3, "name": "Establishment of Core Front-End Wind Power Forecasting Technology for Green Hydrogen: Development of Short-Term and Ultra-Short-Term Wind Power Generation Forecasting Models" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="" width="232" height="47">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/projects/">Projects</a>
+            <span class="trail-current">Wind Power Forecasting for Green Hydrogen</span>
+        </nav>
+    </div>
+</header>
+
+    <main class="proj-item-main">
+        <article class="proj-item-article">
+
+            <header class="proj-item-header">
+                <p class="proj-eyebrow">
+<span class="proj-status-pill proj-status-pill--ongoing">Ongoing</span>                    <span>Research Project</span>
+                </p>
+                <h1 class="proj-item-title">Establishment of Core Front-End Wind Power Forecasting Technology for Green Hydrogen: Development of Short-Term and Ultra-Short-Term Wind Power Generation Forecasting Models</h1>
+                <p class="proj-item-title-zh" lang="zh-Hant">綠氫前端風能預測核心技術之建置：短期與超短期風力發電預測模型研製</p>
+
+                <dl class="proj-facts">
+                    <div class="proj-fact"><dt>Duration</dt><dd>2026</dd></div>
+                    <div class="proj-fact">
+                        <dt>Funder</dt>
+                        <dd>Metal Industries Research & Development Centre (MIRDC) <span lang="zh-Hant">(財團法人金屬工業研究發展中心)</span></dd>
+                    </div>
+                </dl>
+            </header>
+
+            <p class="proj-item-lede">A commissioned project for the Metal Industries Research & Development Centre (MIRDC) that builds the front-end forecasting layer for producing green hydrogen from wind power. It develops a two-tier wind-power forecasting system — short-term (hourly-to-daily) and ultra-short-term (minute-scale) — fusing reanalysis data, ground weather-station observations, terrain corrections, and turbine SCADA telemetry, with uncertainty quantification, so its forecasts can feed electrolyzer scheduling and levelized-cost-of-hydrogen (LCOH) estimates. Led by Prof. I-Yun Lisa Hsieh.</p>
+
+
+            <section class="proj-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="proj-section-title">About this project</h2>
+                <div class="proj-prose"><p>Green hydrogen is one of the more promising ways to connect renewable power to
+the parts of decarbonization that electrons alone struggle to reach — heavy
+industry, long-duration storage, and hard-to-electrify transport. Wind is an
+attractive power source for the electrolyzers that split water into hydrogen, but
+wind is also random, seasonal, and volatile, and that volatility propagates
+straight into hydrogen's cost, reliability, and scalability. In the chain from
+wind power to green hydrogen, how well you can <em>see the wind coming</em> sets a
+ceiling on how efficiently the electrolyzer can run — which is why this project,
+commissioned by the <strong>Metal Industries Research &amp; Development Centre (MIRDC)</strong> and
+led by Prof. I-Yun Lisa Hsieh, treats wind forecasting as the critical front-end
+capability.</p>
+<p>Accurate wind-power forecasts do two jobs here. They translate directly into the
+power available to the electrolyzer, and therefore into how much hydrogen can be
+made and at what levelized cost (LCOH); and they are the basis on which an
+energy-management system schedules the electrolyzer's start-ups, shut-downs, and
+operating points — decisions whose losses and equipment wear depend on knowing the
+wind input in advance. But forecasting wind well is genuinely hard: wind fields
+carry strong small-scale turbulence and non-stationarity, terrain (roughness,
+obstacles, local eddies) makes them spatially uneven, and a turbine's own control
+— yaw, blade pitch, rotor inertia, power-curve switching — turns wind speed into
+power output through a highly nonlinear, time-lagged mapping.</p>
+<p>The project answers with a two-tier forecasting architecture. A <strong>short-term</strong>
+layer (hourly-to-daily) builds a regional meteorological background field from
+ground weather stations and produces day-ahead wind-power forecasts, correcting
+turbine power curves for environmental effects to sharpen the wind-speed-to-power
+step. An <strong>ultra-short-term</strong> layer (minute-scale, roughly 15–30 minutes ahead)
+captures fast wind-field behavior — gusts and direction shifts — models the
+turbine's response delay, and updates continuously from high-frequency SCADA
+telemetry and live weather data. Throughout, the system carries <strong>uncertainty
+quantification</strong> — prediction intervals, probability estimates, and multi-model
+ensembles — so its outputs come with confidence indicators for risk-aware
+dispatch, and it converts forecast reserve power into a first estimate of the
+electrolyzer's real-time hydrogen-production cost under varying load.</p>
+<p>Beyond the standalone forecasts, the work is designed to plug into a larger
+wind–hydrogen–storage picture: it validates against MIRDC's planned pilot site,
+hands its wind outputs to hydrogen-cost and energy-management modules, and lays
+groundwork for a coupled wind-to-hydrogen decision tool that could scale across
+multiple wind farms and sites. For the E3 Center, it extends the group's
+renewable-forecasting line — building on its earlier work on deep-learning
+wind-power prediction and the economics of offshore-wind hydrogen — toward the
+front end of Taiwan's emerging green-hydrogen supply chain.</p></div>
+                <div class="proj-prose proj-prose-zh" lang="zh-Hant"><p>綠氫是銜接再生能源與難以純電氣化之去碳環節——重工業、長期儲能與不易電動化的
+運輸——的關鍵能源載體之一。風力發電是驅動電解製氫的理想電力來源，但風能本質上
+具隨機性、季節性與高變動度，這份波動會直接傳導至氫氣的成本、可靠度與規模化。
+在「風力發電—再生電力—綠氫製造」的鏈結中，能否「預先看見風的到來」，決定了電解槽
+運轉效率的上限——因此本計畫受<strong>金屬工業研究發展中心（金屬中心，MIRDC）</strong>委託、
+由謝依芸副教授主持，將風力預測視為關鍵的前端能力。</p>
+<p>準確的風力發電預測在此扮演兩個角色。其一，直接反映電解槽可用的電能，進而決定
+可製氫量與單位氫氣生產成本（LCOH）；其二，是能源管理系統排程電解槽啟停與操作
+點的依據——而這些決策所造成的損耗與設備磨損，取決於能否提前掌握風能輸入。然而
+精準預測風力本身相當困難：風場帶有強烈的小尺度亂流與非平穩性，地形（粗糙度、
+障礙物遮蔽、局地渦場）使其空間分布高度不均，而風機自身的控制——偏航、葉片變距、
+轉子慣性、功率曲線段位切換——更使風速到出力的映射呈現高度非線性且具時序延遲。</p>
+<p>本計畫以雙層預測架構回應。<strong>短期</strong>層（小時至日尺度）以地面氣象測站建構區域尺度
+的背景氣象場，產出日前風力發電預測，並對風機功率曲線進行環境修正，以提升風速
+轉功率的準確度。<strong>超短期</strong>層（分鐘尺度，約未來 15–30 分鐘）則捕捉陣風、風向轉折
+等風場快速變動，對風機響應延遲進行建模，並以高頻 SCADA 資料與即時氣象資料
+持續更新。全程納入<strong>不確定度量化</strong>——預測區間、機率分布推估與多模型集成——使
+輸出附帶信心指標以支援風險敏感的調度，並由預測的可用儲備電量推估電解槽在不同
+負載下的即時製氫成本。</p>
+<p>除了單獨的預測成果，本計畫亦設計為可嵌入更大的風電—製氫—儲能架構：與金屬中心
+規劃於 2026 年建置的小型試驗場域整合驗證，將風力預測輸出銜接至製氫成本與能源
+管理模組，並為可跨多風場、多場域擴展的風電—製氫耦合決策工具奠定基礎。對 E3
+中心而言，本計畫延伸其再生能源預測路線——建立在既有的深度學習風力發電預測，
+以及離岸風電製氫經濟性研究之上——邁向台灣新興綠氫供應鏈的前端。</p></div>
+            </section>
+
+
+            <section class="proj-section" aria-labelledby="pubs-heading">
+                <h2 id="pubs-heading" class="proj-section-title">Related publications</h2>
+                <ul class="proj-pubs-grid">
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2024-green-hydrogen-offshore-wind/">
+                            <span class="proj-pub-title">Green Hydrogen from Offshore Wind</span>
+                            <span class="proj-pub-meta"><em>Energy Conversion and Management: X</em> · 2024</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2024-wind-power-prediction-deep-learning/">
+                            <span class="proj-pub-title">Wind Power Prediction with Deep Learning</span>
+                            <span class="proj-pub-meta"><em>Applied Energy</em> · 2024</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+
+
+        </article>
+    </main>
+
+<footer>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
+
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
+    </div>
+
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <li>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </li>
+
+        <li>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </li>
+        <li>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </li>
+        <li>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </li>
+        <li>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </li>
+        <li>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </li>
+        <li>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </li>
+    </ul>
+</nav></body>
+</html>
