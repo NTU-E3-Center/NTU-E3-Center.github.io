@@ -1,0 +1,12 @@
+{
+    "shortTitle": "AI-Driven V2B for Net-Zero Buildings",
+    "summary": "The E3 Center's subproject within NTU's 2024–2026 carbon-neutral campus core research group program, led by Prof. Christina W. Tsai. It builds an AI-enhanced vehicle-to-building (V2B) smart energy management system for net-zero energy buildings: machine-learning forecasts of building energy demand, rooftop-solar output, and campus traffic feed a V2B optimization that coordinates parked EVs, solar, and building loads. The AI-driven continuation of the E3 Center's earlier campus V2B work, led by Prof. I-Yun Lisa Hsieh as PI.",
+    "summaryZh": "本計畫為 E3 中心於臺大 2024–2026 碳中和校園核心研究群計畫（由蔡宛珊教授主持）中負責的子計畫。建立 AI 強化的車輛供建築（V2B）智慧能源管理系統，服務淨零能耗建築：以機器學習預測建築用電需求、屋頂太陽光電發電量與校園交通流量，並將預測結果饋入 V2B 最佳化，協調停放電動車、太陽光電與建築負載。此為 E3 中心早期校園 V2B 研究的 AI 驅動延續，由謝依芸副教授擔任主持人。",
+    "keyFindings": [],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "AI-enhanced vehicle-to-building (V2B) energy system for NTU's net-zero campus buildings — forecasting building demand, solar output, and campus traffic."
+}

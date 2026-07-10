@@ -169,7 +169,7 @@
                 "fundingAgency": "國立臺灣大學高等教育深耕計畫－核心研究群計畫",
                 "fundingAgencyEn": "NTU Higher Education Sprout Project – Core Research Group Program",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2024-ai-v2b-smart-energy"
             },
             {
                 "titleZh": "永續能源跨域應用人才培育計畫—永續能源跨域課程模組發展計畫",
@@ -290,7 +290,7 @@
                 "fundingAgency": "天能綠電股份有限公司",
                 "fundingAgencyEn": "GREENET CO., LTD.",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2026-green-power-wheeling"
             },
             {
                 "titleZh": "永續能源高中人才培育與教學模組建置",
@@ -312,7 +312,7 @@
                 "fundingAgency": "財團法人金屬工業研究發展中心",
                 "fundingAgencyEn": "Metal Industries Research & Development Centre (MIRDC)",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2026-wind-forecasting-green-hydrogen"
             },
             {
                 "titleZh": "人工智慧與人類協同推動淨零物流轉型之臺英合作研究架構",
@@ -323,7 +323,40 @@
                 "fundingAgency": "教育部臺英大學聯盟 (TUKUC)",
                 "fundingAgencyEn": "Ministry of Education – Taiwan-UK University Consortium (TUKUC)",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2026-ai-human-netzero-logistics"
+            },
+            {
+                "titleZh": "AI 資料中心中固態氧化物燃料電池之能源配置最佳化與碳排放分析",
+                "titleEn": "Energy System Optimization and Carbon Analysis of Solid Oxide Fuel Cells in AI Data Centers",
+                "role": "主持人",
+                "startDate": "2026-08-01",
+                "endDate": "2027-07-31",
+                "fundingAgency": "國立臺灣大學台達電子創新研究基金",
+                "fundingAgencyEn": "NTU-Delta Electronics Innovation Research Funding",
+                "status": "執行中",
+                "slug": "2026-sofc-ai-data-centers"
+            },
+            {
+                "titleZh": "儲能案場評估輔助工具建置",
+                "titleEn": "Development of a Decision-Support Tool for Energy Storage Site Assessment",
+                "role": "主持人",
+                "startDate": "2026-06-01",
+                "endDate": "2027-09-30",
+                "fundingAgency": "怡和國際股份有限公司",
+                "fundingAgencyEn": "Yiho International Co., Ltd.",
+                "status": "執行中",
+                "slug": "2026-storage-site-assessment-tool"
+            },
+            {
+                "titleZh": "電動車到建築 V2B 策略結合太陽能光電以減少校園碳足跡",
+                "titleEn": "Combined Vehicle-to-Building (V2B) Strategy and Solar Power to Reduce the Campus Carbon Footprint",
+                "role": "共同主持人",
+                "startDate": "2022-07-01",
+                "endDate": "2023-12-31",
+                "fundingAgency": "國立臺灣大學碳中和主題式計畫（深耕計畫－核心研究群）",
+                "fundingAgencyEn": "NTU Carbon-Neutrality Thematic Project (Higher Education Sprout – Core Research Group)",
+                "status": "已結案",
+                "slug": "2022-v2b-solar-campus-carbon"
             }
         ]
     }

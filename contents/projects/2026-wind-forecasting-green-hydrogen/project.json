@@ -1,0 +1,15 @@
+{
+    "shortTitle": "Wind Power Forecasting for Green Hydrogen",
+    "summary": "A commissioned project for the Metal Industries Research & Development Centre (MIRDC) that builds the front-end forecasting layer for producing green hydrogen from wind power. It develops a two-tier wind-power forecasting system — short-term (hourly-to-daily) and ultra-short-term (minute-scale) — fusing reanalysis data, ground weather-station observations, terrain corrections, and turbine SCADA telemetry, with uncertainty quantification, so its forecasts can feed electrolyzer scheduling and levelized-cost-of-hydrogen (LCOH) estimates. Led by Prof. I-Yun Lisa Hsieh.",
+    "summaryZh": "本計畫為受金屬工業研究發展中心（金屬中心，MIRDC）委託之建教合作案，建置以風力發電製造綠氫的前端預測能力。開發雙層風力發電預測系統——短期（小時至日尺度）與超短期（分鐘尺度）——整合再分析資料、地面氣象測站觀測、地形效應修正與風機 SCADA 高頻資料，並納入不確定度量化，使預測結果可支援電解槽排程與單位氫氣生產成本（LCOH）評估。由謝依芸副教授主持。",
+    "keyFindings": [],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:Wp0gIr-vW9MC" },
+        { "citationId": "tUbPb-QAAAAJ:aqlVkmm33-oC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "Short- and ultra-short-term wind-power forecasting for green-hydrogen production — feeding electrolyzer scheduling and hydrogen-cost (LCOH) estimates."
+}

@@ -1,0 +1,28 @@
+{
+    "shortTitle": "Campus V2B and Solar for Net-Zero",
+    "summary": "The E3 Center's sub-project within NTU's interdisciplinary Carbon-Neutral Campus program. It builds a Smart Energy Management System (SEMS) with an hourly vehicle-to-building (V2B) dispatch algorithm that coordinates electric vehicles, rooftop solar PV, and storage to cut a campus building's grid reliance and carbon footprint — while surfacing the usually-hidden cost of EV battery wear. Led by Prof. I-Yun Lisa Hsieh as a co-investigator within Prof. Christina W. Tsai's integrated program.",
+    "summaryZh": "本計畫為 E3 中心於臺大跨領域「碳中和主題式計畫」下負責的子計畫。建立智慧能源管理系統（SEMS），以逐時的車輛供建築（V2B）調度演算法協調電動車、屋頂太陽光電與儲能，降低校園建築對電網的依賴與碳足跡，並揭露常被忽略的電動車電池耗損成本。由謝依芸副教授於蔡宛珊教授主持之整合型計畫中擔任共同主持人。",
+    "keyFindings": [
+        {
+            "text": "The SEMS with hourly V2B dispatch — coordinating EVs, rooftop solar PV, and storage — cut a campus building's grid power demand by about 65% and its carbon emissions by about 64% versus a grid-only baseline.",
+            "textZh": "以逐時 V2B 調度、協調電動車、屋頂太陽光電與儲能之 SEMS，相較於純電網基準，可降低校園建築約 65% 的電網電力需求與約 64% 的碳排放。"
+        },
+        {
+            "text": "Across scenarios (grid-only, PV-only, PV+V2B, PV+V2B+ESS), the PV+V2B configuration was the best-balanced option — roughly 6% ownership-cost savings and a 59% CO₂-equivalent reduction — trading off investment cost, energy savings, and environmental benefit.",
+            "textZh": "在各情境（純電網、僅太陽光電、PV+V2B、PV+V2B+儲能）中，PV+V2B 為最均衡的選擇——約 6% 的擁有成本節省與 59% 的二氧化碳當量減量，在投資成本、節能效益與環境效益之間取得最佳平衡。"
+        },
+        {
+            "text": "The analysis surfaced usually-overlooked hidden costs of V2B — especially EV battery degradation from repeated cycling — giving a fuller, more honest economic picture that can reshape cost evaluations across renewable-energy systems.",
+            "textZh": "分析揭露 V2B 常被忽略的隱藏成本——尤其是反覆充放電造成的電動車電池耗損——提供更完整、務實的經濟圖像，可重塑再生能源系統的成本評估方式。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:MXK_kJrjxJIC" },
+        { "citationId": "tUbPb-QAAAAJ:5nxA0vEk-isC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A completed sub-project of NTU's Carbon-Neutral Campus program building a Smart Energy Management System with hourly vehicle-to-building (V2B) dispatch — coordinating EVs, rooftop solar, and storage to cut a campus building's grid demand by 65% and carbon by 64%."
+}

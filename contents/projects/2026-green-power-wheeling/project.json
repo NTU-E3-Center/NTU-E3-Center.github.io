@@ -1,0 +1,12 @@
+{
+    "shortTitle": "Green Power Wheeling Optimization System",
+    "summary": "An NTU industry-academia project, commissioned by renewable-energy retailer GREENET (天能綠電), that reframes green-power wheeling as a multi-objective optimization problem. It builds a decision-support system that simulates high-resolution demand from sparse monthly bills, settles supply and demand under Taipower's 15-minute rules, and searches multi-generator-to-multi-consumer configurations for the allocation that maximizes wheeling profit while honoring contracts and compliance. Led by Prof. I-Yun Lisa Hsieh.",
+    "summaryZh": "本計畫為臺大建教合作案，受再生能源售電業者天能綠電委託，將綠電轉供重新定位為多目標最佳化問題。建立決策支援系統：由稀疏的月結電費單模擬高解析度用電需求、依台電 15 分鐘規則進行供需結算，並在多對多（多發電端對多用電端）的組合中，搜尋在滿足契約與合規前提下最大化轉供毛利的配置方案。由謝依芸副教授主持。",
+    "keyFindings": [],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A commissioned optimization system for green-power wheeling — 15-minute load simulation, Taipower-compliant settlement, and profit-maximizing allocation."
+}

@@ -1,0 +1,12 @@
+{
+    "shortTitle": "SOFC Energy Optimization for AI Data Centers",
+    "summary": "A new NTU-Delta Electronics Innovation Research Funding project on how to power energy-hungry AI data centers with solid oxide fuel cells (SOFC). It builds a multi-objective optimization framework that sizes and dispatches an integrated SOFC + solar-PV + storage + grid system — with hydrogen/natural-gas fuel blending and waste-heat-driven cooling — to trade off lifecycle cost, carbon emissions, and supply reliability, and to chart a low-carbon transition pathway under different carbon-pricing scenarios. Led by the E3 Center in collaboration with Delta Electronics.",
+    "summaryZh": "全新之國立臺灣大學台達電子創新研究基金計畫，探討如何以固態氧化物燃料電池（SOFC）為高耗能的 AI 資料中心供電。計畫建立多目標最佳化框架，對整合 SOFC、太陽光電、儲能與電網的系統進行容量配置與調度——並納入氫氣／天然氣混摻燃料與廢熱驅動之冷卻——以權衡生命週期成本、碳排放與供電穩定性，並在不同碳定價情境下勾勒低碳轉型路徑。由 E3 中心主持，並與台達電子合作。",
+    "keyFindings": [],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A new NTU-Delta Electronics Innovation Research Funding project building a multi-objective optimization framework for powering AI data centers with solid oxide fuel cells (SOFC), integrating solar PV, storage, grid, hydrogen/natural-gas fuel blending, and waste-heat cooling under carbon-pricing scenarios."
+}
