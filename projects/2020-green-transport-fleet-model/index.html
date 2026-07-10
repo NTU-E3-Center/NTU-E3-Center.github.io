@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Vehicle Fleet Model for Net-Zero | E3 Center</title>
+    <meta name="description" content="A completed MOST/NSTC project that built a bootstrap-based Taiwan vehicle fleet model projecting road-transport stock, energy demand, and life-cycle GHG">
+    <meta name="keywords" content="National Science and Technology Council (NSTC), E3 Center, research project, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/projects/2020-green-transport-fleet-model/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/projects/2020-green-transport-fleet-model/" />
+    <meta property="og:title" content="Taiwan Vehicle Fleet Model for Net-Zero | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="A completed MOST/NSTC project that built a bootstrap-based Taiwan vehicle fleet model projecting road-transport stock, energy demand, and life-cycle GHG" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Taiwan Vehicle Fleet Model for Net-Zero | E3 Center" />
+    <meta name="twitter:description" content="A completed MOST/NSTC project that built a bootstrap-based Taiwan vehicle fleet model projecting road-transport stock, energy demand, and life-cycle GHG" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=51">
+    <link rel="stylesheet" href="/css/subpage.css?v=66">
+    <link rel="stylesheet" href="/css/project-item.css?v=22">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchProject",
+      "@id": "https://e3center.caece.net/projects/2020-green-transport-fleet-model/#project",
+      "name": "Computer-Aided Assessment of Green Transportation Policies to Accelerate Taiwan\u0027s Energy Transition",
+"alternateName": "\u96fb\u8166\u8f14\u52a9\u8a55\u4f30\u7da0\u8272\u904b\u8f38\u653f\u7b56\u4ee5\u52a0\u901f\u81fa\u7063\u80fd\u6e90\u8f49\u578b",
+"description": "A completed MOST/NSTC project that built a bootstrap-based Taiwan vehicle fleet model projecting road-transport stock, energy demand, and life-cycle GHG",
+      "url": "https://e3center.caece.net/projects/2020-green-transport-fleet-model/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/projects/2020-green-transport-fleet-model/" },
+"startDate": "2020-12-01",
+"endDate": "2022-11-30",
+"funder": {
+        "@type": "Organization",
+        "name": "National Science and Technology Council (NSTC)"
+      },
+      "member": [
+      ],
+      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 3, "name": "Computer-Aided Assessment of Green Transportation Policies to Accelerate Taiwan\u0027s Energy Transition" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="" width="232" height="47">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/projects/">Projects</a>
+            <span class="trail-current">Taiwan Vehicle Fleet Model for Net-Zero</span>
+        </nav>
+    </div>
+</header>
+
+    <main class="proj-item-main">
+        <article class="proj-item-article">
+
+            <header class="proj-item-header">
+                <p class="proj-eyebrow">
+<span class="proj-status-pill proj-status-pill--concluded">Concluded</span>                    <span>Research Project</span>
+                </p>
+                <h1 class="proj-item-title">Computer-Aided Assessment of Green Transportation Policies to Accelerate Taiwan's Energy Transition</h1>
+                <p class="proj-item-title-zh" lang="zh-Hant">電腦輔助評估綠色運輸政策以加速臺灣能源轉型</p>
+
+                <dl class="proj-facts">
+                    <div class="proj-fact"><dt>Duration</dt><dd>2020&ndash;2022</dd></div>
+                    <div class="proj-fact">
+                        <dt>Funder</dt>
+                        <dd>National Science and Technology Council (NSTC)</dd>
+                    </div>
+                    <div class="proj-fact"><dt>Grant no.</dt><dd>109-2222-E-002-006-MY2</dd></div>
+                </dl>
+            </header>
+
+            <p class="proj-item-lede">A completed MOST (now NSTC) project that built a computer-aided, Taiwan-specific vehicle fleet model to test whether green-transport policy can put road transport on track for the 2050 Net-Zero Pathway. Covering all eight road-vehicle types — including the two-wheeled scooters that dominate Taiwan's roads — it projects vehicle stock, energy demand, and life-cycle greenhouse-gas emissions to 2050, with bootstrap-based confidence intervals throughout, and diagnoses why electrification alone falls short of the transport sector's net-zero target.</p>
+
+            <section class="proj-section" aria-labelledby="findings-heading">
+                <h2 id="findings-heading" class="proj-section-title">Key findings</h2>
+                <ol class="proj-findings-grid">
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">01</span>
+                        <p class="proj-finding-text">Taiwan's road fleet is projected to follow an inverted-U path — peaking near 22.4 million vehicles around 2032, then declining to ~20.5 million by 2050 (driven by shrinking scooter and freight markets) — while electric cars, scooters, and buses grow to roughly 80% of total stock by 2050 under the net-zero roadmap.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">臺灣道路車隊預期呈倒 U 型發展——約 2032 年達到約 2,236 萬輛高峰，再因機車與貨運市場萎縮於 2050 年降至約 2,045 萬輛；在淨零路線圖下，電動汽車、機車與公車合計將於 2050 年約占車輛總保有量的 80%。</p>                    </li>
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">02</span>
+                        <p class="proj-finding-text">Even under full electrification, 2050 direct road-transport GHG emissions are modeled at ~8.4 Mt/yr (95% CI 6.8–10.7) — 70% below the reference scenario, yet still 5.2 Mt (163%) above the sector's 3.2 Mt net-zero target: the current EV roadmap is necessary but not sufficient.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">即便全面電動化，2050 年道路運輸直接溫室氣體排放推估約為每年 8.4 Mt（95% CI 6.8–10.7）——較參考情景低 70%，但仍高出運輸部門 3.2 Mt 淨零目標 5.2 Mt（163%）：現行電動化路線圖為必要但不充分。</p>                    </li>
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">03</span>
+                        <p class="proj-finding-text">Electrification shifts emissions from tailpipe to power sector: only when paired with grid decarbonization (60% renewables by 2050) do upstream well-to-pump emissions peak around 2031–2037 and fall to ~4.0 Mt by 2050 — evidence that transport and power policy must be decarbonized together.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">電動化將排放由尾氣轉移至電力部門：唯有搭配電網脫碳（2050 年再生能源占 60%），上游油井到幫浦（WTP）排放才會於約 2031–2037 年達峰、並於 2050 年降至約 4.0 Mt——顯示運輸與電力政策須同步脫碳。</p>                    </li>
+                </ol>
+            </section>
+
+            <section class="proj-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="proj-section-title">About this project</h2>
+                <div class="proj-prose"><p>Road transport is one of the hardest parts of Taiwan's economy to decarbonize —
+and one of the most distinctive, because scooters, not cars, dominate its roads.
+The government's <em>2050 Net-Zero Pathway</em> sets ambitious electrification
+milestones, but whether those milestones actually put the sector on a net-zero
+trajectory is a quantitative question that had no systematic answer for Taiwan.
+This completed MOST (now NSTC) project (2020–2022) built the tool to answer it.</p>
+<p>The project developed a <strong>computer-aided, Taiwan-specific vehicle fleet model</strong>:
+a bottom-up framework that tracks all eight road-vehicle types — private cars,
+scooters, business cars, taxis, heavy- and light-duty trucks, and urban and
+non-urban buses — from sales and stock turnover through to energy demand and
+life-cycle greenhouse-gas emissions out to 2050. Crucially, it captures the
+features that make Taiwan unusual, including the <strong>inverse-U ("motorcycle
+Kuznets curve") relationship</strong> between scooter ownership and income, and it uses
+<strong>bootstrap resampling</strong> to attach 95% confidence intervals to every projection
+rather than reporting single-point estimates. Fuel-cycle emission factors are
+drawn from a localized GREET-Taiwan model spanning well-to-pump and
+pump-to-wheel stages.</p>
+<p>Applied across policy scenarios — a reference case, the current EV roadmap, and
+an EV roadmap paired with a cleaner grid — the model reaches three conclusions.
+First, Taiwan's total fleet follows an <strong>inverted-U trajectory</strong>, peaking near
+22.4 million vehicles around 2032 before declining to about 20.5 million by 2050
+as the scooter and freight markets shrink; electric vehicles reach roughly 80%
+of stock by 2050. Second, this electrification is <strong>necessary but not
+sufficient</strong>: 2050 direct emissions are modeled at about 8.4 Mt per year — 70%
+below the reference scenario, yet still 163% above the transport sector's 3.2 Mt
+net-zero target. Third, electrification <strong>shifts the carbon burden from tailpipe
+to power plant</strong>, so the transport target is only reachable when vehicle policy
+and grid decarbonization advance together.</p>
+<p>The findings translate into concrete policy guidance — a more aggressive
+phase-out of fossil-fuel vehicles, inclusion of non-urban buses in the
+electrification roadmap, explicit coupling of transport and power-sector
+decarbonization, and continued fuel-efficiency gains for conventional vehicles
+until EVs reach cost parity. The fleet model and its scenario library became the
+analytical foundation for the E3 Center's subsequent work on sector coupling
+between electricity and transport.</p></div>
+                <div class="proj-prose proj-prose-zh" lang="zh-Hant"><p>道路運輸是臺灣經濟中最難脫碳的環節之一，也最具特色——因為主導臺灣道路的是機車，
+而非汽車。政府《2050 淨零排放路徑》訂出積極的電動化里程碑，但這些里程碑是否真能
+使運輸部門走上淨零軌跡，是一個量化問題，過去在臺灣並無系統性的答案。本已結案之
+科技部（現國科會）計畫（2020–2022）即建構了回答此問題的工具。</p>
+<p>計畫開發了<strong>電腦輔助之臺灣本土化車輛車隊模型</strong>：以由下而上的框架，追蹤八種道路
+車型——家用車、機車、營業車、計程車、重型與輕型貨車、市區與非市區公車——自銷售、
+車隊汰換周轉，到能源需求與生命週期溫室氣體排放，一路推估至 2050 年。模型特別
+捕捉臺灣的獨特之處，包含機車持有率與所得之間的<strong>倒 U 型關係（「機車庫茲涅茨
+曲線」）</strong>，並以<strong>拔靴法（bootstrap）重抽樣</strong>為每一項預測附上 95% 信賴區間，
+而非僅提供單點估計。燃料生命週期排放係數則取自本土化之 GREET-Taiwan 模型，
+涵蓋油井到幫浦（WTP）與幫浦到車輪（PTW）階段。</p>
+<p>在參考情景、現行電動化路線圖，以及電動化搭配潔淨電網等政策情景下，模型得出三項
+結論。其一，臺灣車隊總量呈<strong>倒 U 型軌跡</strong>，約 2032 年達到約 2,236 萬輛高峰，
+再因機車與貨運市場萎縮於 2050 年降至約 2,045 萬輛；電動車於 2050 年約占保有量
+的 80%。其二，此電動化為<strong>必要但不充分</strong>：2050 年直接排放推估約為每年 8.4 Mt——
+較參考情景低 70%，但仍高出運輸部門 3.2 Mt 淨零目標達 163%。其三，電動化會將
+<strong>碳排負擔由尾氣轉移至電廠</strong>，故唯有車輛政策與電網脫碳同步推進，運輸部門的淨零
+目標方能達成。</p>
+<p>上述結果轉化為具體政策建議——更積極地淘汰燃油車、將非市區公車納入電動化路線圖、
+明確地將運輸與電力部門脫碳耦合，並在電動車達成成本平價之前持續提升傳統車輛的
+燃油效率。此車隊模型與其情景資料庫，成為 E3 中心後續電力與運輸跨部門耦合研究的
+分析基礎。</p></div>
+            </section>
+
+
+            <section class="proj-section" aria-labelledby="pubs-heading">
+                <h2 id="pubs-heading" class="proj-section-title">Related publications</h2>
+                <ul class="proj-pubs-grid">
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2023-vehicle-fleet-electrification-scooters/">
+                            <span class="proj-pub-title">Scooter Fleet Electrification & Net-Zero</span>
+                            <span class="proj-pub-meta"><em>Transportation Research Part D: Transport and Environment</em> · 2023</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2023-electrifying-scooters-taiwan/">
+                            <span class="proj-pub-title">Electrifying Scooters in Taiwan</span>
+                            <span class="proj-pub-meta"><em>Energy Strategy Reviews</em> · 2023</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2022-taiwan-energy-flow-sankey/">
+                            <span class="proj-pub-title">Taiwan Energy Flow Sankey</span>
+                            <span class="proj-pub-meta"><em>Journal of Taiwan Energy</em> · 2022</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2022-tw-power-sector-carbon-intensity/">
+                            <span class="proj-pub-title">TW Power Sector Carbon Intensity</span>
+                            <span class="proj-pub-meta"><em>Journal of Taiwan Energy</em> · 2022</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+
+
+        </article>
+    </main>
+
+<footer>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
+
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
+    </div>
+
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <li>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </li>
+
+        <li>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </li>
+        <li>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </li>
+        <li>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </li>
+        <li>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </li>
+        <li>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </li>
+        <li>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </li>
+    </ul>
+</nav></body>
+</html>

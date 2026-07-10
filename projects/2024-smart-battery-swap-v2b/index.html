@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery-Swap V2B for Net-Zero Buildings | E3 Center</title>
+    <meta name="description" content="A completed NSTC project using MILP optimization and a lightweight, optimization-trained neural network to run real-time Vehicle-to-Building (V2B) control of">
+    <meta name="keywords" content="National Science and Technology Council (NSTC), E3 Center, research project, sustainable energy, NTU, 台大, I-Yun Lisa Hsieh, 謝依芸">
+
+    <link rel="canonical" href="https://e3center.caece.net/projects/2024-smart-battery-swap-v2b/" />
+
+    <meta property="og:url" content="https://e3center.caece.net/projects/2024-smart-battery-swap-v2b/" />
+    <meta property="og:title" content="Battery-Swap V2B for Net-Zero Buildings | E3 Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:description" content="A completed NSTC project using MILP optimization and a lightweight, optimization-trained neural network to run real-time Vehicle-to-Building (V2B) control of" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="E3 Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Battery-Swap V2B for Net-Zero Buildings | E3 Center" />
+    <meta name="twitter:description" content="A completed NSTC project using MILP optimization and a lightweight, optimization-trained neural network to run real-time Vehicle-to-Building (V2B) control of" />
+    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+
+    <!-- Google Site Verification -->
+    <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCJPED8JS6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JCJPED8JS6');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3L6SMNZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" as="style" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/general.css?v=51">
+    <link rel="stylesheet" href="/css/subpage.css?v=66">
+    <link rel="stylesheet" href="/css/project-item.css?v=22">
+
+    <!-- js -->
+    <script defer src="/js/general.js"></script>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#0a557e">
+    <meta name="msapplication-TileColor" content="#0a557e">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchProject",
+      "@id": "https://e3center.caece.net/projects/2024-smart-battery-swap-v2b/#project",
+      "name": "Smart Battery Swap System Optimization: Advancing Sector Coupling with Artificial Intelligence for Nearly Zero-Energy Buildings",
+"alternateName": "\u667a\u6167\u578b\u96fb\u6c60\u63db\u96fb\u7cfb\u7d71\u6700\u4f73\u5316\uff1a\u904b\u7528\u4eba\u5de5\u667a\u6167\u63a8\u52d5\u80fd\u6e90\u90e8\u9580\u8026\u5408\u9054\u6210\u6de8\u96f6\u80fd\u8017\u5efa\u7bc9",
+"description": "A completed NSTC project using MILP optimization and a lightweight, optimization-trained neural network to run real-time Vehicle-to-Building (V2B) control of",
+      "url": "https://e3center.caece.net/projects/2024-smart-battery-swap-v2b/",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net/projects/2024-smart-battery-swap-v2b/" },
+"startDate": "2024-08-01",
+"endDate": "2025-07-31",
+"funder": {
+        "@type": "Organization",
+        "name": "National Science and Technology Council (NSTC)"
+      },
+      "member": [
+      ],
+      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 3, "name": "Smart Battery Swap System Optimization: Advancing Sector Coupling with Artificial Intelligence for Nearly Zero-Energy Buildings" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+<header class="subpage-header">
+    <div class="subpage-header-inner">
+        <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
+            <picture>
+                <source srcset="/assets/images/e3-logo-icon.svg" media="(max-width: 37.5rem)">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="" width="232" height="47">
+            </picture>
+        </a>
+
+        <nav class="subpage-trail" aria-label="breadcrumb">
+            <a class="trail-parent" href="/projects/">Projects</a>
+            <span class="trail-current">Battery-Swap V2B for Net-Zero Buildings</span>
+        </nav>
+    </div>
+</header>
+
+    <main class="proj-item-main">
+        <article class="proj-item-article">
+
+            <header class="proj-item-header">
+                <p class="proj-eyebrow">
+<span class="proj-status-pill proj-status-pill--concluded">Concluded</span>                    <span>Research Project</span>
+                </p>
+                <h1 class="proj-item-title">Smart Battery Swap System Optimization: Advancing Sector Coupling with Artificial Intelligence for Nearly Zero-Energy Buildings</h1>
+                <p class="proj-item-title-zh" lang="zh-Hant">智慧型電池換電系統最佳化：運用人工智慧推動能源部門耦合達成淨零能耗建築</p>
+
+                <dl class="proj-facts">
+                    <div class="proj-fact"><dt>Duration</dt><dd>2024&ndash;2025</dd></div>
+                    <div class="proj-fact">
+                        <dt>Funder</dt>
+                        <dd>National Science and Technology Council (NSTC)</dd>
+                    </div>
+                    <div class="proj-fact"><dt>Grant no.</dt><dd>113-2621-M-002-006-</dd></div>
+                </dl>
+            </header>
+
+            <p class="proj-item-lede">A completed NSTC project turning electric-scooter battery-swapping stations into distributed energy storage for nearly zero-energy buildings. It pairs a MILP-optimized Vehicle-to-Building (V2B) scheduler with a lightweight, optimization-trained neural network that makes charge/discharge decisions in milliseconds — no forecasting or online solving required — demonstrated on a Gogoro station and adjacent building at NTU.</p>
+
+            <section class="proj-section" aria-labelledby="findings-heading">
+                <h2 id="findings-heading" class="proj-section-title">Key findings</h2>
+                <ol class="proj-findings-grid">
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">01</span>
+                        <p class="proj-finding-text">In the NTU campus case study, MILP-optimized V2B scheduling cut building electricity cost by ~9%, raised on-site PV self-consumption by 8.5%, and improved building energy self-sufficiency by 21% versus an immediate-charging baseline.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">於臺大校園實測，相較於立即充電基準，MILP 最佳化之 V2B 調度可降低建築用電成本約 9%、提升太陽光電自用率 8.5%、並提升建築能源自給率 21%。</p>                    </li>
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">02</span>
+                        <p class="proj-finding-text">A lightweight neural network (~0.53 M parameters) trained on the optimizer's schedules reproduces near-optimal charge/discharge decisions in milliseconds — versus minutes for the MILP solver — making real-time V2B control deployable without online forecasting.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">以最佳化排程訓練之輕量化神經網路（約 53 萬參數）能在毫秒內重現近最佳充放電決策（MILP 求解需數分鐘），使 V2B 即時控制無需線上預測即可部署。</p>                    </li>
+                    <li class="proj-finding-card">
+                        <span class="proj-finding-num" aria-hidden="true">03</span>
+                        <p class="proj-finding-text">A Bayesian phase-aligned synthetic time-series generator expands sparse station data while preserving demand rhythm and variability, enabling robust model training where operational data are limited.</p>
+<p class="proj-finding-text-zh" lang="zh-Hant">貝氏相位對齊之合成時間序列生成器可在保留需求節律與變異性下擴增稀疏換電站資料，於資料有限情境支援穩健的模型訓練。</p>                    </li>
+                </ol>
+            </section>
+
+            <section class="proj-section" aria-labelledby="about-heading">
+                <h2 id="about-heading" class="proj-section-title">About this project</h2>
+                <div class="proj-prose"><p>Taiwan has the world's densest network of electric-scooter <strong>battery-swapping
+stations</strong> — Gogoro alone runs thousands of them. Each station holds dozens of
+charged batteries that mostly sit idle between swaps: in effect, distributed energy
+storage scattered across the city. Buildings, meanwhile, increasingly need
+flexibility to soak up rooftop solar and trim peak grid demand on the road to
+<strong>nearly zero-energy buildings (NZEB)</strong>. This completed NSTC project (2024–2025)
+asked whether swapping stations can double as flexible energy assets for the
+buildings next door, coupling the transport and building sectors.</p>
+<p>The obstacle is real-time control. Conventional optimization — model predictive
+control or mixed-integer linear programming (MILP) — produces accurate
+charge/discharge schedules but is too slow and too dependent on accurate forecasts
+for live operation, and operational data at any single station are sparse and
+uneven. The project set out to overcome both barriers at once.</p>
+<p>Its <strong>Vehicle-to-Building (V2B)</strong> framework has three parts. A <strong>Bayesian
+phase-aligned synthetic time-series generator</strong> enriches sparse swapping-demand,
+building-load, and PV records while preserving their daily rhythm and variability.
+A <strong>MILP scheduler</strong> then computes cost-optimal charging and discharging under real
+operating constraints. Finally, a <strong>lightweight, optimization-trained neural
+network</strong> learns from those optimal schedules to reproduce near-optimal decisions
+directly from the past 24 hours of data — in milliseconds, with no online
+forecasting or solving. The whole pipeline was demonstrated on a Gogoro station and
+an adjacent building on the National Taiwan University campus.</p>
+<p>Against an immediate-charging baseline, the optimized V2B strategy cut building
+electricity cost by about <strong>9%</strong>, raised on-site solar self-consumption by
+<strong>8.5%</strong>, and lifted building energy self-sufficiency by <strong>21%</strong>, while the learned
+controller matched the optimizer at millisecond speed. Together these results show
+that battery-swapping infrastructure can act as a genuine, deployable distributed
+energy resource — offering a scalable, data-efficient control path for campus
+microgrids, public buildings, and future smart-energy districts, and scientific
+grounding for Taiwan's distributed-energy, smart-grid, and net-zero-city goals.</p></div>
+                <div class="proj-prose proj-prose-zh" lang="zh-Hant"><p>臺灣擁有全球密度最高的電動機車<strong>電池換電站</strong>——僅 Gogoro 便布建數千座。每座
+換電站存放數十顆已充電電池，於換電之間多半閒置，形同散布城市各處的分散式
+儲能。與此同時，建築在邁向<strong>近零能耗建築（NZEB）</strong>的過程中，愈發需要彈性以
+消納屋頂太陽光電、削減尖峰電網需求。本已結案之國科會計畫（2024–2025）探討
+換電站能否兼作鄰近建築的彈性能源資產，串接運輸與建築部門。</p>
+<p>關鍵挑戰在於即時調度。傳統最佳化方法——模型預測控制（MPC）或混合整數線性
+規劃（MILP）——雖能算出精確的充放電排程，但反應太慢、且高度仰賴準確預測，
+難以用於即時營運；而單一換電站的實測資料又稀疏且不均。本計畫同時克服此二障礙。</p>
+<p>其<strong>車輛供建築（V2B）</strong>框架分為三部分：以<strong>貝氏相位對齊之合成時間序列生成器</strong>
+在保留日間節律與變異性的前提下擴增稀疏的換電需求、建築負載與太陽光電資料；
+以 <strong>MILP 調度模型</strong>在真實營運限制下計算最具成本效益的充放電排程；再以<strong>輕量化、
+由最佳化結果訓練之神經網路</strong>，直接由過去 24 小時資料在毫秒內重現近最佳決策，
+無需線上預測或求解。整體流程以臺大校園之 Gogoro 換電站與鄰近建築進行實證。</p>
+<p>相較於立即充電基準，最佳化之 V2B 策略可降低建築用電成本約 <strong>9%</strong>、提升太陽
+光電自用率 <strong>8.5%</strong>、並提升建築能源自給率 <strong>21%</strong>，而學習後之控制器能以毫秒級
+速度媲美最佳化結果。上述成果顯示電池換電基礎設施可作為真正可部署的分散式
+儲能資源，為校園微電網、公有建築及未來智慧能源社區提供可延展且資料高效的
+控制路徑，並為臺灣推動分散式能源、智慧電網與淨零城市轉型奠定科學基礎。</p></div>
+            </section>
+
+
+            <section class="proj-section" aria-labelledby="pubs-heading">
+                <h2 id="pubs-heading" class="proj-section-title">Related publications</h2>
+                <ul class="proj-pubs-grid">
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2025-v2g-scooter-battery-swap/">
+                            <span class="proj-pub-title">V2G Strategies in Scooter Battery Swapping</span>
+                            <span class="proj-pub-meta"><em>Sustainable Cities and Society</em> · 2025</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="proj-pub-card" href="/publications/2025-urban-energy-flows-v2b-optimization/">
+                            <span class="proj-pub-title">Urban V2B Energy Optimization</span>
+                            <span class="proj-pub-meta"><em>Energy Conversion and Management: X</em> · 2025</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+
+
+        </article>
+    </main>
+
+<footer>
+    <div class="ftr-grid">
+        <div class="ftr-brand">
+            <a class="ftr-logo" href="/" aria-label="E3 Center home">
+                <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
+            </a>
+            <p class="ftr-tagline">
+                Energy · Economics · Environment.<br>
+                Sustainable energy transition research at NTU.
+            </p>
+        </div>
+
+        <nav class="ftr-col ftr-nav" aria-label="Sitemap">
+            <p class="ftr-col-title">Sitemap</p>
+            <ul>
+                <li><a class="ftr-link" href="/#">Home</a></li>
+                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/members">Members</a></li>
+                <li><a class="ftr-link" href="/publications">Publications</a></li>
+                <li><a class="ftr-link" href="/projects">Projects</a></li>
+                <li><a class="ftr-link" href="/news">News</a></li>
+                <li><a class="ftr-link" href="/group-life">Group Life</a></li>
+                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <address class="ftr-col ftr-contact">
+            <p class="ftr-col-title">Contact</p>
+            <a class="ftr-contact-row" href="mailto:iyhsieh@ntu.edu.tw">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>iyhsieh@ntu.edu.tw</span>
+            </a>
+            <a class="ftr-contact-row" href="https://maps.app.goo.gl/UxjyRv2esH6nbF5r5" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-location"></use></svg>
+                <span>
+                    Room 1302, NCREE<br>
+                    No. 200, Sec. 3, Xinhai Rd.<br>
+                    Da'an Dist., Taipei 106219, Taiwan
+                </span>
+            </a>
+        </address>
+    </div>
+
+    <div class="ftr-bottom">
+        <p class="ftr-info">&copy; 2026 E3 Center, National Taiwan University. All rights reserved.</p>
+    </div>
+</footer><div class="body-bg">
+    <div class="body-bg-1"></div>
+    <div class="body-bg-2"></div>
+    <div class="body-bg-3"></div>
+</div><a class="to-top-btn skewed-block" href="#top" b-role="btn" b-hoverable>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="1.25rem">
+        <polygon class="fill-m" points="8.5,19.9 8.5,5.8 2.9,11.4 0.8,9.3 10,0.1 19.2,9.3 17.1,11.4 11.5,5.8 11.5,19.9"/>
+    </svg>
+    Top
+</a><button class="menu-btn skewed-block" type="button" b-role="btn" b-hoverable aria-label="Open menu">
+    <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-menu"></use></svg>
+    <p>Menu</p>
+</button>
+
+<nav class="menu display-none">
+    <div class="menu-bg"></div>
+
+    <ul class="menu-wrapper">
+        <li>
+            <button type="button" class="menu-close-btn skewed-block" b-role="btn" b-hoverable hover-text="Home" aria-label="Close menu">
+                <svg width="1.6875rem" aria-hidden="true"><use href="/assets/sprite.svg#svg-close"></use></svg>
+            </button>
+        </li>
+
+        <li>
+            <a href="/#" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Home">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-home"></use></svg>
+                <span>Home</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
+                <span>About Us</span>
+            </a>
+        </li>
+        <li>
+            <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
+                <span>Members</span>
+            </a>
+        </li>
+        <li>
+            <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
+                <span>Publications</span>
+            </a>
+        </li>
+        <li>
+            <a href="/projects" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Projects">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-scholar"></use></svg>
+                <span>Projects</span>
+            </a>
+        </li>
+        <li>
+            <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
+                <span>News</span>
+            </a>
+        </li>
+        <li>
+            <a href="/group-life" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Group Life">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-picture"></use></svg>
+                <span>Group Life</span>
+            </a>
+        </li>
+        <li>
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+                <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
+                <span>Contact Us</span>
+            </a>
+        </li>
+    </ul>
+</nav></body>
+</html>
