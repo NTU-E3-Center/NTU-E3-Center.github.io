@@ -3,6 +3,18 @@
         "sectionTitle": "臺灣國科會 (Taiwan NSTC)",
         "items": [
             {
+                "titleZh": "邁向淨零航運：建構臺灣海運替代燃料之全生命週期環境衝擊與技術經濟整合評估模型",
+                "titleEn": "Navigating Towards Net-Zero Shipping: An Integrated Life Cycle Assessment and Techno-Economic Analysis Framework for Maritime Alternative Fuels in Taiwan",
+                "grantNumber": "",
+                "role": "主持人",
+                "startDate": "2026-08-01",
+                "endDate": "2028-07-31",
+                "fundingAgency": "國科會",
+                "fundingAgencyEn": "National Science and Technology Council (NSTC)",
+                "status": "執行中",
+                "slug": "2026-net-zero-shipping-fuels"
+            },
+            {
                 "titleZh": "淨零轉型下綠色金融工具之跨國評估：臺灣與印度之比較研究",
                 "titleEn": "Cross-National Assessment of Green Finance Instruments for Net-Zero Transitions: A Comparative Study of Taiwan and India",
                 "grantNumber": "115-2923-H-002-003-MY2",
@@ -36,7 +48,7 @@
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
                 "status": "執行中",
-                "slug": ""
+                "slug": "2025-traffic-safety-resilience"
             },
             {
                 "titleZh": "邁向智慧永續物流：結合人工智慧與真實數據於綠色車輛路徑規劃",
@@ -72,7 +84,7 @@
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
                 "status": "已結案",
-                "slug": ""
+                "slug": "2024-smart-battery-swap-v2b"
             },
             {
                 "titleZh": "淨零碳排路徑下實現公正轉型: 台灣碳定價之分配效應評估",
@@ -84,7 +96,7 @@
                 "fundingAgency": "國科會",
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
                 "status": "已結案",
-                "slug": ""
+                "slug": "2023-carbon-pricing-just-transition"
             },
             {
                 "titleZh": "人工智慧加速淨零轉型：電力與運輸跨部門耦合",
@@ -97,6 +109,18 @@
                 "fundingAgencyEn": "National Science and Technology Council (NSTC)",
                 "status": "已結案",
                 "slug": "2022-ai-net-zero-sector-coupling"
+            },
+            {
+                "titleZh": "電腦輔助評估綠色運輸政策以加速臺灣能源轉型",
+                "titleEn": "Computer-Aided Assessment of Green Transportation Policies to Accelerate Taiwan's Energy Transition",
+                "grantNumber": "109-2222-E-002-006-MY2",
+                "role": "主持人",
+                "startDate": "2020-12-01",
+                "endDate": "2022-11-30",
+                "fundingAgency": "科技部（現國科會）",
+                "fundingAgencyEn": "Ministry of Science and Technology (MOST, now NSTC)",
+                "status": "已結案",
+                "slug": "2020-green-transport-fleet-model"
             }
         ]
     },

@@ -1,0 +1,28 @@
+{
+    "shortTitle": "Battery-Swap V2B for Net-Zero Buildings",
+    "summary": "A completed NSTC project turning electric-scooter battery-swapping stations into distributed energy storage for nearly zero-energy buildings. It pairs a MILP-optimized Vehicle-to-Building (V2B) scheduler with a lightweight, optimization-trained neural network that makes charge/discharge decisions in milliseconds — no forecasting or online solving required — demonstrated on a Gogoro station and adjacent building at NTU.",
+    "summaryZh": "已結案之國科會計畫，將電動機車電池換電站轉化為近零能耗建築的分散式儲能資源。以混合整數線性規劃（MILP）建立車輛供建築（V2B）最佳化調度，並訓練輕量化神經網路在毫秒內做出充放電決策，無需預測或即時求解；以臺大校園之 Gogoro 換電站與鄰近建築進行實證。",
+    "keyFindings": [
+        {
+            "text": "In the NTU campus case study, MILP-optimized V2B scheduling cut building electricity cost by ~9%, raised on-site PV self-consumption by 8.5%, and improved building energy self-sufficiency by 21% versus an immediate-charging baseline.",
+            "textZh": "於臺大校園實測，相較於立即充電基準，MILP 最佳化之 V2B 調度可降低建築用電成本約 9%、提升太陽光電自用率 8.5%、並提升建築能源自給率 21%。"
+        },
+        {
+            "text": "A lightweight neural network (~0.53 M parameters) trained on the optimizer's schedules reproduces near-optimal charge/discharge decisions in milliseconds — versus minutes for the MILP solver — making real-time V2B control deployable without online forecasting.",
+            "textZh": "以最佳化排程訓練之輕量化神經網路（約 53 萬參數）能在毫秒內重現近最佳充放電決策（MILP 求解需數分鐘），使 V2B 即時控制無需線上預測即可部署。"
+        },
+        {
+            "text": "A Bayesian phase-aligned synthetic time-series generator expands sparse station data while preserving demand rhythm and variability, enabling robust model training where operational data are limited.",
+            "textZh": "貝氏相位對齊之合成時間序列生成器可在保留需求節律與變異性下擴增稀疏換電站資料，於資料有限情境支援穩健的模型訓練。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:mVmsd5A6BfQC" },
+        { "citationId": "tUbPb-QAAAAJ:7PzlFSSx8tAC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A completed NSTC project using MILP optimization and a lightweight, optimization-trained neural network to run real-time Vehicle-to-Building (V2B) control of electric-scooter battery-swapping stations for nearly zero-energy buildings."
+}

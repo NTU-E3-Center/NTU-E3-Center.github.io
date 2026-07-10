@@ -1,0 +1,25 @@
+{
+    "shortTitle": "EV, Air Pollution & Traffic Safety",
+    "summary": "The E3 Center's sub-project within an NSTC integrated program on climate-resilient transportation. Using causal AI, physics-informed visibility modelling, and life-cycle-based air-quality assessment, it quantifies how vehicle electrification can improve traffic safety, public health, and urban resilience in Taiwan.",
+    "summaryZh": "本頁聚焦本整合型國科會計畫中由 E3 中心負責的子計畫四「車輛電動化對交通安全與公共健康之影響」。運用因果人工智慧、物理資訊視程模型與生命週期空氣品質評估，量化車輛電動化如何改善臺灣的交通安全、公共健康與都市韌性。",
+    "keyFindings": [
+        {
+            "text": "Reducing ambient PM2.5 carries a measurable traffic-safety co-benefit, and the effect is notably stronger for motorcyclists — the most exposed road users — than for car occupants (mid-term result).",
+            "textZh": "降低環境 PM2.5 帶來可量測的交通安全共同效益，且對暴露最深的機車騎士之影響明顯大於汽車（期中結果）。"
+        },
+        {
+            "text": "A physics-informed visibility model (neural network + IMPROVE) shows that low-visibility conditions can be predicted from routine monitoring data, opening a path to early warning (mid-term result).",
+            "textZh": "結合物理資訊神經網路與 IMPROVE 消光公式之視程模型顯示，可由常態監測資料預測低視程情況，為預警開啟可行路徑（期中結果）。"
+        },
+        {
+            "text": "Vehicle electrification improves air-pollution resilience but does not fundamentally alter existing spatial vulnerability patterns — high-risk areas remain structurally persistent, so targeted interventions are still needed (mid-term result).",
+            "textZh": "車輛電動化可提升空氣污染韌性，但無法根本改變既有空間脆弱度分布，高風險區域具結構性持續，故仍需針對性介入（期中結果）。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "Sub-Project 4 of an NSTC integrated program: using causal AI, physics-informed visibility modelling, and air-quality assessment to quantify how vehicle electrification improves traffic safety, public health, and urban resilience in Taiwan."
+}

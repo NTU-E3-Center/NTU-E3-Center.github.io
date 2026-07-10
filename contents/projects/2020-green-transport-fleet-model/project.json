@@ -1,0 +1,30 @@
+{
+    "shortTitle": "Taiwan Vehicle Fleet Model for Net-Zero",
+    "summary": "A completed MOST (now NSTC) project that built a computer-aided, Taiwan-specific vehicle fleet model to test whether green-transport policy can put road transport on track for the 2050 Net-Zero Pathway. Covering all eight road-vehicle types — including the two-wheeled scooters that dominate Taiwan's roads — it projects vehicle stock, energy demand, and life-cycle greenhouse-gas emissions to 2050, with bootstrap-based confidence intervals throughout, and diagnoses why electrification alone falls short of the transport sector's net-zero target.",
+    "summaryZh": "已結案之科技部（現國科會）計畫，建構電腦輔助之臺灣本土化車輛車隊模型，檢驗綠色運輸政策能否使道路運輸符合 2050 淨零路徑。模型涵蓋八種道路車型（包含主導臺灣道路的二輪機車），推估至 2050 年的車輛保有量、能源需求與生命週期溫室氣體排放，並以拔靴法（bootstrap）建立信賴區間，剖析為何僅靠電動化仍無法達成運輸部門淨零目標。",
+    "keyFindings": [
+        {
+            "text": "Taiwan's road fleet is projected to follow an inverted-U path — peaking near 22.4 million vehicles around 2032, then declining to ~20.5 million by 2050 (driven by shrinking scooter and freight markets) — while electric cars, scooters, and buses grow to roughly 80% of total stock by 2050 under the net-zero roadmap.",
+            "textZh": "臺灣道路車隊預期呈倒 U 型發展——約 2032 年達到約 2,236 萬輛高峰，再因機車與貨運市場萎縮於 2050 年降至約 2,045 萬輛；在淨零路線圖下，電動汽車、機車與公車合計將於 2050 年約占車輛總保有量的 80%。"
+        },
+        {
+            "text": "Even under full electrification, 2050 direct road-transport GHG emissions are modeled at ~8.4 Mt/yr (95% CI 6.8–10.7) — 70% below the reference scenario, yet still 5.2 Mt (163%) above the sector's 3.2 Mt net-zero target: the current EV roadmap is necessary but not sufficient.",
+            "textZh": "即便全面電動化，2050 年道路運輸直接溫室氣體排放推估約為每年 8.4 Mt（95% CI 6.8–10.7）——較參考情景低 70%，但仍高出運輸部門 3.2 Mt 淨零目標 5.2 Mt（163%）：現行電動化路線圖為必要但不充分。"
+        },
+        {
+            "text": "Electrification shifts emissions from tailpipe to power sector: only when paired with grid decarbonization (60% renewables by 2050) do upstream well-to-pump emissions peak around 2031–2037 and fall to ~4.0 Mt by 2050 — evidence that transport and power policy must be decarbonized together.",
+            "textZh": "電動化將排放由尾氣轉移至電力部門：唯有搭配電網脫碳（2050 年再生能源占 60%），上游油井到幫浦（WTP）排放才會於約 2031–2037 年達峰、並於 2050 年降至約 4.0 Mt——顯示運輸與電力政策須同步脫碳。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:Se3iqnhoufwC" },
+        { "citationId": "tUbPb-QAAAAJ:hqOjcs7Dif8C" },
+        { "citationId": "tUbPb-QAAAAJ:4TOpqqG69KYC" },
+        { "citationId": "tUbPb-QAAAAJ:_kc_bZDykSQC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A completed MOST/NSTC project that built a bootstrap-based Taiwan vehicle fleet model projecting road-transport stock, energy demand, and life-cycle GHG emissions to 2050 — showing why electrification must be paired with grid decarbonization to meet the transport sector's net-zero target."
+}

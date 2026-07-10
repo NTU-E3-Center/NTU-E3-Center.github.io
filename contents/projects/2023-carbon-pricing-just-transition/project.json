@@ -1,0 +1,31 @@
+{
+    "shortTitle": "Carbon Pricing and the Just Transition",
+    "summary": "A completed NSTC project asking who actually bears the cost of carbon pricing in Taiwan. It couples an environmentally-extended input-output model with Taiwan's 2022 Survey of Family Income and Expenditure (~16,500 households) to quantify every household's direct and indirect carbon costs, then uses quantile regression to identify which socio-demographic groups are most exposed — and tests carbon-fee rebate designs that keep the net-zero transition equitable. Led by the E3 Center with an environmental-sociology co-investigator, bridging engineering and social science.",
+    "summaryZh": "已結案之國科會計畫，探討臺灣碳定價的成本究竟由誰承擔。結合環境延伸投入產出模型（EEIO）與我國 2022 年家庭收支調查（約 16,500 戶），量化每一家戶的直接與間接碳支出，再以分位數迴歸辨識最脆弱的社會人口群體，並設計能兼顧公正轉型的碳費退費機制。由 E3 中心主持、並與環境社會學共同主持人合作，跨接工程與社會科學。",
+    "keyFindings": [
+        {
+            "text": "Carbon pricing in Taiwan is only mildly regressive — and the yardstick matters. On an income basis it looks clearly regressive (Suits Index -0.12), but against household expenditure (the better lifetime-welfare basis) it is only slightly regressive (Suits Index -0.011): the poorest income decile carries a 1.60% carbon burden versus 1.49% for the richest.",
+            "textZh": "臺灣碳定價僅呈現輕微累退——且衡量基準至關重要。以收入為基準看似明顯累退（Suits 指數 -0.12），但以家戶支出為基準（更能反映終生生活水平）則僅輕微累退（Suits 指數 -0.011）：最低收入十分位的碳負擔為 1.60%，最高者為 1.49%。"
+        },
+        {
+            "text": "Income alone cannot locate the vulnerable — horizontal effects dominate. Differences in carbon burden within income groups (0.37–0.54%) run 3.3–4.9× larger than the gap between the richest and poorest deciles (~0.11%), so socio-demographic profiling, not income, is needed to find high-burden households.",
+            "textZh": "單靠收入無法定位脆弱群體——橫向影響為主導。收入組內的碳負擔差異（0.37–0.54%）達收入組間差距（約 0.11%）的 3.3–4.9 倍，因此須以社會人口特徵、而非收入，來辨識高碳負擔家戶。"
+        },
+        {
+            "text": "Gasoline, not electricity, drives the burden — and three household types are most exposed. Quantile regression flags (a) larger households, (b) car- and scooter-dependent households outside the metro north (number of cars carried the single largest coefficient; southern, eastern and non-municipality households significantly higher), and (c) detached, low-rise, large-footprint homes.",
+            "textZh": "驅動碳負擔的是汽油而非電力——且有三類家戶最為暴露。分位數迴歸指出：（a）人口較多的家戶、（b）都會北部以外、依賴汽機車的家戶（汽車數量的係數為所有變數中最大；南部、東部與非直轄市家戶顯著較高），以及（c）低樓層、占地大的獨棟住宅。"
+        },
+        {
+            "text": "Population-weighted rebates make it progressive — cheaply when targeted. Returning revenue as per-household lump-sum rebates flips the Suits Index to +0.30 (progressive); reaching a neutral outcome (S=0) needs only ~37% of revenue on a household basis, while a rebate targeted at the lowest earners restores neutrality using just 13.4% (reaching the bottom 26% of households), leaving the rest for other decarbonization spending.",
+            "textZh": "以人口加權的退費可使稅制轉為累進——若採針對性設計則成本低廉。將稅收以家戶為單位一次總付退還，可使 Suits 指數翻轉為 +0.30（累進）；以家戶為單位使分配效應中性（S=0）僅需約 37% 的碳費收入，而針對低收入家戶的退費僅需 13.4%（涵蓋收入最低的 26% 家戶）即可恢復中性，其餘可用於其他減碳投資。"
+        }
+    ],
+    "partners": [],
+    "team": [],
+    "relatedPublications": [
+        { "citationId": "tUbPb-QAAAAJ:KlAtU1dfN6UC" }
+    ],
+    "outputs": [],
+    "gallery": [],
+    "metaDescription": "A completed NSTC project measuring who bears Taiwan's carbon-pricing burden — pairing an environmentally-extended input-output model with household survey data and quantile regression to identify vulnerable households and design equitable carbon-fee rebates for a just net-zero transition."
+}
