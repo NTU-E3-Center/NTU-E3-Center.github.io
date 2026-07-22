@@ -1759,6 +1759,20 @@
     background: color-mix(in srgb, var(--main-color-2) 14%, transparent);
 }
 
+/* Honor marker — NSTC talent-program grants (e.g. 優秀年輕學者研究計畫)
+   worn as a distinction. Gold (--secondary-color) tint separates the honor
+   from the teal Co-PI exception badge; no uppercase/letter-spacing since the
+   bilingual label is long and must stay compact and wrappable. */
+.proj-honor-badge {
+    font-size: var(--fs-badge);
+    font-weight: var(--fw-heading);
+    padding: 0.15rem 0.6rem;
+    border-radius: 2rem;
+    line-height: var(--lh-body-base);
+    color: var(--main-color);
+    background: color-mix(in srgb, var(--secondary-color) 34%, transparent);
+}
+
 /* Collapsed rows past the visible cap — display:contents keeps the wrapper
    transparent to the .news-rows layout (mirrors .publi-extra-item). */
 .proj-extra-item {
@@ -1785,7 +1799,8 @@
     }
 
     /* keep the badge above the ~0.75rem mobile floor (DESIGN_RULES §9, [A-1]) */
-    .proj-role-badge {
+    .proj-role-badge,
+    .proj-honor-badge {
         font-size: var(--fs-eyebrow);
     }
 }
