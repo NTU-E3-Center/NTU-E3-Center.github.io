@@ -12,8 +12,10 @@ help:
 build:
 	python build.py
 
+# HTTP/1.1 (not http.server's HTTP/1.0 default) so VS Code / SSH port-forwarding
+# streams the response instead of buffering it into an infinite spinner.
 serve: build
-	cd docs && python -m http.server 8000
+	cd docs && python -c "from http.server import SimpleHTTPRequestHandler as H, ThreadingHTTPServer as S; H.protocol_version='HTTP/1.1'; S(('0.0.0.0',8000),H).serve_forever()"
 
 clean:
 	rm -rf docs

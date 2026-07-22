@@ -47,8 +47,8 @@ conda activate E3website
 # Build the site
 python build.py
 
-# Serve locally
-cd docs && python -m http.server 8000
+# Serve locally (run from the repo root)
+python -m http.server 8000 --directory docs
 # Open http://localhost:8000
 ```
 
