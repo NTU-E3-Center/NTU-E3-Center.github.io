@@ -148,6 +148,29 @@
     margin: 0;
 }
 
+/* No-hero fallback — .news-item-date-badge only renders on the hero edge, so
+   hero-less pages pair the category eyebrow with the badge's month/year type
+   on one baseline instead. The year steps down from the badge's --fs-heading-s
+   to lede size so it reads as a text line, not a transplanted chip. */
+.news-item-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-1-5) var(--space-4);
+}
+
+.news-item-date-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.news-item-date-line .news-item-date-yy {
+    font-size: var(--fs-body-l);
+}
+
 .news-item-title {
     font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
     font-weight: var(--fw-display);
