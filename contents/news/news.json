@@ -76,7 +76,8 @@
             },
             {
                 "title": "Prof. Hsieh joins the Editorial Board of Communications Earth & Environment.",
-                "link": "https://www.nature.com/commsenv/editorial-board#I-YunLisaHsieh",
+                "shortTitle": "Comms Earth & Environment Editorial Board",
+                "pageLink": "/news/2023-commsenv-editorial-board/",
                 "year": "'23",
                 "month": "Jul.",
                 "category": "Community and Outreach",
@@ -84,15 +85,17 @@
             },
             {
                 "title": "Prof. Hsieh's paper receives the 2022 ES&T Best Paper Award.",
-                "link": "https://pubs.acs.org/doi/10.1021/acs.est.4c02832",
+                "shortTitle": "2022 ES&T Best Paper Award (Policy Analysis)",
+                "pageLink": "/news/2024-est-best-paper-award/",
                 "year": "'24",
                 "month": "Apr.",
                 "category": "Honors and Recognitions",
                 "topics": []
             },
             {
-                "title": "Prof. Hsieh writes a column on retiring batteries and vehicle networking for Critical Reviews (關鍵評論網).",
-                "link": "https://www.thenewslens.com/article/204563",
+                "title": "Prof. Hsieh writes a column on retiring batteries and vehicle networking for The News Lens (關鍵評論網).",
+                "shortTitle": "Column on Retiring EV Batteries in The News Lens",
+                "pageLink": "/news/2024-thenewslens-battery-column/",
                 "year": "'24",
                 "month": "Jul.",
                 "category": "Community and Outreach",
@@ -110,6 +113,8 @@
             },
             {
                 "title": "Prof. Hsieh wins the Outstanding Teaching Award (優良教學獎) at NTU.",
+                "shortTitle": "NTU Outstanding Teaching Award",
+                "pageLink": "/news/2024-ntu-teaching-award/",
                 "year": "'24",
                 "month": "Sep.",
                 "category": "Honors and Recognitions",
