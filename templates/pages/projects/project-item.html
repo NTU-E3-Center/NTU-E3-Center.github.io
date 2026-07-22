@@ -163,6 +163,9 @@
                     {% if _is_nstc %}
                     <div class="proj-fact"><dt>Grant no.</dt><dd>{{ proj['grantNumber'] }}</dd></div>
                     {% endif %}
+                    {% if proj.get('grantProgramEn') %}
+                    <div class="proj-fact"><dt>Program</dt><dd>{{ proj['grantProgramEn'] }} <span lang="zh-Hant">({{ proj['grantProgramZh'] }})</span></dd></div>
+                    {% endif %}
                 </dl>
             </header>
 

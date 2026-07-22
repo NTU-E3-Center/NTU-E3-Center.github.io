@@ -52,6 +52,9 @@
                     {%- if item.get('fundingAgency') %} (<span lang="zh-Hant">{{ item['fundingAgency'] }}</span>){% endif -%}
                 {%- endif -%}
             </span>
+            {% if item.get('grantProgramEn') %}
+            <span class="proj-honor-badge">{{ item['grantProgramEn'] }}{% if item.get('grantProgramZh') %} (<span lang="zh-Hant">{{ item['grantProgramZh'] }}</span>){% endif %}</span>
+            {% endif %}
         </p>
     </div>
 
