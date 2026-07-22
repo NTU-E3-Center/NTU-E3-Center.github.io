@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RWD / UI Audit — NTU E3 Center Website</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --ink:#1e293b; --muted:#64748b; --faint:#94a3b8;
+    --border:#e2e8f0; --border-strong:#cbd5e1; --accent:#0f766e; --accent-soft:#ccfbf1;
+    --crit-fg:#b91c1c; --crit-bg:#fee2e2; --crit-bd:#ef4444;
+    --high-fg:#c2410c; --high-bg:#ffedd5; --high-bd:#f97316;
+    --med-fg:#b45309;  --med-bg:#fef3c7;  --med-bd:#f59e0b;
+    --low-fg:#475569;  --low-bg:#f1f5f9;  --low-bd:#cbd5e1;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.55;font-size:15px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  code{font-family:var(--mono);font-size:.86em;background:#eef2f6;color:#0f172a;padding:1px 5px;border-radius:4px;border:1px solid #e2e8f0;word-break:break-word;}
+
+  /* Header */
+  header.masthead{background:#0f172a;color:#e2e8f0;padding:2.4rem 1.6rem 2rem;border-bottom:4px solid var(--accent);}
+  header.masthead .wrap{max-width:1180px;margin:0 auto;}
+  header.masthead h1{margin:0 0 .3rem;font-size:1.85rem;letter-spacing:-.01em;color:#fff;}
+  header.masthead p.sub{margin:.2rem 0;color:#94a3b8;font-size:.98rem;}
+  .meta-line{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.82rem;color:#cbd5e1;}
+  .meta-line span b{color:#fff;font-weight:600;}
+
+  /* Layout */
+  .layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:246px 1fr;gap:2.2rem;padding:2rem 1.6rem 4rem;}
+  nav.toc{position:sticky;top:1rem;align-self:start;font-size:.85rem;max-height:calc(100vh - 2rem);overflow:auto;}
+  nav.toc h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin:0 0 .5rem;}
+  nav.toc ol{list-style:none;margin:0 0 1rem;padding:0;}
+  nav.toc li{margin:.15rem 0;}
+  nav.toc a{color:#334155;display:block;padding:.18rem .5rem;border-left:2px solid var(--border);border-radius:0 4px 4px 0;}
+  nav.toc a:hover{background:var(--accent-soft);border-left-color:var(--accent);text-decoration:none;}
+  nav.toc ol.sub{margin:.1rem 0 .4rem .6rem;font-size:.8rem;}
+  nav.toc ol.sub a{color:var(--muted);}
+
+  main{min-width:0;}
+  section.block{margin-bottom:2.6rem;}
+  section.block > h2{font-size:1.35rem;margin:0 0 .4rem;padding-bottom:.4rem;border-bottom:2px solid var(--border-strong);letter-spacing:-.01em;}
+  section.block > p.lead{color:#334155;margin:.6rem 0 1.1rem;}
+
+  /* Summary stat band */
+  .stats{display:flex;flex-wrap:wrap;gap:.8rem;margin:1rem 0 1.4rem;}
+  .stat{flex:1 1 110px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.8rem .9rem;text-align:center;}
+  .stat .num{font-size:1.7rem;font-weight:700;line-height:1;}
+  .stat .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:.3rem;}
+  .stat.crit .num{color:var(--crit-fg);} .stat.high .num{color:var(--high-fg);}
+  .stat.med .num{color:var(--med-fg);}  .stat.low .num{color:var(--low-fg);}
+
+  /* Badges */
+  .badge{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.14rem .5rem;border-radius:999px;border:1px solid;white-space:nowrap;}
+  .badge.critical{color:var(--crit-fg);background:var(--crit-bg);border-color:var(--crit-bd);}
+  .badge.high{color:var(--high-fg);background:var(--high-bg);border-color:var(--high-bd);}
+  .badge.medium{color:var(--med-fg);background:var(--med-bg);border-color:var(--med-bd);}
+  .badge.low{color:var(--low-fg);background:var(--low-bg);border-color:var(--low-bd);}
+  .badge.cat{color:var(--muted);background:#f8fafc;border-color:var(--border-strong);letter-spacing:.03em;}
+  .badge.screens{color:#0e7490;background:#ecfeff;border-color:#67e8f9;font-family:var(--mono);text-transform:none;letter-spacing:0;}
+
+  /* Finding cards */
+  .finding{background:var(--surface);border:1px solid var(--border);border-left-width:4px;border-radius:8px;padding:.9rem 1.05rem;margin:.8rem 0;break-inside:avoid;}
+  .finding.sev-critical{border-left-color:var(--crit-bd);}
+  .finding.sev-high{border-left-color:var(--high-bd);}
+  .finding.sev-medium{border-left-color:var(--med-bd);}
+  .finding.sev-low{border-left-color:var(--low-bd);}
+  .finding .fhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:.45rem .65rem;margin-bottom:.5rem;}
+  .finding .fhead h4{margin:0;font-size:1rem;flex:1 1 auto;min-width:220px;}
+  .finding .fid{font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem;margin-right:.15rem;}
+  .finding .floc{font-family:var(--mono);font-size:.76rem;color:#0f172a;background:#eef2f6;padding:1px 6px;border-radius:4px;border:1px solid #e2e8f0;}
+  .finding dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:.28rem .9rem;font-size:.88rem;}
+  .finding dt{font-weight:700;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;padding-top:.18rem;}
+  .finding dt.fix{color:var(--accent);}
+  .finding dd{margin:0;color:#334155;}
+
+  pre.code{background:#f8fafc;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:.6rem .8rem;overflow:auto;font-family:var(--mono);font-size:.78rem;line-height:1.55;color:#0f172a;margin:.35rem 0 0;}
+  pre.code .cm{color:#0f766e;}
+
+  .note{background:#fffbeb;border:1px solid var(--med-bd);border-radius:8px;padding:.8rem 1rem;font-size:.9rem;color:#78350f;margin:.6rem 0;}
+  .note.good{background:#f0fdfa;border-color:#5eead4;color:#115e59;}
+  .note.crit{background:var(--crit-bg);border-color:var(--crit-bd);color:#7f1d1d;}
+
+  /* Touch-target table */
+  .tt-wrap{overflow-x:auto;margin:.6rem 0;}
+  table.tt{border-collapse:collapse;width:100%;font-size:.85rem;min-width:520px;}
+  table.tt th,table.tt td{text-align:left;padding:.45rem .7rem;border-bottom:1px solid var(--border);}
+  table.tt th{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:#f8fafc;}
+  table.tt td.loc{font-family:var(--mono);font-size:.76rem;color:#0f172a;}
+  table.tt td.h{font-family:var(--mono);color:var(--crit-fg);font-weight:600;}
+
+  /* Checklist */
+  ul.checks{list-style:none;margin:0 0 1rem;padding:0;}
+  ul.checks li{padding:.34rem 0 .34rem 1.7rem;text-indent:-1.7rem;border-bottom:1px dashed var(--border);font-size:.9rem;}
+  ul.checks li::before{content:"\2610";color:var(--faint);font-size:1.05rem;margin-right:.55rem;}
+  ul.checks li b{color:var(--ink);}
+  ul.checks li .sevtag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-left:.3rem;}
+  ul.checks li .sevtag.c{color:var(--crit-fg);} ul.checks li .sevtag.h{color:var(--high-fg);}
+  ul.checks li .sevtag.m{color:var(--med-fg);} ul.checks li .sevtag.l{color:var(--low-fg);}
+
+  footer.foot{max-width:1180px;margin:0 auto;padding:1.5rem 1.6rem 3rem;color:var(--faint);font-size:.8rem;border-top:1px solid var(--border);}
+
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+    nav.toc{position:static;max-height:none;border:1px solid var(--border);background:var(--surface);border-radius:8px;padding:1rem;margin-bottom:1rem;}
+    .finding dl{grid-template-columns:1fr;gap:.05rem;}
+    .finding dt{margin-top:.5rem;}
+  }
+  @media print{
+    body{background:#fff;font-size:11px;}
+    header.masthead{background:#fff;color:#000;border-bottom:2px solid #000;}
+    header.masthead h1,header.masthead p.sub,.meta-line,.meta-line span b{color:#000;}
+    nav.toc{display:none;}
+    .layout{display:block;max-width:none;padding:0 .5rem;}
+    .finding,.stat,.note{box-shadow:none;}
+    a{color:#000;text-decoration:none;}
+    section.block{break-inside:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>RWD / UI Audit &mdash; NTU E3 Center Website</h1>
+    <p class="sub">Responsive-web-design &amp; interface audit of the custom Jinja2 static-site generator (<code>templates/</code> + <code>static/css/</code> &asymp;9,000&nbsp;lines + <code>static/js/</code>). Live at e3center.caece.net.</p>
+    <div class="meta-line">
+      <span><b>Audience:</b> maintaining engineer</span>
+      <span><b>Date:</b> 2026-07-03</span>
+      <span><b>Method:</b> 8 component finders &rarr; adversarial verification</span>
+      <span><b>Findings:</b> 18 verified &mdash; 1 critical, 1 high, 9 medium, 6 low</span>
+      <span><b>Rejected:</b> 4 false positives</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#exec">1. Executive Summary</a></li>
+      <li><a href="#crit">2. &#128680; Critical RWD / UI Bugs</a>
+        <ol class="sub">
+          <li><a href="#C1">C1 &mdash; Publications badge overlap</a></li>
+          <li><a href="#C2">C2 &mdash; Mobile 2-up grid collapse</a></li>
+        </ol>
+      </li>
+      <li><a href="#cons">3. &#127912; Consistency Gaps</a>
+        <ol class="sub">
+          <li><a href="#U1">U1 &mdash; Contact form skewed text</a></li>
+          <li><a href="#U2">U2 &mdash; Scrollbar token bypass</a></li>
+          <li><a href="#U3">U3 &mdash; Overflow-guard comment</a></li>
+        </ol>
+      </li>
+      <li><a href="#a11y">4. &#128640; Accessibility &amp; Quick Wins</a>
+        <ol class="sub">
+          <li><a href="#A1">A1 &mdash; Keyboard-inaccessible filter</a></li>
+          <li><a href="#A2">A2 &mdash; Menu list markup</a></li>
+          <li><a href="#A3">A3 &mdash; Burger aria-expanded</a></li>
+          <li><a href="#A4">A4 &mdash; Menu focus / Esc</a></li>
+          <li><a href="#A5">A5 &mdash; Badge contrast</a></li>
+          <li><a href="#A6">A6 &mdash; Touch targets &lt; 44px</a></li>
+        </ol>
+      </li>
+      <li><a href="#solid">5. Checked &amp; Solid</a></li>
+      <li><a href="#rejected">6. Rejected False Positives</a></li>
+      <li><a href="#checklist">7. Action Checklist</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <section class="block" id="exec">
+    <h2>Executive Summary</h2>
+    <p class="lead">This is a <b>mature, well-built responsive front end</b>: it ships a <code>:root</code> design-token system with per-breakpoint overrides, a global <code>overflow-wrap: break-word</code>, a defensive <code>html,body { overflow-x: clip }</code> guard, and <code>:focus-visible</code> rings on most components. Adversarial verification of 22 candidate issues confirmed <b>18</b> and rejected <b>4</b> as already-handled or non-manifesting. The profile is dominated by <b>touch-target and keyboard-accessibility</b> gaps rather than broken layouts &mdash; only two genuine layout bugs survived (a status badge that overlaps publication titles below&nbsp;1024px, and a mobile photo grid that renders one column where two were intended). Breakpoint note: the smallest media query is <code>37.5rem</code>&nbsp;(600px), so the client's 320&ndash;375px target range is governed entirely by the <code>&le;600px</code> blocks, where the root also shrinks to 14px via <code>html{font-size:87.5%}</code> &mdash; this is what pushes several rem-based touch targets below the 44px minimum.</p>
+
+    <div class="stats">
+      <div class="stat crit"><div class="num">1</div><div class="lbl">Critical</div></div>
+      <div class="stat high"><div class="num">1</div><div class="lbl">High</div></div>
+      <div class="stat med"><div class="num">9</div><div class="lbl">Medium</div></div>
+      <div class="stat low"><div class="num">6</div><div class="lbl">Low</div></div>
+      <div class="stat"><div class="num">18</div><div class="lbl">Verified</div></div>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted);margin:0;">Source-only scope (<code>docs/</code> build output excluded). The Featured-Videos and Group-Life grid bug was independently confirmed by two finders for two sections sharing the same CSS &mdash; presented once as <b>C2</b>. Four rejected candidates are listed in &sect;6.</p>
+  </section>
+
+  <!-- 2. CRITICAL -->
+  <section class="block" id="crit">
+    <h2>&#128680; Critical RWD / UI Bugs</h2>
+    <p class="lead">Items causing broken layouts, overflowing boxes, or content collision.</p>
+
+    <div class="note crit"><b>Fix-first.</b> C1 collides a badge with real publication titles on every phone and tablet; C2 wastes half the gallery width on every phone. Both are small, self-contained CSS edits.</div>
+
+    <div class="finding sev-critical" id="C1">
+      <div class="fhead"><span class="badge critical">Critical</span><h4><span class="fid">C1</span>Publications list &mdash; &ldquo;Manuscript&rdquo; status badge overflows its date track and collides with the title</h4><span class="floc">subpage.css:925, 784</span></div>
+      <dl>
+        <dt>Issue</dt><dd>On the ~10 working-status rows (Submitted / Under&nbsp;Review / Accepted) the date column holds an all-caps <b>&ldquo;MANUSCRIPT&rdquo;</b> pill instead of a month/year. Its box (&asymp;90px) is wider than the row's <b>fixed</b> first grid track &mdash; <code>4rem</code>&nbsp;(64px) at &le;1024px, <code>3rem</code>&nbsp;(&asymp;42px) at &le;600px &mdash; so the pill spills right and overlaps the publication title.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">320&ndash;1024px</span> (worst at 320&ndash;375px)</dd>
+        <dt>Why</dt><dd><code>.news-row</code> uses a fixed first track (<code>grid-template-columns: 3rem 1fr</code>), not <code>auto</code>/<code>minmax</code>, so it never grows; <code>.pub-status-badge</code> is <code>width: fit-content</code> with <code>letter-spacing:0.1em; text-transform:uppercase</code> on a single unbreakable word, and neither <code>.news-row</code> nor <code>.news-row-date</code> has an overflow guard.</dd>
+        <dt class="fix">Fix</dt><dd>Let the first track size to the pill only when a badge is present (published rows keep their date-sized track):
+<pre class="code">@media (max-width: 64rem) {
+  .news-row:has(.pub-status-badge) { grid-template-columns: auto minmax(0,1fr) auto; }
+}
+@media (max-width: 37.5rem) {
+  .news-row:has(.pub-status-badge) { grid-template-columns: auto minmax(0,1fr); }
+  .news-row:has(.pub-status-badge):has(.pub-row-publisher) {
+    grid-template-columns: auto minmax(0,1fr) auto;
+  }
+  .pub-status-badge { letter-spacing: 0.05em; } <span class="cm">/* optional: relax crowding */</span>
+}</pre></dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="C2">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><span class="fid">C2</span>Featured Videos &amp; Group Life photo grids collapse to 1 column on mobile (intended 2-up)</h4><span class="floc">style.css:2662</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The mobile override intends two thumbnails per row (its own comment: <em>&ldquo;Two-up at narrower widths&rdquo;</em>), but the column-width formula under-budgets the horizontal chrome, so <code>auto-fill</code> only ever fits <b>one</b> column &mdash; a single centered thumbnail flanked by large empty gutters &mdash; across the whole range. Affects both the homepage Featured-Videos gallery and the Group-Life &ldquo;all&rdquo; grid (shared CSS).</dd>
+        <dt>Screens</dt><dd><span class="badge screens">320&ndash;600px</span></dd>
+        <dt>Why</dt><dd><code>--_img-width: calc((100vw - 3rem)/2 - 0.5rem)</code> assumes 3rem of chrome, but the section gutter is <code>2&times;2rem = 4rem</code> and the formula ignores the column gap + per-column borders. Two tracks + gap total <code>100vw&minus;2.5rem</code>, which exceeds the available <code>100vw&minus;4rem</code> at every width, so the second column never fits. (Don't just delete <code>--_img-width</code> &mdash; it also drives the explicit <code>.glf-img</code> block width.)</dd>
+        <dt class="fix">Fix</dt><dd>Budget the real gutter + gap + borders so two tracks fit (<code>w &le; 50vw &minus; 2.75rem</code>):
+<pre class="code">.glf-section[which='all'] {
+  --_img-width: calc((100vw - 5rem) / 2 - 0.375rem); <span class="cm">/* = 50vw - 2.875rem */</span>
+  gap: var(--space-4) var(--space-3);
+  justify-content: center;
+}</pre></dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 3. CONSISTENCY -->
+  <section class="block" id="cons">
+    <h2>&#127912; UI &amp; Design Consistency Gaps</h2>
+    <p class="lead">Items where the UI deviates from the design system or shows layout friction.</p>
+
+    <div class="finding sev-medium" id="U1">
+      <div class="fhead"><span class="badge medium">Medium</span><span class="badge cat">Consistency</span><h4><span class="fid">U1</span>Contact form &mdash; input &amp; textarea text renders slanted &minus;3&deg;</h4><span class="floc">contact.html:93, 99, 107, 113 &middot; general.css:769</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The Name/Email/Subject inputs and the Message textarea carry <code>class="skewed-block"</code>, applying <code>skewX(-3deg)</code>. Every other skewed block keeps its text upright via <code>.skewed-block &gt; * { transform: skewX(+3deg) }</code> &mdash; but native form controls have <b>no element children</b>, so nothing un-skews their placeholder/typed text. All field text renders tilted while labels stay upright, reading as a rendering glitch.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Opt the controls out of the skew (keeps the border/shadow frame) &mdash; one line in the existing <code>.contact-field { &amp; input, &amp; textarea }</code> rule (subpage.css):
+<pre class="code">--_adjusted-block-skew: 0deg;</pre></dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-low" id="U2">
+      <div class="fhead"><span class="badge low">Low</span><span class="badge cat">Token bypass</span><h4><span class="fid">U2</span>Scrollbar track color hardcoded, bypassing the design tokens</h4><span class="floc">general.css:351</span></div>
+      <dl>
+        <dt>Issue</dt><dd><code>::-webkit-scrollbar-track { background:#eee }</code> is a stray neutral (the thumb directly above correctly uses <code>var(--main-color)</code>). <code>#eee</code> maps to no token and doesn't match <code>--page-bg-color</code>&nbsp;(#f7fafb). Cosmetic, no layout impact.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">desktop scrollbars</span></dd>
+        <dt class="fix">Fix</dt><dd>Introduce <code>--scrollbar-track-color</code> in <code>:root</code> and reference it, or use <code>var(--page-bg-color)</code>.</dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-low" id="U3">
+      <div class="fhead"><span class="badge low">Low</span><span class="badge cat">Footgun</span><h4><span class="fid">U3</span>Global horizontal-scroll guard has a false, footgun-inviting comment</h4><span class="floc">general.css:1605</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The comment states <em>&ldquo;no position:sticky in use, so this is safe&rdquo;</em> &mdash; but <code>.subpage-header</code> (subpage.css:17) and <code>.pub-meta-card</code> (publication-item.css:128) both use <code>position:sticky</code>. The layout works <b>only</b> because the author used <code>overflow-x: clip</code> (not <code>hidden</code>). A future &ldquo;equivalent&rdquo; swap to <code>hidden</code> &mdash; which the comment's reasoning invites &mdash; would make <code>html/body</code> a scroll container and break both sticky headers site-wide.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Keep <code>clip</code>; rewrite the comment to lock in the requirement (&ldquo;MUST stay <code>clip</code>, NOT <code>hidden</code> &mdash; sticky elements depend on it&rdquo;).</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 4. ACCESSIBILITY -->
+  <section class="block" id="a11y">
+    <h2>&#128640; Accessibility &amp; Quick Wins</h2>
+    <p class="lead">Easy refactors that materially improve usability: keyboard access, screen-reader semantics, and mobile touch-target sizing.</p>
+
+    <div class="finding sev-high" id="A1">
+      <div class="fhead"><span class="badge high">High</span><h4><span class="fid">A1</span>Video year-filter is completely keyboard-inaccessible</h4><span class="floc">general.css:992 &middot; videos.html:18</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The year filter is a native <code>&lt;input type=checkbox&gt;</code> set to <code>display:none</code>, which removes it from <b>both</b> the tab order and the accessibility tree; the wrapping <code>&lt;label&gt;</code> isn't focusable and no JS restores keyboard handling. Keyboard / switch / AT users <b>cannot toggle the filters at all</b> (WCAG&nbsp;2.1.1), and there is no focus indicator. The same pattern is reused on the Members and Group-Life filters.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Visually hide instead of removing, and add a focus ring on the label:
+<pre class="code">.filter-checkbox {
+  position:absolute; width:1px; height:1px; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); border:0;
+}
+.filter-checkbox:focus-visible + .filter-label {
+  outline:0.125rem solid var(--main-color-2); outline-offset:0.25rem;
+}</pre></dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="A2">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><span class="fid">A2</span>Mobile menu uses invalid <code>&lt;ui&gt;</code> elements instead of <code>&lt;li&gt;</code></h4><span class="floc">menu.html:13, 19, 28</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The nav drawer is a <code>&lt;ul&gt;</code> whose children are non-standard <code>&lt;ui&gt;</code> tags, so it loses list semantics (no &ldquo;list, N&nbsp;items&rdquo; announcement). The CSS even carries a hack at general.css:1651 to force-block these unknown elements &mdash; the author's comment admits it's <em>&ldquo;cheaper than fixing the template.&rdquo;</em></dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Rename each <code>&lt;ui&gt;</code>&rarr;<code>&lt;li&gt;</code> (and closing tags). <code>.menu-wrapper</code> is <code>display:flex</code>, which blockifies the items, so the CSS hack becomes redundant and can be dropped. No visual change.</dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="A3">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><span class="fid">A3</span>Burger button never exposes its open / closed state</h4><span class="floc">menu.html:1 &middot; general.js:56, 73</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The disclosure button has a static <code>aria-label="Open menu"</code> and no <code>aria-expanded</code> / <code>aria-controls</code>; <code>menuOpen()</code>/<code>menuClose()</code> toggle only classes. Screen readers announce &ldquo;Open menu&rdquo; even while the panel is open (WCAG&nbsp;4.1.2).</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Add <code>aria-expanded="false" aria-controls="site-menu"</code> to the button, <code>id="site-menu"</code> to the <code>&lt;nav&gt;</code>, and <code>menuBtn.setAttribute('aria-expanded', &hellip;)</code> in the two toggle functions.</dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="A4">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><span class="fid">A4</span>Full-screen menu overlay &mdash; no Esc key, no focus trap, no focus management</h4><span class="floc">general.js:85</span></div>
+      <dl>
+        <dt>Issue</dt><dd>Handlers bind <code>click</code> only. Opening the overlay doesn't move focus into the drawer, focus isn't trapped, the underlying page stays tabbable behind the <code>z-index:999</code> overlay, and Escape doesn't dismiss it (WCAG&nbsp;2.4.3).</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span> (worst for desktop keyboard users)</dd>
+        <dt class="fix">Fix</dt><dd>In <code>menuOpen()</code> call <code>menuCloseBtn.focus()</code>; in <code>menuClose()</code> return focus to <code>menuBtn</code>; add a global <code>keydown</code> Escape&nbsp;&rarr;&nbsp;<code>menuClose()</code> and a Tab-cycle trap; optionally <code>role="dialog" aria-modal="true"</code> on the <code>&lt;nav&gt;</code> and <code>inert</code> the page shell while open.</dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="A5">
+      <div class="fhead"><span class="badge medium">Medium</span><h4><span class="fid">A5</span>News category badges (Honors / Events / Outreach) fail color-contrast</h4><span class="floc">subpage.css:735</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The pills render saturated brand-color text on a ~13&ndash;22% tint of the same hue &rarr; measured <b>~2.2&ndash;2.6:1</b>, well below the 4.5:1 AA minimum for this small (10&ndash;10.5px) uppercase text.</dd>
+        <dt>Screens</dt><dd><span class="badge screens">all widths</span></dd>
+        <dt class="fix">Fix</dt><dd>Darken each text token and deepen the fill until &ge;4.5:1, e.g. <code>color: color-mix(in srgb, var(--main-color-2) 45%, #000)</code> on a 20% fill (reaches ~7:1). Verify each pair with a contrast checker.</dd>
+      </dl>
+    </div>
+
+    <div class="finding sev-medium" id="A6">
+      <div class="fhead"><span class="badge medium">Medium</span><span class="badge low">+ Low</span><h4><span class="fid">A6</span>Touch targets below the 44px minimum (7 controls)</h4><span class="floc">WCAG 2.5.5</span></div>
+      <dl>
+        <dt>Issue</dt><dd>The repo standardizes on <code>min-height: 2.75rem</code> for some controls but misses these interactive elements. At the 14px mobile root even 2.75rem is only 38.5px &mdash; so an <b>absolute <code>44px</code></b> is the robust choice on the smallest screens.</dd>
+        <dt>Detail</dt><dd>
+          <div class="tt-wrap"><table class="tt">
+            <thead><tr><th>Control</th><th>Location</th><th>&asymp;Height</th><th>Sev</th></tr></thead>
+            <tbody>
+              <tr><td>Video year-filter chips</td><td class="loc">general.css:985</td><td class="h">~29px</td><td>med</td></tr>
+              <tr><td>News filter tabs</td><td class="loc">subpage.css:910</td><td class="h">~24px</td><td>med</td></tr>
+              <tr><td>Member contact / social chips</td><td class="loc">member.css:109</td><td class="h">~26px</td><td>med</td></tr>
+              <tr><td>Members-list row link chips</td><td class="loc">subpage.css:871</td><td class="h">~25px</td><td>low</td></tr>
+              <tr><td>Projects &ldquo;See N more&rdquo; button</td><td class="loc">subpage.css:1188</td><td class="h">~29px</td><td>low</td></tr>
+              <tr><td>Project-detail team chip</td><td class="loc">project-item.css:396</td><td class="h">~36px</td><td>low</td></tr>
+              <tr><td>Menu close button (tablet)</td><td class="loc">general.css:1456</td><td class="h">~34px</td><td>low</td></tr>
+            </tbody>
+          </table></div>
+        </dd>
+        <dt class="fix">Fix</dt><dd>In each control's mobile block add <code>min-height:44px; display:inline-flex; align-items:center;</code> plus a little vertical padding. Prefer <code>44px</code> over <code>2.75rem</code> in the <code>&le;37.5rem</code> rules, since the 87.5% root shrinks rem targets.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 5. SOLID -->
+  <section class="block" id="solid">
+    <h2>&#9989; Checked &amp; Found Solid</h2>
+    <p class="lead">Verified against the client's priority list &mdash; these behave correctly and need no change.</p>
+    <div class="note good">
+      <ul style="margin:.2rem 0;padding-left:1.1rem;">
+        <li><b>Publication long titles / author lists / DOIs</b> wrap correctly (global <code>overflow-wrap:break-word</code> + <code>word-break:break-all</code> on identifiers). No overflow.</li>
+        <li><b>Contact inputs</b> are <code>width:100%</code> with <code>border-box</code> &mdash; they fit a 320px viewport (only the <em>skew</em> glitch, U1).</li>
+        <li><b>Members grid</b> alignment is robust across short-EN / long-EN / Chinese name lengths &mdash; no squeezed columns.</li>
+        <li><b>Mobile menu</b> causes no horizontal overflow or page shift; the global <code>overflow-x:clip</code> guard neutralizes stray overflows site-wide.</li>
+        <li><b>Typography</b> scales via per-breakpoint <code>:root</code> font-size + token overrides; no fixed <code>px</code> widths trigger horizontal scroll.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. REJECTED -->
+  <section class="block" id="rejected">
+    <h2>Rejected False Positives</h2>
+    <p class="lead">Four candidates were dropped during adversarial verification &mdash; recorded for transparency.</p>
+    <div class="finding sev-low">
+      <div class="fhead"><h4>Member <code>.res-tag</code> &ldquo;overflow&rdquo; (member.css:278)</h4></div>
+      <dl><dt>Verdict</dt><dd>Inert <code>text-overflow:ellipsis</code> (no <code>overflow:hidden</code>), but the longest real tag (&ldquo;Environmental Protection&rdquo;) fits the ~264px mobile column and flex min-content flooring prevents overflow. Latent code smell, not a live breakage. <em>(Raised twice &mdash; both instances rejected.)</em></dd></dl>
+    </div>
+    <div class="finding sev-low">
+      <div class="fhead"><h4>Project partner-logo row overflow (project-item.css:482)</h4></div>
+      <dl><dt>Verdict</dt><dd>The only wide wordmark (nextdrive, ~105px) fits the mobile row; and any residual overflow is clipped by the global <code>overflow-x:clip</code> guard &mdash; no page-level horizontal scroll occurs.</dd></dl>
+    </div>
+    <div class="finding sev-low">
+      <div class="fhead"><h4>Project output-link raw-URL overflow (project-item.css:250)</h4></div>
+      <dl><dt>Verdict</dt><dd>Guarded by <code>overflow-x:clip</code>, and the code path is never exercised &mdash; all current outputs use a title, never a raw URL as link text.</dd></dl>
+    </div>
+  </section>
+
+  <!-- 7. CHECKLIST -->
+  <section class="block" id="checklist">
+    <h2>Action Item Checklist</h2>
+    <p class="lead">Suggested order: the two layout bugs and the keyboard trap first (small, self-contained), then semantics, then the touch-target sweep.</p>
+    <ul class="checks">
+      <li><b>C1</b> &mdash; Publications badge: give <code>.news-row:has(.pub-status-badge)</code> an <code>auto</code> first track at &le;64rem / &le;37.5rem. <span class="sevtag c">critical</span> <span class="tag">subpage.css:925,784</span></li>
+      <li><b>A1</b> &mdash; Video/Members/Group-Life filter: replace <code>display:none</code> with visually-hidden + focus ring. <span class="sevtag h">high</span> <span class="tag">general.css:992</span></li>
+      <li><b>C2</b> &mdash; Featured Videos + Group Life grid: fix the <code>--_img-width</code> chrome budget so two columns fit. <span class="sevtag m">medium</span> <span class="tag">style.css:2662</span></li>
+      <li><b>U1</b> &mdash; Contact form: add <code>--_adjusted-block-skew:0deg</code> to inputs/textarea. <span class="sevtag m">medium</span> <span class="tag">subpage.css / contact.html</span></li>
+      <li><b>A2</b> &mdash; Menu: rename <code>&lt;ui&gt;</code>&rarr;<code>&lt;li&gt;</code> and drop the block-promotion hack. <span class="sevtag m">medium</span> <span class="tag">menu.html:13,19,28</span></li>
+      <li><b>A3</b> &mdash; Burger button: add <code>aria-expanded</code>/<code>aria-controls</code> + JS state sync. <span class="sevtag m">medium</span> <span class="tag">menu.html:1 / general.js</span></li>
+      <li><b>A4</b> &mdash; Menu overlay: Esc-to-close, focus into drawer, focus trap. <span class="sevtag m">medium</span> <span class="tag">general.js:85</span></li>
+      <li><b>A5</b> &mdash; News badges: darken text tokens / deepen fill to &ge;4.5:1. <span class="sevtag m">medium</span> <span class="tag">subpage.css:735</span></li>
+      <li><b>A6</b> &mdash; Touch targets: add <code>min-height:44px</code> to the 7 listed controls. <span class="sevtag m">medium</span> <span class="tag">7 files</span></li>
+      <li><b>U2</b> &mdash; Scrollbar track: route <code>#eee</code> through a token. <span class="sevtag l">low</span> <span class="tag">general.css:351</span></li>
+      <li><b>U3</b> &mdash; Overflow guard: correct the misleading <code>clip</code>-vs-<code>hidden</code> comment. <span class="sevtag l">low</span> <span class="tag">general.css:1605</span></li>
+    </ul>
+  </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  RWD / UI audit &mdash; NTU E3 Center Website &middot; generated 2026-07-03 &middot; source-only scope, <code>docs/</code> build output excluded &middot; 18 findings verified against the live cascade, 4 rejected as false positives.
+</footer>
+
+</body>
+</html>
