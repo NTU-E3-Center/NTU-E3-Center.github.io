@@ -14,6 +14,9 @@ Co-organized by **Ørsted (沃旭能源)** and the **Metal Industries Research &
 
 We would especially like to recognize **Jason (Chon Man) Tam**, who served as a core member for project management and AI development in building the intelligent decision-making platform.
 
+![Award ceremony of the 2024 Ørsted Sustainable Innovation Accelerator](/assets/news/2024-orsted-accelerator-award/1.jpg)
+*The Sustainable Innovation Accelerator award ceremony at International Energy Week. Photos courtesy of Ørsted (圖／沃旭能源提供).*
+
 ### From Competition to Collaboration
 
 The award proved to be a beginning rather than an end. Building on the accelerator, the E3 Center and MIRDC launched a joint technical project on [wind power forecasting for green hydrogen](/projects/2026-wind-forecasting-green-hydrogen/) — work that was later [featured in Focus News](/news/2026-focus-news/) and showcased at the [NTU × MIRDC joint seminar](/news/2026-ntu-mirdc-joint-seminar/) on wind, hydrogen, and e-fuels.
