@@ -128,7 +128,7 @@
     /* Display labels for funder buckets — internal keys stay short for the
        dataset (data-funder="Ministry"), but the trigger label needs to
        mirror the chip text when a single bucket is selected. */
-    var FUNDER_LABELS = { 'NSTC': 'NSTC', 'Intl': 'International', 'Gov': 'Ministry / Gov', 'NTU': 'NTU', 'Industry': 'Industry', 'Foundation': 'Foundations' };
+    var FUNDER_LABELS = { 'NSTC': 'NSTC', 'Gov': 'Ministry / Gov', 'NTU': 'NTU', 'Industry': 'Industry', 'Foundation': 'Foundations' };
 
     wireDropdown('year',   'Year');
     wireDropdown('funder', 'Funder');
