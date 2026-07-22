@@ -241,31 +241,40 @@ if 'publications' in structures:
 # publications-by-abstract). Annotate those entries with a pageLink so the
 # listing + homepage rows link to /projects/<slug>/.
 #
-# Bucket the 17-distinct funder strings down to 6 readable categories driven by
+# Bucket the distinct funder strings down to 6 readable categories driven by
 # the /projects filter bar — fine-grained enough to be useful, coarse enough to
-# scan. Active-year ranges (the years each project spans) are pre-computed here
+# scan. An entry can pin its category with an explicit `funderBucket` field in
+# projects.json; the string heuristic only runs when no override is present.
+# Active-year ranges (the years each project spans) are pre-computed here
 # too so the template doesn't recompute on every row.
 def _funder_bucket(item):
-    """Return one of: NSTC, Ministry, NTU, Industry.
+    """Return one of: NSTC, Intl, Gov, NTU, Foundation, Industry.
 
-    Bilateral NSTC programs (NSTC-ICSSR, NSTC-NWO) stay in NSTC since they are
-    administered by NSTC. The single TUKUC (Taiwan-UK Consortium) entry folds
-    into Ministry under Ministry of Education. Taipei City Public Transportation
-    Office reads as a municipal/government counterpart and lands in Ministry
-    rather than Industry."""
-    if item.get('grantNumber'):
-        return 'NSTC'
+    Intl captures international bilateral programs (NSTC-ICSSR, NSTC-NWO,
+    TUKUC) and must be checked first — those entries would otherwise fall
+    into NSTC (via grantNumber) or Gov (Ministry of Education). Taipei City
+    Public Transportation Office reads as a municipal/government counterpart
+    and lands in Gov rather than Industry. Foundation covers 財團法人
+    sponsors that are not companies (MIRDC, Wego private school)."""
+    if item.get('funderBucket'):
+        return item['funderBucket']
     fz = item.get('fundingAgency') or ''
     fe = item.get('fundingAgencyEn') or ''
+    if '雙邊' in fz or 'TUKUC' in fz or 'TUKUC' in fe or 'Bilateral' in fe:
+        return 'Intl'
+    if item.get('grantNumber'):
+        return 'NSTC'
     if fz.startswith('國科會') or 'National Science and Technology Council' in fe:
         return 'NSTC'
     if fz.startswith('環境部') or fz.startswith('教育部') \
             or fz.startswith('臺北市') or 'Ministry of' in fe \
             or 'Taipei City' in fe:
-        return 'Ministry'
+        return 'Gov'
     if fz.startswith('國立臺灣大學') or 'National Taiwan University' in fe \
             or fe.startswith('NTU '):
         return 'NTU'
+    if fz.startswith('財團法人'):
+        return 'Foundation'
     return 'Industry'
 
 if 'projects' in structures:

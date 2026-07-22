@@ -66,7 +66,7 @@
 
     {# ── Filter facet counts feed the chip labels ──────────────────────── #}
     {% set _year_counts   = {} %}
-    {% set _funder_counts = {'NSTC': 0, 'Ministry': 0, 'NTU': 0, 'Industry': 0} %}
+    {% set _funder_counts = {'NSTC': 0, 'Intl': 0, 'Gov': 0, 'NTU': 0, 'Industry': 0, 'Foundation': 0} %}
     {% set _status_counts = {'ongoing': 0, 'concluded': 0} %}
     {% for it in all_items %}
         {% set _bucket = it.get('funderBucket') %}
@@ -129,7 +129,7 @@
             </button>
             <div class="pub-filter-panel" id="proj-funder-panel" role="group"
                  aria-label="Filter projects by funder" hidden>
-                {% for key, label in [('NSTC', 'NSTC'), ('Ministry', 'Ministry / Gov'), ('NTU', 'NTU'), ('Industry', 'Industry')] %}
+                {% for key, label in [('NSTC', 'NSTC'), ('Intl', 'International'), ('Gov', 'Ministry / Gov'), ('NTU', 'NTU'), ('Industry', 'Industry'), ('Foundation', 'Foundations')] %}
                 {% if _funder_counts[key] > 0 %}
                 <label class="pub-filter-check">
                     <input type="checkbox" class="proj-filter-funder-input" data-funder="{{ key }}">
