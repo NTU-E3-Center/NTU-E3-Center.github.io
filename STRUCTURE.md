@@ -19,6 +19,7 @@ NTU-E3-Center.github.io/
 ├── templates/                        # Jinja2 HTML templates
 ├── static/                           # Static assets (copied as-is to docs/)
 ├── SEO/                              # SEO research, strategy, and runbook
+├── reports/                          # Point-in-time audit reports (code audit, RWD/UI audit)
 ├── docs/                             # Generated output — served by GitHub Pages (gitignored)
 └── .github/workflows/                # GitHub Actions CI/CD
 ```
@@ -45,7 +46,10 @@ contents/
 │       └── photo.{jpg,png}       #   headshot (auto-converted to WebP at build time)
 │
 ├── publications/publications.json    # All publications with citation metadata
-├── projects/projects.json            # Funded projects, grouped by funding source
+├── projects/
+│   ├── projects.json             # Funded projects, grouped by funding source
+│   ├── E3-projects-list.xlsx     # Admin roster of projects (source reference; not read by build.py)
+│   └── {slug}/                   # Per-project detail-page content (project.json, about.md, about.zh.md)
 │
 ├── news/
 │   ├── news.json             # News item list with title, date, pageLink, optional topics[]
