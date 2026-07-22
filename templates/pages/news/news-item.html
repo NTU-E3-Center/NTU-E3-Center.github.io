@@ -57,7 +57,7 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/general.css?v=51">
     <link rel="stylesheet" href="/css/subpage.css?v=66">
-    <link rel="stylesheet" href="/css/news-item.css?v=21">
+    <link rel="stylesheet" href="/css/news-item.css?v=22">
 
     <!-- js -->
     <script defer src="/js/general.js"></script>
@@ -154,7 +154,20 @@
         <article class="news-item-article">
 
             <header class="news-item-header">
+                {% if news.get('imgPath') %}
                 <p class="news-item-category">{{ news.get('category', 'News') }}</p>
+                {% else %}
+                {# No hero → no date badge on the page; keep the date visible by
+                   pairing the category eyebrow with the badge's month/year type
+                   on one baseline meta row. #}
+                <div class="news-item-meta-row">
+                    <p class="news-item-category">{{ news.get('category', 'News') }}</p>
+                    <p class="news-item-date-line">
+                        <span class="news-item-date-mm">{{ news['month'] }}</span>
+                        <span class="news-item-date-yy">20{{ news['year'][1:] }}</span>
+                    </p>
+                </div>
+                {% endif %}
                 <h1 class="news-item-title">{{ news['title'] }}</h1>
 
                 {% if news.get('link') %}
