@@ -148,6 +148,35 @@
     margin: 0;
 }
 
+/* Category-coded eyebrow — same hues as the listing badges, deepened toward
+   the brand navy so the small uppercase text clears contrast without the
+   pill background. Full opacity: the color carries the emphasis the 0.4
+   gray lacked. */
+.news-item-category[data-cat="Faculty Honors"] {
+    color: var(--cat-faculty-text);
+    opacity: 1;
+}
+
+.news-item-category[data-cat="Student Awards"] {
+    color: var(--cat-student-text);
+    opacity: 1;
+}
+
+.news-item-category[data-cat="In the Media"] {
+    color: var(--cat-media-text);
+    opacity: 1;
+}
+
+.news-item-category[data-cat="Events and Exchanges"] {
+    color: var(--cat-events-text);
+    opacity: 1;
+}
+
+.news-item-category[data-cat="Education and Outreach"] {
+    color: var(--cat-outreach-text);
+    opacity: 1;
+}
+
 /* No-hero fallback — .news-item-date-badge only renders on the hero edge, so
    hero-less pages pair the category eyebrow with the badge's month/year type
    on one baseline instead. The year steps down from the badge's --fs-heading-s
@@ -391,10 +420,14 @@
     }
 
     .news-item-body {
-        /* Body size + line-height inherited from --fs-body / --lh-body
-           (mobile --lh-body tightens to 1.55). Drop paragraph gap one
-           tier for a denser reading rhythm — pairs with the tightened
-           leading; the page no longer feels "spread out" on a phone. */
+        /* Phone prose drops one tier (--fs-body → --fs-body-base) via the
+           --fs-prose hook the unified prose recipe reads — the full-tier
+           body read oversized against the compact phone layout. Headings
+           below keep their tiers, so hierarchy sharpens rather than
+           flattens. Paragraph gap also drops one tier for a denser
+           reading rhythm to pair with the tightened mobile leading. */
+        --fs-prose: var(--fs-body-base);
+
         & p {
             margin-block-end: var(--space-3);
         }
