@@ -10,7 +10,9 @@
                 "year": "'20",
                 "month": "Nov.",
                 "category": "Honors and Recognitions",
-                "topics": []
+                "topics": [],
+                "pageLink": "/news/2020-ntu-chenyung-scholar-award/",
+                "shortTitle": "2020 NTU Chen-Yung Outstanding Scholar Award"
             },
             {
                 "title": "MIT Energy Initiative's magazine Energy Futures includes an article about Prof. Hsieh's Ph.D. work.",
@@ -20,7 +22,8 @@
                 "category": "Community and Outreach",
                 "topics": [
                     "Vehicle Electrification"
-                ]
+                ],
+                "pageLink": "/news/2021-mit-china-ev-transition/"
             },
             {
                 "title": "Prof. Hsieh's Ph.D. work on China's transition to electric vehicles is live on MIT News.",
@@ -175,7 +178,9 @@
                 "category": "Community and Outreach",
                 "topics": [
                     "Vehicle Electrification"
-                ]
+                ],
+                "pageLink": "/news/2024-escooter-policy-advocacy/",
+                "shortTitle": "Sticks and Subsidies for E-Scooter Transition"
             },
             {
                 "title": "E3's research featured by Asia Research News for advancing V2G strategies in e-scooter systems.",
@@ -195,7 +200,9 @@
                 "year": "'25",
                 "month": "May",
                 "category": "Community and Outreach",
-                "topics": []
+                "topics": [],
+                "pageLink": "/news/2025-ntu-lab-spotlight/",
+                "shortTitle": "E3 Center Joins NTU Lab Spotlight"
             },
             {
                 "title": "Congratulations to Jian Hern Yeoh (楊建恆) for winning the Best Lightning Talk Award at CICTP 2025 Conference!",
