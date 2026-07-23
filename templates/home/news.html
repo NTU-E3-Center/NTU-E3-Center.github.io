@@ -4,9 +4,9 @@
     </div>
 
     {# Flatten items across all news entries before grouping by category, so
-       the three category H3s render once even if multiple news structures
-       are added later. Empty categories are skipped to avoid bare headings. #}
-    {% set category_order = ['Honors and Recognitions', 'Events and Exchanges', 'Community and Outreach'] %}
+       each category H3 renders once even if multiple news structures are
+       added later. Empty categories are skipped to avoid bare headings. #}
+    {% set category_order = ['Faculty Honors', 'Student Awards', 'In the Media', 'Events and Exchanges', 'Education and Outreach'] %}
     {% set ns = namespace(all_items=[]) %}
     {% for news in structures['news'] %}
         {% set ns.all_items = ns.all_items + news['items'] %}

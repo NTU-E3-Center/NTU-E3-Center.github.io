@@ -9,7 +9,7 @@
                 "link": "https://www.ce.ntu.edu.tw/%E6%81%AD%E8%B3%80%E8%AC%9D%E4%BE%9D%E8%8A%B8%E5%8A%A9%E7%90%86%E6%95%99%E6%8E%88%E6%A6%AE%E7%8D%B2109%E5%B9%B4%E3%80%8C%E8%87%BA%E5%A4%A7%E5%8B%87%E6%BA%90%E6%8B%94%E8%90%83%E8%AC%9B%E5%BA%A7/",
                 "year": "'20",
                 "month": "Nov.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": [],
                 "pageLink": "/news/2020-ntu-chenyung-scholar-award/",
                 "shortTitle": "2020 NTU Chen-Yung Outstanding Scholar Award"
@@ -19,7 +19,7 @@
                 "link": "https://energy.mit.edu/news/chinas-transition-to-electric-vehicles/",
                 "year": "'20",
                 "month": "Nov.",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "topics": [
                     "Vehicle Electrification"
                 ],
@@ -31,7 +31,7 @@
                 "pageLink": "/news/2021-mit-china-ev-transition/",
                 "year": "'21",
                 "month": "Apr.",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "topics": [
                     "Vehicle Electrification"
                 ]
@@ -40,7 +40,7 @@
                 "title": "Prof. Hsieh receives the Outstanding Academic Advisor Award at the 2021 TEGA Conference (台灣智慧電動車及綠能科技研討會)",
                 "year": "'21",
                 "month": "Jul.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": [
                     "Vehicle Electrification"
                 ]
@@ -49,7 +49,7 @@
                 "title": "E3 Group wins the Excellence Achievement Award (Green Transportation) in the 2021 Clean Energy Technology Innovation Contest (台灣能潔能科技創意實作競賽)",
                 "year": "'21",
                 "month": "Oct.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": [
                     "Vehicle Electrification"
                 ]
@@ -58,14 +58,14 @@
                 "title": "E3 Group wins the Excellence Award in the 2022 Unimicron ESG Technology Poster Competition (欣興電子技術交流海報競賽)",
                 "year": "'22",
                 "month": "Aug.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": []
             },
             {
                 "title": "E3 Group wins the Best Paper Award and Prof. Hsieh the Outstanding Academic Advisor Award at the 2022 TEGA Conference (台灣智慧電動車及綠能科技研討會)",
                 "year": "'22",
                 "month": "Sep.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": [
                     "Vehicle Electrification"
                 ]
@@ -74,7 +74,7 @@
                 "title": "Congratulations to Yuan-Shin Fu (傅遠新) for winning the Excellence Poster Award at the 2022 TwIChE Annual Meeting",
                 "year": "'22",
                 "month": "Dec.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": []
             },
             {
@@ -83,7 +83,7 @@
                 "pageLink": "/news/2023-commsenv-editorial-board/",
                 "year": "'23",
                 "month": "Jul.",
-                "category": "Community and Outreach",
+                "category": "Faculty Honors",
                 "topics": []
             },
             {
@@ -92,7 +92,7 @@
                 "pageLink": "/news/2024-est-best-paper-award/",
                 "year": "'24",
                 "month": "Apr.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": []
             },
             {
@@ -101,7 +101,7 @@
                 "pageLink": "/news/2024-thenewslens-battery-column/",
                 "year": "'24",
                 "month": "Jul.",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "topics": [
                     "Battery Swapping",
                     "Vehicle-to-Grid"
@@ -111,7 +111,7 @@
                 "title": "Prof. Hsieh promoted to Associate Professor",
                 "year": "'24",
                 "month": "Aug.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": []
             },
             {
@@ -120,7 +120,7 @@
                 "pageLink": "/news/2024-ntu-teaching-award/",
                 "year": "'24",
                 "month": "Sep.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": []
             },
             {
@@ -128,7 +128,7 @@
                 "shortTitle": "2024 iCHE Best Innovation Paper",
                 "year": "'24",
                 "month": "Sep.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2024-iche-best-innovation-paper/",
                 "topics": []
             },
@@ -138,7 +138,7 @@
                 "pageLink": "/news/2024-orsted-accelerator-award/",
                 "year": "'24",
                 "month": "Oct.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": [
                     "Hydrogen Energy"
                 ]
@@ -147,7 +147,7 @@
                 "title": "Congratulations to Chih-Yi Lu (呂芷儀) for winning the Best Paper Award at the 2024 TEGA Conference (台灣智慧電動車及綠能科技研討會)",
                 "year": "'24",
                 "month": "Nov.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "topics": [],
                 "pageLink": "/news/2024-tega-best-paper/",
                 "shortTitle": "2024 TEGA Best Paper Award"
@@ -158,7 +158,7 @@
                 "pageLink": "/news/2024-ntu-outstanding-scholar-award/",
                 "year": "'24",
                 "month": "Nov.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": []
             },
             {
@@ -167,7 +167,7 @@
                 "pageLink": "/news/2024-cit-young-transportation-award/",
                 "year": "'24",
                 "month": "Dec.",
-                "category": "Honors and Recognitions",
+                "category": "Faculty Honors",
                 "topics": [
                     "Vehicle Electrification"
                 ]
@@ -177,7 +177,7 @@
                 "link": "https://www.ctee.com.tw/news/20241218700176-439901",
                 "year": "'24",
                 "month": "Dec.",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "topics": [
                     "Vehicle Electrification"
                 ],
@@ -190,7 +190,7 @@
                 "pageLink": "/news/2025-asia-research-news-v2g/",
                 "year": "'25",
                 "month": "May",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "topics": [
                     "Vehicle-to-Grid",
                     "Vehicle Electrification"
@@ -201,7 +201,7 @@
                 "link": "https://labspotlight.ntu.edu.tw/labs/116",
                 "year": "'25",
                 "month": "May",
-                "category": "Community and Outreach",
+                "category": "Education and Outreach",
                 "topics": [],
                 "pageLink": "/news/2025-ntu-lab-spotlight/",
                 "shortTitle": "E3 Center Joins NTU Lab Spotlight"
@@ -211,7 +211,7 @@
                 "shortTitle": "2025 CICTP Best Lightning Talk",
                 "year": "'25",
                 "month": "Jul.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2025-cictp-best-lightning-talk/",
                 "topics": [
                     "Vehicle Electrification",
@@ -224,7 +224,7 @@
                 "shortTitle": "2025 GREENIE Poster Award",
                 "year": "'25",
                 "month": "Sep.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2025-greenie-poster-award/",
                 "topics": [
                     "Net-Zero Transition"
@@ -235,7 +235,7 @@
                 "shortTitle": "2025 CAEE Outstanding Thesis Award",
                 "year": "'25",
                 "month": "Nov.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2025-caee-outstanding-thesis/",
                 "link": "http://www.caee.org.tw/page/print_114_award",
                 "topics": [
@@ -260,7 +260,7 @@
                 "shortTitle": "2026 Wego Bootcamp",
                 "year": "'26",
                 "month": "Jan.",
-                "category": "Community and Outreach",
+                "category": "Education and Outreach",
                 "pageLink": "/news/2026-wego-bootcamp/",
                 "topics": [
                     "Energy Education"
@@ -283,7 +283,7 @@
                 "shortTitle": "2026 CGS Outstanding Award",
                 "year": "'26",
                 "month": "Apr.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2026-cgs-outstanding-award/",
                 "topics": []
             },
@@ -292,7 +292,7 @@
                 "shortTitle": "E3 Center Featured on Focus News",
                 "year": "'26",
                 "month": "Apr.",
-                "category": "Community and Outreach",
+                "category": "In the Media",
                 "pageLink": "/news/2026-focus-news/",
                 "topics": [
                     "Wind Power",
@@ -304,7 +304,7 @@
                 "shortTitle": "2026 Student Research Showcase",
                 "year": "'26",
                 "month": "Jun.",
-                "category": "Community and Outreach",
+                "category": "Education and Outreach",
                 "pageLink": "/news/2026-wego-research-showcase/",
                 "topics": [
                     "Energy Education"
@@ -315,7 +315,7 @@
                 "shortTitle": "2026 NSTC Undergraduate Grant",
                 "year": "'26",
                 "month": "Jun.",
-                "category": "Honors and Recognitions",
+                "category": "Student Awards",
                 "pageLink": "/news/2026-nstc-undergraduate-grant/",
                 "topics": [
                     "Vehicle-to-Grid"
