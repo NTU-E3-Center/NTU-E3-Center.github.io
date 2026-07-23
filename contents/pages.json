@@ -55,21 +55,21 @@
     },
     "news": {
         "path": "news",
-        "title": "News | E3 Center, NTU",
+        "title": "News & Announcements | E3 Center, NTU",
         "description": "E3 Center news, awards, seminars, and announcements from National Taiwan University.",
         "subpageTitle": "News",
         "template": "pages/news"
     },
     "members-page": {
         "path": "members",
-        "title": "Members | E3 Center, NTU",
+        "title": "Members & Alumni | E3 Center, NTU",
         "description": "Members of E3 Center, NTU — researchers, students, and alumni working on sustainable energy transition, transportation electrification, and climate policy.",
         "subpageTitle": "Members",
         "template": "pages/members"
     },
     "publications-page": {
         "path": "publications",
-        "title": "Publications | E3 Center, NTU",
+        "title": "Research Publications | E3 Center, NTU",
         "description": "Peer-reviewed publications from E3 Center, NTU, on sustainable energy transition, transportation electrification, and climate policy.",
         "subpageTitle": "Publications",
         "template": "pages/publications"
@@ -83,7 +83,7 @@
     },
     "group-life-page": {
         "path": "group-life",
-        "title": "Group Life | E3 Center, NTU",
+        "title": "Group Life & Events | E3 Center, NTU",
         "description": "Photos from the E3 Center group at National Taiwan University — research life, events, gatherings, conferences, and milestones.",
         "subpageTitle": "Group Life",
         "template": "pages/group-life"
