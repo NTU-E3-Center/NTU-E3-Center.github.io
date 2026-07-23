@@ -477,14 +477,21 @@ def render_news_pages():
     template = env.get_template('pages/news/news-item.html')
     image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'}
 
+    rendered_slugs = set()
     for section in structures.get('news', []):
-        for item in section.get('items', []):
+        # Newest-first: when two listing items point at the same pageLink
+        # (e.g. two news mentions of one story), the most recent item supplies
+        # the page metadata and earlier duplicates are skipped.
+        for item in section.get('items', [])[::-1]:
             page_link = item.get('pageLink')
             if not page_link:
                 continue
 
             # Derive slug from pageLink (e.g. /news/2026-foo/ → 2026-foo)
             slug = news_slug_from_pagelink(page_link)
+            if slug in rendered_slugs:
+                continue
+            rendered_slugs.add(slug)
 
             # Load markdown article content. Rewrite inline image references
             # (e.g. /assets/news/{slug}/3.jpg) to the 1200w WebP variant since
