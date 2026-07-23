@@ -1,4 +1,4 @@
-We are delighted to share that **Associate Professor I-Yun Lisa Hsieh** has been honored with the **Outstanding Young Transportation Professional Award (傑出運輸青年獎)** by the **Chinese Institute of Transportation (中華民國運輸學會)** — one of only three recipients nationwide in 2024, and the only university faculty member among them.
+We are delighted to share that **[Associate Professor I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** has been honored with the **Outstanding Young Transportation Professional Award (傑出運輸青年獎)** by the **Chinese Institute of Transportation (中華民國運輸學會)** — one of only three recipients nationwide in 2024, and the only university faculty member among them.
 
 ### About the Award
 

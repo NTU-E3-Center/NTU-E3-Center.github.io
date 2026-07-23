@@ -1,4 +1,4 @@
-In November 2020, just months after joining National Taiwan University, **Assistant Professor I-Yun Lisa Hsieh** was named an **NTU Outstanding Scholar (臺大拔萃學者)** for the 2020 academic year, awarded as a **Chen-Yung Outstanding Scholar (勇源拔萃學者)** for the term of August 2020 through July 2023. The Department of Civil Engineering announced the honor on November 2, 2020.
+In November 2020, just months after joining National Taiwan University, **[Assistant Professor I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** was named an **NTU Outstanding Scholar (臺大拔萃學者)** for the 2020 academic year, awarded as a **Chen-Yung Outstanding Scholar (勇源拔萃學者)** for the term of August 2020 through July 2023. The Department of Civil Engineering announced the honor on November 2, 2020.
 
 ### Recognition at the Starting Line
 

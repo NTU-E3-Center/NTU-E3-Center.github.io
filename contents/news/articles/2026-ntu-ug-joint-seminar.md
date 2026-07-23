@@ -3,7 +3,7 @@
 
 Solving global energy and mobility challenges takes cooperation across borders. Recently, the E3 Center proudly hosted the 2026 NTU-UG Joint Seminar—a four-day exchange program funded by the National Science and Technology Council (NSTC) of Taiwan and the Dutch Research Council (NWO). 
 
-Hosted in collaboration with the Computer-Aided Engineering (CAE) Division of NTU's Department of Civil Engineering and the University of Groningen (UG), this event brought together teams led by Dr. I-Yun Lisa Hsieh (NTU E3 Center) and Dr. Xin Sun (UG ESRIG). Centered on "Systematic Solutions for Sustainable Energy and Mobility Systems," the seminar gathered experts and young scholars to chart a course for future research.
+Hosted in collaboration with the Computer-Aided Engineering (CAE) Division of NTU's Department of Civil Engineering and the University of Groningen (UG), this event brought together teams led by [Dr. I-Yun Lisa Hsieh](/members/iyunlisahsieh/) (NTU E3 Center) and Dr. Xin Sun (UG ESRIG). Centered on "Systematic Solutions for Sustainable Energy and Mobility Systems," the seminar gathered experts and young scholars to chart a course for future research.
 
 ![Group photo of the 2026 NTU-UG Joint Seminar participants](/assets/news/2026-ntu-ug-joint-seminar/1.jpg)
 

@@ -2,7 +2,7 @@ The E3 Center has been invited to join **[NTU Lab Spotlight](https://labspotligh
 
 ### What the Profile Covers
 
-The Center's Lab Spotlight page, hosted under the College of Engineering, presents the group's identity in full: **NTU E3 Research Center (Energy × Economics × Environment)**, led by **Prof. I-Yun Lisa Hsieh**, working across energy system management, smart low-carbon grids, electric and hydrogen mobility, and net-zero emission strategies. The profile emphasizes what makes the group distinctive — interdisciplinary integration and data-driven analysis in service of feasible policy and technological solutions for the energy transition, in Taiwan and beyond — alongside its commitment to educating T-shaped sustainability professionals and engaging the public with fact-based knowledge.
+The Center's Lab Spotlight page, hosted under the College of Engineering, presents the group's identity in full: **NTU E3 Research Center (Energy × Economics × Environment)**, led by **[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)**, working across energy system management, smart low-carbon grids, electric and hydrogen mobility, and net-zero emission strategies. The profile emphasizes what makes the group distinctive — interdisciplinary integration and data-driven analysis in service of feasible policy and technological solutions for the energy transition, in Taiwan and beyond — alongside its commitment to educating T-shaped sustainability professionals and engaging the public with fact-based knowledge.
 
 ### A Track Record of Crossing Borders
 

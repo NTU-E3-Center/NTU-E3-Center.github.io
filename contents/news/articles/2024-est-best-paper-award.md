@@ -1,4 +1,4 @@
-We are honored to share that a paper by **Prof. I-Yun Lisa Hsieh** has received a **2022 Best Paper Award** from ***Environmental Science & Technology* (ES&T)**, the American Chemical Society's flagship environmental journal — named **Second Joint Winner in the Policy Analysis category** in the editors' awards announced in April 2024.
+We are honored to share that a paper by **[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** has received a **2022 Best Paper Award** from ***Environmental Science & Technology* (ES&T)**, the American Chemical Society's flagship environmental journal — named **Second Joint Winner in the Policy Analysis category** in the editors' awards announced in April 2024.
 
 ### The Winning Paper
 

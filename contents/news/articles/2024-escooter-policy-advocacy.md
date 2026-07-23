@@ -1,4 +1,4 @@
-**Prof. I-Yun Lisa Hsieh** took the lab's e-scooter research into Taiwan's national policy debate through the *Commercial Times* (工商時報), in a December 2024 article titled [*「謝依芸：棍子＋補助 加速機車電動化轉型」*](https://www.ctee.com.tw/news/20241218700176-439901) — "Sticks plus subsidies: accelerating the electrification of motorcycles." The piece ran as Taiwan's National Climate Change Committee prepared new 2032 carbon-reduction targets, with academia and industry proposing a flagship program for electric two-wheelers.
+**[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** took the lab's e-scooter research into Taiwan's national policy debate through the *Commercial Times* (工商時報), in a December 2024 article titled [*「謝依芸：棍子＋補助 加速機車電動化轉型」*](https://www.ctee.com.tw/news/20241218700176-439901) — "Sticks plus subsidies: accelerating the electrification of motorcycles." The piece ran as Taiwan's National Climate Change Committee prepared new 2032 carbon-reduction targets, with academia and industry proposing a flagship program for electric two-wheelers.
 
 ### The Policy Case
 

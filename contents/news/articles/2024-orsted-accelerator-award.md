@@ -1,4 +1,4 @@
-We are proud to announce that **HydrogenE3**, a student team led by **Associate Professor I-Yun Lisa Hsieh**, won the **Excellence Team Award (學生組卓越獎)** at the inaugural **Ørsted Sustainable Innovation Accelerator (沃旭永續創新加速器)**. The winners were unveiled in October 2024 at Energy Taiwan (台灣國際智慧能源週), with HydrogenE3 prevailing among nearly **70 proposals** submitted to the competition's first edition and taking home the student-division prize of **NT$300,000**.
+We are proud to announce that **HydrogenE3**, a student team led by **[Associate Professor I-Yun Lisa Hsieh](/members/iyunlisahsieh/)**, won the **Excellence Team Award (學生組卓越獎)** at the inaugural **Ørsted Sustainable Innovation Accelerator (沃旭永續創新加速器)**. The winners were unveiled in October 2024 at Energy Taiwan (台灣國際智慧能源週), with HydrogenE3 prevailing among nearly **70 proposals** submitted to the competition's first edition and taking home the student-division prize of **NT$300,000**.
 
 ### The Winning Proposal
 

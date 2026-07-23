@@ -1,4 +1,4 @@
-**Prof. I-Yun Lisa Hsieh** brought the lab's research to a broad public audience with a column in **The News Lens (關鍵評論網)**, one of Taiwan's leading digital media outlets: [*「2030年電動車全面替代燃油車願景中，退役電池和車聯網都是「能源永續」的一環」*](https://www.thenewslens.com/article/204563) — arguing that in the vision of fully replacing fuel vehicles by 2030, retired batteries and connected vehicles are both pieces of the energy-sustainability puzzle.
+**[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** brought the lab's research to a broad public audience with a column in **The News Lens (關鍵評論網)**, one of Taiwan's leading digital media outlets: [*「2030年電動車全面替代燃油車願景中，退役電池和車聯網都是「能源永續」的一環」*](https://www.thenewslens.com/article/204563) — arguing that in the vision of fully replacing fuel vehicles by 2030, retired batteries and connected vehicles are both pieces of the energy-sustainability puzzle.
 
 ### The Argument
 

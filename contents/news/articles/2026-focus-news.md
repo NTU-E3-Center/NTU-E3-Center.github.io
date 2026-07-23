@@ -10,7 +10,7 @@ Led by **Associate Professor Lisa Hsieh**, this project marks a pivotal shift fr
 - **Industrial Validation:** Working closely with MIRDC to ensure these models are robust enough for real-world industrial frameworks, supporting Taiwan’s 2050 Net-Zero goals.
 
 ### A Synergy of Expertise
-The project integrates **Ørsted’s** global operational insights, **MIRDC’s** technical validation expertise, and the **E3 Center’s** strength in data-driven optimization. We would like to recognize team members **Jun-Wei (Gary) Ding** and **Chih-Ya Cheng** for their dedicated work in launching these advanced models.
+The project integrates **Ørsted’s** global operational insights, **MIRDC’s** technical validation expertise, and the **E3 Center’s** strength in data-driven optimization. We would like to recognize team members **[Jun-Wei (Gary) Ding](/members/junweiding/)** and **[Chih-Ya Cheng](/members/chihyacheng/)** for their dedicated work in launching these advanced models.
 
 ### Looking Ahead
 With the project now officially underway and recognized by **Focus News (焦點時報)**, we look forward to the validation phase and sharing more updates on how these AI-driven systems will drive the intelligence and resilience required for a sustainable energy transition.

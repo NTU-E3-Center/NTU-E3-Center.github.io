@@ -1,4 +1,4 @@
-**Prof. I-Yun Lisa Hsieh** has joined the **Editorial Board of [*Communications Earth & Environment*](https://www.nature.com/commsenv/)**, an open-access journal from **Nature Portfolio** publishing high-quality research, reviews, and commentary across the Earth, environmental, and planetary sciences.
+**[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** has joined the **Editorial Board of [*Communications Earth & Environment*](https://www.nature.com/commsenv/)**, an open-access journal from **Nature Portfolio** publishing high-quality research, reviews, and commentary across the Earth, environmental, and planetary sciences.
 
 ### The Role
 

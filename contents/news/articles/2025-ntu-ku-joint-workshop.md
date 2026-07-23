@@ -1,7 +1,7 @@
 **Date:** November 20, 2025  
 **Location:** Room 1206, National Center for Research on Earthquake Engineering (NCREE), National Taiwan University (NTU)
 
-On November 20, the E3 Center was delighted to welcome <a href="https://sites.google.com/site/sunbinyootokyo/" target="_blank" rel="noopener">Dr. Sunbin Yoo</a> and her research team from Kyushu University to National Taiwan University for the **NTU × Kyushu University Joint Workshop** — a full day of international academic exchange bridging Taiwan and Japan. Led by Dr. I-Yun Lisa Hsieh (NTU E3 Center) and Dr. Sunbin Yoo (Kyushu University), the two teams gathered to share their latest research and find common ground across energy, transportation, the environment, and societal well-being.
+On November 20, the E3 Center was delighted to welcome <a href="https://sites.google.com/site/sunbinyootokyo/" target="_blank" rel="noopener">Dr. Sunbin Yoo</a> and her research team from Kyushu University to National Taiwan University for the **NTU × Kyushu University Joint Workshop** — a full day of international academic exchange bridging Taiwan and Japan. Led by [Dr. I-Yun Lisa Hsieh](/members/iyunlisahsieh/) (NTU E3 Center) and Dr. Sunbin Yoo (Kyushu University), the two teams gathered to share their latest research and find common ground across energy, transportation, the environment, and societal well-being.
 
 ### Two Teams, One Shared Mission
 After opening remarks and short introductions to each lab, students and researchers from both universities took the stage to present ongoing work. The program was deliberately bilateral — NTU and Kyushu talks alternated throughout the day, giving everyone the chance to compare methods, datasets, and perspectives across very different national contexts.

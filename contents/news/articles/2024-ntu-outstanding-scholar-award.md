@@ -1,4 +1,4 @@
-We are proud to share that **Associate Professor I-Yun Lisa Hsieh** has been named an **NTU Outstanding Scholar (臺大拔萃學者)** for August 2024 through July 2027, awarded as the **Tsung Cho-Chang Outstanding Scholar (宗倬章先生拔萃學者)** — and, as the university's official records note, this is her **second time** receiving the distinction (第2次獲獎).
+We are proud to share that **[Associate Professor I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** has been named an **NTU Outstanding Scholar (臺大拔萃學者)** for August 2024 through July 2027, awarded as the **Tsung Cho-Chang Outstanding Scholar (宗倬章先生拔萃學者)** — and, as the university's official records note, this is her **second time** receiving the distinction (第2次獲獎).
 
 ### Back-to-Back Recognition
 

@@ -1,4 +1,4 @@
-We are delighted to share that **Prof. I-Yun Lisa Hsieh** has received the **Outstanding Teaching Award (優良教學獎)** from National Taiwan University — the university's annual recognition of teaching excellence among its faculty.
+We are delighted to share that **[Prof. I-Yun Lisa Hsieh](/members/iyunlisahsieh/)** has received the **Outstanding Teaching Award (優良教學獎)** from National Taiwan University — the university's annual recognition of teaching excellence among its faculty.
 
 ### Teaching as Part of the Mission
 

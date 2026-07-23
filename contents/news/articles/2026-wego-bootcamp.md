@@ -9,12 +9,12 @@ Our goal was simple: to introduce the basics of the energy transition while givi
 
 ### Foundational Knowledge and Real-World Context
 
-To set the stage, the bootcamp began with expert presentations framing both the global and local energy landscapes. Dr. I-Yun Lisa Hsieh, Director of the E3 Center, discussed the overarching global trends in the energy transition, highlighting how countries worldwide are investing heavily in early energy education to prepare future talent. Following this, Cheng-Hsiang Hsieh zoomed in on Taiwan's solar sector, unpacking the benefits to various stakeholders alongside the specific policies and challenges involved in its implementation.
+To set the stage, the bootcamp began with expert presentations framing both the global and local energy landscapes. [Dr. I-Yun Lisa Hsieh](/members/iyunlisahsieh/), Director of the E3 Center, discussed the overarching global trends in the energy transition, highlighting how countries worldwide are investing heavily in early energy education to prepare future talent. Following this, Cheng-Hsiang Hsieh zoomed in on Taiwan's solar sector, unpacking the benefits to various stakeholders alongside the specific policies and challenges involved in its implementation.
 
 ![Prof. Hsieh giving speech](/assets/news/2026-wego-bootcamp/1.jpg)
 ![Cheng-Hsiang Hsieh giving speech](/assets/news/2026-wego-bootcamp/2.jpg)
 
-To further ground the students before their discussions, Yi-Ya Yu, a Master's student at the E3 Center, outlined Taiwan’s recent energy milestones. She introduced essential topics like the 2050 net-zero emissions target, the growing share of renewables, and the inevitable trade-offs inherent in any energy transition. This context helped students grasp real-world policy constraints, enabling them to evaluate the impacts of different energy options from a more comprehensive perspective.
+To further ground the students before their discussions, [Yi-Ya Yu](/members/yiyayu/), a Master's student at the E3 Center, outlined Taiwan’s recent energy milestones. She introduced essential topics like the 2050 net-zero emissions target, the growing share of renewables, and the inevitable trade-offs inherent in any energy transition. This context helped students grasp real-world policy constraints, enabling them to evaluate the impacts of different energy options from a more comprehensive perspective.
 
 ### Hands-On Learning and Interactive Choices
 
