@@ -6,7 +6,7 @@ The Center's Lab Spotlight page, hosted under the College of Engineering, presen
 
 ### A Track Record of Crossing Borders
 
-The invitation reflects collaboration already underway. The profile highlights the Center's partnership with the **Urban Institute at Kyushu University**, running since 2023 across joint research, personnel exchange, and student exchange — a relationship that has since produced the [NTU × Kyushu University Joint Workshop on Energy, Mobility, and Sustainability](/news/2025-ntu-ku-joint-workshop/). The Center's international engagements have continued to widen, from the [NTU–University of Glasgow joint seminar](/news/2026-ntu-ug-joint-seminar/) to research partnerships spanning Asia and Europe.
+The invitation reflects collaboration already underway. The profile highlights the Center's partnership with the **Urban Institute at Kyushu University**, running since 2023 across joint research, personnel exchange, and student exchange — a relationship that has since produced the [NTU × Kyushu University Joint Workshop on Energy, Mobility, and Sustainability](/news/2025-ntu-ku-joint-workshop/). The Center's international engagements have continued to widen, from the [NTU–University of Groningen joint seminar](/news/2026-ntu-ug-joint-seminar/) to research partnerships spanning Asia and Europe.
 
 For institutions and researchers exploring collaboration with the Center, the Lab Spotlight profile — and this website — are the places to start.
 
