@@ -26,6 +26,9 @@ def generate_meta_description(primary, *fallback_sources, max_chars=160, min_cha
         if not raw:
             continue
         cleaned = _normalize_punctuation(_collapse_whitespace(raw))
+        # Templates interpolate this into content="..." without autoescape,
+        # so a raw double quote would terminate the attribute early.
+        cleaned = cleaned.replace('"', "'")
         if not cleaned:
             continue
         return _truncate_at_word_boundary(cleaned, max_chars, min_chars)

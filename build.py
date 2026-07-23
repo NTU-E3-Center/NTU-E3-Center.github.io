@@ -862,6 +862,12 @@ def validate_seo():
 
 def _check_page(soup, rel, warn, descriptions):
     """All per-page checks live here. Implemented in Task 6.2."""
+    # 0. Pages marked noindex (e.g. the /editor dashboard) are invisible to
+    # search engines, so none of the SEO checks below apply to them.
+    robots = soup.find("meta", attrs={"name": "robots"})
+    if robots and "noindex" in (robots.get("content") or "").lower():
+        return
+
     # 1. Description length + duplicate detection
     desc_tag = soup.find("meta", attrs={"name": "description"})
     desc = (desc_tag.get("content", "") if desc_tag else "").strip()
