@@ -17,23 +17,32 @@ color: var(--main-color)
 opacity: 0.4
 ```
 
-Used by `.mem-group-title`, `.news-cat-title`, `.publi-group-title`, `.news-item-category`. **New label-style text must adopt this exact recipe** — see finding [E-1] in [`README.md`](./README.md) for the one place it once drifted.
+Used by `.mem-group-title`, `.news-cat-title`, `.publi-group-title`, `.news-item-category`, `.news-jump-label`. **New label-style text must adopt this exact recipe** — see finding [E-1] in [`README.md`](./README.md) for the one place it once drifted.
+
+**Category-colored variant:** on the news detail page, `.news-item-category[data-cat]` swaps `opacity 0.4` for full-opacity `var(--cat-*-text)` so the category is legible at a glance. Same geometry, color instead of dimming — see `color.md` § News Category Tokens.
 
 ---
 
 ## Status / Category Badge
 
 ```
-font-size: 0.625rem
-font-weight: 600
+font-size: var(--fs-badge)
+font-weight: var(--fw-heading)
 text-transform: uppercase
 letter-spacing: 0.1em
 padding: 0.15rem 0.55rem
-line-height: 1.6
-color: status-specific (var(--r-*))
+line-height: var(--lh-badge)
+color: var(--cat-*-text)  (news categories)  |  var(--r-*)  (publication status)
+background: 13–22% tint of the raw category hue (--cat-*)
 ```
 
-Used by `.publi-status-badge` and `.news-row-badge`. On mobile shrink the font to **0.5625 rem**.
+Used by `.publi-status-badge` and `.news-row-badge`. Never restate the size in
+rem — the ≤37.5rem `:root` bumps `--fs-badge` to the mobile floor automatically.
+
+**Phone demotion:** at ≤37.5rem the news badge drops its pill background and
+renders as a bare `--cat-*-text` label (`subpage.css`, news phone block) — the
+capsule reads as loud as the shrunken row title, and the color alone carries
+the coding. Publication status badges keep their pill at all sizes.
 
 ---
 

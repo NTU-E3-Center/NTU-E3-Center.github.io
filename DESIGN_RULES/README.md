@@ -79,6 +79,14 @@ Severity: **[H]** high · **[M]** medium · **[L]** low. Status: **✅** resolve
 - **[R-1] [L] 🟡** Only `.news-item-title` uses `clamp()`. Rule for new components: prefer `clamp(min, vw, max)` over three breakpoint overrides for hero-tier text. Captured in `responsive.md`.
 - **[R-2] [L] 🟡** Tablet (`@64rem`) does not scale the root. Verify each new component at 900 px width. Captured in `responsive.md`.
 
+### 2026-07 News-Redesign Audit
+
+- **[N-1] [M] ✅** News category colors tokenized: `--cat-*` (badge hue) + `--cat-*-text` (hue deepened toward `--main-color` for bare text) in `general.css :root`, consumed by `subpage.css` and `news-item.css`. Rule: category colors change at the token, never per-file. See `color.md` § News Category Tokens.
+- **[N-2] [M] ✅** Badge pill text switched from raw `--r-*` hues (≈2.1–2.7:1 on the tint) to the `--cat-*-text` tier — same hue family, WCAG-safe. Pill tints keep the raw hue so the colorful identity is unchanged.
+- **[N-3] [L] 🟡** News-listing thumbnails and inline article images render flat (0.375rem radius) — documented skew-motif exception in `layout.md`.
+- **[N-4] [L] ✅** News hairlines migrated to `var(--line-soft)`; `.news-jump-label` aligned to the eyebrow recipe (0.14em); `.news-jump-link` opacity raised to the 0.6 interactive floor.
+- **[N-5] [L] ✅** Doc refresh: weight ladder, v3 type-scale tokens, Google Fonts range (400..600), `--header-h` values, and the mobile LABEL-group bump now match `general.css`; stale per-rem tables replaced with token references.
+
 ### House-keeping
 
 - **[K-1] [L] ✅** `--fs-*` design tokens declared in `general.css :root` (additive — Display-XL/L/M/S, Heading-L/M/S, Body-XL/L/Body/Base/S, Caption/-S, Eyebrow, Badge). Existing CSS still uses hard-coded rem; new CSS should reach for these tokens first.

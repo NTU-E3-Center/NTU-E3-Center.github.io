@@ -11,7 +11,7 @@ Part of [DESIGN_RULES/](./README.md). Covers spacing tokens, the signature skewe
 | `--gutter-x` | `clamp(2.5rem, 6vw, 6rem)` | `clamp(2rem, 5vw, 4rem)` | `2rem` | Horizontal section gutter — the **single** source of left/right inset. |
 | `--section-pad-y` | `8rem` | `6rem` | `4rem` | Vertical padding on each top-level section. |
 | `--section-title-gap` | `2.5rem` | `2rem` | `1.5rem` | Gap between `.section-title` and the first content row. |
-| `--header-h` | `7.25rem` | `5rem` | `2.75rem` | Fixed-header height (used to vertically center the menu button). |
+| `--header-h` | `5.5rem` | `4.5rem` | `2.75rem` | Fixed-header height (menu-button centering, sticky offsets like the news year rail). |
 | `--menu-btn-h` | `2.5rem` | `2.75rem` | `2rem` | Menu button height. |
 | `--para-max-width` | `60rem` | — | — | Max measure for body paragraphs. |
 
@@ -66,6 +66,8 @@ The signature brand primitive. **Every card, button, image, photo, chip, and for
 | **Active** | snaps to `0` | back to base | back to base |
 
 > **Rule:** Any new surface — card, button, image, chip, input — is a `.skewed-block`. Never introduce a flat-bordered or soft-shadowed surface. Children must counter-skew (`+3deg`) so their content reads upright. Hover always does three things at once: nudge up-left, grow the shadow, double the radius.
+
+**Documented exceptions (flat, 0.375rem radius, no border/shadow):** inline article images in `.news-item-body` and the news-listing thumbnails (`.news-row-thumb`). Dense repeating imagery inside prose or rows would turn the skew motif into noise — these render flat by design. Filter pills (`.news-filter-tab`), show-more pills (`.publi-show-more`, `.news-show-older`) are flat outlined controls by the same precedent.
 
 ---
 

@@ -36,8 +36,9 @@ Triggers:
 - `html { font-size: 87.5% }` → every rem auto-shrinks 12.5%
 - Per-component overrides under `@media (max-width: 37.5rem)`
 - Layouts collapse to single column; hamburger replaces side rail
-- Hero h1: 2.25 rem; section titles: 2 rem; body article: 1 rem; eyebrow: 0.625 rem
-- Minimum readable size on mobile = **0.75 rem (10.5 px)**. Anything smaller (e.g. `.news-row-badge` at 0.5625 rem ≈ 7.9 px) is borderline — see findings [A-1] in [`README.md`](./README.md).
+- Hero h1: 2 rem; body article prose: 1 rem (via `--fs-prose` in the news phone block)
+- The LABEL token group **bumps up** at this breakpoint (`--fs-eyebrow` 0.8125, `--fs-badge` 0.75) so labels clear the floor at the 87.5% root — components must reference the tokens, never restate label sizes in rem
+- Minimum readable size on mobile = **0.75 rem (10.5 px at 14 px root)**
 
 ## Tablet (`601 – 1024 px`, root 16 px)
 

@@ -16,6 +16,10 @@ Part of [DESIGN_RULES/](./README.md). Covers brand color tokens, the text-emphas
 | `--main-bg-color` | `#ffffff` | Page surfaces. |
 | `--page-bg-color` | `#f7fafb` | Subtle off-white for subpages. |
 | `--r-{red,orange,yellow,green,blue,indigo,purple}` | rainbow | Status badges, category badges (news, publications). |
+| `--link-color` | `#1a6489` | Inline prose links — 6.2:1 on `--page-bg-color` (the accent `--main-color-2` fails AA inline). |
+| `--line-soft` | `color-mix(main 12%)` | The single hairline-divider token (news rows, footer rule, chip outlines). Don't hand-roll new 10–16% mixes. |
+| `--cat-{faculty,student,media,events,outreach}` | per category | News category hues (badge tier). See § News Category Tokens. |
+| `--cat-*-text` | per category | Category hues deepened toward `--main-color` for bare uppercase text. |
 | `--selection-color` | `#0a557edd` | Text selection background. |
 
 > **Rule:** All text defaults to `--main-color`. Hierarchy is expressed through **opacity** (0.4 → 0.55 → 0.7 → 1.0), not through different greys. Accent colors only for badges, decorative bars, and brand marks.
@@ -46,5 +50,33 @@ Apply by changing **opacity** on the same `var(--main-color)`, not by switching 
 | Color | Use only for |
 |---|---|
 | `--main-color-2` (#4caedd) | Member-row primary position line (`.mem-row-position p:first-child`) |
-| `--secondary-color` (#c4c691) | h3 decorative underline bar (`general.css:498–512`), homepage "3E" dot, section-subtitle icons |
-| `--r-green` etc. | Status / category badges only |
+| `--secondary-color` (#c4c691) | h3 decorative underline bar, homepage "3E" dot, section-subtitle icons |
+| `--r-green` etc. | Status badges (publications) and as the base hues behind `--cat-*` |
+| `--cat-*` / `--cat-*-text` | News category coding — see below |
+
+---
+
+## News Category Tokens
+
+The five news categories each own one hue, defined once in `general.css :root`
+and consumed by `.news-row-badge` (subpage.css) and `.news-item-category`
+(news-item.css). **Never restate a category color per-file — change the token.**
+
+| Category | Badge tier `--cat-*` | Text tier `--cat-*-text` |
+|---|---|---|
+| Faculty Honors | olive (secondary 70% + #4a4a00) | secondary 45% + main |
+| Student Awards | `--r-green` | green 55% + main |
+| In the Media | `--r-indigo` | indigo 55% + main |
+| Events and Exchanges | `--main-color-2` | accent 50% + main |
+| Education and Outreach | `--r-orange` 85% + #000 | orange 50% + main |
+
+Two tiers, one rule:
+
+- **Badge tier** — the raw hue. Use it only for the pill's *tint background*
+  (13–22% mix over transparent). Pill **text** uses the text tier.
+- **Text tier** — the hue mixed toward `--main-color` (navy). Use it whenever
+  category-colored text sits on the page background with no tint behind it:
+  the detail-page category eyebrow, and the phone listing label (where the
+  pill demotes to a bare label). This is the *only* sanctioned way to derive
+  a new text color from an accent hue — mix toward `--main-color`, never
+  toward black or an arbitrary grey.

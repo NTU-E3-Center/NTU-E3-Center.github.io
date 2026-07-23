@@ -109,26 +109,45 @@ Three card sizes (Leader / Medium / Small):
 
 ## News
 
-### News Rows (homepage `/news/` and subpage `subpage.css:646–751`)
+### News Listing (`/news/` — year-grouped; homepage rows share `.news-row`)
+
+The subpage listing groups rows under a sticky year rail (`subpage.css`
+§ Year-grouped news listing, scoped to `.news-subpage` so the shared
+`.news-row` base used by publications and the homepage stays untouched).
+
+- **Filter tabs** — six (`All` + the five categories in `color.md` § News
+  Category Tokens), WAI-ARIA tablist with roving tabindex; filtering hides
+  rows by `data-cat` and collapses empty year groups.
+- **Year rail** — `.news-year-label` at `--fs-h3`, `--fw-display`, sticky
+  below the fixed header. On phones the rail collapses and the label becomes
+  a sticky full-width bar with `--page-bg-color` behind it.
+- **Jump nav** — `.news-jump-label` uses the eyebrow recipe; `.news-jump-link`
+  at `--fs-secondary`, opacity 0.6 ([C-1] floor for interactive text).
+- **Collapse** — the three most recent years render expanded; older years sit
+  behind `.news-show-older` (same flat-pill language as `.publi-show-more`).
+  Category filters and jump links into the archive auto-expand it.
+- **Thumbnails** — rows whose detail page has a hero show `.news-row-thumb`
+  (200w WebP variant, flat with 0.375rem radius — a documented skew-motif
+  exception, see `layout.md`).
 
 | Element | Desktop | Tablet | Mobile |
 |---|---|---|---|
-| `.news-row-mm` (month) | 0.8125 rem, weight 600, opacity 0.45 | 0.75 rem | 0.625 rem |
-| `.news-row-yy` (year) | 1.375 rem, `--fw-h1`, −0.025em | 1.125 rem | 0.9375 rem |
-| `.news-row-title` | 1.125 rem, line-height 1.5 | 1 rem | 0.875 rem |
-| `.news-row-badge` (category) | **0.625 rem**, weight 600, uppercase, 0.1em | — | **0.5625 rem** |
-| `.news-cat-title` (eyebrow) | 0.6875 rem, uppercase, 0.14em, opacity 0.4 | — | — |
-| `.news-filter-tab` | 0.875 rem, weight 600 | 0.8125 rem | 0.75 rem |
+| `.news-row-mm` (month) | `--fs-secondary`, weight 600, opacity 0.45 | `--fs-eyebrow` | `--fs-eyebrow` (token-bumped) |
+| `.news-year-label` | `--fs-h3` | `--fs-lede` | `--fs-body`, sticky bar |
+| `.news-row-title` | `--fs-body`, lh 1.5 | `--fs-body-base` | `--fs-secondary` |
+| `.news-row-badge` | `--fs-badge` pill, `--cat-*-text` on `--cat-*` tint | — | bare `--cat-*-text` label, no pill |
+| `.news-row-thumb` | 4.5×3 rem | 4×2.75 rem | 3.5×2.5 rem |
+| `.news-filter-tab` | `--fs-secondary`, weight 600 | same, tighter padding | `--fs-eyebrow` |
 
 ### News Article Page (`news-item.css`)
 
 | Element | Desktop | Tablet | Mobile |
 |---|---|---|---|
-| `.news-item-category` (eyebrow) | 0.6875 rem, uppercase, 0.14em, opacity 0.4 | — | 0.625 rem |
+| `.news-item-category` (eyebrow) | `--fs-eyebrow`, uppercase, 0.14em, full-opacity `--cat-*-text` (opacity 0.4 fallback when uncategorized) | — | `--fs-badge` |
 | `.news-item-title` (h1) | `clamp(1.75rem, 4vw, 2.75rem)` | 1.625 rem | 1.375 rem |
 | `.news-item-date-mm` | 0.9375 rem, opacity 0.7 | — | 0.75 rem |
 | `.news-item-date-yy` | 1.5 rem, `--fw-h1`, −0.025em | — | 1.125 rem |
-| `.news-item-body` (paragraph) | **1.25 rem**, line-height **1.70** | — | 1 rem, line-height 1.6 |
+| `.news-item-body` (paragraph) | `--fs-body` via `--fs-prose`, line-height **1.70** | — | `--fs-body-base` via the `--fs-prose` override |
 | `.news-item-body h2` | 1.875 rem | — | 1.375 rem |
 | `.news-item-body h3` | 1.5 rem | — | 1.125 rem |
 | `.news-item-body h4` | 1.25 rem | — | 1 rem |

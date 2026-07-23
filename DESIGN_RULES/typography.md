@@ -13,17 +13,19 @@ Part of [DESIGN_RULES/](./README.md). Covers font families, weight scale, the ty
 - **Outfit** carries Latin glyphs; **Noto Sans TC** carries Traditional Chinese glyphs. They are visually paired (geometric, even x-height).
 - The universal selector forces this stack on every node — do not override per-component.
 
-## Font Weight Scale (`--fw-*` in `general.css:133–138`)
+## Font Weight Scale (`--fw-*` in `general.css :root`)
+
+Consolidated three-rung ladder (v3). The old `--fw-h1/h2/h3` names survive as
+aliases of `--fw-display`.
 
 | Token | Value | Use |
 |---|---|---|
-| `--fw-h1` | `600` | h1, hero, page titles, large numeric markers (news year, breadcrumb parent) |
-| `--fw-h2` | `550` | h2, contact-lead |
-| `--fw-h3` | `500` | h3 |
-| `--fw-body` | `500` | All body, paragraphs, default text |
-| `--fw-bold` | `600` | `<b>`, `<strong>`, emphasis |
+| `--fw-light` | `400` | De-emphasised text: Zh subtitles, DOI mono, "sub" labels |
+| `--fw-body` | `450` | Default running text |
+| `--fw-display` | `500` | h1 / h2 / h3 — size carries the hierarchy, weight only whispers |
+| `--fw-heading` (= `--fw-bold`) | `600` | Eyebrows, badges, button labels, `<strong>` — small UI text needs the weight to read |
 
-**Loaded from Google Fonts:** `Outfit:wght@300..600` and `Noto+Sans+TC:wght@300..600`. Weights 300 (`.breadcrumb-sep`) and 400 (`.contact-info-sub`) load instead of being synthesized.
+**Loaded from Google Fonts:** `Outfit:wght@400..600` and `Noto+Sans+TC:wght@400..600`. Nothing lighter than 400 is used anywhere, so the 300 range is no longer requested.
 
 ---
 
@@ -41,30 +43,29 @@ All values are in `rem` (relative to the root font size — see [`responsive.md`
 
 > No `h4`/`h5`/`h6` base rule exists. They appear only inside the news article body (see [`components.md`](./components.md) § News Article Page).
 
-### Visual Type Scale (single authoritative ladder)
+### Visual Type Scale (v3 tokens — the single authoritative ladder)
 
-Use this ladder when introducing new typography. Numbers below are the **desktop** size; multiply by 0.7 for tablet and 0.55–0.7 for mobile (see [`components.md`](./components.md) for exact mobile overrides).
+Nine tokens in three groups, defined in `general.css :root`. New CSS must use
+the tokens, never raw rem. The older 17-tier names (Display-XL … Caption-S)
+survive only as deprecated aliases mapped onto these tokens.
 
-| Tier | rem | px | Use |
-|---|---|---|---|
-| Display-XL | 4.00 | 64 | `.section-title h2` (homepage section titles only) |
-| Display-L  | 3.50 | 56 | `h1` baseline / news-item h1 ceiling |
-| Display-M  | 3.00 | 48 | Homepage hero `#home .hp-title h1` |
-| Display-S  | 2.75 | 44 | Breadcrumb parent, member-profile h1, contact-lead, PI member row |
-| Heading-L  | 2.25 | 36 | `h2` baseline, member-profile h2, member-row name |
-| Heading-M  | 1.75 | 28 | `h3` baseline, member-leader EN name |
-| Heading-S  | 1.50 | 24 | Publication title, news-item year, member-profile res-tag, cursor-text |
-| Body-XL    | 1.375 | 22 | Breadcrumb current, news-row year, plane label |
-| Body-L     | 1.25 | 20 | Section subtitle, slider caption, position-text, footer link, body-lg |
-| Body       | 1.0625 | 17 | Publication subtitle/date, contact-info-value, member-row position |
-| Body-Base  | 1.00 | 16 | Default paragraph |
-| Body-S     | 0.9375 | 15 | Publication authors, mobile body, news-item-date-mm |
-| Caption    | 0.875 | 14 | Filter labels, news filter tabs, show-more |
-| Caption-S  | 0.8125 | 13 | Mem-tag, news-row month, secondary-meta, mobile mem-info |
-| Eyebrow    | 0.6875 | 11 | Group titles (members/news/publications), contact info labels, news-item category |
-| Badge      | 0.625 | 10 | `.news-row-badge`, `.publi-status-badge` |
+| Group | Token | rem | px | Use |
+|---|---|---|---|---|
+| HEADING | `--fs-h1` | 3.00 | 48 | Page h1, hero |
+| HEADING | `--fs-h2` | 2.25 | 36 | Section h2 |
+| HEADING | `--fs-h3` | 1.75 | 28 | Sub-section h3, news year rail label |
+| CONTENT | `--fs-lede` | 1.375 | 22 | Ledes, news-row year, breadcrumb current |
+| CONTENT | `--fs-body` | 1.125 | 18 | Article prose (via `--fs-prose`), row titles |
+| CONTENT | `--fs-body-base` | 1.00 | 16 | Default paragraph, phone article prose |
+| CONTENT | `--fs-secondary` | 0.875 | 14 | Meta lines, filter tabs, jump links |
+| LABEL | `--fs-eyebrow` | 0.6875 | 11 | Group/category eyebrows |
+| LABEL | `--fs-badge` | 0.625 | 10 | Category/status badge pills |
 
----
+Hierarchy invariant: at every breakpoint, the smallest HEADING size stays
+larger than the largest CONTENT size. On phones (≤37.5rem) the `:root`
+re-declares the ladder (h1 2rem … body 1.125rem) and **bumps** the LABEL
+group (eyebrow 0.8125, badge 0.75) so labels clear the WCAG floor at the
+87.5% root — never shrink a label below its token on mobile.
 
 ## Line-Height & Letter-Spacing Conventions
 
