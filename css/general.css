@@ -523,6 +523,26 @@ i {
     --r-indigo: #5f739d;
     --r-purple: #986b9b;
 
+    /* News category tokens — one hue per category, two tiers each.
+       --cat-*      badge tier: the raw hue; pills pair it with a 13–22%
+                    tint of the same hue behind darkened text.
+       --cat-*-text text tier: the hue deepened toward the brand navy for
+                    uppercase text that sits directly on the page background
+                    (detail-page eyebrow, phone listing label, pill text) so
+                    it clears WCAG AA while keeping the hue identity.
+       Consumed by .news-row-badge (subpage.css) and .news-item-category
+       (news-item.css) — change categories here, not per-file. */
+    --cat-faculty:       color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
+    --cat-student:       var(--r-green);
+    --cat-media:         var(--r-indigo);
+    --cat-events:        var(--main-color-2);
+    --cat-outreach:      color-mix(in srgb, var(--r-orange) 85%, #000);
+    --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 45%, var(--main-color));
+    --cat-student-text:  color-mix(in srgb, var(--r-green) 55%, var(--main-color));
+    --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--main-color));
+    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 50%, var(--main-color));
+    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 50%, var(--main-color));
+
     --main-light: #b4cbd8;
     --main-3-light: #f4fafc;
     --secondary-light: #eceddd;

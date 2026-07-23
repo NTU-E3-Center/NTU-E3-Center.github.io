@@ -632,7 +632,7 @@
 
 /* Rows container */
 .news-rows {
-    border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
+    border-top: 0.0625rem solid var(--line-soft);
 }
 
 /* Individual row */
@@ -643,7 +643,7 @@
     gap: var(--space-6);
     padding-block: var(--space-4);
     /* No padding-inline — first column aligns with the section gutter. */
-    border-bottom: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
+    border-bottom: 0.0625rem solid var(--line-soft);
     text-decoration: none;
 }
 
@@ -732,19 +732,31 @@
     border-radius: 2rem;
     line-height: var(--lh-eyebrow);
 
-    &[data-cat="Events and Exchanges"] {
-        color: var(--main-color-2);
-        background: color-mix(in srgb, var(--main-color-2) 13%, transparent);
-    }
-
-    &[data-cat="Honors and Recognitions"] {
-        color: color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
+    /* Text uses the deepened --cat-*-text tier (WCAG-safe on the pale
+       tint); the tint keeps the raw category hue so pills stay colorful. */
+    &[data-cat="Faculty Honors"] {
+        color: var(--cat-faculty-text);
         background: color-mix(in srgb, var(--secondary-color) 22%, transparent);
     }
 
-    &[data-cat="Community and Outreach"] {
-        color: var(--r-green);
-        background: color-mix(in srgb, var(--r-green) 13%, transparent);
+    &[data-cat="Student Awards"] {
+        color: var(--cat-student-text);
+        background: color-mix(in srgb, var(--cat-student) 13%, transparent);
+    }
+
+    &[data-cat="In the Media"] {
+        color: var(--cat-media-text);
+        background: color-mix(in srgb, var(--cat-media) 13%, transparent);
+    }
+
+    &[data-cat="Events and Exchanges"] {
+        color: var(--cat-events-text);
+        background: color-mix(in srgb, var(--cat-events) 13%, transparent);
+    }
+
+    &[data-cat="Education and Outreach"] {
+        color: var(--cat-outreach-text);
+        background: color-mix(in srgb, var(--r-orange) 14%, transparent);
     }
 }
 
@@ -769,6 +781,225 @@
         display: block;
         fill: var(--main-color);
         transition: translate var(--hover-transition-time);
+    }
+}
+
+/* ── Year-grouped news listing ──────────────────────────────────────────
+   The listing page groups rows under a sticky year label in a left rail.
+   Scoped to .news-subpage so the shared .news-row base (also used by the
+   publications page and the home news section) is untouched. */
+
+.news-subpage .news-filter-bar {
+    margin-block-end: var(--space-5);
+}
+
+.news-jump {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-4);
+    margin-block-end: var(--space-12);
+}
+
+.news-jump-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: var(--fw-heading);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+    opacity: 0.4;
+}
+
+.news-jump-link {
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    color: var(--main-color);
+    opacity: 0.6;
+    text-decoration: none;
+    border-block-end: 0.0625rem solid transparent;
+    transition:
+        opacity var(--hover-transition-time),
+        border-color var(--hover-transition-time);
+
+    &:hover {
+        opacity: 1;
+        border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.25rem;
+    }
+}
+
+.news-year-group {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    column-gap: var(--space-6);
+    align-items: start;
+    /* Anchor jumps land below the fixed header. */
+    scroll-margin-block-start: calc(var(--header-h) + var(--space-4));
+
+    & + .news-year-group {
+        margin-block-start: var(--space-10);
+    }
+
+    &[hidden] {
+        display: none !important;
+    }
+}
+
+.news-year-label {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-4));
+    margin: 0;
+    padding-block-start: var(--space-3);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-display);
+    letter-spacing: -0.025em;
+    line-height: var(--lh-h1);
+    color: var(--main-color);
+}
+
+/* Rows inside a year group: the year lives in the rail, so the date column
+   narrows to month-only; an optional thumbnail column appears on rows whose
+   detail page has a hero image. */
+.news-subpage .news-year-group .news-row {
+    grid-template-columns: 3.25rem 1fr auto;
+    gap: var(--space-5);
+}
+
+.news-subpage .news-year-group .news-row--thumb {
+    grid-template-columns: 3.25rem 4.5rem 1fr auto;
+}
+
+.news-row-thumb {
+    width: 4.5rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    display: block;
+}
+
+/* Older years collapsed behind a show-more control (mirrors the
+   publications page's .publi-show-more language). */
+.news-show-older {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1-5);
+    margin: var(--space-10) auto 0;
+    padding: 0.375rem 1.25rem;
+    border: 0.125rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
+    border-radius: 2rem;
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    letter-spacing: 0.01em;
+    color: var(--main-color);
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.55;
+    transition:
+        opacity var(--hover-transition-time),
+        border-color var(--hover-transition-time);
+
+    &:hover {
+        opacity: 0.85;
+        border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.25rem;
+    }
+
+    &[hidden] {
+        display: none !important;
+    }
+
+    & svg {
+        flex-shrink: 0;
+        stroke: currentColor;
+    }
+}
+
+#news-older > .news-year-group:first-child {
+    margin-block-start: var(--space-10);
+}
+
+@media (max-width: 64rem) {
+    .news-subpage .news-filter-bar {
+        margin-block-end: var(--space-4);
+    }
+
+    .news-jump {
+        margin-block-end: var(--space-10);
+    }
+
+    .news-year-group {
+        grid-template-columns: 4rem 1fr;
+        column-gap: var(--space-4);
+    }
+
+    .news-year-label {
+        font-size: var(--fs-lede);
+    }
+
+    .news-subpage .news-year-group .news-row {
+        grid-template-columns: 3rem 1fr auto;
+        gap: var(--space-3-5);
+    }
+
+    .news-subpage .news-year-group .news-row--thumb {
+        grid-template-columns: 3rem 4rem 1fr auto;
+    }
+
+    .news-row-thumb {
+        width: 4rem;
+        height: 2.75rem;
+    }
+}
+
+@media (max-width: 37.5rem) {
+    /* The year rail costs too much width on phones — the label becomes a
+       sticky full-width bar the rows scroll under. */
+    .news-year-group {
+        display: block;
+
+        & + .news-year-group {
+            margin-block-start: var(--space-8);
+        }
+    }
+
+    .news-year-label {
+        top: var(--header-h);
+        z-index: 2;
+        padding-block: var(--space-2);
+        background: var(--page-bg-color);
+        font-size: var(--fs-body);
+    }
+
+    .news-subpage .news-year-group .news-row {
+        grid-template-columns: 3rem 1fr;
+        gap: var(--space-2-5);
+    }
+
+    .news-subpage .news-year-group .news-row--thumb {
+        grid-template-columns: 3rem 3.5rem 1fr;
+    }
+
+    .news-row-thumb {
+        width: 3.5rem;
+        height: 2.5rem;
+    }
+
+    /* Keep jump links comfortably tappable. */
+    .news-jump-link {
+        padding-block: 0.25rem;
+    }
+
+    .news-show-older {
+        font-size: var(--fs-eyebrow);
+        padding: 0.3rem 1rem;
     }
 }
 
@@ -970,9 +1201,18 @@
         line-height: var(--lh-lede);
     }
 
-    .news-row-badge {
-        font-size: var(--fs-eyebrow);
-        padding: 0.1rem 0.4rem;
+    /* On phones the badge demotes from pill to bare eyebrow label: the
+       capsule background reads as loud as the (shrunken) title, and the
+       category color alone carries the coding. Font stays at the bumped
+       --fs-badge token, which is the WCAG floor for this root size.
+       [data-cat] matches the per-category color rules' specificity so the
+       transparent background wins the tie. */
+    .news-row-badge[data-cat] {
+        font-size: var(--fs-badge);
+        letter-spacing: 0.08em;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
     }
 
     /* ── Publications listing ────────────────────────────────────── */
