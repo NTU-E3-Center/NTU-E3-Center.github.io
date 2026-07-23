@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set description = 'News from E3 Center at National Taiwan University — awards, media features, seminars, and events on sustainable energy transition and electrification.' %}
-{% set keywords = 'E3 Center news, E3 group news, NTU sustainable energy news, transportation electrification, renewable energy, hydrogen economy, smart grid, carbon policy, green finance, honors and recognitions, events and exchanges, community and outreach, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學' %}
+{% set keywords = 'E3 Center news, E3 group news, NTU sustainable energy news, transportation electrification, renewable energy, hydrogen economy, smart grid, carbon policy, green finance, faculty honors, student awards, in the media, events and exchanges, education and outreach, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學' %}
 {% set canonicalLink = 'https://e3center.caece.net/news/' %}
 {% block jsonld %}
 <script type="application/ld+json">
@@ -49,132 +49,106 @@
 </script>
 {% endblock %}
 {% block content %}
+{% set badge_label = {
+    'Faculty Honors':         'Faculty',
+    'Student Awards':         'Students',
+    'In the Media':           'Media',
+    'Events and Exchanges':   'Events',
+    'Education and Outreach': 'Outreach'
+} %}
+{% macro news_row(item) %}
+    {% set has_thumb = item.get('thumb') %}
+    {% set tag = 'a' if (item.get('pageLink') or item.get('link')) else 'div' %}
+    <{{ tag }} class="news-row news-row--news{% if has_thumb %} news-row--thumb{% endif %}{% if item.get('pageLink') or item.get('link') %} news-row--link{% endif %}"
+        {%- if item.get('pageLink') %} href="{{ item['pageLink'] }}"
+        {%- elif item.get('link') %} href="{{ item['link'] }}" target="_blank" rel="noopener"
+        {%- endif %} data-cat="{{ item.get('category', '') }}" role="listitem">
+
+        <span class="news-row-mm">{{ item['month'] }}</span>
+
+        {% if has_thumb %}
+        <img class="news-row-thumb" src="{{ item['thumb'] }}" alt="" width="72" height="48"
+             loading="lazy" decoding="async">
+        {% endif %}
+
+        <div class="news-row-body">
+            {% set cat = item.get('category', '') %}
+            {% if cat %}
+            <span class="news-row-badge" data-cat="{{ cat }}">{{ badge_label.get(cat, cat) }}</span>
+            {% endif %}
+            <p class="news-row-title">{{ item['title'] }}</p>
+        </div>
+
+        {% if item.get('pageLink') or item.get('link') %}
+        <span class="news-row-arrow" aria-hidden="true">
+            {% if item.get('pageLink') %}
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+            {% else %}
+            <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
+            {% endif %}
+        </span>
+        {% endif %}
+    </{{ tag }}>
+{% endmacro %}
+{% macro year_group(yg) %}
+    <section class="news-year-group" id="y{{ yg['year'] }}" data-year="{{ yg['year'] }}">
+        <h2 class="news-year-label">{{ yg['year'] }}</h2>
+        <div class="news-rows" role="list">
+            {% for item in yg['items'] %}
+            {{ news_row(item) }}
+            {% endfor %}
+        </div>
+    </section>
+{% endmacro %}
 <section id="news" class="news-subpage">
 
     {# ── Filter bar ─────────────────────────────────────────────────────── #}
-    {# P1·7 — proper tablist contract: each tab has an id, aria-controls
-       points at its panel, roving tabindex (only the selected tab is in
-       the focus order). Arrow-key / Home / End nav is wired in the JS
-       below. Panels carry role="tabpanel" + aria-labelledby. #}
+    {# Tabs filter the single year-grouped list below (rows carry data-cat);
+       roving tabindex + arrow-key nav per the WAI-ARIA tablist pattern. #}
     <div class="news-filter-bar" role="tablist" aria-label="Filter news by category">
         <button id="news-tab-all" class="news-filter-tab is-active" data-filter="all"
                 role="tab" aria-selected="true" aria-controls="news-all" tabindex="0" type="button">All</button>
-        <button id="news-tab-events" class="news-filter-tab" data-filter="Events and Exchanges"
-                role="tab" aria-selected="false" aria-controls="news-events" tabindex="-1" type="button">Events &amp; Exchanges</button>
-        <button id="news-tab-honors" class="news-filter-tab" data-filter="Honors and Recognitions"
-                role="tab" aria-selected="false" aria-controls="news-honors" tabindex="-1" type="button">Honors &amp; Recognitions</button>
-        <button id="news-tab-outreach" class="news-filter-tab" data-filter="Community and Outreach"
-                role="tab" aria-selected="false" aria-controls="news-outreach" tabindex="-1" type="button">Community &amp; Outreach</button>
+        {% for cat_name in ['Faculty Honors', 'Student Awards', 'In the Media', 'Events and Exchanges', 'Education and Outreach'] %}
+        <button id="news-tab-{{ cat_name.lower().replace(' ', '-') }}" class="news-filter-tab" data-filter="{{ cat_name }}"
+                role="tab" aria-selected="false" aria-controls="news-all" tabindex="-1" type="button">{{ cat_name.replace(' and ', ' & ') }}</button>
+        {% endfor %}
     </div>
 
-    {# ── All items (flat, time-sorted, with category badge) ─────────────── #}
+    {# ── Year jump ──────────────────────────────────────────────────────── #}
+    <nav class="news-jump" aria-label="Jump to year">
+        <span class="news-jump-label">Jump to</span>
+        {% for yg in structures['news_years'] %}
+        <a class="news-jump-link" href="#y{{ yg['year'] }}">{{ yg['year'] }}</a>
+        {% endfor %}
+    </nav>
+
+    {# ── Year-grouped list ──────────────────────────────────────────────── #}
+    {% set recent = structures['news_years'][:3] %}
+    {% set older  = structures['news_years'][3:] %}
     <section class="news-all-section" id="news-all" role="tabpanel" aria-labelledby="news-tab-all">
-        <div class="news-rows" role="list">
-            {% for section in structures['news'] %}
-            {% for item in section['items'][::-1] %}
 
-            {% if item.get('pageLink') %}
-            <a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
-            {% elif item.get('link') %}
-            <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener" role="listitem">
-            {% else %}
-            <div class="news-row" role="listitem">
-            {% endif %}
+        {% for yg in recent %}
+        {{ year_group(yg) }}
+        {% endfor %}
 
-                <div class="news-row-date">
-                    <span class="news-row-mm">{{ item['month'] }}</span>
-                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-                </div>
-
-                <div class="news-row-body">
-                    {% set cat = item.get('category', '') %}
-                    {% if cat %}
-                    <span class="news-row-badge" data-cat="{{ cat }}">
-                        {%- if cat == 'Events and Exchanges' -%}Events
-                        {%- elif cat == 'Honors and Recognitions' -%}Honors
-                        {%- elif cat == 'Community and Outreach' -%}Outreach
-                        {%- else -%}{{ cat }}{%- endif -%}
-                    </span>
-                    {% endif %}
-                    <p class="news-row-title">{{ item['title'] }}</p>
-                </div>
-
-                {% if item.get('pageLink') or item.get('link') %}
-                <span class="news-row-arrow" aria-hidden="true">
-                    {% if item.get('pageLink') %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-                    {% else %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    {% endif %}
-                </span>
-                {% endif %}
-
-            {% if item.get('pageLink') or item.get('link') %}
-            </a>
-            {% else %}
-            </div>
-            {% endif %}
-
-            {% endfor %}
+        {% if older %}
+        {% set older_count = older | map(attribute='items') | map('length') | sum %}
+        <button class="news-show-older" id="news-show-older" type="button"
+                aria-expanded="false" aria-controls="news-older">
+            <span>Show {{ older[-1]['year'] }} – {{ older[0]['year'] }} ({{ older_count }} items)</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div id="news-older" hidden>
+            {% for yg in older %}
+            {{ year_group(yg) }}
             {% endfor %}
         </div>
+        {% endif %}
+
     </section>
-
-    {# ── Category sections (hidden by default) ──────────────────────────── #}
-    {% set cat_list = [
-        ('Events and Exchanges',    'events'),
-        ('Honors and Recognitions', 'honors'),
-        ('Community and Outreach',  'outreach')
-    ] %}
-
-    {% for cat_name, cat_slug in cat_list %}
-    <section class="news-cat-section" id="news-{{ cat_slug }}" data-cat="{{ cat_name }}"
-             role="tabpanel" aria-labelledby="news-tab-{{ cat_slug }}" hidden>
-        <h2 class="news-cat-title">{{ cat_name }}</h2>
-        <div class="news-rows" role="list">
-
-            {% for section in structures['news'] %}
-            {% for item in section['items'][::-1] %}
-            {% if item.get('category') == cat_name %}
-
-            {% if item.get('pageLink') %}
-            <a class="news-row news-row--link" href="{{ item['pageLink'] }}" role="listitem">
-            {% elif item.get('link') %}
-            <a class="news-row news-row--link" href="{{ item['link'] }}" target="_blank" rel="noopener" role="listitem">
-            {% else %}
-            <div class="news-row" role="listitem">
-            {% endif %}
-
-                <div class="news-row-date">
-                    <span class="news-row-mm">{{ item['month'] }}</span>
-                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-                </div>
-
-                <p class="news-row-title">{{ item['title'] }}</p>
-
-                {% if item.get('pageLink') or item.get('link') %}
-                <span class="news-row-arrow" aria-hidden="true">
-                    {% if item.get('pageLink') %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-                    {% else %}
-                    <svg><use href="/assets/sprite.svg#svg-arrow-top-right"></use></svg>
-                    {% endif %}
-                </span>
-                {% endif %}
-
-            {% if item.get('pageLink') or item.get('link') %}
-            </a>
-            {% else %}
-            </div>
-            {% endif %}
-
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
-
-        </div>
-    </section>
-    {% endfor %}
 
 </section>
 
@@ -182,7 +156,23 @@
 (function () {
     var tabs     = document.querySelectorAll('.news-filter-tab');
     var allSec   = document.getElementById('news-all');
-    var catSecs  = document.querySelectorAll('.news-cat-section');
+    var rows     = document.querySelectorAll('.news-row--news');
+    var groups   = document.querySelectorAll('.news-year-group');
+    var older    = document.getElementById('news-older');
+    var olderBtn = document.getElementById('news-show-older');
+
+    function expandOlder() {
+        if (!older || !older.hidden) return;
+        older.hidden = false;
+        if (olderBtn) {
+            olderBtn.setAttribute('aria-expanded', 'true');
+            olderBtn.hidden = true;
+        }
+    }
+
+    if (olderBtn) {
+        olderBtn.addEventListener('click', expandOlder);
+    }
 
     function reveal(el) {
         el.hidden = false;
@@ -198,22 +188,24 @@
             var on = t.dataset.filter === filter;
             t.classList.toggle('is-active', on);
             t.setAttribute('aria-selected', on ? 'true' : 'false');
-            /* P1·7 — roving tabindex: only the active tab is in the
-               natural focus order, so Tab into the tablist always lands
-               on the current tab; arrow keys then move within. */
+            /* roving tabindex: only the active tab is in the natural focus
+               order, so Tab into the tablist lands on the current tab. */
             t.setAttribute('tabindex', on ? '0' : '-1');
         });
 
-        if (filter === 'all') {
-            reveal(allSec);
-            catSecs.forEach(function (s) { s.hidden = true; });
-        } else {
-            allSec.hidden = true;
-            catSecs.forEach(function (s) {
-                if (s.dataset.cat === filter) reveal(s);
-                else s.hidden = true;
-            });
-        }
+        /* Filtering a category must search the whole archive, so the
+           collapsed older years expand before rows are toggled. */
+        if (filter !== 'all') expandOlder();
+
+        rows.forEach(function (r) {
+            r.hidden = filter !== 'all' && r.dataset.cat !== filter;
+        });
+        groups.forEach(function (g) {
+            var visible = g.querySelectorAll('.news-row--news:not([hidden])').length;
+            g.hidden = visible === 0;
+        });
+
+        reveal(allSec);
 
         if (opts.focusActive) {
             var active = Array.from(tabs).find(function (t) { return t.dataset.filter === filter; });
@@ -230,11 +222,8 @@
         tab.addEventListener('click', function () { activate(tab.dataset.filter); });
     });
 
-    /* P1·7 — keyboard nav per WAI-ARIA tablist authoring pattern:
-       ArrowLeft / ArrowRight cycles through tabs (wrapping); Home / End
-       jumps to first / last. Activates the new tab AND focuses it so
-       the panel content updates immediately (automatic-activation pattern
-       — appropriate here because revealing a panel is cheap). */
+    /* Keyboard nav per WAI-ARIA tablist pattern: ArrowLeft / ArrowRight
+       cycles (wrapping); Home / End jumps to first / last. */
     var tabList = document.querySelector('.news-filter-bar[role="tablist"]');
     if (tabList) {
         tabList.addEventListener('keydown', function (e) {
@@ -252,13 +241,27 @@
         });
     }
 
-    /* restore from URL hash */
+    /* Year-jump links into the collapsed archive expand it first, then let
+       the default anchor scroll proceed. */
+    document.querySelectorAll('.news-jump-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+            var target = document.querySelector(link.getAttribute('href'));
+            if (target && older && older.contains(target)) expandOlder();
+        });
+    });
+
+    /* restore from URL hash: category filter or collapsed year anchor */
     var hash = window.location.hash.slice(1);
     if (hash) {
         var match = Array.from(tabs).find(function (t) {
             return t.dataset.filter.toLowerCase().replace(/ /g, '-') === hash;
         });
         if (match) { activate(match.dataset.filter); return; }
+        var anchor = document.getElementById(hash);
+        if (anchor && older && older.contains(anchor)) {
+            expandOlder();
+            anchor.scrollIntoView();
+        }
     }
     /* default: show all */
     activate('all');

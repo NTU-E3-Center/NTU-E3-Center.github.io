@@ -206,6 +206,32 @@ structures['members'] = _member_data['members_listing']
 members_by_id = _member_data['members_by_id']
 structures['members_by_id'] = members_by_id
 
+# Annotate news listing items with a small thumbnail when their detail page
+# has a hero image (0.* in contents/news/images/{slug}/). The listing shows
+# the 200w WebP variant emitted by compress_and_convert_images().
+_NEWS_IMG_EXTS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp')
+for _section in structures.get('news', []):
+    for _item in _section.get('items', []):
+        _plink = _item.get('pageLink', '')
+        if not _plink.startswith('/news/'):
+            continue
+        _slug = news_slug_from_pagelink(_plink)
+        _folder = os.path.join('contents', 'news', 'images', _slug)
+        if os.path.isdir(_folder) and any(
+                os.path.exists(os.path.join(_folder, f'0{_e}')) for _e in _NEWS_IMG_EXTS):
+            _item['thumb'] = f'/assets/news/{_slug}/0-200w.webp'
+
+# Year-grouped view for the news listing page: newest year first, items
+# newest-first within each year (source items are oldest-first).
+_news_years = []
+for _section in structures.get('news', []):
+    for _item in _section.get('items', [])[::-1]:
+        _yr = '20' + _item.get('year', "'00")[1:]
+        if not _news_years or _news_years[-1]['year'] != _yr:
+            _news_years.append({'year': _yr, 'items': []})
+        _news_years[-1]['items'].append(_item)
+structures['news_years'] = _news_years
+
 # Filter and sort publications for home page
 if 'publications' in structures:
     home_publications = []
