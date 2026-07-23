@@ -65,13 +65,17 @@ The accompanying month uses ~0.6× the year's size, weight 600, opacity 0.45–0
 
 Item-level "titles" are **not** semantic `<h*>` tags — they live inside rows. Treat them as a tier between Body-L and Heading-S:
 
-| List type | Title rem (desktop) | Class |
+| List type | Title token (desktop → tablet → phone) | Class |
 |---|---|---|
-| News row | 1.125 rem | `.news-row-title` |
-| Publication row | 1.5 rem | `.publi-title` |
+| News / project row | `--fs-body` → `--fs-body-base` → `--fs-secondary` | `.news-row-title` |
+| Publication row | `--fs-lede` → `--fs-body` → `--fs-body-base` | `.publi-title` (via `--_font-size-l`) |
 | Member row (name) | 2.25 rem | `.mem-row-en` |
 
-The 2× spread between news and member is intentional — member rows are page-defining, news rows are dense (finding [I-2]).
+Publications sit exactly **one tier above** news/project rows at every
+breakpoint (finding [I-2] research-output emphasis); meta lines (authors,
+journal, project funder) sit at `--fs-secondary`, dropping to `--fs-eyebrow`
+on phones. The larger member-row spread is intentional — member rows are
+page-defining, news rows are dense.
 
 ---
 
