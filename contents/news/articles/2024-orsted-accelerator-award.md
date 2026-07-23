@@ -14,7 +14,7 @@ The team brought together doctoral, master's, and undergraduate students, and th
 
 Co-organized by **Ørsted (沃旭能源)** and the **Metal Industries Research & Development Centre (MIRDC, 金屬工業研究發展中心)**, the accelerator evolved from Ørsted's long-running green-energy scholarship into a team-based innovation program open to both industry and student divisions. Entries went through nine months of screening, mentoring by industry experts, and a final pitch round. Ørsted Taiwan Chairman Christy Wang (汪欣潔) praised the enthusiastic response to the first-ever accelerator, noting that it showcased the boundless potential of Taiwan's talent in advancing offshore-wind sustainability, and pledged corporate and public-sector support to help winning teams bring their proposals into practice.
 
-We would especially like to recognize **Jason (Chon Man) Tam**, who served as a core member for project management and AI development in building the intelligent decision-making platform.
+The HydrogenE3 team united four E3 members: **[Chon Man (Jason) Tam](/members/chonmantam/)**, who led project management and AI development of the intelligent decision-making platform, alongside **[Jun-Wei (Gary) Ding](/members/junweiding/)**, **[Yuan-Shin (Joseph) Fu](/members/yuanshinfu/)**, and **[Jing-Siou (Jocelyn) Tseng](/members/jingsioutseng/)**.
 
 ![Award ceremony of the 2024 Ørsted Sustainable Innovation Accelerator](/assets/news/2024-orsted-accelerator-award/1.jpg)
 *The Sustainable Innovation Accelerator award ceremony at Energy Taiwan 2024. Photos courtesy of Ørsted (圖／沃旭能源提供).*

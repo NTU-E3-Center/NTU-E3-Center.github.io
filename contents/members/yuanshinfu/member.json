@@ -18,6 +18,14 @@
   },
   "awards": [
     {
+      "title": "Excellence Team Award",
+      "titleZh": "學生組卓越獎",
+      "organization": "Ørsted Sustainable Innovation Accelerator",
+      "note": "Team HydrogenE3",
+      "date": "Oct 2024",
+      "url": "/news/2024-orsted-accelerator-award/"
+    },
+    {
       "title": "Excellence Poster Award",
       "titleZh": "",
       "organization": "2022 TwIChE Annual Meeting",
