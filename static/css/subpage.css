@@ -1476,7 +1476,7 @@
     /* T·7: mobile floors — was 0.75/0.6875 (~10.5/9.6 px on the 14-px root),
        below WCAG legibility. Bumped to keep author rows readable. */
     .publi-row-authors {
-        font-size: var(--fs-secondary);
+        font-size: var(--fs-eyebrow);
         line-height: var(--lh-lede);
     }
 

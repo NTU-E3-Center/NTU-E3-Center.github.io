@@ -1721,8 +1721,11 @@
 
 /* publication */
 .publi-section {
-    --_font-size-l: 1.5rem;
-    --_font-size-s: 1.0625rem;
+    /* Publication rows sit one type-scale tier above news/project rows at
+       every breakpoint ([I-2] research-output emphasis) — expressed in v3
+       tokens, never raw rem. */
+    --_font-size-l: var(--fs-lede);
+    --_font-size-s: var(--fs-body-base);
     --_block-gap: var(--space-3);
 
     display: grid;
@@ -2370,8 +2373,8 @@
     }
 
     .publi-section {
-        --_font-size-l: 1.25rem;
-        --_font-size-s: 0.75rem;
+        --_font-size-l: var(--fs-body);
+        --_font-size-s: var(--fs-secondary);
 
         .publi-date {
             .publi-date-mm {
@@ -2653,7 +2656,8 @@
     /* Publications & news titles — also sub-sub under h3 categories.
        --_font-size-l drives .publi-title; cap below h3 1.125rem. */
     .publi-section {
-        --_font-size-l: 1.0625rem;
+        --_font-size-l: var(--fs-body-base);
+        --_font-size-s: var(--fs-eyebrow);
     }
 
     /* Group-life "all" — grid items were 245px each → single column with
