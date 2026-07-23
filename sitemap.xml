@@ -271,6 +271,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://e3center.caece.net/news/2020-ntu-chenyung-scholar-award/</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://e3center.caece.net/news/2021-mit-china-ev-transition/</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://e3center.caece.net/news/2021-mit-china-ev-transition/</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
@@ -325,7 +337,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://e3center.caece.net/news/2024-escooter-policy-advocacy/</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://e3center.caece.net/news/2025-asia-research-news-v2g/</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://e3center.caece.net/news/2025-ntu-lab-spotlight/</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
