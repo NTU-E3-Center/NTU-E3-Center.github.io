@@ -125,10 +125,10 @@ def _check_soft_formats(data: dict) -> list[ValidationIssue]:
             if not isinstance(entry, dict):
                 continue
             url = entry.get("url")
-            if isinstance(url, str) and url and not url.startswith(("http://", "https://")):
+            if isinstance(url, str) and url and not url.startswith(("http://", "https://", "/")):
                 issues.append(ValidationIssue(
                     "warn",
-                    f"{list_key}[{i}].url: '{url}' does not start with http:// or https://.",
+                    f"{list_key}[{i}].url: '{url}' is neither an absolute http(s) URL nor a root-relative path.",
                 ))
 
     return issues
