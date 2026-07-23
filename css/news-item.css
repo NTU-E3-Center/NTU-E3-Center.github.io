@@ -428,6 +428,16 @@
            reading rhythm to pair with the tightened mobile leading. */
         --fs-prose: var(--fs-body-base);
 
+        /* Ragged-right on phones: at a ~35ch measure, justify opens rivers
+           of whitespace and auto-hyphenation shreds words ("re-search",
+           "AI-dri-ven") — the wall-of-text feel. Justify remains on the
+           wide desktop measure only. */
+        & p,
+        & li {
+            text-align: left;
+            hyphens: none;
+        }
+
         & p {
             margin-block-end: var(--space-3);
         }
