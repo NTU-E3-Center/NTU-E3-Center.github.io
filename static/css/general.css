@@ -536,12 +536,16 @@ i {
     --cat-student:       var(--r-green);
     --cat-media:         var(--r-indigo);
     --cat-events:        var(--main-color-2);
-    --cat-outreach:      color-mix(in srgb, var(--r-orange) 85%, #000);
-    --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 45%, var(--main-color));
-    --cat-student-text:  color-mix(in srgb, var(--r-green) 55%, var(--main-color));
+    --cat-outreach:      var(--r-orange);
+    /* Hue percentages are set by contrast, not taste: each is the highest
+       proportion of its hue that still clears WCAG AA (4.5:1) against both
+       the 13% badge tint and the page background. Verified by
+       validate_design_tokens.py — do not raise these without re-running it. */
+    --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 22%, var(--main-color));
+    --cat-student-text:  color-mix(in srgb, var(--r-green) 40%, var(--main-color));
     --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--main-color));
-    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 50%, var(--main-color));
-    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 50%, var(--main-color));
+    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
+    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--main-color));
 
     --main-light: #b4cbd8;
     --main-3-light: #f4fafc;
