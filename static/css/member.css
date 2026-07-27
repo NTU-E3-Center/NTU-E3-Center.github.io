@@ -234,7 +234,7 @@ h2 {
 
         &>* {
             background-color: var(--main-bg-color);
-            border: 0.1875rem solid var(--main-color);
+            border: 0.125rem solid var(--main-color);
             border-radius: 0.125rem;
             box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
             transform: skewX(var(--block-skew));

@@ -336,7 +336,7 @@
     /* Portrait 3:4 photo — consistent regardless of source image shape */
     & .mem-row-photo {
         --_img-width: 9rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
         --_img-border-r: 0.3125rem;
 
         --_block-width: calc(var(--_img-width) + 2 * var(--_img-border-w));

@@ -579,9 +579,12 @@ i {
     --btn-hover-translate: -0.0625rem;
     --btn-hover-shadow-shift: 0.25rem;
 
-    --block-shadow-shift: 0.3125rem;
+    /* Block tier lightened 2026-07-24: the 5px/7px pair read chunky at the
+       sizes blocks are actually used (hero images, portraits, the drawer).
+       Buttons were already at the lighter 3px/4px and are unchanged. */
+    --block-shadow-shift: 0.25rem;
     --block-hover-translate: -0.0625rem;
-    --block-hover-shadow-shift: 0.4375rem;
+    --block-hover-shadow-shift: 0.375rem;
 
     --hover-transition-time: 0.15s;
     --block-skew: -3deg;

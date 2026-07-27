@@ -1006,7 +1006,7 @@
         --_img-width: 13rem;
         --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
 
         display: grid;
         justify-items: center;          /* center the PI block horizontally */
@@ -1165,7 +1165,7 @@
         --_img-width: clamp(5.5rem, 12.5vw, 9.5rem);
         --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
 
         display: flex;
         flex-wrap: wrap;
@@ -1319,7 +1319,7 @@
 
         --_block-width: calc(2rem * var(--_block-scale));
         --_block-height: calc(5rem * var(--_block-scale));
-        --_adjusted-border-width: 0.1875rem;
+        --_adjusted-border-width: 0.125rem;
         --_adjusted-shadow-shift: var(--block-shadow-shift);
 
         display: flex;
@@ -1345,7 +1345,7 @@
     .res-img-block {
         --_block-width: calc(12rem * var(--_block-scale));
         --_block-height: calc(9rem * var(--_block-scale));
-        --_adjusted-border-width: 0.1875rem;
+        --_adjusted-border-width: 0.125rem;
         --_adjusted-shadow-shift: var(--block-shadow-shift);
 
         --_adjusted-hover-translate: var(--block-hover-translate);
@@ -1886,7 +1886,7 @@
     --_img-width: min(40rem, calc(100vw - 5rem));
     --_img-aspect-ratio: 4/3;
     --_img-border-r: 0.375rem;
-    --_img-border-w: 0.1875rem;
+    --_img-border-w: 0.125rem;
 
     --_block-skew: -1.5deg;
 
@@ -2027,7 +2027,7 @@
 .glf-section[which='all'] {
     --_img-width: 15rem;
     --_img-aspect-ratio: 4/3;
-    --_img-border-w: 0.1875rem;
+    --_img-border-w: 0.125rem;
 
     display: grid;
     grid-template-columns: repeat(auto-fill, calc(var(--_img-width) + 2 * var(--_img-border-w)));
