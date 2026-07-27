@@ -1422,6 +1422,21 @@ body {
     }
 }
 
+/* Anchor targets clear the header. The homepage nav is fixed and the subpage
+   header sticky — without this, "About Us" et al. land underneath the bar. */
+section[id] {
+    scroll-margin-block-start: calc(var(--header-h) + var(--space-4));
+}
+
+/* Desktop (>64rem) navigates via the header's inline nav, so the drawer
+   trigger hides — two nav affordances on one screen is the clutter the
+   header nav exists to remove. Tablet and phone keep the drawer. */
+@media (min-width: 64.0625rem) {
+    .menu-btn {
+        display: none;
+    }
+}
+
 .menu {
     --_menu-width: 25rem;
     /* Sized to fit the longest label ("Publications") at --fs-lede

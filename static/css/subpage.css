@@ -27,13 +27,32 @@
 .subpage-header-inner {
     width: min(100%, 80rem);
     margin-inline: auto;
-    /* Reserve right space for the fixed Menu button (≈5rem wide with the
-       "Menu" label at desktop) so the trail never sits under it. */
-    padding-inline-end: 6rem;
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--space-7);
+}
+
+/* Homepage: fixed (out of flow, so the hero keeps its full height) and
+   parked above the viewport until the hero scrolls past — the hero stays an
+   uninterrupted brand moment, then the nav slides in as a table of contents
+   with scroll-spy. */
+.subpage-header--home {
+    position: fixed;
+    inset-inline: 0;
+    translate: 0 -100%;
+    transition: translate 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subpage-header--home.is-visible {
+    translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .subpage-header--home {
+        transition: none;
+    }
 }
 
 .subpage-header-logo {
@@ -60,13 +79,19 @@
    On detail pages with a back-link, the trail stacks: small eyebrow row
    (parent ›) above the current title. On listing pages the eyebrow row
    is absent — the title sits alone at 1.5rem so the bar still reads full. */
-.subpage-trail {
+/* Breadcrumb lives in the content flow (see subpage-header.html), so the
+   header bar stays one row at every width. Same 80rem band + --gutter-x as
+   the header above it, so the trail aligns with the wordmark. */
+.page-trail {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding-inline: var(--gutter-x);
+    padding-block-start: var(--space-6);
+
     display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    align-items: flex-start;
-    min-width: 0;
-    flex: 1;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--space-2);
 }
 
 .trail-parent {
@@ -96,19 +121,63 @@
 }
 
 .trail-current {
-    /* S·3 — was var(--fs-heading-s) (1.5rem); trimmed to 1.25rem so the
-       trail reads as a strong breadcrumb rather than competing with the
-       page's own h1. Pairs with the tighter header padding above. */
-    font-size: var(--fs-lede);
+    /* Quiet now that it sits in content above the page's own h1 rather than
+       standing in for it in the bar. Wraps instead of truncating — there is
+       no single-row constraint here. */
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
-    line-height: var(--lh-h3);
-    letter-spacing: -0.015em;
+    line-height: var(--lh-secondary);
     color: var(--main-color);
-    opacity: 0.9;
+    opacity: 0.55;
+    min-width: 0;
+}
+
+/* ── Header primary nav ──────────────────────────────────────────────────
+   Desktop-only primary navigation (>64rem); below that the skewed drawer
+   takes over and this hides — one navigation system per breakpoint.
+
+   Brand language borrowed, not invented: the current-section marker is the
+   sage bar from the h3 underline motif, and hover carries the same −1px
+   up-left nudge every .skewed-block uses. No new colour, type tier, or
+   surface — text links are not surfaces, so the skew motif does not apply. */
+.hdr-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-shrink: 0;
+}
+
+.hdr-nav-a {
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    letter-spacing: 0.01em;
+    color: var(--main-color);
+    opacity: 0.55;
+    text-decoration: none;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    padding-block: 0.125rem;
+    border-block-end: 0.125rem solid transparent;
+    transition:
+        opacity var(--hover-transition-time),
+        border-color var(--hover-transition-time),
+        translate var(--hover-transition-time);
+
+    &:hover {
+        opacity: 1;
+        translate: var(--block-hover-translate) var(--block-hover-translate);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.25rem;
+    }
+
+    /* Current section — set by the template on subpages, by scroll-spy on
+       the homepage (general.js). */
+    &.is-current {
+        opacity: 1;
+        border-color: var(--secondary-color);
+    }
 }
 
 @media (max-width: 64rem) {
@@ -118,6 +187,7 @@
 
     .subpage-header-inner {
         gap: var(--space-5);
+        /* Reserve space for the fixed Menu button, which only exists here. */
         padding-inline-end: 5.5rem;
     }
 
@@ -125,8 +195,12 @@
         height: 1.75rem;
     }
 
-    .trail-current {
-        font-size: var(--fs-body);
+    .hdr-nav {
+        display: none;
+    }
+
+    .page-trail {
+        padding-block-start: var(--space-5);
     }
 }
 
@@ -137,7 +211,7 @@
        parent + separator + current chain inline so the trail stays one
        line tall. */
     .subpage-header {
-        padding-block: var(--space-2-5);
+        padding-block: var(--space-3);
     }
 
     .subpage-header-inner {
@@ -149,11 +223,8 @@
         height: 1.5rem;
     }
 
-    .subpage-trail {
-        flex-direction: row;
-        align-items: baseline;
-        gap: var(--space-1-5);
-        flex-wrap: nowrap;
+    .page-trail {
+        gap: 0 var(--space-1-5);
     }
 
     /* P2·14 — was 0.625rem (10 px), below the WCAG advisory ~12 px
@@ -166,7 +237,6 @@
     }
 
     .trail-current {
-        font-size: var(--fs-secondary);
         font-weight: var(--fw-display);
     }
 }

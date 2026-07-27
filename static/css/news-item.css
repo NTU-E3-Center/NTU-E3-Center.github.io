@@ -420,13 +420,18 @@
     }
 
     .news-item-body {
-        /* Phone prose drops one tier (--fs-body → --fs-body-base) via the
-           --fs-prose hook the unified prose recipe reads — the full-tier
-           body read oversized against the compact phone layout. Headings
-           below keep their tiers, so hierarchy sharpens rather than
-           flattens. Paragraph gap also drops one tier for a denser
-           reading rhythm to pair with the tightened mobile leading. */
-        --fs-prose: var(--fs-body-base);
+        /* Phone prose drops two tiers from the recipe's --fs-body (18→12.25px
+           effective) — the full tier read oversized against the compact
+           phone layout. NOTE: the unified prose recipe sets font-size
+           *directly* (the --fs-prose alias it once advertised is legacy and
+           unread), so the override must restate font-size; this class rule
+           beats the recipe's :where() zero specificity. Headings keep their
+           tiers, so hierarchy sharpens rather than flattens. */
+        font-size: var(--fs-secondary);
+        /* Breathe: keep the desktop 1.7 leading (the mobile-tightened 1.55
+           read dense at this small prose size) — the prose recipe reads
+           line-height through --lh-body, so the override cascades. */
+        --lh-body: 1.7;
 
         /* Ragged-right on phones: at a ~35ch measure, justify opens rivers
            of whitespace and auto-hyphenation shreds words ("re-search",
@@ -439,12 +444,15 @@
         }
 
         & p {
-            margin-block-end: var(--space-3);
+            margin-block-end: var(--space-4);
         }
 
-        & h2 { font-size: var(--fs-lede); margin-block: var(--space-6) var(--space-2-5); }
-        & h3 { font-size: var(--fs-body); margin-block: var(--space-5) var(--space-2); }
-        & h4 { font-size: var(--fs-body-base);     margin-block: var(--space-4) var(--space-1-5); }
+        /* Phone heading ladder — one clear tier between each level and
+           the 14px prose (21 / 17.5 / 15.75), with taller top margins so
+           sections visibly break instead of running together. */
+        & h2 { font-size: var(--fs-h3);   margin-block: var(--space-8) var(--space-3); }
+        & h3 { font-size: var(--fs-lede); margin-block: var(--space-7) var(--space-2-5); }
+        & h4 { font-size: var(--fs-body); margin-block: var(--space-5) var(--space-2); }
         & h5 { font-size: var(--fs-secondary); margin-block: var(--space-4) var(--space-1-5); }
         & h6 { font-size: var(--fs-secondary); margin-block: var(--space-3-5) var(--space-1-5); }
 
