@@ -2170,13 +2170,12 @@
     border-color: var(--main-color);
 }
 
-/* P2·7 — when the trigger is in BOTH active (dark teal bg) and focused
-   states, the default outline color (--main-color) matches the bg and
-   nearly disappears. Switch to the lighter accent so the ring stands
-   off the dark background; thicken slightly for parity with the
-   visually heavier active state. */
+/* P2·7 — the active trigger differentiates its focus ring by WIDTH, not colour.
+   `outline-offset: 0.25rem` (base rule) draws the ring outside the button's
+   border edge, so it sits on the page background rather than the active
+   state's navy fill — navy reads 7.66:1 there. An earlier colour override
+   existed for a pre-offset layout and is no longer needed. */
 .pub-filter-trigger.is-active:focus-visible {
-    outline-color: var(--main-color);
     outline-width: 0.1875rem;
 }
 
