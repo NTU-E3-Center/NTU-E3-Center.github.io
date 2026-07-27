@@ -15,7 +15,25 @@
 - `python build.py` must finish with **0 SEO warnings** after every task.
 - The three animated background SVG tiles and all `sprite.svg` artwork stay byte-identical — this is the user's one explicit off-limits item.
 - No new typeface, no hue changes to primitives, no change to `--page-bg-color`, no layout/IA changes.
-- Bump the relevant `?v=` query on any stylesheet touched, in **all five** templates that reference it (`templates/base.html` plus the four standalone detail templates), or detail pages will serve stale CSS.
+- Bump the relevant `?v=` query on any stylesheet touched, in **all five** templates that reference it (`templates/base.html` plus the four standalone detail templates), or detail pages will serve stale CSS. **Never hardcode the current version number** — tasks run in sequence and each bump invalidates the next task's hardcoded value. Always increment whatever is there, using this command (substitute `general.css` or `subpage.css` for `ASSET`):
+
+```bash
+cd /home/jianhern/NTU-E3-Center.github.io
+~/miniconda3/envs/E3website/bin/python - ASSET <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding="utf-8").read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, "w", encoding="utf-8").write(bumped)
+        print("bumped", asset, "in", f)
+EOF
+```
 - Commit messages use conventional prefixes; never add `Co-Authored-By` trailers.
 
 ---
@@ -330,7 +348,19 @@ If any of the three still fails, lower that hue's percentage by 5 and re-run.
 
 ```bash
 cd /home/jianhern/NTU-E3-Center.github.io
-sed -i 's|general.css?v=54|general.css?v=55|g' templates/base.html templates/pages/news/news-item.html templates/pages/member/member.html templates/pages/publications/publication-item.html templates/pages/projects/project-item.html
+~/miniconda3/envs/E3website/bin/python - general.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding='utf-8').read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, 'w', encoding='utf-8').write(bumped)
+EOF
 ~/miniconda3/envs/E3website/bin/python build.py 2>&1 | grep -E "SEO check|error"
 ```
 Expected: `SEO check: 0 warnings (0 errors).`
@@ -530,6 +560,26 @@ in Task 3, add:
     --field-economics:      var(--r-orange);
     --field-environment:    var(--r-green);
 ```
+
+- [ ] **Step 2b: Normalise `--cat-outreach` to a raw hue**
+
+Its four siblings are raw primitives (`--cat-student: var(--r-green)`), but
+`--cat-outreach` is `color-mix(in srgb, var(--r-orange) 85%, #000)` — darkened,
+which is the badge **text** tier's job. The token is currently unused (the
+outreach badge tints with raw `--r-orange` directly), so this is a zero-change
+correction that makes Step 3's substitution safe. In `static/css/general.css`:
+
+```css
+    --cat-outreach:      var(--r-orange);
+```
+
+Confirm it really is unused before changing it:
+
+```bash
+grep -rn "var(--cat-outreach)" static/css/ | grep -v ":root"
+```
+Expected: no output. If it *is* used somewhere, stop — changing the value would
+alter that surface, and the substitution in Step 3 needs rethinking.
 
 - [ ] **Step 3: Rewrite the component rules**
 
@@ -904,7 +954,19 @@ override from `0.1875rem` to `0.125rem`.
 
 ```bash
 cd /home/jianhern/NTU-E3-Center.github.io
-sed -i 's|general.css?v=56|general.css?v=57|g' templates/base.html templates/pages/news/news-item.html templates/pages/member/member.html templates/pages/publications/publication-item.html templates/pages/projects/project-item.html
+~/miniconda3/envs/E3website/bin/python - general.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding='utf-8').read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, 'w', encoding='utf-8').write(bumped)
+EOF
 ~/miniconda3/envs/E3website/bin/python build.py 2>&1 | grep -E "SEO check|error"
 ```
 
