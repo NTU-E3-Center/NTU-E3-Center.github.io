@@ -494,7 +494,32 @@ fill/stroke, a tint background, or a `:root` alias definition.
 
 ```bash
 cd /home/jianhern/NTU-E3-Center.github.io
-sed -i 's|general.css?v=55|general.css?v=56|g; s|subpage.css?v=74|subpage.css?v=75|g' templates/base.html templates/pages/news/news-item.html templates/pages/member/member.html templates/pages/publications/publication-item.html templates/pages/projects/project-item.html
+~/miniconda3/envs/E3website/bin/python - general.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding="utf-8").read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, "w", encoding="utf-8").write(bumped)
+EOF
+~/miniconda3/envs/E3website/bin/python - subpage.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding="utf-8").read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, "w", encoding="utf-8").write(bumped)
+EOF
 ~/miniconda3/envs/E3website/bin/python build.py 2>&1 | grep -E "SEO check|error"
 ~/miniconda3/envs/E3website/bin/python validate_design_tokens.py 2>&1 | head -4
 ```
@@ -638,7 +663,32 @@ Expected: `primitive leakage      OK`
 
 ```bash
 cd /home/jianhern/NTU-E3-Center.github.io
-sed -i 's|general.css?v=56|general.css?v=57|g; s|subpage.css?v=75|subpage.css?v=76|g' templates/base.html templates/pages/news/news-item.html templates/pages/member/member.html templates/pages/publications/publication-item.html templates/pages/projects/project-item.html
+~/miniconda3/envs/E3website/bin/python - general.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding="utf-8").read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, "w", encoding="utf-8").write(bumped)
+EOF
+~/miniconda3/envs/E3website/bin/python - subpage.css <<'EOF'
+import re, sys
+asset = sys.argv[1]
+for f in ["templates/base.html", "templates/pages/news/news-item.html",
+          "templates/pages/member/member.html",
+          "templates/pages/publications/publication-item.html",
+          "templates/pages/projects/project-item.html"]:
+    text = open(f, encoding="utf-8").read()
+    bumped = re.sub(rf"({re.escape(asset)}\?v=)(\d+)",
+                    lambda m: m.group(1) + str(int(m.group(2)) + 1), text)
+    if bumped != text:
+        open(f, "w", encoding="utf-8").write(bumped)
+EOF
 ~/miniconda3/envs/E3website/bin/python build.py 2>&1 | grep -E "SEO check|error"
 ```
 Expected: `SEO check: 0 warnings (0 errors).`
