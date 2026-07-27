@@ -333,7 +333,7 @@
 
     10%,
     100% {
-        fill: var(--_flash-dark, var(--main-color-3));
+        fill: var(--_flash-dark, var(--icon-flash-dark));
     }
 }
 

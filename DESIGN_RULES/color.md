@@ -11,7 +11,7 @@ confusion about "which colours are safe to change" comes from reading them as on
 
 | Layer | Tokens | Consumed by |
 |---|---|---|
-| **Primitive** | `--r-{red,orange,yellow,green,blue,indigo,purple}`, `--main-light`, `--main-3-light`, `--secondary-light`, `--house-dark`, `--house-light`, `--main-color-3` | The illustration utility layer, and semantic aliases. **Never a component rule.** |
+| **Primitive** | `--r-{red,orange,yellow,green,blue,indigo,purple}`, `--main-light`, `--main-3-light`, `--secondary-light`, `--house-dark`, `--house-light`, `--main-color-2`, `--main-color-3` | The illustration utility layer, and semantic aliases. **Never a component rule.** |
 | **Semantic UI** | `--main-color`, `--main-bg-color`, `--page-bg-color`, `--secondary-color`, `--accent-ink`, `--link-color`, `--line-soft`, `--main-shadow-color`, `--selection-color`, `--cat-*`, `--cat-*-text`, `--status-*`, `--status-*-text`, `--field-*`, `--icon-flash-light`, `--icon-flash-accent` | UI components. |
 | **Illustration** | the `.fill-*` / `.stroke-*` utility classes | `static/assets/sprite.svg` and inline SVG artwork only. |
 

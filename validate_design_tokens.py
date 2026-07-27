@@ -29,7 +29,7 @@ DEPRECATED_ALIASES = [
 ]
 
 # Primitives: raw hues that only the illustration layer may consume directly.
-PRIMITIVE_RE = re.compile(r"var\(--(r-[a-z]+|main-light|main-3-light|secondary-light|house-dark|house-light)\)")
+PRIMITIVE_RE = re.compile(r"var\(--(r-[a-z]+|main-light|main-color-3|main-3-light|secondary-light|house-dark|house-light)\)")
 # Selectors that ARE the illustration layer. Matched against the enclosing
 # selector, never the declaration line — `.fill-r-green { fill: var(--r-green) }`
 # puts the selector and the declaration on different lines.

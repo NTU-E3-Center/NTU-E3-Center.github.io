@@ -566,6 +566,7 @@ i {
        primitives through :root instead of consuming them directly. */
     --icon-flash-light:  var(--main-3-light);
     --icon-flash-accent: var(--secondary-light);
+    --icon-flash-dark:   var(--main-color-3);
 
     --selection-color: #0a557edd;
 
