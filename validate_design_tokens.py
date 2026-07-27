@@ -59,10 +59,29 @@ def _mix(a, b, pct_a):
 
 
 def _read_root_tokens(css):
-    """Map token name -> raw value string, from every :root-level declaration."""
+    """Map token name -> raw value string from default (screen) :root blocks.
+
+    Only :root blocks at brace depth 0 are read. general.css also defines
+    :root inside @media print and inside responsive @media queries; those are
+    overrides, not the default values the contrast checks reason about, and
+    including them made resolution depend on source order.
+    """
     tokens = {}
-    for name, value in re.findall(r"^\s+--([a-z0-9-]+):\s*([^;]+);", css, re.M):
-        tokens.setdefault(name, value.strip())
+    depth = 0
+    in_default_root = False
+    for line in css.splitlines():
+        opens, closes = line.count("{"), line.count("}")
+        if opens and line.split("{")[0].strip() == ":root" and depth == 0:
+            in_default_root = True
+            depth += opens - closes
+            continue
+        if in_default_root:
+            match = re.match(r"\s*--([a-z0-9-]+):\s*([^;]+);", line)
+            if match:
+                tokens.setdefault(match.group(1), match.group(2).strip())
+        depth += opens - closes
+        if in_default_root and depth <= 0:
+            in_default_root = False
     return tokens
 
 
