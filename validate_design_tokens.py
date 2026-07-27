@@ -86,7 +86,9 @@ def resolve(value, tokens, depth=0):
         return resolve(inner, tokens, depth + 1) if inner else None
 
     if value.startswith("color-mix("):
-        inner = value[len("color-mix("):].rstrip(")")
+        inner = value[len("color-mix("):]
+        if inner.endswith(")"):
+            inner = inner[:-1]
         parts = [p.strip() for p in _split_top_level(inner)]
         if len(parts) == 3 and parts[0] == "in srgb":
             first, second = parts[1], parts[2]
