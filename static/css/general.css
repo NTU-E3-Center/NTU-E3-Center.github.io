@@ -542,9 +542,9 @@ i {
        the 13% badge tint and the page background. Verified by
        validate_design_tokens.py — do not raise these without re-running it. */
     --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 22%, var(--main-color));
-    --cat-student-text:  color-mix(in srgb, var(--r-green) 40%, var(--main-color));
+    --cat-student-text:  color-mix(in srgb, var(--r-green) 35%, var(--main-color));
     --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--main-color));
-    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
+    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 30%, var(--main-color));
     --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--main-color));
 
     /* Sky (--main-color-2) is 2.38:1 on the page background — fine as an
@@ -560,9 +560,14 @@ i {
        can change in one place. The -text variants are deepened to clear WCAG AA
        against their own tinted backgrounds — same discipline as --cat-*-text. */
     --status-ok:            var(--r-green);
-    --status-ok-text:       color-mix(in srgb, var(--r-green) 40%, var(--main-color));
+    /* -text tokens mix toward --main-color (navy), same discipline as
+       --cat-*-text — except alert: mixing red toward this navy rotates the
+       hue out of the red family entirely (40% red / 60% navy lands at hue
+       ~234°, a blue-slate, not red). So alert mixes toward a dark red
+       instead, keeping the alert hue red while still clearing WCAG AA. */
+    --status-ok-text:       color-mix(in srgb, var(--r-green) 35%, var(--main-color));
     --status-alert:         var(--r-red);
-    --status-alert-text:    color-mix(in srgb, var(--r-red) 40%, var(--main-color));
+    --status-alert-text:    color-mix(in srgb, var(--r-red) 60%, #3a0d0d);
     --field-energy:         var(--r-yellow);
     --field-economics:      var(--r-orange);
     --field-environment:    var(--r-green);

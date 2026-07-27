@@ -3,8 +3,9 @@
 Mirrors validate_member.py: run standalone, exit non-zero on failure.
 Three invariants, each mapping to a rule in DESIGN_RULES/:
 
-  1. Every --cat-*-text colour clears WCAG AA (4.5:1) both on its own tinted
-     badge background and on the page background (the phone bare-label case).
+  1. Every base/-text token pair (--cat-*-text, --status-*-text, ...) clears
+     WCAG AA (4.5:1) both on its own tinted badge background and on the page
+     background (the phone bare-label case).
   2. No deprecated --fs-* alias is referenced anywhere.
   3. No component rule consumes a raw primitive (--r-*, --*-light, --house-*)
      directly; primitives are reachable only through a semantic alias or the
@@ -146,16 +147,30 @@ def check_category_contrast():
     css = GENERAL.read_text(encoding="utf-8")
     tokens = _read_root_tokens(css)
     failures = []
-    for name in sorted(t for t in tokens if t.startswith("cat-") and t.endswith("-text")):
+    # Every token that follows the base/-text pairing convention — currently
+    # --cat-*-text and --status-*-text, and automatically any future pair
+    # added the same way. A -text token with no matching base is something
+    # else entirely and is skipped rather than reported.
+    names = sorted(
+        t for t in tokens
+        if t.endswith("-text") and t[:-len("-text")] in tokens)
+    for name in names:
         base = name[:-len("-text")]
         text_hex = resolve(tokens[name], tokens)
-        base_hex = resolve(tokens.get(base, ""), tokens)
+        base_hex = resolve(tokens[base], tokens)
         if not text_hex or not base_hex:
             failures.append(f"--{name}: could not resolve to a hex colour")
             continue
-        # Badge tint: the base hue mixed over white. 13% is the listing default;
-        # faculty uses 22% and outreach 14%. Test the lightest (weakest) case.
-        tint = _mix(base_hex, "#ffffff", 0.13)
+        # Badge tint: the base hue mixed with the *page* background, not
+        # white. Every tint in this codebase is written
+        # color-mix(in srgb, <hue> N%, transparent) — a transparent mix, so
+        # it composites over whatever sits behind the element, which is the
+        # page background (--page-bg-color = #f7fafb), never white. White is
+        # lighter than the page background, so mixing over it understates
+        # how the tint actually renders and overstates the contrast ratio.
+        # 13% is the listing default; faculty uses 22% and outreach 14%.
+        # Test the lightest (weakest) case.
+        tint = _mix(base_hex, PAGE_BG, 0.13)
         on_tint = contrast(text_hex, tint)
         on_page = contrast(text_hex, PAGE_BG)
         if min(on_tint, on_page) < AA:
