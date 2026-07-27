@@ -96,7 +96,7 @@ a {
    later in the cascade may override (e.g. filter triggers); this
    guarantees every focusable element starts with a visible cue. */
 :focus-visible {
-    outline: 0.125rem solid var(--main-color-2);
+    outline: 0.125rem solid var(--main-color);
     outline-offset: 0.125rem;
     border-radius: 0.125rem;
 }
@@ -546,6 +546,14 @@ i {
     --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--main-color));
     --cat-events-text:   color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
     --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--main-color));
+
+    /* Sky (--main-color-2) is 2.38:1 on the page background — fine as an
+       illustration fill or a tint, unusable as text. --accent-ink is sky
+       deepened toward navy to the point where it clears AA (4.60:1 on a 13%
+       sky tint, 4.93:1 on the page background). Components that want "sky,
+       but as text" use this; none use --main-color-2 for a colour or an
+       outline. */
+    --accent-ink: color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
 
     --main-light: #b4cbd8;
     --main-3-light: #f4fafc;

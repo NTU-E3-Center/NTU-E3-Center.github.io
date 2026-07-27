@@ -402,7 +402,7 @@
             &:first-child {
                 font-size: var(--fs-body);
                 font-weight: var(--fw-heading);
-                color: var(--main-color-2);
+                color: var(--accent-ink);
                 margin-block-end: 0.2rem;
             }
 
@@ -1458,7 +1458,7 @@
     line-height: var(--lh-lede);
     padding: 0.1rem 0.6rem;
     border-radius: 2rem;
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
 }
 
@@ -1802,7 +1802,7 @@
             }
 
             &:focus-visible {
-                outline: 0.1875rem solid var(--main-color-2);
+                outline: 0.1875rem solid var(--main-color);
                 outline-offset: 0.125rem;
             }
         }
@@ -2065,7 +2065,7 @@
     padding: 0.15rem 0.5rem;
     border-radius: 2rem;
     line-height: var(--lh-eyebrow);
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 14%, transparent);
 }
 
@@ -2176,7 +2176,7 @@
    off the dark background; thicken slightly for parity with the
    visually heavier active state. */
 .pub-filter-trigger.is-active:focus-visible {
-    outline-color: var(--main-color-2);
+    outline-color: var(--main-color);
     outline-width: 0.1875rem;
 }
 
