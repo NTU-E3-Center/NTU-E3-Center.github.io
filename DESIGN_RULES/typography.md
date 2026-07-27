@@ -46,8 +46,7 @@ All values are in `rem` (relative to the root font size — see [`responsive.md`
 ### Visual Type Scale (v3 tokens — the single authoritative ladder)
 
 Nine tokens in three groups, defined in `general.css :root`. New CSS must use
-the tokens, never raw rem. The older 17-tier names (Display-XL … Caption-S)
-survive only as deprecated aliases mapped onto these tokens.
+the tokens, never raw rem.
 
 | Group | Token | rem | px | Use |
 |---|---|---|---|---|
@@ -66,6 +65,10 @@ larger than the largest CONTENT size. On phones (≤37.5rem) the `:root`
 re-declares the ladder (h1 2rem … body 1.125rem) and **bumps** the LABEL
 group (eyebrow 0.8125, badge 0.75) so labels clear the WCAG floor at the
 87.5% root — never shrink a label below its token on mobile.
+
+> The pre-v3 alias names (Display-XL … Caption-S) were fully retired on
+> 2026-07-27. There is exactly one ladder; `validate_design_tokens.py` fails if
+> an alias reappears.
 
 ## Line-Height & Letter-Spacing Conventions
 

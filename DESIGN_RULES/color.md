@@ -4,18 +4,41 @@ Part of [DESIGN_RULES/](./README.md). Covers brand color tokens, the text-emphas
 
 ---
 
+## The three layers
+
+Colour in this site is not one flat palette — it is three layers, and most
+confusion about "which colours are safe to change" comes from reading them as one.
+
+| Layer | Tokens | Consumed by |
+|---|---|---|
+| **Primitive** | `--r-{red,orange,yellow,green,blue,indigo,purple}`, `--main-light`, `--main-3-light`, `--secondary-light`, `--house-dark`, `--house-light`, `--main-color-3` | The illustration utility layer, and semantic aliases. **Never a component rule.** |
+| **Semantic UI** | `--main-color`, `--main-bg-color`, `--page-bg-color`, `--secondary-color`, `--accent-ink`, `--link-color`, `--line-soft`, `--main-shadow-color`, `--selection-color`, `--cat-*`, `--cat-*-text`, `--status-*`, `--status-*-text`, `--field-*`, `--icon-flash-light`, `--icon-flash-accent` | UI components. |
+| **Illustration** | the `.fill-*` / `.stroke-*` utility classes | `static/assets/sprite.svg` and inline SVG artwork only. |
+
+> **Rule:** a UI component consumes semantic tokens only. If a component needs a
+> spectrum hue, add a semantic alias first — as `--cat-student` did on top of
+> `--r-green`. A raw `var(--r-*)` inside a component rule is a bug, and
+> `validate_design_tokens.py` fails the build-adjacent check when it appears.
+
+> **Why `--r-blue` looks unused:** it is referenced exactly once in CSS, by
+> `.fill-r-blue`, and that utility is applied inside `sprite.svg`. Every
+> primitive is load-bearing artwork. Do not "clean up" a primitive because a
+> grep looks thin.
+
+---
+
 ## Brand Color Tokens (defined in `general.css:132–164`)
 
 | Token | Value | Role |
 |---|---|---|
 | `--main-color` | `#0a557e` | All text. Default for every node via `* { color: var(--main-color) }`. |
 | `--main-shadow-color` | `#0a557ebb` | Hard offset block-shadow color on every skewed-block (≈73%-alpha teal). See [`layout.md`](./layout.md) § Shadows. |
-| `--main-color-2` | `#4caedd` | Accent for sub-headings, secondary titles (e.g., member position). |
+| `--main-color-2` | `#4caedd` | Illustration fills and tinted backgrounds only — 2.38:1 on the page bg, so never text or a focus ring (see `--accent-ink` under § Accent Color Use). |
 | `--main-color-3` | `#badcea` | Soft accent (icons, backgrounds). |
 | `--secondary-color` | `#c4c691` | Olive accent — under-titles, h3 underline bar, "3E" dot. |
 | `--main-bg-color` | `#ffffff` | Page surfaces. |
 | `--page-bg-color` | `#f7fafb` | Subtle off-white for subpages. |
-| `--r-{red,orange,yellow,green,blue,indigo,purple}` | rainbow | Status badges, category badges (news, publications). |
+| `--r-{red,orange,yellow,green,blue,indigo,purple}` | rainbow | Base hues behind the `--cat-*` and `--status-*` semantic layers — component rules consume the semantic name, never the raw hue directly. |
 | `--link-color` | `#1a6489` | Inline prose links — 6.2:1 on `--page-bg-color` (the accent `--main-color-2` fails AA inline). |
 | `--line-soft` | `color-mix(main 12%)` | The single hairline-divider token (news rows, footer rule, chip outlines). Don't hand-roll new 10–16% mixes. |
 | `--cat-{faculty,student,media,events,outreach}` | per category | News category hues (badge tier). See § News Category Tokens. |
@@ -49,9 +72,10 @@ Apply by changing **opacity** on the same `var(--main-color)`, not by switching 
 
 | Color | Use only for |
 |---|---|
-| `--main-color-2` (#4caedd) | Member-row primary position line (`.mem-row-position p:first-child`) |
-| `--secondary-color` (#c4c691) | h3 decorative underline bar, homepage "3E" dot, section-subtitle icons |
-| `--r-green` etc. | Status badges (publications) and as the base hues behind `--cat-*` |
+| `--main-color-2` (#4caedd) | Illustration fills and tinted backgrounds **only** — 2.38:1 on the page bg, so never text and never a focus ring |
+| `--accent-ink` | Sky deepened to clear AA (4.93:1). The token to use when a component wants "sky, but as text" — e.g. `.mem-row-position p:first-child` |
+| `--secondary-color` (#c4c691) | h3 decorative underline bar, homepage "3E" dot, section-subtitle icons — non-text accent marks only, 1.69:1 on the page bg, so it must never be a text fill and never the sole signal of a state |
+| `--r-green` etc. | Base hues behind `--cat-*` and `--status-*` — status badges (publications, projects, contact form) consume `--status-ok` / `--status-alert`, never the raw `--r-*` primitive directly |
 | `--cat-*` / `--cat-*-text` | News category coding — see below |
 
 ---
@@ -64,11 +88,11 @@ and consumed by `.news-row-badge` (subpage.css) and `.news-item-category`
 
 | Category | Badge tier `--cat-*` | Text tier `--cat-*-text` |
 |---|---|---|
-| Faculty Honors | olive (secondary 70% + #4a4a00) | secondary 45% + main |
-| Student Awards | `--r-green` | green 55% + main |
+| Faculty Honors | olive (secondary 70% + #4a4a00) | secondary 22% + main |
+| Student Awards | `--r-green` | green 35% + main |
 | In the Media | `--r-indigo` | indigo 55% + main |
-| Events and Exchanges | `--main-color-2` | accent 50% + main |
-| Education and Outreach | `--r-orange` 85% + #000 | orange 50% + main |
+| Events and Exchanges | `--main-color-2` | accent 30% + main |
+| Education and Outreach | `--r-orange` | orange 40% + main |
 
 Two tiers, one rule:
 

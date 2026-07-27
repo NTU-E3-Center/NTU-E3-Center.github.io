@@ -20,7 +20,7 @@ Part of [DESIGN_RULES/](./README.md). Per-component typography and styling. Pull
 
 | Element | Desktop | Tablet | Mobile |
 |---|---|---|---|
-| `.section-title h2` | **4 rem** | 2.5 rem | 2 rem |
+| `.section-title h2` | `--fs-h1` (3 rem; 3.25 rem at the ≥90rem tier) | 2.5 rem | 2 rem |
 | `.section-subtitle > *` | 1.25 rem | 1.25 rem | 1.25 rem |
 | h3 (inside section, with secondary underline bar) | 1.75 rem | 1.25 rem | 1.125 rem |
 
@@ -28,13 +28,18 @@ Weight: `--fw-h1` (600). Letter-spacing: −0.03em. The hover underline animatio
 
 ---
 
-## Subpage Header (`partials/subpage-header.html` + `subpage.css:42–135`)
+## Subpage Header (`partials/subpage-header.html` + `subpage.css` § Subpage header)
+
+The header is one row at every width: brand + primary nav. The breadcrumb is not
+in the header — it renders as `.page-trail`, the first element of the content
+flow, and only on detail pages (listing pages are named by the active nav link).
 
 | Element | Desktop | Tablet | Mobile |
 |---|---|---|---|
-| `.breadcrumb-parent` (link back) | 2.75 rem | 1.75 rem | 1.125 rem |
-| `.breadcrumb-sep` (`/`) | 2.75 rem (weight 300, opacity 0.25) | 1.75 rem | 1.125 rem |
-| `.breadcrumb-current` (this page) | 1.375 rem (opacity 0.5) | 1.0625 rem | 0.8125 rem |
+| `.hdr-nav-a` | `--fs-secondary`, `--fw-heading`, opacity 0.55 → 1 on hover | hidden (drawer takes over) | hidden |
+| `.hdr-nav-a.is-current` | opacity 1 + sage underline | — | — |
+| `.trail-parent` (in `.page-trail`) | `--fs-eyebrow`, uppercase, 0.14em | — | — |
+| `.trail-current` | `--fs-secondary`, opacity 0.55 | — | `--fw-display` |
 
 ---
 
@@ -81,7 +86,7 @@ Three card sizes (Leader / Medium / Small):
 | `.mem-group-title` (eyebrow) | 0.6875 rem, uppercase, 0.14em, opacity 0.4 | — | — |
 | `.mem-row-en` (name) | 2.25 rem, weight 600, −0.025em | 1.75 rem | 1.25 rem |
 | `.mem-row-zh` (name) | 1.25 rem, weight 500, opacity 0.45 | 1 rem | 0.875 rem |
-| `.mem-row-position` first line | 1.0625 rem, weight 600, color `--main-color-2` | — | 0.875 rem |
+| `.mem-row-position` first line | 1.0625 rem, weight 600, color `--accent-ink` | — | 0.875 rem |
 | `.mem-row-position` other lines | 1 rem, opacity 0.55 | — | 0.8125 rem |
 | `.mem-row-tag` | 0.8125 rem | — | — |
 | **PI featured row** `.mem-group--pi .mem-row-en` | **2.75 rem**, −0.03em | 2 rem | 1.5 rem |
