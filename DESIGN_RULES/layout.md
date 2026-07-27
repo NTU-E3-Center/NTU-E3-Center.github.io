@@ -56,7 +56,7 @@ The signature brand primitive — but not universal. It's scoped to interactive 
 | `--content-skew` | `+3deg` | — | counter-skew on children (`calc(-1 × --block-skew)`) |
 | `--hover-transition-time` | `0.15s` | — | transition duration for all block state changes |
 
-> Unlike the btn tier, block **border width** isn't a single shared `:root` token — each block component sets its own `--_adjusted-border-width` (usually via a local `--_img-border-w`) in `style.css` / `subpage.css` / `news-item.css` / `member.css`. Since 2026-07 every one of those component-level values reads **2px** (`0.125rem`), matching the btn border width — see the Attribute API row above. If you add a new block component, set its border to `0.125rem` too rather than inventing a heavier value.
+> Unlike the btn tier, block **border width** isn't a single shared `:root` token — each block component sets its own `--_adjusted-border-width` (usually via a local `--_img-border-w`) in `style.css` / `subpage.css` / `news-item.css` / `member.css`. Since 2026-07 every one of those component-level values reads **2px** (`0.125rem`), matching the btn border width — see the Attribute API row above — with one known exception: `.hp-about-us` (`style.css`) still carries its pre-refinement `0.1875rem` (3px) border, deliberately left out of the sweep (see finding [B-8] in [`README.md`](./README.md)). If you add a new block component, set its border to `0.125rem` too rather than inventing a heavier value.
 
 ### State behaviour (the "pressed-button-pops-up" feel)
 
@@ -99,7 +99,7 @@ read as noise, not emphasis.
 
 - **Only hard offset shadows.** Syntax is `<shift> <shift> var(--main-shadow-color)` — no blur radius, ever. `--main-shadow-color` is `#0a557ebb` (≈73%-alpha teal), **never grey**.
 - No soft / elevation / blurred `box-shadow` appears anywhere in the brand. Don't add one.
-- **Borders are always `var(--main-color)`.** Width is 2px at every tier — buttons and blocks (cards, images, portraits) share the same border weight since the 2026-07 lightening; only shadow depth and radius still separate the tiers.
+- **Borders are always `var(--main-color)`.** Width is 2px at every tier with two named exceptions below — buttons and blocks (cards, images, portraits) share the same border weight since the 2026-07 lightening; only shadow depth and radius still separate the tiers. Two button-tier / button-adjacent components still carry pre-refinement, heavier geometry and were deliberately left out of that sweep: `.hp-about-us` (`style.css`, 3px border) and the menu drawer's `border-left` (`general.css`, 3px). See finding [B-8] in [`README.md`](./README.md).
 - **Radii** are 4px (btn) and 6px (block) at rest; both **double on hover** (8px / 12px). Radius growth is part of the brand's tactile feedback — don't suppress it.
 - **Shadow depth** is 3px (btn) and 4px (block) at rest, 4px (btn) and 6px (block) on hover — this is now the primary way a block reads "heavier" than a button.
 

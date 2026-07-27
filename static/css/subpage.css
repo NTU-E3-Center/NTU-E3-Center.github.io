@@ -42,11 +42,26 @@
     position: fixed;
     inset-inline: 0;
     translate: 0 -100%;
-    transition: translate 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    /* WCAG 2.4.7 / 2.4.11 — parked off-screen, this header must also be
+       inert: without `visibility`, its logo + nav links stay in the tab
+       order while invisible, and tabbing from page load sends focus
+       through eight off-viewport controls that never scroll into view.
+       `visibility: hidden` (not `display: none`) removes descendants from
+       the tab order while still letting `translate` animate. `visibility`
+       is listed in the transition so the flip is timed correctly: per the
+       CSS Transitions spec, a property transitioning to/from `visible`
+       uses `visible` for the whole run except the very end, so becoming
+       hidden only happens once the slide-out has fully finished (and
+       becoming visible happens immediately) — no jarring snap either way. */
+    visibility: hidden;
+    transition:
+        translate 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .subpage-header--home.is-visible {
     translate: 0 0;
+    visibility: visible;
 }
 
 @media (prefers-reduced-motion: reduce) {

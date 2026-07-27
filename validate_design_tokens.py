@@ -168,15 +168,46 @@ def check_category_contrast():
         # page background (--page-bg-color = #f7fafb), never white. White is
         # lighter than the page background, so mixing over it understates
         # how the tint actually renders and overstates the contrast ratio.
-        # 13% is the listing default; faculty uses 22% and outreach 14%.
-        # Test the lightest (weakest) case.
-        tint = _mix(base_hex, PAGE_BG, 0.13)
+        # 13% is the default tint (student/media/events); outreach is the
+        # darkest in use, at 14%. Test that darkest case: for dark text on a
+        # light tint, a *lighter* tint sits closer to the near-white page
+        # background and is the EASIER case, not the weaker one — 14% is
+        # the genuinely hardest of the tints actually in use.
+        tint = _mix(base_hex, PAGE_BG, 0.14)
         on_tint = contrast(text_hex, tint)
         on_page = contrast(text_hex, PAGE_BG)
         if min(on_tint, on_page) < AA:
             failures.append(
                 f"--{name} ({text_hex}): {on_tint:.2f}:1 on tint, "
                 f"{on_page:.2f}:1 on page bg — below AA {AA}:1")
+
+    # --accent-ink consumes no --accent base token, so it matches neither
+    # the base/-text naming convention above nor gets picked up by `names`
+    # — that blind spot is exactly how it shipped mixed at a percentage
+    # that failed AA on its real backdrops (see general.css's --accent-ink
+    # comment). Check it explicitly against every tint percentage its
+    # consumers actually use (12–14% of --main-color-2 composited over the
+    # page background — same transparent-mix reasoning as above, never
+    # white) plus the bare page background.
+    accent_raw = tokens.get("accent-ink")
+    main_2_raw = tokens.get("main-color-2")
+    if accent_raw is None or main_2_raw is None:
+        failures.append("--accent-ink or --main-color-2: token not found in :root")
+    else:
+        accent_hex = resolve(accent_raw, tokens)
+        main_2_hex = resolve(main_2_raw, tokens)
+        if not accent_hex or not main_2_hex:
+            failures.append("--accent-ink or --main-color-2: could not resolve to a hex colour")
+        else:
+            backdrops = [(pct, _mix(main_2_hex, PAGE_BG, pct)) for pct in (0.12, 0.13, 0.14)]
+            backdrops.append((None, PAGE_BG))
+            for pct, backdrop in backdrops:
+                ratio = contrast(accent_hex, backdrop)
+                if ratio < AA:
+                    where = f"{pct:.0%} main-color-2 tint" if pct is not None else "page bg"
+                    failures.append(
+                        f"--accent-ink ({accent_hex}) on {where}: "
+                        f"{ratio:.2f}:1 — below AA {AA}:1")
     return failures
 
 

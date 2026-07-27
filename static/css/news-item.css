@@ -448,7 +448,7 @@
         }
 
         /* Phone heading ladder — one clear tier between each level and
-           the 14px prose (21 / 17.5 / 15.75), with taller top margins so
+           the 12.25px prose (21 / 17.5 / 15.75), with taller top margins so
            sections visibly break instead of running together. */
         & h2 { font-size: var(--fs-h3);   margin-block: var(--space-8) var(--space-3); }
         & h3 { font-size: var(--fs-lede); margin-block: var(--space-7) var(--space-2-5); }

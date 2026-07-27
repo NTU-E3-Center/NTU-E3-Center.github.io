@@ -152,7 +152,7 @@ The subpage listing groups rows under a sticky year rail (`subpage.css`
 | `.news-item-title` (h1) | `clamp(1.75rem, 4vw, 2.75rem)` | 1.625 rem | 1.375 rem |
 | `.news-item-date-mm` | 0.9375 rem, opacity 0.7 | — | 0.75 rem |
 | `.news-item-date-yy` | 1.5 rem, `--fw-h1`, −0.025em | — | 1.125 rem |
-| `.news-item-body` (paragraph) | `--fs-body`, line-height **1.70** (unified prose recipe; the `--fs-prose` alias is legacy — override `font-size` directly) | — | `--fs-body-base` |
+| `.news-item-body` (paragraph) | `--fs-body`, line-height **1.70** (unified prose recipe; the `--fs-prose` alias is legacy — override `font-size` directly) | — | `--fs-secondary` |
 | `.news-item-body h2` | 1.875 rem | — | 1.375 rem |
 | `.news-item-body h3` | 1.5 rem | — | 1.125 rem |
 | `.news-item-body h4` | 1.25 rem | — | 1 rem |

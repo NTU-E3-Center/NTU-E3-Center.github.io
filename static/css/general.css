@@ -505,7 +505,11 @@ i {
     --r-indigo: #5f739d;
     --r-purple: #986b9b;
 
-    /* News category tokens — one hue per category, two tiers each.
+    /* News category tokens — one hue per category, two tiers each, except
+       Faculty Honors: it has no dedicated badge-tier hue token because its
+       badge tints --secondary-color directly at 22% (see .news-row-badge
+       in subpage.css) — only its text tier (--cat-faculty-text below) is a
+       named token.
        --cat-*      badge tier: the raw hue; pills pair it with a 13–22%
                     tint of the same hue behind darkened text.
        --cat-*-text text tier: the hue deepened toward the brand navy for
@@ -514,7 +518,6 @@ i {
                     it clears WCAG AA while keeping the hue identity.
        Consumed by .news-row-badge (subpage.css) and .news-item-category
        (news-item.css) — change categories here, not per-file. */
-    --cat-faculty:       color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
     --cat-student:       var(--r-green);
     --cat-media:         var(--r-indigo);
     --cat-events:        var(--main-color-2);
@@ -531,11 +534,15 @@ i {
 
     /* Sky (--main-color-2) is 2.38:1 on the page background — fine as an
        illustration fill or a tint, unusable as text. --accent-ink is sky
-       deepened toward navy to the point where it clears AA (4.60:1 on a 13%
-       sky tint, 4.93:1 on the page background). Components that want "sky,
-       but as text" use this; none use --main-color-2 for a colour or an
-       outline. */
-    --accent-ink: color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
+       deepened toward navy to the point where it clears AA against every
+       backdrop it's actually composited on: every consumer places it on a
+       12–14% --main-color-2 tint, and every such tint is a transparent
+       mix, so it composites over --page-bg-color, never white. Measured
+       (color-mix in srgb): 4.72:1 at 12%, 4.68:1 at 13%, 4.64:1 at 14% —
+       the darkest tint in use and the hardest case — and 5.21:1 on the
+       page background directly. Components that want "sky, but as text"
+       use this; none use --main-color-2 for a colour or an outline. */
+    --accent-ink: color-mix(in srgb, var(--main-color-2) 30%, var(--main-color));
 
     /* Status and research-field semantics. Components use these names, never the
        raw --r-* primitive behind them, so the meaning is greppable and the hue
@@ -580,8 +587,8 @@ i {
     --btn-hover-shadow-shift: 0.25rem;
 
     /* Block tier lightened 2026-07-24: the 5px/7px pair read chunky at the
-       sizes blocks are actually used (hero images, portraits, the drawer).
-       Buttons were already at the lighter 3px/4px and are unchanged. */
+       sizes blocks are actually used (hero images, portraits). Buttons were
+       already at the lighter 3px/4px and are unchanged. */
     --block-shadow-shift: 0.25rem;
     --block-hover-translate: -0.0625rem;
     --block-hover-shadow-shift: 0.375rem;
