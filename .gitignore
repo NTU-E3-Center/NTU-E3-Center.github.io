@@ -18,8 +18,6 @@ docs/
 
 # Local-only dev artifacts (kept on disk, not on GitHub)
 tests/
-plans/
-specs/
 audits/
 
 # Git worktrees
