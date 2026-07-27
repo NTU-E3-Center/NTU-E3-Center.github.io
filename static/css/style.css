@@ -47,7 +47,7 @@
 
     .hp-title {
         & h1 {
-            font-size: var(--fs-display-m);
+            font-size: var(--fs-h1);
 
             display: flex;
 
@@ -64,7 +64,7 @@
 
     .hp-3e {
         & p {
-            font-size: var(--fs-heading-s);
+            font-size: var(--fs-h3);
 
             display: flex;
             align-items: baseline;
@@ -1240,7 +1240,7 @@
 
             .mem-name {
                 width: var(--_mem-name-width);
-                font-size: var(--fs-heading-s);
+                font-size: var(--fs-h3);
                 line-height: var(--lh-flush);
                 transition: var(--hover-transition-time);
 

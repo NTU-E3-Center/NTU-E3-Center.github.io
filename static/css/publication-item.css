@@ -23,7 +23,7 @@
 }
 
 .pub-tag-chip {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     line-height: var(--lh-lede);

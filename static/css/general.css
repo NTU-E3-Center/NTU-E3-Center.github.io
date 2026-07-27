@@ -170,7 +170,7 @@ i {
 
 /* Unified prose recipe — every "about" / article / abstract surface shares
    one body size (--fs-prose), one weight (--fw-body), one line-height
-   (--lh-prose), one hyperlink treatment. Per-surface classes can still add
+   (--lh-body), one hyperlink treatment. Per-surface classes can still add
    text-indent / text-align / max-width on top; this only sets typography.
    :where() keeps zero specificity so explicit per-class overrides still win.
 
@@ -338,7 +338,7 @@ i {
 
 /* Lede tier — one notch larger than body. */
 .proj-item-lede {
-    font-size: var(--fs-prose-lede);
+    font-size: var(--fs-lede);
 }
 
 /* general */
@@ -406,22 +406,7 @@ i {
     --fs-eyebrow: 0.6875rem;
     --fs-badge:   0.625rem;
 
-    /* Deprecated aliases — kept so legacy var(--fs-*) call sites resolve
-       during the migration. Remove once all call sites are migrated. */
-    --fs-display-xl: var(--fs-h1);
-    --fs-display-l:  var(--fs-h1);
-    --fs-display-m:  var(--fs-h1);
-    --fs-display-s:  var(--fs-h1);
-    --fs-heading-l:  var(--fs-h2);
-    --fs-heading-m:  var(--fs-h3);
-    --fs-heading-s:  var(--fs-h3);
-    --fs-body-xl:    var(--fs-lede);
-    --fs-body-l:     var(--fs-lede);
-    --fs-body-s:     var(--fs-secondary);
-    --fs-caption:    var(--fs-secondary);
-    --fs-caption-s:  var(--fs-secondary);
     --fs-prose:      var(--fs-body);
-    --fs-prose-lede: var(--fs-lede);
 
     /* Spacing scale — rem-based ladder used for every gap / padding-block /
        margin-block / margin-inline-start declaration sitewide. v3 S-track.
@@ -478,9 +463,6 @@ i {
     --lh-eyebrow:   1.6;
     --lh-badge:     1.6;
     --lh-flush:     1;     /* single-line UI (buttons, chips, icon containers) */
-
-    /* Deprecated alias — old --lh-prose calls resolve to --lh-body. */
-    --lh-prose: var(--lh-body);
 
     /* Font families — three roles, three tokens. Outfit covers Latin;
        Noto Sans TC covers CJK and is loaded as the global fallback. The
@@ -996,7 +978,7 @@ h3 {
    default h3 (Title Case + trailing dot) so subheadings stop competing with
    the section H2. Leading bar reads as a category mark, not a heading. */
 .section-eyebrow {
-    font-size: var(--fs-caption-s);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.14em;

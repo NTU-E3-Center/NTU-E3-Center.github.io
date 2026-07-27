@@ -377,7 +377,7 @@
     }
 
     & .mem-row-en {
-        font-size: var(--fs-heading-l);
+        font-size: var(--fs-h2);
         font-weight: var(--fw-heading);
         line-height: var(--lh-flush);
         letter-spacing: -0.025em;
@@ -385,7 +385,7 @@
     }
 
     & .mem-row-zh {
-        font-size: var(--fs-body-l);
+        font-size: var(--fs-lede);
         font-weight: var(--fw-body);
         line-height: var(--lh-flush);
         opacity: 0.6;
@@ -1730,7 +1730,7 @@
     .contact-info-label {
         font-size: var(--fs-eyebrow);
         font-weight: var(--fw-heading);
-        letter-spacing: 0.14em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         opacity: 0.5;
         margin-block-end: var(--space-1);
@@ -1745,7 +1745,7 @@
     }
 
     .contact-info-sub {
-        font-size: var(--fs-caption-s);
+        font-size: var(--fs-secondary);
         font-weight: var(--fw-light);
         line-height: var(--lh-body-base);
         opacity: 0.6;
@@ -2000,7 +2000,7 @@
     display: flex;
     align-items: baseline;
     gap: var(--space-2);
-    font-size: var(--fs-heading-s);
+    font-size: var(--fs-h3);
     font-weight: var(--fw-display);
     letter-spacing: -0.025em;
     color: var(--main-color);
@@ -2008,7 +2008,7 @@
 }
 
 .proj-status-count {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     opacity: 0.4;
 }
@@ -2044,7 +2044,7 @@
     align-items: baseline;
     flex-wrap: wrap;
     gap: var(--space-1-5);
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     line-height: var(--lh-body-base);
     margin: 0.3rem 0 0;
 }
@@ -2105,7 +2105,7 @@
     }
 
     .proj-status-title {
-        font-size: var(--fs-body-l);
+        font-size: var(--fs-lede);
     }
 
     /* keep the badge above the ~0.75rem mobile floor (DESIGN_RULES §9, [A-1]) */

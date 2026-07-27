@@ -108,7 +108,7 @@
 }
 
 .news-item-date-yy {
-    font-size: var(--fs-heading-s);
+    font-size: var(--fs-h3);
     font-weight: var(--fw-heading);
     letter-spacing: -0.025em;
     color: var(--main-color);
@@ -197,7 +197,7 @@
 }
 
 .news-item-date-line .news-item-date-yy {
-    font-size: var(--fs-body-l);
+    font-size: var(--fs-lede);
 }
 
 .news-item-title {
@@ -263,7 +263,7 @@
     }
 
     & h3 {
-        font-size: var(--fs-heading-s);
+        font-size: var(--fs-h3);
         font-weight: var(--fw-display);
         line-height: var(--lh-h3);
         letter-spacing: -0.015em;

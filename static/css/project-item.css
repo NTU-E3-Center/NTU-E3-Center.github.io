@@ -43,7 +43,7 @@
 }
 
 .proj-status-pill {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     letter-spacing: 0.04em;
     padding: 0.2rem 0.7rem;
@@ -196,7 +196,7 @@
 
 .proj-finding-num {
     display: block;
-    font-size: var(--fs-heading-s);
+    font-size: var(--fs-h3);
     font-weight: var(--fw-heading);
     line-height: var(--lh-flush);
     letter-spacing: -0.02em;
@@ -239,10 +239,10 @@
 }
 
 .proj-output-type {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
     border-radius: 0.3rem;
