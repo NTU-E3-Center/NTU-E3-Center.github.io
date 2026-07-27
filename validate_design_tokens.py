@@ -77,6 +77,9 @@ def resolve(value, tokens, depth=0):
         return None
     value = value.strip()
 
+    if re.fullmatch(r"#[0-9a-fA-F]{3}", value):
+        return "#" + "".join(ch * 2 for ch in value[1:]).lower()
+
     if re.fullmatch(r"#[0-9a-fA-F]{6}", value):
         return value.lower()
 
