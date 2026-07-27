@@ -294,9 +294,15 @@ git commit -m "test(design): add design-token contrast and layering audit"
 
 ### Task 2: Fix the category label contrast failures (§1)
 
-Three of the five `--cat-*-text` tokens fail WCAG AA. Measured values today:
-`faculty #5e8887` 3.48:1 · `student #318382` 3.96:1 · `events #2b82ae` 3.82:1
-(against their 13% tint; media 5.16:1 and outreach 5.10:1 already pass).
+Four of the five `--cat-*-text` tokens fail WCAG AA against their own 13% badge
+tint: `faculty #5e8887` 3.52:1 · `student #318382` 3.96:1 · `events #2b82ae`
+3.82:1 · `outreach #7c705a` 4.22:1. Only `media` (5.16:1) passes.
+
+`--cat-outreach` is also the odd one out structurally: its four siblings are raw
+primitives (`--cat-student: var(--r-green)`), but it is
+`color-mix(in srgb, var(--r-orange) 85%, #000)` — darkened, which is the *text*
+tier's job. That inconsistency is why its measured tint is wrong, so this task
+normalises it first and then retunes all four.
 
 **Files:**
 - Modify: `static/css/general.css` (the `--cat-*-text` block in `:root`)
@@ -311,9 +317,27 @@ Three of the five `--cat-*-text` tokens fail WCAG AA. Measured values today:
 ```bash
 ~/miniconda3/envs/E3website/bin/python validate_design_tokens.py 2>&1 | head -8
 ```
-Expected: three `--cat-*-text ... below AA 4.5:1` lines.
+Expected: four `--cat-*-text ... below AA 4.5:1` lines (faculty, student, events,
+outreach). `--cat-media-text` must not be listed.
 
-- [ ] **Step 2: Deepen the three failing mixes**
+- [ ] **Step 1b: Normalise `--cat-outreach` to a raw hue**
+
+Confirm the token is unused before changing its value:
+
+```bash
+grep -rn "var(--cat-outreach)" static/css/ | grep -v ":root"
+```
+Expected: no output — the outreach badge currently tints with raw `--r-orange`
+directly, so this is a zero-change correction. If it *is* used somewhere, stop
+and report: changing the value would alter that surface.
+
+Then in `static/css/general.css`:
+
+```css
+    --cat-outreach:      var(--r-orange);
+```
+
+- [ ] **Step 2: Deepen the four failing mixes**
 
 In `static/css/general.css`, replace these three declarations:
 
@@ -321,6 +345,7 @@ In `static/css/general.css`, replace these three declarations:
     --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 45%, var(--main-color));
     --cat-student-text:  color-mix(in srgb, var(--r-green) 55%, var(--main-color));
     --cat-events-text:   color-mix(in srgb, var(--main-color-2) 50%, var(--main-color));
+    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 50%, var(--main-color));
 ```
 
 with:
@@ -333,7 +358,11 @@ with:
     --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 22%, var(--main-color));
     --cat-student-text:  color-mix(in srgb, var(--r-green) 40%, var(--main-color));
     --cat-events-text:   color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
+    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--main-color));
 ```
+
+Measured results at these values (13% tint / page background):
+faculty 5.32 / 5.42 · student 4.67 / 5.02 · events 4.62 / 4.93 · outreach 4.90 / 5.22.
 
 - [ ] **Step 3: Verify the check passes**
 
@@ -342,7 +371,7 @@ with:
 ```
 Expected: `category contrast          OK`
 
-If any of the three still fails, lower that hue's percentage by 5 and re-run.
+If any of the four still fails, lower that hue's percentage by 5 and re-run.
 
 - [ ] **Step 4: Cache-bust and rebuild**
 
@@ -368,8 +397,8 @@ Expected: `SEO check: 0 warnings (0 errors).`
 - [ ] **Step 5: Verify visually on localhost**
 
 Open `http://localhost:8001/news/` and one news detail page. The category labels
-(STUDENTS / EVENTS / FACULTY) should be marginally deeper in tone and still
-clearly hue-distinct from one another. Nothing else should differ.
+(STUDENTS / EVENTS / FACULTY / OUTREACH) should be marginally deeper in tone and
+still clearly hue-distinct from one another. Nothing else should differ.
 
 - [ ] **Step 6: Commit**
 
@@ -586,26 +615,6 @@ in Task 3, add:
     --field-environment:    var(--r-green);
 ```
 
-- [ ] **Step 2b: Normalise `--cat-outreach` to a raw hue**
-
-Its four siblings are raw primitives (`--cat-student: var(--r-green)`), but
-`--cat-outreach` is `color-mix(in srgb, var(--r-orange) 85%, #000)` — darkened,
-which is the badge **text** tier's job. The token is currently unused (the
-outreach badge tints with raw `--r-orange` directly), so this is a zero-change
-correction that makes Step 3's substitution safe. In `static/css/general.css`:
-
-```css
-    --cat-outreach:      var(--r-orange);
-```
-
-Confirm it really is unused before changing it:
-
-```bash
-grep -rn "var(--cat-outreach)" static/css/ | grep -v ":root"
-```
-Expected: no output. If it *is* used somewhere, stop — changing the value would
-alter that surface, and the substitution in Step 3 needs rethinking.
-
 - [ ] **Step 3: Rewrite the component rules**
 
 ```bash
@@ -646,11 +655,10 @@ EOF
 ```
 
 Note the last substitution: `subpage.css:829` tints with `--r-orange`, and that
-rule is the news Education-and-Outreach badge — it should consume the existing
-`--cat-outreach` token rather than a new one. Verify that line reads
-`color-mix(in srgb, var(--cat-outreach) 14%, transparent)` afterwards; if the
-rule turns out to be something other than the outreach badge, give it its own
-semantic alias instead.
+rule is the news Education-and-Outreach badge, so it should consume the
+`--cat-outreach` token — which Task 2 already normalised to exactly
+`var(--r-orange)`, making this a zero-change rename. Verify that line reads
+`color-mix(in srgb, var(--cat-outreach) 14%, transparent)` afterwards.
 
 - [ ] **Step 4: Verify the check passes**
 
