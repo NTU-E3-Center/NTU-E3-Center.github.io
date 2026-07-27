@@ -36,8 +36,8 @@
 /* Method chips: solid green variant so topic (blue) vs method (green) is
    distinguishable by hue at chip-level glance. */
 .pub-tag-chip--method {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 .pub-item-title {
@@ -317,8 +317,8 @@
 
     &.is-copied {
         opacity: 1;
-        color: var(--r-green);
-        border-color: color-mix(in srgb, var(--r-green) 45%, transparent);
+        color: var(--status-ok);
+        border-color: color-mix(in srgb, var(--status-ok) 45%, transparent);
     }
 }
 

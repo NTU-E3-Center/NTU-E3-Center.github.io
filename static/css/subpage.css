@@ -826,7 +826,7 @@
 
     &[data-cat="Education and Outreach"] {
         color: var(--cat-outreach-text);
-        background: color-mix(in srgb, var(--r-orange) 14%, transparent);
+        background: color-mix(in srgb, var(--cat-outreach) 14%, transparent);
     }
 }
 
@@ -1463,8 +1463,8 @@
 }
 
 .pub-row-tag--method {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 /* Phone: collapse the publisher button to an icon. WCAG 2.5.5 — keep
@@ -1860,12 +1860,12 @@
         border-left: 0.1875rem solid currentColor;
 
         &.is-success {
-            color: color-mix(in srgb, var(--r-green) 70%, #1a3d2e);
-            background: color-mix(in srgb, var(--r-green) 12%, transparent);
+            color: var(--status-ok-text);
+            background: color-mix(in srgb, var(--status-ok) 12%, transparent);
         }
         &.is-error {
-            color: color-mix(in srgb, var(--r-red) 75%, #4a1818);
-            background: color-mix(in srgb, var(--r-red) 12%, transparent);
+            color: var(--status-alert-text);
+            background: color-mix(in srgb, var(--status-alert) 12%, transparent);
         }
     }
 }
@@ -2376,7 +2376,7 @@
 }
 
 .pub-filter-check--method .pub-filter-check-label::before {
-    background: var(--r-green);
+    background: var(--status-ok);
 }
 
 /* In-panel "Clear …" link — sits at the bottom of each dropdown panel,

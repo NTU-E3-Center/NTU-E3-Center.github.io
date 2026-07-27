@@ -53,8 +53,8 @@
 }
 
 .proj-status-pill--ongoing {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 /* Larger, tighter headline than the publication page for an editorial feel. */

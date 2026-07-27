@@ -555,11 +555,30 @@ i {
        outline. */
     --accent-ink: color-mix(in srgb, var(--main-color-2) 35%, var(--main-color));
 
+    /* Status and research-field semantics. Components use these names, never the
+       raw --r-* primitive behind them, so the meaning is greppable and the hue
+       can change in one place. The -text variants are deepened to clear WCAG AA
+       against their own tinted backgrounds — same discipline as --cat-*-text. */
+    --status-ok:            var(--r-green);
+    --status-ok-text:       color-mix(in srgb, var(--r-green) 40%, var(--main-color));
+    --status-alert:         var(--r-red);
+    --status-alert-text:    color-mix(in srgb, var(--r-red) 40%, var(--main-color));
+    --field-energy:         var(--r-yellow);
+    --field-economics:      var(--r-orange);
+    --field-environment:    var(--r-green);
+
     --main-light: #b4cbd8;
     --main-3-light: #f4fafc;
     --secondary-light: #eceddd;
     --house-dark: #b4cedb;
     --house-light: #cad9e2;
+
+    /* Homepage icon hover-flash accents — the pale phase of the shared
+       panel-flash keyframe pulse (.hp-pv-panel default, .ani-radar hover
+       override in style.css). Named so those two rules reach the light-tint
+       primitives through :root instead of consuming them directly. */
+    --icon-flash-light:  var(--main-3-light);
+    --icon-flash-accent: var(--secondary-light);
 
     --selection-color: #0a557edd;
 
