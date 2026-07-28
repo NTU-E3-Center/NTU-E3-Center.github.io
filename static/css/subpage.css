@@ -27,13 +27,47 @@
 .subpage-header-inner {
     width: min(100%, 80rem);
     margin-inline: auto;
-    /* Reserve right space for the fixed Menu button (≈5rem wide with the
-       "Menu" label at desktop) so the trail never sits under it. */
-    padding-inline-end: 6rem;
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--space-7);
+}
+
+/* Homepage: fixed (out of flow, so the hero keeps its full height) and
+   parked above the viewport until the hero scrolls past — the hero stays an
+   uninterrupted brand moment, then the nav slides in as a table of contents
+   with scroll-spy. */
+.subpage-header--home {
+    position: fixed;
+    inset-inline: 0;
+    translate: 0 -100%;
+    /* WCAG 2.4.7 / 2.4.11 — parked off-screen, this header must also be
+       inert: without `visibility`, its logo + nav links stay in the tab
+       order while invisible, and tabbing from page load sends focus
+       through eight off-viewport controls that never scroll into view.
+       `visibility: hidden` (not `display: none`) removes descendants from
+       the tab order while still letting `translate` animate. `visibility`
+       is listed in the transition so the flip is timed correctly: per the
+       CSS Transitions spec, a property transitioning to/from `visible`
+       uses `visible` for the whole run except the very end, so becoming
+       hidden only happens once the slide-out has fully finished (and
+       becoming visible happens immediately) — no jarring snap either way. */
+    visibility: hidden;
+    transition:
+        translate 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subpage-header--home.is-visible {
+    translate: 0 0;
+    visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .subpage-header--home {
+        transition: none;
+    }
 }
 
 .subpage-header-logo {
@@ -60,13 +94,19 @@
    On detail pages with a back-link, the trail stacks: small eyebrow row
    (parent ›) above the current title. On listing pages the eyebrow row
    is absent — the title sits alone at 1.5rem so the bar still reads full. */
-.subpage-trail {
+/* Breadcrumb lives in the content flow (see subpage-header.html), so the
+   header bar stays one row at every width. Same 80rem band + --gutter-x as
+   the header above it, so the trail aligns with the wordmark. */
+.page-trail {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding-inline: var(--gutter-x);
+    padding-block-start: var(--space-6);
+
     display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    align-items: flex-start;
-    min-width: 0;
-    flex: 1;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 var(--space-2);
 }
 
 .trail-parent {
@@ -96,19 +136,63 @@
 }
 
 .trail-current {
-    /* S·3 — was var(--fs-heading-s) (1.5rem); trimmed to 1.25rem so the
-       trail reads as a strong breadcrumb rather than competing with the
-       page's own h1. Pairs with the tighter header padding above. */
-    font-size: var(--fs-lede);
+    /* Quiet now that it sits in content above the page's own h1 rather than
+       standing in for it in the bar. Wraps instead of truncating — there is
+       no single-row constraint here. */
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
-    line-height: var(--lh-h3);
-    letter-spacing: -0.015em;
+    line-height: var(--lh-secondary);
     color: var(--main-color);
-    opacity: 0.9;
+    opacity: 0.55;
+    min-width: 0;
+}
+
+/* ── Header primary nav ──────────────────────────────────────────────────
+   Desktop-only primary navigation (>64rem); below that the skewed drawer
+   takes over and this hides — one navigation system per breakpoint.
+
+   Brand language borrowed, not invented: the current-section marker is the
+   sage bar from the h3 underline motif, and hover carries the same −1px
+   up-left nudge every .skewed-block uses. No new colour, type tier, or
+   surface — text links are not surfaces, so the skew motif does not apply. */
+.hdr-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-shrink: 0;
+}
+
+.hdr-nav-a {
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    letter-spacing: 0.01em;
+    color: var(--main-color);
+    opacity: 0.55;
+    text-decoration: none;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    padding-block: 0.125rem;
+    border-block-end: 0.125rem solid transparent;
+    transition:
+        opacity var(--hover-transition-time),
+        border-color var(--hover-transition-time),
+        translate var(--hover-transition-time);
+
+    &:hover {
+        opacity: 1;
+        translate: var(--block-hover-translate) var(--block-hover-translate);
+    }
+
+    &:focus-visible {
+        outline: 0.125rem solid var(--main-color);
+        outline-offset: 0.25rem;
+    }
+
+    /* Current section — set by the template on subpages, by scroll-spy on
+       the homepage (general.js). */
+    &.is-current {
+        opacity: 1;
+        border-color: var(--secondary-color);
+    }
 }
 
 @media (max-width: 64rem) {
@@ -118,6 +202,7 @@
 
     .subpage-header-inner {
         gap: var(--space-5);
+        /* Reserve space for the fixed Menu button, which only exists here. */
         padding-inline-end: 5.5rem;
     }
 
@@ -125,8 +210,12 @@
         height: 1.75rem;
     }
 
-    .trail-current {
-        font-size: var(--fs-body);
+    .hdr-nav {
+        display: none;
+    }
+
+    .page-trail {
+        padding-block-start: var(--space-5);
     }
 }
 
@@ -137,7 +226,7 @@
        parent + separator + current chain inline so the trail stays one
        line tall. */
     .subpage-header {
-        padding-block: var(--space-2-5);
+        padding-block: var(--space-3);
     }
 
     .subpage-header-inner {
@@ -149,11 +238,8 @@
         height: 1.5rem;
     }
 
-    .subpage-trail {
-        flex-direction: row;
-        align-items: baseline;
-        gap: var(--space-1-5);
-        flex-wrap: nowrap;
+    .page-trail {
+        gap: 0 var(--space-1-5);
     }
 
     /* P2·14 — was 0.625rem (10 px), below the WCAG advisory ~12 px
@@ -166,7 +252,6 @@
     }
 
     .trail-current {
-        font-size: var(--fs-secondary);
         font-weight: var(--fw-display);
     }
 }
@@ -266,7 +351,7 @@
     /* Portrait 3:4 photo — consistent regardless of source image shape */
     & .mem-row-photo {
         --_img-width: 9rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
         --_img-border-r: 0.3125rem;
 
         --_block-width: calc(var(--_img-width) + 2 * var(--_img-border-w));
@@ -307,7 +392,7 @@
     }
 
     & .mem-row-en {
-        font-size: var(--fs-heading-l);
+        font-size: var(--fs-h2);
         font-weight: var(--fw-heading);
         line-height: var(--lh-flush);
         letter-spacing: -0.025em;
@@ -315,7 +400,7 @@
     }
 
     & .mem-row-zh {
-        font-size: var(--fs-body-l);
+        font-size: var(--fs-lede);
         font-weight: var(--fw-body);
         line-height: var(--lh-flush);
         opacity: 0.6;
@@ -332,7 +417,7 @@
             &:first-child {
                 font-size: var(--fs-body);
                 font-weight: var(--fw-heading);
-                color: var(--main-color-2);
+                color: var(--accent-ink);
                 margin-block-end: 0.2rem;
             }
 
@@ -756,7 +841,7 @@
 
     &[data-cat="Education and Outreach"] {
         color: var(--cat-outreach-text);
-        background: color-mix(in srgb, var(--r-orange) 14%, transparent);
+        background: color-mix(in srgb, var(--cat-outreach) 14%, transparent);
     }
 }
 
@@ -1388,13 +1473,13 @@
     line-height: var(--lh-lede);
     padding: 0.1rem 0.6rem;
     border-radius: 2rem;
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
 }
 
 .pub-row-tag--method {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 /* Phone: collapse the publisher button to an icon. WCAG 2.5.5 — keep
@@ -1660,7 +1745,7 @@
     .contact-info-label {
         font-size: var(--fs-eyebrow);
         font-weight: var(--fw-heading);
-        letter-spacing: 0.14em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         opacity: 0.5;
         margin-block-end: var(--space-1);
@@ -1675,7 +1760,7 @@
     }
 
     .contact-info-sub {
-        font-size: var(--fs-caption-s);
+        font-size: var(--fs-secondary);
         font-weight: var(--fw-light);
         line-height: var(--lh-body-base);
         opacity: 0.6;
@@ -1732,7 +1817,7 @@
             }
 
             &:focus-visible {
-                outline: 0.1875rem solid var(--main-color-2);
+                outline: 0.1875rem solid var(--main-color);
                 outline-offset: 0.125rem;
             }
         }
@@ -1790,12 +1875,12 @@
         border-left: 0.1875rem solid currentColor;
 
         &.is-success {
-            color: color-mix(in srgb, var(--r-green) 70%, #1a3d2e);
-            background: color-mix(in srgb, var(--r-green) 12%, transparent);
+            color: var(--status-ok-text);
+            background: color-mix(in srgb, var(--status-ok) 12%, transparent);
         }
         &.is-error {
-            color: color-mix(in srgb, var(--r-red) 75%, #4a1818);
-            background: color-mix(in srgb, var(--r-red) 12%, transparent);
+            color: var(--status-alert-text);
+            background: color-mix(in srgb, var(--status-alert) 12%, transparent);
         }
     }
 }
@@ -1930,7 +2015,7 @@
     display: flex;
     align-items: baseline;
     gap: var(--space-2);
-    font-size: var(--fs-heading-s);
+    font-size: var(--fs-h3);
     font-weight: var(--fw-display);
     letter-spacing: -0.025em;
     color: var(--main-color);
@@ -1938,7 +2023,7 @@
 }
 
 .proj-status-count {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     opacity: 0.4;
 }
@@ -1974,7 +2059,7 @@
     align-items: baseline;
     flex-wrap: wrap;
     gap: var(--space-1-5);
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     line-height: var(--lh-body-base);
     margin: 0.3rem 0 0;
 }
@@ -1995,7 +2080,7 @@
     padding: 0.15rem 0.5rem;
     border-radius: 2rem;
     line-height: var(--lh-eyebrow);
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 14%, transparent);
 }
 
@@ -2035,7 +2120,7 @@
     }
 
     .proj-status-title {
-        font-size: var(--fs-body-l);
+        font-size: var(--fs-lede);
     }
 
     /* keep the badge above the ~0.75rem mobile floor (DESIGN_RULES §9, [A-1]) */
@@ -2100,13 +2185,12 @@
     border-color: var(--main-color);
 }
 
-/* P2·7 — when the trigger is in BOTH active (dark teal bg) and focused
-   states, the default outline color (--main-color) matches the bg and
-   nearly disappears. Switch to the lighter accent so the ring stands
-   off the dark background; thicken slightly for parity with the
-   visually heavier active state. */
+/* P2·7 — the active trigger differentiates its focus ring by WIDTH, not colour.
+   `outline-offset: 0.25rem` (base rule) draws the ring outside the button's
+   border edge, so it sits on the page background rather than the active
+   state's navy fill — navy reads 7.66:1 there. An earlier colour override
+   existed for a pre-offset layout and is no longer needed. */
 .pub-filter-trigger.is-active:focus-visible {
-    outline-color: var(--main-color-2);
     outline-width: 0.1875rem;
 }
 
@@ -2307,7 +2391,7 @@
 }
 
 .pub-filter-check--method .pub-filter-check-label::before {
-    background: var(--r-green);
+    background: var(--status-ok);
 }
 
 /* In-panel "Clear …" link — sits at the bottom of each dropdown panel,

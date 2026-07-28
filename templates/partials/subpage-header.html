@@ -1,4 +1,13 @@
-<header class="subpage-header">
+{# Site header — brand + primary navigation, one row at every width.
+
+   Desktop (>64rem): the inline nav IS the primary navigation; the overlay
+   menu button is hidden (see subpage.css § Header inline nav). Below 64rem
+   the nav hides and the skewed drawer takes over — one navigation system
+   per breakpoint, per the adaptive-navigation rule.
+
+   On the homepage the header is fixed + hidden until the hero scrolls out
+   (`--home` modifier), so the hero stays an uninterrupted brand moment. #}
+<header class="subpage-header{% if isHomePage %} subpage-header--home{% endif %}">
     <div class="subpage-header-inner">
         <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
             <picture>
@@ -7,20 +16,39 @@
             </picture>
         </a>
 
-        {% if subpageTitle %}
+        {% if subpageTitle and not suppressSrH1 %}
         {# Every subpage needs one semantic h1 for SEO + a11y. The visible page
-           name lives in the trail below; this is sr-only so design is unchanged.
-           Pages that render their own visible h1 (contact, member profile,
-           news article, publication detail) pass `suppressSrH1 = True`. #}
-        {% if not suppressSrH1 %}
+           name lives in the trail below (detail pages) or is carried by the
+           active nav link (listing pages). Pages that render their own visible
+           h1 (contact, member profile, news article, publication detail) pass
+           `suppressSrH1 = True`. #}
         <h1 class="sr-only">{{ subpageTitle }}</h1>
         {% endif %}
-        <nav class="subpage-trail" aria-label="breadcrumb">
-            {% if backLink %}
-            <a class="trail-parent" href="{{ backLink }}">{{ backLinkText if backLinkText else 'Back' }}</a>
+
+        {# Current-section probe. Listing pages carry canonicalLink; the four
+           standalone detail templates (news / member / publication / project)
+           don't extend base.html and set canonical inline, but every one of
+           them sets backLink to its parent listing — so both are searched. #}
+        {% set _cur = (canonicalLink if canonicalLink is defined else '') ~ ' ' ~ (backLink if backLink is defined else '') %}
+        <nav class="hdr-nav" aria-label="Primary">
+            {% for section in pages['index']['structure'] %}
+            {% if section.id %}
+            {% set _active = section.link.startswith('/') and '#' not in section.link and (section.link ~ '/') in _cur %}
+            <a class="hdr-nav-a{% if _active %} is-current{% endif %}" href="{{ section.link }}"{% if _active %} aria-current="page"{% endif %}>{{ section.title }}</a>
             {% endif %}
-            <span class="trail-current">{{ subpageTitle }}</span>
+            {% endfor %}
         </nav>
-        {% endif %}
     </div>
 </header>
+
+{# Breadcrumb as page content, not chrome. Detail pages only — on listing
+   pages the active nav link already names the section, so a trail there
+   would just restate it. Living outside <header> keeps the bar one row at
+   every width (logo + 7 links + a long article title cannot share a row
+   at 1024–1200px). #}
+{% if subpageTitle and backLink %}
+<nav class="page-trail" aria-label="breadcrumb">
+    <a class="trail-parent" href="{{ backLink }}">{{ backLinkText if backLinkText else 'Back' }}</a>
+    <span class="trail-current">{{ subpageTitle }}</span>
+</nav>
+{% endif %}

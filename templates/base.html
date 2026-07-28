@@ -57,12 +57,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400..600&family=Noto+Sans+TC:wght@400..600&display=swap" rel="stylesheet" crossorigin>
 
     <!-- css -->
-    <link rel="stylesheet" href="/css/general.css?v=52">
-    <link rel="stylesheet" href="/css/style.css?v=43">
-    <link rel="stylesheet" href="/css/subpage.css?v=72">
+    <link rel="stylesheet" href="/css/general.css?v=62">
+    <link rel="stylesheet" href="/css/style.css?v=47">
+    <link rel="stylesheet" href="/css/subpage.css?v=80">
 
     <!-- js -->
-    <script defer src="/js/general.js?v=4"></script>
+    <script defer src="/js/general.js?v=5"></script>
     {% if isHomePage %}
     <script defer src="/js/script.js?v=3"></script>
     {% endif %}
@@ -84,7 +84,9 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3L6SMNZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    {% if subpageTitle %}
+    {# Header renders on every page — the homepage included, so desktop
+       navigation placement never changes by page type. #}
+    {% if subpageTitle or isHomePage %}
     {% include 'partials/subpage-header.html' %}
     {% endif %}
 

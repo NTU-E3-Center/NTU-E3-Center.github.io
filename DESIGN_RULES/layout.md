@@ -23,7 +23,7 @@ Part of [DESIGN_RULES/](./README.md). Covers spacing tokens, the signature skewe
 
 ## The Skewed-Block Motif (`general.css:422–472`)
 
-The signature brand primitive. **Every card, button, image, photo, chip, and form input is a skewed block** — the brand has no flat or soft-shadowed surfaces.
+The signature brand primitive — but not universal. It's scoped to interactive and photographic surfaces; dense repeating chrome renders flat by design. See the Rule below for the exact split. No surface, skewed or flat, ever takes a soft/blurred shadow.
 
 `.skewed-block` base behaviour:
 
@@ -36,7 +36,7 @@ The signature brand primitive. **Every card, button, image, photo, chip, and for
 | Attribute | Effect |
 |---|---|
 | `b-role="btn"` | Padding `--btn-padding` (`0.375em 0.75em`), `font-size: 1rem`. Uses the **btn** geometry (2px border / 4px radius / 3px shadow). |
-| `b-role="block"` | Sized via `--_block-width` / `--_block-height`; raises border to **3px** and radius to **6px** via `--_adjusted-*` overrides. For cards, images, portraits. |
+| `b-role="block"` | Sized via `--_block-width` / `--_block-height`; raises border to **2px** and radius to **6px** via `--_adjusted-*` overrides. For cards, images, portraits. |
 | `b-hoverable` | Adds `cursor: pointer` plus the hover / active states below. |
 
 ### Geometry tokens (`general.css:228–241`)
@@ -49,25 +49,49 @@ The signature brand primitive. **Every card, button, image, photo, chip, and for
 | `--btn-shadow-shift` | `0.1875rem` | 3 | btn resting shadow offset |
 | `--btn-hover-translate` | `-0.0625rem` | −1 | btn hover nudge |
 | `--btn-hover-shadow-shift` | `0.25rem` | 4 | btn hover shadow offset |
-| `--block-shadow-shift` | `0.3125rem` | 5 | block resting shadow offset |
+| `--block-shadow-shift` | `0.25rem` | 4 | block resting shadow offset |
 | `--block-hover-translate` | `-0.0625rem` | −1 | block hover nudge |
-| `--block-hover-shadow-shift` | `0.4375rem` | 7 | block hover shadow offset |
+| `--block-hover-shadow-shift` | `0.375rem` | 6 | block hover shadow offset |
 | `--block-skew` | `-3deg` | — | the X-skew on every block |
 | `--content-skew` | `+3deg` | — | counter-skew on children (`calc(-1 × --block-skew)`) |
 | `--hover-transition-time` | `0.15s` | — | transition duration for all block state changes |
+
+> Unlike the btn tier, block **border width** isn't a single shared `:root` token — each block component sets its own `--_adjusted-border-width` (usually via a local `--_img-border-w`) in `style.css` / `subpage.css` / `news-item.css` / `member.css`. Since 2026-07 every one of those component-level values reads **2px** (`0.125rem`), matching the btn border width — see the Attribute API row above — with one known exception: `.hp-about-us` (`style.css`) still carries its pre-refinement `0.1875rem` (3px) border, deliberately left out of the sweep (see finding [B-8] in [`README.md`](./README.md)). If you add a new block component, set its border to `0.125rem` too rather than inventing a heavier value.
 
 ### State behaviour (the "pressed-button-pops-up" feel)
 
 | State | Translate | Border-radius | Shadow offset |
 |---|---|---|---|
 | Resting (btn) | `0` | 4px | 3px |
-| Resting (block) | `0` | 6px | 5px |
-| **Hover** (`b-hoverable`) | `(-1px, -1px)` | **×2** — 8px btn / 12px block | grows — 3→4 btn, 5→7 block |
+| Resting (block) | `0` | 6px | 4px |
+| **Hover** (`b-hoverable`) | `(-1px, -1px)` | **×2** — 8px btn / 12px block | grows — 3→4 btn, 4→6 block |
 | **Active** | snaps to `0` | back to base | back to base |
 
-> **Rule:** Any new surface — card, button, image, chip, input — is a `.skewed-block`. Never introduce a flat-bordered or soft-shadowed surface. Children must counter-skew (`+3deg`) so their content reads upright. Hover always does three things at once: nudge up-left, grow the shadow, double the radius.
+> **Rule:** the skew is a gesture, and a gesture repeated twenty times in a list
+> stops being one. So it is scoped by what a surface *is*, not by whether it is a
+> surface:
+>
+> - **Skewed** — interactive and photographic surfaces: buttons and CTAs
+>   (`b-role="btn"`), images, member portraits, the hero image frame, the news
+>   date badge, the menu drawer.
+> - **Flat** — dense repeating chrome: filter pills, show-more pills, listing
+>   thumbnails, inline article images, keyword chips, status and category badges.
+>
+> Flat surfaces still take no blurred shadow — the hard-offset-only rule is
+> absolute. Children of a skewed block always counter-skew (`+3deg`), and hover
+> always does three things at once: nudge up-left, grow the shadow, double the
+> radius.
 
-**Documented exceptions (flat, 0.375rem radius, no border/shadow):** inline article images in `.news-item-body` and the news-listing thumbnails (`.news-row-thumb`). Dense repeating imagery inside prose or rows would turn the skew motif into noise — these render flat by design. Filter pills (`.news-filter-tab`), show-more pills (`.publi-show-more`, `.news-show-older`) are flat outlined controls by the same precedent.
+**Flat-surface reference (0.375rem radius, no border/shadow, no skew):** inline
+article images in `.news-item-body` and the news-listing thumbnails
+(`.news-row-thumb`) — dense repeating imagery inside prose or rows would turn
+the skew motif into noise. Filter pills (`.news-filter-tab`) and show-more
+pills (`.publi-show-more`, `.proj-show-more`, `.news-show-older`) are flat
+outlined controls by the same precedent. Keyword chips (`.pub-tag-chip`,
+publication topic/method tags) and status/category badges (`.news-row-badge`,
+`.pub-status-badge`, `.proj-status-pill`, `.proj-role-badge`,
+`.proj-honor-badge`) are flat color-tinted pills — a row of these skewed would
+read as noise, not emphasis.
 
 ---
 
@@ -75,8 +99,9 @@ The signature brand primitive. **Every card, button, image, photo, chip, and for
 
 - **Only hard offset shadows.** Syntax is `<shift> <shift> var(--main-shadow-color)` — no blur radius, ever. `--main-shadow-color` is `#0a557ebb` (≈73%-alpha teal), **never grey**.
 - No soft / elevation / blurred `box-shadow` appears anywhere in the brand. Don't add one.
-- **Borders are always `var(--main-color)`.** Width is 2px for buttons, 3px for blocks / images / portraits.
+- **Borders are always `var(--main-color)`.** Width is 2px at every tier with two named exceptions below — buttons and blocks (cards, images, portraits) share the same border weight since the 2026-07 lightening; only shadow depth and radius still separate the tiers. Two button-tier / button-adjacent components still carry pre-refinement, heavier geometry and were deliberately left out of that sweep: `.hp-about-us` (`style.css`, 3px border) and the menu drawer's `border-left` (`general.css`, 3px). See finding [B-8] in [`README.md`](./README.md).
 - **Radii** are 4px (btn) and 6px (block) at rest; both **double on hover** (8px / 12px). Radius growth is part of the brand's tactile feedback — don't suppress it.
+- **Shadow depth** is 3px (btn) and 4px (block) at rest, 4px (btn) and 6px (block) on hover — this is now the primary way a block reads "heavier" than a button.
 
 ---
 

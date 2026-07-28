@@ -47,7 +47,7 @@
 
     .hp-title {
         & h1 {
-            font-size: var(--fs-display-m);
+            font-size: var(--fs-h1);
 
             display: flex;
 
@@ -64,7 +64,7 @@
 
     .hp-3e {
         & p {
-            font-size: var(--fs-heading-s);
+            font-size: var(--fs-h3);
 
             display: flex;
             align-items: baseline;
@@ -328,12 +328,12 @@
 
 @keyframes panel-flash {
     0% {
-        fill: var(--_flash-light, var(--main-3-light));
+        fill: var(--_flash-light, var(--icon-flash-light));
     }
 
     10%,
     100% {
-        fill: var(--_flash-dark, var(--main-color-3));
+        fill: var(--_flash-dark, var(--icon-flash-dark));
     }
 }
 
@@ -1006,7 +1006,7 @@
         --_img-width: 13rem;
         --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
 
         display: grid;
         justify-items: center;          /* center the PI block horizontally */
@@ -1165,7 +1165,7 @@
         --_img-width: clamp(5.5rem, 12.5vw, 9.5rem);
         --_img-aspect-ratio: 3/4;
         --_img-border-r: 0.375rem;
-        --_img-border-w: 0.1875rem;
+        --_img-border-w: 0.125rem;
 
         display: flex;
         flex-wrap: wrap;
@@ -1240,7 +1240,7 @@
 
             .mem-name {
                 width: var(--_mem-name-width);
-                font-size: var(--fs-heading-s);
+                font-size: var(--fs-h3);
                 line-height: var(--lh-flush);
                 transition: var(--hover-transition-time);
 
@@ -1275,9 +1275,9 @@
 }
 
 /* research field colors */
-.field-energy    { color: var(--r-yellow); }
-.field-economics { color: var(--r-orange); }
-.field-environment { color: var(--r-green); }
+.field-energy    { color: var(--field-energy); }
+.field-economics { color: var(--field-economics); }
+.field-environment { color: var(--field-environment); }
 
 /* research */
 .res-section {
@@ -1319,7 +1319,7 @@
 
         --_block-width: calc(2rem * var(--_block-scale));
         --_block-height: calc(5rem * var(--_block-scale));
-        --_adjusted-border-width: 0.1875rem;
+        --_adjusted-border-width: 0.125rem;
         --_adjusted-shadow-shift: var(--block-shadow-shift);
 
         display: flex;
@@ -1345,7 +1345,7 @@
     .res-img-block {
         --_block-width: calc(12rem * var(--_block-scale));
         --_block-height: calc(9rem * var(--_block-scale));
-        --_adjusted-border-width: 0.1875rem;
+        --_adjusted-border-width: 0.125rem;
         --_adjusted-shadow-shift: var(--block-shadow-shift);
 
         --_adjusted-hover-translate: var(--block-hover-translate);
@@ -1539,10 +1539,10 @@
     &:has(.ani-radar):hover {
         --_ani-time: 4s;
         --_flash-light: var(--secondary-color);
-        --_flash-dark: var(--secondary-light);
+        --_flash-dark: var(--icon-flash-accent);
 
         & [ani-wave] {
-            fill: var(--secondary-light);
+            fill: var(--icon-flash-accent);
             animation: panel-flash var(--_ani-time) step-end infinite;
         }
 
@@ -1886,7 +1886,7 @@
     --_img-width: min(40rem, calc(100vw - 5rem));
     --_img-aspect-ratio: 4/3;
     --_img-border-r: 0.375rem;
-    --_img-border-w: 0.1875rem;
+    --_img-border-w: 0.125rem;
 
     --_block-skew: -1.5deg;
 
@@ -2027,7 +2027,7 @@
 .glf-section[which='all'] {
     --_img-width: 15rem;
     --_img-aspect-ratio: 4/3;
-    --_img-border-w: 0.1875rem;
+    --_img-border-w: 0.125rem;
 
     display: grid;
     grid-template-columns: repeat(auto-fill, calc(var(--_img-width) + 2 * var(--_img-border-w)));
