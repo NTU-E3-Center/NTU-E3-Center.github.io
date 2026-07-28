@@ -23,21 +23,21 @@
 }
 
 .pub-tag-chip {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     line-height: var(--lh-lede);
     padding: 0.25rem 0.75rem;
     border-radius: 2rem;
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
 }
 
 /* Method chips: solid green variant so topic (blue) vs method (green) is
    distinguishable by hue at chip-level glance. */
 .pub-tag-chip--method {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 .pub-item-title {
@@ -76,7 +76,7 @@
 
 /* Animated underline on author links — matches the about-section link recipe. */
 .pub-author-link {
-    color: color-mix(in srgb, var(--main-color) 55%, var(--main-color-2) 45%);
+    color: var(--accent-ink);
     font-weight: var(--fw-heading);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
@@ -90,7 +90,7 @@
 
     &:hover, &:focus-visible {
         background-size: 100% 1px;
-        color: var(--main-color-2);
+        color: var(--accent-ink);
     }
 
     &:focus-visible {
@@ -317,8 +317,8 @@
 
     &.is-copied {
         opacity: 1;
-        color: var(--r-green);
-        border-color: color-mix(in srgb, var(--r-green) 45%, transparent);
+        color: var(--status-ok);
+        border-color: color-mix(in srgb, var(--status-ok) 45%, transparent);
     }
 }
 

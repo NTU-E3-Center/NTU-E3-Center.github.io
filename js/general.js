@@ -296,21 +296,29 @@ if (document.querySelector('img[loading="lazy"]')) {
 if (document.querySelector('section#home')) {
     const sections = Array.from(document.querySelectorAll('section[id]'))
         .filter(s => s.id !== 'home');
-    const linkBySection = {};
+    // Both navigations are spied: the drawer (.menu-a, tablet/phone) and the
+    // header nav (.hdr-nav-a, desktop). Each carries its own active class.
+    const linksBySection = {};
     sections.forEach(s => {
         const id = s.id;
-        let link = document.querySelector(`.menu-a[href="/#${id}"], .menu-a[href="#${id}"]`);
-        if (!link) link = document.querySelector(`.menu-a[href$="/${id}"], .menu-a[href$="/${id}/"]`);
-        if (link) linkBySection[id] = link;
+        const found = [];
+        ['.menu-a', '.hdr-nav-a'].forEach(base => {
+            let link = document.querySelector(`${base}[href="/#${id}"], ${base}[href="#${id}"]`);
+            if (!link) link = document.querySelector(`${base}[href$="/${id}"], ${base}[href$="/${id}/"]`);
+            if (link) found.push(link);
+        });
+        if (found.length) linksBySection[id] = found;
     });
-    const links = Object.values(linkBySection);
-    if (links.length) {
+    if (Object.keys(linksBySection).length) {
         const setActive = (activeId) => {
-            Object.entries(linkBySection).forEach(([id, link]) => {
+            Object.entries(linksBySection).forEach(([id, links]) => {
                 const isActive = id === activeId;
-                link.classList.toggle('menu-a--active', isActive);
-                if (isActive) link.setAttribute('aria-current', 'location');
-                else link.removeAttribute('aria-current');
+                links.forEach(link => {
+                    const cls = link.classList.contains('hdr-nav-a') ? 'is-current' : 'menu-a--active';
+                    link.classList.toggle(cls, isActive);
+                    if (isActive) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                });
             });
         };
         const observer = new IntersectionObserver((entries) => {
@@ -319,6 +327,19 @@ if (document.querySelector('section#home')) {
             });
         }, { rootMargin: '-20% 0px -75% 0px', threshold: 0 });
         sections.forEach(s => observer.observe(s));
+    }
+
+    // Homepage header reveal — the hero is an uninterrupted brand moment, so
+    // the fixed header stays parked above the viewport until the hero has
+    // largely scrolled past, then slides in as a section table of contents.
+    const homeHeader = document.querySelector('.subpage-header--home');
+    const homeHero = document.querySelector('section#home');
+    if (homeHeader && homeHero) {
+        const revealHeader = () => {
+            homeHeader.classList.toggle('is-visible', window.scrollY > homeHero.offsetHeight * 0.6);
+        };
+        window.addEventListener('scroll', revealHeader, { passive: true });
+        revealHeader();
     }
 }
 

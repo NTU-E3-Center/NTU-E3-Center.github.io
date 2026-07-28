@@ -43,18 +43,18 @@
 }
 
 .proj-status-pill {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     letter-spacing: 0.04em;
     padding: 0.2rem 0.7rem;
     border-radius: 2rem;
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
 }
 
 .proj-status-pill--ongoing {
-    color: color-mix(in srgb, var(--r-green) 78%, #1a3d2e);
-    background: color-mix(in srgb, var(--r-green) 14%, transparent);
+    color: var(--status-ok-text);
+    background: color-mix(in srgb, var(--status-ok) 14%, transparent);
 }
 
 /* Larger, tighter headline than the publication page for an editorial feel. */
@@ -196,12 +196,12 @@
 
 .proj-finding-num {
     display: block;
-    font-size: var(--fs-heading-s);
+    font-size: var(--fs-h3);
     font-weight: var(--fw-heading);
     line-height: var(--lh-flush);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     margin: 0 0 0.85rem;
 }
 
@@ -239,11 +239,11 @@
 }
 
 .proj-output-type {
-    font-size: var(--fs-caption);
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--main-color-2);
+    letter-spacing: 0.1em;
+    color: var(--accent-ink);
     background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
     border-radius: 0.3rem;
     padding: 0.1rem 0.5rem;
@@ -261,7 +261,7 @@
 
     &:hover, &:focus-visible {
         background-size: 100% 1px;
-        color: var(--main-color-2);
+        color: var(--accent-ink);
     }
 }
 
@@ -306,7 +306,7 @@
     }
 
     &:focus-visible {
-        outline: 0.125rem solid var(--main-color-2);
+        outline: 0.125rem solid var(--main-color);
         outline-offset: 0.1875rem;
     }
 }
@@ -408,7 +408,7 @@ a.proj-chip:hover, a.proj-chip:focus-visible {
 }
 
 a.proj-chip:focus-visible {
-    outline: 0.125rem solid var(--main-color-2);
+    outline: 0.125rem solid var(--main-color);
     outline-offset: 0.125rem;
 }
 
@@ -455,7 +455,7 @@ a.proj-chip:focus-visible {
         &:hover,
         &:focus-within {
             .proj-partner-name {
-                color: var(--main-color-2);
+                color: var(--accent-ink);
                 text-decoration: underline;
                 text-underline-offset: 0.15em;
             }
@@ -499,13 +499,13 @@ a.proj-partner-name::after {
 }
 
 a.proj-partner-name:hover, a.proj-partner-name:focus-visible {
-    color: var(--main-color-2);
+    color: var(--accent-ink);
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }
 
 a.proj-partner-name:focus-visible {
-    outline: 0.125rem solid var(--main-color-2);
+    outline: 0.125rem solid var(--main-color);
     outline-offset: 0.2em;
     border-radius: 0.125rem;
 }
