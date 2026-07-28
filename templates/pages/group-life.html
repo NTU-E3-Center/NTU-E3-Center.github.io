@@ -75,9 +75,14 @@
                     alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}"
                 />
             </div>
-            <span class="glf-img-text">
-                {{ item['month'] }} {{ item['year'] }}
-            </span>
+            <div class="glf-caption">
+                <span class="glf-img-text">
+                    {{ item['month'] }} {{ item['year'] }}
+                </span>
+                {% if item['description'] %}
+                <p class="glf-img-desc">{{ item['description'] }}</p>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </section>
