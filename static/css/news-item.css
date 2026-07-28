@@ -11,6 +11,14 @@
 .news-item-hero {
     position: relative;
     margin-block-end: var(--space-12);
+
+    /* Match the article column (--w-article) instead of spanning the full
+       80rem main. The breadcrumb above and the title/body below both resolve
+       to this same width, so the hero was the only element breaking that
+       left edge — it read as a banner bolted onto the page rather than part
+       of it. The date badge is positioned against this box, so it follows. */
+    max-width: var(--w-article);
+    margin-inline: auto;
 }
 
 .news-item-hero-img {
