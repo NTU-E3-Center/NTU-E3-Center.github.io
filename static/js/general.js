@@ -364,3 +364,156 @@ document.querySelectorAll('.pub-show-all-btn').forEach((btn) => {
         }
     });
 });
+
+
+/* ── Media modal (lightbox) ───────────────────────────────────────────────
+   Lives here, not in script.js, because script.js is loaded only on the
+   homepage ({% if isHomePage %} in base.html). Any page can contain a
+   `.zoomable` block — the group-life gallery is the obvious one — and while
+   that markup and the .media-modal partial both rendered fine, the handler
+   that binds them never ran outside the homepage, so the images were inert.
+
+   Every lookup is guarded: the four standalone detail templates (news,
+   member, publication, project) do not extend base.html and therefore ship
+   no .media-modal at all. */
+(function () {
+    const mediaModal = document.querySelector('.media-modal');
+    const mediaModalCloseBtn = document.querySelector('.media-modal-close-btn');
+    const mediaModalContentWrapper = document.querySelector('.media-modal-content-wrapper');
+    const mediaModalCaption = document.querySelector('.media-modal-caption');
+
+    // The four standalone detail templates don't extend base.html, so they
+    // ship no .media-modal. Bail out rather than throwing on their pages.
+    if (!mediaModal || !mediaModalCloseBtn || !mediaModalContentWrapper || !mediaModalCaption) return;
+
+    const allMediaBlocks = document.querySelectorAll('.zoomable');
+    if (!allMediaBlocks.length) return;
+
+
+    // Remember which element opened the modal so we can restore focus on close
+    // (native <dialog> handles Esc + focus trap once showModal() is used).
+    let mediaModalOpener = null;
+
+    // --- HELPER FUNCTION TO CLOSE AND CLEAN UP MODAL ---
+    function closeModal() {
+        // 移除 modal 內容可以有效地停止影片/iframe 播放
+        mediaModalContentWrapper.innerHTML = '';
+        mediaModalContentWrapper.classList.remove('lazy-img-loaded');
+        mediaModal.close();
+    }
+
+    // Return focus to whatever opened the modal (keyboard a11y).
+    mediaModal.addEventListener('close', () => {
+        if (mediaModalOpener && typeof mediaModalOpener.focus === 'function') {
+            mediaModalOpener.focus();
+        }
+        mediaModalOpener = null;
+    });
+
+    // --- MAIN LOGIC FOR OPENING MODAL ---
+    allMediaBlocks.forEach((block) => {
+        // Keyboard a11y: a `.zoomable` block is a plain element, so expose it to
+        // assistive tech and keyboard users as an operable button. Guarded so a
+        // template that already sets these attributes isn't overridden.
+        if (!block.hasAttribute('tabindex')) block.tabIndex = 0;
+        if (!block.hasAttribute('role')) block.setAttribute('role', 'button');
+
+        const openMedia = () => {
+            mediaModalOpener = block;
+            // 清除上一次的內容
+            mediaModalContentWrapper.innerHTML = '';
+
+            const clickedEl = block.querySelector('img, video'); // 同時選取 img 和 video
+            if (!clickedEl) return; // 如果沒找到任何媒體，就結束
+
+            // --- 新增：優先檢查是否為 YouTube 影片 ---
+            if (clickedEl.dataset.youtubeSrc) {
+                const youtubeSrc = clickedEl.dataset.youtubeSrc;
+                const caption = clickedEl.alt;
+
+                // 建立一個新的 iframe 元素
+                const newIframe = document.createElement('iframe');
+
+                // 設定 iframe 的屬性
+                newIframe.src = `${youtubeSrc}?autoplay=1&rel=0`; // autoplay=1 讓影片自動播放, rel=0 避免顯示相關影片
+                newIframe.title = caption;
+                newIframe.frameborder = '0';
+                newIframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                newIframe.allowfullscreen = true;
+
+                mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.src})`;
+                mediaModalContentWrapper.style.aspectRatio = '16/9'; // YouTube 影片通常是 16:9
+                /* P3·3 — use textContent not innerHTML on caption. Caption
+                   sources are user-derived (alt text, data attributes) and
+                   could contain HTML control chars (&, <) that innerHTML
+                   would parse. textContent is purely literal. */
+                mediaModalCaption.textContent = caption;
+
+                // 將建立好的 iframe 加入 modal
+                mediaModalContentWrapper.appendChild(newIframe);
+                mediaModalContentWrapper.classList.add("lazy-img-loaded");
+            }
+
+            // --- IF AN IMAGE WAS CLICKED (and it's not a YouTube link) ---
+            else if (clickedEl.tagName === 'IMG') {
+                function lazyImgLoaded() {
+                    mediaModalContentWrapper.classList.add("lazy-img-loaded");
+                }
+                const newImg = document.createElement('img');
+                newImg.src = clickedEl.src;
+                newImg.srcset = clickedEl.srcset;
+                newImg.sizes = clickedEl.sizes;
+                newImg.alt = clickedEl.alt;
+
+                mediaModalContentWrapper.style.backgroundImage = block.style.backgroundImage;
+                mediaModalContentWrapper.style.aspectRatio = `${clickedEl.naturalWidth}/${clickedEl.naturalHeight}`;
+                mediaModalCaption.textContent = clickedEl.alt;
+
+                mediaModalContentWrapper.appendChild(newImg);
+
+                if (newImg.complete) {
+                    lazyImgLoaded();
+                } else {
+                    newImg.addEventListener('load', lazyImgLoaded, { once: true });
+                }
+            }
+
+            // --- IF A SELF-HOSTED VIDEO WAS CLICKED ---
+            else if (clickedEl.tagName === 'VIDEO') {
+                const newVideo = document.createElement('video');
+                newVideo.src = clickedEl.dataset.videoSrc;
+                newVideo.controls = true;
+                newVideo.autoplay = true;
+
+                mediaModalContentWrapper.style.backgroundImage = `url(${clickedEl.poster})`;
+                mediaModalContentWrapper.style.aspectRatio = '16/9';
+                mediaModalCaption.textContent = clickedEl.dataset.caption;
+
+                mediaModalContentWrapper.appendChild(newVideo);
+                mediaModalContentWrapper.classList.add("lazy-img-loaded");
+            }
+
+            // 最後，顯示 modal
+            mediaModal.showModal();
+        };
+
+        block.addEventListener('click', openMedia);
+        // Enter and Space activate the block like a native button; preventDefault
+        // stops Space from scrolling the page before the modal opens.
+        block.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                openMedia();
+            }
+        });
+    });
+
+    // --- EVENT LISTENERS FOR CLOSING MODAL ---
+    mediaModalCloseBtn.addEventListener('click', closeModal);
+
+    mediaModal.addEventListener('click', (e) => {
+        if (e.target === mediaModal) {
+            closeModal();
+        }
+    });
+}());

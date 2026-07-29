@@ -296,7 +296,17 @@ def build_member_data():
         section   = str(col(row, 'Website Section')      or '').strip()
         adm_year  = col(row, 'Admission Year')
         graduated = str(col(row, 'Graduated')            or '').strip()
-        also_alumni = str(col(row, 'Also in Alumni')     or '').strip().upper() == 'TRUE'
+        # `Graduated` implies Alumni. The sheet also has an explicit
+        # `Also in Alumni` flag, kept for the case where someone should be
+        # listed in Alumni *without* being marked graduated (e.g. a visiting
+        # student who left). Before this, marking someone Graduated changed
+        # only their position label — they stayed under Master Students,
+        # which is silent and easy to miss during the annual roll-over.
+        graduated_flag = str(col(row, 'Graduated') or '').strip().upper() == 'TRUE'
+        also_alumni = (
+            str(col(row, 'Also in Alumni') or '').strip().upper() == 'TRUE'
+            or graduated_flag
+        )
         alumni_year = col(row, 'Alumni Admission Year')
         curr_pos  = str(col(row, 'Current Position')     or '').strip()
         batch     = str(col(row, 'Batch')                or '').strip()
@@ -435,7 +445,16 @@ def build_member_data():
                 entry['pageLink']      = f'/members/{web_id}'
                 entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
 
-        members_by_section[section].append(entry)
+        # Two different meanings share the Alumni destination:
+        #   `Also in Alumni = TRUE`  -> holds a current role AND is an alum
+        #                               (the three RAs who graduated) => BOTH
+        #   `Graduated = TRUE` alone -> holds no current role         => Alumni ONLY
+        # Without this split a graduated master's student stayed listed under
+        # Master Students with the position label "Grad".
+        explicit_also = str(col(row, 'Also in Alumni') or '').strip().upper() == 'TRUE'
+        pure_graduate = graduated_flag and not explicit_also and section != 'Alumni'
+        if not pure_graduate:
+            members_by_section[section].append(entry)
 
         if also_alumni and section != 'Alumni':
             alumni_entry = {
@@ -444,8 +463,11 @@ def build_member_data():
                 'imgPath': img_path,
                 'icon':    '/assets/sprite.svg#svg-master-2',
             }
-            if alumni_year:
-                alumni_entry['admissionYear'] = str(alumni_year)
+            # Fall back to the admission year when no separate alumni year is
+            # given — graduates promoted by the `Graduated` flag alone won't
+            # have one, and Alumni is sorted by this key.
+            if alumni_year or adm_year:
+                alumni_entry['admissionYear'] = str(alumni_year or adm_year)
             if has_page:
                 alumni_entry['pageLink']      = f'/members/{web_id}'
                 alumni_entry['pageStructure'] = f'contents/structures/members/{web_id}.json'
