@@ -2040,6 +2040,29 @@
         gap: var(--space-2);
     }
 
+    /* Size the photo to the frame explicitly.
+
+       The shared block recipe (.skewed-block[b-role="block"] > *) sets width
+       only — no height, plus flex-shrink: 0 — so the rendered height is
+       whatever the source's intrinsic ratio yields and the frame simply clips
+       the overflow. Nothing bounds that, so any mismatch between photo and
+       frame surfaces as a hard zoom onto the middle of the image instead of a
+       graceful fit. Pinning both axes and letting object-fit do the cropping
+       makes the result deterministic: at most a few percent, always centred,
+       whatever the source dimensions turn out to be.
+
+       Every frame is the same 4:3, and object-fit: cover scales each photo by
+       the MINIMUM needed to fill it — no more. The only extra is 104% width,
+       which is exactly the corner sliver the -3deg skew would otherwise
+       expose (frame height x tan(3deg) = 3.93% at this aspect). So a 4:3
+       photo — 21 of the 24 — is zoomed 4% and nothing else. */
+    .glf-img > img {
+        width: 104%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
     .glf-img {
         --_block-width: calc(var(--_img-width) + 2 * var(--_img-border-w));
         --_block-height: calc(var(--_img-width) / (var(--_img-aspect-ratio)) + 2 * var(--_img-border-w));
@@ -2053,8 +2076,31 @@
         justify-content: center;
     }
 
+    /* Caption column. The descriptions already existed in group-life.json
+       but only reached the alt attribute, so sighted readers saw a bare
+       date and the editorial detail was invisible. Date stays the emphasis;
+       the description sits under it as quiet supporting text. */
+    .glf-caption {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: var(--space-1);
+        text-align: end;
+        width: calc(var(--_img-width) + 2 * var(--_img-border-w));
+    }
+
     .glf-img-text {
         margin-inline-end: var(--space-1);
+    }
+
+    .glf-img-desc {
+        margin: 0;
+        margin-inline-end: var(--space-1);
+        font-size: var(--fs-secondary);
+        line-height: var(--lh-secondary);
+        color: var(--main-color);
+        opacity: 0.65;
+        text-wrap: pretty;
     }
 
     @media (max-width: 64rem) {
