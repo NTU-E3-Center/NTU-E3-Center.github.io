@@ -56,7 +56,11 @@
     {# ── Collect all E3 items across all sections ──────────────────────────── #}
     {% set all_items = [] %}
     {% for section in structures['publications'] %}
-        {% for item in section['items'] if item.get('E3') %}
+        {# Manuscripts (status == 'working') are tracked in publications.json but
+           not published on the site. Excluding them here — the one funnel every
+           row, count, filter and search blob is built from — means a paper
+           appears automatically the moment its status flips to 'published'. #}
+        {% for item in section['items'] if item.get('E3') and item.get('status') != 'working' %}
             {% set _ = all_items.append(item) %}
         {% endfor %}
     {% endfor %}
@@ -277,12 +281,10 @@
     {% set _journal_counts = {} %}
     {% set _topic_counts   = {} %}
     {% set _method_counts  = {} %}
-    {% set _status_counts  = {'forthcoming': 0, 'published': 0, 'books': 0} %}
+    {% set _status_counts  = {'published': 0, 'books': 0} %}
     {% for it in all_items %}
         {% if it.get('type') == 'book' %}
             {% set _ = _status_counts.update({'books': _status_counts['books'] + 1}) %}
-        {% elif it.get('status') == 'working' %}
-            {% set _ = _status_counts.update({'forthcoming': _status_counts['forthcoming'] + 1}) %}
         {% elif it.get('status') == 'published' %}
             {% set _ = _status_counts.update({'published': _status_counts['published'] + 1}) %}
         {% endif %}
@@ -435,11 +437,6 @@
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['published'] }}</span>
                 </label>
                 <label class="pub-filter-check">
-                    <input type="checkbox" class="pub-filter-status-input" data-status="forthcoming">
-                    <span class="pub-filter-check-label">Manuscript</span>
-                    <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['forthcoming'] }}</span>
-                </label>
-                <label class="pub-filter-check">
                     <input type="checkbox" class="pub-filter-status-input" data-status="books">
                     <span class="pub-filter-check-label">Book</span>
                     <span class="pub-filter-check-count" aria-hidden="true">{{ _status_counts['books'] }}</span>
@@ -470,10 +467,6 @@
         'url': 'https://scholar.google.com.tw/citations?user=tUbPb-QAAAAJ',
         'text': "Full list on Google Scholar"
     }) }}
-
-    {# ── Manuscripts Submitted / Under Review ─────────────────────────────── #}
-    {% set working_items = all_items | rejectattr('type', 'equalto', 'book') | selectattr('status', 'equalto', 'working') | list %}
-    {{ pub_group('Manuscripts Submitted / Under Review', working_items, 'pub-working') }}
 
     {# ── Books (rendered last) ─────────────────────────────────────────────── #}
     {% if book_items %}
