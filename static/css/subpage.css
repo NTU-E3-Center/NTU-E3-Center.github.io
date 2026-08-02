@@ -707,13 +707,21 @@
     padding-block: var(--space-16) var(--space-24);
 }
 
-/* Brand strip above the heading — logos lead the page. */
+/* Page head — title block left, brand logos right; wraps on narrow. */
+.about-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-10);
+    margin-block-end: var(--space-14);
+}
+
 .about-logos {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-10);
-    margin-block-end: var(--space-14);
+    gap: var(--space-8);
 }
 
 .about-lead {
@@ -742,7 +750,6 @@
     font-weight: var(--fw-display);
     color: var(--accent-ink);
     letter-spacing: 0.01em;
-    margin-block-end: var(--space-14);
 }
 
 .about-grid {
@@ -819,7 +826,6 @@
 
     .about-logos {
         gap: var(--space-8);
-        margin-block-end: var(--space-10);
     }
 }
 

@@ -42,17 +42,20 @@
 
 <section id="about" class="about-subpage">
 
-    {# Brand strip — logos lead the page. #}
-    <div class="about-logos">
-        {% for about in structures['about'] if about['form'] == 'about' %}
-        {% for logo in about['logos'] %}
-        <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80">
-        {% endfor %}
-        {% endfor %}
+    {# Page head — title left, brand logos right. #}
+    <div class="about-head">
+        <div class="about-head-text">
+            <h1 class="about-lead">The E3 Research Center</h1>
+            <p class="about-tagline">Energy · Economics · Environment</p>
+        </div>
+        <div class="about-logos">
+            {% for about in structures['about'] if about['form'] == 'about' %}
+            {% for logo in about['logos'] %}
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80">
+            {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-
-    <h1 class="about-lead">The NTU E3 Research Center</h1>
-    <p class="about-tagline">Energy · Economics · Environment</p>
 
     {# Editorial grid — prose column left, fact cards right; rhymes with
        the contact page's form/info grid ([IA-2]). #}
