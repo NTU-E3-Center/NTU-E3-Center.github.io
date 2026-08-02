@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% set description = 'About the NTU E3 Research Center — grown from the E3 Group (active since 2020) and established as a center in 2025, led by Prof. I-Yun Lisa Hsieh. Mission, history, and the team researching Taiwan\'s sustainable energy transition.' %}
+{% set keywords = 'about E3 Center, NTU E3 Research Center, E3 group history, sustainable energy transition lab, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學, energy economics environment, NTU civil engineering' %}
+{% set canonicalLink = 'https://e3center.caece.net/about/' %}
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About | E3 Center",
+  "url": "https://e3center.caece.net/about/",
+  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "mainEntity": {
+    "@type": "ResearchOrganization",
+    "name": "NTU E3 Research Center",
+    "alternateName": "E3 Center",
+    "foundingDate": "2025",
+    "parentOrganization": { "@type": "CollegeOrUniversity", "name": "National Taiwan University" },
+    "url": "https://e3center.caece.net/"
+  }
+}
+</script>
+{% endblock %}
+{% block content %}
+{# Live counts — derived from the same data that renders /members/ and
+   /publications/, so these numbers can never go stale ([IA-2]). #}
+{% set _m = namespace(phd=0, master=0, staff=0, alumni=0) %}
+{% for group in structures['members'] %}
+    {% set _t = group['sectionTitle'] %}
+    {% if group['form'] == 'S' %}{% set _m.alumni = _m.alumni + group['members']|length %}
+    {% elif 'Ph.D.' in _t %}{% set _m.phd = _m.phd + group['members']|length %}
+    {% elif 'Master' in _t %}{% set _m.master = _m.master + group['members']|length %}
+    {% elif _t == 'Staff' %}{% set _m.staff = _m.staff + group['members']|length %}
+    {% endif %}
+{% endfor %}
+{% set _p = namespace(n=0) %}
+{% for section in structures['publications'] %}
+    {% for item in section['items'] if item.get('E3') and item.get('status') == 'published' and item.get('type') != 'book' %}
+        {% set _p.n = _p.n + 1 %}
+    {% endfor %}
+{% endfor %}
+
+<section id="about" class="about-subpage">
+
+    {# Page head — title left, brand logos right. #}
+    <div class="about-head">
+        <div class="about-head-text">
+            <h1 class="about-lead">The E3 Research Center</h1>
+            <p class="about-tagline">Energy · Economics · Environment</p>
+        </div>
+        <div class="about-logos">
+            {% for about in structures['about'] if about['form'] == 'about' %}
+            {% for logo in about['logos'] %}
+            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80">
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Editorial grid — prose column left, fact cards right; rhymes with
+       the contact page's form/info grid ([IA-2]). #}
+    <div class="about-grid">
+
+        <div class="about-body">
+            {# The shared mission article closes with its own "JOIN US"
+               paragraph (kept on the homepage section); here the section-CTA
+               button is the one join-us moment, so it is dropped. #}
+            <div class="abt-text about-prose">
+                {{ articles['about'].rsplit('<p>', 1)[0] }}
+            </div>
+
+            <h2 class="about-eyebrow text-eyebrow">From group to center</h2>
+            <div class="abt-text about-prose">
+                <p>The center grew out of the <strong>E3 Group</strong>, which Professor
+                <a href="/members/iyunlisahsieh/">I-Yun Lisa Hsieh 謝依芸</a> has led in the
+                Department of Civil Engineering — with a joint appointment in Chemical
+                Engineering — since 2020. What began as a research group focused on
+                electric mobility grew across energy systems, economics, and
+                environmental policy, and in <strong>2025</strong> was established as the
+                <strong>NTU E3 Research Center</strong>.</p>
+            </div>
+
+            <div class="section-cta about-cta">
+                <a class="section-cta-btn skewed-block" href="/contact/" b-role="btn" b-hoverable>
+                    <span>Join us</span>
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        {# Flat hairline stat list — four repeating tiles are dense chrome,
+           so per the motif rule they render flat, not skewed. #}
+        <aside class="about-cards" aria-label="The center in numbers">
+            <div class="about-card">
+                <span class="about-card-label text-eyebrow">Established</span>
+                <span class="about-card-num">2025</span>
+                <span class="about-card-sub">grew from the E3 Group, active since 2020</span>
+            </div>
+            <a class="about-card" href="/members/">
+                <span class="about-card-label text-eyebrow">Students</span>
+                <span class="about-card-num">{{ _m.phd + _m.master }}</span>
+                <span class="about-card-sub">{{ _m.phd }} Ph.D. · {{ _m.master }} Master — with {{ _m.staff }} research staff</span>
+            </a>
+            <a class="about-card" href="/publications/">
+                <span class="about-card-label text-eyebrow">Publications</span>
+                <span class="about-card-num">{{ _p.n }}</span>
+                <span class="about-card-sub">peer-reviewed journal articles</span>
+            </a>
+            <a class="about-card" href="/members/#alumni">
+                <span class="about-card-label text-eyebrow">Alumni</span>
+                <span class="about-card-num">{{ _m.alumni }}</span>
+                <span class="about-card-sub">graduates of the group and center</span>
+            </a>
+        </aside>
+
+    </div>
+
+</section>
+{% endblock %}

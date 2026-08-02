@@ -23,8 +23,16 @@
             </a>
         </li>
 
+        {# Drawer mirrors the nav groups ([IA-1]) as non-interactive eyebrow
+           labels above their flat items — no dropdowns below 64.0625rem. #}
+        {% set _mns = namespace(lastGroup='') %}
         {% for section in pages['index']['structure'] %}
         {% if section.id %}
+        {% set _grp = section.get('navGroup', '') %}
+        {% if _grp and _grp != _mns.lastGroup %}
+        <li class="menu-group-label text-eyebrow">{{ _grp }}</li>
+        {% endif %}
+        {% set _mns.lastGroup = _grp %}
         <li>
             <a href="{{ section.link }}" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="{{ section.title }}">
                 <svg aria-hidden="true"><use href="{{ section.icon }}"></use></svg>

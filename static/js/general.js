@@ -517,3 +517,71 @@ document.querySelectorAll('.pub-show-all-btn').forEach((btn) => {
         }
     });
 }());
+
+// * header nav dropdowns ([IA-1] — disclosure pattern, see
+//   DESIGN_RULES/components.md § Subpage Header). CSS handles hover and
+//   :focus-within; this layers click toggle, Esc-to-close (refocusing the
+//   trigger), outside-close, and aria-expanded sync.
+(function () {
+    const navGroups = document.querySelectorAll('.hdr-nav-group');
+    if (!navGroups.length) return;
+
+    function closeGroup(group) {
+        group.classList.remove('is-open');
+        const trigger = group.querySelector('.hdr-nav-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    navGroups.forEach((group) => {
+        const trigger = group.querySelector('.hdr-nav-trigger');
+        if (!trigger) return;
+        trigger.addEventListener('click', () => {
+            const open = group.classList.toggle('is-open');
+            trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            navGroups.forEach((other) => { if (other !== group) closeGroup(other); });
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        navGroups.forEach((group) => {
+            if (group.classList.contains('is-open') && !group.contains(e.target)) closeGroup(group);
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        navGroups.forEach((group) => {
+            if (group.classList.contains('is-open')) {
+                closeGroup(group);
+                const trigger = group.querySelector('.hdr-nav-trigger');
+                if (trigger) trigger.focus();
+            }
+        });
+    });
+}());
+
+// * anchor landing fix ([IA-1]) — two load-time failure modes defeat the
+//   browser's own fragment jump here: (1) html's scroll-behavior:smooth
+//   makes it a smooth animation that load-time layout shifts cancel;
+//   (2) lazy images above the target grow the layout after the jump and
+//   push the target away. So: jump with explicit instant behavior (spec-
+//   overrides the CSS smoothness) at `load`, then re-align once after
+//   layout settles — unless the user has scrolled in the meantime.
+//   scroll-margin-top on the targets keeps them clear of the header.
+if (location.hash) {
+    window.addEventListener('load', () => {
+        const anchorTarget = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (!anchorTarget) return;
+        let lastSetY = -1;
+        const jump = () => {
+            anchorTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+            lastSetY = window.scrollY;
+        };
+        requestAnimationFrame(jump);
+        setTimeout(() => {
+            // Re-align only if the page hasn't moved since our jump —
+            // never fight a user who has already started scrolling.
+            if (Math.abs(window.scrollY - lastSetY) < 2) jump();
+        }, 450);
+    });
+}

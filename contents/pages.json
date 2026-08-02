@@ -5,39 +5,50 @@
         "structure": [
             {
                 "id": "about",
-                "title": "About Us",
-                "link": "/#about-us",
+                "title": "About",
+                "link": "/about",
                 "icon": "/assets/sprite.svg#svg-info"
             },
             {
                 "id": "members",
                 "title": "Members",
                 "link": "/members",
-                "icon": "/assets/sprite.svg#svg-members"
+                "icon": "/assets/sprite.svg#svg-members",
+                "navGroup": "People",
+                "subnav": [
+                    { "title": "All Members", "link": "/members" },
+                    { "title": "Faculty & Staff", "link": "/members/#principal-investigator" },
+                    { "title": "Students", "link": "/members/#phd-students" },
+                    { "title": "Alumni", "link": "/members/#alumni" }
+                ]
             },
             {
                 "id": "publications",
                 "title": "Publications",
                 "link": "/publications",
-                "icon": "/assets/sprite.svg#svg-book"
+                "icon": "/assets/sprite.svg#svg-book",
+                "navGroup": "Research"
             },
             {
                 "id": "projects",
                 "title": "Projects",
                 "link": "/projects",
-                "icon": "/assets/sprite.svg#svg-scholar"
+                "icon": "/assets/sprite.svg#svg-scholar",
+                "navGroup": "Research"
             },
             {
                 "id": "news",
                 "title": "News",
                 "link": "/news",
-                "icon": "/assets/sprite.svg#svg-news"
+                "icon": "/assets/sprite.svg#svg-news",
+                "navGroup": "News & Life"
             },
             {
                 "id": "group-life",
                 "title": "Group Life",
                 "link": "/group-life",
-                "icon": "/assets/sprite.svg#svg-picture"
+                "icon": "/assets/sprite.svg#svg-picture",
+                "navGroup": "News & Life"
             },
             {
                 "_id": "videos",
@@ -47,11 +58,19 @@
             },
             {
                 "id": "contact",
-                "title": "Contact Us",
+                "title": "Contact",
                 "link": "/contact",
                 "icon": "/assets/sprite.svg#svg-send"
             }
         ]
+    },
+    "about-page": {
+        "path": "about",
+        "title": "About | E3 Center, NTU — Energy × Economics × Environment",
+        "description": "About the NTU E3 Research Center — grown from the E3 Group (active since 2020) and established as a center in 2025, led by Prof. I-Yun Lisa Hsieh. Mission, history, and the team researching Taiwan's sustainable energy transition.",
+        "subpageTitle": "About",
+        "suppressSrH1": true,
+        "template": "pages/about"
     },
     "news": {
         "path": "news",

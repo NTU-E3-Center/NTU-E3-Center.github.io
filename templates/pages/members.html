@@ -55,7 +55,9 @@
 
     {% if group['form'] != 'S' %}
     {# ── Current members: full-width single-column rows ── #}
-    <div class="mem-group{% if group['form'] == 'L' %} mem-group--pi{% endif %}">
+    {# Group anchors feed the People nav dropdown ([IA-1]) — slug derived
+       from the section title so new groups get anchors for free. #}
+    <div class="mem-group{% if group['form'] == 'L' %} mem-group--pi{% endif %}" id="{{ group['sectionTitle']|lower|replace('.', '')|replace(' ', '-') }}">
         <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
 
         <div class="mem-rows">
@@ -124,7 +126,7 @@
 
     {% else %}
     {# ── Alumni: compact photo grid with year filter ── #}
-    <div class="mem-group mem-group--alumni">
+    <div class="mem-group mem-group--alumni" id="{{ group['sectionTitle']|lower|replace('.', '')|replace(' ', '-') }}">
         <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
 
         {% if group['filter'] %}
