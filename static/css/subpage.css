@@ -696,29 +696,60 @@
 }
 
 /* ── About subpage ([IA-2]) ───────────────────────────────────────────────
-   Compact editorial page: hero-fluid h1, prose via the unified recipe
-   (.abt-text), eyebrow-recipe section heads, and a live facts strip whose
-   numbers derive from the members/publications data at build time. */
+   Editorial layout that rhymes with the contact page: display-scale lead
+   (same recipe as .contact-lead, sage accent included), prose column left,
+   a rail of skewed fact cards right. Card numbers derive from the
+   members/publications data at build time. */
 .about-subpage {
     width: min(100%, 80rem);
     margin-inline: auto;
     padding-inline: var(--gutter-x);
-    padding-block: var(--space-16) var(--space-20);
+    padding-block: var(--space-16) var(--space-24);
+}
+
+/* Brand strip above the heading — logos lead the page. */
+.about-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-10);
+    margin-block-end: var(--space-14);
 }
 
 .about-lead {
-    font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
+    font-size: var(--fs-h1);
     font-weight: var(--fw-display);
-    line-height: var(--lh-h3);
-    letter-spacing: -0.02em;
-    margin-block-end: var(--space-1);
+    line-height: var(--lh-h1);
+    letter-spacing: -0.025em;
+    color: var(--main-color);
+    margin-block-end: var(--space-3);
+
+    display: inline-flex;
+    align-items: baseline;
+
+    /* Sage end-mark — the same gesture .contact-lead carries. */
+    &::after {
+        content: '';
+        inline-size: 0.5em;
+        block-size: 0.14em;
+        margin-inline-start: 0.25em;
+        background: var(--secondary-color);
+    }
 }
 
 .about-tagline {
-    font-size: var(--fs-secondary);
-    font-weight: var(--fw-heading);
+    font-size: var(--fs-lede);
+    font-weight: var(--fw-display);
     color: var(--accent-ink);
-    margin-block-end: var(--space-8);
+    letter-spacing: 0.01em;
+    margin-block-end: var(--space-14);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+    gap: var(--space-16);
+    align-items: start;
 }
 
 .about-prose {
@@ -734,36 +765,82 @@
     margin-block: var(--space-12) var(--space-4);
 }
 
-.about-facts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: var(--space-6);
-    max-width: var(--para-max-width);
+.about-cta {
+    margin-block-start: var(--space-12);
+    justify-content: flex-start;
 }
 
-.about-fact-num {
-    display: block;
-    font-size: var(--fs-h3);
+/* ── Fact cards — the contact-info-card language ────────────────────── */
+.about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.about-card {
+    --_adjusted-padding: 1.25rem 1.5rem;
+    --_adjusted-font-size: var(--fs-body-base);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.about-card-num {
+    font-size: var(--fs-h2);
     font-weight: var(--fw-h1);
     letter-spacing: -0.025em;
+    line-height: var(--lh-h3);
 }
 
-.about-fact-label {
-    display: block;
-    margin-block-start: var(--space-1);
+.about-card-sub {
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-secondary);
+    opacity: 0.7;
 }
 
-/* Brand strip above the heading — logos lead the page ([IA-2]). */
-.about-logos {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-8);
-    margin-block-end: var(--space-10);
+@media (max-width: 64rem) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+    }
+
+    /* Cards become a wrapping row under the prose. */
+    .about-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        & .about-card {
+            flex: 1 1 14rem;
+        }
+    }
+
+    .about-logos {
+        gap: var(--space-8);
+        margin-block-end: var(--space-10);
+    }
 }
 
-.about-subpage .section-cta {
-    margin-block-start: var(--space-12);
+@media (max-width: 37.5rem) {
+    .about-lead {
+        font-size: var(--fs-h2);
+    }
+
+    .about-tagline {
+        font-size: var(--fs-body-base);
+        margin-block-end: var(--space-8);
+    }
+
+    .about-logos img {
+        height: 3.5rem;
+        width: auto;
+    }
+
+    .about-cards .about-card {
+        flex: 1 1 100%;
+    }
 }
 
 /* ── Principal Investigator featured row ──────────────────────────────── */

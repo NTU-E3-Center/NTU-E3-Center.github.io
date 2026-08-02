@@ -40,9 +40,10 @@
     {% endfor %}
 {% endfor %}
 
-<section class="about-subpage">
+<section id="about" class="about-subpage">
 
-    <div class="abt-logos about-logos">
+    {# Brand strip — logos lead the page. #}
+    <div class="about-logos">
         {% for about in structures['about'] if about['form'] == 'about' %}
         {% for logo in about['logos'] %}
         <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80">
@@ -53,53 +54,60 @@
     <h1 class="about-lead">The NTU E3 Research Center</h1>
     <p class="about-tagline">Energy · Economics · Environment</p>
 
-    {# The shared mission article closes with its own "JOIN US" paragraph
-       (kept on the homepage section); here the section-CTA button is the
-       one join-us moment, so the final paragraph is dropped ([IA-2]). #}
-    <div class="abt-text about-prose">
-        {{ articles['about'].rsplit('<p>', 1)[0] }}
-    </div>
+    {# Editorial grid — prose column left, fact cards right; rhymes with
+       the contact page's form/info grid ([IA-2]). #}
+    <div class="about-grid">
 
-    <h2 class="about-eyebrow text-eyebrow">From group to center</h2>
-    <div class="abt-text about-prose">
-        <p>The center grew out of the <strong>E3 Group</strong>, which Professor
-        <a href="/members/iyunlisahsieh/">I-Yun Lisa Hsieh 謝依芸</a> has led in the
-        Department of Civil Engineering — with a joint appointment in Chemical
-        Engineering — since 2020. What began as a research group focused on
-        electric mobility grew across energy systems, economics, and
-        environmental policy, and in <strong>2025</strong> was established as the
-        <strong>NTU E3 Research Center</strong>.</p>
-    </div>
+        <div class="about-body">
+            {# The shared mission article closes with its own "JOIN US"
+               paragraph (kept on the homepage section); here the section-CTA
+               button is the one join-us moment, so it is dropped. #}
+            <div class="abt-text about-prose">
+                {{ articles['about'].rsplit('<p>', 1)[0] }}
+            </div>
 
-    <h2 class="about-eyebrow text-eyebrow">The center in numbers</h2>
-    <div class="about-facts">
-        <div class="about-fact">
-            <span class="about-fact-num">2025</span>
-            <span class="about-fact-label text-eyebrow">Established</span>
-        </div>
-        <div class="about-fact">
-            <span class="about-fact-num">{{ _m.phd + _m.master }}</span>
-            <span class="about-fact-label text-eyebrow">Students · {{ _m.phd }} Ph.D. + {{ _m.master }} Master</span>
-        </div>
-        <div class="about-fact">
-            <span class="about-fact-num">{{ _m.staff }}</span>
-            <span class="about-fact-label text-eyebrow">Research staff</span>
-        </div>
-        <div class="about-fact">
-            <span class="about-fact-num">{{ _p.n }}</span>
-            <span class="about-fact-label text-eyebrow">Journal publications</span>
-        </div>
-        <div class="about-fact">
-            <span class="about-fact-num">{{ _m.alumni }}</span>
-            <span class="about-fact-label text-eyebrow">Alumni</span>
-        </div>
-    </div>
+            <h2 class="about-eyebrow text-eyebrow">From group to center</h2>
+            <div class="abt-text about-prose">
+                <p>The center grew out of the <strong>E3 Group</strong>, which Professor
+                <a href="/members/iyunlisahsieh/">I-Yun Lisa Hsieh 謝依芸</a> has led in the
+                Department of Civil Engineering — with a joint appointment in Chemical
+                Engineering — since 2020. What began as a research group focused on
+                electric mobility grew across energy systems, economics, and
+                environmental policy, and in <strong>2025</strong> was established as the
+                <strong>NTU E3 Research Center</strong>.</p>
+            </div>
 
-    <div class="section-cta">
-        <a class="section-cta-btn skewed-block" href="/contact/" b-role="btn" b-hoverable>
-            <span>Join us</span>
-            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-        </a>
+            <div class="section-cta about-cta">
+                <a class="section-cta-btn skewed-block" href="/contact/" b-role="btn" b-hoverable>
+                    <span>Join us</span>
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <aside class="about-cards" aria-label="The center in numbers">
+            <div class="about-card skewed-block" b-role="btn">
+                <span class="about-card-label text-eyebrow">Established</span>
+                <span class="about-card-num">2025</span>
+                <span class="about-card-sub">grew from the E3 Group, active since 2020</span>
+            </div>
+            <a class="about-card skewed-block" href="/members/" b-role="btn" b-hoverable>
+                <span class="about-card-label text-eyebrow">Students</span>
+                <span class="about-card-num">{{ _m.phd + _m.master }}</span>
+                <span class="about-card-sub">{{ _m.phd }} Ph.D. · {{ _m.master }} Master — with {{ _m.staff }} research staff</span>
+            </a>
+            <a class="about-card skewed-block" href="/publications/" b-role="btn" b-hoverable>
+                <span class="about-card-label text-eyebrow">Publications</span>
+                <span class="about-card-num">{{ _p.n }}</span>
+                <span class="about-card-sub">peer-reviewed journal articles</span>
+            </a>
+            <a class="about-card skewed-block" href="/members/#alumni" b-role="btn" b-hoverable>
+                <span class="about-card-label text-eyebrow">Alumni</span>
+                <span class="about-card-num">{{ _m.alumni }}</span>
+                <span class="about-card-sub">graduates of the group and center</span>
+            </a>
+        </aside>
+
     </div>
 
 </section>
