@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://e3center.caece.net/about/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://e3center.caece.net/members/</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
