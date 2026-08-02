@@ -14,7 +14,11 @@ docs/
 # macOS
 .DS_Store
 
-.claude/
+# Claude Code: track team-wide project settings + hooks; keep personal
+# state (settings.local.json, worktrees/) local-only.
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
 
 # Local-only dev artifacts (kept on disk, not on GitHub)
 tests/
