@@ -174,12 +174,17 @@
             {% set imgPathFront = member['imgPath'].split('.')[0] %}
             <div class="main-info">
 
+                {# Hero portrait is the page's LCP — load eagerly at high
+                   priority; lazy-loading here left the frame showing only
+                   the background placeholder ([audit 2026-08]). The src
+                   fallback must be a pipeline-emitted variant: originals
+                   are never copied into the build. #}
                 <div class="photo skewed-block" b-role="block" style="background-image: url({{ imgPathFront }}-800w.webp);">
                     <img
-                        loading="lazy"
+                        fetchpriority="high"
                         width="600"
                         height="800"
-                        src="{{ member['imgPath'] }}"
+                        src="{{ imgPathFront }}-800w.webp"
                         srcset="
                             {{ imgPathFront }}-200w.webp 200w,
                             {{ imgPathFront }}-400w.webp 400w,

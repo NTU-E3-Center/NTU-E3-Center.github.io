@@ -43,6 +43,15 @@ jobs:
       - name: Run build script
         run: python build.py
 
+      # Post-build gates: design-token invariants (CSS) and site audit
+      # (dead links, anchors, h1/meta/canonical/alt) — a failure here
+      # blocks the deploy instead of shipping a regression.
+      - name: Validate design tokens
+        run: python validate_design_tokens.py
+
+      - name: Audit built site
+        run: python validate_site.py
+
       # Deploy the build folder to the gh-pages branch.
       # Skipped on pull_request runs so open PRs only build as a CI check
       # without overwriting the live site; deploys only fire after merge to source.

@@ -84,6 +84,14 @@ main {
         height: 24rem;
         aspect-ratio: 3/4;
 
+        /* The inline 800w placeholder background needs explicit sizing —
+           the generic placeholder rule only matches [class*="-img"], so
+           without this the background painted at natural size, top-left
+           corner ([audit 2026-08]). */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
         display: flex;
         align-items: center;
         justify-content: center;
