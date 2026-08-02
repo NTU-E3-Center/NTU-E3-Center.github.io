@@ -33,6 +33,26 @@ only ≥64.0625rem). Supplies the page's sr-only `<h1>` unless the template pass
 in the header — detail pages render `.page-trail` as the first content element
 (`.trail-parent` = eyebrow recipe; `.trail-current` = meta role).
 
+### Nav grouping & dropdowns (finding [IA-1])
+
+The inline nav renders `pages['index']['structure']` grouped by the optional `navGroup`
+field: consecutive entries sharing a `navGroup` collapse into one **dropdown** (Research =
+Publications + Projects; People = Members with `subnav` anchor links; News & Life = News +
+Group Life); entries without the field stay plain links (About, Contact — Contact is the
+JOIN-US conversion target and must never sit behind a dropdown). Nav order follows data
+order — the same list drives homepage section order, so never reorder it for nav reasons.
+
+The dropdown reuses the **pub-filter disclosure precedent** (`aria-haspopup` /
+`aria-expanded` trigger + inline stroked chevron + panel): hover and `:focus-within` open
+the panel via CSS so it works keyboard-first without JS; `general.js` adds click-toggle,
+Esc-to-close (refocusing the trigger), and click-outside-close. The panel speaks the
+drawer's material language — a miniature skewed block (white surface, 2px `--main-color`
+border, hard offset shadow, `--block-skew` with counter-skewed items) — items at the
+`.hdr-nav-a` type recipe with ≥44px hit areas. The trigger inherits `.hdr-nav-a` styling
+and gets `is-current` when any child link is the active page. Below 64.0625rem the
+dropdown does not exist: the drawer takes over and renders the same groups as
+non-interactive eyebrow labels above their flat items.
+
 ## Publications (listing + detail, `subpage.css`, `publication-item.css`)
 
 Research output is the loudest content on the site ([brand.md](./brand.md) § Decision

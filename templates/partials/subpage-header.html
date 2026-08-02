@@ -30,11 +30,52 @@
            don't extend base.html and set canonical inline, but every one of
            them sets backLink to its parent listing — so both are searched. #}
         {% set _cur = (canonicalLink if canonicalLink is defined else '') ~ ' ' ~ (backLink if backLink is defined else '') %}
+        {# Grouped nav (finding [IA-1]): consecutive entries sharing `navGroup`
+           collapse into one dropdown; `subnav` entries replace a section's own
+           link inside the panel (the People anchors). Entries without
+           `navGroup` stay plain links. Dropdown = the pub-filter disclosure
+           pattern in the drawer's skewed material — spec in components.md
+           § Subpage Header. #}
         <nav class="hdr-nav" aria-label="Primary">
+            {% set _ns = namespace(groupsDone=[]) %}
             {% for section in pages['index']['structure'] %}
             {% if section.id %}
+            {% set _grp = section.get('navGroup') %}
+            {% if not _grp %}
             {% set _active = section.link.startswith('/') and '#' not in section.link and (section.link ~ '/') in _cur %}
             <a class="hdr-nav-a{% if _active %} is-current{% endif %}" href="{{ section.link }}"{% if _active %} aria-current="page"{% endif %}>{{ section.title }}</a>
+            {% elif _grp not in _ns.groupsDone %}
+            {% set _ = _ns.groupsDone.append(_grp) %}
+            {% set _items = [] %}
+            {% for s in pages['index']['structure'] if s.id and s.get('navGroup') == _grp %}
+                {% if s.get('subnav') %}
+                    {% for sub in s['subnav'] %}{% set _ = _items.append(sub) %}{% endfor %}
+                {% else %}
+                    {% set _ = _items.append({'title': s.title, 'link': s.link}) %}
+                {% endif %}
+            {% endfor %}
+            {% set _grpActive = namespace(v=false) %}
+            {% for it in _items %}
+                {% if it.link.startswith('/') and '#' not in it.link and (it.link ~ '/') in _cur %}{% set _grpActive.v = true %}{% endif %}
+            {% endfor %}
+            {% set _panelId = 'hdr-panel-' ~ _grp|lower|replace(' ', '-')|replace('&', 'and') %}
+            <div class="hdr-nav-group">
+                <button class="hdr-nav-a hdr-nav-trigger{% if _grpActive.v %} is-current{% endif %}" type="button"
+                        aria-expanded="false" aria-haspopup="true" aria-controls="{{ _panelId }}">
+                    {{ _grp }}
+                    <svg class="hdr-nav-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="hdr-nav-panel" id="{{ _panelId }}">
+                    {% for it in _items %}
+                    {% set _itActive = it.link.startswith('/') and '#' not in it.link and (it.link ~ '/') in _cur %}
+                    <a class="hdr-panel-a{% if _itActive %} is-current{% endif %}" href="{{ it.link }}"{% if _itActive %} aria-current="page"{% endif %}>{{ it.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
             {% endif %}
             {% endfor %}
         </nav>

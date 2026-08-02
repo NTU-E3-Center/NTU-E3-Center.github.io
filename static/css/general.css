@@ -1606,6 +1606,14 @@ section[id] {
     }
 }
 
+/* Drawer group labels ([IA-1]) — eyebrow-recipe headings above their
+   grouped items; typography comes from the .text-eyebrow utility. The
+   negative end-margin tucks each label toward its own group against the
+   drawer's uniform flex gap. */
+.menu-group-label {
+    margin-block-end: calc(-1 * var(--space-2));
+}
+
 .menu-active {
     .menu-bg {
         opacity: 0.15;

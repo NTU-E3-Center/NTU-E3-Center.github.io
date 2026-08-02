@@ -195,6 +195,104 @@
     }
 }
 
+/* ── Grouped-nav dropdown ([IA-1]) ────────────────────────────────────────
+   The pub-filter disclosure pattern in the drawer's material: a miniature
+   skewed block hanging under the trigger. Hover and :focus-within open it
+   in pure CSS so keyboard works without JS; general.js layers click
+   toggle, Esc, outside-close, and aria-expanded sync. Only exists with
+   the inline nav (>64rem) — the drawer carries the groups below that. */
+.hdr-nav-group {
+    position: relative;
+}
+
+.hdr-nav-trigger {
+    /* <button> reset down to the .hdr-nav-a recipe it shares — keep the
+       class's transparent border-block-end as the is-current underline. */
+    background: none;
+    border-block-start: 0;
+    border-inline: 0;
+    padding-inline: 0;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.hdr-nav-chev {
+    width: 0.625rem;
+    aspect-ratio: 1;
+    transition: rotate var(--hover-transition-time);
+}
+
+.hdr-nav-group:hover .hdr-nav-chev,
+.hdr-nav-group:focus-within .hdr-nav-chev,
+.hdr-nav-group.is-open .hdr-nav-chev {
+    rotate: 180deg;
+}
+
+.hdr-nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    min-width: 11rem;
+    padding: var(--space-2);
+    background: var(--main-bg-color);
+    border: 0.125rem solid var(--main-color);
+    border-radius: 0.375rem;
+    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
+    transform: translate(-50%, -0.25rem) skewX(var(--block-skew));
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        opacity var(--hover-transition-time),
+        transform var(--hover-transition-time),
+        visibility 0s linear var(--hover-transition-time);
+}
+
+.hdr-nav-group:hover .hdr-nav-panel,
+.hdr-nav-group:focus-within .hdr-nav-panel,
+.hdr-nav-group.is-open .hdr-nav-panel {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0) skewX(var(--block-skew));
+    transition: opacity var(--hover-transition-time), transform var(--hover-transition-time);
+}
+
+.hdr-panel-a {
+    display: block;
+    transform: skewX(var(--content-skew));
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    color: var(--main-color);
+    opacity: 0.7;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: var(--space-3) var(--space-4);
+    border-radius: 0.25rem;
+    transition: opacity var(--hover-transition-time), background var(--hover-transition-time);
+
+    &:hover,
+    &:focus-visible {
+        opacity: 1;
+        background: color-mix(in srgb, var(--main-color) 6%, transparent);
+    }
+
+    &.is-current {
+        opacity: 1;
+        color: var(--accent-ink);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hdr-nav-panel,
+    .hdr-nav-chev,
+    .hdr-panel-a {
+        transition: none;
+    }
+}
+
 @media (max-width: 64rem) {
     .subpage-header {
         padding-block: var(--space-3);
@@ -587,6 +685,12 @@
             --_img-width: 4.5rem;
         }
     }
+}
+
+/* Anchor targets for the People nav dropdown ([IA-1]) — group titles land
+   clear of the sticky header when jumped to. */
+.mem-group {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
 }
 
 /* ── Principal Investigator featured row ──────────────────────────────── */

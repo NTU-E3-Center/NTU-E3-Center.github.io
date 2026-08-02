@@ -13,31 +13,42 @@
                 "id": "members",
                 "title": "Members",
                 "link": "/members",
-                "icon": "/assets/sprite.svg#svg-members"
+                "icon": "/assets/sprite.svg#svg-members",
+                "navGroup": "People",
+                "subnav": [
+                    { "title": "All Members", "link": "/members" },
+                    { "title": "Faculty & Staff", "link": "/members/#principal-investigator" },
+                    { "title": "Students", "link": "/members/#phd-students" },
+                    { "title": "Alumni", "link": "/members/#alumni" }
+                ]
             },
             {
                 "id": "publications",
                 "title": "Publications",
                 "link": "/publications",
-                "icon": "/assets/sprite.svg#svg-book"
+                "icon": "/assets/sprite.svg#svg-book",
+                "navGroup": "Research"
             },
             {
                 "id": "projects",
                 "title": "Projects",
                 "link": "/projects",
-                "icon": "/assets/sprite.svg#svg-scholar"
+                "icon": "/assets/sprite.svg#svg-scholar",
+                "navGroup": "Research"
             },
             {
                 "id": "news",
                 "title": "News",
                 "link": "/news",
-                "icon": "/assets/sprite.svg#svg-news"
+                "icon": "/assets/sprite.svg#svg-news",
+                "navGroup": "News & Life"
             },
             {
                 "id": "group-life",
                 "title": "Group Life",
                 "link": "/group-life",
-                "icon": "/assets/sprite.svg#svg-picture"
+                "icon": "/assets/sprite.svg#svg-picture",
+                "navGroup": "News & Life"
             },
             {
                 "_id": "videos",
