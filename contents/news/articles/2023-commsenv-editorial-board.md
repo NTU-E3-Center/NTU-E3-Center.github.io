@@ -6,7 +6,7 @@ The Communications journals pair an in-house editorial team with a board of acti
 
 ### Why It Matters
 
-Editorial service at a Nature Portfolio journal is a recognition that flows in both directions. It signals the international community's trust in Prof. Hsieh's scientific judgment at the interface of energy systems and environmental impacts — the same integrated perspective that runs through the lab's [research programs](/research/), from carbon pricing and air-quality co-benefits to vehicle electrification. And it keeps the E3 group connected to the leading edge of the field: few vantage points reveal where environmental research is heading better than the editor's desk.
+Editorial service at a Nature Portfolio journal is a recognition that flows in both directions. It signals the international community's trust in Prof. Hsieh's scientific judgment at the interface of energy systems and environmental impacts — the same integrated perspective that runs through the lab's [research programs](/#research), from carbon pricing and air-quality co-benefits to vehicle electrification. And it keeps the E3 group connected to the leading edge of the field: few vantage points reveal where environmental research is heading better than the editor's desk.
 
 ---
 **Read more:** the journal's [editorial board](https://www.nature.com/commsenv/editorial-board#I-YunLisaHsieh) and [aims & scope](https://www.nature.com/commsenv/aims)
