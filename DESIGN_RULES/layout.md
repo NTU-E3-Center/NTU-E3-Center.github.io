@@ -17,7 +17,31 @@ Part of [DESIGN_RULES/](./README.md). Covers spacing tokens, the signature skewe
 
 - Sections that carry a `.section-title` are `width: min(100%, 80rem); margin-inline: auto` (`general.css:474–476`).
 
-> **Rule:** No inner container adds its own `padding-inline` — `--gutter-x` governs every section edge. If you change header padding or logo height, update `--header-h` to match (the arithmetic is spelled out at `general.css:263–270`).
+> **Rule:** No inner container adds its own `padding-inline` — `--gutter-x` governs every section edge. If you change header padding or logo height, update `--header-h` to match (the arithmetic is spelled out in the `--header-h` comment in `general.css`).
+
+---
+
+## The Spacing Scale (`--space-*`, `general.css :root`)
+
+Nineteen steps from `--space-1` (0.25rem) to `--space-32` (8rem) — roughly √2
+apart with half-steps where gaps commonly land; `--space-4` (1rem) is the most
+common card gap. **Every `gap` / `padding-block` / `margin-block` /
+`margin-inline-start` sitewide draws from this ladder** — don't hand-write
+spacing rem. Exact values live in the generated [tokens.md](./tokens.md).
+
+---
+
+## Z-Layer Registry
+
+Stacking is four named bands. New stacked UI picks a band and reuses its
+landmark values; a value *between* bands is a rules change, not a tweak.
+
+| Band | Values | Occupants |
+|---|---|---|
+| Blueprint background | `-99`, `-98` | `.body-bg` tiles and their gradient veil |
+| Content-local | `-1` … `2` | overlay-link rows, portraits, sticky year labels — resolves stacking *inside* one component only |
+| Sticky chrome | `50` – `200` | news year rail (50), subpage sticky header (100), menu button (200) |
+| Modal chrome | `999` | menu drawer overlay |
 
 ---
 
@@ -112,8 +136,9 @@ read as noise, not emphasis.
 - **Hover timing:** all micro-interactions use `--hover-transition-time` (`0.15s`, linear). Keep new hover transitions at 0.15s.
 - **View transitions:** `@view-transition { navigation: auto }` is enabled globally (`general.css:145`) — page-to-page navigations cross-fade. Don't disable it.
 - **`::selection`** (`general.css:149`): background `--selection-color` (`#0a557edd`), text `--main-bg-color` (white).
-- **Custom scrollbar** (`general.css:154–165`, WebKit): `0.625rem` (10px) wide, track `#eee`, thumb `--main-color` with a `0.3125rem` (5px) radius.
+- **Custom scrollbar** (WebKit): `0.625rem` (10px) wide, track `--scrollbar-track`, thumb `--main-color` with a `0.3125rem` (5px) radius.
 - **Hero / sprite animations** are slow, looping, and restrained (turbine spin, EV roll, rain, plane fly). They never call attention to themselves — match that restraint for any new motion.
+- **Reduced motion:** a global kill-switch beside the smooth-scroll rule in `general.css` collapses every animation to one instant frame, snaps scrolling, and disables view transitions under `prefers-reduced-motion` — ambient loops need no per-component guard; transition-based states still add targeted reduce blocks. See [`semantics-a11y.md`](./semantics-a11y.md) § Motion.
 
 ---
 

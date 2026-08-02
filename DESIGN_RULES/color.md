@@ -11,7 +11,7 @@ confusion about "which colours are safe to change" comes from reading them as on
 
 | Layer | Tokens | Consumed by |
 |---|---|---|
-| **Primitive** | `--r-{red,orange,yellow,green,blue,indigo,purple}`, `--main-light`, `--main-3-light`, `--secondary-light`, `--house-dark`, `--house-light`, `--main-color-2`, `--main-color-3` | The illustration utility layer, and semantic aliases. **Never a component rule.** |
+| **Primitive** | `--r-{red,orange,yellow,green,blue,indigo,purple}`, `--main-light`, `--main-dark`, `--main-3-light`, `--secondary-light`, `--house-dark`, `--house-light`, `--main-color-2`, `--main-color-3` | The illustration utility layer, and semantic aliases. **Never a component rule.** (`--main-dark`'s one sanctioned direct consumer is hero artwork styling — `.hp-plane-text`.) |
 | **Semantic UI** | `--main-color`, `--main-bg-color`, `--page-bg-color`, `--secondary-color`, `--accent-ink`, `--link-color`, `--line-soft`, `--main-shadow-color`, `--selection-color`, `--cat-*`, `--cat-*-text`, `--status-*`, `--status-*-text`, `--field-*`, `--icon-flash-light`, `--icon-flash-accent` | UI components. |
 | **Illustration** | the `.fill-*` / `.stroke-*` utility classes | `static/assets/sprite.svg` and inline SVG artwork only. |
 
@@ -44,6 +44,8 @@ confusion about "which colours are safe to change" comes from reading them as on
 | `--cat-{student,media,events,outreach}` | per category | News category hues (badge tier). Faculty Honors has no hue token of its own — its badge tints `--secondary-color` directly. See § News Category Tokens. |
 | `--cat-*-text` | per category | Category hues deepened toward `--main-color` for bare uppercase text. |
 | `--selection-color` | `#0a557edd` | Text selection background. |
+| `--scrollbar-track` | `#eeeeee` | WebKit scrollbar track — browser chrome, the one sanctioned neutral grey. |
+| `--status-progress` / `--status-progress-text` | secondary / secondary 28% + dark-olive anchor | "In Progress" publication-badge pair. Text tier anchors toward dark olive (`#4a4a00`), not navy — same far-hue reasoning as `--status-alert-text` ([B-7]). Validator checks it at its real 22% tint ([P-1]). |
 
 > **Rule:** All text defaults to `--main-color`. Hierarchy is expressed through **opacity** (0.4 → 0.55 → 0.7 → 1.0), not through different greys. Accent colors only for badges, decorative bars, and brand marks.
 
