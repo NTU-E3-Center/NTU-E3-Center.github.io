@@ -108,13 +108,52 @@ National Taiwan University, E3 Center, E3 group, NTU, 台大, 國立臺灣大學
 
 
         <nav class="hdr-nav" aria-label="Primary">
-            <a class="hdr-nav-a" href="/#about-us">About Us</a>
-            <a class="hdr-nav-a is-current" href="/members" aria-current="page">Members</a>
-            <a class="hdr-nav-a" href="/publications">Publications</a>
-            <a class="hdr-nav-a" href="/projects">Projects</a>
-            <a class="hdr-nav-a" href="/news">News</a>
-            <a class="hdr-nav-a" href="/group-life">Group Life</a>
-            <a class="hdr-nav-a" href="/contact">Contact Us</a>
+            <a class="hdr-nav-a" href="/about">About</a>
+            <div class="hdr-nav-group">
+                <button class="hdr-nav-a hdr-nav-trigger is-current" type="button"
+                        aria-expanded="false" aria-haspopup="true" aria-controls="hdr-panel-people">
+                    People
+                    <svg class="hdr-nav-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="hdr-nav-panel" id="hdr-panel-people">
+                    <a class="hdr-panel-a is-current" href="/members" aria-current="page">All Members</a>
+                    <a class="hdr-panel-a" href="/members/#principal-investigator">Faculty & Staff</a>
+                    <a class="hdr-panel-a" href="/members/#phd-students">Students</a>
+                    <a class="hdr-panel-a" href="/members/#alumni">Alumni</a>
+                </div>
+            </div>
+            <div class="hdr-nav-group">
+                <button class="hdr-nav-a hdr-nav-trigger" type="button"
+                        aria-expanded="false" aria-haspopup="true" aria-controls="hdr-panel-research">
+                    Research
+                    <svg class="hdr-nav-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="hdr-nav-panel" id="hdr-panel-research">
+                    <a class="hdr-panel-a" href="/publications">Publications</a>
+                    <a class="hdr-panel-a" href="/projects">Projects</a>
+                </div>
+            </div>
+            <div class="hdr-nav-group">
+                <button class="hdr-nav-a hdr-nav-trigger" type="button"
+                        aria-expanded="false" aria-haspopup="true" aria-controls="hdr-panel-news-and-life">
+                    News & Life
+                    <svg class="hdr-nav-chev" aria-hidden="true" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="hdr-nav-panel" id="hdr-panel-news-and-life">
+                    <a class="hdr-panel-a" href="/news">News</a>
+                    <a class="hdr-panel-a" href="/group-life">Group Life</a>
+                </div>
+            </div>
+            <a class="hdr-nav-a" href="/contact">Contact</a>
         </nav>
     </div>
 </header>
@@ -203,13 +242,13 @@ r11521615@ntu.edu.tw                        </a>
             <p class="ftr-col-title">Sitemap</p>
             <ul>
                 <li><a class="ftr-link" href="/#">Home</a></li>
-                <li><a class="ftr-link" href="/#about-us">About Us</a></li>
+                <li><a class="ftr-link" href="/about">About</a></li>
                 <li><a class="ftr-link" href="/members">Members</a></li>
                 <li><a class="ftr-link" href="/publications">Publications</a></li>
                 <li><a class="ftr-link" href="/projects">Projects</a></li>
                 <li><a class="ftr-link" href="/news">News</a></li>
                 <li><a class="ftr-link" href="/group-life">Group Life</a></li>
-                <li><a class="ftr-link" href="/contact">Contact Us</a></li>
+                <li><a class="ftr-link" href="/contact">Contact</a></li>
             </ul>
         </nav>
 
@@ -268,17 +307,19 @@ r11521615@ntu.edu.tw                        </a>
         </li>
 
         <li>
-            <a href="/#about-us" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About Us">
+            <a href="/about" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="About">
                 <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-info"></use></svg>
-                <span>About Us</span>
+                <span>About</span>
             </a>
         </li>
+        <li class="menu-group-label text-eyebrow">People</li>
         <li>
             <a href="/members" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Members">
                 <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-members"></use></svg>
                 <span>Members</span>
             </a>
         </li>
+        <li class="menu-group-label text-eyebrow">Research</li>
         <li>
             <a href="/publications" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Publications">
                 <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-book"></use></svg>
@@ -291,6 +332,7 @@ r11521615@ntu.edu.tw                        </a>
                 <span>Projects</span>
             </a>
         </li>
+        <li class="menu-group-label text-eyebrow">News & Life</li>
         <li>
             <a href="/news" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="News">
                 <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-news"></use></svg>
@@ -304,9 +346,9 @@ r11521615@ntu.edu.tw                        </a>
             </a>
         </li>
         <li>
-            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact Us">
+            <a href="/contact" class="menu-a skewed-block" b-role="btn" b-hoverable hover-text="Contact">
                 <svg aria-hidden="true"><use href="/assets/sprite.svg#svg-send"></use></svg>
-                <span>Contact Us</span>
+                <span>Contact</span>
             </a>
         </li>
     </ul>

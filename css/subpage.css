@@ -195,6 +195,106 @@
     }
 }
 
+/* ── Grouped-nav dropdown ([IA-1]) ────────────────────────────────────────
+   The pub-filter disclosure pattern in the drawer's material: a miniature
+   skewed block hanging under the trigger. Hover and :focus-within open it
+   in pure CSS so keyboard works without JS; general.js layers click
+   toggle, Esc, outside-close, and aria-expanded sync. Only exists with
+   the inline nav (>64rem) — the drawer carries the groups below that. */
+.hdr-nav-group {
+    position: relative;
+}
+
+.hdr-nav-trigger {
+    /* <button> reset down to the .hdr-nav-a recipe it shares — keep the
+       class's transparent border-block-end as the is-current underline.
+       No `font` shorthand here: it would out-cascade .hdr-nav-a's
+       font-size/weight (this rule comes later) and demote the triggers
+       to body type; the universal font-family rule plus .hdr-nav-a
+       already style <button> text fully. */
+    background: none;
+    border-block-start: 0;
+    border-inline: 0;
+    padding-inline: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.hdr-nav-chev {
+    width: 0.625rem;
+    aspect-ratio: 1;
+    transition: rotate var(--hover-transition-time);
+}
+
+.hdr-nav-group:hover .hdr-nav-chev,
+.hdr-nav-group:focus-within .hdr-nav-chev,
+.hdr-nav-group.is-open .hdr-nav-chev {
+    rotate: 180deg;
+}
+
+.hdr-nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    min-width: 11rem;
+    padding: var(--space-2);
+    background: var(--main-bg-color);
+    border: 0.125rem solid var(--main-color);
+    border-radius: 0.375rem;
+    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
+    transform: translate(-50%, -0.25rem) skewX(var(--block-skew));
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        opacity var(--hover-transition-time),
+        transform var(--hover-transition-time),
+        visibility 0s linear var(--hover-transition-time);
+}
+
+.hdr-nav-group:hover .hdr-nav-panel,
+.hdr-nav-group:focus-within .hdr-nav-panel,
+.hdr-nav-group.is-open .hdr-nav-panel {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0) skewX(var(--block-skew));
+    transition: opacity var(--hover-transition-time), transform var(--hover-transition-time);
+}
+
+.hdr-panel-a {
+    display: block;
+    transform: skewX(var(--content-skew));
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    color: var(--main-color);
+    opacity: 0.7;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: var(--space-3) var(--space-4);
+    border-radius: 0.25rem;
+    transition: opacity var(--hover-transition-time), background var(--hover-transition-time);
+
+    &:hover,
+    &:focus-visible {
+        opacity: 1;
+        background: color-mix(in srgb, var(--main-color) 6%, transparent);
+    }
+
+    &.is-current {
+        opacity: 1;
+        color: var(--accent-ink);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hdr-nav-panel,
+    .hdr-nav-chev,
+    .hdr-panel-a {
+        transition: none;
+    }
+}
+
 @media (max-width: 64rem) {
     .subpage-header {
         padding-block: var(--space-3);
@@ -586,6 +686,161 @@
         & .mem-alum-photo {
             --_img-width: 4.5rem;
         }
+    }
+}
+
+/* Anchor targets for the People nav dropdown ([IA-1]) — group titles land
+   clear of the sticky header when jumped to. */
+.mem-group {
+    scroll-margin-top: calc(var(--header-h) + var(--space-4));
+}
+
+/* ── About subpage ([IA-2]) ───────────────────────────────────────────────
+   Editorial layout that rhymes with the contact page: display-scale lead
+   (same recipe as .contact-lead, sage accent included), prose column left,
+   a rail of skewed fact cards right. Card numbers derive from the
+   members/publications data at build time. */
+.about-subpage {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding-inline: var(--gutter-x);
+    padding-block: var(--space-16) var(--space-24);
+}
+
+/* Page head — title block left, brand logos right; wraps on narrow. */
+.about-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-10);
+    margin-block-end: var(--space-14);
+}
+
+.about-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.about-lead {
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-display);
+    line-height: var(--lh-h1);
+    letter-spacing: -0.025em;
+    color: var(--main-color);
+    margin-block-end: var(--space-3);
+
+    display: inline-flex;
+    align-items: baseline;
+
+    /* Sage end-mark — the same gesture .contact-lead carries. */
+    &::after {
+        content: '';
+        inline-size: 0.5em;
+        block-size: 0.14em;
+        margin-inline-start: 0.25em;
+        background: var(--secondary-color);
+    }
+}
+
+.about-tagline {
+    font-size: var(--fs-lede);
+    font-weight: var(--fw-display);
+    color: var(--accent-ink);
+    letter-spacing: 0.01em;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+    gap: var(--space-16);
+    align-items: start;
+}
+
+.about-prose {
+    max-width: var(--para-max-width);
+
+    & p + p {
+        margin-block-start: var(--space-4);
+    }
+}
+
+/* Margins only — typography comes from the .text-eyebrow utility. */
+.about-eyebrow {
+    margin-block: var(--space-12) var(--space-4);
+}
+
+.about-cta {
+    margin-block-start: var(--space-12);
+    justify-content: flex-start;
+}
+
+/* ── Fact list — flat hairline rows (dense repeating chrome per the
+   motif rule; the skew stays reserved for singular gestures). ────────── */
+.about-cards {
+    display: flex;
+    flex-direction: column;
+    border-top: 0.0625rem solid var(--line-soft);
+}
+
+.about-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-block: var(--space-5);
+    border-bottom: 0.0625rem solid var(--line-soft);
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+a.about-card {
+    transition: background var(--hover-transition-time);
+
+    &:hover,
+    &:focus-visible {
+        background: color-mix(in srgb, var(--main-color) 3%, transparent);
+    }
+}
+
+.about-card-num {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-h1);
+    letter-spacing: -0.025em;
+    line-height: var(--lh-h3);
+}
+
+.about-card-sub {
+    font-size: var(--fs-secondary);
+    line-height: var(--lh-secondary);
+    opacity: 0.7;
+}
+
+@media (max-width: 64rem) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-10);
+    }
+
+    .about-logos {
+        gap: var(--space-8);
+    }
+}
+
+@media (max-width: 37.5rem) {
+    .about-lead {
+        font-size: var(--fs-h2);
+    }
+
+    .about-tagline {
+        font-size: var(--fs-body-base);
+        margin-block-end: var(--space-8);
+    }
+
+    .about-logos img {
+        height: 3.5rem;
+        width: auto;
     }
 }
 
