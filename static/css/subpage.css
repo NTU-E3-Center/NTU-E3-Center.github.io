@@ -753,12 +753,13 @@
     margin-block-start: var(--space-1);
 }
 
+/* Brand strip above the heading — logos lead the page ([IA-2]). */
 .about-logos {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-8);
-    margin-block-start: var(--space-12);
+    margin-block-end: var(--space-10);
 }
 
 .about-subpage .section-cta {

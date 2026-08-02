@@ -42,11 +42,22 @@
 
 <section class="about-subpage">
 
+    <div class="abt-logos about-logos">
+        {% for about in structures['about'] if about['form'] == 'about' %}
+        {% for logo in about['logos'] %}
+        <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80">
+        {% endfor %}
+        {% endfor %}
+    </div>
+
     <h1 class="about-lead">The NTU E3 Research Center</h1>
     <p class="about-tagline">Energy · Economics · Environment</p>
 
+    {# The shared mission article closes with its own "JOIN US" paragraph
+       (kept on the homepage section); here the section-CTA button is the
+       one join-us moment, so the final paragraph is dropped ([IA-2]). #}
     <div class="abt-text about-prose">
-        {{ articles['about'] }}
+        {{ articles['about'].rsplit('<p>', 1)[0] }}
     </div>
 
     <h2 class="about-eyebrow text-eyebrow">From group to center</h2>
@@ -82,14 +93,6 @@
             <span class="about-fact-num">{{ _m.alumni }}</span>
             <span class="about-fact-label text-eyebrow">Alumni</span>
         </div>
-    </div>
-
-    <div class="abt-logos about-logos">
-        {% for about in structures['about'] if about['form'] == 'about' %}
-        {% for logo in about['logos'] %}
-        <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80" loading="lazy">
-        {% endfor %}
-        {% endfor %}
     </div>
 
     <div class="section-cta">
