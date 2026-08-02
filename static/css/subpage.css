@@ -695,6 +695,76 @@
     scroll-margin-top: calc(var(--header-h) + var(--space-4));
 }
 
+/* ── About subpage ([IA-2]) ───────────────────────────────────────────────
+   Compact editorial page: hero-fluid h1, prose via the unified recipe
+   (.abt-text), eyebrow-recipe section heads, and a live facts strip whose
+   numbers derive from the members/publications data at build time. */
+.about-subpage {
+    width: min(100%, 80rem);
+    margin-inline: auto;
+    padding-inline: var(--gutter-x);
+    padding-block: var(--space-16) var(--space-20);
+}
+
+.about-lead {
+    font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
+    font-weight: var(--fw-display);
+    line-height: var(--lh-h3);
+    letter-spacing: -0.02em;
+    margin-block-end: var(--space-1);
+}
+
+.about-tagline {
+    font-size: var(--fs-secondary);
+    font-weight: var(--fw-heading);
+    color: var(--accent-ink);
+    margin-block-end: var(--space-8);
+}
+
+.about-prose {
+    max-width: var(--para-max-width);
+
+    & p + p {
+        margin-block-start: var(--space-4);
+    }
+}
+
+/* Margins only — typography comes from the .text-eyebrow utility. */
+.about-eyebrow {
+    margin-block: var(--space-12) var(--space-4);
+}
+
+.about-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-6);
+    max-width: var(--para-max-width);
+}
+
+.about-fact-num {
+    display: block;
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-h1);
+    letter-spacing: -0.025em;
+}
+
+.about-fact-label {
+    display: block;
+    margin-block-start: var(--space-1);
+}
+
+.about-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-8);
+    margin-block-start: var(--space-12);
+}
+
+.about-subpage .section-cta {
+    margin-block-start: var(--space-12);
+}
+
 /* ── Principal Investigator featured row ──────────────────────────────── */
 
 .mem-group--pi {

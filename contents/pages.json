@@ -5,8 +5,8 @@
         "structure": [
             {
                 "id": "about",
-                "title": "About Us",
-                "link": "/#about-us",
+                "title": "About",
+                "link": "/about",
                 "icon": "/assets/sprite.svg#svg-info"
             },
             {
@@ -58,11 +58,19 @@
             },
             {
                 "id": "contact",
-                "title": "Contact Us",
+                "title": "Contact",
                 "link": "/contact",
                 "icon": "/assets/sprite.svg#svg-send"
             }
         ]
+    },
+    "about-page": {
+        "path": "about",
+        "title": "About | E3 Center, NTU — Energy × Economics × Environment",
+        "description": "About the NTU E3 Research Center — grown from the E3 Group (active since 2020) and established as a center in 2025, led by Prof. I-Yun Lisa Hsieh. Mission, history, and the team researching Taiwan's sustainable energy transition.",
+        "subpageTitle": "About",
+        "suppressSrH1": true,
+        "template": "pages/about"
     },
     "news": {
         "path": "news",
