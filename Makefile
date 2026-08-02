@@ -1,12 +1,13 @@
 # NTU E3 Center — common tasks.
 # Assumes the `E3website` conda env is active (see README).
-.PHONY: build serve clean audit package-member help
+.PHONY: build serve clean audit tokens package-member help
 
 help:
 	@echo "make build            - compile contents/ -> docs/"
 	@echo "make serve            - build, then serve docs/ at http://localhost:8000"
 	@echo "make clean            - remove the generated docs/ tree"
 	@echo "make audit            - cross-check publication authors against the roster"
+	@echo "make tokens           - validate design tokens + regenerate DESIGN_RULES/tokens.md"
 	@echo "make package-member MEMBER=<webId>  - zip a member's folder + template to send them"
 
 build:
@@ -22,6 +23,10 @@ clean:
 
 audit:
 	python audit_authors.py
+
+tokens:
+	python validate_design_tokens.py
+	python generate_token_reference.py
 
 # e.g. make package-member MEMBER=jianhernyeoh
 package-member:

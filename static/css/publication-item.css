@@ -41,7 +41,7 @@
 }
 
 .pub-item-title {
-    font-size: clamp(var(--fs-h3), 3.2vw, var(--fs-h2));
+    font-size: clamp(var(--fs-h3), 3vw, var(--fs-h2));
     font-weight: var(--fw-display);
     line-height: var(--lh-h3);
     letter-spacing: -0.02em;

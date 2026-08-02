@@ -1,66 +1,71 @@
 # Responsive Scaling
 
-Part of [DESIGN_RULES/](./README.md). Covers root font size, breakpoints, the three viewports, and the strategy for new components.
+Part of [DESIGN_RULES/](./README.md). Root font size, the four viewport tiers, the
+large-screen policy, and the strategy for new components.
 
 ---
 
-## Root Font Size & Breakpoints
+## The mechanism: tokens re-declare per tier
+
+Two levers produce every responsive size — there is no third:
 
 ```css
-html { font-size: 100%; }              /* 16px default */
-
-@media (max-width: 64rem)  { :root { --gutter-x: clamp(2rem, 5vw, 4rem); ... } }   /* ≤1024px */
-@media (max-width: 37.5rem){ html { font-size: 87.5%; } }                          /* ≤600px → 14px root */
+html { font-size: 100%; }                    /* 16px default */
+@media (max-width: 37.5rem) { html { font-size: 87.5%; } }   /* phone → 14px root */
 ```
 
-Result: every `rem`-based size shrinks ~12.5% on mobile automatically. Component breakpoints layer additional explicit overrides on top of that.
+plus `:root` re-declarations of the type-scale tokens (`--fs-*`) and layout tokens
+(`--gutter-x`, `--section-pad-y`, `--header-h`, …) inside each tier's media query in
+`general.css`. Components consume tokens, so they scale without per-component overrides —
+that is what makes the one-size-per-role invariant ([typography.md](./typography.md)
+§ Content Roles) hold at every width.
 
----
+## The Four Viewport Tiers
 
-## The Three Responsive Viewports
-
-| Tier | Range | Root size | Identity |
+| Tier | Range | Root | What changes |
 |---|---|---|---|
-| **Desktop** | `> 1024px` (`> 64rem`) | 16 px | Full type scale, 80rem section max-width, side rail nav. |
-| **Tablet** | `601 – 1024px` (`37.5–64rem`) | 16 px | Tighter section padding (`--section-pad-y: 6rem`), section titles −37%, member/pub list compacted. |
-| **Mobile** | `≤ 600px` (`≤ 37.5rem`) | 14 px | All rem scales drop 12.5% **plus** explicit per-component shrinks. Hamburger menu, single-column grids. |
+| **Phone** | ≤ 600px (`≤ 37.5rem`) | 14 px | Root drops 12.5%; `:root` re-declares HEADING/CONTENT tokens down and **bumps the LABEL group up** (`--fs-eyebrow` 0.8125, `--fs-badge` 0.75) to clear the WCAG floor. Single column, hamburger drawer, `--header-h: 2.75rem`. |
+| **Tablet** | 601–1024px (`37.5–64rem`) | 16 px | Root does **not** scale ([R-2]) — the token re-declare carries it: `--fs-h1` 2.5, `--fs-h2` 2, `--fs-h3` 1.625, `--fs-lede` 1.25, `--fs-body` 1.0625; gutters tighten, `--section-pad-y: 6rem`, `--header-h: 4.5rem`. Drawer nav. |
+| **Laptop / desktop** | 1025–1439px (`64–90rem`) | 16 px | The base ladder as written in `:root`. Inline header nav from `64.0625rem`. `--header-h: 5.5rem`. |
+| **Wide** | ≥ 1440px (`≥ 90rem`) | 16 px | Editorial bump for greater viewing distance (`general.css` § wide tier): `--fs-h1` 3.25, `--fs-lede` 1.5, `--fs-body` 1.1875. LABEL group stays constant. Matches Medium/NYT-scale wide-display body sizes. |
 
-> **Rule:** Always design and test against these three exact widths: **1440 px**, **900 px**, **375 px**.
+## Large screens: content caps, whitespace grows (policy)
 
----
+On HD/2K/4K displays the page does **not** keep widening. Sections cap at `80rem` with
+`--gutter-x` clamped at 6rem — content area ≈1120px on every screen ≥1440px wide; homepage
+sections cap at `120rem` (`--_home-max-width`). The wide tier adjusts *type*, not *measure*.
 
-## Mobile (`≤ 600 px`, root 14 px)
+This is deliberate: capped measure keeps prose readable and the notebook identity intact
+([brand.md](./brand.md)); a 2560px viewport frames the page in paper margin rather than
+stretching it. If wide screens ever feel under-used, the sanctioned levers are the wide
+tier's `:root` block (gutter ceiling, section max-width) — a rules change per
+[extending.md](./extending.md), not per-component widening.
 
-Triggers:
+## Component-local breakpoints
 
-- `html { font-size: 87.5% }` → every rem auto-shrinks 12.5%
-- Per-component overrides under `@media (max-width: 37.5rem)`
-- Layouts collapse to single column; hamburger replaces side rail
-- Hero h1: 2 rem; body article prose: 1 rem (via `--fs-prose` in the news phone block)
-- The LABEL token group **bumps up** at this breakpoint (`--fs-eyebrow` 0.8125, `--fs-badge` 0.75) so labels clear the floor at the 87.5% root — components must reference the tokens, never restate label sizes in rem
-- Minimum readable size on mobile = **0.75 rem (10.5 px at 14 px root)**
+The four tiers govern tokens; a component may additionally break where **its own content**
+demands it, in `rem`, with a comment in the CSS explaining the trigger. Current registry:
 
-## Tablet (`601 – 1024 px`, root 16 px)
+| Breakpoint | Where | Why |
+|---|---|---|
+| `56rem` | publication & project detail | two-column layout stacks; metadata card moves above prose |
+| `48rem` | subpage search/list chrome (`subpage.css`) | input/toolbar arrangement |
+| `64.0625rem` (min) | header (`general.css`) | inline nav appears; drawer trigger hides |
 
-Triggers:
+Don't add a component-local breakpoint to resize *text* — that's the tokens' job.
 
-- Per-component overrides under `@media (max-width: 64rem)`
-- Section titles: 4 rem → 2.5 rem; h3: 1.75 → 1.25 rem; member-row name: 2.25 → 1.75 rem
-- Gutters tighten (`--gutter-x: clamp(2rem, 5vw, 4rem)`)
-- Layout still grid-based; menu still hamburger / left-rail depending on element
-- Tablet does **not** scale the root — verify each new component at 900 px (finding [R-2]).
+## Testing rule
 
-## Desktop (`> 1024 px`, root 16 px)
+Design and test at **five widths: 375 / 768 / 1024 / 1440 / 1920** — one inside each tier
+plus both edges of the tablet range — and spot-check 2560 for the whitespace framing.
+(375 and 1024 sit *on* tier boundaries deliberately: off-by-one media-query bugs show up
+there.) If any text lands below 0.75rem at 375px, redesign.
 
-- Full type scale as listed in [`typography.md`](./typography.md)
-- Section gutter clamped at 6 rem (`--gutter-x` ceiling); section max-width 80 rem
-- Left rail navigation visible on homepage
-- `--header-h: 7.25rem`
+## The rule for new components
 
----
-
-## The Single Rule for New Components
-
-Define the **desktop** values directly. Add **only** tablet/mobile overrides where the auto-scale (12.5%) is insufficient. Most body text needs **no** explicit overrides; titles and large display sizes almost always do.
-
-> **Rule:** Prefer `clamp(min, vw, max)` over three breakpoint overrides for hero-tier text (the news-item `h1` is the reference implementation). See finding [R-1].
+Define **desktop** values via tokens. Add tablet/phone overrides **only** where the token
+re-declare plus the 87.5% root leaves the component outside its intended role — most body
+text needs none; display-scale text usually does. Prefer `clamp(min, vw, max)` with token
+endpoints over three breakpoint overrides for hero-tier text (`.news-item-title` is the
+reference; [R-1]). Never restate LABEL-group sizes in rem — reference the tokens so the
+phone bump applies ([A-1]).

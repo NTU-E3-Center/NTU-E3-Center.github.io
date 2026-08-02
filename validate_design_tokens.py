@@ -1,7 +1,7 @@
 """Design-token invariants for the E3 Center site.
 
 Mirrors validate_member.py: run standalone, exit non-zero on failure.
-Three invariants, each mapping to a rule in DESIGN_RULES/:
+Four invariants, each mapping to a rule in DESIGN_RULES/:
 
   1. Every base/-text token pair (--cat-*-text, --status-*-text, ...) clears
      WCAG AA (4.5:1) both on its own tinted badge background and on the page
@@ -10,6 +10,12 @@ Three invariants, each mapping to a rule in DESIGN_RULES/:
   3. No component rule consumes a raw primitive (--r-*, --*-light, --house-*)
      directly; primitives are reachable only through a semantic alias or the
      illustration utility layer.
+  4. No font-size declaration contains a raw rem length — sizes reach the
+     ladder through var(--fs-*) so the per-tier :root re-declarations and the
+     one-size-per-role bindings (typography.md § Content Roles) hold.
+  5. No raw hex colour outside :root or @media print — every colour reaches
+     a component through a token, so palette changes happen at the token,
+     never per-file (color.md § The three layers).
 """
 import re
 import sys
@@ -208,6 +214,27 @@ def check_category_contrast():
                     failures.append(
                         f"--accent-ink ({accent_hex}) on {where}: "
                         f"{ratio:.2f}:1 — below AA {AA}:1")
+
+    # --status-progress-text's real badge tint is 22% of its base — darker
+    # than the 14% the generic pair loop models — so verify it explicitly at
+    # the rendered percentage ([P-1]). The generic loop can't move to 22%
+    # wholesale: the cat-* pairs render at 12–14% and would be over-tested.
+    prog_raw = tokens.get("status-progress-text")
+    prog_base_raw = tokens.get("status-progress")
+    if prog_raw is None or prog_base_raw is None:
+        failures.append("--status-progress or --status-progress-text: token not found in :root")
+    else:
+        prog_hex = resolve(prog_raw, tokens)
+        prog_base_hex = resolve(prog_base_raw, tokens)
+        if not prog_hex or not prog_base_hex:
+            failures.append("--status-progress/-text: could not resolve to a hex colour")
+        else:
+            tint22 = _mix(prog_base_hex, PAGE_BG, 0.22)
+            worst = min(contrast(prog_hex, tint22), contrast(prog_hex, PAGE_BG))
+            if worst < AA:
+                failures.append(
+                    f"--status-progress-text ({prog_hex}) at its real 22% tint: "
+                    f"{worst:.2f}:1 — below AA {AA}:1")
     return failures
 
 
@@ -250,12 +277,80 @@ def check_primitive_leakage():
     return failures
 
 
+# The lookbehind keeps custom properties like --_adjusted-font-size (which
+# legitimately holds clamp() rem bounds) out of the property match.
+FONT_SIZE_DECL_RE = re.compile(r"(?<![\w-])font-size\s*:\s*([^;{}]*)")
+RAW_REM_RE = re.compile(r"(?<![\w-])\d*\.?\d+rem\b")
+
+
+def _blank_comments(css):
+    """Replace /* ... */ contents with spaces, preserving line numbers, so
+    prose that mentions historical rem values can't trip the scan."""
+    return re.sub(
+        r"/\*.*?\*/",
+        lambda m: re.sub(r"[^\n]", " ", m.group(0)),
+        css,
+        flags=re.S)
+
+
+def check_raw_font_sizes():
+    """A raw rem length inside font-size bypasses the per-tier :root token
+    re-declarations and breaks the one-size-per-role invariant. em / % /
+    inherit stay legal — they are relative to a token-derived size."""
+    failures = []
+    for css_file in sorted(CSS_DIR.glob("*.css")):
+        text = _blank_comments(css_file.read_text(encoding="utf-8"))
+        for lineno, line in enumerate(text.splitlines(), 1):
+            for decl in FONT_SIZE_DECL_RE.finditer(line):
+                if RAW_REM_RE.search(decl.group(1)):
+                    failures.append(
+                        f"{css_file}:{lineno}: raw rem in font-size — bind a "
+                        f"role token instead (typography.md § Content Roles)")
+    return failures
+
+
+HEX_COLOUR_RE = re.compile(r"#[0-9a-fA-F]{3,8}\b|(?<![-\w])(?:rgba?|hsla?)\(")
+
+
+def check_raw_colors():
+    """Hex colours may only be minted inside :root (token definitions, at any
+    tier) or inside @media print (deliberately monochrome). Anywhere else a
+    colour must arrive via var(), so the palette stays changeable at the
+    token. Named-keyword colours are out of scope: the one sanctioned use is
+    `black` as mask-image alpha (member.css), which is not a colour choice.
+    Note: id selectors could false-positive only if an id were a pure hex
+    word (#fade, #cafe) — none exist and the failure would be self-evident.
+    """
+    failures = []
+    for css_file in sorted(CSS_DIR.glob("*.css")):
+        text = _blank_comments(css_file.read_text(encoding="utf-8"))
+        depth = 0
+        stack = []  # (depth_at_open, selector_text)
+        for lineno, line in enumerate(text.splitlines(), 1):
+            opens, closes = line.count("{"), line.count("}")
+            if opens:
+                stack.append((depth, line.split("{")[0].strip()))
+            exempt = any(
+                sel.startswith(":root") or "print" in sel
+                for _, sel in stack)
+            if not exempt and HEX_COLOUR_RE.search(line):
+                failures.append(
+                    f"{css_file}:{lineno}: raw hex colour outside :root — "
+                    f"mint a token instead (color.md § The three layers)")
+            depth += opens - closes
+            while stack and stack[-1][0] >= depth:
+                stack.pop()
+    return failures
+
+
 def main():
     all_failures = []
     for label, check in (
         ("category contrast", check_category_contrast),
         ("deprecated aliases", check_deprecated_aliases),
         ("primitive leakage", check_primitive_leakage),
+        ("raw font-size rem", check_raw_font_sizes),
+        ("raw hex colours", check_raw_colors),
     ):
         failures = check()
         status = "OK" if not failures else f"{len(failures)} failure(s)"

@@ -8,17 +8,20 @@ When the rules and the current CSS disagree, treat these docs as the spec and th
 
 | File | Covers |
 |---|---|
-| [`typography.md`](./typography.md) | Font families, weight scale, the 16-tier type scale, line-height and letter-spacing conventions. |
+| [`brand.md`](./brand.md) | **The identity layer** — who E3 is, the design concept, palette meaning, voice, the protected signature list, decision principles. |
+| [`typography.md`](./typography.md) | Font families, weight scale, the token ladder, **content-role bindings (one size per role, on every page)**, line-height and letter-spacing conventions. |
 | [`color.md`](./color.md) | Brand color tokens, text emphasis ladder (opacity-based), accent color rules. |
-| [`responsive.md`](./responsive.md) | Root font size, breakpoints, the three viewports (desktop / tablet / mobile), scaling strategy. |
+| [`responsive.md`](./responsive.md) | Root font size, the **four** viewport tiers (phone / tablet / laptop / wide ≥1440px), large-screen policy, component-local breakpoints, the five testing widths. |
 | [`layout.md`](./layout.md) | Spacing tokens, the skewed-block motif (cards, buttons, images), shadows / borders / radii, motion, iconography, casing / bilingual pairing. |
-| [`components.md`](./components.md) | Per-component rules: homepage hero, section titles, subpage header, publications, members, news, contact, group-life, footer, menu. |
+| [`components.md`](./components.md) | Component intent map: what each component is for, which roles/patterns it uses, sanctioned deviations. Values live in CSS, not here. |
 | [`patterns.md`](./patterns.md) | Reusable recipes: eyebrow label, status badge, date marker, list-item title, section title with view-all link. |
-| [`semantics-a11y.md`](./semantics-a11y.md) | Heading hierarchy (one h1 per page rule), accessibility floor (contrast, minimum sizes, tap targets). |
+| [`semantics-a11y.md`](./semantics-a11y.md) | Heading hierarchy (one h1 per page rule), contrast/size floor, focus, motion, forms. |
+| [`extending.md`](./extending.md) | Playbooks: new subpage, new component, new category/status; the rule-change procedure; redesign policy. |
+| [`tokens.md`](./tokens.md) | **Generated** inventory of every `:root` token with per-tier values. Regenerate with `make tokens` — never hand-edit. |
 
 ## How to use these docs
 
-1. **Designing a new component?** Start with the [quick checklist](#quick-checklist) below. Then walk through `typography.md` → `color.md` → `layout.md` to pick the right tokens.
+1. **Designing something new?** Read `brand.md` first for direction, then the [quick checklist](#quick-checklist) below, then `typography.md` → `color.md` → `layout.md` to pick roles and tokens. Adding a whole page or category? Follow the playbook in `extending.md`.
 2. **Changing CSS?** Find the affected component in `components.md` and the underlying pattern (if any) in `patterns.md`. If your change requires breaking a rule, document the exception in the relevant file rather than letting the drift become invisible.
 3. **Auditing a page?** Use the [Findings](#findings) section below to see which drifts are known and which have been resolved.
 
@@ -26,12 +29,12 @@ When the rules and the current CSS disagree, treat these docs as the spec and th
 
 When introducing a new piece of UI:
 
-1. **Pick a tier** from the type scale (`typography.md`) — don't invent a new size.
+1. **Pick a role** from the content-role table (`typography.md` § Content Roles) — the role gives you the token. Don't invent a new size, and never write `font-size` on a prose container (add it to the unified prose recipe instead).
 2. **Default color** to `var(--main-color)` and adjust emphasis with opacity from the emphasis ladder (`color.md`).
 3. **Pick line-height & letter-spacing** from the conventions table (`typography.md`) based on context (display / body / uppercase).
 4. **Add tablet/mobile overrides** only if the auto-scale (root 87.5%) leaves the size outside the intended tier on that viewport. See `responsive.md`.
 5. **Semantics**: if it's a page title, make it `<h1>`. If it's a section, `<h2>`. If it's a row's title, leave it as a `<p>`/`<div>` styled to a tier — do not use `<h4>`–`<h6>` for repeating list items. See `semantics-a11y.md`.
-6. **Check at 1440 / 900 / 375 px**. If any size lands below 0.75 rem at 375 px, redesign.
+6. **Check at 375 / 768 / 1024 / 1440 / 1920 px** (see `responsive.md` § Testing rule). If any size lands below 0.75 rem at 375 px, redesign.
 7. **Is it a surface?** Interactive/photographic surfaces (buttons, CTAs, images, portraits) are `.skewed-block`s — −3° skew, hard offset shadow, counter-skewed children, radius-doubling hover. Dense repeating chrome (filter pills, show-more pills, thumbnails, inline images, chips, status/category badges) renders flat by design instead. See `layout.md` § Skewed-Block Motif for the exact split. Either way, never add a soft-shadowed surface.
 
 ---
@@ -102,3 +105,20 @@ Severity: **[H]** high · **[M]** medium · **[L]** low. Status: **✅** resolve
 
 - **[K-1] [L] ✅** `--fs-*` design tokens declared in `general.css :root` (additive — Display-XL/L/M/S, Heading-L/M/S, Body-XL/L/Body/Base/S, Caption/-S, Eyebrow, Badge). Existing CSS still uses hard-coded rem; new CSS should reach for these tokens first.
 - **[K-2] [L] ✅** `.text-eyebrow` and `.text-badge` utility classes added in `general.css`. Existing classes retain their own declarations for backward compat — new label/badge UI should use the utilities.
+
+### 2026-08 System Restructure
+
+- **[D-1] [M] ✅** `components.md` converted from per-element rem tables — stale copies of the CSS, the exact drift class behind [B-5]/[N-5], and by then doubly wrong because the CSS had finished migrating to tokens — into a component **intent map**: purpose, role/pattern usage, and sanctioned deviations only. Values live solely in the CSS and the role bindings. Projects and the publication/project detail pages, previously missing entirely, are now covered.
+- **[D-2] [M] ✅** `responsive.md` now documents all **four** tiers — the ≥90rem wide tier in `general.css` was previously invisible to the docs — plus the large-screen content-cap policy (content ≈1120px on any display ≥1440px; type scales, measure doesn't), the component-local breakpoint registry (56rem, 48rem, 64.0625rem), and a five-width testing rule (375/768/1024/1440/1920, spot-check 2560). Also fixed its stale desktop `--header-h: 7.25rem` claim — CSS and `layout.md` both say 5.5rem; duplicated facts drift, which is why the restructure de-duplicated them.
+- **[D-3] [M] ✅** `semantics-a11y.md` codified practice that existed only in the CSS: the global `:focus-visible` recipe (2px `--main-color` outline; skewed blocks mirror hover on focus), the every-animation-ships-a-`prefers-reduced-motion` rule (ten reduce blocks exist), and the 16px iOS form auto-zoom floor.
+- **[D-4] [M] ✅** One-size-per-role invariant documented (`typography.md` § Content Roles): every content role binds to exactly one token or named recipe on every page — a content paragraph is the same size in publications, news, and projects at each tier. The unified prose recipe (`general.css` § prose) already enforced this for eight prose surfaces; `.pub-item-title`'s hero-fluid clamp was the one drift (3.2vw vs the 3vw shared by news/project detail h1s) and was unified.
+- **[D-5] [L] ✅** `validate_design_tokens.py` grew a fourth invariant: no `font-size` declaration may contain a raw rem length (comments stripped first; custom properties like `--_adjusted-font-size` excluded by lookbehind). Its first run caught three stragglers the doc-era greps had missed: two `var()` fallbacks that mapped exactly onto existing tokens (`1rem` → `--fs-body-base`, `0.875rem` → `--fs-secondary`, neither re-declared per tier, so no pixel changes) and the hand-written iOS input floor, which became the semantic device-constant token `--fs-input-floor` (1.1875rem).
+- **[D-6] [L] ✅** Added `brand.md` — the identity layer (design concept, palette meaning, voice, the protected signature list, decision principles) — and `extending.md` — playbooks for new subpages/components/categories, the rule-change procedure, and the evolution-over-revolution redesign policy.
+- **[A-3] [M] ✅** Resolved by a global reduced-motion kill-switch in `general.css` (placed after the smooth-scroll rule so its `auto` override wins in source order): every `animation` collapses to a single instant frame, smooth scroll snaps to `auto`, and `@view-transition` navigation turns off under `prefers-reduced-motion: reduce`. The audit had found the entire hero sprite world (~20 infinite loops in `style.css`) and the body-bg pan unguarded. Targeted per-component blocks remain for transition-based states — the kill-switch covers `animation` only.
+
+### 2026-08 System Hardening
+
+- **[D-7] [M] ✅** Documented the last undocumented systems: the 19-step `--space-*` spacing ladder and the four-band z-layer registry (`layout.md`), and the `--lh-*` line-height tokens (`typography.md`, which also now records that letter-spacing is deliberately un-tokenized).
+- **[D-8] [M] ✅** Validator invariant 5: no raw colour literal (hex or `rgb()`/`hsl()`) outside `:root` or `@media print`. Its first run caught four sites the doc-era audits missed, all fixed pixel-identically: the scrollbar track (→ `--scrollbar-track`), the hero plane-banner fill `#06334b` (→ `--main-dark`), `.pub-keyword-chip` hand-writing `--main-color`'s literal value twice (→ `var(--main-color)` + an 8% `color-mix`), and `.pub-status-badge`'s hand-rolled ink (→ `--status-progress-ink`; see [P-1]). Mask-alpha `#000` in `member.css` was normalized to the `black` keyword — mask colours are alpha, not palette.
+- **[D-9] [L] ✅** `tokens.md` is now **generated** from `general.css :root` by `generate_token_reference.py` — a per-tier inventory of all 121 tokens that cannot drift, replacing the class of hand-copied tables retired in [D-1]. `make tokens` runs the validator then regenerates it.
+- **[P-1] [H] ✅** `.pub-status-badge`'s "In Progress" ink was a hand-rolled `color-mix` measuring ≈**2.3:1** on its 22% secondary tint — far below AA at badge size, and invisible to the harness because it was never a token. Fixed by minting the `--status-progress` / `--status-progress-text` pair: the text tier deepened from 70% to **28%** secondary toward the dark-olive anchor `#4a4a00` (`#6c6d29` — 4.68:1 on the real 22% tint, 5.19:1 on the page bg, same hue family). Because the badge's 22% tint is darker than the generic pair check's modeled 14%, the validator now also verifies this pair explicitly at 22% — the generic loop couldn't move to 22% wholesale, as the `--cat-*` pairs render at 12–14% and five of them would over-fail there (measured 4.32–4.39:1). Lesson repeated from [B-6]: check the backdrop that actually renders.

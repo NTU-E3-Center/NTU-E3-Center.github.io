@@ -61,25 +61,78 @@ the tokens, never raw rem.
 | LABEL | `--fs-badge` | 0.625 | 10 | Category/status badge pills |
 
 Hierarchy invariant: at every breakpoint, the smallest HEADING size stays
-larger than the largest CONTENT size. On phones (≤37.5rem) the `:root`
-re-declares the ladder (h1 2rem … body 1.125rem) and **bumps** the LABEL
-group (eyebrow 0.8125, badge 0.75) so labels clear the WCAG floor at the
-87.5% root — never shrink a label below its token on mobile.
+larger than the largest CONTENT size. The rem values above are the
+laptop/desktop tier — the ladder **re-declares per viewport tier** (tablet,
+phone, and the ≥90rem wide tier; see [`responsive.md`](./responsive.md)).
+On phones (≤37.5rem) the `:root` re-declares the ladder (h1 2rem … body
+1.125rem) and **bumps** the LABEL group (eyebrow 0.8125, badge 0.75) so
+labels clear the WCAG floor at the 87.5% root — never shrink a label below
+its token on mobile.
 
 > The pre-v3 alias names (Display-XL … Caption-S) were fully retired on
 > 2026-07-27. There is exactly one ladder; `validate_design_tokens.py` fails if
 > an alias reappears.
 
+## Content Roles — one size per role
+
+The ladder says which sizes exist; this table says who gets them. **A content
+role binds to exactly one token (or one named recipe), and the binding holds
+on every page** — the same kind of content is never sized differently because
+it sits in publications rather than news or projects. Per-tier variation comes
+from the token re-declarations ([`responsive.md`](./responsive.md)), never
+from a per-page override.
+
+| Role | Binding | Where |
+|---|---|---|
+| Detail-page h1 | `clamp(var(--fs-h3), 3vw, var(--fs-h2))` — the **hero-fluid recipe** | news article, publication detail, project detail |
+| Member-profile h1 | `--fs-h1` | the one sanctioned h1 exception — member pages are page-defining portraits |
+| Section heading | `--fs-h2` | member-profile h2, section-scale heads on detail pages |
+| Sub-heading / rail label | `--fs-h3` | news year rail, detail sub-heads |
+| Lede | `--fs-lede` | `.proj-item-lede` (via clamp to `--fs-h3` — sanctioned one-tier-up), venue lines |
+| **Article prose** | `--fs-prose` (= `--fs-body`) via the **unified prose recipe** (`general.css` § prose) | `.abt-text`, `#about .content`, `#interest .content`, `.proj-prose`, `.proj-prose-zh`, `.news-item-body`, `.pub-item-abstract`, `.contact-tagline` |
+| Row title | `--fs-body` | news + project listing rows |
+| Row title (publications) | `--fs-lede` | sanctioned one-tier-up emphasis on research output ([I-2]) |
+| Default paragraph | `--fs-body-base` | non-article paragraphs, form text |
+| Meta line | `--fs-secondary` | authors, journals, dates, filter tabs, jump links |
+| Eyebrow | `--fs-eyebrow` | [`patterns.md`](./patterns.md) § Eyebrow Label |
+| Badge | `--fs-badge` | [`patterns.md`](./patterns.md) § Status / Category Badge |
+
+Three rules make the invariant hold:
+
+1. **New prose surface?** Add its class to the unified prose recipe's
+   `:where()` list — never write `font-size` on a prose container.
+2. **A role that looks wrong on one page** is fixed by changing the binding
+   here (one line + a findings entry) — never by a local override on that page.
+3. **Deviations are bugs** unless listed above as sanctioned.
+   `validate_design_tokens.py` backstops the mechanism: no `font-size`
+   declaration may contain a raw rem length.
+
+---
+
 ## Line-Height & Letter-Spacing Conventions
 
-| Context | Line-height | Letter-spacing |
+Line-heights are tokens (`--lh-*` in `general.css :root`) — pair each with its
+matching `--fs-*` tier; per-tier values live in the generated
+[tokens.md](./tokens.md).
+
+| Token | Value | Pairs with |
 |---|---|---|
-| Display & headings | 1.10 – 1.20 | −0.025em to −0.03em |
-| Item titles / row titles | 1.15 – 1.50 | −0.01em to −0.025em |
-| Body paragraph | 1.55 | −0.01em (body global) |
-| News article body | **1.70** | inherited |
-| Caption / small meta | 1.30 – 1.45 | 0 |
-| Uppercase eyebrow | 1.6 | **+0.14em** (or 0.16em for contact) |
-| Uppercase badge | 1.6 | **+0.10em** |
+| `--lh-h1` / `--lh-h2` / `--lh-h3` | 1.10 / 1.15 / 1.20 | the HEADING tiers |
+| `--lh-lede` | 1.4 | `--fs-lede` |
+| `--lh-body` | 1.7 (1.55 on phones) | article prose (`--fs-prose`) |
+| `--lh-body-base` | 1.55 | default paragraphs |
+| `--lh-secondary` | 1.45 | meta lines |
+| `--lh-eyebrow` / `--lh-badge` | 1.6 | uppercase labels |
+| `--lh-flush` | 1 | single-line UI: buttons, chips, icon containers |
+
+Letter-spacing is deliberately **not** tokenized — apply the conventions:
+
+| Context | Letter-spacing |
+|---|---|
+| Display & headings | −0.025em to −0.03em |
+| Item titles / row titles | −0.01em to −0.025em |
+| Body | −0.01em (body global) |
+| Uppercase eyebrow | **+0.14em** (0.16em only for contact info) |
+| Uppercase badge | **+0.10em** |
 
 > **Rule:** Negative tracking on display text, positive (and dramatic) tracking on uppercase. Never apply uppercase to sentence-case text without also widening tracking.

@@ -32,7 +32,7 @@ text-transform: uppercase
 letter-spacing: 0.1em
 padding: 0.15rem 0.55rem
 line-height: var(--lh-badge)
-color: var(--cat-*-text)  (news categories)  |  var(--r-*)  (publication status)
+color: var(--cat-*-text)  (news categories)  |  var(--status-*-text)  (publication status)
 background: 13–22% tint of the raw category hue (--cat-*)
 ```
 
@@ -51,13 +51,14 @@ the coding. Publication status badges keep their pill at all sizes.
 For year-as-anchor (publication year, news year, member-row year):
 
 ```
-font-size: 1.375rem (news/breadcrumb) | 1.5rem (news-item hero) | 1.0625rem (publication compact)
+font-size: var(--fs-lede)      /* the year is the anchor */
 font-weight: var(--fw-h1) (600)
 letter-spacing: -0.025em
-color: var(--main-color)   /* full opacity */
+color: var(--main-color)       /* full opacity */
 ```
 
-The accompanying month uses ~0.6× the year's size, weight 600, opacity 0.45–0.7.
+The accompanying month sits at `--fs-secondary`, weight 600, opacity 0.45–0.7.
+Never restate marker sizes in rem — the tier re-declarations scale the tokens.
 
 ---
 
