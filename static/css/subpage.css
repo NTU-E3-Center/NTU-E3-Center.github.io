@@ -777,22 +777,31 @@
     justify-content: flex-start;
 }
 
-/* ── Fact cards — the contact-info-card language ────────────────────── */
+/* ── Fact list — flat hairline rows (dense repeating chrome per the
+   motif rule; the skew stays reserved for singular gestures). ────────── */
 .about-cards {
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    border-top: 0.0625rem solid var(--line-soft);
 }
 
 .about-card {
-    --_adjusted-padding: 1.25rem 1.5rem;
-    --_adjusted-font-size: var(--fs-body-base);
-
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
+    padding-block: var(--space-5);
+    border-bottom: 0.0625rem solid var(--line-soft);
     text-decoration: none;
     color: var(--main-color);
+}
+
+a.about-card {
+    transition: background var(--hover-transition-time);
+
+    &:hover,
+    &:focus-visible {
+        background: color-mix(in srgb, var(--main-color) 3%, transparent);
+    }
 }
 
 .about-card-num {
@@ -814,16 +823,6 @@
         gap: var(--space-10);
     }
 
-    /* Cards become a wrapping row under the prose. */
-    .about-cards {
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        & .about-card {
-            flex: 1 1 14rem;
-        }
-    }
-
     .about-logos {
         gap: var(--space-8);
     }
@@ -842,10 +841,6 @@
     .about-logos img {
         height: 3.5rem;
         width: auto;
-    }
-
-    .about-cards .about-card {
-        flex: 1 1 100%;
     }
 }
 

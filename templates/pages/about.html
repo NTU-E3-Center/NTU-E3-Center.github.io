@@ -88,23 +88,25 @@
             </div>
         </div>
 
+        {# Flat hairline stat list — four repeating tiles are dense chrome,
+           so per the motif rule they render flat, not skewed. #}
         <aside class="about-cards" aria-label="The center in numbers">
-            <div class="about-card skewed-block" b-role="btn">
+            <div class="about-card">
                 <span class="about-card-label text-eyebrow">Established</span>
                 <span class="about-card-num">2025</span>
                 <span class="about-card-sub">grew from the E3 Group, active since 2020</span>
             </div>
-            <a class="about-card skewed-block" href="/members/" b-role="btn" b-hoverable>
+            <a class="about-card" href="/members/">
                 <span class="about-card-label text-eyebrow">Students</span>
                 <span class="about-card-num">{{ _m.phd + _m.master }}</span>
                 <span class="about-card-sub">{{ _m.phd }} Ph.D. · {{ _m.master }} Master — with {{ _m.staff }} research staff</span>
             </a>
-            <a class="about-card skewed-block" href="/publications/" b-role="btn" b-hoverable>
+            <a class="about-card" href="/publications/">
                 <span class="about-card-label text-eyebrow">Publications</span>
                 <span class="about-card-num">{{ _p.n }}</span>
                 <span class="about-card-sub">peer-reviewed journal articles</span>
             </a>
-            <a class="about-card skewed-block" href="/members/#alumni" b-role="btn" b-hoverable>
+            <a class="about-card" href="/members/#alumni">
                 <span class="about-card-label text-eyebrow">Alumni</span>
                 <span class="about-card-num">{{ _m.alumni }}</span>
                 <span class="about-card-sub">graduates of the group and center</span>
