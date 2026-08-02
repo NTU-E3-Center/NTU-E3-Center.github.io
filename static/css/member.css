@@ -450,8 +450,8 @@ h2 {
                below softens the lower 65% of that into transparency. */
             max-height: 5rem;
             overflow: hidden;
-            -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
-                    mask-image: linear-gradient(to bottom, #000 35%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+                    mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
             /* Drop the row's bottom border for the peek — borders show
                through the mask and break the "fading into the void" effect. */
             border-bottom-color: transparent;

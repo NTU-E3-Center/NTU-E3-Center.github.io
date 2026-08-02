@@ -356,7 +356,7 @@ i {
 }
 
 ::-webkit-scrollbar-track {
-    background: #eee;
+    background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -407,6 +407,11 @@ i {
     --fs-badge:   0.625rem;
 
     --fs-prose:      var(--fs-body);
+
+    /* Device constant, not a ladder tier: form inputs must never compute
+       below 16px or iOS Safari zoom-snaps on focus. 1.1875rem ≈ 16.6px at
+       the phone's 14px root. Consume via max(var(--fs-*), var(--fs-input-floor)). */
+    --fs-input-floor: 1.1875rem;
 
     /* Spacing scale — rem-based ladder used for every gap / padding-block /
        margin-block / margin-inline-start declaration sitewide. v3 S-track.
@@ -479,6 +484,25 @@ i {
     --main-color-3: #badcea;
     --secondary-color: #c4c691;
     --page-bg-color: #f7fafb;
+
+    /* Deep ink shade for illustration artwork only (hero plane banner
+       text). Kept out of the primitive-leak guard list because its sole
+       consumer is artwork styling — see color.md § The three layers. */
+    --main-dark: #06334b;
+
+    /* WebKit scrollbar track — browser chrome, not a brand surface; the
+       one sanctioned neutral grey. */
+    --scrollbar-track: #eeeeee;
+
+    /* "In Progress" publication-status pair. Text tier retuned per [P-1]:
+       the previous hand-rolled 70% mix measured ~2.3:1 on the badge's 22%
+       tint; 28% toward the dark-olive anchor clears AA on the real 22%
+       tint (4.68:1) and the page bg (5.19:1) while staying in-hue — the
+       same far-hue-anchor recipe as --status-alert-text ([B-7]). The 22%
+       tint is darker than the pair check's modeled 14%, so the validator
+       also verifies this pair explicitly at 22%. */
+    --status-progress: var(--secondary-color);
+    --status-progress-text: color-mix(in srgb, var(--secondary-color) 28%, #4a4a00);
 
     /* Inline-prose link color — slightly lighter than --main-color (body)
        so the link reads as distinct without outweighing the prose it sits
@@ -812,6 +836,31 @@ html {
     scroll-behavior: smooth;
 }
 
+/* [A-3] Ambient-motion kill-switch. Under reduced motion every animation
+   collapses to a single instant frame — the sprite world, the blueprint
+   pan, and the scroll cues read as a still drawing — cross-page view
+   transitions turn off, and smooth scroll snaps. Transition-based
+   micro-interactions (0.15s) stay: they are discrete state feedback, not
+   ambient motion. The targeted reduce blocks elsewhere keep governing
+   those transitions. Sits after the html smooth-scroll rule so the auto
+   override wins in source order. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    @view-transition {
+        navigation: none;
+    }
+}
+
 body {
     background-color: var(--page-bg-color);
 }
@@ -845,7 +894,7 @@ body {
 
     &[b-role="btn"] {
         padding: var(--_adjusted-padding, var(--btn-padding));
-        font-size: var(--_adjusted-font-size, 1rem);
+        font-size: var(--_adjusted-font-size, var(--fs-body-base));
     }
 
     &[b-hoverable] {
