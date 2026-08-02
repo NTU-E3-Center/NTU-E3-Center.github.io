@@ -207,14 +207,16 @@
 
 .hdr-nav-trigger {
     /* <button> reset down to the .hdr-nav-a recipe it shares — keep the
-       class's transparent border-block-end as the is-current underline. */
+       class's transparent border-block-end as the is-current underline.
+       No `font` shorthand here: it would out-cascade .hdr-nav-a's
+       font-size/weight (this rule comes later) and demote the triggers
+       to body type; the universal font-family rule plus .hdr-nav-a
+       already style <button> text fully. */
     background: none;
     border-block-start: 0;
     border-inline: 0;
     padding-inline: 0;
     cursor: pointer;
-    font: inherit;
-    letter-spacing: inherit;
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
