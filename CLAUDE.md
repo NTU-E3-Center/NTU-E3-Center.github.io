@@ -22,6 +22,6 @@ Examples:
 
 ## Other quick conventions
 
-- **`status` field:** member CV pages only render publications with `status == "published"` AND a non-empty `citationId`. Unpublished entries (`status: "working"`, etc.) are hidden from member pages by design — see [build.py:307-315](build.py#L307-L315).
+- **`status` field:** member CV pages only render publications with `status == "published"` AND a non-empty `citationId`. Unpublished entries (`status: "working"`, etc.) are hidden from member pages by design — see [build.py:307-315](build.py#L307-L315). The public `/publications/` page also excludes `status == "working"` entries (filtered at the single funnel in [templates/pages/publications.html](templates/pages/publications.html), PR #52) — manuscripts stay tracked in `publications.json` but are not published anywhere on the site; a paper appears automatically the moment its status flips to `"published"`.
 - **Uniform JSON keys per entry:** within `member.json` (and other list-of-entries schemas), all entries in a list must share the same keys. Use empty strings for blank values rather than omitting keys.
 - **Chinese title support:** for Taiwan-journal papers, populate `titleZh` and `journalZh`. The detail page renders Chinese title beneath the English h1 in Noto Sans TC; no template work needed per-paper.
