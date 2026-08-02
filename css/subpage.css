@@ -1804,10 +1804,10 @@
         & textarea {
             width: 100%;
             padding: 0.75rem 1rem;
-            /* max() pins this at ≥1.1875rem (~16.6 px at 14-px root) so iOS
-               Safari never triggers its <16px auto-zoom on focus, even after
-               --fs-body shrinks to 1.125rem on mobile. */
-            font-size: max(var(--fs-body), 1.1875rem);
+            /* max() pins this at the input floor (~16.6 px at 14-px root) so
+               iOS Safari never triggers its <16px auto-zoom on focus, even
+               after --fs-body shrinks to 1.125rem on mobile. */
+            font-size: max(var(--fs-body), var(--fs-input-floor));
             font-family: inherit;
             color: var(--main-color);
             resize: none;
@@ -2549,8 +2549,8 @@
     line-height: var(--lh-flush);
     text-transform: uppercase;
     text-align: center;
-    color: color-mix(in srgb, var(--secondary-color) 70%, #4a4a00);
-    background: color-mix(in srgb, var(--secondary-color) 22%, transparent);
+    color: var(--status-progress-text);
+    background: color-mix(in srgb, var(--status-progress) 22%, transparent);
 }
 
 @media (max-width: 48rem) {
