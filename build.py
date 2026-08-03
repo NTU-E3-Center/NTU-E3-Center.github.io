@@ -800,6 +800,11 @@ def generate_sitemap():
     add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8",
             lastmod=latest_mtime("contents/news/news.json",
                                  "templates/pages/news.html"))
+    add_url(f"{BASE}/projects/", changefreq="monthly", priority="0.8",
+            lastmod=latest_mtime("contents/projects/projects.json",
+                                 "templates/pages/projects.html"))
+    add_url(f"{BASE}/contact/", changefreq="yearly", priority="0.6",
+            lastmod=latest_mtime("contents/contact", "templates/pages/contact.html"))
     add_url(f"{BASE}/group-life/", changefreq="monthly", priority="0.6",
             lastmod=latest_mtime("contents/group-life/group-life.json"))
 

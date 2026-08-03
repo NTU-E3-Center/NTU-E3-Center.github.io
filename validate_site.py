@@ -9,6 +9,11 @@ Mirrors validate_member.py / validate_design_tokens.py: run standalone after
   2. Every public page has exactly one <h1>.
   3. Every public page has a meta description and a canonical link.
   4. Every <img> carries an alt attribute.
+  5. Every public page appears in sitemap.xml (guards the hand-maintained
+     list in build.py — /about/, /projects/, and /contact/ were all missing
+     at one point).
+  6. Every referenced local asset (src / srcset / poster / CSS url()) exists
+     in the build — catches latent-404 fallbacks to never-emitted originals.
 
 Paths served by sibling GitHub Pages repos (valid on the live domain but
 absent from this build) go in EXTERNAL_REPO_PATHS. /editor/ is an internal
@@ -46,7 +51,16 @@ def main() -> int:
 
     failures = []
     ids_by_route = {}
-    links = []  # (source_route, path, fragment)
+    links = []   # (source_route, path, fragment)
+    assets = []  # (source_route, asset_path)
+
+    sitemap_file = DOCS / "sitemap.xml"
+    sitemap_routes = set()
+    if sitemap_file.exists():
+        sitemap_routes = set(re.findall(
+            r"<loc>https?://[^/<]+(/[^<]*)</loc>", sitemap_file.read_text(encoding="utf-8")))
+    else:
+        failures.append("sitemap.xml missing from build output")
 
     for page in pages:
         route = page_route(page)
@@ -56,8 +70,23 @@ def main() -> int:
         for path, frag in re.findall(r'href="(/[^"#?]*)(#[^"]*)?"', text):
             links.append((route, path, frag))
 
+        # Local asset references: src/poster attributes, srcset candidate
+        # lists, and inline-style url(...) — query strings stripped.
+        for attr in re.findall(r'(?:src|poster)="(/[^"]+)"', text):
+            assets.append((route, attr.split("?")[0]))
+        for srcset in re.findall(r'srcset="([^"]+)"', text):
+            for cand in srcset.split(","):
+                url = cand.strip().split(" ")[0]
+                if url.startswith("/"):
+                    assets.append((route, url.split("?")[0]))
+        for url in re.findall(r"url\((/[^)?\s]+)[^)]*\)", text):
+            assets.append((route, url))
+
         if route in EXEMPT_PAGES:
             continue
+
+        if sitemap_routes and route not in sitemap_routes:
+            failures.append(f"{route}: not in sitemap.xml")
 
         h1s = len(re.findall(r"<h1[\s>]", text))
         if h1s != 1:
@@ -88,6 +117,10 @@ def main() -> int:
             if frag_id and frag_id not in ids_by_route.get(route, set()):
                 seen.add(key)
                 failures.append(f"{source}: anchor {path}{frag} — id '{frag_id}' not on target page")
+
+    for source, asset in sorted(set(assets)):
+        if not (DOCS / asset.lstrip("/")).exists():
+            failures.append(f"{source}: referenced asset missing {asset}")
 
     print(f"validate_site: {len(pages)} pages checked")
     if failures:

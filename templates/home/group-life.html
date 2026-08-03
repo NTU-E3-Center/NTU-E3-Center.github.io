@@ -62,7 +62,7 @@
                             loading="{% if loop.index == 1 %}eager{% else %}lazy{% endif %}"
                             {% if loop.index == 1 %}fetchpriority="high"{% endif %}
                             width="800" height="600"
-                            src="{{ item['imgPath'] }}?{{ imgV }}"
+                            src="{{ imgPathFront }}-800w.webp?{{ imgV }}"
                             srcset="
                                 {{ imgPathFront }}-200w.webp?{{ imgV }} 200w,
                                 {{ imgPathFront }}-400w.webp?{{ imgV }} 400w,

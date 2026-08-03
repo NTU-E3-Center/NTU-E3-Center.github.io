@@ -126,7 +126,11 @@
             <div class="news-item-hero-img skewed-block" b-role="block"
                  style="background-image: url({{ (imgPathFront ~ '-20w.webp') if imgPathFront else news['imgPath'] }});">
                 {% if imgPathFront %}
-                <img loading="lazy"
+                {# Article hero is the page's LCP — eager + high priority
+                   (lazy never fired on the member hero; same class of bug).
+                   sizes reflects the real rendered width: full-bleed on
+                   small screens, the article measure on large ones. #}
+                <img fetchpriority="high"
                      src="{{ imgPathFront }}-1200w.webp"
                      srcset="
                         {{ imgPathFront }}-200w.webp 200w,
@@ -136,7 +140,7 @@
                         {{ imgPathFront }}-1200w.webp 1200w,
                         {{ imgPathFront }}-1600w.webp 1600w,
                         {{ imgPathFront }}-2000w.webp 2000w"
-                     sizes="100vw"
+                     sizes="(max-width: 64rem) 100vw, 66rem"
                      alt="{{ news['title'] }}" draggable="false" />
                 {% else %}
                 <img loading="lazy" src="{{ news['imgPath'] }}" alt="{{ news['title'] }}" draggable="false" />
