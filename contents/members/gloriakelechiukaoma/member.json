@@ -1,0 +1,43 @@
+{
+  "position": "Master's Student,\n\nComputer-Aided Engineering Division,\n\nDepartment of Civil Engineering,\n\nNational Taiwan University",
+  "email": {
+    "ntu": "",
+    "preferred": ""
+  },
+  "interests": [
+    "Sustainable Supply Chain Management",
+    "Modeling Urban Mobility"
+  ],
+  "links": {
+    "scholar": "",
+    "orcid": "",
+    "linkedin": "",
+    "researchgate": "",
+    "facebook": "",
+    "office": {
+      "text": "",
+      "url": ""
+    }
+  },
+  "awards": [
+    {
+      "title": "",
+      "titleZh": "",
+      "organization": "",
+      "note": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "externalEngagements": [
+    {
+      "role": "",
+      "organization": "",
+      "note": "",
+      "location": "",
+      "date": "",
+      "url": ""
+    }
+  ],
+  "metaDescription": "Gloria Kelechi Ukaoma (高秀妍), master's student at the NTU E3 Center. Researches network science for sustainable supply chains under high volatility."
+}
