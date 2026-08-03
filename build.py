@@ -31,16 +31,22 @@ env.globals['seo_detect_language'] = seo_helpers.detect_language
 def bold_author(authors_str, name):
     """Wrap occurrences of `name` in an authors string with <strong>.
     Both inputs are HTML-escaped first; the search uses non-word/non-hyphen
-    boundaries so "I-Yun Hsieh" does not match "I-Yun Hsieh-Chen". Returns
-    Markup so the result is rendered as HTML, not as literal tags."""
+    boundaries so "I-Yun Hsieh" does not match "I-Yun Hsieh-Chen". Also
+    matches the collapsed-hyphen romanization variant ("Wan-Ting Hsu" ↔
+    "Wanting Hsu") — papers print whichever form they like, and the bolded
+    text keeps the paper's spelling. Returns Markup so the result is
+    rendered as HTML, not as literal tags."""
     if not authors_str:
         return Markup('')
     escaped = str(escape(authors_str))
-    target = str(escape(name)) if name else ''
-    if not target:
+    if not name:
         return Markup(escaped)
-    pattern = re.compile(r'(?<![\w\-])' + re.escape(target) + r'(?![\w\-])')
-    return Markup(pattern.sub(f'<strong>{target}</strong>', escaped))
+    variants = {str(escape(name))}
+    collapsed = re.sub(r'-(\w)', lambda m: m.group(1).lower(), name)
+    variants.add(str(escape(collapsed)))
+    alternation = '|'.join(re.escape(v) for v in sorted(variants, key=len, reverse=True))
+    pattern = re.compile(r'(?<![\w\-])(?:' + alternation + r')(?![\w\-])')
+    return Markup(pattern.sub(lambda m: f'<strong>{m.group(0)}</strong>', escaped))
 
 
 env.filters['bold_author'] = bold_author
