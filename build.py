@@ -208,7 +208,17 @@ for _key, _path in _SUBPAGE_JSON_SOURCES:
 # re-reading the gitignored on-disk artifacts. The listing replaces the
 # members.json the glob just loaded; members_by_id replaces the
 # contents/structures/members/{webId}.json reads.
-structures['members'] = _member_data['members_listing']
+# Center members (PI + staff) vs. Prof. Hsieh's research-group students
+# (Ph.D., Master, Alumni) — split once here so every template and JSON-LD
+# block consumes the right roster without per-template filtering.
+# Spec: specs/2026-08-05-students-split-design.md
+_CENTER_SECTIONS = ('Principal Investigator', 'Staff')
+structures['members'] = [
+    g for g in _member_data['members_listing']
+    if g['sectionTitle'] in _CENTER_SECTIONS]
+structures['students'] = [
+    g for g in _member_data['members_listing']
+    if g['sectionTitle'] not in _CENTER_SECTIONS]
 members_by_id = _member_data['members_by_id']
 structures['members_by_id'] = members_by_id
 
@@ -419,7 +429,7 @@ def render_member_pages():
 
     template = env.get_template('pages/member/member.html')
 
-    for group in structures.get('members', []):
+    for group in structures.get('members', []) + structures.get('students', []):
         for member_base in group.get('members', []):
             page_link = member_base.get('pageLink', '')
             if not page_link:
@@ -818,7 +828,7 @@ def generate_sitemap():
     # own folder, the roster spreadsheet, or the publications list (since pubs
     # auto-populate onto the member page).
     seen_member_links = set()
-    for group in structures.get('members', []):
+    for group in structures.get('members', []) + structures.get('students', []):
         for member in group.get('members', []):
             link = member.get('pageLink')
             if link and link not in seen_member_links:

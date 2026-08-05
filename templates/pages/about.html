@@ -25,7 +25,7 @@
 {# Live counts — derived from the same data that renders /members/ and
    /publications/, so these numbers can never go stale ([IA-2]). #}
 {% set _m = namespace(phd=0, master=0, staff=0, alumni=0) %}
-{% for group in structures['members'] %}
+{% for group in structures['members'] + structures['students'] %}
     {% set _t = group['sectionTitle'] %}
     {% if group['form'] == 'S' %}{% set _m.alumni = _m.alumni + group['members']|length %}
     {% elif 'Ph.D.' in _t %}{% set _m.phd = _m.phd + group['members']|length %}
