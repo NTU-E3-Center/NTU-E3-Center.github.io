@@ -21,13 +21,7 @@
                 "title": "Students & Alumni",
                 "link": "/students",
                 "icon": "/assets/sprite.svg#svg-members",
-                "navGroup": "People",
-                "subnav": [
-                    { "title": "All Students & Alumni", "link": "/students" },
-                    { "title": "Ph.D. Students", "link": "/students/#phd-students" },
-                    { "title": "Master Students", "link": "/students/#master-students" },
-                    { "title": "Alumni", "link": "/students/#alumni" }
-                ]
+                "navGroup": "People"
             },
             {
                 "id": "publications",
