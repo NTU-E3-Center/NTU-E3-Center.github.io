@@ -893,6 +893,11 @@
     margin-block-start: var(--space-12);
 }
 
+#members .section-cta {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
 .section-cta-btn {
     --_adjusted-font-size: var(--fs-body);
     --_adjusted-padding: 0.875em 2em;

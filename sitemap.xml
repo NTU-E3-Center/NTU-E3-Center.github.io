@@ -19,6 +19,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://e3center.caece.net/students/</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://e3center.caece.net/publications/</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
