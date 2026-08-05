@@ -810,6 +810,9 @@ def generate_sitemap():
     add_url(f"{BASE}/members/", changefreq="monthly", priority="0.8",
             lastmod=latest_mtime("contents/members/member-info.xlsx", "contents/members",
                                  "templates/pages/members.html"))
+    add_url(f"{BASE}/students/", changefreq="monthly", priority="0.8",
+            lastmod=latest_mtime("contents/members/member-info.xlsx", "contents/members",
+                                 "templates/pages/students.html"))
     add_url(f"{BASE}/publications/", changefreq="monthly", priority="0.8",
             lastmod=latest_mtime("contents/publications/publications.json",
                                  "templates/pages/publications.html"))

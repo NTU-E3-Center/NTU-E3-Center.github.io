@@ -14,12 +14,18 @@
                 "title": "Members",
                 "link": "/members",
                 "icon": "/assets/sprite.svg#svg-members",
+                "navGroup": "People"
+            },
+            {
+                "id": "students",
+                "title": "Students & Alumni",
+                "link": "/students",
+                "icon": "/assets/sprite.svg#svg-members",
                 "navGroup": "People",
                 "subnav": [
-                    { "title": "All Members", "link": "/members" },
-                    { "title": "Faculty & Staff", "link": "/members/#principal-investigator" },
-                    { "title": "Students", "link": "/members/#phd-students" },
-                    { "title": "Alumni", "link": "/members/#alumni" }
+                    { "title": "Ph.D. Students", "link": "/students/#phd-students" },
+                    { "title": "Master Students", "link": "/students/#master-students" },
+                    { "title": "Alumni", "link": "/students/#alumni" }
                 ]
             },
             {
@@ -85,6 +91,13 @@
         "description": "Members of E3 Center, NTU — researchers, students, and alumni working on sustainable energy transition, transportation electrification, and climate policy.",
         "subpageTitle": "Members",
         "template": "pages/members"
+    },
+    "students-page": {
+        "path": "students",
+        "title": "Students & Alumni · E3 Center · NTU 台大",
+        "description": "Ph.D. and Master students, and alumni of Prof. I-Yun Lisa Hsieh's research group at National Taiwan University, working on the energy transition.",
+        "subpageTitle": "Students & Alumni",
+        "template": "pages/students"
     },
     "publications-page": {
         "path": "publications",
