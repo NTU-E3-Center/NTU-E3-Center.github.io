@@ -3,20 +3,24 @@
         <h2><a class="section-title-link" href="/news/">In the news</a></h2>
     </div>
 
-    {# Flatten items across all news entries before grouping by category, so
-       each category H3 renders once even if multiple news structures are
-       added later. Empty categories are skipped to avoid bare headings. #}
-    {% set category_order = ['Faculty Honors', 'Student Awards', 'In the Media', 'Events and Exchanges', 'Education and Outreach'] %}
+    {# Flat latest-5 list, newest first (spec: 2026-08-05-home-news-flat-design).
+       Source items are oldest-first in file order — the same assumption
+       news_years in build.py makes — so last 5 reversed = newest first.
+       Category badges reuse the /news/ short-label mapping so the taxonomy
+       stays visible without the per-category grouping. #}
+    {% set badge_label = {
+        'Faculty Honors':         'Faculty',
+        'Student Awards':         'Students',
+        'In the Media':           'Media',
+        'Events and Exchanges':   'Events',
+        'Education and Outreach': 'Outreach'
+    } %}
     {% set ns = namespace(all_items=[]) %}
     {% for news in structures['news'] %}
         {% set ns.all_items = ns.all_items + news['items'] %}
     {% endfor %}
-    {% for category in category_order %}
-    {% set cat_items = ns.all_items | selectattr('category', 'equalto', category) | list %}
-    {% if cat_items %}
-    <h3 class="section-eyebrow">{{ category }}</h3>
     <div class="news-rows">
-        {% for item in cat_items[-2:] | reverse %}
+        {% for item in ns.all_items[-5:] | reverse %}
         {% if item.get('pageLink') %}
         <a class="news-row news-row--link" href="{{ item['pageLink'] }}">
         {% elif item.get('link') %}
@@ -30,6 +34,10 @@
             </div>
 
             <div class="news-row-body">
+                {% set cat = item.get('category', '') %}
+                {% if cat %}
+                <span class="news-row-badge" data-cat="{{ cat }}">{{ badge_label.get(cat, cat) }}</span>
+                {% endif %}
                 <p class="news-row-title">{{ item['title'] }}</p>
             </div>
 
@@ -49,8 +57,6 @@
         {% endif %}
         {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
 
     <div class="section-cta">
         <a class="section-cta-btn skewed-block" href="/news/" b-role="btn" b-hoverable>
