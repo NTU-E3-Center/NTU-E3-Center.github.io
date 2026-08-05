@@ -55,7 +55,7 @@
 
     {% if group['form'] != 'S' %}
     {# ── Current members: full-width single-column rows ── #}
-    {# Group anchors feed the People nav dropdown ([IA-1]) — slug derived
+    {# Group anchors give each section a stable in-page id — slug derived
        from the section title so new groups get anchors for free. #}
     <div class="mem-group{% if group['form'] == 'L' %} mem-group--pi{% endif %}" id="{{ group['sectionTitle']|lower|replace('.', '')|replace(' ', '-') }}">
         <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>

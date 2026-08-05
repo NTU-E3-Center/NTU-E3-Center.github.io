@@ -37,8 +37,10 @@ in the header — detail pages render `.page-trail` as the first content element
 
 The inline nav renders `pages['index']['structure']` grouped by the optional `navGroup`
 field: consecutive entries sharing a `navGroup` collapse into one **dropdown** (Research =
-Publications + Projects; People = Members with `subnav` anchor links; News & Life = News +
-Group Life); entries without the field stay plain links (About, Contact — Contact is the
+Publications + Projects; People = Members (`/members/`, no subnav) + Students & Alumni
+(`/students/` with `subnav` anchor links: All Students & Alumni / Ph.D. Students / Master
+Students / Alumni); News & Life = News + Group Life); entries without the field stay plain
+links (About, Contact — Contact is the
 JOIN-US conversion target and must never sit behind a dropdown). Nav order follows data
 order — the same list drives homepage section order, so never reorder it for nav reasons.
 
