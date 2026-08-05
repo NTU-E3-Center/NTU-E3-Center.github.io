@@ -1,21 +1,22 @@
 {% extends "base.html" %}
-{% set description = 'The E3 Center team at National Taiwan University — Director Prof. I-Yun Lisa Hsieh (謝依芸) and center staff driving research on the energy transition.' %}
-{% set keywords = 'E3 Center members, E3 Center staff, NTU sustainable energy lab, NTU civil engineering, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學, research center team' %}
-{% set canonicalLink = 'https://e3center.caece.net/members/' %}
+{% set title = 'Students & Alumni · E3 Center · NTU 台大' %}
+{% set description = 'Ph.D. and Master students, and alumni of Prof. I-Yun Lisa Hsieh\'s research group at National Taiwan University, working on the energy transition.' %}
+{% set keywords = 'E3 Center students, Hsieh research group, NTU PhD students, NTU Master students, E3 alumni, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學, sustainable energy researchers' %}
+{% set canonicalLink = 'https://e3center.caece.net/students/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Members | E3 Center",
-  "url": "https://e3center.caece.net/members/",
+  "name": "Students & Alumni | E3 Center",
+  "url": "https://e3center.caece.net/students/",
   "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": [
       {% set _ns = namespace(pos=0, seen=[]) %}
       {% set _comma = joiner(",") %}
-      {% for _group in structures.get('members', []) %}
+      {% for _group in structures.get('students', []) %}
         {% for _m in _group.get('members', []) %}
           {% if _m.get('pageLink') and _m['pageLink'] not in _ns.seen %}
             {% set _ns.seen = _ns.seen + [_m['pageLink']] %}
@@ -43,7 +44,7 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
-    { "@type": "ListItem", "position": 2, "name": "Members" }
+    { "@type": "ListItem", "position": 2, "name": "Students & Alumni" }
   ]
 }
 </script>
@@ -51,11 +52,11 @@
 {% block content %}
 <section id="members" class="members-subpage">
 
-    {% for group in structures['members'] %}
+    {% for group in structures['students'] %}
 
     {% if group['form'] != 'S' %}
     {# ── Current members: full-width single-column rows ── #}
-    {# Group anchors give each section a stable in-page id — slug derived
+    {# Group anchors feed the People nav dropdown ([IA-1]) — slug derived
        from the section title so new groups get anchors for free. #}
     <div class="mem-group{% if group['form'] == 'L' %} mem-group--pi{% endif %}" id="{{ group['sectionTitle']|lower|replace('.', '')|replace(' ', '-') }}">
         <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
@@ -124,15 +125,70 @@
         </div>
     </div>
 
+    {% else %}
+    {# ── Alumni: compact photo grid with year filter ── #}
+    <div class="mem-group mem-group--alumni" id="{{ group['sectionTitle']|lower|replace('.', '')|replace(' ', '-') }}">
+        <h3 class="mem-group-title">{{ group['sectionTitle'] }}</h3>
+
+        {% if group['filter'] %}
+        <div class="filter" where="{{ group['filterId'] }}">
+            <span class="filter-title">{{ group['filterTitle'] }}</span>
+            {% set ns = namespace(filterItems=[]) %}
+            {% for member in group['members'] %}
+                {% if member['admissionYear'] not in ns.filterItems %}
+                    {% set ns.filterItems = ns.filterItems + [member['admissionYear']] %}
+                {% endif %}
+            {% endfor %}
+            {% for filterItem in ns.filterItems[::-1] %}
+            <label class="filter-block skewed-block" b-role="btn" b-hoverable>
+                <input class="filter-checkbox" type="checkbox"
+                       where="{{ group['filterId'] }}"
+                       value="{{ filterItem }}"
+                       {% if loop.index <= group['filterDefaultCheck'] %} checked{% endif %}/>
+                <div class="filter-label">
+                    <svg><use href="/assets/sprite.svg#svg-check"></use></svg>
+                    {{ filterItem }}
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="mem-alum-grid">
+        {% for member in group['members'][::-1] %}
+        {% set imgPathFront = member['imgPath'].split('.')[0] %}
+        <a class="mem-alum-card filter-content"
+           where="{{ group['filterId'] }}"
+           data-value="{{ member['admissionYear'] }}"
+           {% if member.get('pageLink') %}href="{{ member['pageLink'] }}"{% endif %}>
+
+            <div class="mem-alum-photo skewed-block" b-role="block"
+                 style="background-image: url({{ imgPathFront }}-20w.webp);">
+                <img
+                    loading="lazy"
+                    src="{{ imgPathFront }}-400w.webp"
+                    srcset="
+                        {{ imgPathFront }}-200w.webp 200w,
+                        {{ imgPathFront }}-400w.webp 400w
+                    "
+                    sizes="6rem"
+                    alt="{{ member['engName'] }} {{ member['chiName'] }}"
+                    draggable="false"
+                />
+            </div>
+
+            <div class="mem-alum-name">
+                <span class="mem-alum-en">{{ member['engName'] }}</span>
+                <span class="mem-alum-zh" lang="zh-Hant">{{ member['chiName'] }}</span>
+            </div>
+
+        </a>
+        {% endfor %}
+        </div>
+    </div>
+
     {% endif %}
     {% endfor %}
-
-    <div class="section-cta">
-        <a class="section-cta-btn skewed-block" href="/students/" b-role="btn" b-hoverable>
-            <span>Looking for Prof. Hsieh's students &amp; alumni?</span>
-            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
-        </a>
-    </div>
 
 </section>
 {% endblock %}
