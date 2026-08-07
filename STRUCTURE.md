@@ -47,7 +47,6 @@ contents/
 │   ├── member-info.xlsx          # ★ Admin roster — 11 columns (webId, names, section,
 │   │                             #   batch, graduated, …). Edit to add/remove members or
 │   │                             #   change admin facts. NOT member content.
-│   ├── member-info.legacy.xlsx   # Original 22-column Excel, archived read-only reference
 │   ├── MEMBER_TEMPLATE/          # Skeleton sent to new members (member.json + about.md + README)
 │   └── {webId}/                  # Per-member content — one folder per member
 │       ├── member.json           #   position, emails, interests[], links{} — member-edited
