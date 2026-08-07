@@ -24,6 +24,13 @@
                 "navGroup": "People"
             },
             {
+                "id": "research-topics",
+                "title": "Topics",
+                "link": "/research",
+                "icon": "/assets/sprite.svg#svg-hash",
+                "navGroup": "Research"
+            },
+            {
                 "id": "publications",
                 "title": "Publications",
                 "link": "/publications",
@@ -72,6 +79,14 @@
         "subpageTitle": "About",
         "suppressSrH1": true,
         "template": "pages/about"
+    },
+    "research-page": {
+        "path": "research",
+        "title": "Research Topics | E3 Center, NTU — Energy × Economics × Environment",
+        "description": "Ongoing research topics at the NTU E3 Center — smart energy systems, low-carbon transport and supply chains, and data-driven energy decision-making, from forecasting and microgrids to logistics, alternative fuels, and policy evaluation.",
+        "subpageTitle": "Research",
+        "suppressSrH1": true,
+        "template": "pages/research"
     },
     "news": {
         "path": "news",

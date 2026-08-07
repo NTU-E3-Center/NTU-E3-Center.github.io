@@ -1,160 +1,82 @@
 [
     {
         "sectionTitle": "Ongoing Topics",
-        "topics": [
+        "pillars": [
             {
-                "researchId": "solar-pv",
-                "bigTags": ["Solar PV", "Power Forecast"],
-                "smallTags": ["Artificial Intelligence", "Operation Strategy", "Data Scarcity"],
-                "fields": {
-                    "energy": true,
-                    "economics": false,
-                    "environment": true
-                },
-                "image": "images/research/solar-pv.svg"
+                "id": "smart-energy-systems",
+                "title": "Smart Energy Systems",
+                "titleZh": "智慧能源系統",
+                "lede": "How renewable generation is forecast, dispatched, and kept resilient — from a single building to the grid.",
+                "clusters": [
+                    {
+                        "title": "Energy Forecasting",
+                        "description": "Machine-learning forecasts of renewable generation: solar output predicted from satellite cloud imagery, and short-term wind forecasting that schedules green-hydrogen production (with MIRDC)."
+                    },
+                    {
+                        "title": "Microgrid Design & Resilience",
+                        "description": "Network-design frameworks that minimize cost and line losses, and storage strategies that keep microgrids running through extreme weather — including the Beitou–Shilin Technology Park microgrid as a living case study."
+                    },
+                    {
+                        "title": "Energy Dispatch & Storage Strategy",
+                        "description": "Optimization models for multi-site energy storage that fold in real building demand and cost, comparing stochastic and deterministic dispatch — plus the economics of hydrogen fuel cells."
+                    },
+                    {
+                        "title": "Investment Strategy & Evaluation",
+                        "description": "What storage and V2X are actually worth: benefit evaluation grounded in weather, electricity-market structure, and site type, supported by campus-scale electricity-use simulation."
+                    }
+                ]
             },
             {
-                "researchId": "wind-power",
-                "bigTags": ["Wind Power", "Power Forecast"],
-                "smallTags": ["Artificial Intelligence", "Data Scarcity", "Site Assessment"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/wind-power.svg"
+                "id": "low-carbon-transport",
+                "title": "Low-Carbon Transport & Supply Chains",
+                "titleZh": "低碳運輸供應鏈",
+                "lede": "Cutting carbon where freight moves and fuels are made.",
+                "clusters": [
+                    {
+                        "title": "Logistics Network Design",
+                        "description": "How low-carbon freight systems are architected: network structure and transshipment scheduling that move goods with fewer vehicles, fewer kilometers, and less carbon."
+                    },
+                    {
+                        "title": "EV Charger Siting",
+                        "description": "Where charging infrastructure should go: siting and sizing chargers for electric fleets and logistics hubs so operations keep running while grids stay within limits."
+                    },
+                    {
+                        "title": "Vehicle Routing",
+                        "description": "Emission-aware routing for last-mile and cold-chain delivery, balancing delivery windows, temperature requirements, and carbon in one optimization."
+                    },
+                    {
+                        "title": "Warehouse Operations",
+                        "description": "The carbon footprint of warehousing across its life cycle, and how digital transformation redistributes emissions between warehouses and transport."
+                    },
+                    {
+                        "title": "Alternative Fuels",
+                        "description": "Life-cycle and techno-economic assessment of the fuels set to replace oil in shipping and aviation: marine alternative fuels and sustainable aviation fuel pathways (power-to-liquid and HEFA)."
+                    }
+                ]
             },
             {
-                "researchId": "ev-v2b",
-                "bigTags": ["Electric Vehicles", "Vehicle-to-Building"],
-                "smallTags": ["Nearly-Zero Energy Building", "Optimization"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/ev-v2b.svg"
-            },
-            {
-                "researchId": "bss-v2x",
-                "bigTags": ["Battery Swap Station", "Vehicle-to-Everything"],
-                "smallTags": ["Vehicle-to-Building", "Vehicle-to-Grid", "Optimization"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/bss-v2x.svg"
-            },
-            {
-                "researchId": "green-logistics",
-                "bigTags": ["Green Logistics", "Cold Chain"],
-                "smallTags": ["Smart Warehousing", "Vehicle Routing", "Life Cycle Assessment"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/green-logistics.svg"
-            },
-            {
-                "researchId": "carbon-pricing",	
-                "bigTags": ["Carbon Pricing", "Just Transition"],
-                "smallTags": ["Distributional Effect", "Carbon Fee", "Energy Poverty"],
-                "fields": {
-                    "energy": false,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/carbon-pricing.svg"
-            },
-            {
-                "researchId": "hydrogen-energy",
-                "bigTags": ["Hydrogen Energy", "Storage and Transport"],
-                "smallTags": ["Techno-economic Assessment", "Life Cycle Analysis", "Offshore Wind"],
-                "fields": {
-                    "energy": true,
-                    "economics": false,
-                    "environment": true
-                },
-                "image": "images/research/hydrogen-energy.svg"
-            },
-            {
-                "researchId": "vehicle-electrification",
-                "bigTags": ["Vehicle Electrification", "Fleet Model"],
-                "smallTags": ["Fleet Turnover", "Life Cycle Analysis", "Net-Zero Target"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/vehicle-electrification.svg"
-            },
-            {
-                "researchId": "air-quality",
-                "bigTags": ["Air Quality", "Boiler Emission"],
-                "smallTags": ["Solid Recovered Fuel (SRF)", "Public Health"],
-                "fields": {
-                    "energy": true,
-                    "economics": false,
-                    "environment": false
-                },
-                "image": "images/research/air-quality.svg"
-            },
-            {
-                "researchId": "autonomous-vehicle",
-                "bigTags": ["Autonomous Vehicle", "Computer Vision"],
-                "smallTags": ["Explainability", "LLM", "Energy Saving", "Campus"],
-                "fields": {
-                    "energy": true,
-                    "economics": false,
-                    "environment": false
-                },
-                "image": "images/research/autonomous-vehicle.svg"
-            },
-            {
-                "researchId": "energy-management",
-                "bigTags": ["Energy Management", "System Development"],
-                "smallTags": ["Smart Energy", "RE100", "Carbon Tracking", "Cost Reduction"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/energy-management.svg"
-            },
-            {
-                "researchId": "building-energy",
-                "bigTags": ["Building", "Energy Forecast"],
-                "smallTags": ["Artificial Intelligence", "Energy Management", "Cost Saving"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/building-energy.svg"
-            },
-            {
-                "researchId": "power-grid",
-                "bigTags": ["Power Grid", "Energy Pricing"],
-                "smallTags": ["Microgrid", "Decentralization", "Optimization"],
-                "fields": {
-                    "energy": true,
-                    "economics": true,
-                    "environment": false
-                },
-                "image": "images/research/power-grid.svg"
-            },
-            {
-                "researchId": "green-finance",
-                "bigTags": ["Green Finance", "Environmental Protection"],
-                "smallTags": ["ESG", "Financial Products"],
-                "fields": {
-                    "energy": false,
-                    "economics": true,
-                    "environment": true
-                },
-                "image": "images/research/green-finance.svg"
+                "id": "sustainable-energy-decisions",
+                "title": "Sustainable Energy Decision-Making",
+                "titleZh": "永續能源決策",
+                "lede": "Data-driven evaluation of energy-transition strategies — their environmental, economic, and public-health consequences.",
+                "clusters": [
+                    {
+                        "title": "Policy Evaluation",
+                        "description": "Econometric and quasi-experimental evidence on what transition policies actually deliver: isolating the real decarbonization effects of infrastructure and policy interventions, rather than assuming them."
+                    },
+                    {
+                        "title": "Environment & Health",
+                        "description": "Tracing energy and emission scenarios through to air quality and public-health outcomes, so policies are judged by their full downstream consequences."
+                    },
+                    {
+                        "title": "Green Finance",
+                        "description": "How capital flows to the transition: financing instruments and investment signals that move decarbonization from plan to balance sheet."
+                    },
+                    {
+                        "title": "Transport Safety",
+                        "description": "The safety dimension of changing mobility systems, analyzed with the same data-driven rigor the center applies to emissions."
+                    }
+                ]
             }
         ]
     }
