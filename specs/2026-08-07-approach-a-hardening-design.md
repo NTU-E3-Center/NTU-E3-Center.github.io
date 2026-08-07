@@ -89,12 +89,20 @@ description. Success = frame loop provably stopped when hero is off-screen.
 
 ### Workstream 2 — Incremental image pipeline (build)
 
-`convert_to_webp` gains a freshness check: for each requested size, skip
-re-encoding when the output `{basename}-{size}w.webp` exists **and** its
-mtime is newer than the source image's mtime. A `--force-images` flag on
-`build.py` (and `make clean` as today) bypasses the cache. CI is
-unaffected — fresh checkouts have no outputs, so CI always encodes
-everything.
+The build starts by deleting `docs/` entirely (`build.py` `__main__`,
+deliberately — the clean-build guarantee prevents stale pages), so a
+skip-if-output-newer check would never fire. Instead, `convert_to_webp`
+gains a **persistent encode cache** outside the output tree:
+
+- New gitignored `.webp-cache/` directory. Each encoded variant is stored
+  under a key hashing the source path, requested width, quality,
+  target aspect, and source mtime.
+- On build, a cache hit is `shutil.copy2`ed into `docs/` (cheap); a miss
+  encodes as today and populates the cache. The clean-build guarantee for
+  HTML/stale pages is untouched — only redundant *re-encoding* is skipped.
+- `python build.py --force-images` clears the cache first; a
+  `make clean-cache` target does the same standalone. CI is unaffected —
+  fresh checkouts have no cache, so CI always encodes everything.
 
 Expected effect: warm rebuilds drop from encoding 757 images to encoding
 only changed ones (usually zero), making workstream 5's watch loop viable.
@@ -155,7 +163,8 @@ Depends on workstream 2 for acceptable rebuild latency.
 ### Workstream 6 — Repo hygiene + handoff doc
 
 - Delete `contents/members/member-info.legacy.xlsx` (recoverable from git
-  history; the active file is `member-info.xlsx`).
+  history; the active file is `member-info.xlsx`). Remove its entry from
+  `STRUCTURE.md`, which currently documents it as an archived reference.
 - New `MAINTENANCE.md` at repo root — a one-page successor guide: how to
   add a publication (including the issue-date rule from `CLAUDE.md`), add
   a news item, add/update a member, run `make dev`/`build`/`tokens`/
