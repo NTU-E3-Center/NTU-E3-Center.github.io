@@ -4,7 +4,7 @@
 # of truth for both CI (.github/workflows/deploy.yml) and local development.
 jinja2>=3.1.6
 markupsafe>=3.0.3
-markdown>=3.10.2
+markdown>=3.10.3
 Pillow>=12.3.0
 openpyxl>=3.1.5
 beautifulsoup4>=4.15.0
