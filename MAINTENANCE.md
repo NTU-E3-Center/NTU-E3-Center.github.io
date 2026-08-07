@@ -46,7 +46,7 @@ make dev        # http://localhost:8000 — rebuilds + refreshes on save
 2. Member-owned content: `contents/members/{webId}/` — `member.json`,
    `about.md`, `photo.jpg` (portrait, ≥800px wide). To ask a member for
    their folder, send them the skeleton: `make package-member MEMBER=<webId>`.
-3. `python validate_member.py` (also runs in the build) flags folder
+3. `python validate_member.py <webId>` (also runs in the build) flags folder
    mistakes.
 
 ## Ship it

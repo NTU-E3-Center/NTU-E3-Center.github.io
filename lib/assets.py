@@ -53,6 +53,9 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=WEBP_QUALITY, bas
             # upscaled WebPs look soft on retina screens (see Jun '26
             # group-life: 1477-px source upscaled to 2000w rendered blurry).
             effective_size = min(size, src_w)
+            # Keep the original {basename}-{size}w.webp naming so srcset
+            # references don't break; the file just stops growing past the
+            # source resolution.
             if target_aspect:
                 w_aspect, h_aspect = target_aspect
                 target_size = (effective_size, int(effective_size * h_aspect / w_aspect))
@@ -60,7 +63,8 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=WEBP_QUALITY, bas
             else:
                 img_resized = img.resize((effective_size, int(effective_size * img.height / img.width)))
             img_resized.save(webp_output_path, "WEBP", quality=compression_quality)
-            shutil.copy2(webp_output_path, cache_file)
+            shutil.copy2(webp_output_path, cache_file + ".tmp")
+            os.replace(cache_file + ".tmp", cache_file)
 
 
 # Function to copy static assets directly into docs/
