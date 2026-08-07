@@ -9,6 +9,7 @@ This repository uses a custom Python static site generator (`build.py`) to build
 ```
 NTU-E3-Center.github.io/
 ├── build.py                          # Main build script (CI entry point)
+├── dev_server.py                     # `make dev` — watch, rebuild, live-reload at :8000
 ├── lib/                              # Python helpers consumed by build.py
 │   ├── __init__.py
 │   ├── site.py                       # shared Jinja env + content loading
