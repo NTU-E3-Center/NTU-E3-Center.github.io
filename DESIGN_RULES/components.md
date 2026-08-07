@@ -54,6 +54,16 @@ and gets `is-current` when any child link is the active page. Below 64.0625rem t
 dropdown does not exist: the drawer takes over and renders the same groups as
 non-interactive eyebrow labels above their flat items.
 
+## Research Topics (`/research/`, `templates/pages/research.html`, `subpage.css`)
+
+The first door in the Research dropdown ([IA-3]): three **pillars** (bilingual h2 pairing,
+muted lede) each holding flat outlined **cluster cards** in a two-column grid — thirteen
+repeating tiles are dense chrome, so flat per the motif rule; the one skewed element is
+the closing publications CTA. Content is data-driven from `contents/research/research.json`
+(pillars → clusters, uniform keys); pillar ids are `scroll-margin`-compensated anchors for
+future deep links. Cluster prose stays at theme level — thesis-title specifics remain
+internal, consistent with the manuscripts decision (PR #52).
+
 ## Publications (listing + detail, `subpage.css`, `publication-item.css`)
 
 Research output is the loudest content on the site ([brand.md](./brand.md) § Decision

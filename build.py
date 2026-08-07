@@ -819,6 +819,9 @@ def generate_sitemap():
     add_url(f"{BASE}/news/", changefreq="weekly", priority="0.8",
             lastmod=latest_mtime("contents/news/news.json",
                                  "templates/pages/news.html"))
+    add_url(f"{BASE}/research/", changefreq="monthly", priority="0.8",
+            lastmod=latest_mtime("contents/research/research.json",
+                                 "templates/pages/research.html"))
     add_url(f"{BASE}/projects/", changefreq="monthly", priority="0.8",
             lastmod=latest_mtime("contents/projects/projects.json",
                                  "templates/pages/projects.html"))
