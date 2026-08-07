@@ -3,13 +3,8 @@ from datetime import datetime
 
 from lib.site import env, output_dir, pages, structures, members_by_id, _member_data
 from lib.publications import get_pub_sort_key
-from lib.assets import convert_to_webp
-from config import MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS, WEBP_QUALITY, WEBP_LAZY_QUALITY
-
-# SUBPAGE_IMG_WIDTHS / MEMBER_IMG_WIDTHS / LAZY_IMG_WIDTHS live in config.py —
-# a single source of truth kept in sync with the srcset ladders in templates.
-members_img_sizes = MEMBER_IMG_WIDTHS
-lazy_img_sizes    = LAZY_IMG_WIDTHS
+from lib.assets import convert_to_webp, members_img_sizes, lazy_img_sizes
+from config import WEBP_QUALITY, WEBP_LAZY_QUALITY
 
 
 # Function to render individual member pages from the in-memory members_by_id dict

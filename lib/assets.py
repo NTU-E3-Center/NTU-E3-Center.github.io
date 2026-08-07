@@ -2,7 +2,9 @@ import os
 import shutil
 import hashlib
 from PIL import Image, ImageOps
-from config import WEBP_QUALITY, WEBP_CACHE_DIR
+from lib.site import output_dir
+from config import (WEBP_QUALITY, WEBP_CACHE_DIR, WEBP_LAZY_QUALITY,
+                    MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS, SUBPAGE_IMG_WIDTHS)
 
 
 def _webp_cache_key(path, size, quality, target_aspect):
@@ -59,3 +61,91 @@ def convert_to_webp(path, dst_path, sizes, compression_quality=WEBP_QUALITY, bas
                 img_resized = img.resize((effective_size, int(effective_size * img.height / img.width)))
             img_resized.save(webp_output_path, "WEBP", quality=compression_quality)
             shutil.copy2(webp_output_path, cache_file)
+
+
+# Function to copy static assets directly into docs/
+def copy_static():
+    static_src = "static"
+    if os.path.exists(static_src):
+        for item in os.listdir(static_src):
+            src_path = os.path.join(static_src, item)
+            dst_path = os.path.join(output_dir, item)
+
+            if os.path.isdir(src_path):
+                if os.path.exists(dst_path):
+                    shutil.rmtree(dst_path)
+                shutil.copytree(src_path, dst_path)
+            else:
+                shutil.copy2(src_path, dst_path)
+
+    print("Static assets copied directly into docs/")
+
+
+# Function to copy videos directly into docs/
+def copy_videos():
+    videos_src = "contents/videos"
+    video_output_dir = os.path.join(output_dir, "assets/videos")
+    if os.path.exists(videos_src):
+        os.makedirs(video_output_dir, exist_ok=True)
+        for item in os.listdir(videos_src):
+            # videos.json is data, not an asset — skip it.
+            if item == 'videos.json':
+                continue
+            src_path = os.path.join(videos_src, item)
+            dst_path = os.path.join(video_output_dir, item)
+
+            if os.path.isdir(src_path):
+                shutil.copytree(src_path, dst_path, dirs_exist_ok=True)
+            else:
+                shutil.copy2(src_path, dst_path)
+
+    print("Videos copied directly into docs/")
+
+
+# Compress images and convert to WebP format. Each subpage's image source
+# folder is now self-contained; the (source_root, output_folder, sizes) tuples
+# describe what to process.
+
+# SUBPAGE_IMG_WIDTHS / MEMBER_IMG_WIDTHS / LAZY_IMG_WIDTHS live in config.py —
+# a single source of truth kept in sync with the srcset ladders in templates.
+members_img_sizes = MEMBER_IMG_WIDTHS
+lazy_img_sizes    = LAZY_IMG_WIDTHS
+
+_SUBPAGE_IMAGE_SOURCES = [
+    # (source_root,                  docs/assets/<folder>, sizes)
+    ('contents/news/images',         'news',               SUBPAGE_IMG_WIDTHS),
+    ('contents/group-life/images',   'group-life',         SUBPAGE_IMG_WIDTHS),
+    # Projects: walks contents/projects/<slug>/images/* → docs/assets/projects/<slug>/images/*
+    ('contents/projects',            'projects',           SUBPAGE_IMG_WIDTHS),
+]
+
+
+def compress_and_convert_images():
+    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'}
+
+    for src_root, dst_folder, sizes in _SUBPAGE_IMAGE_SOURCES:
+        if not os.path.isdir(src_root):
+            continue
+        print(f"--- Images found in '{dst_folder}' ---")
+        dst_root = os.path.join(output_dir, "assets", dst_folder)
+        for root, _, files in os.walk(src_root):
+            for fname in files:
+                lower = fname.lower()
+                path = os.path.join(root, fname)
+                # Preserve subdirectory layout under src_root (e.g.
+                # contents/news/images/{slug}/0.jpg → docs/assets/news/{slug}/0-Nw.webp).
+                rel_dir = os.path.relpath(os.path.dirname(path), src_root)
+                dst_subdir = dst_root if rel_dir == '.' else os.path.join(dst_root, rel_dir)
+                # SVGs (e.g. partner logos) are vector — copy verbatim instead of
+                # rasterising to WebP, so they stay crisp at any size.
+                if lower.endswith('.svg'):
+                    os.makedirs(dst_subdir, exist_ok=True)
+                    shutil.copy2(path, dst_subdir)
+                    print(f"{path} → {dst_subdir}/ (svg)")
+                    continue
+                if not any(lower.endswith(ext) for ext in image_extensions):
+                    continue
+                os.makedirs(dst_subdir, exist_ok=True)
+                convert_to_webp(path, dst_subdir, sizes, compression_quality=WEBP_QUALITY)
+                convert_to_webp(path, dst_subdir, lazy_img_sizes, compression_quality=WEBP_LAZY_QUALITY)
+                print(f"{path} → {dst_subdir}/")
