@@ -591,9 +591,10 @@ i {
     --house-dark: #b4cedb;
     --house-light: #cad9e2;
 
-    /* Homepage icon hover-flash accents — the pale phase of the shared
+    /* Homepage icon hover-flash accents — both phases of the shared
        panel-flash keyframe pulse (.hp-pv-panel default, .ani-radar hover
-       override in style.css). Named so those two rules reach the light-tint
+       override in style.css): -light and -accent are the pale 0% phase,
+       -dark the settled 10–100% phase. Named so those rules reach the
        primitives through :root instead of consuming them directly. */
     --icon-flash-light:  var(--main-3-light);
     --icon-flash-accent: var(--secondary-light);
