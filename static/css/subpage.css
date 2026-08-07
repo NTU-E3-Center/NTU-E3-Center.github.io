@@ -875,6 +875,8 @@
 
 .research-subpage .section-cta {
     margin-block-start: var(--space-14);
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-5);
 }
 
 @media (max-width: 64rem) {
