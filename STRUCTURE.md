@@ -11,6 +11,14 @@ NTU-E3-Center.github.io/
 ├── build.py                          # Main build script (CI entry point)
 ├── lib/                              # Python helpers consumed by build.py
 │   ├── __init__.py
+│   ├── site.py                       # shared Jinja env + content loading
+│   ├── slugs.py                      # slug helpers shared across content types
+│   ├── publications.py               # publications.json loading + detail-page rendering
+│   ├── news.py                       # news.json loading + news item rendering
+│   ├── projects.py                   # projects.json loading + project detail rendering
+│   ├── members.py                    # member page rendering + member photo compression
+│   ├── assets.py                     # static asset copy + image compression/WebP conversion
+│   ├── seo_site.py                   # sitemap generation + SEO validation
 │   ├── excel_to_content.py           # Reads admin Excel + per-member folders → in-memory dict
 │   └── seo_helpers.py                # SEO helpers exposed to Jinja2 templates
 ├── validate_member.py                # Validates contents/members/{webId}/ folders at build time

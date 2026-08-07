@@ -2,8 +2,7 @@ import os
 import shutil
 from datetime import datetime
 
-from lib.site import (env, output_dir, pages, structures, articles,
-                      _CENTER_SECTIONS)
+from lib.site import env, output_dir, pages, structures, articles
 from lib import publications
 from lib import news
 from lib import projects
