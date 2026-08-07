@@ -11,6 +11,9 @@ venv/
 # Build output (deployed to gh-pages branch by Actions)
 docs/
 
+# WebP encode cache (see config.WEBP_CACHE_DIR)
+.webp-cache/
+
 # macOS
 .DS_Store
 
