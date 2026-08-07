@@ -52,6 +52,24 @@ demands it, in `rem`, with a comment in the CSS explaining the trigger. Current 
 | `48rem` | subpage search/list chrome (`subpage.css`) | input/toolbar arrangement |
 | `64.0625rem` (min) | header (`general.css`) | inline nav appears; drawer trigger hides |
 
+The registry is enforced: `validate_design_tokens.py` (invariant 6) fails
+the build on any width-based `@media` breakpoint outside the tier edges
+(`37.5rem`, `64rem`, `90rem`) and this table. To add one, extend the table
+here and `SANCTIONED_BREAKPOINTS` in the validator in the same PR.
+
+## Preferred responsive tools for touched components
+
+When you touch a component, prefer (in order):
+
+1. **`clamp(min, preferred-vw, max)`** for hero-tier text instead of a new
+   breakpoint override (extends [R-1]; `.news-item-title` is the model).
+2. **Container queries** for components rendered in more than one width
+   context (member cards, publication rows) — they remove the
+   "breaks when placed in a narrower column" bug class entirely.
+3. A registry breakpoint, only when neither of the above fits.
+
+No proactive sweep: existing components migrate only as they're touched.
+
 Don't add a component-local breakpoint to resize *text* — that's the tokens' job.
 
 ## Testing rule

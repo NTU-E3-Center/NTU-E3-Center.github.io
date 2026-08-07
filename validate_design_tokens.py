@@ -16,6 +16,9 @@ Four invariants, each mapping to a rule in DESIGN_RULES/:
   5. No raw hex colour outside :root or @media print — every colour reaches
      a component through a token, so palette changes happen at the token,
      never per-file (color.md § The three layers).
+  6. Every width-based @media breakpoint comes from the sanctioned registry
+     (tier edges + responsive.md § component-local breakpoints), so a new
+     breakpoint is a documented decision, not an accident.
 """
 import re
 import sys
@@ -40,6 +43,12 @@ PRIMITIVE_RE = re.compile(r"var\(--(r-[a-z]+|main-light|main-color-3|main-3-ligh
 # selector, never the declaration line — `.fill-r-green { fill: var(--r-green) }`
 # puts the selector and the declaration on different lines.
 ILLUSTRATION_SELECTOR_RE = re.compile(r"^\.(fill|stroke)-")
+
+# Sanctioned @media width breakpoints — DESIGN_RULES/responsive.md: the
+# tier edges plus the component-local registry. Adding a breakpoint means
+# updating BOTH the registry table there and this set, in the same PR.
+SANCTIONED_BREAKPOINTS = {"37.5rem", "48rem", "56rem", "64rem", "64.0625rem", "90rem"}
+WIDTH_QUERY_RE = re.compile(r"\((?:max|min)-width:\s*([0-9.]+(?:rem|px|em|ch))\s*\)")
 
 
 def _srgb(hex_colour):
@@ -343,6 +352,24 @@ def check_raw_colors():
     return failures
 
 
+def check_breakpoint_registry():
+    """Rule 6: every width-based @media breakpoint must come from the
+    sanctioned set (tier edges + responsive.md's component-local registry),
+    so viewport behaviour changes stay deliberate and documented."""
+    failures = []
+    for css in sorted(CSS_DIR.glob("*.css")):
+        for lineno, line in enumerate(css.read_text().splitlines(), 1):
+            if "@media" in line:
+                for match in WIDTH_QUERY_RE.finditer(line):
+                    breakpoint = match.group(1)
+                    if breakpoint not in SANCTIONED_BREAKPOINTS:
+                        failures.append(
+                            f"{css.name}:{lineno}: @media width {breakpoint} is not in the "
+                            f"sanctioned registry — see DESIGN_RULES/responsive.md "
+                            f"(component-local breakpoints) and SANCTIONED_BREAKPOINTS")
+    return failures
+
+
 def main():
     all_failures = []
     for label, check in (
@@ -351,6 +378,7 @@ def main():
         ("primitive leakage", check_primitive_leakage),
         ("raw font-size rem", check_raw_font_sizes),
         ("raw hex colours", check_raw_colors),
+        ("breakpoint registry", check_breakpoint_registry),
     ):
         failures = check()
         status = "OK" if not failures else f"{len(failures)} failure(s)"
