@@ -2958,18 +2958,23 @@ a.about-card {
 }
 
 
-/* ── EXPERIMENT: portrait frame variants ────────────────────────────────
-   Temporary block for the frame/skew decision. Delete once chosen.
-   Unframed geometry (no skew, no offset shadow) but a crisp hairline so the
-   photo still has a defined edge against the page. Full colour retained —
-   desaturation was rejected for washing the portraits out. */
+/* ── Portrait treatment: unframed ───────────────────────────────────────
+   No skew, no border, no offset shadow. The <img> covers its 3:4 box so the
+   underlying background-image (a zoomed copy of the same photo, used to fill
+   non-3:4 sources) never shows along an edge. */
 .members-subpage .mem-row-photo,
 .students-subpage .mem-row-photo {
     --_adjusted-block-skew: 0deg;
-    --_content-width: var(--_img-width);
-    --_img-border-w: 0.0625rem;
+    --_img-border-w: 0rem;
     --_adjusted-shadow-shift: 0rem;
     --_img-border-r: 0.125rem;
-    border-color: color-mix(in srgb, var(--main-color) 32%, transparent);
+    border: none;
     box-shadow: none;
+}
+
+.members-subpage .mem-row-photo > img,
+.students-subpage .mem-row-photo > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
