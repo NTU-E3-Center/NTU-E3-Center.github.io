@@ -1,6 +1,16 @@
 <section id="home">
+    {# Live counts — same derivation as /about/ ([IA-2]); can never go stale. #}
+    {% set _p = namespace(n=0) %}
+    {% for section in structures['publications'] %}
+        {% for item in section['items'] if item.get('E3') and item.get('status') == 'published' and item.get('type') != 'book' %}
+            {% set _p.n = _p.n + 1 %}
+        {% endfor %}
+    {% endfor %}
     <div class="hp-mainthing">
         <div class="hp-text">
+            {# Credibility as a number, not a claim (Stripe hero pattern). #}
+            <p class="hp-eyebrow text-eyebrow">{{ _p.n }} peer-reviewed publications · NTU</p>
+
             <div class="hp-title">
                 <h1>
                     E3 Center
@@ -14,10 +24,18 @@
                 <p>Economics</p>
                 <p>Environment</p>
             </div>
-            
-            <a href="#about-us" class="hp-about-us skewed-block" b-role="btn" b-hoverable>
-                About Us
-            </a>
+
+            {# Two ranked CTAs (Stripe/Vercel pattern): the page's one skewed
+               CTA is the conversion target; the secondary stays quiet. #}
+            <div class="hp-ctas">
+                <a href="/contact/" class="hp-about-us skewed-block" b-role="btn" b-hoverable>
+                    Join us
+                </a>
+                <a href="/about/" class="hp-secondary">
+                    About the center
+                    <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+                </a>
+            </div>
         </div>
 
         {% include 'partials/home.svg' %}
@@ -31,8 +49,4 @@
         <p>Scroll for more!</p>
     </div>
 
-    <div class="hp-last-update">
-        Last Update: <span class="hp-last-update-time">{{ updated_time }}</span><br>
-        (More features in development!)
-    </div>
 </section>

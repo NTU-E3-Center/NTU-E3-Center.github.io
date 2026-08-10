@@ -80,11 +80,50 @@
         }
     }
 
+    .hp-eyebrow {
+        /* Credibility fact above the title (Stripe hero pattern). The
+           .text-eyebrow utility supplies size/tracking/case; opacity sits at
+           the secondary-text floor. */
+        margin: 0;
+        opacity: 0.6;
+    }
+
+    .hp-ctas {
+        display: flex;
+        align-items: center;
+        gap: var(--space-6);
+    }
+
     .hp-about-us {
         --_adjusted-font-size: var(--fs-body);
         --_adjusted-border-width: 0.1875rem;
         --_adjusted-shadow-shift: 0.3125rem;
         --_adjusted-hover-shadow-shift: 0.4375rem;
+    }
+
+    .hp-secondary {
+        /* Quiet secondary next to the page's one skewed CTA. */
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1-5);
+        font-size: var(--fs-body-base);
+        font-weight: var(--fw-heading);
+        color: var(--main-color);
+        text-decoration: none;
+        opacity: 0.7;
+        transition: opacity var(--hover-transition-time);
+
+        & svg {
+            width: 1em;
+            height: 1em;
+            transition: translate var(--hover-transition-time);
+        }
+
+        &:hover {
+            opacity: 1;
+
+            & svg { translate: 0.2rem 0; }
+        }
     }
 
     .hp-scroll-for-more {
