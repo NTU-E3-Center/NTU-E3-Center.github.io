@@ -1336,13 +1336,19 @@ a.about-card {
 /* Rows inside a year group: the year lives in the rail, so the date column
    narrows to month-only; an optional thumbnail column appears on rows whose
    detail page has a hero image. */
+/* Audit finding R-5: the thumbnail column was inserted only on rows that
+   had a thumbnail, so titles in the same list started at two different left
+   edges (~93px apart). The column is now always reserved; thumbless rows
+   skip it via grid-column below, so every title shares one left edge. */
 .news-subpage .news-year-group .news-row {
-    grid-template-columns: 3.25rem 1fr auto;
+    grid-template-columns: 3.25rem 4.5rem 1fr auto;
     gap: var(--space-5);
 }
 
-.news-subpage .news-year-group .news-row--thumb {
-    grid-template-columns: 3.25rem 4.5rem 1fr auto;
+/* Declared once, outside the tier media queries — the column index is the
+   same at every breakpoint even though the track widths differ. */
+.news-subpage .news-year-group .news-row:not(.news-row--thumb) .news-row-body {
+    grid-column: 3;
 }
 
 .news-row-thumb {
@@ -1417,12 +1423,8 @@ a.about-card {
     }
 
     .news-subpage .news-year-group .news-row {
-        grid-template-columns: 3rem 1fr auto;
-        gap: var(--space-3-5);
-    }
-
-    .news-subpage .news-year-group .news-row--thumb {
         grid-template-columns: 3rem 4rem 1fr auto;
+        gap: var(--space-3-5);
     }
 
     .news-row-thumb {
@@ -1451,12 +1453,8 @@ a.about-card {
     }
 
     .news-subpage .news-year-group .news-row {
-        grid-template-columns: 3rem 1fr;
-        gap: var(--space-2-5);
-    }
-
-    .news-subpage .news-year-group .news-row--thumb {
         grid-template-columns: 3rem 3.5rem 1fr;
+        gap: var(--space-2-5);
     }
 
     .news-row-thumb {
