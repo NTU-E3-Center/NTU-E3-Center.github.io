@@ -395,6 +395,16 @@
 
     /* ── Member row ─────────────────────────────────────────────────── */
 
+    /* VARIANT A — framed measure. The group (eyebrow + list together) no
+       longer spans the full 1120px content area; the former dead right half
+       becomes symmetric margin, so the emptiness reads as framing rather
+       than waste. Applied to .mem-group, not .mem-rows, so the eyebrow
+       label stays aligned with the rows it labels. */
+    & .mem-group {
+        max-width: var(--w-info);
+        margin-inline: auto;
+    }
+
     & .mem-rows {
         margin-block-start: var(--space-4);
         border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
