@@ -2957,3 +2957,20 @@ a.about-card {
     }
 }
 
+
+/* ── EXPERIMENT: portrait frame variants ────────────────────────────────
+   Temporary block for the frame/skew decision. Delete once chosen.
+   Unframed + light tone-matching, per the ETH D-BAUG reference: photos from
+   different cameras/backgrounds read as one set when their colour is pulled
+   toward a common register, which is what the frame was doing structurally. */
+.members-subpage .mem-row-photo,
+.students-subpage .mem-row-photo {
+    --_adjusted-block-skew: 0deg;
+    --_content-width: var(--_img-width);
+    --_img-border-w: 0rem;
+    --_adjusted-shadow-shift: 0rem;
+    --_img-border-r: 0.125rem;
+    border: none;
+    box-shadow: none;
+    filter: grayscale(0.55) contrast(1.03);
+}
