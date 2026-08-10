@@ -3014,3 +3014,45 @@ a.about-card {
     border-width: 0.0625rem;
     border-radius: 2rem;
 }
+
+/* ── EXPERIMENT: hover states for flattened elements ────────────────────
+   The flat elements above still inherited their skew-era hovers — translate
+   + offset shadow + radius doubling — so a flat photo popped a paper-cutout
+   shadow the moment the cursor touched it. Neutralise those and substitute
+   calm equivalents:
+   - member/student rows: the row's existing 3% background tint and arrow
+     nudge remain the affordance; the photo itself no longer moves.
+   - group-life photos: a 2px lift, no shadow (still zoomable, cursor cue
+     comes from b-hoverable).
+   - year pills: the news-filter-tab recipe — border deepens 22% → 45%. */
+.members-subpage .mem-row.mem-row--link:hover .mem-row-photo,
+.members-subpage .mem-row.mem-row--link:active .mem-row-photo,
+.students-subpage .mem-row.mem-row--link:hover .mem-row-photo,
+.students-subpage .mem-row.mem-row--link:active .mem-row-photo {
+    translate: 0 0;
+    box-shadow: none;
+    border-radius: 0.125rem;
+}
+
+.group-life-subpage .glf-section .glf-img:hover {
+    translate: 0 -0.125rem;
+    box-shadow: none;
+    border-radius: 0.125rem;
+}
+.group-life-subpage .glf-section .glf-img:active {
+    translate: 0 0;
+}
+
+.group-life-subpage .filter-block,
+.group-life-subpage .filter-block:hover,
+.group-life-subpage .filter-block:active {
+    translate: 0 0;
+    box-shadow: none;
+    border-radius: 2rem;
+}
+.group-life-subpage .filter-block {
+    border-color: color-mix(in srgb, var(--main-color) 22%, transparent);
+}
+.group-life-subpage .filter-block:hover {
+    border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+}
