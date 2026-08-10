@@ -2978,3 +2978,39 @@ a.about-card {
     height: 100%;
     object-fit: cover;
 }
+
+/* ── EXPERIMENT: group-life flattening ──────────────────────────────────
+   Audit finding R-4: ~20 skewed elements on one page (13 photos + 7 filter
+   chips) — the clearest breach of brand.md's "one signature moment per
+   page". Photos and dense repeating chrome go flat, mirroring the portrait
+   decision on /members/; the skew stays reserved for CTAs. */
+.group-life-subpage .glf-section .glf-img {
+    --_adjusted-block-skew: 0deg;
+    --_adjusted-shadow-shift: 0rem;
+    --_img-border-w: 0rem;
+    border: none;
+    box-shadow: none;
+    border-radius: 0.125rem;
+}
+
+/* With no skew there is no parallelogram to cover — undo the 104% zoom. */
+.group-life-subpage .glf-section .glf-img > img {
+    width: 100%;
+}
+
+/* Captions read as accidental when right-aligned under left-aligned photos
+   (audit R-4 note). Align them with the photo's left edge. */
+.group-life-subpage .glf-section .glf-caption {
+    align-items: start;
+    text-align: start;
+}
+
+/* Year filter: dense repeating chrome renders flat by the layout.md rule.
+   Neutralise the skew geometry but keep the pill affordance. */
+.group-life-subpage .filter-block {
+    --_adjusted-block-skew: 0deg;
+    --_adjusted-shadow-shift: 0rem;
+    box-shadow: none;
+    border-width: 0.0625rem;
+    border-radius: 2rem;
+}
