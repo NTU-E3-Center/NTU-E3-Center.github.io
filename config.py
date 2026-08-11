@@ -23,3 +23,9 @@ LAZY_IMG_WIDTHS = [20]                                       # blur-up placehold
 # WebP encode quality.
 WEBP_QUALITY = 70        # real variants
 WEBP_LAZY_QUALITY = 10   # 20w blur-up placeholder
+
+# Persistent WebP encode cache (gitignored). build.py rmtree's docs/ every
+# run for the clean-build guarantee, so already-encoded variants are reused
+# from here instead of re-encoding; keys include the source mtime, so an
+# edited image re-encodes automatically.
+WEBP_CACHE_DIR = ".webp-cache"

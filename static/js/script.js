@@ -157,6 +157,9 @@ function animateHpTheSky() {
     const hpTheSkyBack = document.querySelector('.hp-the-sky-back');
     const hpTheSkyFront = document.querySelector('.hp-the-sky-front');
 
+    if (!hpTheSkyBg || !hpTheSkyBack || !hpTheSkyFront) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     let start = null;
     let direction = 1;
     let cycle = 0;
@@ -196,15 +199,32 @@ function animateHpTheSky() {
         rafId = requestAnimationFrame(animate);
     };
 
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        } else {
-            if (!rafId) { start = null; rafId = requestAnimationFrame(animate); }
+    // Two gates share one start/stop pair so they can't double-start the
+    // loop (same single-source-of-truth idea as resBlockAniRunning):
+    // visibilitychange pauses in background tabs; the IntersectionObserver
+    // stops the loop entirely while the hero is scrolled off-screen.
+    let heroInView = true;
+
+    function startLoop() {
+        if (!rafId && heroInView && !document.hidden) {
+            start = null;
+            rafId = requestAnimationFrame(animate);
         }
+    }
+    function stopLoop() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { stopLoop(); } else { startLoop(); }
     });
 
-    rafId = requestAnimationFrame(animate);
+    new IntersectionObserver((entries) => {
+        heroInView = entries[0].isIntersecting;
+        if (heroInView) { startLoop(); } else { stopLoop(); }
+    }).observe(hpTheSkyBg.ownerSVGElement);
+
+    startLoop();
 };
 window.addEventListener('load', animateHpTheSky);
 

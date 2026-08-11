@@ -86,7 +86,7 @@ They edit `member.json` + `about.md` and send the folder back. Drop the returned
 4. When returned, overwrite `contents/members/{webId}/` with their files and drop their `photo.{jpg,png}` into the same folder.
 5. `python build.py` — the build **fails** if `member.json` has invalid JSON or a schema mismatch, **warns** about a missing `about.md` or photo.
 
-`pubName` (used to auto-populate a member's publications) is derived from the `Full Name` admin column — no separate field to maintain. `contents/members/member-info.legacy.xlsx` is a read-only archive of the original spreadsheet — never edit it.
+`pubName` (used to auto-populate a member's publications) is derived from the `Full Name` admin column — no separate field to maintain. The original 22-column spreadsheet is preserved in git history (not in the working tree) — see past commits if you need to recover it.
 
 ### Adding a publication
 
