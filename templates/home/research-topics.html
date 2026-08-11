@@ -1,0 +1,38 @@
+{# Homepage research teaser. The id must stay `research-topics` — index.html
+   includes `home/<section.id>.html` for each entry in pages['index']['structure'],
+   and this file was the one missing member of that set, so the section was
+   silently skipped by `ignore missing`.
+
+   Teaser only: title, Chinese title and lede. The clusters live on /research/,
+   which each pillar deep-links into by its own id. #}
+<section id="research-topics">
+    <div class="section-title">
+        <h2><a class="section-title-link" href="/research/">What we work on</a></h2>
+    </div>
+
+    <div class="hp-pillars">
+        {% for section in structures['research'] %}
+        {% for pillar in section['pillars'] %}
+        <article class="hp-pillar">
+            <p class="hp-pillar-num">{{ '%02d' % loop.index }}</p>
+            <h3 class="hp-pillar-title">
+                <a href="/research/#{{ pillar['id'] }}">{{ pillar['title'] }}</a>
+            </h3>
+            {% if pillar['titleZh'] %}
+            <p class="hp-pillar-zh" lang="zh-Hant">{{ pillar['titleZh'] }}</p>
+            {% endif %}
+            {% if pillar['lede'] %}
+            <p class="hp-pillar-lede">{{ pillar['lede'] }}</p>
+            {% endif %}
+        </article>
+        {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="section-cta">
+        <a class="section-cta-btn skewed-block" href="/research/" b-role="btn" b-hoverable>
+            <span>All research topics</span>
+            <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
+        </a>
+    </div>
+</section>

@@ -948,6 +948,55 @@
 }
 
 /* members / news / publications — bottom-of-section "View all" CTA */
+/* ── Homepage research teaser ──────────────────────────────────────────────
+   Three pillars, flat and rule-separated rather than carded, matching the
+   flattened chrome the rest of the site moved to. Text opacities stay at or
+   above 0.80: below that, ink on paper drops under WCAG AA at body size
+   (0.70 measures 3.77:1). */
+.hp-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    border-block-start: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+    padding-block-start: var(--space-6);
+}
+
+.hp-pillar {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+}
+
+.hp-pillar-num {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.1em;
+    color: color-mix(in srgb, var(--main-color) 80%, transparent);
+}
+
+.hp-pillar-title {
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.hp-pillar-zh {
+    font-family: var(--font-zh);
+    font-size: var(--fs-secondary);
+    color: color-mix(in srgb, var(--main-color) 85%, transparent);
+}
+
+.hp-pillar-lede {
+    font-size: var(--fs-body-base);
+    line-height: 1.6;
+}
+
+@media (max-width: 64rem) {
+    .hp-pillars {
+        grid-template-columns: 1fr;
+        gap: var(--space-7);
+    }
+}
+
 .section-cta {
     display: flex;
     justify-content: center;
