@@ -1046,7 +1046,7 @@ main > section:nth-of-type(odd) {
 .hp-pillars {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
+    gap: var(--space-6) var(--space-16);
     border-block-start: 1px solid var(--line);
     padding-block-start: var(--space-6);
 }
@@ -1067,12 +1067,6 @@ main > section:nth-of-type(odd) {
     font-size: var(--fs-h3);
     line-height: 1.2;
     margin: 0;
-}
-
-.hp-pillar-zh {
-    font-family: var(--font-zh);
-    font-size: var(--fs-secondary);
-    color: var(--muted);
 }
 
 .hp-pillar-lede {
