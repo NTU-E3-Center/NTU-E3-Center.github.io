@@ -330,6 +330,51 @@
     }
 }
 
+/* ── Hero illustration: single ink ─────────────────────────────────────────
+   Colour is reserved for the three places it carries meaning:
+
+     1. the Taipei 101 beacon — script.js sets `fill` inline, one hue per
+        weekday, and an inline style outranks anything here;
+     2. the PV panel's flash wave — `panel-flash` keyframes `fill` from the
+        --icon-flash-* tokens, and a running animation outranks these
+        declarations, so the wave keeps its colour without an exception;
+     3. the battery charge — listed explicitly below, because its stroke
+        colour comes from a class rather than from a keyframe.
+
+   Everything else resolves to one ink at varying strength. */
+#home .hp-img {
+    /* This artwork carries no strokes. Every visible "line" is the exposed
+       edge of a dark `fill-m` polygon with lighter shapes layered on top of
+       it. So removing colour means neutralising only the UPPER layers and
+       leaving `fill-m` untouched — adding a stroke to these shapes draws a
+       second outline around each one, which reads as a doubled line. */
+    & .fill-m-2,
+    & .fill-m-3,
+    & .fill-m-3-light,
+    & .fill-m-bg {
+        fill: var(--page-bg-color);
+    }
+
+    /* Static wiring is ink. */
+    & .stroke-s,
+    & .stroke-s-light,
+    & .stroke-m-2,
+    & .stroke-m-3 { stroke: var(--main-color); }
+
+    /* These wires are the only true strokes in the file. Their width is a
+       fixed rem, so it does NOT scale with the artwork — thinned so it still
+       sits with the polygon edges once the drawing is reduced. */
+    & .stroke-4 { stroke-width: 0.1875rem; }
+
+    /* Energy in motion keeps its colour — the dashes flowing between PV,
+       battery and buildings, and the battery charge. Declared after the
+       static rules above so it wins on source order. */
+    & .ani-line-dash,
+    & .ani-energy-through { stroke: var(--secondary-color); }
+
+    & .ani-battery-charge { stroke: var(--icon-flash-accent); }
+}
+
 @keyframes electric-flashing {
     0% {
         fill: var(--main-color-2);
