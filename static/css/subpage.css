@@ -976,54 +976,12 @@ a.about-card {
     }
 }
 
-/* ── Principal Investigator featured row ──────────────────────────────── */
-
-.mem-group--pi {
-    & .mem-row-photo {
-        --_img-width: 11rem;
-    }
-
-    & .mem-row-names {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-1-5);
-    }
-
-    & .mem-row-en {
-        font-size: var(--fs-h1);
-        letter-spacing: -0.03em;
-    }
-
-    & .mem-row-zh {
-        font-size: var(--fs-lede);
-        opacity: 0.5;
-    }
-
-    & .mem-row-position {
-        margin-block-start: var(--space-2);
-
-        & p:first-child {
-            font-size: var(--fs-body);
-        }
-
-        & p:not(:first-child) {
-            font-size: var(--fs-secondary);
-        }
-    }
-
-    & .mem-row-links {
-        margin-block-start: var(--space-4);
-    }
-
-    @media (max-width: 64rem) {
-        & .mem-row-photo {
-            --_img-width: 8rem;
-        }
-
-        & .mem-row-en { font-size: var(--fs-h2); }
-        & .mem-row-zh { font-size: var(--fs-body); }
-    }
-}
+/* ── Principal Investigator row ────────────────────────────────────────────
+   The PI row is sized identically to every other member row. The group keeps
+   its `--pi` class so it stays addressable (and stays first in source order),
+   but scale is no longer used to signal seniority — position and order do that.
+   Previously this block set the photo to 11rem and the name to --fs-h1 against
+   the 9rem / --fs-h2 every other row uses. */
 
 /* ── News Archive Page ──────────────────────────────────────────────────── */
 
@@ -1592,20 +1550,7 @@ a.about-card {
         }
     }
 
-    /* PI featured row on phone — keep emphasis but tighter. */
-    .mem-group--pi {
-        & .mem-row-photo {
-            --_img-width: 6rem;
-        }
-
-        & .mem-row-en {
-            font-size: var(--fs-h3);
-        }
-
-        & .mem-row-zh {
-            font-size: var(--fs-body-base);
-        }
-    }
+    /* PI row inherits the phone member-row sizing — no separate scale. */
 
     /* ── News listing ────────────────────────────────────────────── */
     .news-filter-tab {
