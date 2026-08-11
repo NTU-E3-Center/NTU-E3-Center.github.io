@@ -477,13 +477,18 @@ i {
     --font-zh:   'Noto Sans TC', sans-serif;
     --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-    --main-color: #0a557e;
-    --main-shadow-color: #0a557ebb;
-    --main-bg-color: #ffffff;
-    --main-color-2: #4caedd;
-    --main-color-3: #badcea;
-    --secondary-color: #c4c691;
-    --page-bg-color: #f7fafb;
+    /* PALETTE TRIAL — rebrand/brand-foundation. Remaps the existing semantic
+       slots onto the palette derived from the logo, so the current design can
+       be seen in the new colours before any component work. Revert = restore
+       the values in the trailing comment on each line.
+       Spec: specs/2026-08-11-e3-brand-foundation-design.md */
+    --main-color: #0a557e;              /* unchanged — the wordmark's own navy, 7.64:1 */
+    --main-shadow-color: #0a557ebb;     /* unchanged */
+    --main-bg-color: #ffffff;           /* unchanged */
+    --main-color-2: #237a74;            /* was #4caedd — mark teal, 4.86:1 */
+    --main-color-3: #d7e0c4;            /* was #badcea — pale sage-olive, matched for lightness */
+    --secondary-color: #aab157;         /* was #c4c691 — the mark's moss */
+    --page-bg-color: #faf9f7;           /* was #f7fafb — warm paper, warmth +3 */
 
     /* Deep ink shade for illustration artwork only (hero plane banner
        text). Kept out of the primitive-leak guard list because its sole
