@@ -300,11 +300,23 @@ reaffirmed.
 
 ## Carried decisions from brainstorming
 
-- Landing page gains four sections below the hero: **research areas → selected publications →
-  latest news → join us**, alternating `--paper` / `--surface`. The homepage is currently
-  hero-only, so `.hp-scroll-for-more` promises a scroll that does not exist — and
-  `.subpage-header--home` only reveals on scroll, meaning **the header can never appear on the
-  homepage today**. These sections fix both.
+- **Landing page banding.** The homepage already carries six sections below the hero — *The
+  Center, The team, Recent work, Selected projects, In the news, Around the lab* (6,320px),
+  assembled by `templates/index.html` looping `pages['index']['structure']` and including
+  `templates/home/<id>.html`. All six have transparent backgrounds, so alternating
+  `--paper` / `--surface` is a small change to existing sections, not new page construction.
+
+  > **Correction.** An earlier draft of this spec claimed the homepage was hero-only and that
+  > `.hp-scroll-for-more` promised a scroll that did not exist. That was wrong: it came from
+  > reading `templates/home/home.html` (the hero alone) without reading `templates/index.html`.
+  > The related claim that `.subpage-header--home` can never appear was also wrong — the header
+  > gains `is-visible` on the built page.
+
+- **Genuinely missing:** `research-topics` is in the nav structure but has no
+  `templates/home/research-topics.html`, so it is silently skipped by `ignore missing`. Research
+  is the one pillar with no homepage presence — and the one that would carry 淨零智慧城市.
+  Conversely `templates/home/videos.html` exists but no `videos` id is in the structure, so it
+  is never rendered.
 - `showInHome` already exists in `publications.json` (5) and `news.json` (6) — the data layer
   anticipated this page. Redefine it as *curated*, not *latest N*: pure recency surfaces
   off-theme work (a Cobb-angle paper in *IEEE TMI* is currently among the five most recent).
