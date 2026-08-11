@@ -560,6 +560,14 @@ i {
     --house-dark: #b4cedb;
     --house-light: #cad9e2;
 
+    /* Hero illustration fills — the pre-rebrand palette restored by request
+       (hue verbatim from 328e990f~1), each mixed a step toward paper so the
+       blues sit on the warm page instead of floating cold on it. Decorative
+       only, hero-only; deliberately outside the mark-traceable token file. */
+    --illo-sky:       color-mix(in srgb, #4caedd 85%, var(--paper));
+    --illo-sky-pale:  color-mix(in srgb, #badcea 85%, var(--paper));
+    --illo-sky-faint: color-mix(in srgb, #f4fafc 60%, var(--paper));
+
     /* Homepage icon hover-flash accents — both phases of the shared
        panel-flash keyframe pulse (.hp-pv-panel default, .ani-radar hover
        override in style.css): -light and -accent are the pale 0% phase,

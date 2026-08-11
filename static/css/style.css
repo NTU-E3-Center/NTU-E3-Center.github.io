@@ -350,12 +350,13 @@
        it. So removing colour means neutralising only the UPPER layers and
        leaving `fill-m` untouched — adding a stroke to these shapes draws a
        second outline around each one, which reads as a doubled line. */
-    & .fill-m-2,
-    & .fill-m-3,
-    & .fill-m-3-light,
-    & .fill-m-bg {
-        fill: var(--paper);
-    }
+    /* Fills restored to the original illustration palette (user-directed):
+       the --illo-* tokens in general.css hold the pre-rebrand hues verbatim,
+       softened a step toward paper. Decorative only — they carry no text. */
+    & .fill-m-2 { fill: var(--illo-sky); }
+    & .fill-m-3 { fill: var(--illo-sky-pale); }
+    & .fill-m-3-light { fill: var(--illo-sky-faint); }
+    & .fill-m-bg { fill: var(--paper); }
 
     /* Static wiring is ink. */
     & .stroke-s,
