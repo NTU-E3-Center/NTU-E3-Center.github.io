@@ -26,3 +26,6 @@ audits/
 
 # Git worktrees
 .worktrees/
+
+# Superpowers brainstorming companion (local mockups)
+.superpowers/
