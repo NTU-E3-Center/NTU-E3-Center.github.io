@@ -503,8 +503,6 @@ i {
        same far-hue-anchor recipe as --status-alert-text ([B-7]). The 22%
        tint is darker than the pair check's modeled 14%, so the validator
        also verifies this pair explicitly at 22%. */
-    --status-progress: var(--marker);
-    --status-progress-text: color-mix(in srgb, var(--marker) 28%, #4a4a00);
 
     /* Inline-prose link color — slightly lighter than --ink (body)
        so the link reads as distinct without outweighing the prose it sits
@@ -544,19 +542,9 @@ i {
                     it clears WCAG AA while keeping the hue identity.
        Consumed by .news-row-badge (subpage.css) and .news-item-category
        (news-item.css) — change categories here, not per-file. */
-    --cat-student:       var(--r-green);
-    --cat-media:         var(--r-indigo);
-    --cat-events:        var(--accent-graphic);
-    --cat-outreach:      var(--r-orange);
-    /* Hue percentages are set by contrast, not taste: each is the highest
-       proportion of its hue that still clears WCAG AA (4.5:1) against both
-       the 13% badge tint and the page background. Verified by
-       validate_design_tokens.py — do not raise these without re-running it. */
-    --cat-faculty-text:  color-mix(in srgb, var(--marker) 22%, var(--ink));
-    --cat-student-text:  color-mix(in srgb, var(--r-green) 35%, var(--ink));
-    --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--ink));
-    --cat-events-text:   color-mix(in srgb, var(--accent-graphic) 30%, var(--ink));
-    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--ink));
+    /* --cat-* now come from tokens/e3.tokens.json via _tokens.css, where the
+       text tiers are DERIVED against three backdrops (badge tint, paper and
+       the section band) rather than hand-mixed and checked against two. */
 
     /* Sky (--accent-graphic) is 2.38:1 on the page background — fine as an
        illustration fill or a tint, unusable as text. --accent-ink is sky
@@ -574,15 +562,7 @@ i {
        raw --r-* primitive behind them, so the meaning is greppable and the hue
        can change in one place. The -text variants are deepened to clear WCAG AA
        against their own tinted backgrounds — same discipline as --cat-*-text. */
-    --status-ok:            var(--r-green);
-    /* -text tokens mix toward --ink (navy), same discipline as
-       --cat-*-text — except alert: mixing red toward this navy rotates the
-       hue out of the red family entirely (40% red / 60% navy lands at hue
-       ~234°, a blue-slate, not red). So alert mixes toward a dark red
-       instead, keeping the alert hue red while still clearing WCAG AA. */
-    --status-ok-text:       color-mix(in srgb, var(--r-green) 35%, var(--ink));
-    --status-alert:         var(--r-red);
-    --status-alert-text:    color-mix(in srgb, var(--r-red) 60%, #3a0d0d);
+    /* --status-* likewise come from _tokens.css. */
     --field-energy:         var(--r-yellow);
     --field-economics:      var(--r-orange);
     --field-environment:    var(--r-green);

@@ -94,6 +94,27 @@ def main():
                 bad.append(f"{name} on {sname} = {r:.2f}:1")
     check(f"text clears {target}:1 on all surfaces", not bad, "; ".join(bad))
 
+    # 2b ── badge pairs: text must clear on its own tint AND every surface
+    def mix(fg, bg, p):
+        return "#%02x%02x%02x" % tuple(
+            round(p * a + (1 - p) * b) for a, b in zip(hex2rgb(fg), hex2rgb(bg)))
+
+    tint = t["badge"]["tint"]["$value"]
+    paper = leaves["color.paper"]
+    bad_badges = []
+    for group in ("category", "status"):
+        for name, node in t["badge"][group].items():
+            if name.startswith("$"):
+                continue
+            anchor, txt = node["anchor"]["$value"], node["text"]["$value"]
+            backdrops = {f"{name} badge": mix(anchor, paper, tint), **surfaces}
+            for bname, bval in backdrops.items():
+                r = ratio(txt, bval)
+                if r < target:
+                    bad_badges.append(f"{group}.{name} on {bname} = {r:.2f}:1")
+    check(f"badge text clears {target}:1 everywhere", not bad_badges,
+          "; ".join(bad_badges))
+
     # 3 ── graphic/text pairing
     graphics = [k for k in leaves if k.endswith(".graphic")]
     unpaired = [g for g in graphics if g.rsplit(".", 1)[0] + ".text" not in leaves]

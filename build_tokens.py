@@ -65,6 +65,19 @@ def main():
     for name, val in colors.items():
         lines.append(f"    --{name}: {val};")
 
+    # ── badges ───────────────────────────────────────────────────────────────
+    # Emitted as --cat-* / --status-* rather than a new naming scheme: those
+    # names are already accurate, and renaming is only worth the churn when the
+    # new name is genuinely better (as --ink was over --main-color).
+    lines.append("")
+    lines.append("    /* badges — text derived against badge tint, paper AND the band */")
+    for group, prefix in (("category", "cat"), ("status", "status")):
+        for name, node in t["badge"][group].items():
+            if name.startswith("$"):
+                continue
+            lines.append(f"    --{prefix}-{name}: {node['anchor']['$value']};")
+            lines.append(f"    --{prefix}-{name}-text: {node['text']['$value']};")
+
     # ── type ─────────────────────────────────────────────────────────────────
     lines.append("")
     lines.append("    /* type */")

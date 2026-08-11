@@ -23,6 +23,24 @@
     --field-economics-graphic: #aabdbf;
     --field-economics-text: #51696b;
 
+    /* badges — text derived against badge tint, paper AND the band */
+    --cat-faculty: #aab157;
+    --cat-faculty-text: #636830;
+    --cat-events: #237a74;
+    --cat-events-text: #1e6a65;
+    --cat-student: #51a885;
+    --cat-student-text: #356e57;
+    --cat-media: #5f739d;
+    --cat-media-text: #506084;
+    --cat-outreach: #ed8c37;
+    --cat-outreach-text: #974e0e;
+    --status-ok: #51a885;
+    --status-ok-text: #356e57;
+    --status-progress: #aab157;
+    --status-progress-text: #636830;
+    --status-alert: #db7476;
+    --status-alert-text: #b52f31;
+
     /* type */
     --font-latin: Outfit, system-ui, sans-serif;
     --font-zh: 'Noto Sans TC', sans-serif;

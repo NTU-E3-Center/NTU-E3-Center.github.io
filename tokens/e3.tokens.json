@@ -53,6 +53,35 @@
     }
   },
 
+  "badge": {
+    "$description": "Category and status badges. Each entry is an anchor hue plus a text colour derived to clear the contrast target on THREE backdrops: its own badge tint, paper, and the section band. The old system checked only the tint and paper — and against a stale hardcoded paper at that — so a badge sitting in a tinted section was never verified at all.",
+    "tint": { "$type": "number", "$value": 0.14, "$description": "Badge background is the anchor at this fraction over paper." },
+
+    "category": {
+      "$description": "Five hues that must be told apart at badge size. Only two come from the mark — the mark's seven colours sit in a narrow green-blue band, and five badges cut from it would be indistinguishable. The rest are a declared extension held to the same derivation discipline, not an ad-hoc palette.",
+      "faculty":  { "anchor": { "$type": "color", "$value": "#aab157", "$description": "mark.moss" },
+                    "text":   { "$type": "color", "$value": "#636830" } },
+      "events":   { "anchor": { "$type": "color", "$value": "#237a74", "$description": "mark.teal" },
+                    "text":   { "$type": "color", "$value": "#1e6a65" } },
+      "student":  { "anchor": { "$type": "color", "$value": "#51a885", "$description": "extension — green" },
+                    "text":   { "$type": "color", "$value": "#356e57" } },
+      "media":    { "anchor": { "$type": "color", "$value": "#5f739d", "$description": "extension — indigo" },
+                    "text":   { "$type": "color", "$value": "#506084" } },
+      "outreach": { "anchor": { "$type": "color", "$value": "#ed8c37", "$description": "extension — orange" },
+                    "text":   { "$type": "color", "$value": "#974e0e" } }
+    },
+
+    "status": {
+      "$description": "Three states. ok and progress reuse the student and faculty hues deliberately — a green 'published' and a green 'student' never appear in the same control, and adding hues costs distinguishability elsewhere.",
+      "ok":       { "anchor": { "$type": "color", "$value": "#51a885" },
+                    "text":   { "$type": "color", "$value": "#356e57" } },
+      "progress": { "anchor": { "$type": "color", "$value": "#aab157" },
+                    "text":   { "$type": "color", "$value": "#636830" } },
+      "alert":    { "anchor": { "$type": "color", "$value": "#db7476", "$description": "extension — red" },
+                    "text":   { "$type": "color", "$value": "#b52f31" } }
+    }
+  },
+
   "font": {
     "latin": { "$type": "fontFamily", "$value": ["Outfit", "system-ui", "sans-serif"] },
     "zh":    { "$type": "fontFamily", "$value": ["Noto Sans TC", "sans-serif"] },
