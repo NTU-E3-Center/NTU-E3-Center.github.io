@@ -283,7 +283,7 @@
 
     &.is-current {
         opacity: 1;
-        color: var(--accent-ink);
+        color: var(--accent-text);
     }
 }
 
@@ -527,7 +527,7 @@
             &:first-child {
                 font-size: var(--fs-body);
                 font-weight: var(--fw-heading);
-                color: var(--accent-ink);
+                color: var(--accent-text);
                 margin-block-end: 0.2rem;
             }
 
@@ -758,7 +758,7 @@
 .about-tagline {
     font-size: var(--fs-lede);
     font-weight: var(--fw-display);
-    color: var(--accent-ink);
+    color: var(--accent-text);
     letter-spacing: 0.01em;
 }
 
@@ -822,7 +822,7 @@
 .research-tagline {
     font-size: var(--fs-lede);
     font-weight: var(--fw-display);
-    color: var(--accent-ink);
+    color: var(--accent-text);
     letter-spacing: 0.01em;
     margin-block-end: var(--space-6);
 }
@@ -1803,7 +1803,7 @@ a.about-card {
     line-height: var(--lh-lede);
     padding: 0.1rem 0.6rem;
     border-radius: 2rem;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     background: color-mix(in srgb, var(--accent-graphic) 12%, transparent);
 }
 
@@ -2410,7 +2410,7 @@ a.about-card {
     padding: 0.15rem 0.5rem;
     border-radius: 2rem;
     line-height: var(--lh-eyebrow);
-    color: var(--accent-ink);
+    color: var(--accent-text);
     background: color-mix(in srgb, var(--accent-graphic) 14%, transparent);
 }
 

@@ -31,7 +31,7 @@
 
     "accent": {
       "graphic": { "$type": "color", "$value": "#237a74", "$description": "mark.teal exactly. Fills, marks, non-text. 4.36:1 on surface — NOT for text." },
-      "text":    { "$type": "color", "$value": "#206e69", "$description": "Links and active states. Derived from mark.teal. 5.71:1 / 5.13:1." }
+      "text":    { "$type": "color", "$value": "#1e6a65", "$description": "Links, active states, and anywhere the accent must be read rather than seen. Derived from mark.teal and checked against its OWN 12-14% tint as well as paper and the band, because every consumer sits on one: 6.04:1 paper, 5.42:1 band, 5.02:1 on the darkest tint in use. Replaces --accent-ink, which mixed teal 30% toward navy and landed at hue 195 - six degrees off plain --ink, so it barely read as an accent at all. This keeps mark.teal's exact 176." }
     },
 
     "marker": { "$type": "color", "$value": "#aab157", "$description": "mark.moss. The field marker: underline bars, the 3E dot, directional glyphs, the energy dashes in the hero. A distinct UI role from field.energy — the same hue doing structural work rather than coding a research area. Never text (2.18:1)." },

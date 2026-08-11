@@ -199,33 +199,10 @@ def check_category_contrast():
                 f"--{name} ({text_hex}): {on_tint:.2f}:1 on tint, "
                 f"{on_page:.2f}:1 on page bg — below AA {AA}:1")
 
-    # --accent-ink consumes no --accent base token, so it matches neither
-    # the base/-text naming convention above nor gets picked up by `names`
-    # — that blind spot is exactly how it shipped mixed at a percentage
-    # that failed AA on its real backdrops (see general.css's --accent-ink
-    # comment). Check it explicitly against every tint percentage its
-    # consumers actually use (12–14% of --accent-graphic composited over the
-    # page background — same transparent-mix reasoning as above, never
-    # white) plus the bare page background.
-    accent_raw = tokens.get("accent-ink")
-    main_2_raw = tokens.get("accent-graphic")
-    if accent_raw is None or main_2_raw is None:
-        failures.append("--accent-ink or --accent-graphic: token not found in :root")
-    else:
-        accent_hex = resolve(accent_raw, tokens)
-        main_2_hex = resolve(main_2_raw, tokens)
-        if not accent_hex or not main_2_hex:
-            failures.append("--accent-ink or --accent-graphic: could not resolve to a hex colour")
-        else:
-            backdrops = [(pct, _mix(main_2_hex, PAGE_BG, pct)) for pct in (0.12, 0.13, 0.14)]
-            backdrops.append((None, PAGE_BG))
-            for pct, backdrop in backdrops:
-                ratio = contrast(accent_hex, backdrop)
-                if ratio < AA:
-                    where = f"{pct:.0%} accent-graphic tint" if pct is not None else "page bg"
-                    failures.append(
-                        f"--accent-ink ({accent_hex}) on {where}: "
-                        f"{ratio:.2f}:1 — below AA {AA}:1")
+    # --accent-ink is retired. Its successor --accent-text lives in the token
+    # source and is verified by validate_tokens.py against paper, the section
+    # band and its own 12-14% tint — strictly more backdrops than this checked.
+
 
     # --status-progress-text's real badge tint is 22% of its base — darker
     # than the 14% the generic pair loop models — so verify it explicitly at

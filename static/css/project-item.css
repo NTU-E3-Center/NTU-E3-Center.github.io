@@ -48,7 +48,7 @@
     letter-spacing: 0.04em;
     padding: 0.2rem 0.7rem;
     border-radius: 2rem;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     background: color-mix(in srgb, var(--accent-graphic) 12%, transparent);
 }
 
@@ -201,7 +201,7 @@
     line-height: var(--lh-flush);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     margin: 0 0 0.85rem;
 }
 
@@ -243,7 +243,7 @@
     font-weight: var(--fw-heading);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     background: color-mix(in srgb, var(--accent-graphic) 12%, transparent);
     border-radius: 0.3rem;
     padding: 0.1rem 0.5rem;
@@ -261,7 +261,7 @@
 
     &:hover, &:focus-visible {
         background-size: 100% 1px;
-        color: var(--accent-ink);
+        color: var(--accent-text);
     }
 }
 
@@ -455,7 +455,7 @@ a.proj-chip:focus-visible {
         &:hover,
         &:focus-within {
             .proj-partner-name {
-                color: var(--accent-ink);
+                color: var(--accent-text);
                 text-decoration: underline;
                 text-underline-offset: 0.15em;
             }
@@ -499,7 +499,7 @@ a.proj-partner-name::after {
 }
 
 a.proj-partner-name:hover, a.proj-partner-name:focus-visible {
-    color: var(--accent-ink);
+    color: var(--accent-text);
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }

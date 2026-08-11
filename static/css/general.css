@@ -546,17 +546,8 @@ i {
        text tiers are DERIVED against three backdrops (badge tint, paper and
        the section band) rather than hand-mixed and checked against two. */
 
-    /* Sky (--accent-graphic) is 2.38:1 on the page background — fine as an
-       illustration fill or a tint, unusable as text. --accent-ink is sky
-       deepened toward navy to the point where it clears AA against every
-       backdrop it's actually composited on: every consumer places it on a
-       12–14% --accent-graphic tint, and every such tint is a transparent
-       mix, so it composites over --paper, never white. Measured
-       (color-mix in srgb): 4.72:1 at 12%, 4.68:1 at 13%, 4.64:1 at 14% —
-       the darkest tint in use and the hardest case — and 5.21:1 on the
-       page background directly. Components that want "sky, but as text"
-       use this; none use --accent-graphic for a colour or an outline. */
-    --accent-ink: color-mix(in srgb, var(--accent-graphic) 30%, var(--ink));
+    /* The 'accent as text' role is --accent-text, from _tokens.css. The old
+       --accent-ink mixed teal toward navy and lost the hue in the process. */
 
     /* Status and research-field semantics. Components use these names, never the
        raw --r-* primitive behind them, so the meaning is greppable and the hue

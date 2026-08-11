@@ -29,7 +29,7 @@
     line-height: var(--lh-lede);
     padding: 0.25rem 0.75rem;
     border-radius: 2rem;
-    color: var(--accent-ink);
+    color: var(--accent-text);
     background: color-mix(in srgb, var(--accent-graphic) 12%, transparent);
 }
 
@@ -76,7 +76,7 @@
 
 /* Animated underline on author links — matches the about-section link recipe. */
 .pub-author-link {
-    color: var(--accent-ink);
+    color: var(--accent-text);
     font-weight: var(--fw-heading);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
@@ -90,7 +90,7 @@
 
     &:hover, &:focus-visible {
         background-size: 100% 1px;
-        color: var(--accent-ink);
+        color: var(--accent-text);
     }
 
     &:focus-visible {
