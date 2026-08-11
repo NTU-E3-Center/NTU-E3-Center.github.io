@@ -1,0 +1,139 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "E3 Center design tokens — the single source of truth. Platform-neutral (W3C Design Tokens format) so one file can emit web CSS, a slide theme and print swatches. Nothing consumes this by hand: run build_tokens.py. Every colour is either taken from the logo or derived from one that is, and every text colour is verified against BOTH surfaces (paper and the tint band) by validate_tokens.py.",
+
+  "meta": {
+    "version": { "$type": "string", "$value": "0.1.0" },
+    "spec": { "$type": "string", "$value": "specs/2026-08-11-e3-brand-foundation-design.md" },
+    "contrastTargetText": { "$type": "number", "$value": 5.0, "$description": "Derived text colours must clear this on every surface. Above AA's 4.5 for headroom." },
+    "surfaces": { "$type": "string", "$value": "color.paper, color.surface", "$description": "Text must pass against every surface listed here." }
+  },
+
+  "mark": {
+    "$description": "The seven colours in e3-center-logo-inline.svg, verbatim. The specification everything else derives from. Never consumed directly by a component.",
+    "wordmarkNavy": { "$type": "color", "$value": "#0a557e", "$description": "The navy 'E3 Center' is set in." },
+    "deep":         { "$type": "color", "$value": "#1f5979" },
+    "teal":         { "$type": "color", "$value": "#237a74" },
+    "moss":         { "$type": "color", "$value": "#aab157" },
+    "sage":         { "$type": "color", "$value": "#bfceaa" },
+    "greyBlue":     { "$type": "color", "$value": "#aabdbf" },
+    "paleRibbon":   { "$type": "color", "$value": "#d3d6a3" }
+  },
+
+  "color": {
+    "paper":     { "$type": "color", "$value": "#faf9f7", "$description": "Page background. Warmth +3 (R−B), chosen from a seven-step ramp. Also the slide background and the print stock reference." },
+    "surface":   { "$type": "color", "$value": "#eeeede", "$description": "Section band. mark.paleRibbon at 30% over paper." },
+    "line":      { "$type": "color", "$value": "#ced8d8", "$description": "Hairlines and dividers. mark.greyBlue at 55% over paper — the mark's own neutral, so rules stay neutral rather than olive." },
+
+    "ink":       { "$type": "color", "$value": "#0a557e", "$description": "All primary text. mark.wordmarkNavy unchanged, so body copy and the lockup are the same colour. 7.64:1 on paper, 6.86:1 on surface." },
+    "muted":     { "$type": "color", "$value": "#2c6888", "$description": "Secondary text. Ink lightened to the limit that still clears the target on BOTH surfaces. 5.80:1 / 5.21:1." },
+    "structure": { "$type": "color", "$value": "#1f5979", "$description": "Rules, chart axes, header. mark.deep unchanged. 7.22:1 / 6.48:1." },
+
+    "accent": {
+      "graphic": { "$type": "color", "$value": "#237a74", "$description": "mark.teal exactly. Fills, marks, non-text. 4.36:1 on surface — NOT for text." },
+      "text":    { "$type": "color", "$value": "#206e69", "$description": "Links and active states. Derived from mark.teal. 5.71:1 / 5.13:1." }
+    },
+
+    "field": {
+      "$description": "The three woven ribbons become the three E's, so field coding is the mark rather than an invention. Each ships a graphic value and a derived text-safe sibling; the system picks by role.",
+      "energy": {
+        "graphic": { "$type": "color", "$value": "#aab157", "$description": "mark.moss. Fills and data series only — 2.18:1." },
+        "text":    { "$type": "color", "$value": "#636830", "$description": "5.62:1 / 5.04:1." }
+      },
+      "environment": {
+        "graphic": { "$type": "color", "$value": "#bfceaa", "$description": "mark.sage. Fills and data series only — 1.58:1." },
+        "text":    { "$type": "color", "$value": "#576a3d", "$description": "5.65:1 / 5.07:1." }
+      },
+      "economics": {
+        "graphic": { "$type": "color", "$value": "#aabdbf", "$description": "mark.greyBlue. Fills and data series only — 1.86:1." },
+        "text":    { "$type": "color", "$value": "#51696b", "$description": "5.57:1 / 5.00:1." }
+      }
+    }
+  },
+
+  "font": {
+    "latin": { "$type": "fontFamily", "$value": ["Outfit", "system-ui", "sans-serif"] },
+    "zh":    { "$type": "fontFamily", "$value": ["Noto Sans TC", "sans-serif"] },
+    "mono":  { "$type": "fontFamily", "$value": ["ui-monospace", "SF Mono", "Menlo", "monospace"] },
+
+    "weight": {
+      "$description": "Size carries hierarchy; weight only whispers. Outfit is geometric, and heavy weights in a geometric sans read cartoonish — which is the register we are moving away from.",
+      "light":   { "$type": "number", "$value": 400, "$description": "Zh subtitles, de-emphasis" },
+      "body":    { "$type": "number", "$value": 450 },
+      "display": { "$type": "number", "$value": 500, "$description": "h1–h3" },
+      "heading": { "$type": "number", "$value": 600, "$description": "Small UI only: eyebrows, badges, buttons" }
+    }
+  },
+
+  "scale": {
+    "$description": "Explicit px per tier. The old system scaled the root 12.5% down on phone and then had to bump the LABEL group back UP to clear the WCAG floor — a correction for a problem it created. Defining each tier outright removes both. Tiers: phone ≤600, tablet 601–1024, laptop 1025–1439, wide ≥1440.",
+    "display": { "$type": "dimension", "$value": { "phone": "34px", "tablet": "42px", "laptop": "56px", "wide": "60px" } },
+    "h2":      { "$type": "dimension", "$value": { "phone": "26px", "tablet": "28px", "laptop": "32px", "wide": "34px" } },
+    "h3":      { "$type": "dimension", "$value": { "phone": "20px", "tablet": "22px", "laptop": "24px", "wide": "25px" } },
+    "lede":    { "$type": "dimension", "$value": { "phone": "18px", "tablet": "19px", "laptop": "20px", "wide": "21px" } },
+    "body":    { "$type": "dimension", "$value": { "phone": "16px", "tablet": "16.5px", "laptop": "17px", "wide": "18px" } },
+    "small":   { "$type": "dimension", "$value": { "phone": "14.5px", "tablet": "14.5px", "laptop": "15px", "wide": "15px" } },
+    "meta":    { "$type": "dimension", "$value": { "phone": "13px", "tablet": "13px", "laptop": "13px", "wide": "13px" } },
+    "eyebrow": { "$type": "dimension", "$value": { "phone": "12px", "tablet": "12px", "laptop": "12px", "wide": "12px" }, "$description": "Flat at 12px. 11px falls under the legibility floor at 375, and a phone-only bump would reintroduce the very exception the explicit scale exists to remove — 12 vs 11 is imperceptible at desktop anyway." }
+  },
+
+  "leading": {
+    "display": { "$type": "number", "$value": 1.05 },
+    "h2":      { "$type": "number", "$value": 1.15 },
+    "h3":      { "$type": "number", "$value": 1.25 },
+    "lede":    { "$type": "number", "$value": 1.5 },
+    "body":    { "$type": "number", "$value": 1.65 },
+    "zhBonus": { "$type": "number", "$value": 0.1, "$description": "Added to the Latin value — CJK needs more leading at equal size." }
+  },
+
+  "tracking": {
+    "display": { "$type": "dimension", "$value": "-0.03em" },
+    "h2":      { "$type": "dimension", "$value": "-0.025em" },
+    "h3":      { "$type": "dimension", "$value": "-0.015em" },
+    "body":    { "$type": "dimension", "$value": "0em" },
+    "eyebrow": { "$type": "dimension", "$value": "0.14em" }
+  },
+
+  "measure": {
+    "prose":   { "$type": "dimension", "$value": "66ch" },
+    "rows":    { "$type": "dimension", "$value": "56rem", "$description": "List and row content." },
+    "section": { "$type": "dimension", "$value": "80rem" },
+    "statement": { "$type": "dimension", "$value": "48rem", "$description": "Slogan-scale type — fewer characters per line at display size." }
+  },
+
+  "space": {
+    "$description": "4px base, geometric.",
+    "1": { "$type": "dimension", "$value": "4px" },
+    "2": { "$type": "dimension", "$value": "8px" },
+    "3": { "$type": "dimension", "$value": "12px" },
+    "4": { "$type": "dimension", "$value": "16px" },
+    "5": { "$type": "dimension", "$value": "24px" },
+    "6": { "$type": "dimension", "$value": "32px" },
+    "7": { "$type": "dimension", "$value": "48px" },
+    "8": { "$type": "dimension", "$value": "64px" },
+    "9": { "$type": "dimension", "$value": "96px" },
+    "10": { "$type": "dimension", "$value": "128px" },
+    "sectionY": { "$type": "dimension", "$value": { "phone": "48px", "tablet": "64px", "laptop": "96px", "wide": "96px" } }
+  },
+
+  "radius": {
+    "$description": "One radius, and zero for full-bleed. Flattening is the change that worked; pills and large radii are what we moved away from.",
+    "default": { "$type": "dimension", "$value": "2px" },
+    "none":    { "$type": "dimension", "$value": "0px" }
+  },
+
+  "motion": {
+    "$description": "All of it sits behind prefers-reduced-motion: reduce.",
+    "micro":   { "$type": "duration", "$value": "150ms" },
+    "state":   { "$type": "duration", "$value": "300ms" },
+    "ambient": { "$type": "duration", "$value": "6000ms", "$description": "Minimum for looping artwork. Motion shows the subject's world operating; it never performs for attention." },
+    "easing":  { "$type": "cubicBezier", "$value": [0.2, 0, 0.2, 1] }
+  },
+
+  "breakpoint": {
+    "$description": "Four tiers. Test at 375 / 768 / 1024 / 1440 / 1920; 375 and 1024 sit on boundaries deliberately, because that is where off-by-one media-query bugs surface.",
+    "phone":  { "$type": "dimension", "$value": "600px" },
+    "tablet": { "$type": "dimension", "$value": "1024px" },
+    "wide":   { "$type": "dimension", "$value": "1440px" }
+  }
+}
