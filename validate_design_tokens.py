@@ -23,7 +23,16 @@ from pathlib import Path
 
 CSS_DIR = Path("static/css")
 GENERAL = CSS_DIR / "general.css"
-PAGE_BG = "#f7fafb"
+TOKENS  = CSS_DIR / "_tokens.css"   # generated from tokens/e3.tokens.json
+
+# Read from the token source rather than hardcoded: this was "#f7fafb" and
+# went stale the moment the paper changed, so every contrast figure below
+# was being measured against a background the site no longer used.
+def _paper():
+    m = re.search(r"--paper:\s*(#[0-9a-fA-F]{6})", TOKENS.read_text(encoding="utf-8"))
+    return m.group(1) if m else "#ffffff"
+
+PAGE_BG = _paper()
 AA = 4.5
 
 # Deprecated aliases retired by the v3 token ladder.
@@ -151,7 +160,10 @@ def _split_top_level(text):
 
 def check_category_contrast():
     css = GENERAL.read_text(encoding="utf-8")
-    tokens = _read_root_tokens(css)
+    # Tokens now live in two places: the generated _tokens.css owns the
+    # foundation, general.css keeps what the token file does not model yet.
+    tokens = _read_root_tokens(TOKENS.read_text(encoding="utf-8"))
+    tokens.update(_read_root_tokens(css))
     failures = []
     # Every token that follows the base/-text pairing convention — currently
     # --cat-*-text and --status-*-text, and automatically any future pair
@@ -192,25 +204,25 @@ def check_category_contrast():
     # — that blind spot is exactly how it shipped mixed at a percentage
     # that failed AA on its real backdrops (see general.css's --accent-ink
     # comment). Check it explicitly against every tint percentage its
-    # consumers actually use (12–14% of --main-color-2 composited over the
+    # consumers actually use (12–14% of --accent-graphic composited over the
     # page background — same transparent-mix reasoning as above, never
     # white) plus the bare page background.
     accent_raw = tokens.get("accent-ink")
-    main_2_raw = tokens.get("main-color-2")
+    main_2_raw = tokens.get("accent-graphic")
     if accent_raw is None or main_2_raw is None:
-        failures.append("--accent-ink or --main-color-2: token not found in :root")
+        failures.append("--accent-ink or --accent-graphic: token not found in :root")
     else:
         accent_hex = resolve(accent_raw, tokens)
         main_2_hex = resolve(main_2_raw, tokens)
         if not accent_hex or not main_2_hex:
-            failures.append("--accent-ink or --main-color-2: could not resolve to a hex colour")
+            failures.append("--accent-ink or --accent-graphic: could not resolve to a hex colour")
         else:
             backdrops = [(pct, _mix(main_2_hex, PAGE_BG, pct)) for pct in (0.12, 0.13, 0.14)]
             backdrops.append((None, PAGE_BG))
             for pct, backdrop in backdrops:
                 ratio = contrast(accent_hex, backdrop)
                 if ratio < AA:
-                    where = f"{pct:.0%} main-color-2 tint" if pct is not None else "page bg"
+                    where = f"{pct:.0%} accent-graphic tint" if pct is not None else "page bg"
                     failures.append(
                         f"--accent-ink ({accent_hex}) on {where}: "
                         f"{ratio:.2f}:1 — below AA {AA}:1")

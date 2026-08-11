@@ -3,7 +3,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    color: var(--main-color);
+    color: var(--ink);
     font-weight: var(--fw-body);
 }
 
@@ -96,7 +96,7 @@ a {
    later in the cascade may override (e.g. filter triggers); this
    guarantees every focusable element starts with a visible cue. */
 :focus-visible {
-    outline: 0.125rem solid var(--main-color);
+    outline: 0.125rem solid var(--ink);
     outline-offset: 0.125rem;
     border-radius: 0.125rem;
 }
@@ -154,7 +154,7 @@ i {
     text-transform: uppercase;
     letter-spacing: 0.14em;
     line-height: var(--lh-eyebrow);
-    color: var(--main-color);
+    color: var(--ink);
     opacity: 0.4;
 }
 
@@ -198,11 +198,11 @@ i {
     font-size: var(--fs-body);
     font-weight: var(--fw-body);
     line-height: var(--lh-body);
-    color: var(--main-color);
+    color: var(--ink);
 }
 
 /* Editorial inline-link recipe. Sits in the teal family (--link-color is
-   a touch lighter than body --main-color) so the link reads as part of
+   a touch lighter than body --ink) so the link reads as part of
    the prose, not a foreign accent. Three cues compound: color shift, bold
    weight, and a faded currentColor underline. Hover/focus deepens the
    color to body and solidifies the underline. Visited stays the rest
@@ -263,7 +263,7 @@ i {
     .pub-item-abstract,
     .contact-tagline
 ) a:focus-visible {
-    color: var(--main-color);
+    color: var(--ink);
     text-decoration-color: currentColor;
     text-decoration-thickness: 0.09375rem;
 }
@@ -360,7 +360,7 @@ i {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--main-color);
+    background: var(--ink);
     border-radius: 0.3125rem;
 }
 
@@ -477,20 +477,15 @@ i {
     --font-zh:   'Noto Sans TC', sans-serif;
     --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
 
-    /* PALETTE TRIAL — rebrand/brand-foundation. Remaps the existing semantic
-       slots onto the palette derived from the logo, so the current design can
-       be seen in the new colours before any component work. Revert = restore
-       the values in the trailing comment on each line.
-       Spec: specs/2026-08-11-e3-brand-foundation-design.md */
-    --main-color: #0a557e;              /* unchanged — the wordmark's own navy, 7.64:1 */
-    --main-shadow-color: #0a557ebb;     /* unchanged */
-    --main-bg-color: #ffffff;           /* unchanged */
-    --main-color-2: #237a74;            /* was #4caedd — mark teal, 4.86:1 */
-    --main-color-3: #d7e0c4;            /* was #badcea — pale sage-olive, matched for lightness */
-    --secondary-color: #aab157;         /* was #c4c691 — the mark's moss */
-    --page-bg-color: #faf9f7;           /* was #f7fafb — warm paper, warmth +3 */
+    /* --ink, --paper, --marker, --accent-graphic and --surface are declared in
+       _tokens.css, generated from tokens/e3.tokens.json. They are deliberately
+       NOT repeated here: general.css loads second, so a copy would win over the
+       token source and the two would drift apart silently.
 
-    /* --surface now comes from tokens/e3.tokens.json via _tokens.css. */
+       What remains below are the families the token file does not model yet. */
+    --main-shadow-color: #0a557ebb;
+    --main-bg-color: #ffffff;
+    --main-color-3: #d7e0c4;            /* pale illustration fill */
 
     /* Deep ink shade for illustration artwork only (hero plane banner
        text). Kept out of the primitive-leak guard list because its sole
@@ -508,13 +503,13 @@ i {
        same far-hue-anchor recipe as --status-alert-text ([B-7]). The 22%
        tint is darker than the pair check's modeled 14%, so the validator
        also verifies this pair explicitly at 22%. */
-    --status-progress: var(--secondary-color);
-    --status-progress-text: color-mix(in srgb, var(--secondary-color) 28%, #4a4a00);
+    --status-progress: var(--marker);
+    --status-progress-text: color-mix(in srgb, var(--marker) 28%, #4a4a00);
 
-    /* Inline-prose link color — slightly lighter than --main-color (body)
+    /* Inline-prose link color — slightly lighter than --ink (body)
        so the link reads as distinct without outweighing the prose it sits
        in. Used by the unified :where() prose recipe below. Contrast on
-       --page-bg-color: 6.2:1 (AAA). The previous accent --main-color-2
+       --paper: 6.2:1 (AAA). The previous accent --accent-graphic
        (#4caedd) reads at ~2.2:1 and was failing AA for inline use. */
     --link-color: #1a6489;
 
@@ -524,9 +519,9 @@ i {
        12% is the median; reads as a quiet divider against the page bg
        at both desktop and print densities. Per-class overrides remain
        possible by re-declaring color-mix with a different percentage. */
-    --line-soft: color-mix(in srgb, var(--main-color) 12%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 12%, transparent);
 
-    --main-color-hsl: 201, 85%, 27%;
+    --ink-hsl: 201, 85%, 27%;
 
     --r-red: #db7476;
     --r-orange: #ed8c37;
@@ -538,7 +533,7 @@ i {
 
     /* News category tokens — one hue per category, two tiers each, except
        Faculty Honors: it has no dedicated badge-tier hue token because its
-       badge tints --secondary-color directly at 22% (see .news-row-badge
+       badge tints --marker directly at 22% (see .news-row-badge
        in subpage.css) — only its text tier (--cat-faculty-text below) is a
        named token.
        --cat-*      badge tier: the raw hue; pills pair it with a 13–22%
@@ -551,41 +546,41 @@ i {
        (news-item.css) — change categories here, not per-file. */
     --cat-student:       var(--r-green);
     --cat-media:         var(--r-indigo);
-    --cat-events:        var(--main-color-2);
+    --cat-events:        var(--accent-graphic);
     --cat-outreach:      var(--r-orange);
     /* Hue percentages are set by contrast, not taste: each is the highest
        proportion of its hue that still clears WCAG AA (4.5:1) against both
        the 13% badge tint and the page background. Verified by
        validate_design_tokens.py — do not raise these without re-running it. */
-    --cat-faculty-text:  color-mix(in srgb, var(--secondary-color) 22%, var(--main-color));
-    --cat-student-text:  color-mix(in srgb, var(--r-green) 35%, var(--main-color));
-    --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--main-color));
-    --cat-events-text:   color-mix(in srgb, var(--main-color-2) 30%, var(--main-color));
-    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--main-color));
+    --cat-faculty-text:  color-mix(in srgb, var(--marker) 22%, var(--ink));
+    --cat-student-text:  color-mix(in srgb, var(--r-green) 35%, var(--ink));
+    --cat-media-text:    color-mix(in srgb, var(--r-indigo) 55%, var(--ink));
+    --cat-events-text:   color-mix(in srgb, var(--accent-graphic) 30%, var(--ink));
+    --cat-outreach-text: color-mix(in srgb, var(--r-orange) 40%, var(--ink));
 
-    /* Sky (--main-color-2) is 2.38:1 on the page background — fine as an
+    /* Sky (--accent-graphic) is 2.38:1 on the page background — fine as an
        illustration fill or a tint, unusable as text. --accent-ink is sky
        deepened toward navy to the point where it clears AA against every
        backdrop it's actually composited on: every consumer places it on a
-       12–14% --main-color-2 tint, and every such tint is a transparent
-       mix, so it composites over --page-bg-color, never white. Measured
+       12–14% --accent-graphic tint, and every such tint is a transparent
+       mix, so it composites over --paper, never white. Measured
        (color-mix in srgb): 4.72:1 at 12%, 4.68:1 at 13%, 4.64:1 at 14% —
        the darkest tint in use and the hardest case — and 5.21:1 on the
        page background directly. Components that want "sky, but as text"
-       use this; none use --main-color-2 for a colour or an outline. */
-    --accent-ink: color-mix(in srgb, var(--main-color-2) 30%, var(--main-color));
+       use this; none use --accent-graphic for a colour or an outline. */
+    --accent-ink: color-mix(in srgb, var(--accent-graphic) 30%, var(--ink));
 
     /* Status and research-field semantics. Components use these names, never the
        raw --r-* primitive behind them, so the meaning is greppable and the hue
        can change in one place. The -text variants are deepened to clear WCAG AA
        against their own tinted backgrounds — same discipline as --cat-*-text. */
     --status-ok:            var(--r-green);
-    /* -text tokens mix toward --main-color (navy), same discipline as
+    /* -text tokens mix toward --ink (navy), same discipline as
        --cat-*-text — except alert: mixing red toward this navy rotates the
        hue out of the red family entirely (40% red / 60% navy lands at hue
        ~234°, a blue-slate, not red). So alert mixes toward a dark red
        instead, keeping the alert hue red while still clearing WCAG AA. */
-    --status-ok-text:       color-mix(in srgb, var(--r-green) 35%, var(--main-color));
+    --status-ok-text:       color-mix(in srgb, var(--r-green) 35%, var(--ink));
     --status-alert:         var(--r-red);
     --status-alert-text:    color-mix(in srgb, var(--r-red) 60%, #3a0d0d);
     --field-energy:         var(--r-yellow);
@@ -727,7 +722,7 @@ i {
 }
 
 .fill-m {
-    fill: var(--main-color);
+    fill: var(--ink);
 }
 
 .fill-m-bg {
@@ -735,7 +730,7 @@ i {
 }
 
 .fill-m-2 {
-    fill: var(--main-color-2);
+    fill: var(--accent-graphic);
 }
 
 .fill-m-3 {
@@ -743,7 +738,7 @@ i {
 }
 
 .fill-s {
-    fill: var(--secondary-color);
+    fill: var(--marker);
 }
 
 .fill-none {
@@ -799,11 +794,11 @@ i {
 }
 
 .stroke-m {
-    stroke: var(--main-color);
+    stroke: var(--ink);
 }
 
 .stroke-s {
-    stroke: var(--secondary-color);
+    stroke: var(--marker);
 }
 
 .stroke-s-light {
@@ -811,7 +806,7 @@ i {
 }
 
 .stroke-m-2 {
-    stroke: var(--main-color-2);
+    stroke: var(--accent-graphic);
 }
 
 .stroke-m-3 {
@@ -870,14 +865,14 @@ html {
 }
 
 body {
-    background-color: var(--page-bg-color);
+    background-color: var(--paper);
 }
 
 .skewed-block {
     --_shadow-shift: var(--_adjusted-shadow-shift, var(--btn-shadow-shift));
 
     background-color: var(--main-bg-color);
-    border: var(--_adjusted-border-width, var(--btn-border-width)) solid var(--main-color);
+    border: var(--_adjusted-border-width, var(--btn-border-width)) solid var(--ink);
     border-radius: var(--_adjusted-border-radius, var(--btn-border-radius));
     box-shadow: var(--_shadow-shift) var(--_shadow-shift) var(--main-shadow-color);
     transform: skewX(var(--_adjusted-block-skew, var(--block-skew)));
@@ -992,7 +987,7 @@ section:has(.section-title) {
                 left: 0;
                 width: 0;
                 height: 0.055em;
-                background: var(--main-color);
+                background: var(--ink);
                 transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
             }
 
@@ -1037,7 +1032,7 @@ h3 {
         height: 0.25rem;
         margin-left: var(--space-1);
         translate: 0 50%;
-        background-color: var(--secondary-color);
+        background-color: var(--marker);
     }
 }
 
@@ -1051,7 +1046,7 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 0.14em;
     line-height: var(--lh-eyebrow);
-    color: var(--main-color);
+    color: var(--ink);
     opacity: 0.65;
     margin-block: var(--space-12) var(--space-5);
 
@@ -1063,7 +1058,7 @@ h3 {
         content: '';
         width: 1.25rem;
         height: 0.125rem;
-        background-color: var(--secondary-color);
+        background-color: var(--marker);
         flex-shrink: 0;
     }
 
@@ -1207,7 +1202,7 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
 footer {
     width: 100%;
     padding: 2.75rem var(--gutter-x) 1.5rem;
-    border-top: 0.1875rem solid var(--main-color);
+    border-top: 0.1875rem solid var(--ink);
     background-color: var(--main-bg-color);
 
     & .ftr-grid {
@@ -1250,7 +1245,7 @@ footer {
         font-size: var(--fs-secondary);
         line-height: var(--lh-body-base);
         opacity: 0.65;
-        color: var(--main-color);
+        color: var(--ink);
     }
 
     & .ftr-col-title {
@@ -1260,7 +1255,7 @@ footer {
         letter-spacing: 0.14em;
         line-height: var(--lh-eyebrow);
         text-transform: uppercase;
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.4;
     }
 
@@ -1281,7 +1276,7 @@ footer {
            from color + opacity, not size. */
         font-size: var(--fs-secondary);
         line-height: var(--lh-lede);
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.8;
         transition: opacity var(--hover-transition-time);
 
@@ -1290,7 +1285,7 @@ footer {
         }
 
         &:focus-visible {
-            outline: 0.125rem solid var(--main-color);
+            outline: 0.125rem solid var(--ink);
             outline-offset: 0.25rem;
             border-radius: 0.125rem;
         }
@@ -1310,7 +1305,7 @@ footer {
         padding-block: var(--space-1);
         font-size: var(--fs-secondary);
         line-height: var(--lh-secondary);
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.85;
         transition: opacity var(--hover-transition-time);
 
@@ -1319,7 +1314,7 @@ footer {
             height: 0.875rem;
             flex-shrink: 0;
             margin-block-start: 0.2rem;
-            fill: var(--secondary-color);
+            fill: var(--marker);
             transition: translate var(--hover-transition-time);
         }
 
@@ -1332,7 +1327,7 @@ footer {
         }
 
         &:focus-visible {
-            outline: 0.125rem solid var(--main-color);
+            outline: 0.125rem solid var(--ink);
             outline-offset: 0.2rem;
             border-radius: 0.125rem;
         }
@@ -1343,7 +1338,7 @@ footer {
         margin-inline: auto;
         margin-block-start: var(--space-6);
         padding-block-start: 1rem;
-        border-top: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+        border-top: 0.0625rem solid color-mix(in srgb, var(--ink) 14%, transparent);
     }
 
     & .ftr-info {
@@ -1352,7 +1347,7 @@ footer {
            size was being asked to do. */
         font-size: var(--fs-secondary);
         line-height: var(--lh-body-base);
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.5;
     }
 }
@@ -1437,7 +1432,7 @@ body {
         left: 0;
         width: 100%;
         height: 5rem;
-        background: linear-gradient(to bottom, var(--page-bg-color), transparent);
+        background: linear-gradient(to bottom, var(--paper), transparent);
         z-index: -98;
     }
 }
@@ -1537,7 +1532,7 @@ section[id] {
     .menu-bg {
         position: fixed;
         inset: 0;
-        background-color: var(--main-color);
+        background-color: var(--ink);
         opacity: 0;
         pointer-events: none;
         transition: 0.3s;
@@ -1552,7 +1547,7 @@ section[id] {
         padding-block: clamp(1rem, 3dvh, 2rem);
         padding-inline: 3rem 4rem;
         background-color: var(--main-bg-color);
-        border-left: 0.1875rem solid var(--main-color);
+        border-left: 0.1875rem solid var(--ink);
         transform: skewX(var(--block-skew));
         transition: 0.3s;
 
@@ -1658,12 +1653,12 @@ section[id] {
    on the menu item matching the section currently in view. Inverted color
    block reads as a quiet "you are here" without competing with hover state.
    The descendant selector `.menu-a--active *` is required because the
-   universal `* { color: var(--main-color) }` reset in general.css:6 sets
+   universal `* { color: var(--ink) }` reset in general.css:6 sets
    color directly on every descendant (specificity 0,0,0), which would
    otherwise win over inherited color from the .menu-a--active class.
    Sprite paths use fill="currentColor" so the icons follow the color too. */
 .menu-a--active {
-    background-color: var(--main-color);
+    background-color: var(--ink);
 }
 .menu-a--active,
 .menu-a--active * {
@@ -1917,9 +1912,9 @@ body {
    - drop sticky positioning (already standard for print) */
 @media print {
     :root {
-        --main-color: #000;
+        --ink: #000;
         --main-shadow-color: transparent;
-        --page-bg-color: #fff;
+        --paper: #fff;
         --link-color: #000;
     }
 

@@ -16,7 +16,7 @@
     height: max(var(--_home-min-height), 100lvh);
     margin-inline: auto;
     padding: var(--_window-padding);
-    background-color: var(--page-bg-color);
+    background-color: var(--paper);
     overflow: hidden;
 
     position: relative;
@@ -29,7 +29,7 @@
 
         .hp-plane-text {
             font-size: var(--fs-lede);
-            color: var(--main-color);
+            color: var(--ink);
         }
     }
 
@@ -103,7 +103,7 @@
         & p:not(:last-child)::after {
             content: '\00D7';
             margin-inline-start: var(--space-3);
-            color: var(--secondary-color);
+            color: var(--marker);
             font-size: 0.85em;
             line-height: 1;
         }
@@ -133,7 +133,7 @@
         gap: var(--space-1-5);
         font-size: var(--fs-body-base);
         font-weight: var(--fw-heading);
-        color: var(--main-color);
+        color: var(--ink);
         text-decoration: none;
         opacity: 0.7;
         transition: opacity var(--hover-transition-time);
@@ -239,7 +239,7 @@
 /* hp animations */
 .hp-rain-front line,
 .hp-rain-back line {
-    stroke: var(--main-color);
+    stroke: var(--ink);
     opacity: var(--_rain-opacity);
     stroke-width: var(--_rain-width);
     stroke-dasharray: var(--_rain-length) 1000;
@@ -261,7 +261,7 @@
     --_rain-width: 0.125rem;
 
     & path {
-        stroke: var(--main-color);
+        stroke: var(--ink);
         fill: none;
         stroke-dasharray: 2 4.25;
         stroke-width: 4;
@@ -354,14 +354,14 @@
     & .fill-m-3,
     & .fill-m-3-light,
     & .fill-m-bg {
-        fill: var(--page-bg-color);
+        fill: var(--paper);
     }
 
     /* Static wiring is ink. */
     & .stroke-s,
     & .stroke-s-light,
     & .stroke-m-2,
-    & .stroke-m-3 { stroke: var(--main-color); }
+    & .stroke-m-3 { stroke: var(--ink); }
 
     /* These wires are the only true strokes in the file. Their width is a
        fixed rem, so it does NOT scale with the artwork — thinned so it still
@@ -372,19 +372,19 @@
        battery and buildings, and the battery charge. Declared after the
        static rules above so it wins on source order. */
     & .ani-line-dash,
-    & .ani-energy-through { stroke: var(--secondary-color); }
+    & .ani-energy-through { stroke: var(--marker); }
 
     & .ani-battery-charge { stroke: var(--icon-flash-accent); }
 }
 
 @keyframes electric-flashing {
     0% {
-        fill: var(--main-color-2);
+        fill: var(--accent-graphic);
     }
 
     10%,
     100% {
-        fill: var(--main-color);
+        fill: var(--ink);
     }
 }
 
@@ -968,9 +968,9 @@
        than heading weight. It is a way out of the section, not a call to it. */
     font-size: var(--fs-body-base);
     font-weight: var(--fw-body);
-    color: var(--main-color);
+    color: var(--ink);
     text-decoration: none;
-    border-block-end: 1px solid color-mix(in srgb, var(--main-color) 35%, transparent);
+    border-block-end: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
     transition: border-color var(--hover-transition-time);
 
     & svg {
@@ -981,7 +981,7 @@
 
     &:hover,
     &:focus-visible {
-        border-block-end-color: var(--main-color);
+        border-block-end-color: var(--ink);
     }
 
     &:hover svg,
@@ -1047,7 +1047,7 @@ main > section:nth-of-type(odd) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-8);
-    border-block-start: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+    border-block-start: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
     padding-block-start: var(--space-6);
 }
 
@@ -1060,7 +1060,7 @@ main > section:nth-of-type(odd) {
 .hp-pillar-num {
     font-size: var(--fs-eyebrow);
     letter-spacing: 0.1em;
-    color: color-mix(in srgb, var(--main-color) 80%, transparent);
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
 }
 
 .hp-pillar-title {
@@ -1072,7 +1072,7 @@ main > section:nth-of-type(odd) {
 .hp-pillar-zh {
     font-family: var(--font-zh);
     font-size: var(--fs-secondary);
-    color: color-mix(in srgb, var(--main-color) 85%, transparent);
+    color: color-mix(in srgb, var(--ink) 85%, transparent);
 }
 
 .hp-pillar-lede {
@@ -1386,7 +1386,7 @@ main > section:nth-of-type(odd) {
             transition: background var(--hover-transition-time);
 
             &[href]:hover {
-                background: color-mix(in srgb, var(--main-color) 5%, transparent);
+                background: color-mix(in srgb, var(--ink) 5%, transparent);
             }
         }
 
@@ -1515,7 +1515,7 @@ main > section:nth-of-type(odd) {
         aspect-ratio: 2/5;
         transform: skewX(var(--block-skew));
         background-color: var(--main-bg-color);
-        border: var(--border-width) solid var(--main-color);
+        border: var(--border-width) solid var(--ink);
         border-radius: 0.125rem;
         box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
         overflow: hidden;
@@ -1579,7 +1579,7 @@ main > section:nth-of-type(odd) {
             line-height: var(--lh-h1);
 
             .res-tag-icon {
-                color: var(--secondary-color);
+                color: var(--marker);
             }
         }
 
@@ -1743,7 +1743,7 @@ main > section:nth-of-type(odd) {
 
     &:has(.ani-radar):hover {
         --_ani-time: 4s;
-        --_flash-light: var(--secondary-color);
+        --_flash-light: var(--marker);
         --_flash-dark: var(--icon-flash-accent);
 
         & [ani-wave] {
@@ -2059,12 +2059,12 @@ main > section:nth-of-type(odd) {
     font-size: var(--fs-secondary);
     line-height: var(--lh-lede);
     opacity: 0.6;
-    color: var(--main-color);
+    color: var(--ink);
 }
 
 /* publication keyword chips */
 .pub-keywords { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
-.pub-keyword-chip { font-size: var(--fs-secondary); padding: 0.125rem 0.5rem; background: color-mix(in srgb, var(--main-color) 8%, transparent); border-radius: 999px; color: var(--main-color); }
+.pub-keyword-chip { font-size: var(--fs-secondary); padding: 0.125rem 0.5rem; background: color-mix(in srgb, var(--ink) 8%, transparent); border-radius: 999px; color: var(--ink); }
 
 /* news */
 #news .publi-block-wrapper {
@@ -2303,7 +2303,7 @@ main > section:nth-of-type(odd) {
         margin-inline-end: var(--space-1);
         font-size: var(--fs-secondary);
         line-height: var(--lh-secondary);
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.65;
         text-wrap: pretty;
     }
@@ -2387,7 +2387,7 @@ main > section:nth-of-type(odd) {
     .loader {
         width: 4rem;
         aspect-ratio: 1;
-        background: var(--secondary-color);
+        background: var(--marker);
         clip-path: polygon(0 0, 100% 0, 100% 100%);
         animation: l2 2s infinite cubic-bezier(0.3, 1, 0, 1);
     }
@@ -2450,7 +2450,7 @@ main > section:nth-of-type(odd) {
     }
 
     &::backdrop {
-        background-color: var(--main-color);
+        background-color: var(--ink);
         opacity: 0.3;
         pointer-events: auto;
     }
@@ -2491,7 +2491,7 @@ main > section:nth-of-type(odd) {
     height: 1.25rem;
     border-radius: 50%;
     background-color: var(--main-bg-color);
-    border: 0.125rem solid var(--main-color);
+    border: 0.125rem solid var(--ink);
     box-shadow: 0.0625rem 0.0625rem var(--main-shadow-color);
     pointer-events: none;
     translate: -50% -50%;
@@ -2503,7 +2503,7 @@ main > section:nth-of-type(odd) {
     justify-content: center;
 
     .cursor-text {
-        color: var(--main-color);
+        color: var(--ink);
         font-size: var(--fs-h3);
         font-weight: var(--fw-bold);
         text-align: center;
@@ -2705,7 +2705,7 @@ main > section:nth-of-type(odd) {
         height: var(--_tag-height);
         background-color: var(--main-bg-color);
         padding: 0.5rem;
-        border: 0.125rem solid var(--main-color);
+        border: 0.125rem solid var(--ink);
         border-radius: 0.25rem;
         box-shadow: 0.1875rem 0.1875rem var(--main-shadow-color);
         translate: 1rem 0;

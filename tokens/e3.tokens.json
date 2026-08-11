@@ -34,6 +34,8 @@
       "text":    { "$type": "color", "$value": "#206e69", "$description": "Links and active states. Derived from mark.teal. 5.71:1 / 5.13:1." }
     },
 
+    "marker": { "$type": "color", "$value": "#aab157", "$description": "mark.moss. The field marker: underline bars, the 3E dot, directional glyphs, the energy dashes in the hero. A distinct UI role from field.energy — the same hue doing structural work rather than coding a research area. Never text (2.18:1)." },
+
     "field": {
       "$description": "The three woven ribbons become the three E's, so field coding is the mark rather than an invention. Each ships a graphic value and a derived text-safe sibling; the system picks by role.",
       "energy": {

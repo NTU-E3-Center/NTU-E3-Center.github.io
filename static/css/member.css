@@ -61,7 +61,7 @@ main {
         opacity: 0.7;
 
         & span {
-            color: var(--secondary-color);
+            color: var(--marker);
         }
     }
 
@@ -75,7 +75,7 @@ main {
 
 
         & span {
-            color: var(--secondary-color);
+            color: var(--marker);
         }
 
     }
@@ -154,7 +154,7 @@ h2 {
         height: 0.25rem;
         margin-left: var(--space-1);
         translate: 0 50%;
-        background-color: var(--secondary-color);
+        background-color: var(--marker);
     }
 
     &+* {
@@ -242,7 +242,7 @@ h2 {
 
         &>* {
             background-color: var(--main-bg-color);
-            border: 0.125rem solid var(--main-color);
+            border: 0.125rem solid var(--ink);
             border-radius: 0.125rem;
             box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
             transform: skewX(var(--block-skew));
@@ -287,7 +287,7 @@ h2 {
             text-overflow: ellipsis;
 
             .res-tag-icon {
-                color: var(--secondary-color);
+                color: var(--marker);
             }
         }
 
@@ -344,11 +344,11 @@ h2 {
        saturation. */
     .publi-row-authors {
         opacity: 1;
-        color: color-mix(in srgb, var(--main-color) 55%, transparent);
+        color: color-mix(in srgb, var(--ink) 55%, transparent);
 
         & strong {
             font-weight: var(--fw-display);
-            color: var(--main-color);
+            color: var(--ink);
             /* Tiny letter-spacing tweak keeps the bold from feeling
                crowded against the surrounding muted text. */
             letter-spacing: 0.005em;
@@ -362,7 +362,7 @@ h2 {
         font-size: var(--fs-secondary);
         line-height: var(--lh-lede);
         opacity: 0.55;
-        color: var(--main-color);
+        color: var(--ink);
         font-style: italic;
     }
 
@@ -379,9 +379,9 @@ h2 {
         font-weight: var(--fw-display);
         letter-spacing: 0.02em;
         padding: 0.15rem 0.55rem;
-        background: color-mix(in srgb, var(--main-color) 8%, transparent);
+        background: color-mix(in srgb, var(--ink) 8%, transparent);
         border-radius: 999px;
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.85;
     }
 
@@ -479,7 +479,7 @@ h2 {
                 inset: 0;
                 background: linear-gradient(to bottom,
                                             transparent 0%,
-                                            var(--page-bg-color) 55%);
+                                            var(--paper) 55%);
                 pointer-events: none;
                 z-index: -1;
             }
@@ -536,7 +536,7 @@ h2 {
         font-size: var(--fs-secondary);
         font-weight: var(--fw-heading);
         line-height: var(--lh-lede);
-        color: var(--main-color);
+        color: var(--ink);
         opacity: 0.55;
         padding-top: 0.2rem;
     }
@@ -549,18 +549,18 @@ h2 {
 
     .cv-row-zh {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--main-color) 70%, transparent);
+        color: color-mix(in srgb, var(--ink) 70%, transparent);
         font-size: 0.95em;
     }
 
     .cv-row-org-inline {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--main-color) 80%, transparent);
+        color: color-mix(in srgb, var(--ink) 80%, transparent);
     }
 
     .cv-row-loc {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--main-color) 60%, transparent);
+        color: color-mix(in srgb, var(--ink) 60%, transparent);
         font-size: 0.95em;
     }
 
@@ -568,7 +568,7 @@ h2 {
     .cv-row-note {
         font-size: var(--fs-secondary);
         line-height: var(--lh-secondary);
-        color: color-mix(in srgb, var(--main-color) 65%, transparent);
+        color: color-mix(in srgb, var(--ink) 65%, transparent);
     }
 
     .cv-row-note {
@@ -593,7 +593,7 @@ h2 {
         align-items: center;
         gap: var(--space-2);
         padding-block: var(--space-1);
-        color: var(--main-color);
+        color: var(--ink);
         text-decoration: none;
         font-size: var(--fs-secondary);
         opacity: 0.7;

@@ -30,7 +30,7 @@
     padding: 0.25rem 0.75rem;
     border-radius: 2rem;
     color: var(--accent-ink);
-    background: color-mix(in srgb, var(--main-color-2) 12%, transparent);
+    background: color-mix(in srgb, var(--accent-graphic) 12%, transparent);
 }
 
 /* Method chips: solid green variant so topic (blue) vs method (green) is
@@ -45,7 +45,7 @@
     font-weight: var(--fw-display);
     line-height: var(--lh-h3);
     letter-spacing: -0.02em;
-    color: var(--main-color);
+    color: var(--ink);
     margin: 0 0 1.25rem;
 }
 
@@ -63,14 +63,14 @@
     font-weight: var(--fw-light);
     line-height: var(--lh-secondary);
     letter-spacing: 0;
-    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    color: color-mix(in srgb, var(--ink) 72%, transparent);
     margin: 0 0 1.25rem;
 }
 
 .pub-item-authors {
     font-size: var(--fs-lede);
     line-height: var(--lh-body-base);
-    color: var(--main-color);
+    color: var(--ink);
     margin: 0 0 0.5rem;
 }
 
@@ -109,7 +109,7 @@
 .pub-item-layout {
     margin-block-start: var(--space-10);
     padding-block-start: 2.5rem;
-    border-block-start: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border-block-start: 0.0625rem solid color-mix(in srgb, var(--ink) 14%, transparent);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) 20rem;
@@ -128,9 +128,9 @@
     position: sticky;
     top: 7rem;
 
-    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 14%, transparent);
+    border: 0.0625rem solid color-mix(in srgb, var(--ink) 14%, transparent);
     border-radius: 0.625rem;
-    background: color-mix(in srgb, var(--main-color) 4%, transparent);
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
     padding: 1.5rem;
 
     display: flex;
@@ -142,7 +142,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    color: color-mix(in srgb, var(--ink) 45%, transparent);
     margin: 0 0 0.4rem;
 }
 
@@ -150,7 +150,7 @@
     font-size: var(--fs-body);
     font-style: italic;
     line-height: var(--lh-lede);
-    color: var(--main-color);
+    color: var(--ink);
     margin: 0;
 }
 
@@ -161,14 +161,14 @@
     font-family: var(--font-zh);
     font-size: var(--fs-secondary);
     line-height: var(--lh-lede);
-    color: color-mix(in srgb, var(--main-color) 68%, transparent);
+    color: color-mix(in srgb, var(--ink) 68%, transparent);
     margin: 0.2rem 0 0;
 }
 
 .pub-meta-detail {
     font-size: var(--fs-secondary);
     line-height: var(--lh-lede);
-    color: color-mix(in srgb, var(--main-color) 65%, transparent);
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
     margin: 0.3rem 0 0;
 }
 
@@ -203,7 +203,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    color: color-mix(in srgb, var(--ink) 45%, transparent);
 
     & span {
         font-family: var(--font-mono);
@@ -211,7 +211,7 @@
         font-weight: var(--fw-light);
         letter-spacing: 0;
         text-transform: none;
-        color: color-mix(in srgb, var(--main-color) 78%, transparent);
+        color: color-mix(in srgb, var(--ink) 78%, transparent);
         word-break: break-all;
         user-select: all;
     }
@@ -228,7 +228,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--main-color);
+    color: var(--ink);
     opacity: 0.4;
     margin: 0 0 0.875rem;
 }
@@ -253,7 +253,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--main-color) 45%, transparent);
+    color: color-mix(in srgb, var(--ink) 45%, transparent);
     margin: 0 0 0.5rem;
 
     /* Opt out of the global h3 decorator from general.css — that ::after
@@ -267,7 +267,7 @@
     font-size: var(--fs-secondary);
     line-height: var(--lh-body);
     font-style: italic;
-    color: color-mix(in srgb, var(--main-color) 72%, transparent);
+    color: color-mix(in srgb, var(--ink) 72%, transparent);
     margin: 0;
 }
 
@@ -294,9 +294,9 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     padding: 0.35rem 0.8rem;
-    border: 0.0938rem solid color-mix(in srgb, var(--main-color) 22%, transparent);
+    border: 0.0938rem solid color-mix(in srgb, var(--ink) 22%, transparent);
     border-radius: 2rem;
-    color: var(--main-color);
+    color: var(--ink);
     background: transparent;
     cursor: pointer;
     opacity: 0.7;
@@ -307,11 +307,11 @@
 
     &:hover {
         opacity: 1;
-        border-color: color-mix(in srgb, var(--main-color) 45%, transparent);
+        border-color: color-mix(in srgb, var(--ink) 45%, transparent);
     }
 
     &:focus-visible {
-        outline: 0.125rem solid var(--main-color);
+        outline: 0.125rem solid var(--ink);
         outline-offset: 0.25rem;
     }
 
@@ -328,9 +328,9 @@
     font-family: var(--font-mono);
     font-size: var(--fs-secondary);
     line-height: var(--lh-eyebrow);
-    color: var(--main-color);
-    background: color-mix(in srgb, var(--main-color) 5%, transparent);
-    border: 0.0625rem solid color-mix(in srgb, var(--main-color) 12%, transparent);
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 5%, transparent);
+    border: 0.0625rem solid color-mix(in srgb, var(--ink) 12%, transparent);
     border-radius: 0.5rem;
     padding: 1.25rem 1.5rem;
     margin: 0;
