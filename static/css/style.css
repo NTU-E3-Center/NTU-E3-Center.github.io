@@ -1,7 +1,9 @@
 /* start css */
 #home {
     --_window-padding: 2rem;
-    --_hp-text-width: 23rem;
+    /* One number drives both the artwork and the text row above it, so their
+       left edges cannot drift apart and neither can overshoot the other. */
+    --_art-width: 71rem;
     --_home-min-height: 50rem;
     --_home-max-width: 120rem;
 
@@ -25,58 +27,79 @@
         }
     }
 
+    /* Centred stack: lockup + the three E's, illustration beneath. No left
+       column is reserved, so the artwork sits on the page's centre line. */
     .hp-mainthing {
         width: min(100%, var(--_home-max-width));
-        padding-inline: var(--space-12) var(--space-6);
+        padding-inline: var(--space-6);
 
         position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        gap: 0;
+        justify-content: center;
+        gap: var(--space-6);
     }
 
+    /* Reduced from the artwork's natural 81.25rem. Scaling also thins the
+       polygon edges, which are geometry rather than strokes and cannot be
+       thinned any other way without redrawing the file. */
+    .hp-img {
+        width: min(100%, var(--_art-width));
+        height: auto;
+    }
+
+    /* Lockup and the three E's share one line, capped to the artwork's own
+       width so the row starts exactly on the drawing's left edge. */
     .hp-text {
         flex-shrink: 0;
-        width: 18rem;
+        width: min(100%, var(--_art-width));
 
-        display: grid;
-        gap: var(--space-10);
-        justify-items: start;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: var(--space-8);
+        row-gap: var(--space-2);
+        text-align: left;
     }
 
-    .hp-title {
-        & h1 {
-            font-size: var(--fs-h1);
+    /* The lockup is the h1. Sized against the viewport so it stays the
+       dominant mark without needing a fixed pixel width. */
+    .hp-logo {
+        margin: 0;
 
-            display: flex;
-
-            & svg {
-                height: 2.75rem;
-                translate: 0.5rem -0.75rem;
-            }
-        }
-
-        & span {
-            font-size: var(--fs-body-base);
+        & img {
+            display: block;
+            /* Trimmed now that the lockup shares its line with the three E's. */
+            width: clamp(10rem, 15vw, 14rem);
+            height: auto;
         }
     }
 
+    /* One line, joined by a coloured × — the same construction as the site
+       title, "Energy × Economics × Environment". The × is a separator between
+       the words, so the last one doesn't carry it. */
     .hp-3e {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        column-gap: var(--space-3);
+        row-gap: var(--space-1);
+
         & p {
             font-size: var(--fs-h3);
 
             display: flex;
             align-items: baseline;
+        }
 
-            &::after {
-                content: '';
-                width: 0.75rem;
-                height: 0.25rem;
-                margin-left: var(--space-1);
-                translate: 0 50%;
-                background-color: var(--secondary-color);
-            }
+        & p:not(:last-child)::after {
+            content: '\00D7';
+            margin-inline-start: var(--space-3);
+            color: var(--secondary-color);
+            font-size: 0.85em;
+            line-height: 1;
         }
     }
 
@@ -88,11 +111,7 @@
         opacity: 0.6;
     }
 
-    .hp-ctas {
-        display: flex;
-        align-items: center;
-        gap: var(--space-6);
-    }
+    /* .hp-ctas removed — the hero carries no CTAs; the nav does that work. */
 
     .hp-about-us {
         --_adjusted-font-size: var(--fs-body);
@@ -126,27 +145,6 @@
         }
     }
 
-    .hp-scroll-for-more {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: var(--_window-padding);
-        user-select: none;
-        font-size: var(--fs-eyebrow);
-
-        display: grid;
-        place-items: center;
-        gap: var(--space-1);
-    }
-
-    .hp-last-update {
-        position: absolute;
-        bottom: var(--_window-padding);
-        right: max(var(--_window-padding), calc((100% - var(--_home-max-width))/2 + var(--_window-padding)));
-        text-align: right;
-        font-size: var(--fs-eyebrow);
-    }
-
     /* Tablet + phone: column-stack the hero. */
     @media (max-width: 64rem) {
         --_window-padding: 1rem;
@@ -168,6 +166,8 @@
             width: 100%;
             padding-inline: var(--space-12);
             gap: var(--space-8);
+            /* Once the row wraps there is no right edge to align to. */
+            justify-content: flex-start;
         }
 
         .hp-about-us {
@@ -196,10 +196,6 @@
         /* Scroll cue: keep on tablet (visible by default above), hide only on
            very small phones where vertical space is tight and the CTA above
            already invites engagement. */
-        .hp-scroll-for-more {
-            display: none;
-        }
-
         .hp-101 {
             scale: 0.9;
         }
@@ -810,25 +806,6 @@
 
     75% {
         transform: skewY(-0.2deg);
-    }
-}
-
-.hp-scroll-for-more {
-    .ani-scroll {
-        animation: scroll-bounce 4s ease-in-out infinite;
-    }
-}
-
-@keyframes scroll-bounce {
-
-    0%,
-    20%,
-    100% {
-        translate: 0 0.125rem;
-    }
-
-    10% {
-        translate: 0 0.25rem;
     }
 }
 
@@ -2649,13 +2626,8 @@
     #home {
         --_home-min-height: 38rem;
 
-        .hp-title h1 {
-            font-size: var(--fs-h2);
-
-            & svg {
-                height: 1.875rem;
-                translate: 0.25rem -0.5rem;
-            }
+        .hp-logo img {
+            width: clamp(10rem, 52vw, 14rem);
         }
 
         .hp-3e p {
