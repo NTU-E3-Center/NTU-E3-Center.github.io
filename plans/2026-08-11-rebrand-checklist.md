@@ -88,10 +88,10 @@ Spec: [specs/2026-08-11-e3-brand-foundation-design.md](../specs/2026-08-11-e3-br
 
 ## 6 · Bugs / hygiene
 
-- [ ] **6.1 Homepage does not scroll** in an automated browser while every subpage does; the
-      difference is homepage-only `js/script.js` + the loading overlay.
-      **Check in a real browser first** — if it reproduces for users this outranks everything
-      else on this list.
+- [x] **6.1 Homepage does not scroll** — did not reproduce (wheel + programmatic scroll both
+      work; overlay hides correctly). The real defect was a TypeError at `script.js:266`:
+      the deleted group-life section's slider code crashed on null, killing everything after
+      it. Dead code removed in `222e0722`.
 - [ ] **6.2 `showInHome` should mean curated, not latest-N** — recency alone surfaced a
       Cobb-angle paper in *IEEE TMI* among the five most recent.
 - [ ] **6.3 `.hp-last-update`** orphan rule deletion — still uncommitted.
