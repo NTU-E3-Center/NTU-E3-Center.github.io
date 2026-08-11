@@ -121,8 +121,17 @@ until it clears 5.0:1 — headroom above the AA line rather than sitting on it.
 | Environment | `#bfceaa` | 1.58:1 | `#5d7041` | **5.17:1** |
 | Economics | `#aabdbf` | 1.86:1 | `#556e71` | **5.18:1** |
 
-This retires the `--r-yellow / --r-orange / --r-green` field coding. Field colour stops being
-an invention and becomes the mark.
+> **Superseded.** An earlier draft said this "retires the `--r-yellow / --r-orange / --r-green`
+> field coding" so that "field colour stops being an invention and becomes the mark." That was
+> wrong and has been reversed. The three E's keep the vivid trio — yellow, orange, green.
+>
+> The mark's seven colours sit within roughly 40° of each other, so moss / sage / grey-blue are
+> markedly harder to tell apart as *field codes* than yellow / orange / green. This is the same
+> conclusion the category badges reached: **the mark supplies identity, not distinguishability.**
+> Where a colour's job is to be recognised as E3, it comes from the mark; where its job is to be
+> told apart from four siblings at badge size, it doesn't.
+>
+> The ribbon hues still serve `--marker` and the two badge anchors that need them.
 
 **`--accent` is exempt from the 5.0 target.** Raising it would nudge `#237a74` to `#227670` — a
 2-unit, invisible shift that would cost the palette its claim to be exactly the mark's colours.

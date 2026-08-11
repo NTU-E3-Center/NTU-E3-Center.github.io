@@ -63,7 +63,7 @@
     font-weight: var(--fw-light);
     line-height: var(--lh-secondary);
     letter-spacing: 0;
-    color: color-mix(in srgb, var(--ink) 72%, transparent);
+    color: var(--muted);
     margin: 0 0 1.25rem;
 }
 
@@ -109,7 +109,7 @@
 .pub-item-layout {
     margin-block-start: var(--space-10);
     padding-block-start: 2.5rem;
-    border-block-start: 0.0625rem solid color-mix(in srgb, var(--ink) 14%, transparent);
+    border-block-start: 0.0625rem solid var(--line);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) 20rem;
@@ -128,7 +128,7 @@
     position: sticky;
     top: 7rem;
 
-    border: 0.0625rem solid color-mix(in srgb, var(--ink) 14%, transparent);
+    border: 0.0625rem solid var(--line);
     border-radius: 0.625rem;
     background: color-mix(in srgb, var(--ink) 4%, transparent);
     padding: 1.5rem;
@@ -142,7 +142,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--ink) 45%, transparent);
+    color: var(--muted);
     margin: 0 0 0.4rem;
 }
 
@@ -161,14 +161,14 @@
     font-family: var(--font-zh);
     font-size: var(--fs-secondary);
     line-height: var(--lh-lede);
-    color: color-mix(in srgb, var(--ink) 68%, transparent);
+    color: var(--muted);
     margin: 0.2rem 0 0;
 }
 
 .pub-meta-detail {
     font-size: var(--fs-secondary);
     line-height: var(--lh-lede);
-    color: color-mix(in srgb, var(--ink) 65%, transparent);
+    color: var(--muted);
     margin: 0.3rem 0 0;
 }
 
@@ -203,7 +203,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--ink) 45%, transparent);
+    color: var(--muted);
 
     & span {
         font-family: var(--font-mono);
@@ -211,7 +211,7 @@
         font-weight: var(--fw-light);
         letter-spacing: 0;
         text-transform: none;
-        color: color-mix(in srgb, var(--ink) 78%, transparent);
+        color: var(--muted);
         word-break: break-all;
         user-select: all;
     }
@@ -253,7 +253,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--ink) 45%, transparent);
+    color: var(--muted);
     margin: 0 0 0.5rem;
 
     /* Opt out of the global h3 decorator from general.css — that ::after
@@ -267,7 +267,7 @@
     font-size: var(--fs-secondary);
     line-height: var(--lh-body);
     font-style: italic;
-    color: color-mix(in srgb, var(--ink) 72%, transparent);
+    color: var(--muted);
     margin: 0;
 }
 
@@ -294,7 +294,7 @@
     font-weight: var(--fw-heading);
     letter-spacing: 0.01em;
     padding: 0.35rem 0.8rem;
-    border: 0.0938rem solid color-mix(in srgb, var(--ink) 22%, transparent);
+    border: 0.0938rem solid var(--line);
     border-radius: 2rem;
     color: var(--ink);
     background: transparent;
@@ -330,7 +330,7 @@
     line-height: var(--lh-eyebrow);
     color: var(--ink);
     background: color-mix(in srgb, var(--ink) 5%, transparent);
-    border: 0.0625rem solid color-mix(in srgb, var(--ink) 12%, transparent);
+    border: 0.0625rem solid var(--line);
     border-radius: 0.5rem;
     padding: 1.25rem 1.5rem;
     margin: 0;

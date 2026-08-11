@@ -1047,7 +1047,7 @@ main > section:nth-of-type(odd) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-8);
-    border-block-start: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+    border-block-start: 1px solid var(--line);
     padding-block-start: var(--space-6);
 }
 
@@ -1060,7 +1060,7 @@ main > section:nth-of-type(odd) {
 .hp-pillar-num {
     font-size: var(--fs-eyebrow);
     letter-spacing: 0.1em;
-    color: color-mix(in srgb, var(--ink) 80%, transparent);
+    color: var(--muted);
 }
 
 .hp-pillar-title {
@@ -1072,7 +1072,7 @@ main > section:nth-of-type(odd) {
 .hp-pillar-zh {
     font-family: var(--font-zh);
     font-size: var(--fs-secondary);
-    color: color-mix(in srgb, var(--ink) 85%, transparent);
+    color: var(--muted);
 }
 
 .hp-pillar-lede {

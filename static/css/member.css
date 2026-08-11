@@ -344,7 +344,7 @@ h2 {
        saturation. */
     .publi-row-authors {
         opacity: 1;
-        color: color-mix(in srgb, var(--ink) 55%, transparent);
+        color: var(--muted);
 
         & strong {
             font-weight: var(--fw-display);
@@ -549,18 +549,18 @@ h2 {
 
     .cv-row-zh {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--ink) 70%, transparent);
+        color: var(--muted);
         font-size: 0.95em;
     }
 
     .cv-row-org-inline {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--ink) 80%, transparent);
+        color: var(--muted);
     }
 
     .cv-row-loc {
         font-weight: var(--fw-display);
-        color: color-mix(in srgb, var(--ink) 60%, transparent);
+        color: var(--muted);
         font-size: 0.95em;
     }
 
@@ -568,7 +568,7 @@ h2 {
     .cv-row-note {
         font-size: var(--fs-secondary);
         line-height: var(--lh-secondary);
-        color: color-mix(in srgb, var(--ink) 65%, transparent);
+        color: var(--muted);
     }
 
     .cv-row-note {

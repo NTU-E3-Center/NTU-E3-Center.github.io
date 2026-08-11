@@ -16,15 +16,8 @@
     --accent-graphic: #237a74;
     --accent-text: #1e6a65;
     --marker: #aab157;
-    --field-energy-graphic: #aab157;
-    --field-energy-text: #636830;
-    --field-environment-graphic: #bfceaa;
-    --field-environment-text: #576a3d;
-    --field-economics-graphic: #aabdbf;
-    --field-economics-text: #51696b;
 
     /* badges — text derived against badge tint, paper AND the band */
-    --cat-faculty: #aab157;
     --cat-faculty-text: #636830;
     --cat-events: #237a74;
     --cat-events-text: #1e6a65;

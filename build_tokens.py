@@ -75,7 +75,10 @@ def main():
         for name, node in t["badge"][group].items():
             if name.startswith("$"):
                 continue
-            lines.append(f"    --{prefix}-{name}: {node['anchor']['$value']};")
+            # emitAnchor: false = the anchor exists only so the text tier can be
+            # derived from it; emitting it would add a token nothing consumes.
+            if node.get("emitAnchor", True):
+                lines.append(f"    --{prefix}-{name}: {node['anchor']['$value']};")
             lines.append(f"    --{prefix}-{name}-text: {node['text']['$value']};")
 
     # ── type ─────────────────────────────────────────────────────────────────
