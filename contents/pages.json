@@ -10,20 +10,6 @@
                 "icon": "/assets/sprite.svg#svg-info"
             },
             {
-                "id": "members",
-                "title": "Members",
-                "link": "/members",
-                "icon": "/assets/sprite.svg#svg-members",
-                "navGroup": "People"
-            },
-            {
-                "id": "students",
-                "title": "Students & Alumni",
-                "link": "/students",
-                "icon": "/assets/sprite.svg#svg-members",
-                "navGroup": "People"
-            },
-            {
                 "id": "research-topics",
                 "title": "Topics",
                 "link": "/research",
@@ -43,6 +29,20 @@
                 "link": "/projects",
                 "icon": "/assets/sprite.svg#svg-scholar",
                 "navGroup": "Research"
+            },
+            {
+                "id": "members",
+                "title": "Members",
+                "link": "/members",
+                "icon": "/assets/sprite.svg#svg-members",
+                "navGroup": "People"
+            },
+            {
+                "id": "students",
+                "title": "Students & Alumni",
+                "link": "/students",
+                "icon": "/assets/sprite.svg#svg-members",
+                "navGroup": "People"
             },
             {
                 "id": "news",
