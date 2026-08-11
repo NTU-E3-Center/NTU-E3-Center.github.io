@@ -2,6 +2,8 @@
     {
         "form": "about",
         "sectionTitle": "The NTU E3 Research Center",
+        "homeSlogan": "Toward a net-zero future that is cleaner, smarter, more equitable and resilient.",
+        "homeLede": "A research center in Civil Engineering at National Taiwan University, working on the sustainable energy transition.",
         "article": "contents/articles/about.md",
         "logos": [
             {
@@ -16,6 +18,8 @@
     },
     {
         "form": "sponsors",
+        "homeSlogan": "",
+        "homeLede": "",
         "sectionTitle": "Sponsors",
         "display": false,
         "logos": [

@@ -1,24 +1,31 @@
 <section id="about-us">
-    <div class="section-title">
-        <h2>The Center</h2>
+    {# The heading is the centre's statement, not the label "The Center" — a
+       heading this high on the page should make an argument rather than file
+       the section. It stays an h2 so the document outline survives.
 
-    </div>
-
+       Homepage copy is a slogan + one line only; the full 147-word article
+       lives on /about/, which the CTA below leads to. Both strings come from
+       about.json so this stays content, not markup. #}
     {% for about in structures['about'] %}
     {% if about['form'] == 'about' %}
-    {# Main about content carries the section identity — no eyebrow needed
-       (would just repeat "About Us"). Eyebrow only appears for Sponsors. #}
+    {% if about.get('homeSlogan') %}
+    {# Statement, not a link — a slogan is not a navigation target. The way to
+       /about/ is the explicit link at the foot of the section. #}
+    <div class="section-title">
+        <h2>{{ about['homeSlogan'] }}</h2>
+    </div>
+    {% endif %}
     <section class="abt-section" which="{{ about['form'] }}">
-        <div class="abt-text">
-            {% set articleVar = about['article'].split('/')[-1].split('.')[0] %}
-            {{ articles[articleVar] }}
+        {% if about.get('homeLede') %}
+        {# --lede keeps .abt-text's flex sizing but drops the multi-paragraph
+           prose treatment: justify + 2rem indent look broken on one line. #}
+        <div class="abt-text abt-text--lede">
+            <p>{{ about['homeLede'] }}</p>
         </div>
-        
-        <div class="abt-logos">
-            {% for logo in about['logos'] %}
-            <img src="{{ logo['logoPath'] }}" alt="{{ logo['logoAlt'] }}" title="{{ logo['logoAlt'] }}" width="200" height="80" loading="lazy">
-            {% endfor %}
-        </div>
+        {% endif %}
+        {# The E3 and NTU lockups are dropped here: the hero already shows the
+           E3 lockup, and NTU is named in the lede and the footer. They remain
+           on /about/, which owns the institutional detail. #}
     </section>
     {% elif about['form'] == 'sponsors' and about['display'] %}
     <h3 class="section-eyebrow">{{ about['sectionTitle'] }}</h3>
@@ -35,7 +42,7 @@
     {# Teaser CTA into the dedicated About page ([IA-2]) — same view-all
        pattern every other homepage section uses. #}
     <div class="section-cta">
-        <a class="section-cta-btn skewed-block" href="/about/" b-role="btn" b-hoverable>
+        <a class="section-link" href="/about/">
             <span>More about us</span>
             <svg><use href="/assets/sprite.svg#svg-arrow-right"></use></svg>
         </a>
