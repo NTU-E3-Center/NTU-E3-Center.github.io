@@ -29,6 +29,12 @@ tokens:
 	python validate_design_tokens.py
 	python generate_token_reference.py
 
+# New design system. Kept separate from `tokens` while the old CSS-first
+# system is still the one rendering the site.
+tokens-new:
+	python validate_tokens.py
+	python build_tokens.py
+
 audit-site:
 	python validate_site.py
 
