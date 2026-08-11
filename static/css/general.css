@@ -490,6 +490,11 @@ i {
     --secondary-color: #aab157;         /* was #c4c691 — the mark's moss */
     --page-bg-color: #faf9f7;           /* was #f7fafb — warm paper, warmth +3 */
 
+    /* Section banding surface: the mark's palest ribbon (#d3d6a3) at 30% over
+       paper. Derived rather than hardcoded so it tracks --page-bg-color if the
+       paper moves again. Ink measures 6.86:1 on it. */
+    --surface: color-mix(in srgb, #d3d6a3 30%, var(--page-bg-color));
+
     /* Deep ink shade for illustration artwork only (hero plane banner
        text). Kept out of the primitive-leak guard list because its sole
        consumer is artwork styling — see color.md § The three layers. */

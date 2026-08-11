@@ -7,7 +7,13 @@
     --_home-min-height: 50rem;
     --_home-max-width: 120rem;
 
-    height: clamp(var(--_home-min-height), 100svh, 75rem);
+    /* The hero must fill the viewport at every size, so the About band is
+       never visible before a scroll. `lvh` not `svh`: lvh is the LARGEST
+       viewport height, so the hero still covers the screen on mobile once the
+       browser chrome retracts — svh would leave a strip of About showing. The
+       previous 75rem cap is gone for the same reason: on a viewport taller
+       than 1200px it let the next section peek. */
+    height: max(var(--_home-min-height), 100lvh);
     margin-inline: auto;
     padding: var(--_window-padding);
     background-color: var(--page-bg-color);
@@ -948,6 +954,90 @@
 }
 
 /* members / news / publications — bottom-of-section "View all" CTA */
+/* ── Quiet section link ────────────────────────────────────────────────────
+   Replaces .section-cta-btn's skewed slab at the foot of each homepage
+   section. Full-strength ink with a rule beneath it rather than a filled
+   button. Deliberately NOT reusing .hp-secondary, whose opacity: 0.7 measures
+   3.77:1 and fails AA at body size. */
+.section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+    /* Quieter than the slab it replaced: one size down and body weight rather
+       than heading weight. It is a way out of the section, not a call to it. */
+    font-size: var(--fs-body-base);
+    font-weight: var(--fw-body);
+    color: var(--main-color);
+    text-decoration: none;
+    border-block-end: 1px solid color-mix(in srgb, var(--main-color) 35%, transparent);
+    transition: border-color var(--hover-transition-time);
+
+    & svg {
+        width: 1em;
+        height: 1em;
+        transition: translate var(--hover-transition-time);
+    }
+
+    &:hover,
+    &:focus-visible {
+        border-block-end-color: var(--main-color);
+    }
+
+    &:hover svg,
+    &:focus-visible svg {
+        translate: 0.25rem 0;
+    }
+}
+
+/* A text link reads as part of the content, so it sits on the content's left
+   edge rather than centred like the button it replaced. */
+.section-cta:has(.section-link) {
+    justify-content: flex-start;
+}
+
+/* ── Homepage section banding ──────────────────────────────────────────────
+   Alternating paper / tint bands down the page. The run starts on About so
+   the first band butts against the hero and separates the two: About,
+   Publications and News take the tint; Research, Projects and Group Life sit
+   on paper. Group Life ending on paper also means the footer continues the
+   alternation rather than stacking two tinted blocks.
+
+   The sections are capped at 80rem and centred, so a plain background would
+   render as a floating slab rather than a band. box-shadow paints outward to
+   the viewport edge without affecting layout, and clip-path stops it bleeding
+   above and below. Neither creates horizontal overflow, unlike a 100vw child,
+   which would add the scrollbar's width. */
+main > section:nth-of-type(odd) {
+    background-color: var(--surface);
+    box-shadow: 0 0 0 100vmax var(--surface);
+    clip-path: inset(0 -100vmax);
+}
+
+/* The About section is a slogan and one line — it does not need the full
+   80rem the content-heavy sections use. Narrowing it keeps the statement at a
+   readable measure instead of stretching it across the viewport. */
+#about-us {
+    & .section-title,
+    & .abt-section,
+    & .section-cta {
+        max-width: 48rem;
+    }
+}
+
+/* Homepage About is now a slogan plus one line, not an article. The prose
+   recipe's justify + 2rem first-line indent are built for multi-paragraph
+   copy and misfire on a single sentence. */
+/* Selector must match .abt-section .abt-text p — that rule is nested inside
+   .abt-section, so a bare .abt-text--lede p loses on specificity. */
+.abt-section .abt-text--lede p {
+    text-indent: 0;
+    text-align: left;
+    font-size: var(--fs-lede);
+    line-height: 1.5;
+    text-wrap: pretty;
+}
+
 /* ── Homepage research teaser ──────────────────────────────────────────────
    Three pillars, flat and rule-separated rather than carded, matching the
    flattened chrome the rest of the site moved to. Text opacities stay at or

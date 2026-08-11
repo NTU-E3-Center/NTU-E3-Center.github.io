@@ -3,7 +3,7 @@
 
 # Token Reference (generated)
 
-Every `--*` token defined in `static/css/general.css :root` — 122 tokens. Blank tier cells inherit **Default**. For what a token *means*, see the hand-written rules: [typography.md](./typography.md), [color.md](./color.md), [layout.md](./layout.md), [responsive.md](./responsive.md).
+Every `--*` token defined in `static/css/general.css :root` — 123 tokens. Blank tier cells inherit **Default**. For what a token *means*, see the hand-written rules: [typography.md](./typography.md), [color.md](./color.md), [layout.md](./layout.md), [responsive.md](./responsive.md).
 
 ## Typography
 
@@ -68,13 +68,13 @@ Every `--*` token defined in `static/css/general.css :root` — 122 tokens. Blan
 | `--main-3-light` | `#f4fafc` |  |  |  |
 | `--main-bg-color` | `#ffffff` |  |  |  |
 | `--main-color` | `#0a557e` |  |  |  |
-| `--main-color-2` | `#4caedd` |  |  |  |
-| `--main-color-3` | `#badcea` |  |  |  |
+| `--main-color-2` | `#237a74` |  |  |  |
+| `--main-color-3` | `#d7e0c4` |  |  |  |
 | `--main-color-hsl` | `201, 85%, 27%` |  |  |  |
 | `--main-dark` | `#06334b` |  |  |  |
 | `--main-light` | `#b4cbd8` |  |  |  |
 | `--main-shadow-color` | `#0a557ebb` |  |  |  |
-| `--page-bg-color` | `#f7fafb` |  |  |  |
+| `--page-bg-color` | `#faf9f7` |  |  |  |
 | `--r-blue` | `#267a9e` |  |  |  |
 | `--r-green` | `#51a885` |  |  |  |
 | `--r-indigo` | `#5f739d` |  |  |  |
@@ -83,7 +83,7 @@ Every `--*` token defined in `static/css/general.css :root` — 122 tokens. Blan
 | `--r-red` | `#db7476` |  |  |  |
 | `--r-yellow` | `#f5a936` |  |  |  |
 | `--scrollbar-track` | `#eeeeee` |  |  |  |
-| `--secondary-color` | `#c4c691` |  |  |  |
+| `--secondary-color` | `#aab157` |  |  |  |
 | `--secondary-light` | `#eceddd` |  |  |  |
 | `--selection-color` | `#0a557edd` |  |  |  |
 | `--status-alert` | `var(--r-red)` |  |  |  |
@@ -145,6 +145,7 @@ Every `--*` token defined in `static/css/general.css :root` — 122 tokens. Blan
 | Token | Default | Tablet ≤64rem | Phone ≤37.5rem | Wide ≥90rem |
 |---|---|---|---|---|
 | `--prose-measure` | `65ch` |  |  |  |
+| `--surface` | `color-mix(in srgb, #d3d6a3 30%, var(--page-bg-color))` |  |  |  |
 | `--w-article` | `68rem` |  |  |  |
 | `--w-control` | `22rem` |  |  |  |
 | `--w-form` | `40rem` |  |  |  |
