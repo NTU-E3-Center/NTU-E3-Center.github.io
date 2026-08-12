@@ -10,29 +10,24 @@
         <div class="news-rows">
             {% for item in home_items %}
             {% set status = item.get('status', 'published') %}
-            {# Three row shapes (mirrors templates/pages/publications.html):
-               • detail subpage exists  → stretched-link container; title is the
-                 stretched link, Publisher button is the external-link opt-out
-               • only publisher link    → whole-row link to publisher
-               • neither                → static row #}
+            {# Teaser rows, deliberately leaner than /publications/: title and
+               one meta line (journal · issue date). No author list and no
+               Publisher button — both live one click away, on the full list
+               and the detail page. Two row shapes:
+               • detail subpage exists  → row links to the subpage
+               • only publisher link    → whole-row external link #}
             {% set detail = item.get('pageLink') %}
             {# Click target falls back to https://doi.org/{doi} when `link` is
                empty — mirrors the same fallback in publications.html and the
                publication detail page. #}
             {% set publisher = item.get('link') or ('https://doi.org/' ~ item['doi'] if item.get('doi') else None) %}
             {% if detail %}
-            <div class="news-row news-row--link news-row--stretch{% if status != 'published' %} news-row--no-date{% endif %}">
+            <div class="news-row news-row--link news-row--stretch news-row--no-date">
             {% elif publisher %}
-            <a class="news-row news-row--link{% if status != 'published' %} news-row--no-date{% endif %}" target="_blank" rel="noopener" href="{{ publisher }}">
+            <a class="news-row news-row--link news-row--no-date" target="_blank" rel="noopener" href="{{ publisher }}">
             {% else %}
-            <div class="news-row{% if status != 'published' %} news-row--no-date{% endif %}">
+            <div class="news-row news-row--no-date">
             {% endif %}
-                {% if status == 'published' %}
-                <div class="news-row-date">
-                    <span class="news-row-mm">{{ item['month'] }}</span>
-                    <span class="news-row-yy">20{{ item['year'][1:] }}</span>
-                </div>
-                {% endif %}
                 <div class="news-row-body">
                     {% if detail %}
                     <a class="news-row-title-link" href="{{ detail }}">
@@ -41,22 +36,14 @@
                     {% else %}
                     <p class="news-row-title">{{ item['title'] }}</p>
                     {% endif %}
-                    {% if item.get('authors') and status == 'published' %}
-                    <span class="publi-row-authors">{{ item['authors'] }}</span>
-                    {% endif %}
                     {% if item.get('journal') and status == 'published' %}
                     <span class="publi-row-journal">
-                        {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}.{%- else -%}{{ item['journal'] }}.{%- endif -%}
+                        {%- if item.get('volume') -%}{{ item['journal'] }}, Vol. {{ item['volume'] }}{%- else -%}{{ item['journal'] }}{%- endif -%}
+                        {%- if item.get('month') and item.get('year') %} · {{ item['month'] }} 20{{ item['year'][1:] }}{% endif -%}
                     </span>
                     {% endif %}
                 </div>
-                {% if detail and publisher %}
-                <a class="pub-row-publisher" href="{{ publisher }}" target="_blank" rel="noopener"
-                   aria-label="View on publisher site">
-                    <svg aria-hidden="true"><use href="/assets/sprite.svg?v=4#svg-arrow-top-right"></use></svg>
-                    <span>Publisher</span>
-                </a>
-                {% elif publisher %}
+                {% if not detail and publisher %}
                 <span class="news-row-arrow" aria-hidden="true">
                     <svg><use href="/assets/sprite.svg?v=4#svg-arrow-top-right"></use></svg>
                 </span>
