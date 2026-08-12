@@ -250,6 +250,45 @@ resBlockWithAni.forEach(block => {
 
 
 
+// --- SCROLL-ENTRY REVEALS ---
+// Section furniture fades up 12px as it approaches the viewport, then holds
+// still — each element reveals once and is unobserved, so nothing moves
+// while reading. Applied from JS so a no-JS visit simply shows everything;
+// reduced-motion users never enter the effect. List children (pillars,
+// rows) cascade by index.
+(function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    const singles = document.querySelectorAll(
+        '#about-us .section-title, #about-us .abt-section, #about-us .abt-photo,' +
+        '#research-topics .section-title, #publications .section-title,' +
+        '#news .section-title, .section-cta'
+    );
+    const cascades = document.querySelectorAll(
+        '.hp-pillars .hp-pillar, #publications .news-row, #news .news-row'
+    );
+
+    const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add('is-revealed');
+            io.unobserve(entry.target);
+        }
+    }, { rootMargin: '0px 0px -12% 0px' });
+
+    singles.forEach((el) => {
+        el.classList.add('will-reveal');
+        io.observe(el);
+    });
+    cascades.forEach((el) => {
+        const i = [...el.parentElement.children].indexOf(el);
+        el.classList.add('will-reveal');
+        el.style.setProperty('--_reveal-delay', (i * 90) + 'ms');
+        io.observe(el);
+    });
+}());
+
 // --- ABOUT PHOTO LOOP: crossfade the group-life frame ---
 // The box beside the About statement cycles its stacked images by moving
 // .is-showing. Reduced-motion users keep the first photo, static.

@@ -1068,6 +1068,25 @@ main > section:nth-of-type(odd) {
     }
 }
 
+/* ── Scroll-entry reveals ──────────────────────────────────────────────────
+   Paired with script.js § scroll-entry reveals: JS adds .will-reveal (so a
+   no-JS visit shows everything) and .is-revealed on approach. Fade + 12px
+   rise, one long ease-out, per-element cascade delay for list children.
+   Reveals happen once; nothing moves once the reader is there. */
+.will-reveal {
+    opacity: 0;
+    translate: 0 0.75rem;
+    transition:
+        opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+        translate 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--_reveal-delay, 0s);
+}
+
+.will-reveal.is-revealed {
+    opacity: 1;
+    translate: 0 0;
+}
+
 /* Statement + photo split, matching the other homepage splits. */
 @media (min-width: 64.0625rem) {
     #about-us {
