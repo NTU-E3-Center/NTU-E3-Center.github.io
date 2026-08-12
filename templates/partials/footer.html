@@ -10,16 +10,31 @@
             </p>
         </div>
 
+        {# Sitemap grouped like the header nav (same navGroup taxonomy from
+           pages.json), so footer and header describe one structure. Center
+           gathers the ungrouped pages; Contact's link lives here too even
+           though the address column follows — the sitemap stays complete. #}
         <nav class="ftr-col ftr-nav" aria-label="Sitemap">
-            <p class="ftr-col-title">Sitemap</p>
-            <ul>
-                <li><a class="ftr-link" href="/#">Home</a></li>
-                {% for section in pages['index']['structure'] %}
-                {% if section.id %}
-                <li><a class="ftr-link" href="{{ section.link }}">{{ section.title }}</a></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+            <div class="ftr-group">
+                <p class="ftr-col-title">Center</p>
+                <ul>
+                    <li><a class="ftr-link" href="/#">Home</a></li>
+                    <li><a class="ftr-link" href="/about">About</a></li>
+                    <li><a class="ftr-link" href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            {% for group in ['Research', 'People', 'News & Life'] %}
+            <div class="ftr-group">
+                <p class="ftr-col-title">{{ group }}</p>
+                <ul>
+                    {% for section in pages['index']['structure'] %}
+                    {% if section.get('navGroup') == group and section.id %}
+                    <li><a class="ftr-link" href="{{ section.link }}">{{ section.title }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
         </nav>
 
         <address class="ftr-col ftr-contact">

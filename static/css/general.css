@@ -1168,16 +1168,21 @@ section:has(.section-title) > *:first-of-type > .section-eyebrow:first-of-type {
    color-mix divider — matches the divider recipe used in subpage.css. */
 footer {
     width: 100%;
-    padding: 2.75rem var(--gutter-x) 1.5rem;
+    /* No outer gutter — the inner boxes carry it (same fix as the header),
+       so the footer brand lands on the sections' text edge. */
+    padding: 2.75rem 0 1.5rem;
     border-top: 0.1875rem solid var(--ink);
-    background-color: var(--main-bg-color);
+    /* Surface, not white: the footer reads as the page's closing band in
+       the banding rhythm rather than a leftover of the old white chrome. */
+    background-color: var(--surface);
 
     & .ftr-grid {
         width: min(100%, 80rem);
         margin-inline: auto;
+        padding-inline: var(--gutter-x);
 
         display: grid;
-        grid-template-columns: 1.4fr 1fr 1.2fr;
+        grid-template-columns: 1.1fr auto 1fr;
         gap: var(--space-7) var(--space-12);
         align-items: start;
     }
@@ -1226,12 +1231,17 @@ footer {
         opacity: 0.4;
     }
 
-    /* Sitemap as 2-column grid on desktop — halves the column's height
-       so the footer chrome stays compact even with 7 nav items. */
+    /* Sitemap grouped like the header nav: Center / Research / People /
+       News & Life, each a titled mini-column. */
+    & .ftr-nav {
+        display: grid;
+        grid-auto-flow: column;
+        gap: var(--space-2) var(--space-10);
+    }
+
     & .ftr-nav ul {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-1-5) var(--space-5);
+        gap: var(--space-1-5);
         padding: 0;
         margin: 0;
         list-style: none;
@@ -1303,6 +1313,7 @@ footer {
     & .ftr-bottom {
         width: min(100%, 80rem);
         margin-inline: auto;
+        padding-inline: var(--gutter-x);
         margin-block-start: var(--space-6);
         padding-block-start: 1rem;
         border-top: 0.0625rem solid var(--line);
@@ -1327,6 +1338,13 @@ footer {
 
     footer .ftr-brand {
         grid-column: 1 / -1;
+    }
+
+    /* Grouped sitemap folds to a 2x2 of mini-columns. */
+    footer .ftr-nav {
+        grid-auto-flow: row;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-5) var(--space-8);
     }
 }
 

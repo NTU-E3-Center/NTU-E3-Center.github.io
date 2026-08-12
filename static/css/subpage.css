@@ -19,14 +19,17 @@
     z-index: 100;
     width: 100%;
     padding-block: var(--space-3-5);
-    padding-inline: var(--gutter-x);
-    background-color: var(--main-bg-color);
+    /* No outer gutter — the inner box carries it, so the logo lands on the
+       same text edge as every section (outer gutter + centred inner used
+       to drift the chrome ~4rem left of the content at wide viewports). */
+    background-color: var(--paper);
     border-bottom: 0.125rem solid var(--ink);
 }
 
 .subpage-header-inner {
     width: min(100%, 80rem);
     margin-inline: auto;
+    padding-inline: var(--gutter-x);
 
     display: flex;
     align-items: center;

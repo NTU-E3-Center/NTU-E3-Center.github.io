@@ -28,7 +28,7 @@
            (category · month year) over the title — no date column, no badge
            chip. Internal rows rely on the chevron hover; external rows keep
            the small up-right arrow to signal the jump off-site. #}
-        {% for item in ns.all_items[-5:] | reverse %}
+        {% for item in ns.all_items[-4:] | reverse %}
         {% if item.get('pageLink') %}
         <a class="news-row news-row--link news-row--no-date" href="{{ item['pageLink'] }}">
         {% elif item.get('link') %}
