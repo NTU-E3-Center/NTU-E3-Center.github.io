@@ -896,9 +896,8 @@
 }
 
 @media (max-width: 37.5rem) {
-    .research-lead {
-        font-size: var(--fs-h2);
-    }
+    /* No font-size override — the token scale's phone h1 tier (30px)
+       already sizes the lead; forcing h2 was the old root-scale fix. */
 
     .research-tagline {
         font-size: var(--fs-body-base);
@@ -961,9 +960,7 @@ a.about-card {
 }
 
 @media (max-width: 37.5rem) {
-    .about-lead {
-        font-size: var(--fs-h2);
-    }
+    /* No font-size override — phone h1 tier applies (see research-lead). */
 
     .about-tagline {
         font-size: var(--fs-body-base);
@@ -2245,9 +2242,7 @@ a.about-card {
    icon carries the category. Value is the only text shown, on one line. */
 @media (max-width: 37.5rem) {
     .contact-subpage {
-        .contact-lead {
-            font-size: var(--fs-h3);
-        }
+        /* .contact-lead font-size override removed — phone h1 tier applies. */
 
         .contact-tagline {
             font-size: var(--fs-body-base);

@@ -2640,10 +2640,9 @@ main > section:nth-of-type(odd) {
            --gutter-x — both controlled at :root in general.css. */
 
         .section-title {
-            & h2 {
-                font-size: var(--fs-h1);
-            }
-
+            /* No font-size override — the token scale's tablet tier
+               already sizes h2 (28px); forcing fs-h1 here was the old
+               system compensating for its root-scale shrink. */
             & svg {
                 height: 2.25rem;
                 translate: 0.375rem -0.6875rem;

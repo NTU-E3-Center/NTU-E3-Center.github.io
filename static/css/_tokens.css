@@ -43,6 +43,7 @@
     --fw-display: 500;
     --fw-heading: 600;
     --fs-display: 56px;
+    --fs-h1: 40px;
     --fs-h2: 32px;
     --fs-h3: 24px;
     --fs-lede: 20px;
@@ -51,12 +52,14 @@
     --fs-meta: 13px;
     --fs-eyebrow: 12px;
     --lh-display: 1.05;
+    --lh-h1: 1.1;
     --lh-h2: 1.15;
     --lh-h3: 1.25;
     --lh-lede: 1.5;
     --lh-body: 1.65;
     --lh-zhBonus: 0.1;
     --tracking-display: -0.03em;
+    --tracking-h1: -0.03em;
     --tracking-h2: -0.025em;
     --tracking-h3: -0.015em;
     --tracking-body: 0em;
@@ -103,6 +106,7 @@
 @media (max-width: 64rem) {
     :root {
         --fs-display: 42px;
+        --fs-h1: 34px;
         --fs-h2: 28px;
         --fs-h3: 22px;
         --fs-lede: 19px;
@@ -114,6 +118,7 @@
 @media (max-width: 37.5rem) {
     :root {
         --fs-display: 34px;
+        --fs-h1: 30px;
         --fs-h2: 26px;
         --fs-h3: 20px;
         --fs-lede: 18px;
@@ -125,6 +130,7 @@
 @media (min-width: 90rem) {
     :root {
         --fs-display: 60px;
+        --fs-h1: 44px;
         --fs-h2: 34px;
         --fs-h3: 25px;
         --fs-lede: 21px;

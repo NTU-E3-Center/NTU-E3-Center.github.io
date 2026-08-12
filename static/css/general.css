@@ -391,22 +391,15 @@ i {
        across breakpoints (see @media blocks below). Hierarchy invariant:
        at every breakpoint, smallest heading > largest content. */
 
-    /* HEADING group */
-    --fs-h1: 3rem;
-    --fs-h2: 2.25rem;
-    --fs-h3: 1.75rem;
+    /* HEADING + CONTENT groups now come from _tokens.css (the generated
+       scale: display / h1 / h2 / h3 / lede / body / small / meta / eyebrow,
+       explicit px per tier — no root-scaling correction needed). Legacy
+       names still used across the stylesheets alias into that ladder: */
+    --fs-body-base: var(--fs-body);
+    --fs-secondary: var(--fs-small);
 
-    /* CONTENT group */
-    --fs-lede:      1.375rem;
-    --fs-body:      1.125rem;
-    --fs-body-base: 1rem;
-    --fs-secondary: 0.875rem;
-
-    /* LABEL group */
-    --fs-eyebrow: 0.6875rem;
+    /* LABEL group — badge chips not yet modelled by the token scale. */
     --fs-badge:   0.625rem;
-
-    --fs-prose:      var(--fs-body);
 
     /* Device constant, not a ladder tier: form inputs must never compute
        below 16px or iOS Safari zoom-snaps on focus. 1.1875rem ≈ 16.6px at
@@ -453,16 +446,9 @@ i {
     --prose-measure: 65ch;
     --w-prose: var(--prose-measure);  /* alias under the new naming */
 
-    /* Line-height ladder — paired one-to-one with the font-size tokens
-       above. HEADING tight (1.1–1.2) so big type stacks closely.
-       CONTENT comfortable (lede 1.4 / body 1.7 / base 1.55 / secondary
-       1.45) so prose breathes. LABEL neutral (1.6) — labels are mostly
-       single-line. Apply via `line-height: var(--lh-h3)` etc. */
-    --lh-h1:        1.1;
-    --lh-h2:        1.15;
-    --lh-h3:        1.2;
-    --lh-lede:      1.4;
-    --lh-body:      1.7;
+    /* Line-height ladder — heading and prose tiers (h1/h2/h3/lede/body)
+       come from _tokens.css, paired with the generated scale. The names
+       below cover legacy tiers the token file doesn't model. */
     --lh-body-base: 1.55;
     --lh-secondary: 1.45;
     --lh-eyebrow:   1.6;
@@ -636,13 +622,7 @@ i {
         --section-title-gap: var(--space-8);
         --header-h: 4.5rem;
         --menu-btn-h: 2.75rem;
-
-        /* Tablet typography per group */
-        --fs-h1:   2.5rem;
-        --fs-h2:   2rem;
-        --fs-h3:   1.625rem;
-        --fs-lede: 1.25rem;
-        --fs-body: 1.0625rem;
+        /* Typography tiers now come from _tokens.css media blocks. */
     }
 }
 
@@ -654,43 +634,19 @@ i {
         --header-h: 2.75rem;
         --menu-btn-h: 2rem;
 
-        /* Mobile typography per group. Body shrinks slightly from 1.1875rem
-           to 1.125rem (15.75 px effective at 14-px root) — still above the
-           common-readable floor; the iOS 16-px auto-zoom floor is preserved
-           on form inputs via an explicit override below (search "form auto-zoom").
-           Label group bumps to clear WCAG floor (without it, 87.5% root
-           drops eyebrow to ~9.6 px / badge to ~8.75 px). */
-        --fs-h1:   2rem;
-        --fs-h2:   1.75rem;
-        --fs-h3:   1.5rem;
-        --fs-lede: 1.25rem;
-        --fs-body: 1.125rem;
-
-        --fs-eyebrow: 0.8125rem;
+        /* Typography tiers now come from _tokens.css media blocks (px, so
+           the 87.5% root scale below does not shrink them). Badge is the
+           one legacy rem size left: bump it so the smaller root cannot
+           drop it below the WCAG floor. */
         --fs-badge:   0.75rem;
-
-        /* Tighter leading on mobile prose — Bringhurst's 1.5 floor.
-           Same legibility, ~10% less vertical bulk, content feels
-           denser without sacrificing per-line readability. */
-        --lh-body: 1.55;
     }
     /* Scale every rem-based size proportionally on phone. 87.5% = 14px
        root — body text drops to 14px, headings/padding shrink ~12.5%. */
     html { font-size: 87.5%; }
 }
 
-/* Wide / large-display tier — 14"+ MacBooks, 27"+ externals, 4K monitors.
-   Reader-eye-to-screen distance is greater on these displays; a 1-px nudge
-   restores apparent body size at typical viewing distance. Matches the
-   editorial scale used by Medium (21px wide), NYT (19-21px), Atlantic. */
-@media (min-width: 90rem) {
-    :root {
-        /* Wide tier — typography only; label group stays constant */
-        --fs-h1:   3.25rem;
-        --fs-lede: 1.5rem;
-        --fs-body: 1.1875rem;
-    }
-}
+/* Wide / large-display tier lives in _tokens.css now (the scale's `wide`
+   values serve the same purpose the old 1-px nudge did). */
 
 .fill-101-top {
     fill: var(--r-yellow);
@@ -940,13 +896,13 @@ section:has(.section-title) {
         display: flex;
 
         & h2 {
-            /* C·3 — was 3.25rem; brought closer to the subpage h2 baseline
-               (2.25rem) so visitors moving home → subpage don't feel like
-               two different sites. 2.75rem still reads as the dominant
-               homepage section title; tracking unchanged. */
-            font-size: var(--fs-h1);
+            /* Scale rollout 2026-08-12: homepage section titles are h2-tier
+               (32px laptop), a clear step below page titles (h1, 40px) —
+               the old fs-h1 here made a homepage section outrank a whole
+               subpage. Reference: GOV.UK 36, USWDS 32, Stripe 28. */
+            font-size: var(--fs-h2);
             font-weight: var(--fw-display);
-            letter-spacing: -0.03em;
+            letter-spacing: var(--tracking-h2);
         }
 
         & svg {
