@@ -2083,25 +2083,39 @@ main > section:nth-of-type(odd) {
     #publications {
         display: grid;
         grid-template-columns: minmax(15rem, 19rem) 1fr;
+        /* 1fr spacer rows above and below the title+CTA cluster split the
+           leftover height equally, centring the whole rail against the
+           list the paper column defines. */
+        grid-template-rows: 1fr auto auto 1fr;
         column-gap: var(--space-16);
-        align-items: start;
 
         & > .section-title {
             grid-column: 1;
-            grid-row: 1;
+            grid-row: 2;
             margin-block-end: 0;
+
+            /* fs-h1 was sized for full-width section titles; in a 19rem
+               rail it forced a two-line wrap at 3.4x the lede. One step
+               down puts the title-to-lede ratio (~2.2) in line with the
+               rows' own title-to-meta ratio. */
+            & h2 {
+                font-size: var(--fs-h2);
+            }
+
+            & .section-lede {
+                font-size: var(--fs-body-base);
+            }
         }
 
         & .publi-group {
             grid-column: 2;
-            grid-row: 1 / span 2;
+            grid-row: 1 / -1;
         }
 
         & > .section-cta {
             grid-column: 1;
-            grid-row: 2;
-            align-self: end;
-            margin-block-start: var(--space-8);
+            grid-row: 3;
+            margin-block-start: var(--space-6);
         }
     }
 }
