@@ -39,6 +39,26 @@
     {% endif %}
     {% endfor %}
 
+    {# Quiet photo frame beside the statement: the five newest group-life
+       shots crossfading (script.js § about photo loop). Same responsive
+       variants the /group-life/ page uses; alt text carries the caption. #}
+    {% set glf_items = (structures['group-life'][0]['items'] | reverse | list)[:5] %}
+    {% if glf_items %}
+    <aside class="abt-photo" aria-label="Photos from group life">
+        {% for item in glf_items %}
+        {% set base = item['imgPath'].split('.')[0] %}
+        <img class="abt-photo-img{% if loop.first %} is-showing{% endif %}"
+             loading="lazy" width="800" height="600"
+             src="{{ base }}-800w.webp?v=2"
+             srcset="{{ base }}-400w.webp?v=2 400w,
+                     {{ base }}-800w.webp?v=2 800w,
+                     {{ base }}-1200w.webp?v=2 1200w"
+             sizes="(min-width: 64.0625rem) 28rem, 90vw"
+             alt="{{ item['month'] }} {{ item['year'] }}. {{ item['description'] }}">
+        {% endfor %}
+    </aside>
+    {% endif %}
+
     {# Teaser CTA into the dedicated About page ([IA-2]) — same view-all
        pattern every other homepage section uses. #}
     <div class="section-cta">

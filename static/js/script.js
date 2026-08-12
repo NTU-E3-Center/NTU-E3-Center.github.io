@@ -250,6 +250,22 @@ resBlockWithAni.forEach(block => {
 
 
 
+// --- ABOUT PHOTO LOOP: crossfade the group-life frame ---
+// The box beside the About statement cycles its stacked images by moving
+// .is-showing. Reduced-motion users keep the first photo, static.
+(function () {
+    const photos = document.querySelectorAll('.abt-photo-img');
+    if (photos.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let current = 0;
+    setInterval(() => {
+        photos[current].classList.remove('is-showing');
+        current = (current + 1) % photos.length;
+        photos[current].classList.add('is-showing');
+    }, 3500);
+}());
+
 // --- HERO PLANE BANNER: grow the banner to fit the news headline ---
 // The banner rects in home.svg ship at a fixed width (900/909 user units), but
 // the title inside is a non-wrapping SVG <text> pulling the latest news
