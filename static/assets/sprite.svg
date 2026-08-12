@@ -89,10 +89,11 @@
     </symbol>
     
     <!-- Arrows paint with currentColor so the consuming page's CSS owns
-         their colour (default: --marker, set in general.css). External
-         <use> shadow trees can't be reached by document fill rules, but
-         currentColor inherits through — the one styling channel that
-         crosses the sprite boundary. -->
+         their colour (default: the marker token, set in general.css).
+         External use shadow trees can't be reached by document fill rules,
+         but currentColor inherits through, the one styling channel that
+         crosses the sprite boundary. NB: this file is parsed as strict XML,
+         and XML comments must never contain a double hyphen. -->
     <symbol id="svg-arrow-top-right" viewBox="0 0 10 10">
         <polygon fill="currentColor" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
     </symbol>

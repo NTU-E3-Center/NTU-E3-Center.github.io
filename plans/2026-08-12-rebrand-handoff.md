@@ -32,9 +32,13 @@ website + slides + posters/print; paper figures excluded.
   seven colours sit within ~40° of hue and can't be told apart at badge size.
 - **Cache-busting is manual:** every CSS/JS change needs a `?v=N` bump in
   [templates/base.html](../templates/base.html) or browsers serve stale files. Currently
-  `_tokens.css v=5 · general.css v=72 · style.css v=69 · subpage.css v=82 · script.js v=5`.
-  The sprite (`/assets/sprite.svg`) has **no** version param — stale caches degrade
-  gracefully (old hardcoded fills) but a `?v=` scheme is worth adding if it changes again.
+  `_tokens.css v=5 · general.css v=72 · style.css v=69 · subpage.css v=82 · script.js v=5 ·
+  sprite.svg v=2` (the sprite's `?v=` lives in every `<use href>` across templates — bump
+  with a sed over `templates/`). **Trap:** sprite.svg is parsed as strict XML — an XML
+  comment containing `--` (e.g. a token name) kills the whole sprite silently; every
+  icon disappears with no console error. Validate with
+  `python3 -c "import xml.etree.ElementTree as ET; ET.parse('static/assets/sprite.svg')"`
+  after editing it.
 
 ## Homepage state (rebuilt this session)
 
