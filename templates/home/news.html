@@ -28,7 +28,7 @@
            (category · month year) over the title — no date column, no badge
            chip. Internal rows rely on the chevron hover; external rows keep
            the small up-right arrow to signal the jump off-site. #}
-        {% for item in ns.all_items[-4:] | reverse %}
+        {% for item in ns.all_items[-5:] | reverse %}
         {% if item.get('pageLink') %}
         <a class="news-row news-row--link news-row--no-date" href="{{ item['pageLink'] }}">
         {% elif item.get('link') %}
@@ -58,14 +58,7 @@
         {% endfor %}
     </div>
 
-    <div class="section-cta">
-        <a class="section-link" href="/news/">
-            <span>See all news</span>
-            <svg><use href="/assets/sprite.svg?v=4#svg-arrow-right"></use></svg>
-        </a>
-    </div>
-
-    {# Event-photo frame under the rail's CTA — the curated bannerImg shots
+    {# Event-photo frame between the rail's lede and CTA — the curated bannerImg shots
        from news articles (awards, seminars), distinct from the group-life
        set beside About. Same clean frame, same crossfade loop. #}
     {% set banner_items = (ns.all_items | selectattr('bannerImg') | list | reverse | list)[:8] %}
@@ -84,4 +77,12 @@
         {% endfor %}
     </aside>
     {% endif %}
+
+    <div class="section-cta">
+        <a class="section-link" href="/news/">
+            <span>See all news</span>
+            <svg><use href="/assets/sprite.svg?v=4#svg-arrow-right"></use></svg>
+        </a>
+    </div>
+
 </section>

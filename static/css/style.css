@@ -2207,7 +2207,11 @@ main > section:nth-of-type(odd) {
        against the right edge. */
     #news {
         display: grid;
-        grid-template-columns: 1fr minmax(15rem, 19rem);
+        /* List narrower, rail wider — the rail carries title, lede, photo
+           and CTA now, so it earns real column width; space-between parks
+           each column on its own edge. */
+        grid-template-columns: minmax(0, 44rem) minmax(19rem, 24rem);
+        justify-content: space-between;
         grid-template-rows: 1fr auto auto auto 1fr;
         column-gap: var(--space-24);
 
@@ -2226,16 +2230,16 @@ main > section:nth-of-type(odd) {
             grid-row: 1 / -1;
         }
 
-        & > .section-cta {
+        & > .news-rail-photo {
             grid-column: 2;
             grid-row: 3;
             margin-block-start: var(--space-6);
         }
 
-        & > .news-rail-photo {
+        & > .section-cta {
             grid-column: 2;
             grid-row: 4;
-            margin-block-start: var(--space-8);
+            margin-block-start: var(--space-6);
         }
     }
 }
