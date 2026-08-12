@@ -1663,6 +1663,9 @@ svg:has(use[href*="#svg-menu"]) {
 
 svg:has(use[href*="#svg-check"]) {
     aspect-ratio: 17/13;
+    /* The tick painted a hardcoded sage inside the sprite before the
+       currentColor conversion; marker keeps it green in filter chips. */
+    color: var(--marker);
 }
 
 svg:has(use[href*="#svg-energy"]) {
