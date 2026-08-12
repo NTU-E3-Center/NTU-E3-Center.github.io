@@ -1182,7 +1182,9 @@ footer {
         padding-inline: var(--gutter-x);
 
         display: grid;
-        grid-template-columns: 1.1fr auto 1fr;
+        /* Two zones since the contact column retired: brand left, grouped
+           sitemap right. */
+        grid-template-columns: 1fr auto;
         gap: var(--space-7) var(--space-12);
         align-items: start;
     }
@@ -1268,47 +1270,8 @@ footer {
         }
     }
 
-    & .ftr-contact {
-        font-style: normal;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-
-    & .ftr-contact-row {
-        display: flex;
-        align-items: flex-start;
-        gap: var(--space-2);
-        padding-block: var(--space-1);
-        font-size: var(--fs-secondary);
-        line-height: var(--lh-secondary);
-        color: var(--ink);
-        opacity: 0.85;
-        transition: opacity var(--hover-transition-time);
-
-        & svg {
-            width: 0.875rem;
-            height: 0.875rem;
-            flex-shrink: 0;
-            margin-block-start: 0.2rem;
-            fill: var(--marker);
-            transition: translate var(--hover-transition-time);
-        }
-
-        &:hover {
-            opacity: 1;
-        }
-
-        &[target="_blank"]:hover svg {
-            translate: 0.1rem -0.1rem;
-        }
-
-        &:focus-visible {
-            outline: 0.125rem solid var(--ink);
-            outline-offset: 0.2rem;
-            border-radius: 0.125rem;
-        }
-    }
+    /* .ftr-contact / .ftr-contact-row retired with the contact column —
+       the Contact page carries the details. */
 
     & .ftr-bottom {
         width: min(100%, 80rem);

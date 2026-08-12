@@ -206,6 +206,12 @@
    the inline nav (>64rem) — the drawer carries the groups below that. */
 .hdr-nav-group {
     position: relative;
+    /* Stretch to the full nav row (the logo sets the row height), so the
+       panel's top: 100% offset measures from the row's true bottom and the
+       hover target covers the whole row band. */
+    align-self: stretch;
+    display: flex;
+    align-items: center;
 }
 
 .hdr-nav-trigger {
@@ -237,23 +243,39 @@
     rotate: 180deg;
 }
 
+/* Flat dropdown: paper surface, one hairline border, whisper of shadow —
+   the same quiet-box language as the rest of the rebrand. The skewed-block
+   panel (2px ink border + hard offset shadow + skew) retired with it. */
 .hdr-nav-panel {
     position: absolute;
-    top: 100%;
+    /* Clear the header's own bottom edge: group bottom + the header's
+       padding-block (space-3-5) + its 2px rule, so the panel opens under
+       the line instead of lying across it. */
+    top: calc(100% + var(--space-3-5) + 0.5rem);
     left: 50%;
     min-width: 11rem;
-    padding: var(--space-2);
-    background: var(--main-bg-color);
-    border: 0.125rem solid var(--ink);
-    border-radius: 0.375rem;
-    box-shadow: var(--block-shadow-shift) var(--block-shadow-shift) var(--main-shadow-color);
-    transform: translate(-50%, -0.25rem) skewX(var(--block-skew));
+    padding: var(--space-1-5);
+    background: var(--paper);
+    border: 0.0625rem solid var(--line);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.5rem color-mix(in srgb, var(--ink) 6%, transparent);
+    transform: translate(-50%, -0.25rem);
     visibility: hidden;
     opacity: 0;
     transition:
         opacity var(--hover-transition-time),
         transform var(--hover-transition-time),
         visibility 0s linear var(--hover-transition-time);
+
+    /* Invisible bridge over the gap the offset creates — the pointer can
+       travel trigger → panel without the group losing :hover. */
+    &::before {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        inset-block-end: 100%;
+        height: calc(var(--space-3-5) + 0.75rem);
+    }
 }
 
 .hdr-nav-group:hover .hdr-nav-panel,
@@ -261,13 +283,12 @@
 .hdr-nav-group.is-open .hdr-nav-panel {
     visibility: visible;
     opacity: 1;
-    transform: translate(-50%, 0) skewX(var(--block-skew));
+    transform: translate(-50%, 0);
     transition: opacity var(--hover-transition-time), transform var(--hover-transition-time);
 }
 
 .hdr-panel-a {
     display: block;
-    transform: skewX(var(--content-skew));
     font-size: var(--fs-secondary);
     font-weight: var(--fw-heading);
     color: var(--ink);
