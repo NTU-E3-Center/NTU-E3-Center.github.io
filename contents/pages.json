@@ -32,14 +32,14 @@
             },
             {
                 "id": "members",
-                "title": "Members",
+                "title": "Center Members",
                 "link": "/members",
                 "icon": "/assets/sprite.svg#svg-members",
                 "navGroup": "People"
             },
             {
                 "id": "students",
-                "title": "Students & Alumni",
+                "title": "E3 Research Group",
                 "link": "/students",
                 "icon": "/assets/sprite.svg#svg-members",
                 "navGroup": "People"
@@ -97,16 +97,16 @@
     },
     "members-page": {
         "path": "members",
-        "title": "Members & Staff | E3 Center, NTU",
+        "title": "Center Members | E3 Center, NTU",
         "description": "The E3 Center team at National Taiwan University — Director Prof. I-Yun Lisa Hsieh (謝依芸) and center staff driving research on the energy transition.",
-        "subpageTitle": "Members",
+        "subpageTitle": "Center Members",
         "template": "pages/members"
     },
     "students-page": {
         "path": "students",
-        "title": "Students & Alumni · E3 Center · NTU 台大",
-        "description": "Ph.D. and Master students, and alumni of Prof. I-Yun Lisa Hsieh's research group at National Taiwan University, working on the energy transition.",
-        "subpageTitle": "Students & Alumni",
+        "title": "E3 Research Group · E3 Center · NTU 台大",
+        "description": "Ph.D. and Master students, and alumni of the E3 research group at National Taiwan University, working on the energy transition.",
+        "subpageTitle": "E3 Research Group",
         "template": "pages/students"
     },
     "publications-page": {
