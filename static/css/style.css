@@ -2157,7 +2157,6 @@ main > section:nth-of-type(odd) {
             grid-column: 2;
             grid-row: 3;
             margin-block-start: var(--space-6);
-            justify-content: flex-end;
         }
     }
 }
