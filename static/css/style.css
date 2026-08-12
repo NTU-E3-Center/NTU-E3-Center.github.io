@@ -1038,7 +1038,7 @@ main > section:nth-of-type(odd) {
     & .section-title,
     & .abt-section,
     & .section-cta {
-        max-width: 48rem;
+        max-width: var(--measure-statement);
     }
 }
 

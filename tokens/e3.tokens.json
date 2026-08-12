@@ -412,7 +412,7 @@
         },
         "statement": {
             "$type": "dimension",
-            "$value": "48rem",
+            "$value": "40rem",
             "$description": "Slogan-scale type — fewer characters per line at display size."
         }
     },
