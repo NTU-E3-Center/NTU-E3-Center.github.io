@@ -2073,6 +2073,39 @@ main > section:nth-of-type(odd) {
     color: var(--ink);
 }
 
+/* ── Homepage Recent publications: split layout ────────────────────────────
+   Left rail carries the heading, its lede and the CTA; the paper list sits
+   in the right column. The rail's CTA aligns to the list's bottom edge
+   (align-self: end on the second row the list spans). Collapses back to
+   the normal stacked flow at tablet widths, where a side rail would starve
+   the titles of measure. */
+@media (min-width: 64.0625rem) {
+    #publications {
+        display: grid;
+        grid-template-columns: minmax(15rem, 19rem) 1fr;
+        column-gap: var(--space-16);
+        align-items: start;
+
+        & > .section-title {
+            grid-column: 1;
+            grid-row: 1;
+            margin-block-end: 0;
+        }
+
+        & .publi-group {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+
+        & > .section-cta {
+            grid-column: 1;
+            grid-row: 2;
+            align-self: end;
+            margin-block-start: var(--space-8);
+        }
+    }
+}
+
 /* ── Homepage Recent work: lineless rows, chevron hover ────────────────────
    The title/meta pairing plus whitespace carries the separation, matching
    the pillars' grammar (one hairline where the section starts, nothing
