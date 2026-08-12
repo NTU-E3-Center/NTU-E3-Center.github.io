@@ -284,7 +284,7 @@ resBlockWithAni.forEach(block => {
     cascades.forEach((el) => {
         const i = [...el.parentElement.children].indexOf(el);
         el.classList.add('will-reveal');
-        el.style.setProperty('--_reveal-delay', (i * 90) + 'ms');
+        el.style.setProperty('--_reveal-delay', (120 + i * 150) + 'ms');
         io.observe(el);
     });
 }());

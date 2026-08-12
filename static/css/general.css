@@ -1170,7 +1170,7 @@ footer {
     width: 100%;
     /* No outer gutter — the inner boxes carry it (same fix as the header),
        so the footer brand lands on the sections' text edge. */
-    padding: 2.75rem 0 1.5rem;
+    padding: 2.75rem 0 2.75rem;
     border-top: 0.1875rem solid var(--ink);
     /* Surface, not white: the footer reads as the page's closing band in
        the banding rhythm rather than a leftover of the old white chrome. */
