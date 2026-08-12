@@ -985,6 +985,34 @@ section:has(.section-title) {
         }
     }
 
+    /* Homepage banding rhythm: titles alternate sides down the page —
+       each band anchors its heading to one edge (About/Publications left,
+       Research/News right). The modifier only moves the title block;
+       content below keeps its own alignment. */
+    & .section-title--end {
+        justify-content: flex-end;
+        text-align: end;
+    }
+
+    /* One quiet line under a section heading. Lives inside .section-title
+       (full-width flex item, so it wraps below the h2) and inherits the
+       title's side via text-align. */
+    & .section-title:has(.section-lede) {
+        flex-wrap: wrap;
+    }
+
+    & .section-lede {
+        width: 100%;
+        max-width: 38rem;
+        margin-block-start: var(--space-2);
+        font-size: var(--fs-secondary);
+        color: var(--muted);
+    }
+
+    & .section-title--end .section-lede {
+        margin-inline-start: auto;
+    }
+
     & .section-subtitle {
         margin-inline-start: var(--space-1);
 
