@@ -1246,6 +1246,9 @@ footer {
     & .ftr-nav {
         display: grid;
         grid-auto-flow: column;
+        /* Equal columns — each group gets the widest group's width, so the
+           four mini-columns read as one even band instead of ragged gaps. */
+        grid-auto-columns: 1fr;
         gap: var(--space-2) var(--space-10);
     }
 
