@@ -3,31 +3,6 @@ const body = document.querySelector('body');
 function getRandomInt(min, max) {return Math.floor(Math.random() * (max - min) + min);};
 
 // * no priority
-// to top button
-const toTopBtn = document.querySelector('.to-top-btn');
-
-let scrollThrottleTimer = null;
-window.addEventListener('scroll', function() {
-    if (scrollThrottleTimer) return;
-    scrollThrottleTimer = setTimeout(function() {
-        scrollFunction();
-        scrollThrottleTimer = null;
-    }, 100);
-}, { passive: true });
-function scrollFunction() {
-    if (document.body.scrollTop > window.innerHeight || document.documentElement.scrollTop > window.innerHeight) {
-        toTopBtn.style.display = "grid";
-        setTimeout(() => {
-            toTopBtn.style.opacity = "1";
-        }, 10);
-    } else {
-        toTopBtn.style.opacity = "0";
-        setTimeout(() => {
-            toTopBtn.style.display = "none";
-        }, 300);
-    };
-};
-// * no priority
 // menu
 const menu = document.querySelector('.menu');
 const menuBtn = document.querySelector('.menu-btn');
@@ -58,7 +33,6 @@ function menuOpen() {
     // scrollBarWidth is 0 on touch devices, so this is safe to apply
     // unconditionally.
     const compensate = scrollBarWidth + 'px';
-    toTopBtn.style.marginInlineEnd = compensate;
     menuBtn.style.marginInlineEnd = compensate;
     body.style.paddingInlineEnd = compensate;
 
@@ -71,7 +45,6 @@ function menuOpen() {
 };
 
 function menuClose() {
-    toTopBtn.style.marginInlineEnd = 0;
     menuBtn.style.marginInlineEnd = 0;
     body.style.paddingInlineEnd = 0;
 
