@@ -170,10 +170,14 @@
 
         .hp-text {
             width: 100%;
-            padding-inline: var(--space-12);
+            /* No extra inset: the text row shares the container's edge with
+               the artwork, so the logo starts exactly on the drawing's left
+               edge at tablet widths too (the 3rem inset here made it float
+               48px inside the art between 768 and 1024). */
             gap: var(--space-8);
-            /* Once the row wraps there is no right edge to align to. */
-            justify-content: flex-start;
+            /* The base space-between is kept: on one line the three E's end
+               on the artwork's right edge; once the row wraps, the lone
+               wrapped item sits at flex-start naturally. */
         }
 
         .hp-about-us {
