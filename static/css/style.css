@@ -2234,6 +2234,9 @@ main > section:nth-of-type(odd) {
             grid-column: 2;
             grid-row: 3;
             margin-block-start: var(--space-6);
+            /* A step narrower than the rail so the photo reads as an
+               illustration within the column, not a second content block. */
+            width: min(100%, 20rem);
         }
 
         & > .section-cta {
