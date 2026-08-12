@@ -375,12 +375,23 @@
     & .ani-line-dash,
     & .ani-energy-through { stroke: var(--marker); }
 
-    & .ani-battery-charge { stroke: var(--icon-flash-accent); }
+    /* Battery + PV sat sage after the restore because their running
+       animations (panel-flash, electric-flashing) override the class fills
+       and settle on --icon-flash-dark → --main-color-3, which the palette
+       trial turned sage. Re-point the flash tokens to the restored blue
+       tiers here — hero-scoped, so subpage icons keep the trial palette. */
+    --icon-flash-light: var(--illo-sky-faint);
+    --icon-flash-dark: var(--illo-sky-pale);
+
+    & .ani-battery-charge { stroke: var(--illo-sky-pale); }
 }
 
+/* Hero-only (both .ani-electric-flashing elements live in home.svg): the
+   bolt's flash phase is the original sky blue again, settling to ink —
+   which is the same navy the original settled on. */
 @keyframes electric-flashing {
     0% {
-        fill: var(--accent-graphic);
+        fill: var(--illo-sky);
     }
 
     10%,
