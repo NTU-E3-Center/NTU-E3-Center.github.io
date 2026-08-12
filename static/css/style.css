@@ -2072,6 +2072,50 @@ main > section:nth-of-type(odd) {
     color: var(--ink);
 }
 
+/* ── Homepage Recent work: lineless rows, chevron hover ────────────────────
+   The title/meta pairing plus whitespace carries the separation, matching
+   the pillars' grammar (one hairline where the section starts, nothing
+   inside). The hover takes over the border's click-extent job: the row's
+   content nudges right and a stroke chevron surfaces in the vacated space —
+   same drawing language as the sprite arrows (square caps, marker). */
+#publications {
+    & .news-rows { border-top: 0; }
+    & .news-row { border-bottom: 0; }
+
+    & .news-row--link {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 0.125rem;
+            width: 0.4375rem;
+            height: 0.4375rem;
+            translate: 0 -50%;
+            rotate: 45deg;
+            border-block-start: 0.09375rem solid var(--marker);
+            border-inline-end: 0.09375rem solid var(--marker);
+            opacity: 0;
+            transition: opacity var(--hover-transition-time);
+        }
+
+        & .news-row-body {
+            transition: translate var(--hover-transition-time);
+        }
+
+        &:hover {
+            /* The tint belongs to the bordered list on /publications/; here
+               the shift + chevron are the whole hover statement. */
+            background: none;
+
+            &::before { opacity: 1; }
+
+            & .news-row-body { translate: 1.5rem 0; }
+        }
+    }
+}
+
 /* publication keyword chips */
 .pub-keywords { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); }
 .pub-keyword-chip { font-size: var(--fs-secondary); padding: 0.125rem 0.5rem; background: color-mix(in srgb, var(--ink) 8%, transparent); border-radius: 999px; color: var(--ink); }
