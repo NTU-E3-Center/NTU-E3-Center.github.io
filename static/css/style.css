@@ -980,14 +980,14 @@
     align-items: center;
     gap: var(--space-2);
     padding-block: var(--space-2);
-    /* Quieter than the slab it replaced: one size down and body weight rather
-       than heading weight. It is a way out of the section, not a call to it. */
-    font-size: var(--fs-body-base);
+    /* Quieter still: secondary size and muted ink at rest, waking to full
+       ink on hover. It is a way out of the section, not a call to it. */
+    font-size: var(--fs-secondary);
     font-weight: var(--fw-body);
-    color: var(--ink);
+    color: var(--muted);
     text-decoration: none;
-    border-block-end: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
-    transition: border-color var(--hover-transition-time);
+    border-block-end: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+    transition: border-color var(--hover-transition-time), color var(--hover-transition-time);
 
     & svg {
         width: 1em;
@@ -997,6 +997,7 @@
 
     &:hover,
     &:focus-visible {
+        color: var(--ink);
         border-block-end-color: var(--ink);
     }
 
