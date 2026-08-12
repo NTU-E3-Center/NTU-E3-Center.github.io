@@ -1,6 +1,8 @@
 <section id="news">
     <div class="section-title section-title--end">
         <h2><a class="section-title-link" href="/news/">In the news</a></h2>
+        <p class="section-lede">Awards, media appearances, and milestones from
+           the center and its people.</p>
     </div>
 
     {# Flat latest-5 list, newest first (spec: 2026-08-05-home-news-flat-design).
@@ -20,32 +22,28 @@
         {% set ns.all_items = ns.all_items + news['items'] %}
     {% endfor %}
     <div class="news-rows">
+        {# Teaser rows in the Recent publications grammar: an eyebrow line
+           (category · month year) over the title — no date column, no badge
+           chip. Internal rows rely on the chevron hover; external rows keep
+           the small up-right arrow to signal the jump off-site. #}
         {% for item in ns.all_items[-5:] | reverse %}
         {% if item.get('pageLink') %}
-        <a class="news-row news-row--link" href="{{ item['pageLink'] }}">
+        <a class="news-row news-row--link news-row--no-date" href="{{ item['pageLink'] }}">
         {% elif item.get('link') %}
-        <a class="news-row news-row--link" target="_blank" rel="noopener" href="{{ item['link'] }}">
+        <a class="news-row news-row--link news-row--no-date" target="_blank" rel="noopener" href="{{ item['link'] }}">
         {% else %}
-        <div class="news-row">
+        <div class="news-row news-row--no-date">
         {% endif %}
-            <div class="news-row-date">
-                <span class="news-row-mm">{{ item['month'] }}</span>
-                <span class="news-row-yy">{{ item['year'] }}</span>
-            </div>
-
             <div class="news-row-body">
                 {% set cat = item.get('category', '') %}
-                {% if cat %}
-                <span class="news-row-badge" data-cat="{{ cat }}">{{ badge_label.get(cat, cat) }}</span>
-                {% endif %}
+                <p class="news-row-eyebrow">
+                    {%- if cat %}{{ badge_label.get(cat, cat) }} · {% endif -%}
+                    {{ item['month'] }} 20{{ item['year'][1:] }}
+                </p>
                 <p class="news-row-title">{{ item['title'] }}</p>
             </div>
 
-            {% if item.get('pageLink') %}
-            <span class="news-row-arrow" aria-hidden="true">
-                <svg><use href="/assets/sprite.svg?v=4#svg-arrow-right"></use></svg>
-            </span>
-            {% elif item.get('link') %}
+            {% if item.get('link') and not item.get('pageLink') %}
             <span class="news-row-arrow" aria-hidden="true">
                 <svg><use href="/assets/sprite.svg?v=4#svg-arrow-top-right"></use></svg>
             </span>
