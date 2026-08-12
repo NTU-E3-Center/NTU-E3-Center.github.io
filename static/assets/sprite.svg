@@ -88,16 +88,21 @@
         <polygon fill="#217e77" points="150.12 158.75 158.5 173.27 200 101.39 158.76 29.96 117.26 101.83 125.38 115.89 160.05 55.84 168.56 70.58 133.89 130.64 141.61 144 176.1 84.26 184.61 99.01 150.12 158.75"/>
     </symbol>
     
+    <!-- Arrows paint with currentColor so the consuming page's CSS owns
+         their colour (default: --marker, set in general.css). External
+         <use> shadow trees can't be reached by document fill rules, but
+         currentColor inherits through — the one styling channel that
+         crosses the sprite boundary. -->
     <symbol id="svg-arrow-top-right" viewBox="0 0 10 10">
-        <polygon fill="#c4c691" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
+        <polygon fill="currentColor" points="1.45 .06 1.45 2.49 5.8 2.49 .06 8.22 1.78 9.94 7.51 4.2 7.51 8.55 9.94 8.55 9.94 .06 1.45 .06"/>
     </symbol>
 
     <symbol id="svg-arrow-right" viewBox="0 0 10 10">
-        <polygon fill="#c4c691" points="5.29 .29 3.88 1.71 6.17 4 0 4 0 6 6.17 6 3.88 8.29 5.29 9.71 10 5 5.29 .29"/>
+        <polygon fill="currentColor" points="5.29 .29 3.88 1.71 6.17 4 0 4 0 6 6.17 6 3.88 8.29 5.29 9.71 10 5 5.29 .29"/>
     </symbol>
 
     <symbol id="svg-arrow-left" viewBox="0 0 10 10">
-        <polygon fill="#c4c691" points="4.7,0.3 6.1,1.7 3.8,4 10,4 10,6 3.8,6 6.1,8.3 4.7,9.7 0,5"/>
+        <polygon fill="currentColor" points="4.7,0.3 6.1,1.7 3.8,4 10,4 10,6 3.8,6 6.1,8.3 4.7,9.7 0,5"/>
     </symbol>
     
     <symbol id="svg-quote" viewBox="0 0 14 14">

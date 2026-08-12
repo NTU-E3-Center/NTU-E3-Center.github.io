@@ -704,6 +704,14 @@ i {
     fill: var(--main-bg-color);
 }
 
+/* Arrow glyphs in the sprite paint with currentColor, so this rule owns
+   their colour sitewide — previously a hardcoded sage (#c4c691) inside
+   sprite.svg that no CSS could reach. Moss is the mark-traceable successor.
+   A context wanting a quieter arrow overrides `color` on its own svg. */
+svg:has(use[href*="#svg-arrow"]) {
+    color: var(--marker);
+}
+
 .fill-m-2 {
     fill: var(--accent-graphic);
 }
