@@ -39,10 +39,10 @@
     {% endif %}
     {% endfor %}
 
-    {# Quiet photo frame beside the statement: the five newest group-life
+    {# Quiet photo frame beside the statement: the ten newest group-life
        shots crossfading (script.js § about photo loop). Same responsive
        variants the /group-life/ page uses; alt text carries the caption. #}
-    {% set glf_items = (structures['group-life'][0]['items'] | reverse | list)[:5] %}
+    {% set glf_items = (structures['group-life'][0]['items'] | reverse | list)[:10] %}
     {% if glf_items %}
     <aside class="abt-photo" aria-label="Photos from group life">
         {% for item in glf_items %}
