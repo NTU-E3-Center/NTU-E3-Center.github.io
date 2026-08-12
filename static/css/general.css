@@ -1264,6 +1264,11 @@ footer {
         /* S·2 — was 1rem; collapsed to 0.875rem so footer carries one body
            size (caption) plus the eyebrow column title. Hierarchy comes
            from color + opacity, not size. */
+        /* Touch target: the 19px text line alone is far under the 44pt
+           minimum — padding extends the hit area without changing the
+           text's visual size (larger still on touch widths below). */
+        display: inline-block;
+        padding-block: 0.25rem;
         font-size: var(--fs-secondary);
         line-height: var(--lh-lede);
         color: var(--ink);
@@ -1310,6 +1315,11 @@ footer {
         grid-auto-flow: row;
         grid-template-columns: 1fr 1fr;
         gap: var(--space-5) var(--space-8);
+    }
+
+    /* Touch tier: links reach the 44pt target (19px line + 2x 0.75rem). */
+    footer .ftr-link {
+        padding-block: 0.75rem;
     }
 }
 
