@@ -2087,7 +2087,7 @@ main > section:nth-of-type(odd) {
            leftover height equally, centring the whole rail against the
            list the paper column defines. */
         grid-template-rows: 1fr auto auto 1fr;
-        column-gap: var(--space-16);
+        column-gap: var(--space-24);
 
         & > .section-title {
             grid-column: 1;
