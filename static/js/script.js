@@ -289,20 +289,25 @@ resBlockWithAni.forEach(block => {
     });
 }());
 
-// --- ABOUT PHOTO LOOP: crossfade the group-life frame ---
-// The box beside the About statement cycles its stacked images by moving
-// .is-showing. Reduced-motion users keep the first photo, static.
+// --- PHOTO LOOPS: crossfade every .photo-frame ---
+// Each frame (About group-life box, news rail event box) cycles its stacked
+// images by moving .is-showing. Frames start half a beat apart so two boxes
+// on screen never switch in the same instant. Reduced-motion users keep the
+// first photo, static.
 (function () {
-    const photos = document.querySelectorAll('.abt-photo-img');
-    if (photos.length < 2) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let current = 0;
-    setInterval(() => {
-        photos[current].classList.remove('is-showing');
-        current = (current + 1) % photos.length;
-        photos[current].classList.add('is-showing');
-    }, 3500);
+    document.querySelectorAll('.photo-frame').forEach((frame, idx) => {
+        const photos = frame.querySelectorAll('.photo-frame-img');
+        if (photos.length < 2) return;
+        let current = 0;
+        setTimeout(() => {
+            setInterval(() => {
+                photos[current].classList.remove('is-showing');
+                current = (current + 1) % photos.length;
+                photos[current].classList.add('is-showing');
+            }, 3500);
+        }, idx * 1750);
+    });
 }());
 
 // --- HERO PLANE BANNER: grow the banner to fit the news headline ---

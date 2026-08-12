@@ -64,4 +64,24 @@
             <svg><use href="/assets/sprite.svg?v=4#svg-arrow-right"></use></svg>
         </a>
     </div>
+
+    {# Event-photo frame under the rail's CTA — the curated bannerImg shots
+       from news articles (awards, seminars), distinct from the group-life
+       set beside About. Same clean frame, same crossfade loop. #}
+    {% set banner_items = (ns.all_items | selectattr('bannerImg') | list | reverse | list)[:8] %}
+    {% if banner_items %}
+    <aside class="photo-frame news-rail-photo" aria-label="Photos from recent news">
+        {% for item in banner_items %}
+        {% set base = item['bannerImg'].split('.')[0] %}
+        <img class="photo-frame-img{% if loop.first %} is-showing{% endif %}"
+             loading="lazy" width="800" height="600"
+             src="{{ base }}-800w.webp"
+             srcset="{{ base }}-400w.webp 400w,
+                     {{ base }}-800w.webp 800w,
+                     {{ base }}-1200w.webp 1200w"
+             sizes="(min-width: 64.0625rem) 19rem, 90vw"
+             alt="{{ item['title'] }}">
+        {% endfor %}
+    </aside>
+    {% endif %}
 </section>

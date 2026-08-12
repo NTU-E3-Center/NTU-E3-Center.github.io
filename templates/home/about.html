@@ -44,10 +44,10 @@
        variants the /group-life/ page uses; alt text carries the caption. #}
     {% set glf_items = (structures['group-life'][0]['items'] | reverse | list)[:10] %}
     {% if glf_items %}
-    <aside class="abt-photo" aria-label="Photos from group life">
+    <aside class="photo-frame abt-photo" aria-label="Photos from group life">
         {% for item in glf_items %}
         {% set base = item['imgPath'].split('.')[0] %}
-        <img class="abt-photo-img{% if loop.first %} is-showing{% endif %}"
+        <img class="photo-frame-img{% if loop.first %} is-showing{% endif %}"
              loading="lazy" width="800" height="600"
              src="{{ base }}-800w.webp?v=2"
              srcset="{{ base }}-400w.webp?v=2 400w,
