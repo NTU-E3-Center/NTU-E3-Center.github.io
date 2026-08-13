@@ -1193,14 +1193,26 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        /* Fill the row so the copyright line can sit at the column's
-           bottom, baseline-aligned with the sitemap's last row. */
-        align-self: stretch;
+    }
 
-        & .ftr-info {
-            margin-block-start: auto;
-            padding-block-start: var(--space-6);
-        }
+    /* Desktop: © shares the brand column's grid cell and pins to its
+       bottom, baseline-aligned with the sitemap's last row. Brand and nav
+       are pinned explicitly — an explicitly-placed © would otherwise
+       displace the auto-placed brand into column 2. */
+    & .ftr-brand {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    & > .ftr-grid > .ftr-nav {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    & > .ftr-grid > .ftr-info {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: end;
     }
 
     & .ftr-logo {
@@ -1308,6 +1320,12 @@ footer {
 
     footer .ftr-brand {
         grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    footer > .ftr-grid > .ftr-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
     }
 
     /* Grouped sitemap folds to a 2x2 of mini-columns. */
@@ -1317,9 +1335,22 @@ footer {
         gap: var(--space-5) var(--space-8);
     }
 
-    /* Touch tier: links reach the 44pt target (19px line + 2x 0.75rem). */
+    /* Touch tier: links reach the 44pt target (19px line + 2x 0.75rem);
+       the padding provides the visual rhythm, so the list gap collapses. */
     footer .ftr-link {
         padding-block: 0.75rem;
+    }
+
+    footer .ftr-nav ul {
+        gap: 0;
+    }
+
+    /* Mobile: © drops below the sitemap as the footer's last line. */
+    footer > .ftr-grid > .ftr-info {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        align-self: auto;
+        margin-block-start: var(--space-2);
     }
 }
 

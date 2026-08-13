@@ -1157,6 +1157,15 @@ main > section:nth-of-type(odd) {
     font-size: var(--fs-h3);
     line-height: 1.2;
     margin: 0;
+    /* The global h3 rule lays the moss dash out as a flex sibling, which
+       parks it on the container's right edge when the title wraps. Block
+       flow + inline-block dash keeps it hugging the last word. */
+    display: block;
+
+    &::after {
+        display: inline-block;
+        translate: 0 0;
+    }
 }
 
 .hp-pillar-lede {

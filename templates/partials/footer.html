@@ -5,9 +5,6 @@
                 <img src="/assets/images/e3-center-logo-inline.svg" alt="E3 Center" width="232" height="47">
             </a>
             <p class="ftr-tagline">Energy · Economics · Environment</p>
-            {# © sits at the brand column's bottom, baseline-aligned with the
-               sitemap's last row — no divider rule, no separate bottom bar. #}
-            <p class="ftr-info">&copy; {{ year }} E3 Center, National Taiwan University. All rights reserved.</p>
         </div>
 
         {# Sitemap grouped like the header nav (same navGroup taxonomy from
@@ -39,6 +36,11 @@
 
         {# Contact details removed — the Contact page carries them; the
            sitemap's Contact link is the one pointer the footer needs. #}
+
+        {# © is a grid child: desktop overlays the brand column and pins to
+           its bottom (baseline with the sitemap's last row); mobile places
+           it last, under the sitemap. #}
+        <p class="ftr-info">&copy; {{ year }} E3 Center, National Taiwan University. All rights reserved.</p>
     </div>
 
 </footer>
