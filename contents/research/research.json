@@ -4,8 +4,8 @@
         "pillars": [
             {
                 "id": "smart-energy-systems",
-                "title": "Smart Energy Systems",
-                "titleZh": "智慧能源系統",
+                "title": "Smart Energy Systems & Grid Resilience",
+                "titleZh": "智慧能源系統與電網韌性",
                 "lede": "How renewable generation is forecast, dispatched, and kept resilient — from a single building to the grid.",
                 "clusters": [
                     {
