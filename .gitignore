@@ -29,3 +29,6 @@ audits/
 
 # Superpowers brainstorming companion (local mockups)
 .superpowers/
+
+# stale sprite backup
+static/assets/*.bak
