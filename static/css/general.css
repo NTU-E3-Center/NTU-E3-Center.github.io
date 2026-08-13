@@ -1809,8 +1809,13 @@ body {
         }
 
         & .ftr-tagline {
-            font-size: var(--fs-secondary);
+            font-size: var(--fs-meta);
             margin-block-start: var(--space-2);
+        }
+
+        & .ftr-link {
+            font-size: var(--fs-meta);
+            padding-block: 0.3125rem;
         }
 
         & .ftr-col-title {
