@@ -32,3 +32,5 @@ audits/
 
 # stale sprite backup
 static/assets/*.bak
+contents/videos/hero-source.mp4
+contents/videos/hero_old.mp4

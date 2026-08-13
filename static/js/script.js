@@ -289,6 +289,19 @@ resBlockWithAni.forEach(block => {
     });
 }());
 
+// --- HERO VIDEO: reduced-motion opt-out ---
+// The video carries no information the slogan doesn't, so for users who
+// asked for less motion it holds on its poster frame instead of looping.
+(function () {
+    const v = document.querySelector('.hp-video');
+    if (!v) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        v.autoplay = false;
+        v.removeAttribute('autoplay');
+        v.pause();
+    }
+}());
+
 // --- PHOTO LOOPS: crossfade every .photo-frame ---
 // Each frame (About group-life box, news rail event box) cycles its stacked
 // images by moving .is-showing. Frames start half a beat apart so two boxes
