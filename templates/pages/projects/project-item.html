@@ -16,12 +16,12 @@
     {% set _kw = [_funder, 'E3 Center', 'research project', 'sustainable energy', 'NTU', '台大', 'I-Yun Lisa Hsieh', '謝依芸'] %}
     <meta name="keywords" content="{{ _kw | select | list | join(', ') }}">
 
-    <link rel="canonical" href="https://e3center.caece.net{{ proj['pageLink'] }}" />
+    <link rel="canonical" href="{{ base_url }}{{ proj['pageLink'] }}" />
 
-    <meta property="og:url" content="https://e3center.caece.net{{ proj['pageLink'] }}" />
+    <meta property="og:url" content="{{ base_url }}{{ proj['pageLink'] }}" />
     <meta property="og:title" content="{{ _short }} | E3 Center" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta property="og:image" content="{{ base_url }}/assets/images/og-image-1200x630.png" />
     <meta property="og:description" content="{{ _meta_desc }}" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="E3 Center" />
@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ _short }} | E3 Center" />
     <meta name="twitter:description" content="{{ _meta_desc }}" />
-    <meta name="twitter:image" content="https://e3center.caece.net/assets/images/og-image-1200x630.png" />
+    <meta name="twitter:image" content="{{ base_url }}/assets/images/og-image-1200x630.png" />
 
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="YA_W9CdDDbSUMcW4Dr4CPEbGFWW61ZRHtBs-gmPTRlU" />
@@ -78,12 +78,12 @@
     {
       "@context": "https://schema.org",
       "@type": "ResearchProject",
-      "@id": "https://e3center.caece.net{{ proj['pageLink'] }}#project",
+      "@id": "{{ base_url }}{{ proj['pageLink'] }}#project",
       "name": {{ proj['titleEn'] | tojson }},
       {% if proj.get('titleZh') %}"alternateName": {{ proj['titleZh'] | tojson }},
       {% endif %}"description": {{ _meta_desc | tojson }},
-      "url": "https://e3center.caece.net{{ proj['pageLink'] }}",
-      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://e3center.caece.net{{ proj['pageLink'] }}" },
+      "url": "{{ base_url }}{{ proj['pageLink'] }}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ base_url }}{{ proj['pageLink'] }}" },
       {% if proj.get('startDate') %}"startDate": {{ proj['startDate'] | tojson }},
       {% endif %}{% if proj.get('endDate') %}"endDate": {{ proj['endDate'] | tojson }},
       {% endif %}"funder": {
@@ -95,10 +95,10 @@
         {% for p in proj.get('teamResolved') or [] %}{{ _comma() }}{
           "@type": "Person",
           "name": {{ p['name'] | tojson }}{% if p.get('pageLink') %},
-          "url": "https://e3center.caece.net{{ p['pageLink'] }}"{% endif %}
+          "url": "{{ base_url }}{{ p['pageLink'] }}"{% endif %}
         }{% endfor %}
       ],
-      "parentOrganization": { "@id": "https://e3center.caece.net/#organization" }
+      "parentOrganization": { "@id": "{{ base_url }}/#organization" }
     }
     </script>
     <script type="application/ld+json">
@@ -106,8 +106,8 @@
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
-        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://e3center.caece.net/projects/" },
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ base_url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "{{ base_url }}/projects/" },
         { "@type": "ListItem", "position": 3, "name": {{ proj['titleEn'] | tojson }} }
       ]
     }

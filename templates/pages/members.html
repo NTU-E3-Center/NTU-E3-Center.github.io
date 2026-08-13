@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% set description = 'The E3 Center team at National Taiwan University — Director Prof. I-Yun Lisa Hsieh (謝依芸) and center staff driving research on the energy transition.' %}
 {% set keywords = 'E3 Center members, E3 Center staff, NTU sustainable energy lab, NTU civil engineering, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學, research center team' %}
-{% set canonicalLink = 'https://e3center.caece.net/members/' %}
+{% set canonicalLink = base_url ~ '/members/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Members | E3 Center",
-  "url": "https://e3center.caece.net/members/",
-  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "url": "{{ base_url }}/members/",
+  "isPartOf": { "@id": "{{ base_url }}/#organization" },
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": [
@@ -25,9 +25,9 @@
               "position": {{ _ns.pos }},
               "item": {
                 "@type": "Person",
-                "@id": "https://e3center.caece.net{{ _m['pageLink'] }}/#person",
+                "@id": "{{ base_url }}{{ _m['pageLink'] }}/#person",
                 "name": {{ (_m.get('chiNameEng') or _m.get('engName') or 'Member') | tojson }},
-                "url": "https://e3center.caece.net{{ _m['pageLink'] }}/"
+                "url": "{{ base_url }}{{ _m['pageLink'] }}/"
               }
             }
           {% endif %}
@@ -42,7 +42,7 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ base_url }}/" },
     { "@type": "ListItem", "position": 2, "name": "Members" }
   ]
 }

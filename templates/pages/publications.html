@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% set description = 'Peer-reviewed publications from E3 Center, NTU, on transportation electrification, renewable energy, hydrogen, smart grids, carbon policy, and green finance.' %}
 {% set keywords = 'E3 Center publications, sustainable energy research papers, transportation electrification, electric mobility, renewable energy, hydrogen economy, smart grid, carbon policy, green finance, net-zero Taiwan, NTU civil engineering, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學' %}
-{% set canonicalLink = 'https://e3center.caece.net/publications/' %}
+{% set canonicalLink = base_url ~ '/publications/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Publications | E3 Center",
-  "url": "https://e3center.caece.net/publications/",
-  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "url": "{{ base_url }}/publications/",
+  "isPartOf": { "@id": "{{ base_url }}/#organization" },
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": [
@@ -44,7 +44,7 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ base_url }}/" },
     { "@type": "ListItem", "position": 2, "name": "Publications" }
   ]
 }

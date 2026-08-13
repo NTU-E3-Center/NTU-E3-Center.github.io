@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% set description = 'The NTU E3 Research Center — mission, history, and the team researching Taiwan\'s sustainable energy transition. Led by Prof. I-Yun Lisa Hsieh.' %}
 {% set keywords = 'about E3 Center, NTU E3 Research Center, E3 group history, sustainable energy transition lab, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學, energy economics environment, NTU civil engineering' %}
-{% set canonicalLink = 'https://e3center.caece.net/about/' %}
+{% set canonicalLink = base_url ~ '/about/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   "name": "About | E3 Center",
-  "url": "https://e3center.caece.net/about/",
-  "isPartOf": { "@id": "https://e3center.caece.net/#organization" },
+  "url": "{{ base_url }}/about/",
+  "isPartOf": { "@id": "{{ base_url }}/#organization" },
   "mainEntity": {
     "@type": "ResearchOrganization",
     "name": "NTU E3 Research Center",
     "alternateName": "E3 Center",
     "foundingDate": "2025",
     "parentOrganization": { "@type": "CollegeOrUniversity", "name": "National Taiwan University" },
-    "url": "https://e3center.caece.net/"
+    "url": "{{ base_url }}/"
   }
 }
 </script>

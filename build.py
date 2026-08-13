@@ -29,6 +29,11 @@ env.globals['seo_detect_language'] = seo_helpers.detect_language
 # Non-production builds (Cloudflare's beta project) mark every page
 # noindex; see base.html and write_robots().
 env.globals['is_production'] = IS_PRODUCTION
+# Canonical origin for templates. config.py's docstring has long claimed
+# this existed; it did not, so 15 templates hardcoded the domain into
+# canonicals, JSON-LD and Open Graph tags. Now it is real and follows
+# SITE_URL, which is what lets one codebase serve two hosts.
+env.globals['base_url'] = SITE_URL
 
 
 def bold_author(authors_str, name):

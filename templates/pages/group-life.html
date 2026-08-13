@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% set description = 'Photos from the E3 Center group at National Taiwan University — research life, events, gatherings, conferences, and milestones.' %}
 {% set keywords = 'E3 Center group life, E3 group photos, NTU sustainable energy group, lab life, group gatherings, conferences, events, I-Yun Lisa Hsieh, 謝依芸, 台大, 國立臺灣大學' %}
-{% set canonicalLink = 'https://e3center.caece.net/group-life/' %}
+{% set canonicalLink = base_url ~ '/group-life/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Group Life | E3 Center",
-  "url": "https://e3center.caece.net/group-life/",
-  "isPartOf": { "@id": "https://e3center.caece.net/#organization" }
+  "url": "{{ base_url }}/group-life/",
+  "isPartOf": { "@id": "{{ base_url }}/#organization" }
 }
 </script>
 <script type="application/ld+json">
@@ -17,7 +17,7 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://e3center.caece.net/" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ base_url }}/" },
     { "@type": "ListItem", "position": 2, "name": "Group Life" }
   ]
 }

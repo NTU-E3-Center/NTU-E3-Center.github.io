@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% set description = 'Ongoing research topics at the NTU E3 Center — smart energy systems, low-carbon transport and supply chains, and data-driven energy decision-making, from forecasting and microgrids to logistics, alternative fuels, and policy evaluation.' %}
 {% set keywords = 'E3 Center research topics, smart energy systems, energy forecasting, microgrid resilience, energy storage dispatch, low-carbon logistics, EV charger siting, vehicle routing, sustainable aviation fuel, energy policy evaluation, green finance, NTU energy lab, 台大, 國立臺灣大學' %}
-{% set canonicalLink = 'https://e3center.caece.net/research/' %}
+{% set canonicalLink = base_url ~ '/research/' %}
 {% block jsonld %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Research Topics | E3 Center",
-  "url": "https://e3center.caece.net/research/",
-  "isPartOf": { "@id": "https://e3center.caece.net/#organization" }
+  "url": "{{ base_url }}/research/",
+  "isPartOf": { "@id": "{{ base_url }}/#organization" }
 }
 </script>
 {% endblock %}

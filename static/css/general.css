@@ -296,7 +296,7 @@ i {
     .news-item-body,
     .pub-item-abstract,
     .contact-tagline
-) a[href^="http"]:not([href*="e3center.caece.net"]):not([href^="/"])::after {
+) a[href^="http"]:not([href*="e3center."]):not([href^="/"])::after {
     /* B·6 — SVG-mask arrow. Both Unicode candidates (\2197 and \2192)
        inherited unreliable font metrics — \2197 fell into emoji
        presentation (wide), \2192 carried wide kerning whitespace in
@@ -330,7 +330,7 @@ i {
     .news-item-body,
     .pub-item-abstract,
     .contact-tagline
-) a[href^="http"]:not([href*="e3center.caece.net"]):not([href^="/"]):hover::after {
+) a[href^="http"]:not([href*="e3center."]):not([href^="/"]):hover::after {
     opacity: 1;
     /* Nudge up + right, matching the arrow's direction. */
     transform: translate(0.05em, -0.05em);
@@ -1927,7 +1927,7 @@ body {
     /* Print the href after each external link so the URL survives. The
        :where prose recipe is now under the link-color: #000 above, so the
        link text reads as plain black; the URL annotation is small grey. */
-    a[href^="http"]:not([href*="e3center.caece.net"])::after {
+    a[href^="http"]:not([href*="e3center."])::after {
         content: " (" attr(href) ")" !important;
         font-size: 0.8em;
         font-weight: normal;
