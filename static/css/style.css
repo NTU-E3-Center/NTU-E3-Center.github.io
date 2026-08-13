@@ -1091,6 +1091,38 @@ main > section:nth-of-type(odd) {
     translate: 0 0;
 }
 
+/* ── Touch affordance for the lineless rows ────────────────────────────────
+   No hover exists below the desktop tier, so linked rows carry a static
+   chevron on the trailing edge — the standard mobile list cue, drawn in the
+   marker language the hover chevron already uses. External rows keep their
+   up-right arrow instead of doubling up. */
+@media (max-width: 64rem) {
+    :is(#publications, #news) .news-row--link:not(:has(.news-row-arrow)) {
+        padding-inline-end: var(--space-6);
+
+        &::before {
+            opacity: 1;
+            inset-inline-start: auto;
+            inset-inline-end: 0.25rem;
+        }
+    }
+}
+
+/* Phone: framed photos step down from full column width so they read as
+   illustrations between text blocks, with clear air on both sides; the
+   tracked news eyebrow narrows — 0.14em at 12px uppercase reads gappy on
+   a 320px measure. */
+@media (max-width: 37.5rem) {
+    .photo-frame {
+        width: min(100%, 17.5rem);
+        margin-block: var(--space-6);
+    }
+
+    #news .news-row-eyebrow {
+        letter-spacing: 0.08em;
+    }
+}
+
 /* Statement + photo split, matching the other homepage splits. */
 @media (min-width: 64.0625rem) {
     #about-us {
