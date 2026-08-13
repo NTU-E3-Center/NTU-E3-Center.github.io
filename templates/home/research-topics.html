@@ -9,8 +9,8 @@
     {# Plain headings throughout — "All research topics" is the one way in,
        so titles stop being duplicate targets (same rule as Recent
        publications). #}
-    <div class="section-title section-title--end">
-        <h2>What we're working on</h2>
+    <div class="section-title">
+        <h2>Research topics we're working on</h2>
     </div>
 
     <div class="hp-pillars">
@@ -33,7 +33,6 @@
                      alt="{{ pillar['imageAlt'] if pillar.get('imageAlt') else pillar['title'] }}">
             </div>
             {% endif %}
-            <p class="hp-pillar-num">{{ '%02d' % loop.index }}</p>
             <h3 class="hp-pillar-title">{{ pillar['title'] }}</h3>
             {% if pillar['lede'] %}
             <p class="hp-pillar-lede">{{ pillar['lede'] }}</p>

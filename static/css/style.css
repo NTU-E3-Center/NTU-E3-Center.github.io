@@ -1180,30 +1180,46 @@ main > section:nth-of-type(odd) {
 }
 
 /* Pillar photo — the shared .photo-frame treatment (hairline, 4px radius,
-   3:2) sized to its column and set above the number. Static, unlike the
-   About and news frames: one photo per pillar, no crossfade. */
+   3:2) sized to its column, leading each pillar now the numbers are gone.
+   Static, unlike the About and news frames: one photo per pillar. */
 .hp-pillar-photo {
     margin-block-end: var(--space-4);
 }
 
-.hp-pillar-num {
-    font-size: var(--fs-eyebrow);
-    letter-spacing: 0.1em;
-    color: var(--muted);
+/* Hover: the photo eases up inside its fixed frame and the hairline
+   deepens. Scale rather than translate so nothing reflows, and it stays
+   inside the frame's overflow — a quiet "the page notices you" cue for
+   blocks that are not themselves links. */
+.hp-pillar-photo .photo-frame-img {
+    transition: scale 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hp-pillar:hover .hp-pillar-photo {
+    border-color: color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.hp-pillar:hover .hp-pillar-photo .photo-frame-img {
+    scale: 1.04;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hp-pillar:hover .hp-pillar-photo .photo-frame-img { scale: 1; }
 }
 
 .hp-pillar-title {
     font-size: var(--fs-h3);
     line-height: 1.2;
     margin: 0;
-    /* The global h3 rule lays the moss dash out as a flex sibling, which
-       parks it on the container's right edge when the title wraps. Block
-       flow + inline-block dash keeps it hugging the last word. */
     display: block;
+    /* Reserve two lines on every title so the ledes below start on one
+       baseline across the row, however long each title runs. */
+    min-height: 2.4em;
+    text-wrap: balance;
 
+    /* No moss dash here — it trailed the title as a stray tick once the
+       row became photo-led. The global h3 rule still supplies it elsewhere. */
     &::after {
-        display: inline-block;
-        translate: 0 0;
+        content: none;
     }
 }
 
