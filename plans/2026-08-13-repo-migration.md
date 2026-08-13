@@ -77,6 +77,63 @@ build command.
    - turn off Pages in the repo settings so two systems aren't claiming the domain.
    Do this **after** cutover, not before — `gh-pages` is the rollback.
 
+## Domains, and retiring e3center.caece.net
+
+| Host | Serves | Notes |
+|---|---|---|
+| `e3center.net` | production (branch `source`) | the citable address; apex, `www` 301s to it |
+| `beta.e3center.net` | rebrand branch, internal review | noindex + Cloudflare Access |
+| `e3center.caece.net` | **301 → `e3center.net`, kept indefinitely** | cited in published papers and the NTU directory |
+
+### Why the repo can go private
+
+Verified 2026-08-13: both GitHub orgs are on the **free** plan, and GitHub Pages
+only publishes from public repositories on Free — private-repo Pages needs Team or
+Enterprise. Cloudflare Pages builds from private repos on the free tier, so moving
+the deploy is what makes a private repo possible.
+
+**Sequencing trap:** the moment the repo goes private, GitHub Pages stops serving
+and `e3center.caece.net` (CNAME → `ntu-e3-center.github.io`) dies with it. The
+redirect must be live *before* the repo is flipped private.
+
+### The redirect (recommended: a tiny second Pages project)
+
+Cloudflare Pages can issue real 301s via a `_redirects` file; GitHub Pages cannot
+(only meta-refresh, which Google treats as a weaker soft redirect and which does
+not preserve deep paths).
+
+1. New repo, one file — `_redirects`:
+   ```
+   /*  https://e3center.net/:splat  301
+   ```
+2. New Pages project pointing at it. Build command: none. Output directory: `/`.
+3. Add `e3center.caece.net` as a custom domain on that project.
+4. NTU IT repoints the record:
+   `e3center.caece.net` CNAME → `<redirect-project>.pages.dev`
+   (was `ntu-e3-center.github.io`)
+
+The splat preserves paths, so `…caece.net/members/iyunlisahsieh/` lands on
+`e3center.net/members/iyunlisahsieh/` rather than dumping everyone on the homepage.
+Keep it running **indefinitely** — published papers do not get re-issued with new URLs.
+
+*If Cloudflare declines the custom domain because `caece.net` is not in your
+Cloudflare account, fall back to asking NTU IT for a server-side 301, or keep one
+small public GitHub repo serving a meta-refresh stub.*
+
+### Order of operations
+
+1. Cloudflare **beta** project on the rebrand branch → `beta.e3center.net`. Zero risk;
+   proves the build pipeline.
+2. Cloudflare **production** project on `source` → verify on `*.pages.dev`.
+3. Point `e3center.net` at the production project. Now two sites are live in parallel.
+4. Stand up the **redirect** project, and have NTU IT repoint `e3center.caece.net`
+   to it. Old URLs now land on the new domain.
+5. Only now: set `SITE_URL=https://e3center.net`, make the repo **private**, delete
+   `gh-pages`, disable GitHub Pages, and strip the deploy step from the workflow.
+
+Steps 1–3 are all reversible. Step 5 is the point of no return, and by then nothing
+depends on GitHub Pages.
+
 ## Rollback
 
 Until step 7, GitHub Pages is still building and `gh-pages` still holds a good
