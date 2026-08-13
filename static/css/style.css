@@ -1179,6 +1179,13 @@ main > section:nth-of-type(odd) {
     gap: var(--space-2);
 }
 
+/* Pillar photo — the shared .photo-frame treatment (hairline, 4px radius,
+   3:2) sized to its column and set above the number. Static, unlike the
+   About and news frames: one photo per pillar, no crossfade. */
+.hp-pillar-photo {
+    margin-block-end: var(--space-4);
+}
+
 .hp-pillar-num {
     font-size: var(--fs-eyebrow);
     letter-spacing: 0.1em;

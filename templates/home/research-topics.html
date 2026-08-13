@@ -17,6 +17,22 @@
         {% for section in structures['research'] %}
         {% for pillar in section['pillars'] %}
         <article class="hp-pillar">
+            {# Photo per pillar, resolved by convention from the pillar's own id
+               (contents/research/images/<id>.jpg → assets/research/<id>-*.webp).
+               `ignore missing` has no equivalent for images, so the file list is
+               checked at build time and passed in as research_pillar_images. #}
+            {% if pillar['id'] in research_pillar_images %}
+            <div class="photo-frame hp-pillar-photo">
+                <img class="photo-frame-img is-showing"
+                     loading="lazy" width="800" height="533"
+                     src="/assets/research/{{ pillar['id'] }}-800w.webp"
+                     srcset="/assets/research/{{ pillar['id'] }}-400w.webp 400w,
+                             /assets/research/{{ pillar['id'] }}-800w.webp 800w,
+                             /assets/research/{{ pillar['id'] }}-1200w.webp 1200w"
+                     sizes="(min-width: 64.0625rem) 24rem, 90vw"
+                     alt="{{ pillar['imageAlt'] if pillar.get('imageAlt') else pillar['title'] }}">
+            </div>
+            {% endif %}
             <p class="hp-pillar-num">{{ '%02d' % loop.index }}</p>
             <h3 class="hp-pillar-title">{{ pillar['title'] }}</h3>
             {% if pillar['lede'] %}

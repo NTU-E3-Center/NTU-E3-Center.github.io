@@ -12,7 +12,7 @@ from markupsafe import Markup, escape
 from lib.excel_to_content import build_member_data
 from lib import seo_helpers
 from config import (SITE_URL, OUTPUT_DIR, SUBPAGE_IMG_WIDTHS,
-                    MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS,
+                    MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS, RESEARCH_IMG_WIDTHS,
                     WEBP_QUALITY, WEBP_LAZY_QUALITY)
 _member_data = build_member_data()
 # ─────────────────────────────────────────────────────────────────────────────
@@ -257,6 +257,19 @@ for _section in structures.get('news', []):
             if _banner:
                 _item['bannerImg'] = f'/assets/news/{_slug}/{_banner}'
 
+# Which research pillars have a photo. Matched by convention: a file named
+# <pillar id>.<ext> in contents/research/images/ means that pillar renders a
+# frame. Templates can't stat the filesystem, so the set is resolved here.
+research_pillar_images = set()
+_RESEARCH_IMG_DIR = os.path.join('contents', 'research', 'images')
+if os.path.isdir(_RESEARCH_IMG_DIR):
+    _stems = {os.path.splitext(f)[0] for f in os.listdir(_RESEARCH_IMG_DIR)
+              if f.lower().endswith(_NEWS_IMG_EXTS)}
+    for _section in structures.get('research', []):
+        for _pillar in _section.get('pillars', []):
+            if _pillar.get('id') in _stems:
+                research_pillar_images.add(_pillar['id'])
+
 # Year-grouped view for the news listing page: newest year first, items
 # newest-first within each year (source items are oldest-first).
 _news_years = []
@@ -405,7 +418,8 @@ def render_templates():
                     "updated_time": datetime.now().strftime("%Y. %m. %d"),
                     "year": datetime.now().year,
                     "structures": structures,
-                    "articles": articles
+                    "articles": articles,
+                    "research_pillar_images": research_pillar_images
                 }
                 if "description" in page_data:
                     render_args["description"] = page_data["description"]
@@ -1046,6 +1060,10 @@ _SUBPAGE_IMAGE_SOURCES = [
     ('contents/group-life/images',   'group-life',         SUBPAGE_IMG_WIDTHS),
     # Projects: walks contents/projects/<slug>/images/* → docs/assets/projects/<slug>/images/*
     ('contents/projects',            'projects',           SUBPAGE_IMG_WIDTHS),
+    # Research pillars: one photo per pillar, named for the pillar's own id in
+    # research.json (smart-energy-systems.jpg → assets/research/smart-energy-systems-*.webp).
+    # Convention, not config — a new pillar joins by dropping in a matching file.
+    ('contents/research/images',     'research',           RESEARCH_IMG_WIDTHS),
 ]
 
 def convert_to_webp(path, dst_path, sizes, compression_quality=WEBP_QUALITY, basename=None, target_aspect=None):

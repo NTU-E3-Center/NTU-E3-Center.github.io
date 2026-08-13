@@ -18,6 +18,10 @@ OUTPUT_DIR = "docs"
 # from the same ladders, so keep the two in sync when changing these.
 SUBPAGE_IMG_WIDTHS = [200, 400, 600, 800, 1200, 1600, 2000]  # news / group-life / projects
 MEMBER_IMG_WIDTHS = [200, 400, 600, 800]                     # member headshots (3:4)
+# Homepage research-pillar photos (3:2). Capped at 1200: the frames render
+# ~370 px wide in the three-column row, so 1200 covers 3x DPI, and the ladder
+# stops below the source files' own width so no variant is ever upscaled.
+RESEARCH_IMG_WIDTHS = [200, 400, 600, 800, 1200]
 LAZY_IMG_WIDTHS = [20]                                       # blur-up placeholder
 
 # WebP encode quality.
