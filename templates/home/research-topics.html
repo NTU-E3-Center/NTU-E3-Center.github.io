@@ -6,8 +6,11 @@
    Teaser only: title, Chinese title and lede. The clusters live on /research/,
    which each pillar deep-links into by its own id. #}
 <section id="research-topics">
+    {# Plain headings throughout — "All research topics" is the one way in,
+       so titles stop being duplicate targets (same rule as Recent
+       publications). #}
     <div class="section-title section-title--end">
-        <h2><a class="section-title-link" href="/research/">What we're working on</a></h2>
+        <h2>What we're working on</h2>
     </div>
 
     <div class="hp-pillars">
@@ -15,9 +18,7 @@
         {% for pillar in section['pillars'] %}
         <article class="hp-pillar">
             <p class="hp-pillar-num">{{ '%02d' % loop.index }}</p>
-            <h3 class="hp-pillar-title">
-                <a href="/research/#{{ pillar['id'] }}">{{ pillar['title'] }}</a>
-            </h3>
+            <h3 class="hp-pillar-title">{{ pillar['title'] }}</h3>
             {% if pillar['lede'] %}
             <p class="hp-pillar-lede">{{ pillar['lede'] }}</p>
             {% endif %}
