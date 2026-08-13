@@ -237,6 +237,26 @@ for _section in structures.get('news', []):
                 os.path.exists(os.path.join(_folder, f'0{_e}')) for _e in _NEWS_IMG_EXTS):
             _item['thumb'] = f'/assets/news/{_slug}/0-200w.webp'
 
+        # Homepage news-rail banner, resolved by convention rather than
+        # config: a file named banner.* in the article's image folder wins;
+        # otherwise the lowest-numbered image stands in. New stories join
+        # the rail automatically; curating = dropping in one banner.jpg.
+        _item['bannerImg'] = ''
+        if os.path.isdir(_folder):
+            _files = sorted(os.listdir(_folder))
+            _banner = next((f for f in _files
+                            if os.path.splitext(f)[0] == 'banner'
+                            and f.lower().endswith(_NEWS_IMG_EXTS)), None)
+            if _banner is None:
+                _numbered = sorted(
+                    (f for f in _files
+                     if f.lower().endswith(_NEWS_IMG_EXTS)
+                     and os.path.splitext(f)[0].isdigit()),
+                    key=lambda f: int(os.path.splitext(f)[0]))
+                _banner = _numbered[0] if _numbered else None
+            if _banner:
+                _item['bannerImg'] = f'/assets/news/{_slug}/{_banner}'
+
 # Year-grouped view for the news listing page: newest year first, items
 # newest-first within each year (source items are oldest-first).
 _news_years = []
