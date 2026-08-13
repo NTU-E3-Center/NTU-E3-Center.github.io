@@ -1633,7 +1633,9 @@ a.about-card {
     }
 
     .news-row-title {
-        font-size: var(--fs-secondary);
+        /* No size drop — the token scale's phone body (16px) already
+           compacts this tier; the old fs-secondary shrink was compensating
+           for the root scale and left titles under the readable floor. */
         line-height: var(--lh-lede);
     }
 
@@ -1912,12 +1914,12 @@ a.about-card {
     /* T·7: mobile floors — was 0.75/0.6875 (~10.5/9.6 px on the 14-px root),
        below WCAG legibility. Bumped to keep author rows readable. */
     .publi-row-authors {
-        font-size: var(--fs-eyebrow);
+        font-size: var(--fs-meta);
         line-height: var(--lh-lede);
     }
 
     .publi-row-journal {
-        font-size: var(--fs-eyebrow);
+        font-size: var(--fs-meta);
         line-height: var(--lh-lede);
     }
 

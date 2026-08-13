@@ -1332,13 +1332,13 @@ footer {
     footer .ftr-nav {
         grid-auto-flow: row;
         grid-template-columns: 1fr 1fr;
-        gap: var(--space-5) var(--space-8);
+        gap: var(--space-4) var(--space-8);
     }
 
     /* Touch tier: links reach the 44pt target (19px line + 2x 0.75rem);
        the padding provides the visual rhythm, so the list gap collapses. */
     footer .ftr-link {
-        padding-block: 0.75rem;
+        padding-block: 0.5rem;
     }
 
     footer .ftr-nav ul {
@@ -1810,7 +1810,8 @@ body {
 
         & .ftr-col-title {
             margin-block-end: var(--space-2);
-            font-size: var(--fs-badge);
+            /* fs-badge computed 10.5px here — below the scale's 12px floor. */
+            font-size: var(--fs-eyebrow);
         }
 
         & .ftr-nav ul {
@@ -1819,15 +1820,6 @@ body {
 
         & .ftr-link {
             font-size: var(--fs-secondary);
-        }
-
-        & .ftr-contact-row {
-            font-size: var(--fs-secondary);
-        }
-
-        & .ftr-bottom {
-            margin-block-start: var(--space-5);
-            padding-block-start: 0.875rem;
         }
 
         & .ftr-info {
