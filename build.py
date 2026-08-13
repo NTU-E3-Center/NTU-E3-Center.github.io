@@ -257,6 +257,18 @@ for _section in structures.get('news', []):
             if _banner:
                 _item['bannerImg'] = f'/assets/news/{_slug}/{_banner}'
 
+# Hero video, by convention: contents/videos/hero.mp4 (copied to
+# /assets/videos/ by copy_videos()) turns the homepage hero into a video
+# hero; hero.jpg/.png beside it becomes the poster frame. Absent, the hero
+# falls back to the line illustration, so the page is never heroless.
+hero_video = hero_poster = None
+if os.path.exists(os.path.join('contents', 'videos', 'hero.mp4')):
+    hero_video = '/assets/videos/hero.mp4'
+    for _ext in ('.jpg', '.jpeg', '.png', '.webp'):
+        if os.path.exists(os.path.join('contents', 'videos', f'hero{_ext}')):
+            hero_poster = f'/assets/videos/hero{_ext}'
+            break
+
 # Which research pillars have a photo. Matched by convention: a file named
 # <pillar id>.<ext> in contents/research/images/ means that pillar renders a
 # frame. Templates can't stat the filesystem, so the set is resolved here.
@@ -419,7 +431,9 @@ def render_templates():
                     "year": datetime.now().year,
                     "structures": structures,
                     "articles": articles,
-                    "research_pillar_images": research_pillar_images
+                    "research_pillar_images": research_pillar_images,
+                    "hero_video": hero_video,
+                    "hero_poster": hero_poster
                 }
                 if "description" in page_data:
                     render_args["description"] = page_data["description"]

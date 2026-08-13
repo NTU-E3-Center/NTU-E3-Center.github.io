@@ -1,4 +1,38 @@
-<section id="home">
+{# Homepage hero. Two registers, chosen by what exists on disk:
+
+   • contents/videos/hero.mp4 present → full-bleed looping video, scrim over
+     it, the centre's slogan alone on top.
+   • absent → the lockup, the three E's and the line illustration, as before.
+
+   `hero_video` is resolved in build.py (templates can't stat the disk), so
+   dropping the file in switches the hero over on the next build and the
+   page is never left without one. #}
+<section id="home"{% if hero_video %} class="hp--video"{% endif %}>
+    {% if hero_video %}
+    {# muted + playsinline are what make autoplay permissible on iOS and
+       Chrome; the poster covers the gap before the first frame decodes. #}
+    <video class="hp-video" autoplay muted loop playsinline
+           {% if hero_poster %}poster="{{ hero_poster }}"{% endif %}
+           aria-hidden="true" tabindex="-1">
+        <source src="{{ hero_video }}" type="video/mp4">
+    </video>
+    <div class="hp-video-scrim" aria-hidden="true"></div>
+
+    <div class="hp-mainthing">
+        {# The video hero shows the slogan alone — the always-on header
+           already carries the lockup, so repeating it here would say the
+           name twice. The h1 stays for search engines and screen readers,
+           which need the organisation named even when the design doesn't. #}
+        <h1 class="sr-only">E3 Center — Energy × Economics × Environment</h1>
+
+        {# Sourced from about.json so the statement stays content, not markup. #}
+        {% for about in structures['about'] %}
+        {% if about['form'] == 'about' and about.get('homeSlogan') %}
+        <p class="hp-slogan">{{ about['homeSlogan'] }}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
     <div class="hp-mainthing">
         <div class="hp-text">
             {# The lockup carries the name, so the logo IS the h1. The alt text keeps
@@ -18,4 +52,5 @@
 
         {% include 'partials/home.svg' %}
     </div>
+    {% endif %}
 </section>

@@ -302,18 +302,6 @@ if (document.querySelector('section#home')) {
         sections.forEach(s => observer.observe(s));
     }
 
-    // Homepage header reveal — the hero is an uninterrupted brand moment, so
-    // the fixed header stays parked above the viewport until the hero has
-    // largely scrolled past, then slides in as a section table of contents.
-    const homeHeader = document.querySelector('.subpage-header--home');
-    const homeHero = document.querySelector('section#home');
-    if (homeHeader && homeHero) {
-        const revealHeader = () => {
-            homeHeader.classList.toggle('is-visible', window.scrollY > homeHero.offsetHeight * 0.6);
-        };
-        window.addEventListener('scroll', revealHeader, { passive: true });
-        revealHeader();
-    }
 }
 
 // Member page — publication section "Show all N" / "Show less" toggle.

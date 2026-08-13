@@ -5,9 +5,9 @@
    the nav hides and the skewed drawer takes over — one navigation system
    per breakpoint, per the adaptive-navigation rule.
 
-   On the homepage the header is fixed + hidden until the hero scrolls out
-   (`--home` modifier), so the hero stays an uninterrupted brand moment. #}
-<header class="subpage-header{% if isHomePage %} subpage-header--home{% endif %}">
+   The homepage is no longer an exception: the header sticks from load
+   there too, so navigation is always reachable over the hero video. #}
+<header class="subpage-header">
     <div class="subpage-header-inner">
         <a class="subpage-header-logo" href="/" aria-label="E3 Center home">
             <picture>

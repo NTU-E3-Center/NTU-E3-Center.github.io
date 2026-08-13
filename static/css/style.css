@@ -1013,6 +1013,60 @@
     justify-content: flex-start;
 }
 
+/* ── Video hero ────────────────────────────────────────────────────────────
+   Only when contents/videos/hero.mp4 exists; otherwise the illustration
+   hero above applies unchanged. The video covers the section, a scrim
+   carries the text's contrast, and the lockup and slogan sit on top. */
+#home.hp--video {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    & .hp-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    /* Ink-tinted rather than neutral black: the scrim belongs to the brand,
+       and 62% clears AA for the slogan at display size over any frame. */
+    & .hp-video-scrim {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+            to bottom,
+            color-mix(in srgb, var(--structure) 55%, transparent),
+            color-mix(in srgb, var(--structure) 70%, transparent));
+    }
+
+    /* Slogan alone, left on the artwork's own edge and vertically centred —
+       the header above carries the lockup. */
+    & .hp-mainthing {
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    & .hp-slogan {
+        max-width: 20ch;
+        font-size: var(--fs-display);
+        font-weight: var(--fw-display);
+        line-height: var(--lh-display);
+        letter-spacing: var(--tracking-display);
+        color: var(--paper);
+        text-wrap: balance;
+    }
+}
+
+@media (max-width: 64rem) {
+    #home.hp--video .hp-slogan {
+        max-width: none;
+    }
+}
+
 /* ── Homepage section banding ──────────────────────────────────────────────
    Alternating paper / tint bands down the page. The run starts on About so
    the first band butts against the hero and separates the two: About,
