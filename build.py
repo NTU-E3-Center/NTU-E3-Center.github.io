@@ -11,7 +11,7 @@ from markupsafe import Markup, escape
 # ── Sync content from Excel before building ───────────────────────────────────
 from lib.excel_to_content import build_member_data
 from lib import seo_helpers
-from config import (SITE_URL, OUTPUT_DIR, SUBPAGE_IMG_WIDTHS,
+from config import (SITE_URL, OUTPUT_DIR, SUBPAGE_IMG_WIDTHS, IS_PRODUCTION,
                     MEMBER_IMG_WIDTHS, LAZY_IMG_WIDTHS, RESEARCH_IMG_WIDTHS,
                     WEBP_QUALITY, WEBP_LAZY_QUALITY)
 _member_data = build_member_data()
@@ -26,6 +26,9 @@ env = Environment(loader=FileSystemLoader(['templates']),
 env.globals['seo_meta_description'] = seo_helpers.generate_meta_description
 env.globals['seo_strip_markdown'] = seo_helpers.strip_markdown
 env.globals['seo_detect_language'] = seo_helpers.detect_language
+# Non-production builds (Cloudflare's beta project) mark every page
+# noindex; see base.html and write_robots().
+env.globals['is_production'] = IS_PRODUCTION
 
 
 def bold_author(authors_str, name):
@@ -1022,6 +1025,28 @@ def _check_page(soup, rel, warn, descriptions):
 
 
 # Function to copy static assets directly into docs/
+def write_robots():
+    """Emit robots.txt for the environment being built.
+
+    static/robots.txt is copied verbatim by copy_static(); this overwrites it
+    so the sitemap line carries the host actually being served, and so the
+    beta build asks crawlers to stay out entirely rather than competing with
+    production for the same queries."""
+    path = os.path.join(output_dir, "robots.txt")
+    if IS_PRODUCTION:
+        body = ("User-agent: *\n"
+                "Allow: /\n"
+                "Disallow: /editor/\n\n"
+                f"Sitemap: {SITE_URL}/sitemap.xml\n")
+    else:
+        body = ("# Non-production build — not for indexing.\n"
+                "User-agent: *\n"
+                "Disallow: /\n")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(body)
+    print(f"robots.txt written ({'production' if IS_PRODUCTION else 'noindex'})")
+
+
 def copy_static():
     static_src = "static"
     if os.path.exists(static_src):
@@ -1202,6 +1227,7 @@ if __name__ == "__main__":
     render_project_pages()
     print("Copying static assets...")
     copy_static()
+    write_robots()
     print("Copying videos...")
     copy_videos()
     print("Generating sitemap...")
